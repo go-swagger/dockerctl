@@ -132,6 +132,61 @@ func retrieveOperationNodeNodeUpdateVersionFlag(m *node.NodeUpdateParams, cmdPre
 // printOperationNodeNodeUpdateResult prints output to stdout
 func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning nodeUpdateOK is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*node.NodeUpdateBadRequest)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*node.NodeUpdateNotFound)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*node.NodeUpdateInternalServerError)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp4 interface{} = respErr
+		resp4, ok := iResp4.(*node.NodeUpdateServiceUnavailable)
+		if ok {
+			if !swag.IsZero(resp4.Payload) {
+				msgStr, err := json.Marshal(resp4.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

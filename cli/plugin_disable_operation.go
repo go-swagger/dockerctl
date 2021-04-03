@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/plugin"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -70,6 +72,35 @@ func retrieveOperationPluginPluginDisableNameFlag(m *plugin.PluginDisableParams,
 // printOperationPluginPluginDisableResult prints output to stdout
 func printOperationPluginPluginDisableResult(resp0 *plugin.PluginDisableOK, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning pluginDisableOK is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*plugin.PluginDisableNotFound)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*plugin.PluginDisableInternalServerError)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

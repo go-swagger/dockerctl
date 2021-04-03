@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/image"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -116,6 +118,61 @@ func retrieveOperationImageImageTagTagFlag(m *image.ImageTagParams, cmdPrefix st
 // printOperationImageImageTagResult prints output to stdout
 func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning imageTagCreated is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*image.ImageTagBadRequest)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*image.ImageTagNotFound)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*image.ImageTagConflict)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp4 interface{} = respErr
+		resp4, ok := iResp4.(*image.ImageTagInternalServerError)
+		if ok {
+			if !swag.IsZero(resp4.Payload) {
+				msgStr, err := json.Marshal(resp4.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

@@ -48,6 +48,33 @@ func runOperationSystemSystemInfo(cmd *cobra.Command, args []string) error {
 // printOperationSystemSystemInfoResult prints output to stdout
 func printOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr error) error {
 	if respErr != nil {
+
+		var iResp0 interface{} = respErr
+		resp0, ok := iResp0.(*system.SystemInfoOK)
+		if ok {
+			if !swag.IsZero(resp0.Payload) {
+				msgStr, err := json.Marshal(resp0.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*system.SystemInfoInternalServerError)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

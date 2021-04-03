@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Docker pull image. Not functioning, has context canceled problem. Maybe the cli is not reading the stream.
+# If flag --debug is turned on, all body is read then this testcase is success.
+
 . tests/const.sh
 
 ${DOCKERCTL} --hostname=${HOST} --debug image ImageCreate --fromImage alpine --tag 3.10.7

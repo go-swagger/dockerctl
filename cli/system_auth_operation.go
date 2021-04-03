@@ -86,6 +86,35 @@ func retrieveOperationSystemSystemAuthAuthConfigFlag(m *system.SystemAuthParams,
 // printOperationSystemSystemAuthResult prints output to stdout
 func printOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *system.SystemAuthNoContent, respErr error) error {
 	if respErr != nil {
+
+		var iResp0 interface{} = respErr
+		resp0, ok := iResp0.(*system.SystemAuthOK)
+		if ok {
+			if !swag.IsZero(resp0.Payload) {
+				msgStr, err := json.Marshal(resp0.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		// Non schema case: warning systemAuthNoContent is not supported
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*system.SystemAuthInternalServerError)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

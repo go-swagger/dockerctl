@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/swarm"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -70,6 +72,35 @@ func retrieveOperationSwarmSwarmLeaveForceFlag(m *swarm.SwarmLeaveParams, cmdPre
 // printOperationSwarmSwarmLeaveResult prints output to stdout
 func printOperationSwarmSwarmLeaveResult(resp0 *swarm.SwarmLeaveOK, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning swarmLeaveOK is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*swarm.SwarmLeaveInternalServerError)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*swarm.SwarmLeaveServiceUnavailable)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/container"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -93,6 +95,37 @@ func retrieveOperationContainerContainerStopTFlag(m *container.ContainerStopPara
 // printOperationContainerContainerStopResult prints output to stdout
 func printOperationContainerContainerStopResult(resp0 *container.ContainerStopNoContent, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning containerStopNoContent is not supported
+
+		// Non schema case: warning containerStopNotModified is not supported
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*container.ContainerStopNotFound)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*container.ContainerStopInternalServerError)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

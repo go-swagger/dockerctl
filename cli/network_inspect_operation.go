@@ -118,6 +118,46 @@ func retrieveOperationNetworkNetworkInspectVerboseFlag(m *network.NetworkInspect
 // printOperationNetworkNetworkInspectResult prints output to stdout
 func printOperationNetworkNetworkInspectResult(resp0 *network.NetworkInspectOK, respErr error) error {
 	if respErr != nil {
+
+		var iResp0 interface{} = respErr
+		resp0, ok := iResp0.(*network.NetworkInspectOK)
+		if ok {
+			if !swag.IsZero(resp0.Payload) {
+				msgStr, err := json.Marshal(resp0.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*network.NetworkInspectNotFound)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*network.NetworkInspectInternalServerError)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

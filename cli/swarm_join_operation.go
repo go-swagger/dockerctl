@@ -85,6 +85,48 @@ func retrieveOperationSwarmSwarmJoinBodyFlag(m *swarm.SwarmJoinParams, cmdPrefix
 // printOperationSwarmSwarmJoinResult prints output to stdout
 func printOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning swarmJoinOK is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*swarm.SwarmJoinBadRequest)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*swarm.SwarmJoinInternalServerError)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*swarm.SwarmJoinServiceUnavailable)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

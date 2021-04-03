@@ -43,6 +43,7 @@ func makeClient(cmd *cobra.Command, args []string) (*client.DockerEngineAPI, err
 	}
 
 	r := httptransport.New(hostname, client.DefaultBasePath, []string{scheme})
+	r.Debug = debug
 	// set custom producer and consumer to use the default ones
 
 	// warning: consumes application/octet-stream is not supported by go-swagger cli yet

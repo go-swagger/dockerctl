@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/secret"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -70,6 +72,48 @@ func retrieveOperationSecretSecretDeleteIDFlag(m *secret.SecretDeleteParams, cmd
 // printOperationSecretSecretDeleteResult prints output to stdout
 func printOperationSecretSecretDeleteResult(resp0 *secret.SecretDeleteNoContent, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning secretDeleteNoContent is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*secret.SecretDeleteNotFound)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*secret.SecretDeleteInternalServerError)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*secret.SecretDeleteServiceUnavailable)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

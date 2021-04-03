@@ -123,6 +123,59 @@ func retrieveOperationImageImageDeleteNopruneFlag(m *image.ImageDeleteParams, cm
 // printOperationImageImageDeleteResult prints output to stdout
 func printOperationImageImageDeleteResult(resp0 *image.ImageDeleteOK, respErr error) error {
 	if respErr != nil {
+
+		var iResp0 interface{} = respErr
+		resp0, ok := iResp0.(*image.ImageDeleteOK)
+		if ok {
+			if !swag.IsZero(resp0.Payload) {
+				msgStr, err := json.Marshal(resp0.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*image.ImageDeleteNotFound)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*image.ImageDeleteConflict)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*image.ImageDeleteInternalServerError)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

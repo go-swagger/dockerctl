@@ -132,6 +132,61 @@ func retrieveOperationSecretSecretUpdateVersionFlag(m *secret.SecretUpdateParams
 // printOperationSecretSecretUpdateResult prints output to stdout
 func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning secretUpdateOK is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*secret.SecretUpdateBadRequest)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*secret.SecretUpdateNotFound)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*secret.SecretUpdateInternalServerError)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp4 interface{} = respErr
+		resp4, ok := iResp4.(*secret.SecretUpdateServiceUnavailable)
+		if ok {
+			if !swag.IsZero(resp4.Payload) {
+				msgStr, err := json.Marshal(resp4.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

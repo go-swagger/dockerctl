@@ -76,6 +76,33 @@ func retrieveOperationNetworkNetworkListFiltersFlag(m *network.NetworkListParams
 // printOperationNetworkNetworkListResult prints output to stdout
 func printOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respErr error) error {
 	if respErr != nil {
+
+		var iResp0 interface{} = respErr
+		resp0, ok := iResp0.(*network.NetworkListOK)
+		if ok {
+			if !swag.IsZero(resp0.Payload) {
+				msgStr, err := json.Marshal(resp0.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*network.NetworkListInternalServerError)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/plugin"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -80,6 +82,22 @@ func retrieveOperationPluginPluginCreateTarContextFlag(m *plugin.PluginCreatePar
 // printOperationPluginPluginCreateResult prints output to stdout
 func printOperationPluginPluginCreateResult(resp0 *plugin.PluginCreateNoContent, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning pluginCreateNoContent is not supported
+
+		var iResp1 interface{} = respErr
+		resp1, ok := iResp1.(*plugin.PluginCreateInternalServerError)
+		if ok {
+			if !swag.IsZero(resp1.Payload) {
+				msgStr, err := json.Marshal(resp1.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

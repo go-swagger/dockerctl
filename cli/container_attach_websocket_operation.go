@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/dockerctl/client/container"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -208,6 +210,50 @@ func retrieveOperationContainerContainerAttachWebsocketStreamFlag(m *container.C
 // printOperationContainerContainerAttachWebsocketResult prints output to stdout
 func printOperationContainerContainerAttachWebsocketResult(resp0 *container.ContainerAttachWebsocketOK, respErr error) error {
 	if respErr != nil {
+
+		// Non schema case: warning containerAttachWebsocketSwitchingProtocols is not supported
+
+		// Non schema case: warning containerAttachWebsocketOK is not supported
+
+		var iResp2 interface{} = respErr
+		resp2, ok := iResp2.(*container.ContainerAttachWebsocketBadRequest)
+		if ok {
+			if !swag.IsZero(resp2.Payload) {
+				msgStr, err := json.Marshal(resp2.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp3 interface{} = respErr
+		resp3, ok := iResp3.(*container.ContainerAttachWebsocketNotFound)
+		if ok {
+			if !swag.IsZero(resp3.Payload) {
+				msgStr, err := json.Marshal(resp3.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
+		var iResp4 interface{} = respErr
+		resp4, ok := iResp4.(*container.ContainerAttachWebsocketInternalServerError)
+		if ok {
+			if !swag.IsZero(resp4.Payload) {
+				msgStr, err := json.Marshal(resp4.Payload)
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(msgStr))
+				return nil
+			}
+		}
+
 		return respErr
 	}
 

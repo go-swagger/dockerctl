@@ -1,0 +1,51 @@
+name: Go
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16.2
+    
+    - name: Build
+      run: CGO=0 go build -o cmd/cli/dockerctl cmd/cli/main.go
+
+    - name: Save dockerctl executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: dockerctl-exe
+        path: cmd/cli/dockerctl
+        retention-days: 1
+  
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: download dockerctl executable
+        uses: actions/download-artifact@master
+        with:
+          name: dockerctl-exe
+          path: cmd/cli
+      
+      - name: make artifact executable
+        run: sudo chmod +x ./cmd/cli/dockerctl
+
+      - name: check docker engine
+        run: docker version
+      
+      - name: Install make socat
+        run: sudo apt-get install make socat
+
+      - name: Expose Docker engine
+        run: make expose-docker
+
+      - name: run tests
+        run: ./tests/main.sh

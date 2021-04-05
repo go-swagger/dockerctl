@@ -9,8 +9,11 @@ build-container:
 generate:
 	swagger generate cli --target=. --spec=api/swagger.yaml
 
+generate-completion:
+	cmd/cli/dockerctl completion bash > cmd/completion/dockerctl.bash-completion.sh
+
 clean-generate:
-	rm -rf cli client models cmd
+	rm -rf cli client models cmd/cli
 
 build:
 	CGO_ENABLED=0 go build -o cmd/cli/dockerctl cmd/cli/main.go
@@ -30,11 +33,7 @@ dind-stop:
 	docker container rm dind
 
 shell:
-# docker run -it --rm --network docker \
-# docker:latest sh
-	docker exec -it dind sh
+	docker exec -it dind bash
 
 expose-docker:
 	socat TCP-LISTEN:12345,bind=127.0.0.1,reuseaddr,fork,range=127.0.0.0/8 UNIX-CLIENT:/var/run/docker.sock &
-
-# apk add make

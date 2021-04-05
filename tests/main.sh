@@ -5,7 +5,7 @@ export CI=1
 
 find . -type f -iname "*_test.sh"|while read fname; do
     echo "Run: $fname"
-    res=$(sh -c $fname 2>&1)
+    res=$(bash -c $fname 2>&1)
     if [ "$?" = "1" ]; then
         echo "$res"
         echo "Fail: $fname"

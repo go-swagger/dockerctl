@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/go-openapi/dockerctl/client/secret"
+	"github.com/go-swagger/dockerctl/client/secret"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"

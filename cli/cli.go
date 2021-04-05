@@ -12,11 +12,11 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/go-openapi/dockerctl/client"
-	"github.com/go-openapi/strfmt"
+	"github.com/go-swagger/dockerctl/client"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

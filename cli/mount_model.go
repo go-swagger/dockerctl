@@ -8,7 +8,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/go-openapi/dockerctl/models"
+	"github.com/go-swagger/dockerctl/models"
 	"github.com/spf13/cobra"
 )
 

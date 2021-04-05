@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-openapi/dockerctl/models"
+	"github.com/go-swagger/dockerctl/models"
 )
 
 // ConfigCreateReader is a Reader for the ConfigCreate structure.

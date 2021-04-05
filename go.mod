@@ -1,4 +1,4 @@
-module github.com/go-openapi/dockerctl
+module github.com/go-swagger/dockerctl
 
 go 1.14
 

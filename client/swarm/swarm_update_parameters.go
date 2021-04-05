@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/go-openapi/dockerctl/models"
+	"github.com/go-swagger/dockerctl/models"
 )
 
 // NewSwarmUpdateParams creates a new SwarmUpdateParams object,

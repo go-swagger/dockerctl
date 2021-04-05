@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	"github.com/go-openapi/dockerctl/models"
+	"github.com/go-swagger/dockerctl/models"
 )
 
 // ImageHistoryReader is a Reader for the ImageHistory structure.

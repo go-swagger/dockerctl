@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/go-openapi/dockerctl/client/plugin"
+	"github.com/go-swagger/dockerctl/client/plugin"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"

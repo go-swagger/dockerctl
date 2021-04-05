@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/dockerctl/models"
+	"github.com/go-swagger/dockerctl/models"
 )
 
 // ConfigUpdateReader is a Reader for the ConfigUpdate structure.

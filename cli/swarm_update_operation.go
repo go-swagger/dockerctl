@@ -9,8 +9,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/go-openapi/dockerctl/client/swarm"
-	"github.com/go-openapi/dockerctl/models"
+	"github.com/go-swagger/dockerctl/client/swarm"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"

@@ -10,5 +10,7 @@ require (
 	github.com/go-openapi/swag v0.19.15
 	github.com/go-openapi/validate v0.20.2
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.1.3
+	github.com/spf13/viper v1.7.0
 )

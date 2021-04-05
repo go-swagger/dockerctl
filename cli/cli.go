@@ -8,17 +8,28 @@ package cli
 import (
 	"fmt"
 	"log"
+	"os"
+	"path"
+	"path/filepath"
 
 	"github.com/go-openapi/dockerctl/client"
 	"github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // debug flag indicating that cli should output debug logs
 var debug bool
+
+// config file location
+var configFile string
+
+// name of the executable
+var exeName string = filepath.Base(os.Args[0])
 
 // logDebugf writes debug log to stdout
 func logDebugf(format string, v ...interface{}) {
@@ -33,14 +44,8 @@ var maxDepth int = 5
 
 // makeClient constructs a client object
 func makeClient(cmd *cobra.Command, args []string) (*client.DockerEngineAPI, error) {
-	hostname, err := cmd.Flags().GetString("hostname")
-	if err != nil {
-		return nil, err
-	}
-	scheme, err := cmd.Flags().GetString("scheme")
-	if err != nil {
-		return nil, err
-	}
+	hostname := viper.GetString("hostname")
+	scheme := viper.GetString("scheme")
 
 	r := httptransport.New(hostname, client.DefaultBasePath, []string{scheme})
 	r.Debug = debug
@@ -70,15 +75,23 @@ func makeClient(cmd *cobra.Command, args []string) (*client.DockerEngineAPI, err
 
 // MakeRootCmd returns the root cmd
 func MakeRootCmd() (*cobra.Command, error) {
+	cobra.OnInitialize(initViperConfigs)
+
+	// Use executable name as the command name
 	rootCmd := &cobra.Command{
-		Use: "DockerEngineAPI",
+		Use: exeName,
 	}
+
 	// register basic flags
 	rootCmd.PersistentFlags().String("hostname", client.DefaultHost, "hostname of the service")
+	viper.BindPFlag("hostname", rootCmd.PersistentFlags().Lookup("hostname"))
 	rootCmd.PersistentFlags().String("scheme", client.DefaultSchemes[0], fmt.Sprintf("Choose from: %v", client.DefaultSchemes))
+	viper.BindPFlag("scheme", rootCmd.PersistentFlags().Lookup("scheme"))
 
 	// configure debug flag
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "output debug logs")
+	// configure config location
+	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "config file path")
 
 	// register security flags
 	// add all operation groups
@@ -172,7 +185,34 @@ func MakeRootCmd() (*cobra.Command, error) {
 	}
 	rootCmd.AddCommand(operationGroupVolumeCmd)
 
+	// add cobra completion
+	rootCmd.AddCommand(makeGenCompletionCmd())
+
 	return rootCmd, nil
+}
+
+// initViperConfigs initialize viper config using config file in '$HOME/.config/<cli name>/config.<json|yaml...>'
+// currently hostname, scheme and auth tokens can be specified in this config file.
+func initViperConfigs() {
+	if configFile != "" {
+		// use user specified config file location
+		viper.SetConfigFile(configFile)
+	} else {
+		// look for default config
+		// Find home directory.
+		home, err := homedir.Dir()
+		cobra.CheckErr(err)
+
+		// Search config in home directory with name ".cobra" (without extension).
+		viper.AddConfigPath(path.Join(home, ".config", exeName))
+		viper.SetConfigName("config")
+	}
+
+	if err := viper.ReadInConfig(); err != nil {
+		logDebugf("Error: loading config file: %v", err)
+		return
+	}
+	logDebugf("Using config file: %v", viper.ConfigFileUsed())
 }
 
 func makeOperationGroupConfigCmd() (*cobra.Command, error) {

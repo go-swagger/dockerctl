@@ -194,9 +194,36 @@ func registerOperationContainerContainerArchiveInfoPathParamFlags(cmdPrefix stri
 // register flags to command
 func registerModelContainerArchiveInfoBadRequestBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf containerArchiveInfoBadRequestBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.ErrorResponse flags
 
-	// allOf containerArchiveInfoBadRequestBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelErrorResponseFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// inline allOf containerArchiveInfoBadRequestBodyAO1 of type  is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// inline definition name containerArchiveInfoBadRequestBodyAO1, type
+
+func registerContainerArchiveInfoBadRequestBodyAnonContainerArchiveInfoBadRequestBodyAO1Message(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	messageDescription := `The error message. Either "must specify path parameter" (path cannot be empty) or "not a directory" (path was asserted to be a directory but exists as a file).`
+
+	var messageFlagName string
+	if cmdPrefix == "" {
+		messageFlagName = "message"
+	} else {
+		messageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
+	}
+
+	var messageFlagDefault string
+
+	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
 
 	return nil
 }
@@ -205,9 +232,14 @@ func registerModelContainerArchiveInfoBadRequestBodyFlags(depth int, cmdPrefix s
 func retrieveModelContainerArchiveInfoBadRequestBodyFlags(depth int, m *container.ContainerArchiveInfoBadRequestBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf containerArchiveInfoBadRequestBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.ErrorResponse
+	err, containerArchiveInfoBadRequestBodyAO0Added := retrieveModelErrorResponseFlags(depth, &m.ErrorResponse, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerArchiveInfoBadRequestBodyAO0Added
 
-	// allOf containerArchiveInfoBadRequestBodyAO1 is not supported by go-swwagger cli yet
+	// inline allOf containerArchiveInfoBadRequestBodyAO1 is not supported by go-swagger cli yet
 
 	return nil, retAdded
 }

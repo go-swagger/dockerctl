@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Platform
+
 // register flags to command
 func registerModelPlatformFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

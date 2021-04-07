@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ProgressDetail
+
 // register flags to command
 func registerModelProgressDetailFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

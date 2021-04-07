@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for CreateImageInfo
+
 // register flags to command
 func registerModelCreateImageInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -113,7 +115,9 @@ func registerCreateImageInfoProgressDetail(depth int, cmdPrefix string, cmd *cob
 		progressDetailFlagName = fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	}
 
-	registerModelCreateImageInfoFlags(depth+1, progressDetailFlagName, cmd)
+	if err := registerModelProgressDetailFlags(depth+1, progressDetailFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -262,12 +266,15 @@ func retrieveCreateImageInfoProgressDetailFlags(depth int, m *models.CreateImage
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
 
-		progressDetailFlagValue := &models.CreateImageInfo{}
-		err, added := retrieveModelCreateImageInfoFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+		progressDetailFlagValue := &models.ProgressDetail{}
+		err, added := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ProgressDetail = progressDetailFlagValue
+		}
 	}
 	return nil, retAdded
 }

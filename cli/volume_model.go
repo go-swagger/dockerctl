@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Volume
+
 // register flags to command
 func registerModelVolumeFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -198,7 +200,9 @@ func registerVolumeUsageData(depth int, cmdPrefix string, cmd *cobra.Command) er
 		usageDataFlagName = fmt.Sprintf("%v.UsageData", cmdPrefix)
 	}
 
-	registerModelVolumeFlags(depth+1, usageDataFlagName, cmd)
+	if err := registerModelVolumeUsageDataFlags(depth+1, usageDataFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -438,12 +442,150 @@ func retrieveVolumeUsageDataFlags(depth int, m *models.Volume, cmdPrefix string,
 	usageDataFlagName := fmt.Sprintf("%v.UsageData", cmdPrefix)
 	if cmd.Flags().Changed(usageDataFlagName) {
 
-		usageDataFlagValue := &models.Volume{}
-		err, added := retrieveModelVolumeFlags(depth+1, usageDataFlagValue, usageDataFlagName, cmd)
+		usageDataFlagValue := &models.VolumeUsageData{}
+		err, added := retrieveModelVolumeUsageDataFlags(depth+1, usageDataFlagValue, usageDataFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.UsageData = usageDataFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for VolumeUsageData
+
+// register flags to command
+func registerModelVolumeUsageDataFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerVolumeUsageDataRefCount(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerVolumeUsageDataSize(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerVolumeUsageDataRefCount(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	refCountDescription := `Required. The number of containers referencing this volume. This field
+is set to ` + "`" + `-1` + "`" + ` if the reference-count is not available.
+`
+
+	var refCountFlagName string
+	if cmdPrefix == "" {
+		refCountFlagName = "RefCount"
+	} else {
+		refCountFlagName = fmt.Sprintf("%v.RefCount", cmdPrefix)
+	}
+
+	var refCountFlagDefault int64 = -1
+
+	_ = cmd.PersistentFlags().Int64(refCountFlagName, refCountFlagDefault, refCountDescription)
+
+	return nil
+}
+
+func registerVolumeUsageDataSize(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	sizeDescription := `Required. Amount of disk space used by the volume (in bytes). This information
+is only available for volumes created with the ` + "`" + `"local"` + "`" + ` volume
+driver. For volumes created with other volume drivers, this field
+is set to ` + "`" + `-1` + "`" + ` ("not available")
+`
+
+	var sizeFlagName string
+	if cmdPrefix == "" {
+		sizeFlagName = "Size"
+	} else {
+		sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+	}
+
+	var sizeFlagDefault int64 = -1
+
+	_ = cmd.PersistentFlags().Int64(sizeFlagName, sizeFlagDefault, sizeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelVolumeUsageDataFlags(depth int, m *models.VolumeUsageData, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, refCountAdded := retrieveVolumeUsageDataRefCountFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || refCountAdded
+
+	err, sizeAdded := retrieveVolumeUsageDataSizeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || sizeAdded
+
+	return nil, retAdded
+}
+
+func retrieveVolumeUsageDataRefCountFlags(depth int, m *models.VolumeUsageData, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	refCountFlagName := fmt.Sprintf("%v.RefCount", cmdPrefix)
+	if cmd.Flags().Changed(refCountFlagName) {
+
+		var refCountFlagName string
+		if cmdPrefix == "" {
+			refCountFlagName = "RefCount"
+		} else {
+			refCountFlagName = fmt.Sprintf("%v.RefCount", cmdPrefix)
+		}
+
+		refCountFlagValue, err := cmd.Flags().GetInt64(refCountFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.RefCount = refCountFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveVolumeUsageDataSizeFlags(depth int, m *models.VolumeUsageData, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
+	if cmd.Flags().Changed(sizeFlagName) {
+
+		var sizeFlagName string
+		if cmdPrefix == "" {
+			sizeFlagName = "Size"
+		} else {
+			sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+		}
+
+		sizeFlagValue, err := cmd.Flags().GetInt64(sizeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Size = sizeFlagValue
+
+		retAdded = true
 	}
 	return nil, retAdded
 }

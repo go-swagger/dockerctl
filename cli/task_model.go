@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Task
+
 // register flags to command
 func registerModelTaskFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -236,7 +238,9 @@ func registerTaskSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	registerModelTaskFlags(depth+1, specFlagName, cmd)
+	if err := registerModelTaskSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -253,7 +257,9 @@ func registerTaskStatus(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		statusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
 	}
 
-	registerModelTaskFlags(depth+1, statusFlagName, cmd)
+	if err := registerModelTaskStatusFlags(depth+1, statusFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -291,7 +297,9 @@ func registerTaskVersion(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	registerModelTaskFlags(depth+1, versionFlagName, cmd)
+	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -584,12 +592,15 @@ func retrieveTaskSpecFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.Task{}
-		err, added := retrieveModelTaskFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := &models.TaskSpec{}
+		err, added := retrieveModelTaskSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -602,12 +613,15 @@ func retrieveTaskStatusFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
-		statusFlagValue := &models.Task{}
-		err, added := retrieveModelTaskFlags(depth+1, statusFlagValue, statusFlagName, cmd)
+		statusFlagValue := &models.TaskStatus{}
+		err, added := retrieveModelTaskStatusFlags(depth+1, statusFlagValue, statusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Status = statusFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -646,12 +660,472 @@ func retrieveTaskVersionFlags(depth int, m *models.Task, cmdPrefix string, cmd *
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.Task{}
-		err, added := retrieveModelTaskFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := &models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Version = versionFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskStatus
+
+// register flags to command
+func registerModelTaskStatusFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskStatusContainerStatus(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskStatusErr(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskStatusMessage(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskStatusState(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskStatusTimestamp(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskStatusContainerStatus(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var containerStatusFlagName string
+	if cmdPrefix == "" {
+		containerStatusFlagName = "ContainerStatus"
+	} else {
+		containerStatusFlagName = fmt.Sprintf("%v.ContainerStatus", cmdPrefix)
+	}
+
+	if err := registerModelTaskStatusContainerStatusFlags(depth+1, containerStatusFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskStatusErr(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	errDescription := ``
+
+	var errFlagName string
+	if cmdPrefix == "" {
+		errFlagName = "Err"
+	} else {
+		errFlagName = fmt.Sprintf("%v.Err", cmdPrefix)
+	}
+
+	var errFlagDefault string
+
+	_ = cmd.PersistentFlags().String(errFlagName, errFlagDefault, errDescription)
+
+	return nil
+}
+
+func registerTaskStatusMessage(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	messageDescription := ``
+
+	var messageFlagName string
+	if cmdPrefix == "" {
+		messageFlagName = "Message"
+	} else {
+		messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+	}
+
+	var messageFlagDefault string
+
+	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+
+	return nil
+}
+
+func registerTaskStatusState(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive State TaskState is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskStatusTimestamp(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	timestampDescription := ``
+
+	var timestampFlagName string
+	if cmdPrefix == "" {
+		timestampFlagName = "Timestamp"
+	} else {
+		timestampFlagName = fmt.Sprintf("%v.Timestamp", cmdPrefix)
+	}
+
+	var timestampFlagDefault string
+
+	_ = cmd.PersistentFlags().String(timestampFlagName, timestampFlagDefault, timestampDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskStatusFlags(depth int, m *models.TaskStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, containerStatusAdded := retrieveTaskStatusContainerStatusFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerStatusAdded
+
+	err, errAdded := retrieveTaskStatusErrFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || errAdded
+
+	err, messageAdded := retrieveTaskStatusMessageFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || messageAdded
+
+	err, stateAdded := retrieveTaskStatusStateFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || stateAdded
+
+	err, timestampAdded := retrieveTaskStatusTimestampFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || timestampAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskStatusContainerStatusFlags(depth int, m *models.TaskStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	containerStatusFlagName := fmt.Sprintf("%v.ContainerStatus", cmdPrefix)
+	if cmd.Flags().Changed(containerStatusFlagName) {
+
+		containerStatusFlagValue := &models.TaskStatusContainerStatus{}
+		err, added := retrieveModelTaskStatusContainerStatusFlags(depth+1, containerStatusFlagValue, containerStatusFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.ContainerStatus = containerStatusFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskStatusErrFlags(depth int, m *models.TaskStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	errFlagName := fmt.Sprintf("%v.Err", cmdPrefix)
+	if cmd.Flags().Changed(errFlagName) {
+
+		var errFlagName string
+		if cmdPrefix == "" {
+			errFlagName = "Err"
+		} else {
+			errFlagName = fmt.Sprintf("%v.Err", cmdPrefix)
+		}
+
+		errFlagValue, err := cmd.Flags().GetString(errFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Err = errFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskStatusMessageFlags(depth int, m *models.TaskStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
+	if cmd.Flags().Changed(messageFlagName) {
+
+		var messageFlagName string
+		if cmdPrefix == "" {
+			messageFlagName = "Message"
+		} else {
+			messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+		}
+
+		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Message = messageFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskStatusStateFlags(depth int, m *models.TaskStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
+	if cmd.Flags().Changed(stateFlagName) {
+
+		// warning: primitive State TaskState is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskStatusTimestampFlags(depth int, m *models.TaskStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	timestampFlagName := fmt.Sprintf("%v.Timestamp", cmdPrefix)
+	if cmd.Flags().Changed(timestampFlagName) {
+
+		var timestampFlagName string
+		if cmdPrefix == "" {
+			timestampFlagName = "Timestamp"
+		} else {
+			timestampFlagName = fmt.Sprintf("%v.Timestamp", cmdPrefix)
+		}
+
+		timestampFlagValue, err := cmd.Flags().GetString(timestampFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Timestamp = timestampFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskStatusContainerStatus
+
+// register flags to command
+func registerModelTaskStatusContainerStatusFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskStatusContainerStatusContainerID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskStatusContainerStatusExitCode(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskStatusContainerStatusPID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskStatusContainerStatusContainerID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	containerIdDescription := ``
+
+	var containerIdFlagName string
+	if cmdPrefix == "" {
+		containerIdFlagName = "ContainerID"
+	} else {
+		containerIdFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
+	}
+
+	var containerIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(containerIdFlagName, containerIdFlagDefault, containerIdDescription)
+
+	return nil
+}
+
+func registerTaskStatusContainerStatusExitCode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	exitCodeDescription := ``
+
+	var exitCodeFlagName string
+	if cmdPrefix == "" {
+		exitCodeFlagName = "ExitCode"
+	} else {
+		exitCodeFlagName = fmt.Sprintf("%v.ExitCode", cmdPrefix)
+	}
+
+	var exitCodeFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(exitCodeFlagName, exitCodeFlagDefault, exitCodeDescription)
+
+	return nil
+}
+
+func registerTaskStatusContainerStatusPID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	pIdDescription := ``
+
+	var pIdFlagName string
+	if cmdPrefix == "" {
+		pIdFlagName = "PID"
+	} else {
+		pIdFlagName = fmt.Sprintf("%v.PID", cmdPrefix)
+	}
+
+	var pIdFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(pIdFlagName, pIdFlagDefault, pIdDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskStatusContainerStatusFlags(depth int, m *models.TaskStatusContainerStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, containerIdAdded := retrieveTaskStatusContainerStatusContainerIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerIdAdded
+
+	err, exitCodeAdded := retrieveTaskStatusContainerStatusExitCodeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || exitCodeAdded
+
+	err, pIdAdded := retrieveTaskStatusContainerStatusPIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || pIdAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskStatusContainerStatusContainerIDFlags(depth int, m *models.TaskStatusContainerStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	containerIdFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
+	if cmd.Flags().Changed(containerIdFlagName) {
+
+		var containerIdFlagName string
+		if cmdPrefix == "" {
+			containerIdFlagName = "ContainerID"
+		} else {
+			containerIdFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
+		}
+
+		containerIdFlagValue, err := cmd.Flags().GetString(containerIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ContainerID = containerIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskStatusContainerStatusExitCodeFlags(depth int, m *models.TaskStatusContainerStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	exitCodeFlagName := fmt.Sprintf("%v.ExitCode", cmdPrefix)
+	if cmd.Flags().Changed(exitCodeFlagName) {
+
+		var exitCodeFlagName string
+		if cmdPrefix == "" {
+			exitCodeFlagName = "ExitCode"
+		} else {
+			exitCodeFlagName = fmt.Sprintf("%v.ExitCode", cmdPrefix)
+		}
+
+		exitCodeFlagValue, err := cmd.Flags().GetInt64(exitCodeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ExitCode = exitCodeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskStatusContainerStatusPIDFlags(depth int, m *models.TaskStatusContainerStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	pIdFlagName := fmt.Sprintf("%v.PID", cmdPrefix)
+	if cmd.Flags().Changed(pIdFlagName) {
+
+		var pIdFlagName string
+		if cmdPrefix == "" {
+			pIdFlagName = "PID"
+		} else {
+			pIdFlagName = fmt.Sprintf("%v.PID", cmdPrefix)
+		}
+
+		pIdFlagValue, err := cmd.Flags().GetInt64(pIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.PID = pIdFlagValue
+
+		retAdded = true
 	}
 	return nil, retAdded
 }

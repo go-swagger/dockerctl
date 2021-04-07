@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for AuthConfig
+
 // register flags to command
 func registerModelAuthConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

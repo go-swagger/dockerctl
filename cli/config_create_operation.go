@@ -183,9 +183,13 @@ func registerOperationConfigConfigCreateBodyParamFlags(cmdPrefix string, cmd *co
 // register flags to command
 func registerModelConfigCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf ConfigCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.ConfigSpec flags
 
-	// allOf ConfigCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelConfigSpecFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// ConfigCreateParamsBodyAO1 ConfigCreateParamsBodyAllOf1 register is skipped
 
 	return nil
 }
@@ -194,9 +198,14 @@ func registerModelConfigCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelConfigCreateBodyFlags(depth int, m *config.ConfigCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf ConfigCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.ConfigSpec
+	err, configCreateParamsBodyAO0Added := retrieveModelConfigSpecFlags(depth, &m.ConfigSpec, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configCreateParamsBodyAO0Added
 
-	// allOf ConfigCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	// retrieve ConfigCreateParamsBodyAO1 ConfigCreateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

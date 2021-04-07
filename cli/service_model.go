@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Service
+
 // register flags to command
 func registerModelServiceFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -83,7 +85,9 @@ func registerServiceEndpoint(depth int, cmdPrefix string, cmd *cobra.Command) er
 		endpointFlagName = fmt.Sprintf("%v.Endpoint", cmdPrefix)
 	}
 
-	registerModelServiceFlags(depth+1, endpointFlagName, cmd)
+	if err := registerModelServiceEndpointFlags(depth+1, endpointFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -121,7 +125,9 @@ func registerServiceServiceStatus(depth int, cmdPrefix string, cmd *cobra.Comman
 		serviceStatusFlagName = fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
 	}
 
-	registerModelServiceFlags(depth+1, serviceStatusFlagName, cmd)
+	if err := registerModelServiceServiceStatusFlags(depth+1, serviceStatusFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -138,7 +144,9 @@ func registerServiceSpec(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	registerModelServiceFlags(depth+1, specFlagName, cmd)
+	if err := registerModelServiceSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -155,7 +163,9 @@ func registerServiceUpdateStatus(depth int, cmdPrefix string, cmd *cobra.Command
 		updateStatusFlagName = fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
 	}
 
-	registerModelServiceFlags(depth+1, updateStatusFlagName, cmd)
+	if err := registerModelServiceUpdateStatusFlags(depth+1, updateStatusFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -193,7 +203,9 @@ func registerServiceVersion(depth int, cmdPrefix string, cmd *cobra.Command) err
 		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	registerModelServiceFlags(depth+1, versionFlagName, cmd)
+	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -287,12 +299,15 @@ func retrieveServiceEndpointFlags(depth int, m *models.Service, cmdPrefix string
 	endpointFlagName := fmt.Sprintf("%v.Endpoint", cmdPrefix)
 	if cmd.Flags().Changed(endpointFlagName) {
 
-		endpointFlagValue := &models.Service{}
-		err, added := retrieveModelServiceFlags(depth+1, endpointFlagValue, endpointFlagName, cmd)
+		endpointFlagValue := &models.ServiceEndpoint{}
+		err, added := retrieveModelServiceEndpointFlags(depth+1, endpointFlagValue, endpointFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Endpoint = endpointFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -331,12 +346,15 @@ func retrieveServiceServiceStatusFlags(depth int, m *models.Service, cmdPrefix s
 	serviceStatusFlagName := fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
 	if cmd.Flags().Changed(serviceStatusFlagName) {
 
-		serviceStatusFlagValue := &models.Service{}
-		err, added := retrieveModelServiceFlags(depth+1, serviceStatusFlagValue, serviceStatusFlagName, cmd)
+		serviceStatusFlagValue := &models.ServiceServiceStatus{}
+		err, added := retrieveModelServiceServiceStatusFlags(depth+1, serviceStatusFlagValue, serviceStatusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ServiceStatus = serviceStatusFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -349,12 +367,15 @@ func retrieveServiceSpecFlags(depth int, m *models.Service, cmdPrefix string, cm
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.Service{}
-		err, added := retrieveModelServiceFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := &models.ServiceSpec{}
+		err, added := retrieveModelServiceSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -367,12 +388,15 @@ func retrieveServiceUpdateStatusFlags(depth int, m *models.Service, cmdPrefix st
 	updateStatusFlagName := fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
 	if cmd.Flags().Changed(updateStatusFlagName) {
 
-		updateStatusFlagValue := &models.Service{}
-		err, added := retrieveModelServiceFlags(depth+1, updateStatusFlagValue, updateStatusFlagName, cmd)
+		updateStatusFlagValue := &models.ServiceUpdateStatus{}
+		err, added := retrieveModelServiceUpdateStatusFlags(depth+1, updateStatusFlagValue, updateStatusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.UpdateStatus = updateStatusFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -411,12 +435,599 @@ func retrieveServiceVersionFlags(depth int, m *models.Service, cmdPrefix string,
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.Service{}
-		err, added := retrieveModelServiceFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := &models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Version = versionFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceEndpoint
+
+// register flags to command
+func registerModelServiceEndpointFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceEndpointPorts(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceEndpointSpec(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceEndpointVirtualIPs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceEndpointPorts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Ports []*EndpointPortConfig array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerServiceEndpointSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var specFlagName string
+	if cmdPrefix == "" {
+		specFlagName = "Spec"
+	} else {
+		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+	}
+
+	if err := registerModelEndpointSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceEndpointVirtualIPs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: VirtualIPs []*ServiceEndpointVirtualIPsItems0 array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceEndpointFlags(depth int, m *models.ServiceEndpoint, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, portsAdded := retrieveServiceEndpointPortsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || portsAdded
+
+	err, specAdded := retrieveServiceEndpointSpecFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+
+	err, virtualIPsAdded := retrieveServiceEndpointVirtualIPsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || virtualIPsAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceEndpointPortsFlags(depth int, m *models.ServiceEndpoint, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	portsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
+	if cmd.Flags().Changed(portsFlagName) {
+		// warning: Ports array type []*EndpointPortConfig is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceEndpointSpecFlags(depth int, m *models.ServiceEndpoint, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(specFlagName) {
+
+		specFlagValue := &models.EndpointSpec{}
+		err, added := retrieveModelEndpointSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceEndpointVirtualIPsFlags(depth int, m *models.ServiceEndpoint, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	virtualIPsFlagName := fmt.Sprintf("%v.VirtualIPs", cmdPrefix)
+	if cmd.Flags().Changed(virtualIPsFlagName) {
+		// warning: VirtualIPs array type []*ServiceEndpointVirtualIPsItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceEndpointVirtualIPsItems0
+
+// register flags to command
+func registerModelServiceEndpointVirtualIPsItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceEndpointVirtualIPsItems0Addr(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceEndpointVirtualIPsItems0NetworkID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceEndpointVirtualIPsItems0Addr(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	addrDescription := ``
+
+	var addrFlagName string
+	if cmdPrefix == "" {
+		addrFlagName = "Addr"
+	} else {
+		addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+	}
+
+	var addrFlagDefault string
+
+	_ = cmd.PersistentFlags().String(addrFlagName, addrFlagDefault, addrDescription)
+
+	return nil
+}
+
+func registerServiceEndpointVirtualIPsItems0NetworkID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	networkIdDescription := ``
+
+	var networkIdFlagName string
+	if cmdPrefix == "" {
+		networkIdFlagName = "NetworkID"
+	} else {
+		networkIdFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
+	}
+
+	var networkIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(networkIdFlagName, networkIdFlagDefault, networkIdDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceEndpointVirtualIPsItems0Flags(depth int, m *models.ServiceEndpointVirtualIPsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, addrAdded := retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || addrAdded
+
+	err, networkIdAdded := retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkIdAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth int, m *models.ServiceEndpointVirtualIPsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
+	if cmd.Flags().Changed(addrFlagName) {
+
+		var addrFlagName string
+		if cmdPrefix == "" {
+			addrFlagName = "Addr"
+		} else {
+			addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+		}
+
+		addrFlagValue, err := cmd.Flags().GetString(addrFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Addr = addrFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth int, m *models.ServiceEndpointVirtualIPsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	networkIdFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
+	if cmd.Flags().Changed(networkIdFlagName) {
+
+		var networkIdFlagName string
+		if cmdPrefix == "" {
+			networkIdFlagName = "NetworkID"
+		} else {
+			networkIdFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
+		}
+
+		networkIdFlagValue, err := cmd.Flags().GetString(networkIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.NetworkID = networkIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceServiceStatus
+
+// register flags to command
+func registerModelServiceServiceStatusFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceServiceStatusDesiredTasks(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceServiceStatusRunningTasks(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceServiceStatusDesiredTasks(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive DesiredTasks uint64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerServiceServiceStatusRunningTasks(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive RunningTasks uint64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceServiceStatusFlags(depth int, m *models.ServiceServiceStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, desiredTasksAdded := retrieveServiceServiceStatusDesiredTasksFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || desiredTasksAdded
+
+	err, runningTasksAdded := retrieveServiceServiceStatusRunningTasksFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || runningTasksAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceServiceStatusDesiredTasksFlags(depth int, m *models.ServiceServiceStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	desiredTasksFlagName := fmt.Sprintf("%v.DesiredTasks", cmdPrefix)
+	if cmd.Flags().Changed(desiredTasksFlagName) {
+
+		// warning: primitive DesiredTasks uint64 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceServiceStatusRunningTasksFlags(depth int, m *models.ServiceServiceStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	runningTasksFlagName := fmt.Sprintf("%v.RunningTasks", cmdPrefix)
+	if cmd.Flags().Changed(runningTasksFlagName) {
+
+		// warning: primitive RunningTasks uint64 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceUpdateStatus
+
+// register flags to command
+func registerModelServiceUpdateStatusFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceUpdateStatusCompletedAt(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceUpdateStatusMessage(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceUpdateStatusStartedAt(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceUpdateStatusState(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceUpdateStatusCompletedAt(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	completedAtDescription := ``
+
+	var completedAtFlagName string
+	if cmdPrefix == "" {
+		completedAtFlagName = "CompletedAt"
+	} else {
+		completedAtFlagName = fmt.Sprintf("%v.CompletedAt", cmdPrefix)
+	}
+
+	var completedAtFlagDefault string
+
+	_ = cmd.PersistentFlags().String(completedAtFlagName, completedAtFlagDefault, completedAtDescription)
+
+	return nil
+}
+
+func registerServiceUpdateStatusMessage(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	messageDescription := ``
+
+	var messageFlagName string
+	if cmdPrefix == "" {
+		messageFlagName = "Message"
+	} else {
+		messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+	}
+
+	var messageFlagDefault string
+
+	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+
+	return nil
+}
+
+func registerServiceUpdateStatusStartedAt(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	startedAtDescription := ``
+
+	var startedAtFlagName string
+	if cmdPrefix == "" {
+		startedAtFlagName = "StartedAt"
+	} else {
+		startedAtFlagName = fmt.Sprintf("%v.StartedAt", cmdPrefix)
+	}
+
+	var startedAtFlagDefault string
+
+	_ = cmd.PersistentFlags().String(startedAtFlagName, startedAtFlagDefault, startedAtDescription)
+
+	return nil
+}
+
+func registerServiceUpdateStatusState(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	stateDescription := ``
+
+	var stateFlagName string
+	if cmdPrefix == "" {
+		stateFlagName = "State"
+	} else {
+		stateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
+	}
+
+	var stateFlagDefault string
+
+	_ = cmd.PersistentFlags().String(stateFlagName, stateFlagDefault, stateDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceUpdateStatusFlags(depth int, m *models.ServiceUpdateStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, completedAtAdded := retrieveServiceUpdateStatusCompletedAtFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || completedAtAdded
+
+	err, messageAdded := retrieveServiceUpdateStatusMessageFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || messageAdded
+
+	err, startedAtAdded := retrieveServiceUpdateStatusStartedAtFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || startedAtAdded
+
+	err, stateAdded := retrieveServiceUpdateStatusStateFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || stateAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceUpdateStatusCompletedAtFlags(depth int, m *models.ServiceUpdateStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	completedAtFlagName := fmt.Sprintf("%v.CompletedAt", cmdPrefix)
+	if cmd.Flags().Changed(completedAtFlagName) {
+
+		var completedAtFlagName string
+		if cmdPrefix == "" {
+			completedAtFlagName = "CompletedAt"
+		} else {
+			completedAtFlagName = fmt.Sprintf("%v.CompletedAt", cmdPrefix)
+		}
+
+		completedAtFlagValue, err := cmd.Flags().GetString(completedAtFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.CompletedAt = completedAtFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceUpdateStatusMessageFlags(depth int, m *models.ServiceUpdateStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
+	if cmd.Flags().Changed(messageFlagName) {
+
+		var messageFlagName string
+		if cmdPrefix == "" {
+			messageFlagName = "Message"
+		} else {
+			messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+		}
+
+		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Message = messageFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceUpdateStatusStartedAtFlags(depth int, m *models.ServiceUpdateStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	startedAtFlagName := fmt.Sprintf("%v.StartedAt", cmdPrefix)
+	if cmd.Flags().Changed(startedAtFlagName) {
+
+		var startedAtFlagName string
+		if cmdPrefix == "" {
+			startedAtFlagName = "StartedAt"
+		} else {
+			startedAtFlagName = fmt.Sprintf("%v.StartedAt", cmdPrefix)
+		}
+
+		startedAtFlagValue, err := cmd.Flags().GetString(startedAtFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.StartedAt = startedAtFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceUpdateStatusStateFlags(depth int, m *models.ServiceUpdateStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
+	if cmd.Flags().Changed(stateFlagName) {
+
+		var stateFlagName string
+		if cmdPrefix == "" {
+			stateFlagName = "State"
+		} else {
+			stateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
+		}
+
+		stateFlagValue, err := cmd.Flags().GetString(stateFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.State = stateFlagValue
+
+		retAdded = true
 	}
 	return nil, retAdded
 }

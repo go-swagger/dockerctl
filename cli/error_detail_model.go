@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ErrorDetail
+
 // register flags to command
 func registerModelErrorDetailFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

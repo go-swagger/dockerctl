@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ObjectVersion
+
 // register flags to command
 func registerModelObjectVersionFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

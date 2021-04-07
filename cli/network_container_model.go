@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for NetworkContainer
+
 // register flags to command
 func registerModelNetworkContainerFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

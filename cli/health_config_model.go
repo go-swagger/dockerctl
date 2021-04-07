@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for HealthConfig
+
 // register flags to command
 func registerModelHealthConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

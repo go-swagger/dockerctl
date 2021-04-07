@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Image
+
 // register flags to command
 func registerModelImageFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -169,7 +171,9 @@ func registerImageConfig(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		configFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
 	}
 
-	registerModelImageFlags(depth+1, configFlagName, cmd)
+	if err := registerModelContainerConfigFlags(depth+1, configFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -207,7 +211,9 @@ func registerImageContainerConfig(depth int, cmdPrefix string, cmd *cobra.Comman
 		containerConfigFlagName = fmt.Sprintf("%v.ContainerConfig", cmdPrefix)
 	}
 
-	registerModelImageFlags(depth+1, containerConfigFlagName, cmd)
+	if err := registerModelContainerConfigFlags(depth+1, containerConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -266,7 +272,9 @@ func registerImageGraphDriver(depth int, cmdPrefix string, cmd *cobra.Command) e
 		graphDriverFlagName = fmt.Sprintf("%v.GraphDriver", cmdPrefix)
 	}
 
-	registerModelImageFlags(depth+1, graphDriverFlagName, cmd)
+	if err := registerModelGraphDriverDataFlags(depth+1, graphDriverFlagName, cmd); err != nil {
+		return err
+	}
 
 	if err := cmd.MarkPersistentFlagRequired(graphDriverFlagName); err != nil {
 		return err
@@ -308,7 +316,9 @@ func registerImageMetadata(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		metadataFlagName = fmt.Sprintf("%v.Metadata", cmdPrefix)
 	}
 
-	registerModelImageFlags(depth+1, metadataFlagName, cmd)
+	if err := registerModelImageMetadataFlags(depth+1, metadataFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -406,7 +416,9 @@ func registerImageRootFS(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		rootFSFlagName = fmt.Sprintf("%v.RootFS", cmdPrefix)
 	}
 
-	registerModelImageFlags(depth+1, rootFSFlagName, cmd)
+	if err := registerModelImageRootFSFlags(depth+1, rootFSFlagName, cmd); err != nil {
+		return err
+	}
 
 	if err := cmd.MarkPersistentFlagRequired(rootFSFlagName); err != nil {
 		return err
@@ -664,12 +676,15 @@ func retrieveImageConfigFlags(depth int, m *models.Image, cmdPrefix string, cmd 
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 
-		configFlagValue := &models.Image{}
-		err, added := retrieveModelImageFlags(depth+1, configFlagValue, configFlagName, cmd)
+		configFlagValue := &models.ContainerConfig{}
+		err, added := retrieveModelContainerConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Config = configFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -708,12 +723,15 @@ func retrieveImageContainerConfigFlags(depth int, m *models.Image, cmdPrefix str
 	containerConfigFlagName := fmt.Sprintf("%v.ContainerConfig", cmdPrefix)
 	if cmd.Flags().Changed(containerConfigFlagName) {
 
-		containerConfigFlagValue := &models.Image{}
-		err, added := retrieveModelImageFlags(depth+1, containerConfigFlagValue, containerConfigFlagName, cmd)
+		containerConfigFlagValue := &models.ContainerConfig{}
+		err, added := retrieveModelContainerConfigFlags(depth+1, containerConfigFlagValue, containerConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ContainerConfig = containerConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -778,12 +796,15 @@ func retrieveImageGraphDriverFlags(depth int, m *models.Image, cmdPrefix string,
 	graphDriverFlagName := fmt.Sprintf("%v.GraphDriver", cmdPrefix)
 	if cmd.Flags().Changed(graphDriverFlagName) {
 
-		graphDriverFlagValue := &models.Image{}
-		err, added := retrieveModelImageFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
+		graphDriverFlagValue := &models.GraphDriverData{}
+		err, added := retrieveModelGraphDriverDataFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.GraphDriver = graphDriverFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -822,12 +843,15 @@ func retrieveImageMetadataFlags(depth int, m *models.Image, cmdPrefix string, cm
 	metadataFlagName := fmt.Sprintf("%v.Metadata", cmdPrefix)
 	if cmd.Flags().Changed(metadataFlagName) {
 
-		metadataFlagValue := &models.Image{}
-		err, added := retrieveModelImageFlags(depth+1, metadataFlagValue, metadataFlagName, cmd)
+		metadataFlagValue := &models.ImageMetadata{}
+		err, added := retrieveModelImageMetadataFlags(depth+1, metadataFlagValue, metadataFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Metadata = metadataFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -942,12 +966,15 @@ func retrieveImageRootFSFlags(depth int, m *models.Image, cmdPrefix string, cmd 
 	rootFSFlagName := fmt.Sprintf("%v.RootFS", cmdPrefix)
 	if cmd.Flags().Changed(rootFSFlagName) {
 
-		rootFSFlagValue := &models.Image{}
-		err, added := retrieveModelImageFlags(depth+1, rootFSFlagValue, rootFSFlagName, cmd)
+		rootFSFlagValue := &models.ImageRootFS{}
+		err, added := retrieveModelImageRootFSFlags(depth+1, rootFSFlagValue, rootFSFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.RootFS = rootFSFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -998,6 +1025,238 @@ func retrieveImageVirtualSizeFlags(depth int, m *models.Image, cmdPrefix string,
 			return err, false
 		}
 		m.VirtualSize = virtualSizeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ImageMetadata
+
+// register flags to command
+func registerModelImageMetadataFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerImageMetadataLastTagTime(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerImageMetadataLastTagTime(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	lastTagTimeDescription := ``
+
+	var lastTagTimeFlagName string
+	if cmdPrefix == "" {
+		lastTagTimeFlagName = "LastTagTime"
+	} else {
+		lastTagTimeFlagName = fmt.Sprintf("%v.LastTagTime", cmdPrefix)
+	}
+
+	var lastTagTimeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(lastTagTimeFlagName, lastTagTimeFlagDefault, lastTagTimeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelImageMetadataFlags(depth int, m *models.ImageMetadata, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, lastTagTimeAdded := retrieveImageMetadataLastTagTimeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || lastTagTimeAdded
+
+	return nil, retAdded
+}
+
+func retrieveImageMetadataLastTagTimeFlags(depth int, m *models.ImageMetadata, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	lastTagTimeFlagName := fmt.Sprintf("%v.LastTagTime", cmdPrefix)
+	if cmd.Flags().Changed(lastTagTimeFlagName) {
+
+		var lastTagTimeFlagName string
+		if cmdPrefix == "" {
+			lastTagTimeFlagName = "LastTagTime"
+		} else {
+			lastTagTimeFlagName = fmt.Sprintf("%v.LastTagTime", cmdPrefix)
+		}
+
+		lastTagTimeFlagValue, err := cmd.Flags().GetString(lastTagTimeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.LastTagTime = lastTagTimeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ImageRootFS
+
+// register flags to command
+func registerModelImageRootFSFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerImageRootFSBaseLayer(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerImageRootFSLayers(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerImageRootFSType(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerImageRootFSBaseLayer(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	baseLayerDescription := ``
+
+	var baseLayerFlagName string
+	if cmdPrefix == "" {
+		baseLayerFlagName = "BaseLayer"
+	} else {
+		baseLayerFlagName = fmt.Sprintf("%v.BaseLayer", cmdPrefix)
+	}
+
+	var baseLayerFlagDefault string
+
+	_ = cmd.PersistentFlags().String(baseLayerFlagName, baseLayerFlagDefault, baseLayerDescription)
+
+	return nil
+}
+
+func registerImageRootFSLayers(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Layers []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerImageRootFSType(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	typeDescription := `Required. `
+
+	var typeFlagName string
+	if cmdPrefix == "" {
+		typeFlagName = "Type"
+	} else {
+		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+	}
+
+	var typeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelImageRootFSFlags(depth int, m *models.ImageRootFS, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, baseLayerAdded := retrieveImageRootFSBaseLayerFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || baseLayerAdded
+
+	err, layersAdded := retrieveImageRootFSLayersFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || layersAdded
+
+	err, typeAdded := retrieveImageRootFSTypeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typeAdded
+
+	return nil, retAdded
+}
+
+func retrieveImageRootFSBaseLayerFlags(depth int, m *models.ImageRootFS, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	baseLayerFlagName := fmt.Sprintf("%v.BaseLayer", cmdPrefix)
+	if cmd.Flags().Changed(baseLayerFlagName) {
+
+		var baseLayerFlagName string
+		if cmdPrefix == "" {
+			baseLayerFlagName = "BaseLayer"
+		} else {
+			baseLayerFlagName = fmt.Sprintf("%v.BaseLayer", cmdPrefix)
+		}
+
+		baseLayerFlagValue, err := cmd.Flags().GetString(baseLayerFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.BaseLayer = baseLayerFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveImageRootFSLayersFlags(depth int, m *models.ImageRootFS, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	layersFlagName := fmt.Sprintf("%v.Layers", cmdPrefix)
+	if cmd.Flags().Changed(layersFlagName) {
+		// warning: Layers array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveImageRootFSTypeFlags(depth int, m *models.ImageRootFS, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(typeFlagName) {
+
+		var typeFlagName string
+		if cmdPrefix == "" {
+			typeFlagName = "Type"
+		} else {
+			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		}
+
+		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Type = typeFlagValue
 
 		retAdded = true
 	}

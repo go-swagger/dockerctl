@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for NodeDescription
+
 // register flags to command
 func registerModelNodeDescriptionFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -50,7 +52,9 @@ func registerNodeDescriptionEngine(depth int, cmdPrefix string, cmd *cobra.Comma
 		engineFlagName = fmt.Sprintf("%v.Engine", cmdPrefix)
 	}
 
-	registerModelNodeDescriptionFlags(depth+1, engineFlagName, cmd)
+	if err := registerModelEngineDescriptionFlags(depth+1, engineFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -88,7 +92,9 @@ func registerNodeDescriptionPlatform(depth int, cmdPrefix string, cmd *cobra.Com
 		platformFlagName = fmt.Sprintf("%v.Platform", cmdPrefix)
 	}
 
-	registerModelNodeDescriptionFlags(depth+1, platformFlagName, cmd)
+	if err := registerModelPlatformFlags(depth+1, platformFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -105,7 +111,9 @@ func registerNodeDescriptionResources(depth int, cmdPrefix string, cmd *cobra.Co
 		resourcesFlagName = fmt.Sprintf("%v.Resources", cmdPrefix)
 	}
 
-	registerModelNodeDescriptionFlags(depth+1, resourcesFlagName, cmd)
+	if err := registerModelResourceObjectFlags(depth+1, resourcesFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -122,7 +130,9 @@ func registerNodeDescriptionTLSInfo(depth int, cmdPrefix string, cmd *cobra.Comm
 		tlsInfoFlagName = fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	}
 
-	registerModelNodeDescriptionFlags(depth+1, tlsInfoFlagName, cmd)
+	if err := registerModelTLSInfoFlags(depth+1, tlsInfoFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -172,12 +182,15 @@ func retrieveNodeDescriptionEngineFlags(depth int, m *models.NodeDescription, cm
 	engineFlagName := fmt.Sprintf("%v.Engine", cmdPrefix)
 	if cmd.Flags().Changed(engineFlagName) {
 
-		engineFlagValue := &models.NodeDescription{}
-		err, added := retrieveModelNodeDescriptionFlags(depth+1, engineFlagValue, engineFlagName, cmd)
+		engineFlagValue := &models.EngineDescription{}
+		err, added := retrieveModelEngineDescriptionFlags(depth+1, engineFlagValue, engineFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Engine = engineFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -216,12 +229,15 @@ func retrieveNodeDescriptionPlatformFlags(depth int, m *models.NodeDescription, 
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
 
-		platformFlagValue := &models.NodeDescription{}
-		err, added := retrieveModelNodeDescriptionFlags(depth+1, platformFlagValue, platformFlagName, cmd)
+		platformFlagValue := &models.Platform{}
+		err, added := retrieveModelPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Platform = platformFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -234,12 +250,15 @@ func retrieveNodeDescriptionResourcesFlags(depth int, m *models.NodeDescription,
 	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
 	if cmd.Flags().Changed(resourcesFlagName) {
 
-		resourcesFlagValue := &models.NodeDescription{}
-		err, added := retrieveModelNodeDescriptionFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
+		resourcesFlagValue := &models.ResourceObject{}
+		err, added := retrieveModelResourceObjectFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Resources = resourcesFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -252,12 +271,15 @@ func retrieveNodeDescriptionTLSInfoFlags(depth int, m *models.NodeDescription, c
 	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	if cmd.Flags().Changed(tlsInfoFlagName) {
 
-		tlsInfoFlagValue := &models.NodeDescription{}
-		err, added := retrieveModelNodeDescriptionFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
+		tlsInfoFlagValue := &models.TLSInfo{}
+		err, added := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.TLSInfo = tlsInfoFlagValue
+		}
 	}
 	return nil, retAdded
 }

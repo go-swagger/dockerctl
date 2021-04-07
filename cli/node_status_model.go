@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for NodeStatus
+
 // register flags to command
 func registerModelNodeStatusFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

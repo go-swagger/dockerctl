@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Runtime
+
 // register flags to command
 func registerModelRuntimeFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

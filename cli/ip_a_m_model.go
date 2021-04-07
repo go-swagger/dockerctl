@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for IPAM
+
 // register flags to command
 func registerModelIPAMFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/container"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -347,7 +348,9 @@ func registerContainerInspectOKBodyConfig(depth int, cmdPrefix string, cmd *cobr
 		configFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
 	}
 
-	registerModelContainerInspectOKBodyFlags(depth+1, configFlagName, cmd)
+	if err := registerModelContainerConfigFlags(depth+1, configFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -415,7 +418,9 @@ func registerContainerInspectOKBodyGraphDriver(depth int, cmdPrefix string, cmd 
 		graphDriverFlagName = fmt.Sprintf("%v.GraphDriver", cmdPrefix)
 	}
 
-	registerModelContainerInspectOKBodyFlags(depth+1, graphDriverFlagName, cmd)
+	if err := registerModelGraphDriverDataFlags(depth+1, graphDriverFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -432,7 +437,9 @@ func registerContainerInspectOKBodyHostConfig(depth int, cmdPrefix string, cmd *
 		hostConfigFlagName = fmt.Sprintf("%v.HostConfig", cmdPrefix)
 	}
 
-	registerModelContainerInspectOKBodyFlags(depth+1, hostConfigFlagName, cmd)
+	if err := registerModelHostConfigFlags(depth+1, hostConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -605,7 +612,9 @@ func registerContainerInspectOKBodyNetworkSettings(depth int, cmdPrefix string, 
 		networkSettingsFlagName = fmt.Sprintf("%v.NetworkSettings", cmdPrefix)
 	}
 
-	registerModelContainerInspectOKBodyFlags(depth+1, networkSettingsFlagName, cmd)
+	if err := registerModelNetworkSettingsFlags(depth+1, networkSettingsFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -778,7 +787,9 @@ func registerContainerInspectOKBodyState(depth int, cmdPrefix string, cmd *cobra
 		stateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
 	}
 
-	registerModelContainerInspectOKBodyFlags(depth+1, stateFlagName, cmd)
+	if err := registerModelContainerInspectOKBodyStateFlags(depth+1, stateFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -992,12 +1003,15 @@ func retrieveContainerInspectOKBodyConfigFlags(depth int, m *container.Container
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 
-		configFlagValue := &container.ContainerInspectOKBody{}
-		err, added := retrieveModelContainerInspectOKBodyFlags(depth+1, configFlagValue, configFlagName, cmd)
+		configFlagValue := &models.ContainerConfig{}
+		err, added := retrieveModelContainerConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Config = configFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -1074,12 +1088,15 @@ func retrieveContainerInspectOKBodyGraphDriverFlags(depth int, m *container.Cont
 	graphDriverFlagName := fmt.Sprintf("%v.GraphDriver", cmdPrefix)
 	if cmd.Flags().Changed(graphDriverFlagName) {
 
-		graphDriverFlagValue := &container.ContainerInspectOKBody{}
-		err, added := retrieveModelContainerInspectOKBodyFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
+		graphDriverFlagValue := &models.GraphDriverData{}
+		err, added := retrieveModelGraphDriverDataFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.GraphDriver = graphDriverFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -1092,12 +1109,15 @@ func retrieveContainerInspectOKBodyHostConfigFlags(depth int, m *container.Conta
 	hostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
 	if cmd.Flags().Changed(hostConfigFlagName) {
 
-		hostConfigFlagValue := &container.ContainerInspectOKBody{}
-		err, added := retrieveModelContainerInspectOKBodyFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
+		hostConfigFlagValue := &models.HostConfig{}
+		err, added := retrieveModelHostConfigFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.HostConfig = hostConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -1304,12 +1324,15 @@ func retrieveContainerInspectOKBodyNetworkSettingsFlags(depth int, m *container.
 	networkSettingsFlagName := fmt.Sprintf("%v.NetworkSettings", cmdPrefix)
 	if cmd.Flags().Changed(networkSettingsFlagName) {
 
-		networkSettingsFlagValue := &container.ContainerInspectOKBody{}
-		err, added := retrieveModelContainerInspectOKBodyFlags(depth+1, networkSettingsFlagValue, networkSettingsFlagName, cmd)
+		networkSettingsFlagValue := &models.NetworkSettings{}
+		err, added := retrieveModelNetworkSettingsFlags(depth+1, networkSettingsFlagValue, networkSettingsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.NetworkSettings = networkSettingsFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -1516,12 +1539,15 @@ func retrieveContainerInspectOKBodyStateFlags(depth int, m *container.ContainerI
 	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
 	if cmd.Flags().Changed(stateFlagName) {
 
-		stateFlagValue := &container.ContainerInspectOKBody{}
-		err, added := retrieveModelContainerInspectOKBodyFlags(depth+1, stateFlagValue, stateFlagName, cmd)
+		stateFlagValue := &container.ContainerInspectOKBodyState{}
+		err, added := retrieveModelContainerInspectOKBodyStateFlags(depth+1, stateFlagValue, stateFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.State = stateFlagValue
+		}
 	}
 	return nil, retAdded
 }

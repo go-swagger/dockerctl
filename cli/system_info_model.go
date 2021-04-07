@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for SystemInfo
+
 // register flags to command
 func registerModelSystemInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -472,7 +474,9 @@ func registerSystemInfoContainerdCommit(depth int, cmdPrefix string, cmd *cobra.
 		containerdCommitFlagName = fmt.Sprintf("%v.ContainerdCommit", cmdPrefix)
 	}
 
-	registerModelSystemInfoFlags(depth+1, containerdCommitFlagName, cmd)
+	if err := registerModelCommitFlags(depth+1, containerdCommitFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -923,7 +927,9 @@ func registerSystemInfoInitCommit(depth int, cmdPrefix string, cmd *cobra.Comman
 		initCommitFlagName = fmt.Sprintf("%v.InitCommit", cmdPrefix)
 	}
 
-	registerModelSystemInfoFlags(depth+1, initCommitFlagName, cmd)
+	if err := registerModelCommitFlags(depth+1, initCommitFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1375,7 +1381,9 @@ func registerSystemInfoPlugins(depth int, cmdPrefix string, cmd *cobra.Command) 
 		pluginsFlagName = fmt.Sprintf("%v.Plugins", cmdPrefix)
 	}
 
-	registerModelSystemInfoFlags(depth+1, pluginsFlagName, cmd)
+	if err := registerModelPluginsInfoFlags(depth+1, pluginsFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1417,7 +1425,9 @@ func registerSystemInfoRegistryConfig(depth int, cmdPrefix string, cmd *cobra.Co
 		registryConfigFlagName = fmt.Sprintf("%v.RegistryConfig", cmdPrefix)
 	}
 
-	registerModelSystemInfoFlags(depth+1, registryConfigFlagName, cmd)
+	if err := registerModelRegistryServiceConfigFlags(depth+1, registryConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1434,7 +1444,9 @@ func registerSystemInfoRuncCommit(depth int, cmdPrefix string, cmd *cobra.Comman
 		runcCommitFlagName = fmt.Sprintf("%v.RuncCommit", cmdPrefix)
 	}
 
-	registerModelSystemInfoFlags(depth+1, runcCommitFlagName, cmd)
+	if err := registerModelCommitFlags(depth+1, runcCommitFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1516,7 +1528,9 @@ func registerSystemInfoSwarm(depth int, cmdPrefix string, cmd *cobra.Command) er
 		swarmFlagName = fmt.Sprintf("%v.Swarm", cmdPrefix)
 	}
 
-	registerModelSystemInfoFlags(depth+1, swarmFlagName, cmd)
+	if err := registerModelSwarmInfoFlags(depth+1, swarmFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -2151,12 +2165,15 @@ func retrieveSystemInfoContainerdCommitFlags(depth int, m *models.SystemInfo, cm
 	containerdCommitFlagName := fmt.Sprintf("%v.ContainerdCommit", cmdPrefix)
 	if cmd.Flags().Changed(containerdCommitFlagName) {
 
-		containerdCommitFlagValue := &models.SystemInfo{}
-		err, added := retrieveModelSystemInfoFlags(depth+1, containerdCommitFlagValue, containerdCommitFlagName, cmd)
+		containerdCommitFlagValue := &models.Commit{}
+		err, added := retrieveModelCommitFlags(depth+1, containerdCommitFlagValue, containerdCommitFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ContainerdCommit = containerdCommitFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -2661,12 +2678,15 @@ func retrieveSystemInfoInitCommitFlags(depth int, m *models.SystemInfo, cmdPrefi
 	initCommitFlagName := fmt.Sprintf("%v.InitCommit", cmdPrefix)
 	if cmd.Flags().Changed(initCommitFlagName) {
 
-		initCommitFlagValue := &models.SystemInfo{}
-		err, added := retrieveModelSystemInfoFlags(depth+1, initCommitFlagValue, initCommitFlagName, cmd)
+		initCommitFlagValue := &models.Commit{}
+		err, added := retrieveModelCommitFlags(depth+1, initCommitFlagValue, initCommitFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.InitCommit = initCommitFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -3159,12 +3179,15 @@ func retrieveSystemInfoPluginsFlags(depth int, m *models.SystemInfo, cmdPrefix s
 	pluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
 	if cmd.Flags().Changed(pluginsFlagName) {
 
-		pluginsFlagValue := &models.SystemInfo{}
-		err, added := retrieveModelSystemInfoFlags(depth+1, pluginsFlagValue, pluginsFlagName, cmd)
+		pluginsFlagValue := &models.PluginsInfo{}
+		err, added := retrieveModelPluginsInfoFlags(depth+1, pluginsFlagValue, pluginsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Plugins = pluginsFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -3203,12 +3226,15 @@ func retrieveSystemInfoRegistryConfigFlags(depth int, m *models.SystemInfo, cmdP
 	registryConfigFlagName := fmt.Sprintf("%v.RegistryConfig", cmdPrefix)
 	if cmd.Flags().Changed(registryConfigFlagName) {
 
-		registryConfigFlagValue := &models.SystemInfo{}
-		err, added := retrieveModelSystemInfoFlags(depth+1, registryConfigFlagValue, registryConfigFlagName, cmd)
+		registryConfigFlagValue := &models.RegistryServiceConfig{}
+		err, added := retrieveModelRegistryServiceConfigFlags(depth+1, registryConfigFlagValue, registryConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.RegistryConfig = registryConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -3221,12 +3247,15 @@ func retrieveSystemInfoRuncCommitFlags(depth int, m *models.SystemInfo, cmdPrefi
 	runcCommitFlagName := fmt.Sprintf("%v.RuncCommit", cmdPrefix)
 	if cmd.Flags().Changed(runcCommitFlagName) {
 
-		runcCommitFlagValue := &models.SystemInfo{}
-		err, added := retrieveModelSystemInfoFlags(depth+1, runcCommitFlagValue, runcCommitFlagName, cmd)
+		runcCommitFlagValue := &models.Commit{}
+		err, added := retrieveModelCommitFlags(depth+1, runcCommitFlagValue, runcCommitFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.RuncCommit = runcCommitFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -3315,12 +3344,15 @@ func retrieveSystemInfoSwarmFlags(depth int, m *models.SystemInfo, cmdPrefix str
 	swarmFlagName := fmt.Sprintf("%v.Swarm", cmdPrefix)
 	if cmd.Flags().Changed(swarmFlagName) {
 
-		swarmFlagValue := &models.SystemInfo{}
-		err, added := retrieveModelSystemInfoFlags(depth+1, swarmFlagValue, swarmFlagName, cmd)
+		swarmFlagValue := &models.SwarmInfo{}
+		err, added := retrieveModelSwarmInfoFlags(depth+1, swarmFlagValue, swarmFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Swarm = swarmFlagValue
+		}
 	}
 	return nil, retAdded
 }

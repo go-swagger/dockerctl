@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Address
+
 // register flags to command
 func registerModelAddressFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

@@ -6,16 +6,632 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"fmt"
+
 	"github.com/go-swagger/dockerctl/models"
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for HostConfig
+
 // register flags to command
 func registerModelHostConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf AO0 is not supported by go-swwagger cli yet
+	// register embedded Resources flags
 
-	// allOf AO1 is not supported by go-swwagger cli yet
+	if err := registerModelResourcesFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// inline allOf AO1 of type  is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// inline definition name AO1, type
+
+func registerHostConfigAnonAO1AutoRemove(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	autoRemoveDescription := `Automatically remove the container when the container's process exits. This has no effect if ` + "`" + `RestartPolicy` + "`" + ` is set.`
+
+	var autoRemoveFlagName string
+	if cmdPrefix == "" {
+		autoRemoveFlagName = "AutoRemove"
+	} else {
+		autoRemoveFlagName = fmt.Sprintf("%v.AutoRemove", cmdPrefix)
+	}
+
+	var autoRemoveFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(autoRemoveFlagName, autoRemoveFlagDefault, autoRemoveDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Binds(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Binds of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1CapAdd(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf CapAdd of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1CapDrop(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf CapDrop of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Capabilities(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Capabilities of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Cgroup(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	cgroupDescription := `Cgroup to use for the container.`
+
+	var cgroupFlagName string
+	if cmdPrefix == "" {
+		cgroupFlagName = "Cgroup"
+	} else {
+		cgroupFlagName = fmt.Sprintf("%v.Cgroup", cmdPrefix)
+	}
+
+	var cgroupFlagDefault string
+
+	_ = cmd.PersistentFlags().String(cgroupFlagName, cgroupFlagDefault, cgroupDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1CgroupnsMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	cgroupnsModeDescription := `cgroup namespace mode for the container. Possible values are:
+
+- ` + "`" + `"private"` + "`" + `: the container runs in its own private cgroup namespace
+- ` + "`" + `"host"` + "`" + `: use the host system's cgroup namespace
+
+If not specified, the daemon default is used, which can either be ` + "`" + `"private"` + "`" + `
+or ` + "`" + `"host"` + "`" + `, depending on daemon version, kernel support and configuration.
+`
+
+	var cgroupnsModeFlagName string
+	if cmdPrefix == "" {
+		cgroupnsModeFlagName = "CgroupnsMode"
+	} else {
+		cgroupnsModeFlagName = fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
+	}
+
+	var cgroupnsModeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(cgroupnsModeFlagName, cgroupnsModeFlagDefault, cgroupnsModeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1ConsoleSize(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf ConsoleSize of type []*int64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1ContainerIDFile(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	containerIdFileDescription := `Path to a file where the container ID is written`
+
+	var containerIdFileFlagName string
+	if cmdPrefix == "" {
+		containerIdFileFlagName = "ContainerIDFile"
+	} else {
+		containerIdFileFlagName = fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
+	}
+
+	var containerIdFileFlagDefault string
+
+	_ = cmd.PersistentFlags().String(containerIdFileFlagName, containerIdFileFlagDefault, containerIdFileDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1DNS(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Dns of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1DNSOptions(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf DnsOptions of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1DNSSearch(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf DnsSearch of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1ExtraHosts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf ExtraHosts of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1GroupAdd(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf GroupAdd of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1IpcMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	ipcModeDescription := `IPC sharing mode for the container. Possible values are:
+
+- ` + "`" + `"none"` + "`" + `: own private IPC namespace, with /dev/shm not mounted
+- ` + "`" + `"private"` + "`" + `: own private IPC namespace
+- ` + "`" + `"shareable"` + "`" + `: own private IPC namespace, with a possibility to share it with other containers
+- ` + "`" + `"container:<name|id>"` + "`" + `: join another (shareable) container's IPC namespace
+- ` + "`" + `"host"` + "`" + `: use the host system's IPC namespace
+
+If not specified, daemon default is used, which can either be ` + "`" + `"private"` + "`" + `
+or ` + "`" + `"shareable"` + "`" + `, depending on daemon version and configuration.
+`
+
+	var ipcModeFlagName string
+	if cmdPrefix == "" {
+		ipcModeFlagName = "IpcMode"
+	} else {
+		ipcModeFlagName = fmt.Sprintf("%v.IpcMode", cmdPrefix)
+	}
+
+	var ipcModeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(ipcModeFlagName, ipcModeFlagDefault, ipcModeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Isolation(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	isolationDescription := `Isolation technology of the container. (Windows only)`
+
+	var isolationFlagName string
+	if cmdPrefix == "" {
+		isolationFlagName = "Isolation"
+	} else {
+		isolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
+	}
+
+	var isolationFlagDefault string
+
+	_ = cmd.PersistentFlags().String(isolationFlagName, isolationFlagDefault, isolationDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Links(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Links of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1LogConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf LogConfig of type HostConfigAO1LogConfig is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1MaskedPaths(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf MaskedPaths of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Mounts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Mounts of type []*Mount is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1NetworkMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	networkModeDescription := `Network mode to use for this container. Supported standard values are: ` + "`" + `bridge` + "`" + `, ` + "`" + `host` + "`" + `, ` + "`" + `none` + "`" + `, and ` + "`" + `container:<name|id>` + "`" + `. Any other value is taken as a custom network's name to which this container should connect to.`
+
+	var networkModeFlagName string
+	if cmdPrefix == "" {
+		networkModeFlagName = "NetworkMode"
+	} else {
+		networkModeFlagName = fmt.Sprintf("%v.NetworkMode", cmdPrefix)
+	}
+
+	var networkModeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(networkModeFlagName, networkModeFlagDefault, networkModeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1OomScoreAdj(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	oomScoreAdjDescription := `An integer value containing the score given to the container in order to tune OOM killer preferences.`
+
+	var oomScoreAdjFlagName string
+	if cmdPrefix == "" {
+		oomScoreAdjFlagName = "OomScoreAdj"
+	} else {
+		oomScoreAdjFlagName = fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
+	}
+
+	var oomScoreAdjFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(oomScoreAdjFlagName, oomScoreAdjFlagDefault, oomScoreAdjDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1PidMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	pidModeDescription := `Set the PID (Process) Namespace mode for the container. It can be either:
+
+- ` + "`" + `"container:<name|id>"` + "`" + `: joins another container's PID namespace
+- ` + "`" + `"host"` + "`" + `: use the host's PID namespace inside the container
+`
+
+	var pidModeFlagName string
+	if cmdPrefix == "" {
+		pidModeFlagName = "PidMode"
+	} else {
+		pidModeFlagName = fmt.Sprintf("%v.PidMode", cmdPrefix)
+	}
+
+	var pidModeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(pidModeFlagName, pidModeFlagDefault, pidModeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1PortBindings(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf PortBindings of type PortMap is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Privileged(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	privilegedDescription := `Gives the container full access to the host.`
+
+	var privilegedFlagName string
+	if cmdPrefix == "" {
+		privilegedFlagName = "Privileged"
+	} else {
+		privilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
+	}
+
+	var privilegedFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(privilegedFlagName, privilegedFlagDefault, privilegedDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1PublishAllPorts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	publishAllPortsDescription := `Allocates an ephemeral host port for all of a container's
+exposed ports.
+
+Ports are de-allocated when the container stops and allocated when the container starts.
+The allocated port might be changed when restarting the container.
+
+The port is selected from the ephemeral port range that depends on the kernel.
+For example, on Linux the range is defined by ` + "`" + `/proc/sys/net/ipv4/ip_local_port_range` + "`" + `.
+`
+
+	var publishAllPortsFlagName string
+	if cmdPrefix == "" {
+		publishAllPortsFlagName = "PublishAllPorts"
+	} else {
+		publishAllPortsFlagName = fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
+	}
+
+	var publishAllPortsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(publishAllPortsFlagName, publishAllPortsFlagDefault, publishAllPortsDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1ReadonlyPaths(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf ReadonlyPaths of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1ReadonlyRootfs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	readonlyRootfsDescription := `Mount the container's root filesystem as read only.`
+
+	var readonlyRootfsFlagName string
+	if cmdPrefix == "" {
+		readonlyRootfsFlagName = "ReadonlyRootfs"
+	} else {
+		readonlyRootfsFlagName = fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
+	}
+
+	var readonlyRootfsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(readonlyRootfsFlagName, readonlyRootfsFlagDefault, readonlyRootfsDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1RestartPolicy(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf RestartPolicy of type RestartPolicy is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Runtime(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	runtimeDescription := `Runtime to use with this container.`
+
+	var runtimeFlagName string
+	if cmdPrefix == "" {
+		runtimeFlagName = "Runtime"
+	} else {
+		runtimeFlagName = fmt.Sprintf("%v.Runtime", cmdPrefix)
+	}
+
+	var runtimeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(runtimeFlagName, runtimeFlagDefault, runtimeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1SecurityOpt(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf SecurityOpt of type []string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1ShmSize(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	shmSizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. If omitted, the system uses 64MB.`
+
+	var shmSizeFlagName string
+	if cmdPrefix == "" {
+		shmSizeFlagName = "ShmSize"
+	} else {
+		shmSizeFlagName = fmt.Sprintf("%v.ShmSize", cmdPrefix)
+	}
+
+	var shmSizeFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(shmSizeFlagName, shmSizeFlagDefault, shmSizeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1StorageOpt(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf StorageOpt of type map[string]string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Sysctls(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Sysctls of type map[string]string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1Tmpfs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf Tmpfs of type map[string]string is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAnonAO1UTSMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	uTSModeDescription := `UTS namespace to use for the container.`
+
+	var uTSModeFlagName string
+	if cmdPrefix == "" {
+		uTSModeFlagName = "UTSMode"
+	} else {
+		uTSModeFlagName = fmt.Sprintf("%v.UTSMode", cmdPrefix)
+	}
+
+	var uTSModeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(uTSModeFlagName, uTSModeFlagDefault, uTSModeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1UsernsMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	usernsModeDescription := `Sets the usernamespace mode for the container when usernamespace remapping option is enabled.`
+
+	var usernsModeFlagName string
+	if cmdPrefix == "" {
+		usernsModeFlagName = "UsernsMode"
+	} else {
+		usernsModeFlagName = fmt.Sprintf("%v.UsernsMode", cmdPrefix)
+	}
+
+	var usernsModeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(usernsModeFlagName, usernsModeFlagDefault, usernsModeDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1VolumeDriver(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	volumeDriverDescription := `Driver that this container uses to mount volumes.`
+
+	var volumeDriverFlagName string
+	if cmdPrefix == "" {
+		volumeDriverFlagName = "VolumeDriver"
+	} else {
+		volumeDriverFlagName = fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
+	}
+
+	var volumeDriverFlagDefault string
+
+	_ = cmd.PersistentFlags().String(volumeDriverFlagName, volumeDriverFlagDefault, volumeDriverDescription)
+
+	return nil
+}
+
+func registerHostConfigAnonAO1VolumesFrom(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf VolumesFrom of type []string is not supported by go-swagger cli yet
 
 	return nil
 }
@@ -24,9 +640,117 @@ func registerModelHostConfigFlags(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelHostConfigFlags(depth int, m *models.HostConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf AO0 is not supported by go-swwagger cli yet
+	// retrieve model Resources
+	err, aO0Added := retrieveModelResourcesFlags(depth, &m.Resources, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || aO0Added
 
-	// allOf AO1 is not supported by go-swwagger cli yet
+	// inline allOf AO1 is not supported by go-swagger cli yet
 
+	return nil, retAdded
+}
+
+// Extra schema cli for HostConfigAO1LogConfig
+
+// register flags to command
+func registerModelHostConfigAO1LogConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerHostConfigAO1LogConfigConfig(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerHostConfigAO1LogConfigType(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerHostConfigAO1LogConfigConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Config map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerHostConfigAO1LogConfigType(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	typeDescription := ``
+
+	var typeFlagName string
+	if cmdPrefix == "" {
+		typeFlagName = "Type"
+	} else {
+		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+	}
+
+	var typeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelHostConfigAO1LogConfigFlags(depth int, m *models.HostConfigAO1LogConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, configAdded := retrieveHostConfigAO1LogConfigConfigFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configAdded
+
+	err, typeAdded := retrieveHostConfigAO1LogConfigTypeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typeAdded
+
+	return nil, retAdded
+}
+
+func retrieveHostConfigAO1LogConfigConfigFlags(depth int, m *models.HostConfigAO1LogConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
+	if cmd.Flags().Changed(configFlagName) {
+		// warning: Config map type map[string]string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveHostConfigAO1LogConfigTypeFlags(depth int, m *models.HostConfigAO1LogConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(typeFlagName) {
+
+		var typeFlagName string
+		if cmdPrefix == "" {
+			typeFlagName = "Type"
+		} else {
+			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		}
+
+		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Type = typeFlagValue
+
+		retAdded = true
+	}
 	return nil, retAdded
 }

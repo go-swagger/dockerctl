@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Node
+
 // register flags to command
 func registerModelNodeFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -85,7 +87,9 @@ func registerNodeDescription(depth int, cmdPrefix string, cmd *cobra.Command) er
 		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	registerModelNodeFlags(depth+1, descriptionFlagName, cmd)
+	if err := registerModelNodeDescriptionFlags(depth+1, descriptionFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -123,7 +127,9 @@ func registerNodeManagerStatus(depth int, cmdPrefix string, cmd *cobra.Command) 
 		managerStatusFlagName = fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
 	}
 
-	registerModelNodeFlags(depth+1, managerStatusFlagName, cmd)
+	if err := registerModelManagerStatusFlags(depth+1, managerStatusFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -140,7 +146,9 @@ func registerNodeSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	registerModelNodeFlags(depth+1, specFlagName, cmd)
+	if err := registerModelNodeSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -157,7 +165,9 @@ func registerNodeStatus(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		statusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
 	}
 
-	registerModelNodeFlags(depth+1, statusFlagName, cmd)
+	if err := registerModelNodeStatusFlags(depth+1, statusFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -197,7 +207,9 @@ func registerNodeVersion(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	registerModelNodeFlags(depth+1, versionFlagName, cmd)
+	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -291,12 +303,15 @@ func retrieveNodeDescriptionFlags(depth int, m *models.Node, cmdPrefix string, c
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
-		descriptionFlagValue := &models.Node{}
-		err, added := retrieveModelNodeFlags(depth+1, descriptionFlagValue, descriptionFlagName, cmd)
+		descriptionFlagValue := &models.NodeDescription{}
+		err, added := retrieveModelNodeDescriptionFlags(depth+1, descriptionFlagValue, descriptionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Description = descriptionFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -335,12 +350,15 @@ func retrieveNodeManagerStatusFlags(depth int, m *models.Node, cmdPrefix string,
 	managerStatusFlagName := fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
 	if cmd.Flags().Changed(managerStatusFlagName) {
 
-		managerStatusFlagValue := &models.Node{}
-		err, added := retrieveModelNodeFlags(depth+1, managerStatusFlagValue, managerStatusFlagName, cmd)
+		managerStatusFlagValue := &models.ManagerStatus{}
+		err, added := retrieveModelManagerStatusFlags(depth+1, managerStatusFlagValue, managerStatusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ManagerStatus = managerStatusFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -353,12 +371,15 @@ func retrieveNodeSpecFlags(depth int, m *models.Node, cmdPrefix string, cmd *cob
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.Node{}
-		err, added := retrieveModelNodeFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := &models.NodeSpec{}
+		err, added := retrieveModelNodeSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -371,12 +392,15 @@ func retrieveNodeStatusFlags(depth int, m *models.Node, cmdPrefix string, cmd *c
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
-		statusFlagValue := &models.Node{}
-		err, added := retrieveModelNodeFlags(depth+1, statusFlagValue, statusFlagName, cmd)
+		statusFlagValue := &models.NodeStatus{}
+		err, added := retrieveModelNodeStatusFlags(depth+1, statusFlagValue, statusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Status = statusFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -415,12 +439,15 @@ func retrieveNodeVersionFlags(depth int, m *models.Node, cmdPrefix string, cmd *
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.Node{}
-		err, added := retrieveModelNodeFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := &models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Version = versionFlagValue
+		}
 	}
 	return nil, retAdded
 }

@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for PluginMount
+
 // register flags to command
 func registerModelPluginMountFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

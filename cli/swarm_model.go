@@ -10,12 +10,30 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Swarm
+
 // register flags to command
 func registerModelSwarmFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf AO0 is not supported by go-swwagger cli yet
+	// register embedded ClusterInfo flags
 
-	// allOf AO1 is not supported by go-swwagger cli yet
+	if err := registerModelClusterInfoFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// inline allOf AO1 of type  is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// inline definition name AO1, type
+
+func registerSwarmAnonAO1JoinTokens(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf JoinTokens of type JoinTokens is not supported by go-swagger cli yet
 
 	return nil
 }
@@ -24,9 +42,14 @@ func registerModelSwarmFlags(depth int, cmdPrefix string, cmd *cobra.Command) er
 func retrieveModelSwarmFlags(depth int, m *models.Swarm, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf AO0 is not supported by go-swwagger cli yet
+	// retrieve model ClusterInfo
+	err, aO0Added := retrieveModelClusterInfoFlags(depth, &m.ClusterInfo, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || aO0Added
 
-	// allOf AO1 is not supported by go-swwagger cli yet
+	// inline allOf AO1 is not supported by go-swagger cli yet
 
 	return nil, retAdded
 }

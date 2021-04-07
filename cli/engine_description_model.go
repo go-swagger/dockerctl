@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for EngineDescription
+
 // register flags to command
 func registerModelEngineDescriptionFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -140,6 +142,135 @@ func retrieveEngineDescriptionPluginsFlags(depth int, m *models.EngineDescriptio
 	pluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
 	if cmd.Flags().Changed(pluginsFlagName) {
 		// warning: Plugins array type []*EngineDescriptionPluginsItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for EngineDescriptionPluginsItems0
+
+// register flags to command
+func registerModelEngineDescriptionPluginsItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerEngineDescriptionPluginsItems0Name(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerEngineDescriptionPluginsItems0Type(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerEngineDescriptionPluginsItems0Name(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := ``
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerEngineDescriptionPluginsItems0Type(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	typeDescription := ``
+
+	var typeFlagName string
+	if cmdPrefix == "" {
+		typeFlagName = "Type"
+	} else {
+		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+	}
+
+	var typeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelEngineDescriptionPluginsItems0Flags(depth int, m *models.EngineDescriptionPluginsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, nameAdded := retrieveEngineDescriptionPluginsItems0NameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, typeAdded := retrieveEngineDescriptionPluginsItems0TypeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typeAdded
+
+	return nil, retAdded
+}
+
+func retrieveEngineDescriptionPluginsItems0NameFlags(depth int, m *models.EngineDescriptionPluginsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveEngineDescriptionPluginsItems0TypeFlags(depth int, m *models.EngineDescriptionPluginsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(typeFlagName) {
+
+		var typeFlagName string
+		if cmdPrefix == "" {
+			typeFlagName = "Type"
+		} else {
+			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		}
+
+		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Type = typeFlagValue
+
+		retAdded = true
 	}
 	return nil, retAdded
 }

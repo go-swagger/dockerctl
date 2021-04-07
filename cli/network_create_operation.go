@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/network"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -322,7 +323,9 @@ func registerNetworkCreateBodyIPAM(depth int, cmdPrefix string, cmd *cobra.Comma
 		ipAMFlagName = fmt.Sprintf("%v.IPAM", cmdPrefix)
 	}
 
-	registerModelNetworkCreateBodyFlags(depth+1, ipAMFlagName, cmd)
+	if err := registerModelIPAMFlags(depth+1, ipAMFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -587,12 +590,15 @@ func retrieveNetworkCreateBodyIPAMFlags(depth int, m *network.NetworkCreateBody,
 	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
 	if cmd.Flags().Changed(ipAMFlagName) {
 
-		ipAMFlagValue := &network.NetworkCreateBody{}
-		err, added := retrieveModelNetworkCreateBodyFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
+		ipAMFlagValue := &models.IPAM{}
+		err, added := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.IPAM = ipAMFlagValue
+		}
 	}
 	return nil, retAdded
 }

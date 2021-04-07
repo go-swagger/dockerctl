@@ -183,9 +183,13 @@ func registerOperationSecretSecretCreateBodyParamFlags(cmdPrefix string, cmd *co
 // register flags to command
 func registerModelSecretCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf SecretCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.SecretSpec flags
 
-	// allOf SecretCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelSecretSpecFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// SecretCreateParamsBodyAO1 SecretCreateParamsBodyAllOf1 register is skipped
 
 	return nil
 }
@@ -194,9 +198,14 @@ func registerModelSecretCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelSecretCreateBodyFlags(depth int, m *secret.SecretCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf SecretCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.SecretSpec
+	err, secretCreateParamsBodyAO0Added := retrieveModelSecretSpecFlags(depth, &m.SecretSpec, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || secretCreateParamsBodyAO0Added
 
-	// allOf SecretCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	// retrieve SecretCreateParamsBodyAO1 SecretCreateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

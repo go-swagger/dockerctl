@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/swarm"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -337,7 +338,9 @@ func registerSwarmInitBodySpec(depth int, cmdPrefix string, cmd *cobra.Command) 
 		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	registerModelSwarmInitBodyFlags(depth+1, specFlagName, cmd)
+	if err := registerModelSwarmSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -546,12 +549,15 @@ func retrieveSwarmInitBodySpecFlags(depth int, m *swarm.SwarmInitBody, cmdPrefix
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &swarm.SwarmInitBody{}
-		err, added := retrieveModelSwarmInitBodyFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := &models.SwarmSpec{}
+		err, added := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
 	}
 	return nil, retAdded
 }

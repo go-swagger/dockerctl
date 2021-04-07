@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for NodeSpec
+
 // register flags to command
 func registerModelNodeSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

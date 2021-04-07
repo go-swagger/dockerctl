@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ServiceSpec
+
 // register flags to command
 func registerModelServiceSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -62,7 +64,9 @@ func registerServiceSpecEndpointSpec(depth int, cmdPrefix string, cmd *cobra.Com
 		endpointSpecFlagName = fmt.Sprintf("%v.EndpointSpec", cmdPrefix)
 	}
 
-	registerModelServiceSpecFlags(depth+1, endpointSpecFlagName, cmd)
+	if err := registerModelEndpointSpecFlags(depth+1, endpointSpecFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -88,7 +92,9 @@ func registerServiceSpecMode(depth int, cmdPrefix string, cmd *cobra.Command) er
 		modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 	}
 
-	registerModelServiceSpecFlags(depth+1, modeFlagName, cmd)
+	if err := registerModelServiceSpecModeFlags(depth+1, modeFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -135,7 +141,9 @@ func registerServiceSpecRollbackConfig(depth int, cmdPrefix string, cmd *cobra.C
 		rollbackConfigFlagName = fmt.Sprintf("%v.RollbackConfig", cmdPrefix)
 	}
 
-	registerModelServiceSpecFlags(depth+1, rollbackConfigFlagName, cmd)
+	if err := registerModelServiceSpecRollbackConfigFlags(depth+1, rollbackConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -152,7 +160,9 @@ func registerServiceSpecTaskTemplate(depth int, cmdPrefix string, cmd *cobra.Com
 		taskTemplateFlagName = fmt.Sprintf("%v.TaskTemplate", cmdPrefix)
 	}
 
-	registerModelServiceSpecFlags(depth+1, taskTemplateFlagName, cmd)
+	if err := registerModelTaskSpecFlags(depth+1, taskTemplateFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -169,7 +179,9 @@ func registerServiceSpecUpdateConfig(depth int, cmdPrefix string, cmd *cobra.Com
 		updateConfigFlagName = fmt.Sprintf("%v.UpdateConfig", cmdPrefix)
 	}
 
-	registerModelServiceSpecFlags(depth+1, updateConfigFlagName, cmd)
+	if err := registerModelServiceSpecUpdateConfigFlags(depth+1, updateConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -237,12 +249,15 @@ func retrieveServiceSpecEndpointSpecFlags(depth int, m *models.ServiceSpec, cmdP
 	endpointSpecFlagName := fmt.Sprintf("%v.EndpointSpec", cmdPrefix)
 	if cmd.Flags().Changed(endpointSpecFlagName) {
 
-		endpointSpecFlagValue := &models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, endpointSpecFlagValue, endpointSpecFlagName, cmd)
+		endpointSpecFlagValue := &models.EndpointSpec{}
+		err, added := retrieveModelEndpointSpecFlags(depth+1, endpointSpecFlagValue, endpointSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.EndpointSpec = endpointSpecFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -267,12 +282,15 @@ func retrieveServiceSpecModeFlags(depth int, m *models.ServiceSpec, cmdPrefix st
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
-		modeFlagValue := &models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, modeFlagValue, modeFlagName, cmd)
+		modeFlagValue := &models.ServiceSpecMode{}
+		err, added := retrieveModelServiceSpecModeFlags(depth+1, modeFlagValue, modeFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Mode = modeFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -323,12 +341,15 @@ func retrieveServiceSpecRollbackConfigFlags(depth int, m *models.ServiceSpec, cm
 	rollbackConfigFlagName := fmt.Sprintf("%v.RollbackConfig", cmdPrefix)
 	if cmd.Flags().Changed(rollbackConfigFlagName) {
 
-		rollbackConfigFlagValue := &models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, rollbackConfigFlagValue, rollbackConfigFlagName, cmd)
+		rollbackConfigFlagValue := &models.ServiceSpecRollbackConfig{}
+		err, added := retrieveModelServiceSpecRollbackConfigFlags(depth+1, rollbackConfigFlagValue, rollbackConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.RollbackConfig = rollbackConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -341,12 +362,15 @@ func retrieveServiceSpecTaskTemplateFlags(depth int, m *models.ServiceSpec, cmdP
 	taskTemplateFlagName := fmt.Sprintf("%v.TaskTemplate", cmdPrefix)
 	if cmd.Flags().Changed(taskTemplateFlagName) {
 
-		taskTemplateFlagValue := &models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, taskTemplateFlagValue, taskTemplateFlagName, cmd)
+		taskTemplateFlagValue := &models.TaskSpec{}
+		err, added := retrieveModelTaskSpecFlags(depth+1, taskTemplateFlagValue, taskTemplateFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.TaskTemplate = taskTemplateFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -359,12 +383,897 @@ func retrieveServiceSpecUpdateConfigFlags(depth int, m *models.ServiceSpec, cmdP
 	updateConfigFlagName := fmt.Sprintf("%v.UpdateConfig", cmdPrefix)
 	if cmd.Flags().Changed(updateConfigFlagName) {
 
-		updateConfigFlagValue := &models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, updateConfigFlagValue, updateConfigFlagName, cmd)
+		updateConfigFlagValue := &models.ServiceSpecUpdateConfig{}
+		err, added := retrieveModelServiceSpecUpdateConfigFlags(depth+1, updateConfigFlagValue, updateConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.UpdateConfig = updateConfigFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceSpecMode
+
+// register flags to command
+func registerModelServiceSpecModeFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceSpecModeGlobal(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecModeReplicated(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceSpecModeGlobal(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Global interface{} map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerServiceSpecModeReplicated(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var replicatedFlagName string
+	if cmdPrefix == "" {
+		replicatedFlagName = "Replicated"
+	} else {
+		replicatedFlagName = fmt.Sprintf("%v.Replicated", cmdPrefix)
+	}
+
+	if err := registerModelServiceSpecModeReplicatedFlags(depth+1, replicatedFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceSpecModeFlags(depth int, m *models.ServiceSpecMode, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, globalAdded := retrieveServiceSpecModeGlobalFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || globalAdded
+
+	err, replicatedAdded := retrieveServiceSpecModeReplicatedFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || replicatedAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceSpecModeGlobalFlags(depth int, m *models.ServiceSpecMode, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	globalFlagName := fmt.Sprintf("%v.Global", cmdPrefix)
+	if cmd.Flags().Changed(globalFlagName) {
+		// warning: Global map type interface{} is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecModeReplicatedFlags(depth int, m *models.ServiceSpecMode, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	replicatedFlagName := fmt.Sprintf("%v.Replicated", cmdPrefix)
+	if cmd.Flags().Changed(replicatedFlagName) {
+
+		replicatedFlagValue := &models.ServiceSpecModeReplicated{}
+		err, added := retrieveModelServiceSpecModeReplicatedFlags(depth+1, replicatedFlagValue, replicatedFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Replicated = replicatedFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceSpecModeReplicated
+
+// register flags to command
+func registerModelServiceSpecModeReplicatedFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceSpecModeReplicatedReplicas(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceSpecModeReplicatedReplicas(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	replicasDescription := ``
+
+	var replicasFlagName string
+	if cmdPrefix == "" {
+		replicasFlagName = "Replicas"
+	} else {
+		replicasFlagName = fmt.Sprintf("%v.Replicas", cmdPrefix)
+	}
+
+	var replicasFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(replicasFlagName, replicasFlagDefault, replicasDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceSpecModeReplicatedFlags(depth int, m *models.ServiceSpecModeReplicated, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, replicasAdded := retrieveServiceSpecModeReplicatedReplicasFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || replicasAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceSpecModeReplicatedReplicasFlags(depth int, m *models.ServiceSpecModeReplicated, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	replicasFlagName := fmt.Sprintf("%v.Replicas", cmdPrefix)
+	if cmd.Flags().Changed(replicasFlagName) {
+
+		var replicasFlagName string
+		if cmdPrefix == "" {
+			replicasFlagName = "Replicas"
+		} else {
+			replicasFlagName = fmt.Sprintf("%v.Replicas", cmdPrefix)
+		}
+
+		replicasFlagValue, err := cmd.Flags().GetInt64(replicasFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Replicas = replicasFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceSpecRollbackConfig
+
+// register flags to command
+func registerModelServiceSpecRollbackConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceSpecRollbackConfigDelay(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecRollbackConfigFailureAction(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecRollbackConfigMaxFailureRatio(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecRollbackConfigMonitor(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecRollbackConfigOrder(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecRollbackConfigParallelism(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceSpecRollbackConfigDelay(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	delayDescription := `Amount of time between rollback iterations, in nanoseconds.`
+
+	var delayFlagName string
+	if cmdPrefix == "" {
+		delayFlagName = "Delay"
+	} else {
+		delayFlagName = fmt.Sprintf("%v.Delay", cmdPrefix)
+	}
+
+	var delayFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(delayFlagName, delayFlagDefault, delayDescription)
+
+	return nil
+}
+
+func registerServiceSpecRollbackConfigFailureAction(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	failureActionDescription := `Action to take if an rolled back task fails to run, or stops running during the rollback.`
+
+	var failureActionFlagName string
+	if cmdPrefix == "" {
+		failureActionFlagName = "FailureAction"
+	} else {
+		failureActionFlagName = fmt.Sprintf("%v.FailureAction", cmdPrefix)
+	}
+
+	var failureActionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(failureActionFlagName, failureActionFlagDefault, failureActionDescription)
+
+	return nil
+}
+
+func registerServiceSpecRollbackConfigMaxFailureRatio(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	maxFailureRatioDescription := `The fraction of tasks that may fail during a rollback before the failure action is invoked, specified as a floating point number between 0 and 1.`
+
+	var maxFailureRatioFlagName string
+	if cmdPrefix == "" {
+		maxFailureRatioFlagName = "MaxFailureRatio"
+	} else {
+		maxFailureRatioFlagName = fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
+	}
+
+	var maxFailureRatioFlagDefault float64
+
+	_ = cmd.PersistentFlags().Float64(maxFailureRatioFlagName, maxFailureRatioFlagDefault, maxFailureRatioDescription)
+
+	return nil
+}
+
+func registerServiceSpecRollbackConfigMonitor(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	monitorDescription := `Amount of time to monitor each rolled back task for failures, in nanoseconds.`
+
+	var monitorFlagName string
+	if cmdPrefix == "" {
+		monitorFlagName = "Monitor"
+	} else {
+		monitorFlagName = fmt.Sprintf("%v.Monitor", cmdPrefix)
+	}
+
+	var monitorFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(monitorFlagName, monitorFlagDefault, monitorDescription)
+
+	return nil
+}
+
+func registerServiceSpecRollbackConfigOrder(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	orderDescription := `The order of operations when rolling back a task. Either the old task is shut down before the new task is started, or the new task is started before the old task is shut down.`
+
+	var orderFlagName string
+	if cmdPrefix == "" {
+		orderFlagName = "Order"
+	} else {
+		orderFlagName = fmt.Sprintf("%v.Order", cmdPrefix)
+	}
+
+	var orderFlagDefault string
+
+	_ = cmd.PersistentFlags().String(orderFlagName, orderFlagDefault, orderDescription)
+
+	return nil
+}
+
+func registerServiceSpecRollbackConfigParallelism(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	parallelismDescription := `Maximum number of tasks to be rolled back in one iteration (0 means unlimited parallelism).`
+
+	var parallelismFlagName string
+	if cmdPrefix == "" {
+		parallelismFlagName = "Parallelism"
+	} else {
+		parallelismFlagName = fmt.Sprintf("%v.Parallelism", cmdPrefix)
+	}
+
+	var parallelismFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(parallelismFlagName, parallelismFlagDefault, parallelismDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceSpecRollbackConfigFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, delayAdded := retrieveServiceSpecRollbackConfigDelayFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || delayAdded
+
+	err, failureActionAdded := retrieveServiceSpecRollbackConfigFailureActionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || failureActionAdded
+
+	err, maxFailureRatioAdded := retrieveServiceSpecRollbackConfigMaxFailureRatioFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || maxFailureRatioAdded
+
+	err, monitorAdded := retrieveServiceSpecRollbackConfigMonitorFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || monitorAdded
+
+	err, orderAdded := retrieveServiceSpecRollbackConfigOrderFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || orderAdded
+
+	err, parallelismAdded := retrieveServiceSpecRollbackConfigParallelismFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || parallelismAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceSpecRollbackConfigDelayFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	delayFlagName := fmt.Sprintf("%v.Delay", cmdPrefix)
+	if cmd.Flags().Changed(delayFlagName) {
+
+		var delayFlagName string
+		if cmdPrefix == "" {
+			delayFlagName = "Delay"
+		} else {
+			delayFlagName = fmt.Sprintf("%v.Delay", cmdPrefix)
+		}
+
+		delayFlagValue, err := cmd.Flags().GetInt64(delayFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Delay = delayFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecRollbackConfigFailureActionFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	failureActionFlagName := fmt.Sprintf("%v.FailureAction", cmdPrefix)
+	if cmd.Flags().Changed(failureActionFlagName) {
+
+		var failureActionFlagName string
+		if cmdPrefix == "" {
+			failureActionFlagName = "FailureAction"
+		} else {
+			failureActionFlagName = fmt.Sprintf("%v.FailureAction", cmdPrefix)
+		}
+
+		failureActionFlagValue, err := cmd.Flags().GetString(failureActionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.FailureAction = failureActionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecRollbackConfigMaxFailureRatioFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	maxFailureRatioFlagName := fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
+	if cmd.Flags().Changed(maxFailureRatioFlagName) {
+
+		var maxFailureRatioFlagName string
+		if cmdPrefix == "" {
+			maxFailureRatioFlagName = "MaxFailureRatio"
+		} else {
+			maxFailureRatioFlagName = fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
+		}
+
+		maxFailureRatioFlagValue, err := cmd.Flags().GetFloat64(maxFailureRatioFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.MaxFailureRatio = maxFailureRatioFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecRollbackConfigMonitorFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	monitorFlagName := fmt.Sprintf("%v.Monitor", cmdPrefix)
+	if cmd.Flags().Changed(monitorFlagName) {
+
+		var monitorFlagName string
+		if cmdPrefix == "" {
+			monitorFlagName = "Monitor"
+		} else {
+			monitorFlagName = fmt.Sprintf("%v.Monitor", cmdPrefix)
+		}
+
+		monitorFlagValue, err := cmd.Flags().GetInt64(monitorFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Monitor = monitorFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecRollbackConfigOrderFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	orderFlagName := fmt.Sprintf("%v.Order", cmdPrefix)
+	if cmd.Flags().Changed(orderFlagName) {
+
+		var orderFlagName string
+		if cmdPrefix == "" {
+			orderFlagName = "Order"
+		} else {
+			orderFlagName = fmt.Sprintf("%v.Order", cmdPrefix)
+		}
+
+		orderFlagValue, err := cmd.Flags().GetString(orderFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Order = orderFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecRollbackConfigParallelismFlags(depth int, m *models.ServiceSpecRollbackConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	parallelismFlagName := fmt.Sprintf("%v.Parallelism", cmdPrefix)
+	if cmd.Flags().Changed(parallelismFlagName) {
+
+		var parallelismFlagName string
+		if cmdPrefix == "" {
+			parallelismFlagName = "Parallelism"
+		} else {
+			parallelismFlagName = fmt.Sprintf("%v.Parallelism", cmdPrefix)
+		}
+
+		parallelismFlagValue, err := cmd.Flags().GetInt64(parallelismFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Parallelism = parallelismFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ServiceSpecUpdateConfig
+
+// register flags to command
+func registerModelServiceSpecUpdateConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerServiceSpecUpdateConfigDelay(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecUpdateConfigFailureAction(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecUpdateConfigMaxFailureRatio(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecUpdateConfigMonitor(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecUpdateConfigOrder(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerServiceSpecUpdateConfigParallelism(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerServiceSpecUpdateConfigDelay(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	delayDescription := `Amount of time between updates, in nanoseconds.`
+
+	var delayFlagName string
+	if cmdPrefix == "" {
+		delayFlagName = "Delay"
+	} else {
+		delayFlagName = fmt.Sprintf("%v.Delay", cmdPrefix)
+	}
+
+	var delayFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(delayFlagName, delayFlagDefault, delayDescription)
+
+	return nil
+}
+
+func registerServiceSpecUpdateConfigFailureAction(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	failureActionDescription := `Action to take if an updated task fails to run, or stops running during the update.`
+
+	var failureActionFlagName string
+	if cmdPrefix == "" {
+		failureActionFlagName = "FailureAction"
+	} else {
+		failureActionFlagName = fmt.Sprintf("%v.FailureAction", cmdPrefix)
+	}
+
+	var failureActionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(failureActionFlagName, failureActionFlagDefault, failureActionDescription)
+
+	return nil
+}
+
+func registerServiceSpecUpdateConfigMaxFailureRatio(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	maxFailureRatioDescription := `The fraction of tasks that may fail during an update before the failure action is invoked, specified as a floating point number between 0 and 1.`
+
+	var maxFailureRatioFlagName string
+	if cmdPrefix == "" {
+		maxFailureRatioFlagName = "MaxFailureRatio"
+	} else {
+		maxFailureRatioFlagName = fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
+	}
+
+	var maxFailureRatioFlagDefault float64
+
+	_ = cmd.PersistentFlags().Float64(maxFailureRatioFlagName, maxFailureRatioFlagDefault, maxFailureRatioDescription)
+
+	return nil
+}
+
+func registerServiceSpecUpdateConfigMonitor(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	monitorDescription := `Amount of time to monitor each updated task for failures, in nanoseconds.`
+
+	var monitorFlagName string
+	if cmdPrefix == "" {
+		monitorFlagName = "Monitor"
+	} else {
+		monitorFlagName = fmt.Sprintf("%v.Monitor", cmdPrefix)
+	}
+
+	var monitorFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(monitorFlagName, monitorFlagDefault, monitorDescription)
+
+	return nil
+}
+
+func registerServiceSpecUpdateConfigOrder(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	orderDescription := `The order of operations when rolling out an updated task. Either the old task is shut down before the new task is started, or the new task is started before the old task is shut down.`
+
+	var orderFlagName string
+	if cmdPrefix == "" {
+		orderFlagName = "Order"
+	} else {
+		orderFlagName = fmt.Sprintf("%v.Order", cmdPrefix)
+	}
+
+	var orderFlagDefault string
+
+	_ = cmd.PersistentFlags().String(orderFlagName, orderFlagDefault, orderDescription)
+
+	return nil
+}
+
+func registerServiceSpecUpdateConfigParallelism(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	parallelismDescription := `Maximum number of tasks to be updated in one iteration (0 means unlimited parallelism).`
+
+	var parallelismFlagName string
+	if cmdPrefix == "" {
+		parallelismFlagName = "Parallelism"
+	} else {
+		parallelismFlagName = fmt.Sprintf("%v.Parallelism", cmdPrefix)
+	}
+
+	var parallelismFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(parallelismFlagName, parallelismFlagDefault, parallelismDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelServiceSpecUpdateConfigFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, delayAdded := retrieveServiceSpecUpdateConfigDelayFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || delayAdded
+
+	err, failureActionAdded := retrieveServiceSpecUpdateConfigFailureActionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || failureActionAdded
+
+	err, maxFailureRatioAdded := retrieveServiceSpecUpdateConfigMaxFailureRatioFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || maxFailureRatioAdded
+
+	err, monitorAdded := retrieveServiceSpecUpdateConfigMonitorFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || monitorAdded
+
+	err, orderAdded := retrieveServiceSpecUpdateConfigOrderFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || orderAdded
+
+	err, parallelismAdded := retrieveServiceSpecUpdateConfigParallelismFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || parallelismAdded
+
+	return nil, retAdded
+}
+
+func retrieveServiceSpecUpdateConfigDelayFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	delayFlagName := fmt.Sprintf("%v.Delay", cmdPrefix)
+	if cmd.Flags().Changed(delayFlagName) {
+
+		var delayFlagName string
+		if cmdPrefix == "" {
+			delayFlagName = "Delay"
+		} else {
+			delayFlagName = fmt.Sprintf("%v.Delay", cmdPrefix)
+		}
+
+		delayFlagValue, err := cmd.Flags().GetInt64(delayFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Delay = delayFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecUpdateConfigFailureActionFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	failureActionFlagName := fmt.Sprintf("%v.FailureAction", cmdPrefix)
+	if cmd.Flags().Changed(failureActionFlagName) {
+
+		var failureActionFlagName string
+		if cmdPrefix == "" {
+			failureActionFlagName = "FailureAction"
+		} else {
+			failureActionFlagName = fmt.Sprintf("%v.FailureAction", cmdPrefix)
+		}
+
+		failureActionFlagValue, err := cmd.Flags().GetString(failureActionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.FailureAction = failureActionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecUpdateConfigMaxFailureRatioFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	maxFailureRatioFlagName := fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
+	if cmd.Flags().Changed(maxFailureRatioFlagName) {
+
+		var maxFailureRatioFlagName string
+		if cmdPrefix == "" {
+			maxFailureRatioFlagName = "MaxFailureRatio"
+		} else {
+			maxFailureRatioFlagName = fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
+		}
+
+		maxFailureRatioFlagValue, err := cmd.Flags().GetFloat64(maxFailureRatioFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.MaxFailureRatio = maxFailureRatioFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecUpdateConfigMonitorFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	monitorFlagName := fmt.Sprintf("%v.Monitor", cmdPrefix)
+	if cmd.Flags().Changed(monitorFlagName) {
+
+		var monitorFlagName string
+		if cmdPrefix == "" {
+			monitorFlagName = "Monitor"
+		} else {
+			monitorFlagName = fmt.Sprintf("%v.Monitor", cmdPrefix)
+		}
+
+		monitorFlagValue, err := cmd.Flags().GetInt64(monitorFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Monitor = monitorFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecUpdateConfigOrderFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	orderFlagName := fmt.Sprintf("%v.Order", cmdPrefix)
+	if cmd.Flags().Changed(orderFlagName) {
+
+		var orderFlagName string
+		if cmdPrefix == "" {
+			orderFlagName = "Order"
+		} else {
+			orderFlagName = fmt.Sprintf("%v.Order", cmdPrefix)
+		}
+
+		orderFlagValue, err := cmd.Flags().GetString(orderFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Order = orderFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveServiceSpecUpdateConfigParallelismFlags(depth int, m *models.ServiceSpecUpdateConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	parallelismFlagName := fmt.Sprintf("%v.Parallelism", cmdPrefix)
+	if cmd.Flags().Changed(parallelismFlagName) {
+
+		var parallelismFlagName string
+		if cmdPrefix == "" {
+			parallelismFlagName = "Parallelism"
+		} else {
+			parallelismFlagName = fmt.Sprintf("%v.Parallelism", cmdPrefix)
+		}
+
+		parallelismFlagValue, err := cmd.Flags().GetInt64(parallelismFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Parallelism = parallelismFlagValue
+
+		retAdded = true
 	}
 	return nil, retAdded
 }

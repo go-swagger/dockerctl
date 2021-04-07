@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/exec"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -403,7 +404,9 @@ func registerExecInspectOKBodyProcessConfig(depth int, cmdPrefix string, cmd *co
 		processConfigFlagName = fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
 	}
 
-	registerModelExecInspectOKBodyFlags(depth+1, processConfigFlagName, cmd)
+	if err := registerModelProcessConfigFlags(depth+1, processConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -744,12 +747,15 @@ func retrieveExecInspectOKBodyProcessConfigFlags(depth int, m *exec.ExecInspectO
 	processConfigFlagName := fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
 	if cmd.Flags().Changed(processConfigFlagName) {
 
-		processConfigFlagValue := &exec.ExecInspectOKBody{}
-		err, added := retrieveModelExecInspectOKBodyFlags(depth+1, processConfigFlagValue, processConfigFlagName, cmd)
+		processConfigFlagValue := &models.ProcessConfig{}
+		err, added := retrieveModelProcessConfigFlags(depth+1, processConfigFlagValue, processConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ProcessConfig = processConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }

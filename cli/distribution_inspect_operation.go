@@ -393,7 +393,9 @@ func registerDistributionInspectOKBodyDescriptor(depth int, cmdPrefix string, cm
 		descriptorFlagName = fmt.Sprintf("%v.Descriptor", cmdPrefix)
 	}
 
-	registerModelDistributionInspectOKBodyFlags(depth+1, descriptorFlagName, cmd)
+	if err := registerModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, descriptorFlagName, cmd); err != nil {
+		return err
+	}
 
 	if err := cmd.MarkPersistentFlagRequired(descriptorFlagName); err != nil {
 		return err
@@ -438,12 +440,15 @@ func retrieveDistributionInspectOKBodyDescriptorFlags(depth int, m *distribution
 	descriptorFlagName := fmt.Sprintf("%v.Descriptor", cmdPrefix)
 	if cmd.Flags().Changed(descriptorFlagName) {
 
-		descriptorFlagValue := &distribution.DistributionInspectOKBody{}
-		err, added := retrieveModelDistributionInspectOKBodyFlags(depth+1, descriptorFlagValue, descriptorFlagName, cmd)
+		descriptorFlagValue := &distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
+		err, added := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, descriptorFlagValue, descriptorFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Descriptor = descriptorFlagValue
+		}
 	}
 	return nil, retAdded
 }

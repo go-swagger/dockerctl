@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for IndexInfo
+
 // register flags to command
 func registerModelIndexInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

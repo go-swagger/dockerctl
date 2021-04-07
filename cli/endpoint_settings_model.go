@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for EndpointSettings
+
 // register flags to command
 func registerModelEndpointSettingsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -188,7 +190,9 @@ func registerEndpointSettingsIPAMConfig(depth int, cmdPrefix string, cmd *cobra.
 		ipAMConfigFlagName = fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
 	}
 
-	registerModelEndpointSettingsFlags(depth+1, ipAMConfigFlagName, cmd)
+	if err := registerModelEndpointIPAMConfigFlags(depth+1, ipAMConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -533,12 +537,15 @@ func retrieveEndpointSettingsIPAMConfigFlags(depth int, m *models.EndpointSettin
 	ipAMConfigFlagName := fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
 	if cmd.Flags().Changed(ipAMConfigFlagName) {
 
-		ipAMConfigFlagValue := &models.EndpointSettings{}
-		err, added := retrieveModelEndpointSettingsFlags(depth+1, ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
+		ipAMConfigFlagValue := &models.EndpointIPAMConfig{}
+		err, added := retrieveModelEndpointIPAMConfigFlags(depth+1, ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.IPAMConfig = ipAMConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }

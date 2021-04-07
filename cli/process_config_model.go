@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ProcessConfig
+
 // register flags to command
 func registerModelProcessConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

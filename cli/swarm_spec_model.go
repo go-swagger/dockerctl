@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for SwarmSpec
+
 // register flags to command
 func registerModelSwarmSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -62,7 +64,9 @@ func registerSwarmSpecCAConfig(depth int, cmdPrefix string, cmd *cobra.Command) 
 		cAConfigFlagName = fmt.Sprintf("%v.CAConfig", cmdPrefix)
 	}
 
-	registerModelSwarmSpecFlags(depth+1, cAConfigFlagName, cmd)
+	if err := registerModelSwarmSpecCAConfigFlags(depth+1, cAConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -79,7 +83,9 @@ func registerSwarmSpecDispatcher(depth int, cmdPrefix string, cmd *cobra.Command
 		dispatcherFlagName = fmt.Sprintf("%v.Dispatcher", cmdPrefix)
 	}
 
-	registerModelSwarmSpecFlags(depth+1, dispatcherFlagName, cmd)
+	if err := registerModelSwarmSpecDispatcherFlags(depth+1, dispatcherFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -96,7 +102,9 @@ func registerSwarmSpecEncryptionConfig(depth int, cmdPrefix string, cmd *cobra.C
 		encryptionConfigFlagName = fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
 	}
 
-	registerModelSwarmSpecFlags(depth+1, encryptionConfigFlagName, cmd)
+	if err := registerModelSwarmSpecEncryptionConfigFlags(depth+1, encryptionConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -143,7 +151,9 @@ func registerSwarmSpecOrchestration(depth int, cmdPrefix string, cmd *cobra.Comm
 		orchestrationFlagName = fmt.Sprintf("%v.Orchestration", cmdPrefix)
 	}
 
-	registerModelSwarmSpecFlags(depth+1, orchestrationFlagName, cmd)
+	if err := registerModelSwarmSpecOrchestrationFlags(depth+1, orchestrationFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -160,7 +170,9 @@ func registerSwarmSpecRaft(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		raftFlagName = fmt.Sprintf("%v.Raft", cmdPrefix)
 	}
 
-	registerModelSwarmSpecFlags(depth+1, raftFlagName, cmd)
+	if err := registerModelSwarmSpecRaftFlags(depth+1, raftFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -177,7 +189,9 @@ func registerSwarmSpecTaskDefaults(depth int, cmdPrefix string, cmd *cobra.Comma
 		taskDefaultsFlagName = fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
 	}
 
-	registerModelSwarmSpecFlags(depth+1, taskDefaultsFlagName, cmd)
+	if err := registerModelSwarmSpecTaskDefaultsFlags(depth+1, taskDefaultsFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -245,12 +259,15 @@ func retrieveSwarmSpecCAConfigFlags(depth int, m *models.SwarmSpec, cmdPrefix st
 	cAConfigFlagName := fmt.Sprintf("%v.CAConfig", cmdPrefix)
 	if cmd.Flags().Changed(cAConfigFlagName) {
 
-		cAConfigFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, cAConfigFlagValue, cAConfigFlagName, cmd)
+		cAConfigFlagValue := &models.SwarmSpecCAConfig{}
+		err, added := retrieveModelSwarmSpecCAConfigFlags(depth+1, cAConfigFlagValue, cAConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.CAConfig = cAConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -263,12 +280,15 @@ func retrieveSwarmSpecDispatcherFlags(depth int, m *models.SwarmSpec, cmdPrefix 
 	dispatcherFlagName := fmt.Sprintf("%v.Dispatcher", cmdPrefix)
 	if cmd.Flags().Changed(dispatcherFlagName) {
 
-		dispatcherFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, dispatcherFlagValue, dispatcherFlagName, cmd)
+		dispatcherFlagValue := &models.SwarmSpecDispatcher{}
+		err, added := retrieveModelSwarmSpecDispatcherFlags(depth+1, dispatcherFlagValue, dispatcherFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Dispatcher = dispatcherFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -281,12 +301,15 @@ func retrieveSwarmSpecEncryptionConfigFlags(depth int, m *models.SwarmSpec, cmdP
 	encryptionConfigFlagName := fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
 	if cmd.Flags().Changed(encryptionConfigFlagName) {
 
-		encryptionConfigFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
+		encryptionConfigFlagValue := &models.SwarmSpecEncryptionConfig{}
+		err, added := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.EncryptionConfig = encryptionConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -337,12 +360,15 @@ func retrieveSwarmSpecOrchestrationFlags(depth int, m *models.SwarmSpec, cmdPref
 	orchestrationFlagName := fmt.Sprintf("%v.Orchestration", cmdPrefix)
 	if cmd.Flags().Changed(orchestrationFlagName) {
 
-		orchestrationFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, orchestrationFlagValue, orchestrationFlagName, cmd)
+		orchestrationFlagValue := &models.SwarmSpecOrchestration{}
+		err, added := retrieveModelSwarmSpecOrchestrationFlags(depth+1, orchestrationFlagValue, orchestrationFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Orchestration = orchestrationFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -355,12 +381,15 @@ func retrieveSwarmSpecRaftFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 	raftFlagName := fmt.Sprintf("%v.Raft", cmdPrefix)
 	if cmd.Flags().Changed(raftFlagName) {
 
-		raftFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, raftFlagValue, raftFlagName, cmd)
+		raftFlagValue := &models.SwarmSpecRaft{}
+		err, added := retrieveModelSwarmSpecRaftFlags(depth+1, raftFlagValue, raftFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Raft = raftFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -373,12 +402,1109 @@ func retrieveSwarmSpecTaskDefaultsFlags(depth int, m *models.SwarmSpec, cmdPrefi
 	taskDefaultsFlagName := fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
 	if cmd.Flags().Changed(taskDefaultsFlagName) {
 
-		taskDefaultsFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
+		taskDefaultsFlagValue := &models.SwarmSpecTaskDefaults{}
+		err, added := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.TaskDefaults = taskDefaultsFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecCAConfig
+
+// register flags to command
+func registerModelSwarmSpecCAConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecCAConfigExternalCAs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigForceRotate(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigNodeCertExpiry(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigSigningCACert(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigSigningCAKey(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigExternalCAs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: ExternalCAs []*SwarmSpecCAConfigExternalCAsItems0 array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigForceRotate(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive ForceRotate uint64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigNodeCertExpiry(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nodeCertExpiryDescription := `The duration node certificates are issued for.`
+
+	var nodeCertExpiryFlagName string
+	if cmdPrefix == "" {
+		nodeCertExpiryFlagName = "NodeCertExpiry"
+	} else {
+		nodeCertExpiryFlagName = fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
+	}
+
+	var nodeCertExpiryFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(nodeCertExpiryFlagName, nodeCertExpiryFlagDefault, nodeCertExpiryDescription)
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigSigningCACert(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	signingCACertDescription := `The desired signing CA certificate for all swarm node TLS leaf certificates, in PEM format.`
+
+	var signingCACertFlagName string
+	if cmdPrefix == "" {
+		signingCACertFlagName = "SigningCACert"
+	} else {
+		signingCACertFlagName = fmt.Sprintf("%v.SigningCACert", cmdPrefix)
+	}
+
+	var signingCACertFlagDefault string
+
+	_ = cmd.PersistentFlags().String(signingCACertFlagName, signingCACertFlagDefault, signingCACertDescription)
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigSigningCAKey(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	signingCAKeyDescription := `The desired signing CA key for all swarm node TLS leaf certificates, in PEM format.`
+
+	var signingCAKeyFlagName string
+	if cmdPrefix == "" {
+		signingCAKeyFlagName = "SigningCAKey"
+	} else {
+		signingCAKeyFlagName = fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
+	}
+
+	var signingCAKeyFlagDefault string
+
+	_ = cmd.PersistentFlags().String(signingCAKeyFlagName, signingCAKeyFlagDefault, signingCAKeyDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecCAConfigFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, externalCAsAdded := retrieveSwarmSpecCAConfigExternalCAsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || externalCAsAdded
+
+	err, forceRotateAdded := retrieveSwarmSpecCAConfigForceRotateFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || forceRotateAdded
+
+	err, nodeCertExpiryAdded := retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nodeCertExpiryAdded
+
+	err, signingCACertAdded := retrieveSwarmSpecCAConfigSigningCACertFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || signingCACertAdded
+
+	err, signingCAKeyAdded := retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || signingCAKeyAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigExternalCAsFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	externalCAsFlagName := fmt.Sprintf("%v.ExternalCAs", cmdPrefix)
+	if cmd.Flags().Changed(externalCAsFlagName) {
+		// warning: ExternalCAs array type []*SwarmSpecCAConfigExternalCAsItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigForceRotateFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	forceRotateFlagName := fmt.Sprintf("%v.ForceRotate", cmdPrefix)
+	if cmd.Flags().Changed(forceRotateFlagName) {
+
+		// warning: primitive ForceRotate uint64 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nodeCertExpiryFlagName := fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
+	if cmd.Flags().Changed(nodeCertExpiryFlagName) {
+
+		var nodeCertExpiryFlagName string
+		if cmdPrefix == "" {
+			nodeCertExpiryFlagName = "NodeCertExpiry"
+		} else {
+			nodeCertExpiryFlagName = fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
+		}
+
+		nodeCertExpiryFlagValue, err := cmd.Flags().GetInt64(nodeCertExpiryFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.NodeCertExpiry = nodeCertExpiryFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigSigningCACertFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	signingCACertFlagName := fmt.Sprintf("%v.SigningCACert", cmdPrefix)
+	if cmd.Flags().Changed(signingCACertFlagName) {
+
+		var signingCACertFlagName string
+		if cmdPrefix == "" {
+			signingCACertFlagName = "SigningCACert"
+		} else {
+			signingCACertFlagName = fmt.Sprintf("%v.SigningCACert", cmdPrefix)
+		}
+
+		signingCACertFlagValue, err := cmd.Flags().GetString(signingCACertFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SigningCACert = signingCACertFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	signingCAKeyFlagName := fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
+	if cmd.Flags().Changed(signingCAKeyFlagName) {
+
+		var signingCAKeyFlagName string
+		if cmdPrefix == "" {
+			signingCAKeyFlagName = "SigningCAKey"
+		} else {
+			signingCAKeyFlagName = fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
+		}
+
+		signingCAKeyFlagValue, err := cmd.Flags().GetString(signingCAKeyFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SigningCAKey = signingCAKeyFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecCAConfigExternalCAsItems0
+
+// register flags to command
+func registerModelSwarmSpecCAConfigExternalCAsItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecCAConfigExternalCAsItems0CACert(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigExternalCAsItems0Options(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigExternalCAsItems0Protocol(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecCAConfigExternalCAsItems0URL(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigExternalCAsItems0CACert(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	cACertDescription := `The root CA certificate (in PEM format) this external CA uses to issue TLS certificates (assumed to be to the current swarm root CA certificate if not provided).`
+
+	var cACertFlagName string
+	if cmdPrefix == "" {
+		cACertFlagName = "CACert"
+	} else {
+		cACertFlagName = fmt.Sprintf("%v.CACert", cmdPrefix)
+	}
+
+	var cACertFlagDefault string
+
+	_ = cmd.PersistentFlags().String(cACertFlagName, cACertFlagDefault, cACertDescription)
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigExternalCAsItems0Options(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Options map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigExternalCAsItems0Protocol(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	protocolDescription := `Protocol for communication with the external CA (currently only ` + "`" + `cfssl` + "`" + ` is supported).`
+
+	var protocolFlagName string
+	if cmdPrefix == "" {
+		protocolFlagName = "Protocol"
+	} else {
+		protocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
+	}
+
+	var protocolFlagDefault string = "cfssl"
+
+	_ = cmd.PersistentFlags().String(protocolFlagName, protocolFlagDefault, protocolDescription)
+
+	return nil
+}
+
+func registerSwarmSpecCAConfigExternalCAsItems0URL(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	urlDescription := `URL where certificate signing requests should be sent.`
+
+	var urlFlagName string
+	if cmdPrefix == "" {
+		urlFlagName = "URL"
+	} else {
+		urlFlagName = fmt.Sprintf("%v.URL", cmdPrefix)
+	}
+
+	var urlFlagDefault string
+
+	_ = cmd.PersistentFlags().String(urlFlagName, urlFlagDefault, urlDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecCAConfigExternalCAsItems0Flags(depth int, m *models.SwarmSpecCAConfigExternalCAsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, cACertAdded := retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || cACertAdded
+
+	err, optionsAdded := retrieveSwarmSpecCAConfigExternalCAsItems0OptionsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || optionsAdded
+
+	err, protocolAdded := retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || protocolAdded
+
+	err, urlAdded := retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || urlAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth int, m *models.SwarmSpecCAConfigExternalCAsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	cACertFlagName := fmt.Sprintf("%v.CACert", cmdPrefix)
+	if cmd.Flags().Changed(cACertFlagName) {
+
+		var cACertFlagName string
+		if cmdPrefix == "" {
+			cACertFlagName = "CACert"
+		} else {
+			cACertFlagName = fmt.Sprintf("%v.CACert", cmdPrefix)
+		}
+
+		cACertFlagValue, err := cmd.Flags().GetString(cACertFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.CACert = cACertFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigExternalCAsItems0OptionsFlags(depth int, m *models.SwarmSpecCAConfigExternalCAsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(optionsFlagName) {
+		// warning: Options map type map[string]string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth int, m *models.SwarmSpecCAConfigExternalCAsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	protocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
+	if cmd.Flags().Changed(protocolFlagName) {
+
+		var protocolFlagName string
+		if cmdPrefix == "" {
+			protocolFlagName = "Protocol"
+		} else {
+			protocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
+		}
+
+		protocolFlagValue, err := cmd.Flags().GetString(protocolFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Protocol = &protocolFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth int, m *models.SwarmSpecCAConfigExternalCAsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	urlFlagName := fmt.Sprintf("%v.URL", cmdPrefix)
+	if cmd.Flags().Changed(urlFlagName) {
+
+		var urlFlagName string
+		if cmdPrefix == "" {
+			urlFlagName = "URL"
+		} else {
+			urlFlagName = fmt.Sprintf("%v.URL", cmdPrefix)
+		}
+
+		urlFlagValue, err := cmd.Flags().GetString(urlFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.URL = urlFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecDispatcher
+
+// register flags to command
+func registerModelSwarmSpecDispatcherFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecDispatcherHeartbeatPeriod(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecDispatcherHeartbeatPeriod(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	heartbeatPeriodDescription := `The delay for an agent to send a heartbeat to the dispatcher.`
+
+	var heartbeatPeriodFlagName string
+	if cmdPrefix == "" {
+		heartbeatPeriodFlagName = "HeartbeatPeriod"
+	} else {
+		heartbeatPeriodFlagName = fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
+	}
+
+	var heartbeatPeriodFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(heartbeatPeriodFlagName, heartbeatPeriodFlagDefault, heartbeatPeriodDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecDispatcherFlags(depth int, m *models.SwarmSpecDispatcher, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, heartbeatPeriodAdded := retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || heartbeatPeriodAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth int, m *models.SwarmSpecDispatcher, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	heartbeatPeriodFlagName := fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
+	if cmd.Flags().Changed(heartbeatPeriodFlagName) {
+
+		var heartbeatPeriodFlagName string
+		if cmdPrefix == "" {
+			heartbeatPeriodFlagName = "HeartbeatPeriod"
+		} else {
+			heartbeatPeriodFlagName = fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
+		}
+
+		heartbeatPeriodFlagValue, err := cmd.Flags().GetInt64(heartbeatPeriodFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.HeartbeatPeriod = heartbeatPeriodFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecEncryptionConfig
+
+// register flags to command
+func registerModelSwarmSpecEncryptionConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecEncryptionConfigAutoLockManagers(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecEncryptionConfigAutoLockManagers(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	autoLockManagersDescription := `If set, generate a key and use it to lock data stored on the managers.`
+
+	var autoLockManagersFlagName string
+	if cmdPrefix == "" {
+		autoLockManagersFlagName = "AutoLockManagers"
+	} else {
+		autoLockManagersFlagName = fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
+	}
+
+	var autoLockManagersFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(autoLockManagersFlagName, autoLockManagersFlagDefault, autoLockManagersDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecEncryptionConfigFlags(depth int, m *models.SwarmSpecEncryptionConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, autoLockManagersAdded := retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || autoLockManagersAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth int, m *models.SwarmSpecEncryptionConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	autoLockManagersFlagName := fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
+	if cmd.Flags().Changed(autoLockManagersFlagName) {
+
+		var autoLockManagersFlagName string
+		if cmdPrefix == "" {
+			autoLockManagersFlagName = "AutoLockManagers"
+		} else {
+			autoLockManagersFlagName = fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
+		}
+
+		autoLockManagersFlagValue, err := cmd.Flags().GetBool(autoLockManagersFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.AutoLockManagers = autoLockManagersFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecOrchestration
+
+// register flags to command
+func registerModelSwarmSpecOrchestrationFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecOrchestrationTaskHistoryRetentionLimit(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecOrchestrationTaskHistoryRetentionLimit(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	taskHistoryRetentionLimitDescription := `The number of historic tasks to keep per instance or node. If negative, never remove completed or failed tasks.`
+
+	var taskHistoryRetentionLimitFlagName string
+	if cmdPrefix == "" {
+		taskHistoryRetentionLimitFlagName = "TaskHistoryRetentionLimit"
+	} else {
+		taskHistoryRetentionLimitFlagName = fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
+	}
+
+	var taskHistoryRetentionLimitFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(taskHistoryRetentionLimitFlagName, taskHistoryRetentionLimitFlagDefault, taskHistoryRetentionLimitDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecOrchestrationFlags(depth int, m *models.SwarmSpecOrchestration, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, taskHistoryRetentionLimitAdded := retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || taskHistoryRetentionLimitAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth int, m *models.SwarmSpecOrchestration, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	taskHistoryRetentionLimitFlagName := fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
+	if cmd.Flags().Changed(taskHistoryRetentionLimitFlagName) {
+
+		var taskHistoryRetentionLimitFlagName string
+		if cmdPrefix == "" {
+			taskHistoryRetentionLimitFlagName = "TaskHistoryRetentionLimit"
+		} else {
+			taskHistoryRetentionLimitFlagName = fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
+		}
+
+		taskHistoryRetentionLimitFlagValue, err := cmd.Flags().GetInt64(taskHistoryRetentionLimitFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.TaskHistoryRetentionLimit = taskHistoryRetentionLimitFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecRaft
+
+// register flags to command
+func registerModelSwarmSpecRaftFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecRaftElectionTick(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecRaftHeartbeatTick(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecRaftKeepOldSnapshots(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecRaftLogEntriesForSlowFollowers(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecRaftSnapshotInterval(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecRaftElectionTick(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	electionTickDescription := `The number of ticks that a follower will wait for a message from the leader before becoming a candidate and starting an election. ` + "`" + `ElectionTick` + "`" + ` must be greater than ` + "`" + `HeartbeatTick` + "`" + `.
+
+A tick currently defaults to one second, so these translate directly to seconds currently, but this is NOT guaranteed.
+`
+
+	var electionTickFlagName string
+	if cmdPrefix == "" {
+		electionTickFlagName = "ElectionTick"
+	} else {
+		electionTickFlagName = fmt.Sprintf("%v.ElectionTick", cmdPrefix)
+	}
+
+	var electionTickFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(electionTickFlagName, electionTickFlagDefault, electionTickDescription)
+
+	return nil
+}
+
+func registerSwarmSpecRaftHeartbeatTick(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	heartbeatTickDescription := `The number of ticks between heartbeats. Every HeartbeatTick ticks, the leader will send a heartbeat to the followers.
+
+A tick currently defaults to one second, so these translate directly to seconds currently, but this is NOT guaranteed.
+`
+
+	var heartbeatTickFlagName string
+	if cmdPrefix == "" {
+		heartbeatTickFlagName = "HeartbeatTick"
+	} else {
+		heartbeatTickFlagName = fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
+	}
+
+	var heartbeatTickFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(heartbeatTickFlagName, heartbeatTickFlagDefault, heartbeatTickDescription)
+
+	return nil
+}
+
+func registerSwarmSpecRaftKeepOldSnapshots(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive KeepOldSnapshots uint64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerSwarmSpecRaftLogEntriesForSlowFollowers(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive LogEntriesForSlowFollowers uint64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerSwarmSpecRaftSnapshotInterval(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive SnapshotInterval uint64 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecRaftFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, electionTickAdded := retrieveSwarmSpecRaftElectionTickFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || electionTickAdded
+
+	err, heartbeatTickAdded := retrieveSwarmSpecRaftHeartbeatTickFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || heartbeatTickAdded
+
+	err, keepOldSnapshotsAdded := retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || keepOldSnapshotsAdded
+
+	err, logEntriesForSlowFollowersAdded := retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || logEntriesForSlowFollowersAdded
+
+	err, snapshotIntervalAdded := retrieveSwarmSpecRaftSnapshotIntervalFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || snapshotIntervalAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecRaftElectionTickFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	electionTickFlagName := fmt.Sprintf("%v.ElectionTick", cmdPrefix)
+	if cmd.Flags().Changed(electionTickFlagName) {
+
+		var electionTickFlagName string
+		if cmdPrefix == "" {
+			electionTickFlagName = "ElectionTick"
+		} else {
+			electionTickFlagName = fmt.Sprintf("%v.ElectionTick", cmdPrefix)
+		}
+
+		electionTickFlagValue, err := cmd.Flags().GetInt64(electionTickFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ElectionTick = electionTickFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecRaftHeartbeatTickFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	heartbeatTickFlagName := fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
+	if cmd.Flags().Changed(heartbeatTickFlagName) {
+
+		var heartbeatTickFlagName string
+		if cmdPrefix == "" {
+			heartbeatTickFlagName = "HeartbeatTick"
+		} else {
+			heartbeatTickFlagName = fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
+		}
+
+		heartbeatTickFlagValue, err := cmd.Flags().GetInt64(heartbeatTickFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.HeartbeatTick = heartbeatTickFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	keepOldSnapshotsFlagName := fmt.Sprintf("%v.KeepOldSnapshots", cmdPrefix)
+	if cmd.Flags().Changed(keepOldSnapshotsFlagName) {
+
+		// warning: primitive KeepOldSnapshots uint64 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	logEntriesForSlowFollowersFlagName := fmt.Sprintf("%v.LogEntriesForSlowFollowers", cmdPrefix)
+	if cmd.Flags().Changed(logEntriesForSlowFollowersFlagName) {
+
+		// warning: primitive LogEntriesForSlowFollowers uint64 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecRaftSnapshotIntervalFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	snapshotIntervalFlagName := fmt.Sprintf("%v.SnapshotInterval", cmdPrefix)
+	if cmd.Flags().Changed(snapshotIntervalFlagName) {
+
+		// warning: primitive SnapshotInterval uint64 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecTaskDefaults
+
+// register flags to command
+func registerModelSwarmSpecTaskDefaultsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecTaskDefaultsLogDriver(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecTaskDefaultsLogDriver(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var logDriverFlagName string
+	if cmdPrefix == "" {
+		logDriverFlagName = "LogDriver"
+	} else {
+		logDriverFlagName = fmt.Sprintf("%v.LogDriver", cmdPrefix)
+	}
+
+	if err := registerModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, logDriverFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecTaskDefaultsFlags(depth int, m *models.SwarmSpecTaskDefaults, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, logDriverAdded := retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || logDriverAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth int, m *models.SwarmSpecTaskDefaults, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	logDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
+	if cmd.Flags().Changed(logDriverFlagName) {
+
+		logDriverFlagValue := &models.SwarmSpecTaskDefaultsLogDriver{}
+		err, added := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.LogDriver = logDriverFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for SwarmSpecTaskDefaultsLogDriver
+
+// register flags to command
+func registerModelSwarmSpecTaskDefaultsLogDriverFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerSwarmSpecTaskDefaultsLogDriverName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerSwarmSpecTaskDefaultsLogDriverOptions(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerSwarmSpecTaskDefaultsLogDriverName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `The log driver to use as a default for new tasks.
+`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerSwarmSpecTaskDefaultsLogDriverOptions(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Options map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth int, m *models.SwarmSpecTaskDefaultsLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, nameAdded := retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, optionsAdded := retrieveSwarmSpecTaskDefaultsLogDriverOptionsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || optionsAdded
+
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth int, m *models.SwarmSpecTaskDefaultsLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveSwarmSpecTaskDefaultsLogDriverOptionsFlags(depth int, m *models.SwarmSpecTaskDefaultsLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(optionsFlagName) {
+		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 	return nil, retAdded
 }

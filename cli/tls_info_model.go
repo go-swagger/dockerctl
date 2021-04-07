@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for TLSInfo
+
 // register flags to command
 func registerModelTLSInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

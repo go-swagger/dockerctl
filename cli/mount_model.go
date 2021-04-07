@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Mount
+
 // register flags to command
 func registerModelMountFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -62,7 +64,9 @@ func registerMountBindOptions(depth int, cmdPrefix string, cmd *cobra.Command) e
 		bindOptionsFlagName = fmt.Sprintf("%v.BindOptions", cmdPrefix)
 	}
 
-	registerModelMountFlags(depth+1, bindOptionsFlagName, cmd)
+	if err := registerModelMountBindOptionsFlags(depth+1, bindOptionsFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -163,7 +167,9 @@ func registerMountTmpfsOptions(depth int, cmdPrefix string, cmd *cobra.Command) 
 		tmpfsOptionsFlagName = fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
 	}
 
-	registerModelMountFlags(depth+1, tmpfsOptionsFlagName, cmd)
+	if err := registerModelMountTmpfsOptionsFlags(depth+1, tmpfsOptionsFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -207,7 +213,9 @@ func registerMountVolumeOptions(depth int, cmdPrefix string, cmd *cobra.Command)
 		volumeOptionsFlagName = fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
 	}
 
-	registerModelMountFlags(depth+1, volumeOptionsFlagName, cmd)
+	if err := registerModelMountVolumeOptionsFlags(depth+1, volumeOptionsFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -275,12 +283,15 @@ func retrieveMountBindOptionsFlags(depth int, m *models.Mount, cmdPrefix string,
 	bindOptionsFlagName := fmt.Sprintf("%v.BindOptions", cmdPrefix)
 	if cmd.Flags().Changed(bindOptionsFlagName) {
 
-		bindOptionsFlagValue := &models.Mount{}
-		err, added := retrieveModelMountFlags(depth+1, bindOptionsFlagValue, bindOptionsFlagName, cmd)
+		bindOptionsFlagValue := &models.MountBindOptions{}
+		err, added := retrieveModelMountBindOptionsFlags(depth+1, bindOptionsFlagValue, bindOptionsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.BindOptions = bindOptionsFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -397,12 +408,15 @@ func retrieveMountTmpfsOptionsFlags(depth int, m *models.Mount, cmdPrefix string
 	tmpfsOptionsFlagName := fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
 	if cmd.Flags().Changed(tmpfsOptionsFlagName) {
 
-		tmpfsOptionsFlagValue := &models.Mount{}
-		err, added := retrieveModelMountFlags(depth+1, tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
+		tmpfsOptionsFlagValue := &models.MountTmpfsOptions{}
+		err, added := retrieveModelMountTmpfsOptionsFlags(depth+1, tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.TmpfsOptions = tmpfsOptionsFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -441,12 +455,529 @@ func retrieveMountVolumeOptionsFlags(depth int, m *models.Mount, cmdPrefix strin
 	volumeOptionsFlagName := fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
 	if cmd.Flags().Changed(volumeOptionsFlagName) {
 
-		volumeOptionsFlagValue := &models.Mount{}
-		err, added := retrieveModelMountFlags(depth+1, volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
+		volumeOptionsFlagValue := &models.MountVolumeOptions{}
+		err, added := retrieveModelMountVolumeOptionsFlags(depth+1, volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.VolumeOptions = volumeOptionsFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for MountBindOptions
+
+// register flags to command
+func registerModelMountBindOptionsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerMountBindOptionsNonRecursive(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerMountBindOptionsPropagation(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerMountBindOptionsNonRecursive(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nonRecursiveDescription := `Disable recursive bind mount.`
+
+	var nonRecursiveFlagName string
+	if cmdPrefix == "" {
+		nonRecursiveFlagName = "NonRecursive"
+	} else {
+		nonRecursiveFlagName = fmt.Sprintf("%v.NonRecursive", cmdPrefix)
+	}
+
+	var nonRecursiveFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(nonRecursiveFlagName, nonRecursiveFlagDefault, nonRecursiveDescription)
+
+	return nil
+}
+
+func registerMountBindOptionsPropagation(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	propagationDescription := `A propagation mode with the value ` + "`" + `[r]private` + "`" + `, ` + "`" + `[r]shared` + "`" + `, or ` + "`" + `[r]slave` + "`" + `.`
+
+	var propagationFlagName string
+	if cmdPrefix == "" {
+		propagationFlagName = "Propagation"
+	} else {
+		propagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
+	}
+
+	var propagationFlagDefault string
+
+	_ = cmd.PersistentFlags().String(propagationFlagName, propagationFlagDefault, propagationDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelMountBindOptionsFlags(depth int, m *models.MountBindOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, nonRecursiveAdded := retrieveMountBindOptionsNonRecursiveFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nonRecursiveAdded
+
+	err, propagationAdded := retrieveMountBindOptionsPropagationFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || propagationAdded
+
+	return nil, retAdded
+}
+
+func retrieveMountBindOptionsNonRecursiveFlags(depth int, m *models.MountBindOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nonRecursiveFlagName := fmt.Sprintf("%v.NonRecursive", cmdPrefix)
+	if cmd.Flags().Changed(nonRecursiveFlagName) {
+
+		var nonRecursiveFlagName string
+		if cmdPrefix == "" {
+			nonRecursiveFlagName = "NonRecursive"
+		} else {
+			nonRecursiveFlagName = fmt.Sprintf("%v.NonRecursive", cmdPrefix)
+		}
+
+		nonRecursiveFlagValue, err := cmd.Flags().GetBool(nonRecursiveFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.NonRecursive = &nonRecursiveFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveMountBindOptionsPropagationFlags(depth int, m *models.MountBindOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	propagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
+	if cmd.Flags().Changed(propagationFlagName) {
+
+		var propagationFlagName string
+		if cmdPrefix == "" {
+			propagationFlagName = "Propagation"
+		} else {
+			propagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
+		}
+
+		propagationFlagValue, err := cmd.Flags().GetString(propagationFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Propagation = propagationFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for MountTmpfsOptions
+
+// register flags to command
+func registerModelMountTmpfsOptionsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerMountTmpfsOptionsMode(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerMountTmpfsOptionsSizeBytes(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerMountTmpfsOptionsMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	modeDescription := `The permission mode for the tmpfs mount in an integer.`
+
+	var modeFlagName string
+	if cmdPrefix == "" {
+		modeFlagName = "Mode"
+	} else {
+		modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+	}
+
+	var modeFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(modeFlagName, modeFlagDefault, modeDescription)
+
+	return nil
+}
+
+func registerMountTmpfsOptionsSizeBytes(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	sizeBytesDescription := `The size for the tmpfs mount in bytes.`
+
+	var sizeBytesFlagName string
+	if cmdPrefix == "" {
+		sizeBytesFlagName = "SizeBytes"
+	} else {
+		sizeBytesFlagName = fmt.Sprintf("%v.SizeBytes", cmdPrefix)
+	}
+
+	var sizeBytesFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(sizeBytesFlagName, sizeBytesFlagDefault, sizeBytesDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelMountTmpfsOptionsFlags(depth int, m *models.MountTmpfsOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, modeAdded := retrieveMountTmpfsOptionsModeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || modeAdded
+
+	err, sizeBytesAdded := retrieveMountTmpfsOptionsSizeBytesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || sizeBytesAdded
+
+	return nil, retAdded
+}
+
+func retrieveMountTmpfsOptionsModeFlags(depth int, m *models.MountTmpfsOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
+	if cmd.Flags().Changed(modeFlagName) {
+
+		var modeFlagName string
+		if cmdPrefix == "" {
+			modeFlagName = "Mode"
+		} else {
+			modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+		}
+
+		modeFlagValue, err := cmd.Flags().GetInt64(modeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Mode = modeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveMountTmpfsOptionsSizeBytesFlags(depth int, m *models.MountTmpfsOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	sizeBytesFlagName := fmt.Sprintf("%v.SizeBytes", cmdPrefix)
+	if cmd.Flags().Changed(sizeBytesFlagName) {
+
+		var sizeBytesFlagName string
+		if cmdPrefix == "" {
+			sizeBytesFlagName = "SizeBytes"
+		} else {
+			sizeBytesFlagName = fmt.Sprintf("%v.SizeBytes", cmdPrefix)
+		}
+
+		sizeBytesFlagValue, err := cmd.Flags().GetInt64(sizeBytesFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SizeBytes = sizeBytesFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for MountVolumeOptions
+
+// register flags to command
+func registerModelMountVolumeOptionsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerMountVolumeOptionsDriverConfig(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerMountVolumeOptionsLabels(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerMountVolumeOptionsNoCopy(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerMountVolumeOptionsDriverConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var driverConfigFlagName string
+	if cmdPrefix == "" {
+		driverConfigFlagName = "DriverConfig"
+	} else {
+		driverConfigFlagName = fmt.Sprintf("%v.DriverConfig", cmdPrefix)
+	}
+
+	if err := registerModelMountVolumeOptionsDriverConfigFlags(depth+1, driverConfigFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerMountVolumeOptionsLabels(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerMountVolumeOptionsNoCopy(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	noCopyDescription := `Populate volume with data from the target.`
+
+	var noCopyFlagName string
+	if cmdPrefix == "" {
+		noCopyFlagName = "NoCopy"
+	} else {
+		noCopyFlagName = fmt.Sprintf("%v.NoCopy", cmdPrefix)
+	}
+
+	var noCopyFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(noCopyFlagName, noCopyFlagDefault, noCopyDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelMountVolumeOptionsFlags(depth int, m *models.MountVolumeOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, driverConfigAdded := retrieveMountVolumeOptionsDriverConfigFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || driverConfigAdded
+
+	err, labelsAdded := retrieveMountVolumeOptionsLabelsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || labelsAdded
+
+	err, noCopyAdded := retrieveMountVolumeOptionsNoCopyFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || noCopyAdded
+
+	return nil, retAdded
+}
+
+func retrieveMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolumeOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	driverConfigFlagName := fmt.Sprintf("%v.DriverConfig", cmdPrefix)
+	if cmd.Flags().Changed(driverConfigFlagName) {
+
+		driverConfigFlagValue := &models.MountVolumeOptionsDriverConfig{}
+		err, added := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, driverConfigFlagValue, driverConfigFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.DriverConfig = driverConfigFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveMountVolumeOptionsLabelsFlags(depth int, m *models.MountVolumeOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(labelsFlagName) {
+		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveMountVolumeOptionsNoCopyFlags(depth int, m *models.MountVolumeOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	noCopyFlagName := fmt.Sprintf("%v.NoCopy", cmdPrefix)
+	if cmd.Flags().Changed(noCopyFlagName) {
+
+		var noCopyFlagName string
+		if cmdPrefix == "" {
+			noCopyFlagName = "NoCopy"
+		} else {
+			noCopyFlagName = fmt.Sprintf("%v.NoCopy", cmdPrefix)
+		}
+
+		noCopyFlagValue, err := cmd.Flags().GetBool(noCopyFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.NoCopy = &noCopyFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for MountVolumeOptionsDriverConfig
+
+// register flags to command
+func registerModelMountVolumeOptionsDriverConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerMountVolumeOptionsDriverConfigName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerMountVolumeOptionsDriverConfigOptions(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerMountVolumeOptionsDriverConfigName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `Name of the driver to use to create the volume.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerMountVolumeOptionsDriverConfigOptions(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Options map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolumeOptionsDriverConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, nameAdded := retrieveMountVolumeOptionsDriverConfigNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, optionsAdded := retrieveMountVolumeOptionsDriverConfigOptionsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || optionsAdded
+
+	return nil, retAdded
+}
+
+func retrieveMountVolumeOptionsDriverConfigNameFlags(depth int, m *models.MountVolumeOptionsDriverConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveMountVolumeOptionsDriverConfigOptionsFlags(depth int, m *models.MountVolumeOptionsDriverConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(optionsFlagName) {
+		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 	return nil, retAdded
 }

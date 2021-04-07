@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ManagerStatus
+
 // register flags to command
 func registerModelManagerStatusFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

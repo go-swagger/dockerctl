@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ClusterInfo
+
 // register flags to command
 func registerModelClusterInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -154,7 +156,9 @@ func registerClusterInfoSpec(depth int, cmdPrefix string, cmd *cobra.Command) er
 		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	registerModelClusterInfoFlags(depth+1, specFlagName, cmd)
+	if err := registerModelSwarmSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -181,7 +185,9 @@ func registerClusterInfoTLSInfo(depth int, cmdPrefix string, cmd *cobra.Command)
 		tlsInfoFlagName = fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	}
 
-	registerModelClusterInfoFlags(depth+1, tlsInfoFlagName, cmd)
+	if err := registerModelTLSInfoFlags(depth+1, tlsInfoFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -221,7 +227,9 @@ func registerClusterInfoVersion(depth int, cmdPrefix string, cmd *cobra.Command)
 		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	registerModelClusterInfoFlags(depth+1, versionFlagName, cmd)
+	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -406,12 +414,15 @@ func retrieveClusterInfoSpecFlags(depth int, m *models.ClusterInfo, cmdPrefix st
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.ClusterInfo{}
-		err, added := retrieveModelClusterInfoFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := &models.SwarmSpec{}
+		err, added := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -439,12 +450,15 @@ func retrieveClusterInfoTLSInfoFlags(depth int, m *models.ClusterInfo, cmdPrefix
 	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	if cmd.Flags().Changed(tlsInfoFlagName) {
 
-		tlsInfoFlagValue := &models.ClusterInfo{}
-		err, added := retrieveModelClusterInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
+		tlsInfoFlagValue := &models.TLSInfo{}
+		err, added := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.TLSInfo = tlsInfoFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -483,12 +497,15 @@ func retrieveClusterInfoVersionFlags(depth int, m *models.ClusterInfo, cmdPrefix
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.ClusterInfo{}
-		err, added := retrieveModelClusterInfoFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := &models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Version = versionFlagValue
+		}
 	}
 	return nil, retAdded
 }

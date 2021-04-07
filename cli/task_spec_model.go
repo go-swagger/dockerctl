@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for TaskSpec
+
 // register flags to command
 func registerModelTaskSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -70,7 +72,9 @@ func registerTaskSpecContainerSpec(depth int, cmdPrefix string, cmd *cobra.Comma
 		containerSpecFlagName = fmt.Sprintf("%v.ContainerSpec", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, containerSpecFlagName, cmd)
+	if err := registerModelTaskSpecContainerSpecFlags(depth+1, containerSpecFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -108,7 +112,9 @@ func registerTaskSpecLogDriver(depth int, cmdPrefix string, cmd *cobra.Command) 
 		logDriverFlagName = fmt.Sprintf("%v.LogDriver", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, logDriverFlagName, cmd)
+	if err := registerModelTaskSpecLogDriverFlags(depth+1, logDriverFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -125,7 +131,9 @@ func registerTaskSpecNetworkAttachmentSpec(depth int, cmdPrefix string, cmd *cob
 		networkAttachmentSpecFlagName = fmt.Sprintf("%v.NetworkAttachmentSpec", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, networkAttachmentSpecFlagName, cmd)
+	if err := registerModelTaskSpecNetworkAttachmentSpecFlags(depth+1, networkAttachmentSpecFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -151,7 +159,9 @@ func registerTaskSpecPlacement(depth int, cmdPrefix string, cmd *cobra.Command) 
 		placementFlagName = fmt.Sprintf("%v.Placement", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, placementFlagName, cmd)
+	if err := registerModelTaskSpecPlacementFlags(depth+1, placementFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -168,7 +178,9 @@ func registerTaskSpecPluginSpec(depth int, cmdPrefix string, cmd *cobra.Command)
 		pluginSpecFlagName = fmt.Sprintf("%v.PluginSpec", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, pluginSpecFlagName, cmd)
+	if err := registerModelTaskSpecPluginSpecFlags(depth+1, pluginSpecFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -185,7 +197,9 @@ func registerTaskSpecResources(depth int, cmdPrefix string, cmd *cobra.Command) 
 		resourcesFlagName = fmt.Sprintf("%v.Resources", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, resourcesFlagName, cmd)
+	if err := registerModelTaskSpecResourcesFlags(depth+1, resourcesFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -202,7 +216,9 @@ func registerTaskSpecRestartPolicy(depth int, cmdPrefix string, cmd *cobra.Comma
 		restartPolicyFlagName = fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	}
 
-	registerModelTaskSpecFlags(depth+1, restartPolicyFlagName, cmd)
+	if err := registerModelTaskSpecRestartPolicyFlags(depth+1, restartPolicyFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -303,12 +319,15 @@ func retrieveTaskSpecContainerSpecFlags(depth int, m *models.TaskSpec, cmdPrefix
 	containerSpecFlagName := fmt.Sprintf("%v.ContainerSpec", cmdPrefix)
 	if cmd.Flags().Changed(containerSpecFlagName) {
 
-		containerSpecFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, containerSpecFlagValue, containerSpecFlagName, cmd)
+		containerSpecFlagValue := &models.TaskSpecContainerSpec{}
+		err, added := retrieveModelTaskSpecContainerSpecFlags(depth+1, containerSpecFlagValue, containerSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ContainerSpec = containerSpecFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -347,12 +366,15 @@ func retrieveTaskSpecLogDriverFlags(depth int, m *models.TaskSpec, cmdPrefix str
 	logDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
 	if cmd.Flags().Changed(logDriverFlagName) {
 
-		logDriverFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
+		logDriverFlagValue := &models.TaskSpecLogDriver{}
+		err, added := retrieveModelTaskSpecLogDriverFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.LogDriver = logDriverFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -365,12 +387,15 @@ func retrieveTaskSpecNetworkAttachmentSpecFlags(depth int, m *models.TaskSpec, c
 	networkAttachmentSpecFlagName := fmt.Sprintf("%v.NetworkAttachmentSpec", cmdPrefix)
 	if cmd.Flags().Changed(networkAttachmentSpecFlagName) {
 
-		networkAttachmentSpecFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, networkAttachmentSpecFlagValue, networkAttachmentSpecFlagName, cmd)
+		networkAttachmentSpecFlagValue := &models.TaskSpecNetworkAttachmentSpec{}
+		err, added := retrieveModelTaskSpecNetworkAttachmentSpecFlags(depth+1, networkAttachmentSpecFlagValue, networkAttachmentSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.NetworkAttachmentSpec = networkAttachmentSpecFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -395,12 +420,15 @@ func retrieveTaskSpecPlacementFlags(depth int, m *models.TaskSpec, cmdPrefix str
 	placementFlagName := fmt.Sprintf("%v.Placement", cmdPrefix)
 	if cmd.Flags().Changed(placementFlagName) {
 
-		placementFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, placementFlagValue, placementFlagName, cmd)
+		placementFlagValue := &models.TaskSpecPlacement{}
+		err, added := retrieveModelTaskSpecPlacementFlags(depth+1, placementFlagValue, placementFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Placement = placementFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -413,12 +441,15 @@ func retrieveTaskSpecPluginSpecFlags(depth int, m *models.TaskSpec, cmdPrefix st
 	pluginSpecFlagName := fmt.Sprintf("%v.PluginSpec", cmdPrefix)
 	if cmd.Flags().Changed(pluginSpecFlagName) {
 
-		pluginSpecFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, pluginSpecFlagValue, pluginSpecFlagName, cmd)
+		pluginSpecFlagValue := &models.TaskSpecPluginSpec{}
+		err, added := retrieveModelTaskSpecPluginSpecFlags(depth+1, pluginSpecFlagValue, pluginSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.PluginSpec = pluginSpecFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -431,12 +462,15 @@ func retrieveTaskSpecResourcesFlags(depth int, m *models.TaskSpec, cmdPrefix str
 	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
 	if cmd.Flags().Changed(resourcesFlagName) {
 
-		resourcesFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
+		resourcesFlagValue := &models.TaskSpecResources{}
+		err, added := retrieveModelTaskSpecResourcesFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Resources = resourcesFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -449,12 +483,15 @@ func retrieveTaskSpecRestartPolicyFlags(depth int, m *models.TaskSpec, cmdPrefix
 	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	if cmd.Flags().Changed(restartPolicyFlagName) {
 
-		restartPolicyFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
+		restartPolicyFlagValue := &models.TaskSpecRestartPolicy{}
+		err, added := retrieveModelTaskSpecRestartPolicyFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.RestartPolicy = restartPolicyFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -479,6 +516,3920 @@ func retrieveTaskSpecRuntimeFlags(depth int, m *models.TaskSpec, cmdPrefix strin
 			return err, false
 		}
 		m.Runtime = runtimeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpec
+
+// register flags to command
+func registerModelTaskSpecContainerSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecArgs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecCapabilities(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecCommand(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecDNSConfig(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecDir(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecEnv(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecGroups(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecHealthCheck(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecHostname(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecHosts(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecImage(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecInit(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecIsolation(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecLabels(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecMounts(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecOpenStdin(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivileges(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecReadOnly(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSecrets(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecStopGracePeriod(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecStopSignal(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSysctls(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecTTY(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecUser(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecArgs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Args []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecCapabilities(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Capabilities []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecCommand(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Command []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Configs []*TaskSpecContainerSpecConfigsItems0 array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecDNSConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var dnsConfigFlagName string
+	if cmdPrefix == "" {
+		dnsConfigFlagName = "DNSConfig"
+	} else {
+		dnsConfigFlagName = fmt.Sprintf("%v.DNSConfig", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecContainerSpecDNSConfigFlags(depth+1, dnsConfigFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecDir(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	dirDescription := `The working directory for commands to run in.`
+
+	var dirFlagName string
+	if cmdPrefix == "" {
+		dirFlagName = "Dir"
+	} else {
+		dirFlagName = fmt.Sprintf("%v.Dir", cmdPrefix)
+	}
+
+	var dirFlagDefault string
+
+	_ = cmd.PersistentFlags().String(dirFlagName, dirFlagDefault, dirDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecEnv(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Env []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecGroups(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Groups []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecHealthCheck(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var healthCheckFlagName string
+	if cmdPrefix == "" {
+		healthCheckFlagName = "HealthCheck"
+	} else {
+		healthCheckFlagName = fmt.Sprintf("%v.HealthCheck", cmdPrefix)
+	}
+
+	if err := registerModelHealthConfigFlags(depth+1, healthCheckFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecHostname(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	hostnameDescription := `The hostname to use for the container, as a valid RFC 1123 hostname.`
+
+	var hostnameFlagName string
+	if cmdPrefix == "" {
+		hostnameFlagName = "Hostname"
+	} else {
+		hostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
+	}
+
+	var hostnameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(hostnameFlagName, hostnameFlagDefault, hostnameDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecHosts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Hosts []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecImage(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	imageDescription := `The image name to use for the container`
+
+	var imageFlagName string
+	if cmdPrefix == "" {
+		imageFlagName = "Image"
+	} else {
+		imageFlagName = fmt.Sprintf("%v.Image", cmdPrefix)
+	}
+
+	var imageFlagDefault string
+
+	_ = cmd.PersistentFlags().String(imageFlagName, imageFlagDefault, imageDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecInit(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	initDescription := `Run an init inside the container that forwards signals and reaps processes. This field is omitted if empty, and the default (as configured on the daemon) is used.`
+
+	var initFlagName string
+	if cmdPrefix == "" {
+		initFlagName = "Init"
+	} else {
+		initFlagName = fmt.Sprintf("%v.Init", cmdPrefix)
+	}
+
+	var initFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(initFlagName, initFlagDefault, initDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecIsolation(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	isolationDescription := `Isolation technology of the containers running the service. (Windows only)`
+
+	var isolationFlagName string
+	if cmdPrefix == "" {
+		isolationFlagName = "Isolation"
+	} else {
+		isolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
+	}
+
+	var isolationFlagDefault string
+
+	_ = cmd.PersistentFlags().String(isolationFlagName, isolationFlagDefault, isolationDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecLabels(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecMounts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Mounts []*Mount array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecOpenStdin(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	openStdinDescription := `Open ` + "`" + `stdin` + "`" + ``
+
+	var openStdinFlagName string
+	if cmdPrefix == "" {
+		openStdinFlagName = "OpenStdin"
+	} else {
+		openStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+	}
+
+	var openStdinFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(openStdinFlagName, openStdinFlagDefault, openStdinDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivileges(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var privilegesFlagName string
+	if cmdPrefix == "" {
+		privilegesFlagName = "Privileges"
+	} else {
+		privilegesFlagName = fmt.Sprintf("%v.Privileges", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecContainerSpecPrivilegesFlags(depth+1, privilegesFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecReadOnly(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	readOnlyDescription := `Mount the container's root filesystem as read only.`
+
+	var readOnlyFlagName string
+	if cmdPrefix == "" {
+		readOnlyFlagName = "ReadOnly"
+	} else {
+		readOnlyFlagName = fmt.Sprintf("%v.ReadOnly", cmdPrefix)
+	}
+
+	var readOnlyFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(readOnlyFlagName, readOnlyFlagDefault, readOnlyDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecrets(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Secrets []*TaskSpecContainerSpecSecretsItems0 array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecStopGracePeriod(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	stopGracePeriodDescription := `Amount of time to wait for the container to terminate before forcefully killing it.`
+
+	var stopGracePeriodFlagName string
+	if cmdPrefix == "" {
+		stopGracePeriodFlagName = "StopGracePeriod"
+	} else {
+		stopGracePeriodFlagName = fmt.Sprintf("%v.StopGracePeriod", cmdPrefix)
+	}
+
+	var stopGracePeriodFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(stopGracePeriodFlagName, stopGracePeriodFlagDefault, stopGracePeriodDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecStopSignal(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	stopSignalDescription := `Signal to stop the container.`
+
+	var stopSignalFlagName string
+	if cmdPrefix == "" {
+		stopSignalFlagName = "StopSignal"
+	} else {
+		stopSignalFlagName = fmt.Sprintf("%v.StopSignal", cmdPrefix)
+	}
+
+	var stopSignalFlagDefault string
+
+	_ = cmd.PersistentFlags().String(stopSignalFlagName, stopSignalFlagDefault, stopSignalDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSysctls(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Sysctls map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecTTY(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	tTYDescription := `Whether a pseudo-TTY should be allocated.`
+
+	var tTYFlagName string
+	if cmdPrefix == "" {
+		tTYFlagName = "TTY"
+	} else {
+		tTYFlagName = fmt.Sprintf("%v.TTY", cmdPrefix)
+	}
+
+	var tTYFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(tTYFlagName, tTYFlagDefault, tTYDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecUser(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	userDescription := `The user inside the container.`
+
+	var userFlagName string
+	if cmdPrefix == "" {
+		userFlagName = "User"
+	} else {
+		userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+	}
+
+	var userFlagDefault string
+
+	_ = cmd.PersistentFlags().String(userFlagName, userFlagDefault, userDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, argsAdded := retrieveTaskSpecContainerSpecArgsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || argsAdded
+
+	err, capabilitiesAdded := retrieveTaskSpecContainerSpecCapabilitiesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || capabilitiesAdded
+
+	err, commandAdded := retrieveTaskSpecContainerSpecCommandFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || commandAdded
+
+	err, configsAdded := retrieveTaskSpecContainerSpecConfigsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configsAdded
+
+	err, dnsConfigAdded := retrieveTaskSpecContainerSpecDNSConfigFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || dnsConfigAdded
+
+	err, dirAdded := retrieveTaskSpecContainerSpecDirFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || dirAdded
+
+	err, envAdded := retrieveTaskSpecContainerSpecEnvFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || envAdded
+
+	err, groupsAdded := retrieveTaskSpecContainerSpecGroupsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || groupsAdded
+
+	err, healthCheckAdded := retrieveTaskSpecContainerSpecHealthCheckFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || healthCheckAdded
+
+	err, hostnameAdded := retrieveTaskSpecContainerSpecHostnameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || hostnameAdded
+
+	err, hostsAdded := retrieveTaskSpecContainerSpecHostsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || hostsAdded
+
+	err, imageAdded := retrieveTaskSpecContainerSpecImageFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || imageAdded
+
+	err, initAdded := retrieveTaskSpecContainerSpecInitFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || initAdded
+
+	err, isolationAdded := retrieveTaskSpecContainerSpecIsolationFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || isolationAdded
+
+	err, labelsAdded := retrieveTaskSpecContainerSpecLabelsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || labelsAdded
+
+	err, mountsAdded := retrieveTaskSpecContainerSpecMountsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || mountsAdded
+
+	err, openStdinAdded := retrieveTaskSpecContainerSpecOpenStdinFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || openStdinAdded
+
+	err, privilegesAdded := retrieveTaskSpecContainerSpecPrivilegesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || privilegesAdded
+
+	err, readOnlyAdded := retrieveTaskSpecContainerSpecReadOnlyFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || readOnlyAdded
+
+	err, secretsAdded := retrieveTaskSpecContainerSpecSecretsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || secretsAdded
+
+	err, stopGracePeriodAdded := retrieveTaskSpecContainerSpecStopGracePeriodFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || stopGracePeriodAdded
+
+	err, stopSignalAdded := retrieveTaskSpecContainerSpecStopSignalFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || stopSignalAdded
+
+	err, sysctlsAdded := retrieveTaskSpecContainerSpecSysctlsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || sysctlsAdded
+
+	err, tTYAdded := retrieveTaskSpecContainerSpecTTYFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || tTYAdded
+
+	err, userAdded := retrieveTaskSpecContainerSpecUserFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || userAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecArgsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
+	if cmd.Flags().Changed(argsFlagName) {
+		// warning: Args array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecCapabilitiesFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
+	if cmd.Flags().Changed(capabilitiesFlagName) {
+		// warning: Capabilities array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecCommandFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	commandFlagName := fmt.Sprintf("%v.Command", cmdPrefix)
+	if cmd.Flags().Changed(commandFlagName) {
+		// warning: Command array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	configsFlagName := fmt.Sprintf("%v.Configs", cmdPrefix)
+	if cmd.Flags().Changed(configsFlagName) {
+		// warning: Configs array type []*TaskSpecContainerSpecConfigsItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecDNSConfigFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	dnsConfigFlagName := fmt.Sprintf("%v.DNSConfig", cmdPrefix)
+	if cmd.Flags().Changed(dnsConfigFlagName) {
+
+		dnsConfigFlagValue := &models.TaskSpecContainerSpecDNSConfig{}
+		err, added := retrieveModelTaskSpecContainerSpecDNSConfigFlags(depth+1, dnsConfigFlagValue, dnsConfigFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.DNSConfig = dnsConfigFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecDirFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	dirFlagName := fmt.Sprintf("%v.Dir", cmdPrefix)
+	if cmd.Flags().Changed(dirFlagName) {
+
+		var dirFlagName string
+		if cmdPrefix == "" {
+			dirFlagName = "Dir"
+		} else {
+			dirFlagName = fmt.Sprintf("%v.Dir", cmdPrefix)
+		}
+
+		dirFlagValue, err := cmd.Flags().GetString(dirFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Dir = dirFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecEnvFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(envFlagName) {
+		// warning: Env array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecGroupsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	groupsFlagName := fmt.Sprintf("%v.Groups", cmdPrefix)
+	if cmd.Flags().Changed(groupsFlagName) {
+		// warning: Groups array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecHealthCheckFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	healthCheckFlagName := fmt.Sprintf("%v.HealthCheck", cmdPrefix)
+	if cmd.Flags().Changed(healthCheckFlagName) {
+
+		healthCheckFlagValue := &models.HealthConfig{}
+		err, added := retrieveModelHealthConfigFlags(depth+1, healthCheckFlagValue, healthCheckFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.HealthCheck = healthCheckFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecHostnameFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	hostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
+	if cmd.Flags().Changed(hostnameFlagName) {
+
+		var hostnameFlagName string
+		if cmdPrefix == "" {
+			hostnameFlagName = "Hostname"
+		} else {
+			hostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
+		}
+
+		hostnameFlagValue, err := cmd.Flags().GetString(hostnameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Hostname = hostnameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecHostsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	hostsFlagName := fmt.Sprintf("%v.Hosts", cmdPrefix)
+	if cmd.Flags().Changed(hostsFlagName) {
+		// warning: Hosts array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecImageFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	imageFlagName := fmt.Sprintf("%v.Image", cmdPrefix)
+	if cmd.Flags().Changed(imageFlagName) {
+
+		var imageFlagName string
+		if cmdPrefix == "" {
+			imageFlagName = "Image"
+		} else {
+			imageFlagName = fmt.Sprintf("%v.Image", cmdPrefix)
+		}
+
+		imageFlagValue, err := cmd.Flags().GetString(imageFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Image = imageFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecInitFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	initFlagName := fmt.Sprintf("%v.Init", cmdPrefix)
+	if cmd.Flags().Changed(initFlagName) {
+
+		var initFlagName string
+		if cmdPrefix == "" {
+			initFlagName = "Init"
+		} else {
+			initFlagName = fmt.Sprintf("%v.Init", cmdPrefix)
+		}
+
+		initFlagValue, err := cmd.Flags().GetBool(initFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Init = &initFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecIsolationFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	isolationFlagName := fmt.Sprintf("%v.Isolation", cmdPrefix)
+	if cmd.Flags().Changed(isolationFlagName) {
+
+		var isolationFlagName string
+		if cmdPrefix == "" {
+			isolationFlagName = "Isolation"
+		} else {
+			isolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
+		}
+
+		isolationFlagValue, err := cmd.Flags().GetString(isolationFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Isolation = isolationFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecLabelsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(labelsFlagName) {
+		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecMountsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
+	if cmd.Flags().Changed(mountsFlagName) {
+		// warning: Mounts array type []*Mount is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecOpenStdinFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	openStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+	if cmd.Flags().Changed(openStdinFlagName) {
+
+		var openStdinFlagName string
+		if cmdPrefix == "" {
+			openStdinFlagName = "OpenStdin"
+		} else {
+			openStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+		}
+
+		openStdinFlagValue, err := cmd.Flags().GetBool(openStdinFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.OpenStdin = openStdinFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	privilegesFlagName := fmt.Sprintf("%v.Privileges", cmdPrefix)
+	if cmd.Flags().Changed(privilegesFlagName) {
+
+		privilegesFlagValue := &models.TaskSpecContainerSpecPrivileges{}
+		err, added := retrieveModelTaskSpecContainerSpecPrivilegesFlags(depth+1, privilegesFlagValue, privilegesFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Privileges = privilegesFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecReadOnlyFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	readOnlyFlagName := fmt.Sprintf("%v.ReadOnly", cmdPrefix)
+	if cmd.Flags().Changed(readOnlyFlagName) {
+
+		var readOnlyFlagName string
+		if cmdPrefix == "" {
+			readOnlyFlagName = "ReadOnly"
+		} else {
+			readOnlyFlagName = fmt.Sprintf("%v.ReadOnly", cmdPrefix)
+		}
+
+		readOnlyFlagValue, err := cmd.Flags().GetBool(readOnlyFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ReadOnly = readOnlyFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	secretsFlagName := fmt.Sprintf("%v.Secrets", cmdPrefix)
+	if cmd.Flags().Changed(secretsFlagName) {
+		// warning: Secrets array type []*TaskSpecContainerSpecSecretsItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecStopGracePeriodFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	stopGracePeriodFlagName := fmt.Sprintf("%v.StopGracePeriod", cmdPrefix)
+	if cmd.Flags().Changed(stopGracePeriodFlagName) {
+
+		var stopGracePeriodFlagName string
+		if cmdPrefix == "" {
+			stopGracePeriodFlagName = "StopGracePeriod"
+		} else {
+			stopGracePeriodFlagName = fmt.Sprintf("%v.StopGracePeriod", cmdPrefix)
+		}
+
+		stopGracePeriodFlagValue, err := cmd.Flags().GetInt64(stopGracePeriodFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.StopGracePeriod = stopGracePeriodFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecStopSignalFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	stopSignalFlagName := fmt.Sprintf("%v.StopSignal", cmdPrefix)
+	if cmd.Flags().Changed(stopSignalFlagName) {
+
+		var stopSignalFlagName string
+		if cmdPrefix == "" {
+			stopSignalFlagName = "StopSignal"
+		} else {
+			stopSignalFlagName = fmt.Sprintf("%v.StopSignal", cmdPrefix)
+		}
+
+		stopSignalFlagValue, err := cmd.Flags().GetString(stopSignalFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.StopSignal = stopSignalFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSysctlsFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	sysctlsFlagName := fmt.Sprintf("%v.Sysctls", cmdPrefix)
+	if cmd.Flags().Changed(sysctlsFlagName) {
+		// warning: Sysctls map type map[string]string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecTTYFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	tTYFlagName := fmt.Sprintf("%v.TTY", cmdPrefix)
+	if cmd.Flags().Changed(tTYFlagName) {
+
+		var tTYFlagName string
+		if cmdPrefix == "" {
+			tTYFlagName = "TTY"
+		} else {
+			tTYFlagName = fmt.Sprintf("%v.TTY", cmdPrefix)
+		}
+
+		tTYFlagValue, err := cmd.Flags().GetBool(tTYFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.TTY = tTYFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecUserFlags(depth int, m *models.TaskSpecContainerSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
+	if cmd.Flags().Changed(userFlagName) {
+
+		var userFlagName string
+		if cmdPrefix == "" {
+			userFlagName = "User"
+		} else {
+			userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+		}
+
+		userFlagValue, err := cmd.Flags().GetString(userFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.User = userFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecConfigsItems0
+
+// register flags to command
+func registerModelTaskSpecContainerSpecConfigsItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecConfigsItems0ConfigID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigsItems0ConfigName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigsItems0File(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigsItems0Runtime(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0ConfigID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	configIdDescription := `ConfigID represents the ID of the specific config that we're referencing.`
+
+	var configIdFlagName string
+	if cmdPrefix == "" {
+		configIdFlagName = "ConfigID"
+	} else {
+		configIdFlagName = fmt.Sprintf("%v.ConfigID", cmdPrefix)
+	}
+
+	var configIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(configIdFlagName, configIdFlagDefault, configIdDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0ConfigName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	configNameDescription := `ConfigName is the name of the config that this references, but this is just provided for
+lookup/display purposes. The config in the reference will be identified by its ID.
+`
+
+	var configNameFlagName string
+	if cmdPrefix == "" {
+		configNameFlagName = "ConfigName"
+	} else {
+		configNameFlagName = fmt.Sprintf("%v.ConfigName", cmdPrefix)
+	}
+
+	var configNameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(configNameFlagName, configNameFlagDefault, configNameDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0File(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var fileFlagName string
+	if cmdPrefix == "" {
+		fileFlagName = "File"
+	} else {
+		fileFlagName = fmt.Sprintf("%v.File", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecContainerSpecConfigsItems0FileFlags(depth+1, fileFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0Runtime(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Runtime interface{} map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecConfigsItems0Flags(depth int, m *models.TaskSpecContainerSpecConfigsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, configIdAdded := retrieveTaskSpecContainerSpecConfigsItems0ConfigIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configIdAdded
+
+	err, configNameAdded := retrieveTaskSpecContainerSpecConfigsItems0ConfigNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configNameAdded
+
+	err, fileAdded := retrieveTaskSpecContainerSpecConfigsItems0FileFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || fileAdded
+
+	err, runtimeAdded := retrieveTaskSpecContainerSpecConfigsItems0RuntimeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || runtimeAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0ConfigIDFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	configIdFlagName := fmt.Sprintf("%v.ConfigID", cmdPrefix)
+	if cmd.Flags().Changed(configIdFlagName) {
+
+		var configIdFlagName string
+		if cmdPrefix == "" {
+			configIdFlagName = "ConfigID"
+		} else {
+			configIdFlagName = fmt.Sprintf("%v.ConfigID", cmdPrefix)
+		}
+
+		configIdFlagValue, err := cmd.Flags().GetString(configIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ConfigID = configIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0ConfigNameFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	configNameFlagName := fmt.Sprintf("%v.ConfigName", cmdPrefix)
+	if cmd.Flags().Changed(configNameFlagName) {
+
+		var configNameFlagName string
+		if cmdPrefix == "" {
+			configNameFlagName = "ConfigName"
+		} else {
+			configNameFlagName = fmt.Sprintf("%v.ConfigName", cmdPrefix)
+		}
+
+		configNameFlagValue, err := cmd.Flags().GetString(configNameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ConfigName = configNameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0FileFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
+	if cmd.Flags().Changed(fileFlagName) {
+
+		fileFlagValue := &models.TaskSpecContainerSpecConfigsItems0File{}
+		err, added := retrieveModelTaskSpecContainerSpecConfigsItems0FileFlags(depth+1, fileFlagValue, fileFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.File = fileFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0RuntimeFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	runtimeFlagName := fmt.Sprintf("%v.Runtime", cmdPrefix)
+	if cmd.Flags().Changed(runtimeFlagName) {
+		// warning: Runtime map type interface{} is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecConfigsItems0File
+
+// register flags to command
+func registerModelTaskSpecContainerSpecConfigsItems0FileFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecConfigsItems0FileGID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigsItems0FileMode(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigsItems0FileName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecConfigsItems0FileUID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0FileGID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	gIdDescription := `GID represents the file GID.`
+
+	var gIdFlagName string
+	if cmdPrefix == "" {
+		gIdFlagName = "GID"
+	} else {
+		gIdFlagName = fmt.Sprintf("%v.GID", cmdPrefix)
+	}
+
+	var gIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(gIdFlagName, gIdFlagDefault, gIdDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0FileMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive Mode uint32 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0FileName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `Name represents the final filename in the filesystem.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecConfigsItems0FileUID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	uidDescription := `UID represents the file UID.`
+
+	var uidFlagName string
+	if cmdPrefix == "" {
+		uidFlagName = "UID"
+	} else {
+		uidFlagName = fmt.Sprintf("%v.UID", cmdPrefix)
+	}
+
+	var uidFlagDefault string
+
+	_ = cmd.PersistentFlags().String(uidFlagName, uidFlagDefault, uidDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecConfigsItems0FileFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, gIdAdded := retrieveTaskSpecContainerSpecConfigsItems0FileGIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || gIdAdded
+
+	err, modeAdded := retrieveTaskSpecContainerSpecConfigsItems0FileModeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || modeAdded
+
+	err, nameAdded := retrieveTaskSpecContainerSpecConfigsItems0FileNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, uidAdded := retrieveTaskSpecContainerSpecConfigsItems0FileUIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || uidAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0FileGIDFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
+	if cmd.Flags().Changed(gIdFlagName) {
+
+		var gIdFlagName string
+		if cmdPrefix == "" {
+			gIdFlagName = "GID"
+		} else {
+			gIdFlagName = fmt.Sprintf("%v.GID", cmdPrefix)
+		}
+
+		gIdFlagValue, err := cmd.Flags().GetString(gIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.GID = gIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0FileModeFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
+	if cmd.Flags().Changed(modeFlagName) {
+
+		// warning: primitive Mode uint32 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0FileNameFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecConfigsItems0FileUIDFlags(depth int, m *models.TaskSpecContainerSpecConfigsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
+	if cmd.Flags().Changed(uidFlagName) {
+
+		var uidFlagName string
+		if cmdPrefix == "" {
+			uidFlagName = "UID"
+		} else {
+			uidFlagName = fmt.Sprintf("%v.UID", cmdPrefix)
+		}
+
+		uidFlagValue, err := cmd.Flags().GetString(uidFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.UID = uidFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecDNSConfig
+
+// register flags to command
+func registerModelTaskSpecContainerSpecDNSConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecDNSConfigNameservers(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecDNSConfigOptions(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecDNSConfigSearch(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecDNSConfigNameservers(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Nameservers []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecDNSConfigOptions(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Options []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecDNSConfigSearch(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Search []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecDNSConfigFlags(depth int, m *models.TaskSpecContainerSpecDNSConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, nameserversAdded := retrieveTaskSpecContainerSpecDNSConfigNameserversFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameserversAdded
+
+	err, optionsAdded := retrieveTaskSpecContainerSpecDNSConfigOptionsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || optionsAdded
+
+	err, searchAdded := retrieveTaskSpecContainerSpecDNSConfigSearchFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || searchAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecDNSConfigNameserversFlags(depth int, m *models.TaskSpecContainerSpecDNSConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameserversFlagName := fmt.Sprintf("%v.Nameservers", cmdPrefix)
+	if cmd.Flags().Changed(nameserversFlagName) {
+		// warning: Nameservers array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecDNSConfigOptionsFlags(depth int, m *models.TaskSpecContainerSpecDNSConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(optionsFlagName) {
+		// warning: Options array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecDNSConfigSearchFlags(depth int, m *models.TaskSpecContainerSpecDNSConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	searchFlagName := fmt.Sprintf("%v.Search", cmdPrefix)
+	if cmd.Flags().Changed(searchFlagName) {
+		// warning: Search array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecPrivileges
+
+// register flags to command
+func registerModelTaskSpecContainerSpecPrivilegesFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecPrivilegesCredentialSpec(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesSELinuxContext(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesCredentialSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var credentialSpecFlagName string
+	if cmdPrefix == "" {
+		credentialSpecFlagName = "CredentialSpec"
+	} else {
+		credentialSpecFlagName = fmt.Sprintf("%v.CredentialSpec", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth+1, credentialSpecFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesSELinuxContext(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var sELinuxContextFlagName string
+	if cmdPrefix == "" {
+		sELinuxContextFlagName = "SELinuxContext"
+	} else {
+		sELinuxContextFlagName = fmt.Sprintf("%v.SELinuxContext", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth+1, sELinuxContextFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecPrivilegesFlags(depth int, m *models.TaskSpecContainerSpecPrivileges, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, credentialSpecAdded := retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || credentialSpecAdded
+
+	err, sELinuxContextAdded := retrieveTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || sELinuxContextAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth int, m *models.TaskSpecContainerSpecPrivileges, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	credentialSpecFlagName := fmt.Sprintf("%v.CredentialSpec", cmdPrefix)
+	if cmd.Flags().Changed(credentialSpecFlagName) {
+
+		credentialSpecFlagValue := &models.TaskSpecContainerSpecPrivilegesCredentialSpec{}
+		err, added := retrieveModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth+1, credentialSpecFlagValue, credentialSpecFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.CredentialSpec = credentialSpecFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth int, m *models.TaskSpecContainerSpecPrivileges, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	sELinuxContextFlagName := fmt.Sprintf("%v.SELinuxContext", cmdPrefix)
+	if cmd.Flags().Changed(sELinuxContextFlagName) {
+
+		sELinuxContextFlagValue := &models.TaskSpecContainerSpecPrivilegesSELinuxContext{}
+		err, added := retrieveModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth+1, sELinuxContextFlagValue, sELinuxContextFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.SELinuxContext = sELinuxContextFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecPrivilegesCredentialSpec
+
+// register flags to command
+func registerModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecPrivilegesCredentialSpecConfig(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesCredentialSpecFile(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesCredentialSpecRegistry(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesCredentialSpecConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	configDescription := `Load credential spec from a Swarm Config with the given ID.
+The specified config must also be present in the Configs field with the Runtime property set.
+
+<p><br /></p>
+
+
+> **Note**: ` + "`" + `CredentialSpec.File` + "`" + `, ` + "`" + `CredentialSpec.Registry` + "`" + `, and ` + "`" + `CredentialSpec.Config` + "`" + ` are mutually exclusive.
+`
+
+	var configFlagName string
+	if cmdPrefix == "" {
+		configFlagName = "Config"
+	} else {
+		configFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
+	}
+
+	var configFlagDefault string
+
+	_ = cmd.PersistentFlags().String(configFlagName, configFlagDefault, configDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesCredentialSpecFile(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	fileDescription := `Load credential spec from this file. The file is read by the daemon, and must be present in the
+` + "`" + `CredentialSpecs` + "`" + ` subdirectory in the docker data directory, which defaults to
+` + "`" + `C:\ProgramData\Docker\` + "`" + ` on Windows.
+
+For example, specifying ` + "`" + `spec.json` + "`" + ` loads ` + "`" + `C:\ProgramData\Docker\CredentialSpecs\spec.json` + "`" + `.
+
+<p><br /></p>
+
+> **Note**: ` + "`" + `CredentialSpec.File` + "`" + `, ` + "`" + `CredentialSpec.Registry` + "`" + `, and ` + "`" + `CredentialSpec.Config` + "`" + ` are mutually exclusive.
+`
+
+	var fileFlagName string
+	if cmdPrefix == "" {
+		fileFlagName = "File"
+	} else {
+		fileFlagName = fmt.Sprintf("%v.File", cmdPrefix)
+	}
+
+	var fileFlagDefault string
+
+	_ = cmd.PersistentFlags().String(fileFlagName, fileFlagDefault, fileDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesCredentialSpecRegistry(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	registryDescription := `Load credential spec from this value in the Windows registry. The specified registry value must be
+located in:
+
+` + "`" + `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Virtualization\Containers\CredentialSpecs` + "`" + `
+
+<p><br /></p>
+
+
+> **Note**: ` + "`" + `CredentialSpec.File` + "`" + `, ` + "`" + `CredentialSpec.Registry` + "`" + `, and ` + "`" + `CredentialSpec.Config` + "`" + ` are mutually exclusive.
+`
+
+	var registryFlagName string
+	if cmdPrefix == "" {
+		registryFlagName = "Registry"
+	} else {
+		registryFlagName = fmt.Sprintf("%v.Registry", cmdPrefix)
+	}
+
+	var registryFlagDefault string
+
+	_ = cmd.PersistentFlags().String(registryFlagName, registryFlagDefault, registryDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesCredentialSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, configAdded := retrieveTaskSpecContainerSpecPrivilegesCredentialSpecConfigFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configAdded
+
+	err, fileAdded := retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFileFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || fileAdded
+
+	err, registryAdded := retrieveTaskSpecContainerSpecPrivilegesCredentialSpecRegistryFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || registryAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecConfigFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesCredentialSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
+	if cmd.Flags().Changed(configFlagName) {
+
+		var configFlagName string
+		if cmdPrefix == "" {
+			configFlagName = "Config"
+		} else {
+			configFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
+		}
+
+		configFlagValue, err := cmd.Flags().GetString(configFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Config = configFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFileFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesCredentialSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
+	if cmd.Flags().Changed(fileFlagName) {
+
+		var fileFlagName string
+		if cmdPrefix == "" {
+			fileFlagName = "File"
+		} else {
+			fileFlagName = fmt.Sprintf("%v.File", cmdPrefix)
+		}
+
+		fileFlagValue, err := cmd.Flags().GetString(fileFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.File = fileFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecRegistryFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesCredentialSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	registryFlagName := fmt.Sprintf("%v.Registry", cmdPrefix)
+	if cmd.Flags().Changed(registryFlagName) {
+
+		var registryFlagName string
+		if cmdPrefix == "" {
+			registryFlagName = "Registry"
+		} else {
+			registryFlagName = fmt.Sprintf("%v.Registry", cmdPrefix)
+		}
+
+		registryFlagValue, err := cmd.Flags().GetString(registryFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Registry = registryFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecPrivilegesSELinuxContext
+
+// register flags to command
+func registerModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecPrivilegesSELinuxContextDisable(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesSELinuxContextLevel(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesSELinuxContextRole(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesSELinuxContextType(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecPrivilegesSELinuxContextUser(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesSELinuxContextDisable(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	disableDescription := `Disable SELinux`
+
+	var disableFlagName string
+	if cmdPrefix == "" {
+		disableFlagName = "Disable"
+	} else {
+		disableFlagName = fmt.Sprintf("%v.Disable", cmdPrefix)
+	}
+
+	var disableFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(disableFlagName, disableFlagDefault, disableDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesSELinuxContextLevel(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	levelDescription := `SELinux level label`
+
+	var levelFlagName string
+	if cmdPrefix == "" {
+		levelFlagName = "Level"
+	} else {
+		levelFlagName = fmt.Sprintf("%v.Level", cmdPrefix)
+	}
+
+	var levelFlagDefault string
+
+	_ = cmd.PersistentFlags().String(levelFlagName, levelFlagDefault, levelDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesSELinuxContextRole(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	roleDescription := `SELinux role label`
+
+	var roleFlagName string
+	if cmdPrefix == "" {
+		roleFlagName = "Role"
+	} else {
+		roleFlagName = fmt.Sprintf("%v.Role", cmdPrefix)
+	}
+
+	var roleFlagDefault string
+
+	_ = cmd.PersistentFlags().String(roleFlagName, roleFlagDefault, roleDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesSELinuxContextType(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	typeDescription := `SELinux type label`
+
+	var typeFlagName string
+	if cmdPrefix == "" {
+		typeFlagName = "Type"
+	} else {
+		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+	}
+
+	var typeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecPrivilegesSELinuxContextUser(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	userDescription := `SELinux user label`
+
+	var userFlagName string
+	if cmdPrefix == "" {
+		userFlagName = "User"
+	} else {
+		userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+	}
+
+	var userFlagDefault string
+
+	_ = cmd.PersistentFlags().String(userFlagName, userFlagDefault, userDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesSELinuxContext, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, disableAdded := retrieveTaskSpecContainerSpecPrivilegesSELinuxContextDisableFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || disableAdded
+
+	err, levelAdded := retrieveTaskSpecContainerSpecPrivilegesSELinuxContextLevelFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || levelAdded
+
+	err, roleAdded := retrieveTaskSpecContainerSpecPrivilegesSELinuxContextRoleFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || roleAdded
+
+	err, typeAdded := retrieveTaskSpecContainerSpecPrivilegesSELinuxContextTypeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typeAdded
+
+	err, userAdded := retrieveTaskSpecContainerSpecPrivilegesSELinuxContextUserFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || userAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextDisableFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesSELinuxContext, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	disableFlagName := fmt.Sprintf("%v.Disable", cmdPrefix)
+	if cmd.Flags().Changed(disableFlagName) {
+
+		var disableFlagName string
+		if cmdPrefix == "" {
+			disableFlagName = "Disable"
+		} else {
+			disableFlagName = fmt.Sprintf("%v.Disable", cmdPrefix)
+		}
+
+		disableFlagValue, err := cmd.Flags().GetBool(disableFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Disable = disableFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextLevelFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesSELinuxContext, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	levelFlagName := fmt.Sprintf("%v.Level", cmdPrefix)
+	if cmd.Flags().Changed(levelFlagName) {
+
+		var levelFlagName string
+		if cmdPrefix == "" {
+			levelFlagName = "Level"
+		} else {
+			levelFlagName = fmt.Sprintf("%v.Level", cmdPrefix)
+		}
+
+		levelFlagValue, err := cmd.Flags().GetString(levelFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Level = levelFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextRoleFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesSELinuxContext, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	roleFlagName := fmt.Sprintf("%v.Role", cmdPrefix)
+	if cmd.Flags().Changed(roleFlagName) {
+
+		var roleFlagName string
+		if cmdPrefix == "" {
+			roleFlagName = "Role"
+		} else {
+			roleFlagName = fmt.Sprintf("%v.Role", cmdPrefix)
+		}
+
+		roleFlagValue, err := cmd.Flags().GetString(roleFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Role = roleFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextTypeFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesSELinuxContext, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(typeFlagName) {
+
+		var typeFlagName string
+		if cmdPrefix == "" {
+			typeFlagName = "Type"
+		} else {
+			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		}
+
+		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Type = typeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextUserFlags(depth int, m *models.TaskSpecContainerSpecPrivilegesSELinuxContext, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
+	if cmd.Flags().Changed(userFlagName) {
+
+		var userFlagName string
+		if cmdPrefix == "" {
+			userFlagName = "User"
+		} else {
+			userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+		}
+
+		userFlagValue, err := cmd.Flags().GetString(userFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.User = userFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecSecretsItems0
+
+// register flags to command
+func registerModelTaskSpecContainerSpecSecretsItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecSecretsItems0File(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSecretsItems0SecretID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSecretsItems0SecretName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0File(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var fileFlagName string
+	if cmdPrefix == "" {
+		fileFlagName = "File"
+	} else {
+		fileFlagName = fmt.Sprintf("%v.File", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecContainerSpecSecretsItems0FileFlags(depth+1, fileFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0SecretID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	secretIdDescription := `SecretID represents the ID of the specific secret that we're referencing.`
+
+	var secretIdFlagName string
+	if cmdPrefix == "" {
+		secretIdFlagName = "SecretID"
+	} else {
+		secretIdFlagName = fmt.Sprintf("%v.SecretID", cmdPrefix)
+	}
+
+	var secretIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(secretIdFlagName, secretIdFlagDefault, secretIdDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0SecretName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	secretNameDescription := `SecretName is the name of the secret that this references, but this is just provided for
+lookup/display purposes. The secret in the reference will be identified by its ID.
+`
+
+	var secretNameFlagName string
+	if cmdPrefix == "" {
+		secretNameFlagName = "SecretName"
+	} else {
+		secretNameFlagName = fmt.Sprintf("%v.SecretName", cmdPrefix)
+	}
+
+	var secretNameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(secretNameFlagName, secretNameFlagDefault, secretNameDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecSecretsItems0Flags(depth int, m *models.TaskSpecContainerSpecSecretsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, fileAdded := retrieveTaskSpecContainerSpecSecretsItems0FileFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || fileAdded
+
+	err, secretIdAdded := retrieveTaskSpecContainerSpecSecretsItems0SecretIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || secretIdAdded
+
+	err, secretNameAdded := retrieveTaskSpecContainerSpecSecretsItems0SecretNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || secretNameAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0FileFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
+	if cmd.Flags().Changed(fileFlagName) {
+
+		fileFlagValue := &models.TaskSpecContainerSpecSecretsItems0File{}
+		err, added := retrieveModelTaskSpecContainerSpecSecretsItems0FileFlags(depth+1, fileFlagValue, fileFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.File = fileFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0SecretIDFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	secretIdFlagName := fmt.Sprintf("%v.SecretID", cmdPrefix)
+	if cmd.Flags().Changed(secretIdFlagName) {
+
+		var secretIdFlagName string
+		if cmdPrefix == "" {
+			secretIdFlagName = "SecretID"
+		} else {
+			secretIdFlagName = fmt.Sprintf("%v.SecretID", cmdPrefix)
+		}
+
+		secretIdFlagValue, err := cmd.Flags().GetString(secretIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SecretID = secretIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0SecretNameFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	secretNameFlagName := fmt.Sprintf("%v.SecretName", cmdPrefix)
+	if cmd.Flags().Changed(secretNameFlagName) {
+
+		var secretNameFlagName string
+		if cmdPrefix == "" {
+			secretNameFlagName = "SecretName"
+		} else {
+			secretNameFlagName = fmt.Sprintf("%v.SecretName", cmdPrefix)
+		}
+
+		secretNameFlagValue, err := cmd.Flags().GetString(secretNameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SecretName = secretNameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecContainerSpecSecretsItems0File
+
+// register flags to command
+func registerModelTaskSpecContainerSpecSecretsItems0FileFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecContainerSpecSecretsItems0FileGID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSecretsItems0FileMode(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSecretsItems0FileName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecContainerSpecSecretsItems0FileUID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0FileGID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	gIdDescription := `GID represents the file GID.`
+
+	var gIdFlagName string
+	if cmdPrefix == "" {
+		gIdFlagName = "GID"
+	} else {
+		gIdFlagName = fmt.Sprintf("%v.GID", cmdPrefix)
+	}
+
+	var gIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(gIdFlagName, gIdFlagDefault, gIdDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0FileMode(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive Mode uint32 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0FileName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `Name represents the final filename in the filesystem.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerTaskSpecContainerSpecSecretsItems0FileUID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	uidDescription := `UID represents the file UID.`
+
+	var uidFlagName string
+	if cmdPrefix == "" {
+		uidFlagName = "UID"
+	} else {
+		uidFlagName = fmt.Sprintf("%v.UID", cmdPrefix)
+	}
+
+	var uidFlagDefault string
+
+	_ = cmd.PersistentFlags().String(uidFlagName, uidFlagDefault, uidDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecContainerSpecSecretsItems0FileFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, gIdAdded := retrieveTaskSpecContainerSpecSecretsItems0FileGIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || gIdAdded
+
+	err, modeAdded := retrieveTaskSpecContainerSpecSecretsItems0FileModeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || modeAdded
+
+	err, nameAdded := retrieveTaskSpecContainerSpecSecretsItems0FileNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, uidAdded := retrieveTaskSpecContainerSpecSecretsItems0FileUIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || uidAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0FileGIDFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
+	if cmd.Flags().Changed(gIdFlagName) {
+
+		var gIdFlagName string
+		if cmdPrefix == "" {
+			gIdFlagName = "GID"
+		} else {
+			gIdFlagName = fmt.Sprintf("%v.GID", cmdPrefix)
+		}
+
+		gIdFlagValue, err := cmd.Flags().GetString(gIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.GID = gIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0FileModeFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
+	if cmd.Flags().Changed(modeFlagName) {
+
+		// warning: primitive Mode uint32 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0FileNameFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecContainerSpecSecretsItems0FileUIDFlags(depth int, m *models.TaskSpecContainerSpecSecretsItems0File, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
+	if cmd.Flags().Changed(uidFlagName) {
+
+		var uidFlagName string
+		if cmdPrefix == "" {
+			uidFlagName = "UID"
+		} else {
+			uidFlagName = fmt.Sprintf("%v.UID", cmdPrefix)
+		}
+
+		uidFlagValue, err := cmd.Flags().GetString(uidFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.UID = uidFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecLogDriver
+
+// register flags to command
+func registerModelTaskSpecLogDriverFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecLogDriverName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecLogDriverOptions(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecLogDriverName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := ``
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerTaskSpecLogDriverOptions(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Options map[string]string map type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecLogDriverFlags(depth int, m *models.TaskSpecLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, nameAdded := retrieveTaskSpecLogDriverNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, optionsAdded := retrieveTaskSpecLogDriverOptionsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || optionsAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecLogDriverNameFlags(depth int, m *models.TaskSpecLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecLogDriverOptionsFlags(depth int, m *models.TaskSpecLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(optionsFlagName) {
+		// warning: Options map type map[string]string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecNetworkAttachmentSpec
+
+// register flags to command
+func registerModelTaskSpecNetworkAttachmentSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecNetworkAttachmentSpecContainerID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecNetworkAttachmentSpecContainerID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	containerIdDescription := `ID of the container represented by this task`
+
+	var containerIdFlagName string
+	if cmdPrefix == "" {
+		containerIdFlagName = "ContainerID"
+	} else {
+		containerIdFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
+	}
+
+	var containerIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(containerIdFlagName, containerIdFlagDefault, containerIdDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecNetworkAttachmentSpecFlags(depth int, m *models.TaskSpecNetworkAttachmentSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, containerIdAdded := retrieveTaskSpecNetworkAttachmentSpecContainerIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerIdAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecNetworkAttachmentSpecContainerIDFlags(depth int, m *models.TaskSpecNetworkAttachmentSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	containerIdFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
+	if cmd.Flags().Changed(containerIdFlagName) {
+
+		var containerIdFlagName string
+		if cmdPrefix == "" {
+			containerIdFlagName = "ContainerID"
+		} else {
+			containerIdFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
+		}
+
+		containerIdFlagValue, err := cmd.Flags().GetString(containerIdFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ContainerID = containerIdFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecPlacement
+
+// register flags to command
+func registerModelTaskSpecPlacementFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecPlacementConstraints(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPlacementMaxReplicas(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPlacementPlatforms(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPlacementPreferences(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecPlacementConstraints(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Constraints []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecPlacementMaxReplicas(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	maxReplicasDescription := `Maximum number of replicas for per node (default value is 0, which is unlimited)`
+
+	var maxReplicasFlagName string
+	if cmdPrefix == "" {
+		maxReplicasFlagName = "MaxReplicas"
+	} else {
+		maxReplicasFlagName = fmt.Sprintf("%v.MaxReplicas", cmdPrefix)
+	}
+
+	var maxReplicasFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(maxReplicasFlagName, maxReplicasFlagDefault, maxReplicasDescription)
+
+	return nil
+}
+
+func registerTaskSpecPlacementPlatforms(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Platforms []*Platform array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecPlacementPreferences(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Preferences []*TaskSpecPlacementPreferencesItems0 array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecPlacementFlags(depth int, m *models.TaskSpecPlacement, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, constraintsAdded := retrieveTaskSpecPlacementConstraintsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || constraintsAdded
+
+	err, maxReplicasAdded := retrieveTaskSpecPlacementMaxReplicasFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || maxReplicasAdded
+
+	err, platformsAdded := retrieveTaskSpecPlacementPlatformsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || platformsAdded
+
+	err, preferencesAdded := retrieveTaskSpecPlacementPreferencesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || preferencesAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPlacementConstraintsFlags(depth int, m *models.TaskSpecPlacement, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	constraintsFlagName := fmt.Sprintf("%v.Constraints", cmdPrefix)
+	if cmd.Flags().Changed(constraintsFlagName) {
+		// warning: Constraints array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPlacementMaxReplicasFlags(depth int, m *models.TaskSpecPlacement, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	maxReplicasFlagName := fmt.Sprintf("%v.MaxReplicas", cmdPrefix)
+	if cmd.Flags().Changed(maxReplicasFlagName) {
+
+		var maxReplicasFlagName string
+		if cmdPrefix == "" {
+			maxReplicasFlagName = "MaxReplicas"
+		} else {
+			maxReplicasFlagName = fmt.Sprintf("%v.MaxReplicas", cmdPrefix)
+		}
+
+		maxReplicasFlagValue, err := cmd.Flags().GetInt64(maxReplicasFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.MaxReplicas = maxReplicasFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPlacementPlatformsFlags(depth int, m *models.TaskSpecPlacement, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	platformsFlagName := fmt.Sprintf("%v.Platforms", cmdPrefix)
+	if cmd.Flags().Changed(platformsFlagName) {
+		// warning: Platforms array type []*Platform is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPlacementPreferencesFlags(depth int, m *models.TaskSpecPlacement, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	preferencesFlagName := fmt.Sprintf("%v.Preferences", cmdPrefix)
+	if cmd.Flags().Changed(preferencesFlagName) {
+		// warning: Preferences array type []*TaskSpecPlacementPreferencesItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecPlacementPreferencesItems0
+
+// register flags to command
+func registerModelTaskSpecPlacementPreferencesItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecPlacementPreferencesItems0Spread(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecPlacementPreferencesItems0Spread(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var spreadFlagName string
+	if cmdPrefix == "" {
+		spreadFlagName = "Spread"
+	} else {
+		spreadFlagName = fmt.Sprintf("%v.Spread", cmdPrefix)
+	}
+
+	if err := registerModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth+1, spreadFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecPlacementPreferencesItems0Flags(depth int, m *models.TaskSpecPlacementPreferencesItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, spreadAdded := retrieveTaskSpecPlacementPreferencesItems0SpreadFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || spreadAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPlacementPreferencesItems0SpreadFlags(depth int, m *models.TaskSpecPlacementPreferencesItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	spreadFlagName := fmt.Sprintf("%v.Spread", cmdPrefix)
+	if cmd.Flags().Changed(spreadFlagName) {
+
+		spreadFlagValue := &models.TaskSpecPlacementPreferencesItems0Spread{}
+		err, added := retrieveModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth+1, spreadFlagValue, spreadFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Spread = spreadFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecPlacementPreferencesItems0Spread
+
+// register flags to command
+func registerModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecPlacementPreferencesItems0SpreadSpreadDescriptor(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecPlacementPreferencesItems0SpreadSpreadDescriptor(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	spreadDescriptorDescription := `label descriptor, such as engine.labels.az`
+
+	var spreadDescriptorFlagName string
+	if cmdPrefix == "" {
+		spreadDescriptorFlagName = "SpreadDescriptor"
+	} else {
+		spreadDescriptorFlagName = fmt.Sprintf("%v.SpreadDescriptor", cmdPrefix)
+	}
+
+	var spreadDescriptorFlagDefault string
+
+	_ = cmd.PersistentFlags().String(spreadDescriptorFlagName, spreadDescriptorFlagDefault, spreadDescriptorDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth int, m *models.TaskSpecPlacementPreferencesItems0Spread, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, spreadDescriptorAdded := retrieveTaskSpecPlacementPreferencesItems0SpreadSpreadDescriptorFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || spreadDescriptorAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPlacementPreferencesItems0SpreadSpreadDescriptorFlags(depth int, m *models.TaskSpecPlacementPreferencesItems0Spread, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	spreadDescriptorFlagName := fmt.Sprintf("%v.SpreadDescriptor", cmdPrefix)
+	if cmd.Flags().Changed(spreadDescriptorFlagName) {
+
+		var spreadDescriptorFlagName string
+		if cmdPrefix == "" {
+			spreadDescriptorFlagName = "SpreadDescriptor"
+		} else {
+			spreadDescriptorFlagName = fmt.Sprintf("%v.SpreadDescriptor", cmdPrefix)
+		}
+
+		spreadDescriptorFlagValue, err := cmd.Flags().GetString(spreadDescriptorFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SpreadDescriptor = spreadDescriptorFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecPluginSpec
+
+// register flags to command
+func registerModelTaskSpecPluginSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecPluginSpecDisabled(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPluginSpecName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPluginSpecPluginPrivilege(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPluginSpecRemote(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecDisabled(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	disabledDescription := `Disable the plugin once scheduled.`
+
+	var disabledFlagName string
+	if cmdPrefix == "" {
+		disabledFlagName = "Disabled"
+	} else {
+		disabledFlagName = fmt.Sprintf("%v.Disabled", cmdPrefix)
+	}
+
+	var disabledFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(disabledFlagName, disabledFlagDefault, disabledDescription)
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `The name or 'alias' to use for the plugin.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecPluginPrivilege(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: PluginPrivilege []*TaskSpecPluginSpecPluginPrivilegeItems0 array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecRemote(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	remoteDescription := `The plugin image reference to use.`
+
+	var remoteFlagName string
+	if cmdPrefix == "" {
+		remoteFlagName = "Remote"
+	} else {
+		remoteFlagName = fmt.Sprintf("%v.Remote", cmdPrefix)
+	}
+
+	var remoteFlagDefault string
+
+	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecPluginSpecFlags(depth int, m *models.TaskSpecPluginSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, disabledAdded := retrieveTaskSpecPluginSpecDisabledFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || disabledAdded
+
+	err, nameAdded := retrieveTaskSpecPluginSpecNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, pluginPrivilegeAdded := retrieveTaskSpecPluginSpecPluginPrivilegeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || pluginPrivilegeAdded
+
+	err, remoteAdded := retrieveTaskSpecPluginSpecRemoteFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || remoteAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecDisabledFlags(depth int, m *models.TaskSpecPluginSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	disabledFlagName := fmt.Sprintf("%v.Disabled", cmdPrefix)
+	if cmd.Flags().Changed(disabledFlagName) {
+
+		var disabledFlagName string
+		if cmdPrefix == "" {
+			disabledFlagName = "Disabled"
+		} else {
+			disabledFlagName = fmt.Sprintf("%v.Disabled", cmdPrefix)
+		}
+
+		disabledFlagValue, err := cmd.Flags().GetBool(disabledFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Disabled = disabledFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecNameFlags(depth int, m *models.TaskSpecPluginSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecPluginPrivilegeFlags(depth int, m *models.TaskSpecPluginSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	pluginPrivilegeFlagName := fmt.Sprintf("%v.PluginPrivilege", cmdPrefix)
+	if cmd.Flags().Changed(pluginPrivilegeFlagName) {
+		// warning: PluginPrivilege array type []*TaskSpecPluginSpecPluginPrivilegeItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecRemoteFlags(depth int, m *models.TaskSpecPluginSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	remoteFlagName := fmt.Sprintf("%v.Remote", cmdPrefix)
+	if cmd.Flags().Changed(remoteFlagName) {
+
+		var remoteFlagName string
+		if cmdPrefix == "" {
+			remoteFlagName = "Remote"
+		} else {
+			remoteFlagName = fmt.Sprintf("%v.Remote", cmdPrefix)
+		}
+
+		remoteFlagValue, err := cmd.Flags().GetString(remoteFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Remote = remoteFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecPluginSpecPluginPrivilegeItems0
+
+// register flags to command
+func registerModelTaskSpecPluginSpecPluginPrivilegeItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecPluginSpecPluginPrivilegeItems0Description(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPluginSpecPluginPrivilegeItems0Name(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecPluginSpecPluginPrivilegeItems0Value(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecPluginPrivilegeItems0Description(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	descriptionDescription := ``
+
+	var descriptionFlagName string
+	if cmdPrefix == "" {
+		descriptionFlagName = "Description"
+	} else {
+		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+	}
+
+	var descriptionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecPluginPrivilegeItems0Name(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := ``
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerTaskSpecPluginSpecPluginPrivilegeItems0Value(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Value []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecPluginSpecPluginPrivilegeItems0Flags(depth int, m *models.TaskSpecPluginSpecPluginPrivilegeItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, descriptionAdded := retrieveTaskSpecPluginSpecPluginPrivilegeItems0DescriptionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || descriptionAdded
+
+	err, nameAdded := retrieveTaskSpecPluginSpecPluginPrivilegeItems0NameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, valueAdded := retrieveTaskSpecPluginSpecPluginPrivilegeItems0ValueFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || valueAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecPluginPrivilegeItems0DescriptionFlags(depth int, m *models.TaskSpecPluginSpecPluginPrivilegeItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(descriptionFlagName) {
+
+		var descriptionFlagName string
+		if cmdPrefix == "" {
+			descriptionFlagName = "Description"
+		} else {
+			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		}
+
+		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Description = descriptionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecPluginPrivilegeItems0NameFlags(depth int, m *models.TaskSpecPluginSpecPluginPrivilegeItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecPluginSpecPluginPrivilegeItems0ValueFlags(depth int, m *models.TaskSpecPluginSpecPluginPrivilegeItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(valueFlagName) {
+		// warning: Value array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecResources
+
+// register flags to command
+func registerModelTaskSpecResourcesFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecResourcesLimits(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecResourcesReservation(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecResourcesLimits(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var limitsFlagName string
+	if cmdPrefix == "" {
+		limitsFlagName = "Limits"
+	} else {
+		limitsFlagName = fmt.Sprintf("%v.Limits", cmdPrefix)
+	}
+
+	if err := registerModelResourceObjectFlags(depth+1, limitsFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecResourcesReservation(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var reservationFlagName string
+	if cmdPrefix == "" {
+		reservationFlagName = "Reservation"
+	} else {
+		reservationFlagName = fmt.Sprintf("%v.Reservation", cmdPrefix)
+	}
+
+	if err := registerModelResourceObjectFlags(depth+1, reservationFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecResourcesFlags(depth int, m *models.TaskSpecResources, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, limitsAdded := retrieveTaskSpecResourcesLimitsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || limitsAdded
+
+	err, reservationAdded := retrieveTaskSpecResourcesReservationFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || reservationAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecResourcesLimitsFlags(depth int, m *models.TaskSpecResources, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	limitsFlagName := fmt.Sprintf("%v.Limits", cmdPrefix)
+	if cmd.Flags().Changed(limitsFlagName) {
+
+		limitsFlagValue := &models.ResourceObject{}
+		err, added := retrieveModelResourceObjectFlags(depth+1, limitsFlagValue, limitsFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Limits = limitsFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecResourcesReservationFlags(depth int, m *models.TaskSpecResources, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	reservationFlagName := fmt.Sprintf("%v.Reservation", cmdPrefix)
+	if cmd.Flags().Changed(reservationFlagName) {
+
+		reservationFlagValue := &models.ResourceObject{}
+		err, added := retrieveModelResourceObjectFlags(depth+1, reservationFlagValue, reservationFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Reservation = reservationFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for TaskSpecRestartPolicy
+
+// register flags to command
+func registerModelTaskSpecRestartPolicyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerTaskSpecRestartPolicyCondition(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecRestartPolicyDelay(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecRestartPolicyMaxAttempts(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerTaskSpecRestartPolicyWindow(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerTaskSpecRestartPolicyCondition(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	conditionDescription := `Condition for restart.`
+
+	var conditionFlagName string
+	if cmdPrefix == "" {
+		conditionFlagName = "Condition"
+	} else {
+		conditionFlagName = fmt.Sprintf("%v.Condition", cmdPrefix)
+	}
+
+	var conditionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(conditionFlagName, conditionFlagDefault, conditionDescription)
+
+	return nil
+}
+
+func registerTaskSpecRestartPolicyDelay(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	delayDescription := `Delay between restart attempts.`
+
+	var delayFlagName string
+	if cmdPrefix == "" {
+		delayFlagName = "Delay"
+	} else {
+		delayFlagName = fmt.Sprintf("%v.Delay", cmdPrefix)
+	}
+
+	var delayFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(delayFlagName, delayFlagDefault, delayDescription)
+
+	return nil
+}
+
+func registerTaskSpecRestartPolicyMaxAttempts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	maxAttemptsDescription := `Maximum attempts to restart a given container before giving up (default value is 0, which is ignored).`
+
+	var maxAttemptsFlagName string
+	if cmdPrefix == "" {
+		maxAttemptsFlagName = "MaxAttempts"
+	} else {
+		maxAttemptsFlagName = fmt.Sprintf("%v.MaxAttempts", cmdPrefix)
+	}
+
+	var maxAttemptsFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(maxAttemptsFlagName, maxAttemptsFlagDefault, maxAttemptsDescription)
+
+	return nil
+}
+
+func registerTaskSpecRestartPolicyWindow(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	windowDescription := `Windows is the time window used to evaluate the restart policy (default value is 0, which is unbounded).`
+
+	var windowFlagName string
+	if cmdPrefix == "" {
+		windowFlagName = "Window"
+	} else {
+		windowFlagName = fmt.Sprintf("%v.Window", cmdPrefix)
+	}
+
+	var windowFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(windowFlagName, windowFlagDefault, windowDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelTaskSpecRestartPolicyFlags(depth int, m *models.TaskSpecRestartPolicy, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, conditionAdded := retrieveTaskSpecRestartPolicyConditionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || conditionAdded
+
+	err, delayAdded := retrieveTaskSpecRestartPolicyDelayFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || delayAdded
+
+	err, maxAttemptsAdded := retrieveTaskSpecRestartPolicyMaxAttemptsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || maxAttemptsAdded
+
+	err, windowAdded := retrieveTaskSpecRestartPolicyWindowFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || windowAdded
+
+	return nil, retAdded
+}
+
+func retrieveTaskSpecRestartPolicyConditionFlags(depth int, m *models.TaskSpecRestartPolicy, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	conditionFlagName := fmt.Sprintf("%v.Condition", cmdPrefix)
+	if cmd.Flags().Changed(conditionFlagName) {
+
+		var conditionFlagName string
+		if cmdPrefix == "" {
+			conditionFlagName = "Condition"
+		} else {
+			conditionFlagName = fmt.Sprintf("%v.Condition", cmdPrefix)
+		}
+
+		conditionFlagValue, err := cmd.Flags().GetString(conditionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Condition = conditionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecRestartPolicyDelayFlags(depth int, m *models.TaskSpecRestartPolicy, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	delayFlagName := fmt.Sprintf("%v.Delay", cmdPrefix)
+	if cmd.Flags().Changed(delayFlagName) {
+
+		var delayFlagName string
+		if cmdPrefix == "" {
+			delayFlagName = "Delay"
+		} else {
+			delayFlagName = fmt.Sprintf("%v.Delay", cmdPrefix)
+		}
+
+		delayFlagValue, err := cmd.Flags().GetInt64(delayFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Delay = delayFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecRestartPolicyMaxAttemptsFlags(depth int, m *models.TaskSpecRestartPolicy, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	maxAttemptsFlagName := fmt.Sprintf("%v.MaxAttempts", cmdPrefix)
+	if cmd.Flags().Changed(maxAttemptsFlagName) {
+
+		var maxAttemptsFlagName string
+		if cmdPrefix == "" {
+			maxAttemptsFlagName = "MaxAttempts"
+		} else {
+			maxAttemptsFlagName = fmt.Sprintf("%v.MaxAttempts", cmdPrefix)
+		}
+
+		maxAttemptsFlagValue, err := cmd.Flags().GetInt64(maxAttemptsFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.MaxAttempts = maxAttemptsFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveTaskSpecRestartPolicyWindowFlags(depth int, m *models.TaskSpecRestartPolicy, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	windowFlagName := fmt.Sprintf("%v.Window", cmdPrefix)
+	if cmd.Flags().Changed(windowFlagName) {
+
+		var windowFlagName string
+		if cmdPrefix == "" {
+			windowFlagName = "Window"
+		} else {
+			windowFlagName = fmt.Sprintf("%v.Window", cmdPrefix)
+		}
+
+		windowFlagValue, err := cmd.Flags().GetInt64(windowFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Window = windowFlagValue
 
 		retAdded = true
 	}

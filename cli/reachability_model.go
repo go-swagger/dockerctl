@@ -10,6 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Reachability
+
 // register flags to command
 func registerModelReachabilityFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

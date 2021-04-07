@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Secret
+
 // register flags to command
 func registerModelSecretFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -92,7 +94,9 @@ func registerSecretSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	registerModelSecretFlags(depth+1, specFlagName, cmd)
+	if err := registerModelSecretSpecFlags(depth+1, specFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -130,7 +134,9 @@ func registerSecretVersion(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	registerModelSecretFlags(depth+1, versionFlagName, cmd)
+	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -232,12 +238,15 @@ func retrieveSecretSpecFlags(depth int, m *models.Secret, cmdPrefix string, cmd 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.Secret{}
-		err, added := retrieveModelSecretFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := &models.SecretSpec{}
+		err, added := retrieveModelSecretSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Spec = specFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -276,12 +285,15 @@ func retrieveSecretVersionFlags(depth int, m *models.Secret, cmdPrefix string, c
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.Secret{}
-		err, added := retrieveModelSecretFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := &models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Version = versionFlagValue
+		}
 	}
 	return nil, retAdded
 }

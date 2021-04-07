@@ -416,9 +416,13 @@ func registerOperationServiceServiceUpdateVersionParamFlags(cmdPrefix string, cm
 // register flags to command
 func registerModelServiceUpdateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf ServiceUpdateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.ServiceSpec flags
 
-	// allOf ServiceUpdateParamsBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelServiceSpecFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// ServiceUpdateParamsBodyAO1 ServiceUpdateParamsBodyAllOf1 register is skipped
 
 	return nil
 }
@@ -427,9 +431,14 @@ func registerModelServiceUpdateBodyFlags(depth int, cmdPrefix string, cmd *cobra
 func retrieveModelServiceUpdateBodyFlags(depth int, m *service.ServiceUpdateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf ServiceUpdateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.ServiceSpec
+	err, serviceUpdateParamsBodyAO0Added := retrieveModelServiceSpecFlags(depth, &m.ServiceSpec, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || serviceUpdateParamsBodyAO0Added
 
-	// allOf ServiceUpdateParamsBodyAO1 is not supported by go-swwagger cli yet
+	// retrieve ServiceUpdateParamsBodyAO1 ServiceUpdateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

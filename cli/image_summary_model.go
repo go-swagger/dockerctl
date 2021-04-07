@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ImageSummary
+
 // register flags to command
 func registerModelImageSummaryFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

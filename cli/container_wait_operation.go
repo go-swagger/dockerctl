@@ -221,7 +221,9 @@ func registerContainerWaitOKBodyError(depth int, cmdPrefix string, cmd *cobra.Co
 		errorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
 	}
 
-	registerModelContainerWaitOKBodyFlags(depth+1, errorFlagName, cmd)
+	if err := registerModelContainerWaitOKBodyErrorFlags(depth+1, errorFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -274,12 +276,15 @@ func retrieveContainerWaitOKBodyErrorFlags(depth int, m *container.ContainerWait
 	errorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
 
-		errorFlagValue := &container.ContainerWaitOKBody{}
-		err, added := retrieveModelContainerWaitOKBodyFlags(depth+1, errorFlagValue, errorFlagName, cmd)
+		errorFlagValue := &container.ContainerWaitOKBodyError{}
+		err, added := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, errorFlagValue, errorFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Error = errorFlagValue
+		}
 	}
 	return nil, retAdded
 }

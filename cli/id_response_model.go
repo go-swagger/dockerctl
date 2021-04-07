@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for IDResponse
+
 // register flags to command
 func registerModelIDResponseFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

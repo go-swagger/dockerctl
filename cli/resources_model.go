@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Resources
+
 // register flags to command
 func registerModelResourcesFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -1618,6 +1620,321 @@ func retrieveResourcesUlimitsFlags(depth int, m *models.Resources, cmdPrefix str
 	ulimitsFlagName := fmt.Sprintf("%v.Ulimits", cmdPrefix)
 	if cmd.Flags().Changed(ulimitsFlagName) {
 		// warning: Ulimits array type []*ResourcesUlimitsItems0 is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ResourcesBlkioWeightDeviceItems0
+
+// register flags to command
+func registerModelResourcesBlkioWeightDeviceItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerResourcesBlkioWeightDeviceItems0Path(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerResourcesBlkioWeightDeviceItems0Weight(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerResourcesBlkioWeightDeviceItems0Path(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	pathDescription := ``
+
+	var pathFlagName string
+	if cmdPrefix == "" {
+		pathFlagName = "Path"
+	} else {
+		pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+	}
+
+	var pathFlagDefault string
+
+	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+
+	return nil
+}
+
+func registerResourcesBlkioWeightDeviceItems0Weight(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	weightDescription := ``
+
+	var weightFlagName string
+	if cmdPrefix == "" {
+		weightFlagName = "Weight"
+	} else {
+		weightFlagName = fmt.Sprintf("%v.Weight", cmdPrefix)
+	}
+
+	var weightFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(weightFlagName, weightFlagDefault, weightDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelResourcesBlkioWeightDeviceItems0Flags(depth int, m *models.ResourcesBlkioWeightDeviceItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, pathAdded := retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || pathAdded
+
+	err, weightAdded := retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || weightAdded
+
+	return nil, retAdded
+}
+
+func retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth int, m *models.ResourcesBlkioWeightDeviceItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
+	if cmd.Flags().Changed(pathFlagName) {
+
+		var pathFlagName string
+		if cmdPrefix == "" {
+			pathFlagName = "Path"
+		} else {
+			pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+		}
+
+		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Path = pathFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth int, m *models.ResourcesBlkioWeightDeviceItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	weightFlagName := fmt.Sprintf("%v.Weight", cmdPrefix)
+	if cmd.Flags().Changed(weightFlagName) {
+
+		var weightFlagName string
+		if cmdPrefix == "" {
+			weightFlagName = "Weight"
+		} else {
+			weightFlagName = fmt.Sprintf("%v.Weight", cmdPrefix)
+		}
+
+		weightFlagValue, err := cmd.Flags().GetInt64(weightFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Weight = &weightFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for ResourcesUlimitsItems0
+
+// register flags to command
+func registerModelResourcesUlimitsItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerResourcesUlimitsItems0Hard(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerResourcesUlimitsItems0Name(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerResourcesUlimitsItems0Soft(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerResourcesUlimitsItems0Hard(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	hardDescription := `Hard limit`
+
+	var hardFlagName string
+	if cmdPrefix == "" {
+		hardFlagName = "Hard"
+	} else {
+		hardFlagName = fmt.Sprintf("%v.Hard", cmdPrefix)
+	}
+
+	var hardFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(hardFlagName, hardFlagDefault, hardDescription)
+
+	return nil
+}
+
+func registerResourcesUlimitsItems0Name(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `Name of ulimit`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerResourcesUlimitsItems0Soft(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	softDescription := `Soft limit`
+
+	var softFlagName string
+	if cmdPrefix == "" {
+		softFlagName = "Soft"
+	} else {
+		softFlagName = fmt.Sprintf("%v.Soft", cmdPrefix)
+	}
+
+	var softFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(softFlagName, softFlagDefault, softDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelResourcesUlimitsItems0Flags(depth int, m *models.ResourcesUlimitsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, hardAdded := retrieveResourcesUlimitsItems0HardFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || hardAdded
+
+	err, nameAdded := retrieveResourcesUlimitsItems0NameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, softAdded := retrieveResourcesUlimitsItems0SoftFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || softAdded
+
+	return nil, retAdded
+}
+
+func retrieveResourcesUlimitsItems0HardFlags(depth int, m *models.ResourcesUlimitsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	hardFlagName := fmt.Sprintf("%v.Hard", cmdPrefix)
+	if cmd.Flags().Changed(hardFlagName) {
+
+		var hardFlagName string
+		if cmdPrefix == "" {
+			hardFlagName = "Hard"
+		} else {
+			hardFlagName = fmt.Sprintf("%v.Hard", cmdPrefix)
+		}
+
+		hardFlagValue, err := cmd.Flags().GetInt64(hardFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Hard = hardFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveResourcesUlimitsItems0NameFlags(depth int, m *models.ResourcesUlimitsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrieveResourcesUlimitsItems0SoftFlags(depth int, m *models.ResourcesUlimitsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	softFlagName := fmt.Sprintf("%v.Soft", cmdPrefix)
+	if cmd.Flags().Changed(softFlagName) {
+
+		var softFlagName string
+		if cmdPrefix == "" {
+			softFlagName = "Soft"
+		} else {
+			softFlagName = fmt.Sprintf("%v.Soft", cmdPrefix)
+		}
+
+		softFlagValue, err := cmd.Flags().GetInt64(softFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Soft = softFlagValue
+
+		retAdded = true
 	}
 	return nil, retAdded
 }

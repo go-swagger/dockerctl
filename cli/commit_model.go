@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Commit
+
 // register flags to command
 func registerModelCommitFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

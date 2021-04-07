@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for NetworkAttachmentConfig
+
 // register flags to command
 func registerModelNetworkAttachmentConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

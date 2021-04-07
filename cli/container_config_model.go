@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ContainerConfig
+
 // register flags to command
 func registerModelContainerConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -271,7 +273,9 @@ func registerContainerConfigHealthcheck(depth int, cmdPrefix string, cmd *cobra.
 		healthcheckFlagName = fmt.Sprintf("%v.Healthcheck", cmdPrefix)
 	}
 
-	registerModelContainerConfigFlags(depth+1, healthcheckFlagName, cmd)
+	if err := registerModelHealthConfigFlags(depth+1, healthcheckFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -886,12 +890,15 @@ func retrieveContainerConfigHealthcheckFlags(depth int, m *models.ContainerConfi
 	healthcheckFlagName := fmt.Sprintf("%v.Healthcheck", cmdPrefix)
 	if cmd.Flags().Changed(healthcheckFlagName) {
 
-		healthcheckFlagValue := &models.ContainerConfig{}
-		err, added := retrieveModelContainerConfigFlags(depth+1, healthcheckFlagValue, healthcheckFlagName, cmd)
+		healthcheckFlagValue := &models.HealthConfig{}
+		err, added := retrieveModelHealthConfigFlags(depth+1, healthcheckFlagValue, healthcheckFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Healthcheck = healthcheckFlagValue
+		}
 	}
 	return nil, retAdded
 }

@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Network
+
 // register flags to command
 func registerModelNetworkFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -175,7 +177,9 @@ func registerNetworkIPAM(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		ipAMFlagName = fmt.Sprintf("%v.IPAM", cmdPrefix)
 	}
 
-	registerModelNetworkFlags(depth+1, ipAMFlagName, cmd)
+	if err := registerModelIPAMFlags(depth+1, ipAMFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -512,12 +516,15 @@ func retrieveNetworkIPAMFlags(depth int, m *models.Network, cmdPrefix string, cm
 	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
 	if cmd.Flags().Changed(ipAMFlagName) {
 
-		ipAMFlagValue := &models.Network{}
-		err, added := retrieveModelNetworkFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
+		ipAMFlagValue := &models.IPAM{}
+		err, added := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.IPAM = ipAMFlagValue
+		}
 	}
 	return nil, retAdded
 }

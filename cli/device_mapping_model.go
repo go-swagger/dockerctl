@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for DeviceMapping
+
 // register flags to command
 func registerModelDeviceMappingFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

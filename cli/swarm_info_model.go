@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for SwarmInfo
+
 // register flags to command
 func registerModelSwarmInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -66,7 +68,9 @@ func registerSwarmInfoCluster(depth int, cmdPrefix string, cmd *cobra.Command) e
 		clusterFlagName = fmt.Sprintf("%v.Cluster", cmdPrefix)
 	}
 
-	registerModelSwarmInfoFlags(depth+1, clusterFlagName, cmd)
+	if err := registerModelClusterInfoFlags(depth+1, clusterFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -287,12 +291,15 @@ func retrieveSwarmInfoClusterFlags(depth int, m *models.SwarmInfo, cmdPrefix str
 	clusterFlagName := fmt.Sprintf("%v.Cluster", cmdPrefix)
 	if cmd.Flags().Changed(clusterFlagName) {
 
-		clusterFlagValue := &models.SwarmInfo{}
-		err, added := retrieveModelSwarmInfoFlags(depth+1, clusterFlagValue, clusterFlagName, cmd)
+		clusterFlagValue := &models.ClusterInfo{}
+		err, added := retrieveModelClusterInfoFlags(depth+1, clusterFlagValue, clusterFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Cluster = clusterFlagValue
+		}
 	}
 	return nil, retAdded
 }

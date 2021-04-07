@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ConfigSpec
+
 // register flags to command
 func registerModelConfigSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -99,7 +101,9 @@ func registerConfigSpecTemplating(depth int, cmdPrefix string, cmd *cobra.Comman
 		templatingFlagName = fmt.Sprintf("%v.Templating", cmdPrefix)
 	}
 
-	registerModelConfigSpecFlags(depth+1, templatingFlagName, cmd)
+	if err := registerModelDriverFlags(depth+1, templatingFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -207,12 +211,15 @@ func retrieveConfigSpecTemplatingFlags(depth int, m *models.ConfigSpec, cmdPrefi
 	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
 	if cmd.Flags().Changed(templatingFlagName) {
 
-		templatingFlagValue := &models.ConfigSpec{}
-		err, added := retrieveModelConfigSpecFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
+		templatingFlagValue := &models.Driver{}
+		err, added := retrieveModelDriverFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Templating = templatingFlagValue
+		}
 	}
 	return nil, retAdded
 }

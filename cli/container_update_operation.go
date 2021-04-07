@@ -213,9 +213,25 @@ func registerOperationContainerContainerUpdateUpdateParamFlags(cmdPrefix string,
 // register flags to command
 func registerModelContainerUpdateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf ContainerUpdateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.Resources flags
 
-	// allOf ContainerUpdateParamsBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelResourcesFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// inline allOf ContainerUpdateParamsBodyAO1 of type  is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// inline definition name ContainerUpdateParamsBodyAO1, type
+
+func registerContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicy(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf RestartPolicy of type models.RestartPolicy is not supported by go-swagger cli yet
 
 	return nil
 }
@@ -224,9 +240,14 @@ func registerModelContainerUpdateBodyFlags(depth int, cmdPrefix string, cmd *cob
 func retrieveModelContainerUpdateBodyFlags(depth int, m *container.ContainerUpdateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf ContainerUpdateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.Resources
+	err, containerUpdateParamsBodyAO0Added := retrieveModelResourcesFlags(depth, &m.Resources, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerUpdateParamsBodyAO0Added
 
-	// allOf ContainerUpdateParamsBodyAO1 is not supported by go-swwagger cli yet
+	// inline allOf ContainerUpdateParamsBodyAO1 is not supported by go-swagger cli yet
 
 	return nil, retAdded
 }

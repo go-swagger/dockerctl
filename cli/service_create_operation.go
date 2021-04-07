@@ -252,9 +252,13 @@ func registerOperationServiceServiceCreateBodyParamFlags(cmdPrefix string, cmd *
 // register flags to command
 func registerModelServiceCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf ServiceCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.ServiceSpec flags
 
-	// allOf ServiceCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelServiceSpecFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// ServiceCreateParamsBodyAO1 ServiceCreateParamsBodyAllOf1 register is skipped
 
 	return nil
 }
@@ -263,9 +267,14 @@ func registerModelServiceCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra
 func retrieveModelServiceCreateBodyFlags(depth int, m *service.ServiceCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf ServiceCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.ServiceSpec
+	err, serviceCreateParamsBodyAO0Added := retrieveModelServiceSpecFlags(depth, &m.ServiceSpec, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || serviceCreateParamsBodyAO0Added
 
-	// allOf ServiceCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	// retrieve ServiceCreateParamsBodyAO1 ServiceCreateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

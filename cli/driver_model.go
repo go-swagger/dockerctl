@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Driver
+
 // register flags to command
 func registerModelDriverFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

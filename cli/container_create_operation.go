@@ -239,9 +239,35 @@ func registerOperationContainerContainerCreateNameParamFlags(cmdPrefix string, c
 // register flags to command
 func registerModelContainerCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
-	// allOf ContainerCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// register embedded models.ContainerConfig flags
 
-	// allOf ContainerCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	if err := registerModelContainerConfigFlags(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	// inline allOf ContainerCreateParamsBodyAO1 of type  is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// inline definition name ContainerCreateParamsBodyAO1, type
+
+func registerContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf HostConfig of type models.HostConfig is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// inline allOf NetworkingConfig of type ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig is not supported by go-swagger cli yet
 
 	return nil
 }
@@ -250,9 +276,14 @@ func registerModelContainerCreateBodyFlags(depth int, cmdPrefix string, cmd *cob
 func retrieveModelContainerCreateBodyFlags(depth int, m *container.ContainerCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	// allOf ContainerCreateParamsBodyAO0 is not supported by go-swwagger cli yet
+	// retrieve model models.ContainerConfig
+	err, containerCreateParamsBodyAO0Added := retrieveModelContainerConfigFlags(depth, &m.ContainerConfig, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerCreateParamsBodyAO0Added
 
-	// allOf ContainerCreateParamsBodyAO1 is not supported by go-swwagger cli yet
+	// inline allOf ContainerCreateParamsBodyAO1 is not supported by go-swagger cli yet
 
 	return nil, retAdded
 }

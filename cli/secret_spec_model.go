@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for SecretSpec
+
 // register flags to command
 func registerModelSecretSpecFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -76,7 +78,9 @@ func registerSecretSpecDriver(depth int, cmdPrefix string, cmd *cobra.Command) e
 		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	registerModelSecretSpecFlags(depth+1, driverFlagName, cmd)
+	if err := registerModelDriverFlags(depth+1, driverFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -123,7 +127,9 @@ func registerSecretSpecTemplating(depth int, cmdPrefix string, cmd *cobra.Comman
 		templatingFlagName = fmt.Sprintf("%v.Templating", cmdPrefix)
 	}
 
-	registerModelSecretSpecFlags(depth+1, templatingFlagName, cmd)
+	if err := registerModelDriverFlags(depth+1, templatingFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -199,12 +205,15 @@ func retrieveSecretSpecDriverFlags(depth int, m *models.SecretSpec, cmdPrefix st
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
-		driverFlagValue := &models.SecretSpec{}
-		err, added := retrieveModelSecretSpecFlags(depth+1, driverFlagValue, driverFlagName, cmd)
+		driverFlagValue := &models.Driver{}
+		err, added := retrieveModelDriverFlags(depth+1, driverFlagValue, driverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Driver = driverFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -255,12 +264,15 @@ func retrieveSecretSpecTemplatingFlags(depth int, m *models.SecretSpec, cmdPrefi
 	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
 	if cmd.Flags().Changed(templatingFlagName) {
 
-		templatingFlagValue := &models.SecretSpec{}
-		err, added := retrieveModelSecretSpecFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
+		templatingFlagValue := &models.Driver{}
+		err, added := retrieveModelDriverFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Templating = templatingFlagValue
+		}
 	}
 	return nil, retAdded
 }

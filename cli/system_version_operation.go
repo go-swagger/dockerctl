@@ -516,7 +516,9 @@ func registerSystemVersionOKBodyPlatform(depth int, cmdPrefix string, cmd *cobra
 		platformFlagName = fmt.Sprintf("%v.Platform", cmdPrefix)
 	}
 
-	registerModelSystemVersionOKBodyFlags(depth+1, platformFlagName, cmd)
+	if err := registerModelSystemVersionOKBodyPlatformFlags(depth+1, platformFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -875,12 +877,15 @@ func retrieveSystemVersionOKBodyPlatformFlags(depth int, m *system.SystemVersion
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
 
-		platformFlagValue := &system.SystemVersionOKBody{}
-		err, added := retrieveModelSystemVersionOKBodyFlags(depth+1, platformFlagValue, platformFlagName, cmd)
+		platformFlagValue := &system.SystemVersionOKBodyPlatform{}
+		err, added := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Platform = platformFlagValue
+		}
 	}
 	return nil, retAdded
 }

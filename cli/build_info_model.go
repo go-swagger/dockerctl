@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for BuildInfo
+
 // register flags to command
 func registerModelBuildInfoFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -62,7 +64,9 @@ func registerBuildInfoAux(depth int, cmdPrefix string, cmd *cobra.Command) error
 		auxFlagName = fmt.Sprintf("%v.aux", cmdPrefix)
 	}
 
-	registerModelBuildInfoFlags(depth+1, auxFlagName, cmd)
+	if err := registerModelImageIDFlags(depth+1, auxFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -100,7 +104,9 @@ func registerBuildInfoErrorDetail(depth int, cmdPrefix string, cmd *cobra.Comman
 		errorDetailFlagName = fmt.Sprintf("%v.errorDetail", cmdPrefix)
 	}
 
-	registerModelBuildInfoFlags(depth+1, errorDetailFlagName, cmd)
+	if err := registerModelErrorDetailFlags(depth+1, errorDetailFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -159,7 +165,9 @@ func registerBuildInfoProgressDetail(depth int, cmdPrefix string, cmd *cobra.Com
 		progressDetailFlagName = fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	}
 
-	registerModelBuildInfoFlags(depth+1, progressDetailFlagName, cmd)
+	if err := registerModelProgressDetailFlags(depth+1, progressDetailFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -269,12 +277,15 @@ func retrieveBuildInfoAuxFlags(depth int, m *models.BuildInfo, cmdPrefix string,
 	auxFlagName := fmt.Sprintf("%v.aux", cmdPrefix)
 	if cmd.Flags().Changed(auxFlagName) {
 
-		auxFlagValue := &models.BuildInfo{}
-		err, added := retrieveModelBuildInfoFlags(depth+1, auxFlagValue, auxFlagName, cmd)
+		auxFlagValue := &models.ImageID{}
+		err, added := retrieveModelImageIDFlags(depth+1, auxFlagValue, auxFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Aux = auxFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -313,12 +324,15 @@ func retrieveBuildInfoErrorDetailFlags(depth int, m *models.BuildInfo, cmdPrefix
 	errorDetailFlagName := fmt.Sprintf("%v.errorDetail", cmdPrefix)
 	if cmd.Flags().Changed(errorDetailFlagName) {
 
-		errorDetailFlagValue := &models.BuildInfo{}
-		err, added := retrieveModelBuildInfoFlags(depth+1, errorDetailFlagValue, errorDetailFlagName, cmd)
+		errorDetailFlagValue := &models.ErrorDetail{}
+		err, added := retrieveModelErrorDetailFlags(depth+1, errorDetailFlagValue, errorDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ErrorDetail = errorDetailFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -383,12 +397,15 @@ func retrieveBuildInfoProgressDetailFlags(depth int, m *models.BuildInfo, cmdPre
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
 
-		progressDetailFlagValue := &models.BuildInfo{}
-		err, added := retrieveModelBuildInfoFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+		progressDetailFlagValue := &models.ProgressDetail{}
+		err, added := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.ProgressDetail = progressDetailFlagValue
+		}
 	}
 	return nil, retAdded
 }

@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for JoinTokens
+
 // register flags to command
 func registerModelJoinTokensFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

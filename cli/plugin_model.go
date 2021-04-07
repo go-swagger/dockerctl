@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for Plugin
+
 // register flags to command
 func registerModelPluginFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -54,7 +56,9 @@ func registerPluginConfig(depth int, cmdPrefix string, cmd *cobra.Command) error
 		configFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
 	}
 
-	registerModelPluginFlags(depth+1, configFlagName, cmd)
+	if err := registerModelPluginConfigFlags(depth+1, configFlagName, cmd); err != nil {
+		return err
+	}
 
 	if err := cmd.MarkPersistentFlagRequired(configFlagName); err != nil {
 		return err
@@ -159,7 +163,9 @@ func registerPluginSettings(depth int, cmdPrefix string, cmd *cobra.Command) err
 		settingsFlagName = fmt.Sprintf("%v.Settings", cmdPrefix)
 	}
 
-	registerModelPluginFlags(depth+1, settingsFlagName, cmd)
+	if err := registerModelPluginSettingsFlags(depth+1, settingsFlagName, cmd); err != nil {
+		return err
+	}
 
 	if err := cmd.MarkPersistentFlagRequired(settingsFlagName); err != nil {
 		return err
@@ -219,12 +225,15 @@ func retrievePluginConfigFlags(depth int, m *models.Plugin, cmdPrefix string, cm
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 
-		configFlagValue := &models.Plugin{}
-		err, added := retrieveModelPluginFlags(depth+1, configFlagValue, configFlagName, cmd)
+		configFlagValue := &models.PluginConfig{}
+		err, added := retrieveModelPluginConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Config = *configFlagValue
+		}
 	}
 	return nil, retAdded
 }
@@ -341,12 +350,1722 @@ func retrievePluginSettingsFlags(depth int, m *models.Plugin, cmdPrefix string, 
 	settingsFlagName := fmt.Sprintf("%v.Settings", cmdPrefix)
 	if cmd.Flags().Changed(settingsFlagName) {
 
-		settingsFlagValue := &models.Plugin{}
-		err, added := retrieveModelPluginFlags(depth+1, settingsFlagValue, settingsFlagName, cmd)
+		settingsFlagValue := &models.PluginSettings{}
+		err, added := retrieveModelPluginSettingsFlags(depth+1, settingsFlagValue, settingsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Settings = *settingsFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfig
+
+// register flags to command
+func registerModelPluginConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigArgs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigDescription(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigDockerVersion(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigDocumentation(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigEntrypoint(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigEnv(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigInterface(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigIpcHost(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigLinux(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigMounts(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigNetwork(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigPidHost(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigPropagatedMount(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigUser(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigWorkDir(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigRootfs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigArgs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var argsFlagName string
+	if cmdPrefix == "" {
+		argsFlagName = "Args"
+	} else {
+		argsFlagName = fmt.Sprintf("%v.Args", cmdPrefix)
+	}
+
+	if err := registerModelPluginConfigArgsFlags(depth+1, argsFlagName, cmd); err != nil {
+		return err
+	}
+
+	if err := cmd.MarkPersistentFlagRequired(argsFlagName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigDescription(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	descriptionDescription := `Required. `
+
+	var descriptionFlagName string
+	if cmdPrefix == "" {
+		descriptionFlagName = "Description"
+	} else {
+		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+	}
+
+	var descriptionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+
+	return nil
+}
+
+func registerPluginConfigDockerVersion(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	dockerVersionDescription := `Docker Version used to create the plugin`
+
+	var dockerVersionFlagName string
+	if cmdPrefix == "" {
+		dockerVersionFlagName = "DockerVersion"
+	} else {
+		dockerVersionFlagName = fmt.Sprintf("%v.DockerVersion", cmdPrefix)
+	}
+
+	var dockerVersionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(dockerVersionFlagName, dockerVersionFlagDefault, dockerVersionDescription)
+
+	return nil
+}
+
+func registerPluginConfigDocumentation(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	documentationDescription := `Required. `
+
+	var documentationFlagName string
+	if cmdPrefix == "" {
+		documentationFlagName = "Documentation"
+	} else {
+		documentationFlagName = fmt.Sprintf("%v.Documentation", cmdPrefix)
+	}
+
+	var documentationFlagDefault string
+
+	_ = cmd.PersistentFlags().String(documentationFlagName, documentationFlagDefault, documentationDescription)
+
+	return nil
+}
+
+func registerPluginConfigEntrypoint(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Entrypoint []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigEnv(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Env []PluginEnv array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigInterface(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var interfaceFlagName string
+	if cmdPrefix == "" {
+		interfaceFlagName = "Interface"
+	} else {
+		interfaceFlagName = fmt.Sprintf("%v.Interface", cmdPrefix)
+	}
+
+	if err := registerModelPluginConfigInterfaceFlags(depth+1, interfaceFlagName, cmd); err != nil {
+		return err
+	}
+
+	if err := cmd.MarkPersistentFlagRequired(interfaceFlagName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigIpcHost(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	ipcHostDescription := `Required. `
+
+	var ipcHostFlagName string
+	if cmdPrefix == "" {
+		ipcHostFlagName = "IpcHost"
+	} else {
+		ipcHostFlagName = fmt.Sprintf("%v.IpcHost", cmdPrefix)
+	}
+
+	var ipcHostFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(ipcHostFlagName, ipcHostFlagDefault, ipcHostDescription)
+
+	return nil
+}
+
+func registerPluginConfigLinux(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var linuxFlagName string
+	if cmdPrefix == "" {
+		linuxFlagName = "Linux"
+	} else {
+		linuxFlagName = fmt.Sprintf("%v.Linux", cmdPrefix)
+	}
+
+	if err := registerModelPluginConfigLinuxFlags(depth+1, linuxFlagName, cmd); err != nil {
+		return err
+	}
+
+	if err := cmd.MarkPersistentFlagRequired(linuxFlagName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigMounts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Mounts []PluginMount array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigNetwork(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var networkFlagName string
+	if cmdPrefix == "" {
+		networkFlagName = "Network"
+	} else {
+		networkFlagName = fmt.Sprintf("%v.Network", cmdPrefix)
+	}
+
+	if err := registerModelPluginConfigNetworkFlags(depth+1, networkFlagName, cmd); err != nil {
+		return err
+	}
+
+	if err := cmd.MarkPersistentFlagRequired(networkFlagName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigPidHost(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	pidHostDescription := `Required. `
+
+	var pidHostFlagName string
+	if cmdPrefix == "" {
+		pidHostFlagName = "PidHost"
+	} else {
+		pidHostFlagName = fmt.Sprintf("%v.PidHost", cmdPrefix)
+	}
+
+	var pidHostFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(pidHostFlagName, pidHostFlagDefault, pidHostDescription)
+
+	return nil
+}
+
+func registerPluginConfigPropagatedMount(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	propagatedMountDescription := `Required. `
+
+	var propagatedMountFlagName string
+	if cmdPrefix == "" {
+		propagatedMountFlagName = "PropagatedMount"
+	} else {
+		propagatedMountFlagName = fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
+	}
+
+	var propagatedMountFlagDefault string
+
+	_ = cmd.PersistentFlags().String(propagatedMountFlagName, propagatedMountFlagDefault, propagatedMountDescription)
+
+	return nil
+}
+
+func registerPluginConfigUser(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var userFlagName string
+	if cmdPrefix == "" {
+		userFlagName = "User"
+	} else {
+		userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+	}
+
+	if err := registerModelPluginConfigUserFlags(depth+1, userFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigWorkDir(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	workDirDescription := `Required. `
+
+	var workDirFlagName string
+	if cmdPrefix == "" {
+		workDirFlagName = "WorkDir"
+	} else {
+		workDirFlagName = fmt.Sprintf("%v.WorkDir", cmdPrefix)
+	}
+
+	var workDirFlagDefault string
+
+	_ = cmd.PersistentFlags().String(workDirFlagName, workDirFlagDefault, workDirDescription)
+
+	return nil
+}
+
+func registerPluginConfigRootfs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var rootfsFlagName string
+	if cmdPrefix == "" {
+		rootfsFlagName = "rootfs"
+	} else {
+		rootfsFlagName = fmt.Sprintf("%v.rootfs", cmdPrefix)
+	}
+
+	if err := registerModelPluginConfigRootfsFlags(depth+1, rootfsFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, argsAdded := retrievePluginConfigArgsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || argsAdded
+
+	err, descriptionAdded := retrievePluginConfigDescriptionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || descriptionAdded
+
+	err, dockerVersionAdded := retrievePluginConfigDockerVersionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || dockerVersionAdded
+
+	err, documentationAdded := retrievePluginConfigDocumentationFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || documentationAdded
+
+	err, entrypointAdded := retrievePluginConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || entrypointAdded
+
+	err, envAdded := retrievePluginConfigEnvFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || envAdded
+
+	err, interfaceAdded := retrievePluginConfigInterfaceFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || interfaceAdded
+
+	err, ipcHostAdded := retrievePluginConfigIpcHostFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || ipcHostAdded
+
+	err, linuxAdded := retrievePluginConfigLinuxFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || linuxAdded
+
+	err, mountsAdded := retrievePluginConfigMountsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || mountsAdded
+
+	err, networkAdded := retrievePluginConfigNetworkFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkAdded
+
+	err, pidHostAdded := retrievePluginConfigPidHostFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || pidHostAdded
+
+	err, propagatedMountAdded := retrievePluginConfigPropagatedMountFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || propagatedMountAdded
+
+	err, userAdded := retrievePluginConfigUserFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || userAdded
+
+	err, workDirAdded := retrievePluginConfigWorkDirFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || workDirAdded
+
+	err, rootfsAdded := retrievePluginConfigRootfsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || rootfsAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigArgsFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
+	if cmd.Flags().Changed(argsFlagName) {
+
+		argsFlagValue := &models.PluginConfigArgs{}
+		err, added := retrieveModelPluginConfigArgsFlags(depth+1, argsFlagValue, argsFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Args = *argsFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigDescriptionFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(descriptionFlagName) {
+
+		var descriptionFlagName string
+		if cmdPrefix == "" {
+			descriptionFlagName = "Description"
+		} else {
+			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		}
+
+		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Description = descriptionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigDockerVersionFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	dockerVersionFlagName := fmt.Sprintf("%v.DockerVersion", cmdPrefix)
+	if cmd.Flags().Changed(dockerVersionFlagName) {
+
+		var dockerVersionFlagName string
+		if cmdPrefix == "" {
+			dockerVersionFlagName = "DockerVersion"
+		} else {
+			dockerVersionFlagName = fmt.Sprintf("%v.DockerVersion", cmdPrefix)
+		}
+
+		dockerVersionFlagValue, err := cmd.Flags().GetString(dockerVersionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.DockerVersion = dockerVersionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigDocumentationFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	documentationFlagName := fmt.Sprintf("%v.Documentation", cmdPrefix)
+	if cmd.Flags().Changed(documentationFlagName) {
+
+		var documentationFlagName string
+		if cmdPrefix == "" {
+			documentationFlagName = "Documentation"
+		} else {
+			documentationFlagName = fmt.Sprintf("%v.Documentation", cmdPrefix)
+		}
+
+		documentationFlagValue, err := cmd.Flags().GetString(documentationFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Documentation = documentationFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigEntrypointFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	entrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
+	if cmd.Flags().Changed(entrypointFlagName) {
+		// warning: Entrypoint array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigEnvFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(envFlagName) {
+		// warning: Env array type []PluginEnv is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigInterfaceFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	interfaceFlagName := fmt.Sprintf("%v.Interface", cmdPrefix)
+	if cmd.Flags().Changed(interfaceFlagName) {
+
+		interfaceFlagValue := &models.PluginConfigInterface{}
+		err, added := retrieveModelPluginConfigInterfaceFlags(depth+1, interfaceFlagValue, interfaceFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Interface = *interfaceFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigIpcHostFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	ipcHostFlagName := fmt.Sprintf("%v.IpcHost", cmdPrefix)
+	if cmd.Flags().Changed(ipcHostFlagName) {
+
+		var ipcHostFlagName string
+		if cmdPrefix == "" {
+			ipcHostFlagName = "IpcHost"
+		} else {
+			ipcHostFlagName = fmt.Sprintf("%v.IpcHost", cmdPrefix)
+		}
+
+		ipcHostFlagValue, err := cmd.Flags().GetBool(ipcHostFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.IpcHost = ipcHostFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigLinuxFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	linuxFlagName := fmt.Sprintf("%v.Linux", cmdPrefix)
+	if cmd.Flags().Changed(linuxFlagName) {
+
+		linuxFlagValue := &models.PluginConfigLinux{}
+		err, added := retrieveModelPluginConfigLinuxFlags(depth+1, linuxFlagValue, linuxFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Linux = *linuxFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigMountsFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
+	if cmd.Flags().Changed(mountsFlagName) {
+		// warning: Mounts array type []PluginMount is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigNetworkFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	networkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
+	if cmd.Flags().Changed(networkFlagName) {
+
+		networkFlagValue := &models.PluginConfigNetwork{}
+		err, added := retrieveModelPluginConfigNetworkFlags(depth+1, networkFlagValue, networkFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Network = *networkFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigPidHostFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	pidHostFlagName := fmt.Sprintf("%v.PidHost", cmdPrefix)
+	if cmd.Flags().Changed(pidHostFlagName) {
+
+		var pidHostFlagName string
+		if cmdPrefix == "" {
+			pidHostFlagName = "PidHost"
+		} else {
+			pidHostFlagName = fmt.Sprintf("%v.PidHost", cmdPrefix)
+		}
+
+		pidHostFlagValue, err := cmd.Flags().GetBool(pidHostFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.PidHost = pidHostFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigPropagatedMountFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	propagatedMountFlagName := fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
+	if cmd.Flags().Changed(propagatedMountFlagName) {
+
+		var propagatedMountFlagName string
+		if cmdPrefix == "" {
+			propagatedMountFlagName = "PropagatedMount"
+		} else {
+			propagatedMountFlagName = fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
+		}
+
+		propagatedMountFlagValue, err := cmd.Flags().GetString(propagatedMountFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.PropagatedMount = propagatedMountFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigUserFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
+	if cmd.Flags().Changed(userFlagName) {
+
+		userFlagValue := &models.PluginConfigUser{}
+		err, added := retrieveModelPluginConfigUserFlags(depth+1, userFlagValue, userFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.User = *userFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigWorkDirFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	workDirFlagName := fmt.Sprintf("%v.WorkDir", cmdPrefix)
+	if cmd.Flags().Changed(workDirFlagName) {
+
+		var workDirFlagName string
+		if cmdPrefix == "" {
+			workDirFlagName = "WorkDir"
+		} else {
+			workDirFlagName = fmt.Sprintf("%v.WorkDir", cmdPrefix)
+		}
+
+		workDirFlagValue, err := cmd.Flags().GetString(workDirFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.WorkDir = workDirFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigRootfsFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	rootfsFlagName := fmt.Sprintf("%v.rootfs", cmdPrefix)
+	if cmd.Flags().Changed(rootfsFlagName) {
+
+		rootfsFlagValue := &models.PluginConfigRootfs{}
+		err, added := retrieveModelPluginConfigRootfsFlags(depth+1, rootfsFlagValue, rootfsFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.Rootfs = rootfsFlagValue
+		}
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfigArgs
+
+// register flags to command
+func registerModelPluginConfigArgsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigArgsDescription(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigArgsName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigArgsSettable(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigArgsValue(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigArgsDescription(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	descriptionDescription := `Required. `
+
+	var descriptionFlagName string
+	if cmdPrefix == "" {
+		descriptionFlagName = "Description"
+	} else {
+		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+	}
+
+	var descriptionFlagDefault string
+
+	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+
+	return nil
+}
+
+func registerPluginConfigArgsName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	nameDescription := `Required. `
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "Name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
+func registerPluginConfigArgsSettable(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Settable []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigArgsValue(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Value []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigArgsFlags(depth int, m *models.PluginConfigArgs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, descriptionAdded := retrievePluginConfigArgsDescriptionFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || descriptionAdded
+
+	err, nameAdded := retrievePluginConfigArgsNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || nameAdded
+
+	err, settableAdded := retrievePluginConfigArgsSettableFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || settableAdded
+
+	err, valueAdded := retrievePluginConfigArgsValueFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || valueAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigArgsDescriptionFlags(depth int, m *models.PluginConfigArgs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(descriptionFlagName) {
+
+		var descriptionFlagName string
+		if cmdPrefix == "" {
+			descriptionFlagName = "Description"
+		} else {
+			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		}
+
+		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Description = descriptionFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigArgsNameFlags(depth int, m *models.PluginConfigArgs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(nameFlagName) {
+
+		var nameFlagName string
+		if cmdPrefix == "" {
+			nameFlagName = "Name"
+		} else {
+			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		}
+
+		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Name = nameFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigArgsSettableFlags(depth int, m *models.PluginConfigArgs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
+	if cmd.Flags().Changed(settableFlagName) {
+		// warning: Settable array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigArgsValueFlags(depth int, m *models.PluginConfigArgs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(valueFlagName) {
+		// warning: Value array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfigInterface
+
+// register flags to command
+func registerModelPluginConfigInterfaceFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigInterfaceProtocolScheme(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigInterfaceSocket(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigInterfaceTypes(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigInterfaceProtocolScheme(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	protocolSchemeDescription := `Protocol to use for clients connecting to the plugin.`
+
+	var protocolSchemeFlagName string
+	if cmdPrefix == "" {
+		protocolSchemeFlagName = "ProtocolScheme"
+	} else {
+		protocolSchemeFlagName = fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
+	}
+
+	var protocolSchemeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(protocolSchemeFlagName, protocolSchemeFlagDefault, protocolSchemeDescription)
+
+	return nil
+}
+
+func registerPluginConfigInterfaceSocket(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	socketDescription := `Required. `
+
+	var socketFlagName string
+	if cmdPrefix == "" {
+		socketFlagName = "Socket"
+	} else {
+		socketFlagName = fmt.Sprintf("%v.Socket", cmdPrefix)
+	}
+
+	var socketFlagDefault string
+
+	_ = cmd.PersistentFlags().String(socketFlagName, socketFlagDefault, socketDescription)
+
+	return nil
+}
+
+func registerPluginConfigInterfaceTypes(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Types []PluginInterfaceType array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigInterfaceFlags(depth int, m *models.PluginConfigInterface, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, protocolSchemeAdded := retrievePluginConfigInterfaceProtocolSchemeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || protocolSchemeAdded
+
+	err, socketAdded := retrievePluginConfigInterfaceSocketFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || socketAdded
+
+	err, typesAdded := retrievePluginConfigInterfaceTypesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typesAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigInterfaceProtocolSchemeFlags(depth int, m *models.PluginConfigInterface, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	protocolSchemeFlagName := fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
+	if cmd.Flags().Changed(protocolSchemeFlagName) {
+
+		var protocolSchemeFlagName string
+		if cmdPrefix == "" {
+			protocolSchemeFlagName = "ProtocolScheme"
+		} else {
+			protocolSchemeFlagName = fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
+		}
+
+		protocolSchemeFlagValue, err := cmd.Flags().GetString(protocolSchemeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.ProtocolScheme = protocolSchemeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigInterfaceSocketFlags(depth int, m *models.PluginConfigInterface, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	socketFlagName := fmt.Sprintf("%v.Socket", cmdPrefix)
+	if cmd.Flags().Changed(socketFlagName) {
+
+		var socketFlagName string
+		if cmdPrefix == "" {
+			socketFlagName = "Socket"
+		} else {
+			socketFlagName = fmt.Sprintf("%v.Socket", cmdPrefix)
+		}
+
+		socketFlagValue, err := cmd.Flags().GetString(socketFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Socket = socketFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigInterfaceTypesFlags(depth int, m *models.PluginConfigInterface, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typesFlagName := fmt.Sprintf("%v.Types", cmdPrefix)
+	if cmd.Flags().Changed(typesFlagName) {
+		// warning: Types array type []PluginInterfaceType is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfigLinux
+
+// register flags to command
+func registerModelPluginConfigLinuxFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigLinuxAllowAllDevices(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigLinuxCapabilities(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigLinuxDevices(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigLinuxAllowAllDevices(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	allowAllDevicesDescription := `Required. `
+
+	var allowAllDevicesFlagName string
+	if cmdPrefix == "" {
+		allowAllDevicesFlagName = "AllowAllDevices"
+	} else {
+		allowAllDevicesFlagName = fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
+	}
+
+	var allowAllDevicesFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(allowAllDevicesFlagName, allowAllDevicesFlagDefault, allowAllDevicesDescription)
+
+	return nil
+}
+
+func registerPluginConfigLinuxCapabilities(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Capabilities []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigLinuxDevices(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Devices []PluginDevice array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigLinuxFlags(depth int, m *models.PluginConfigLinux, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, allowAllDevicesAdded := retrievePluginConfigLinuxAllowAllDevicesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || allowAllDevicesAdded
+
+	err, capabilitiesAdded := retrievePluginConfigLinuxCapabilitiesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || capabilitiesAdded
+
+	err, devicesAdded := retrievePluginConfigLinuxDevicesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || devicesAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigLinuxAllowAllDevicesFlags(depth int, m *models.PluginConfigLinux, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	allowAllDevicesFlagName := fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
+	if cmd.Flags().Changed(allowAllDevicesFlagName) {
+
+		var allowAllDevicesFlagName string
+		if cmdPrefix == "" {
+			allowAllDevicesFlagName = "AllowAllDevices"
+		} else {
+			allowAllDevicesFlagName = fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
+		}
+
+		allowAllDevicesFlagValue, err := cmd.Flags().GetBool(allowAllDevicesFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.AllowAllDevices = allowAllDevicesFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigLinuxCapabilitiesFlags(depth int, m *models.PluginConfigLinux, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
+	if cmd.Flags().Changed(capabilitiesFlagName) {
+		// warning: Capabilities array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigLinuxDevicesFlags(depth int, m *models.PluginConfigLinux, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
+	if cmd.Flags().Changed(devicesFlagName) {
+		// warning: Devices array type []PluginDevice is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfigNetwork
+
+// register flags to command
+func registerModelPluginConfigNetworkFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigNetworkType(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigNetworkType(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	typeDescription := `Required. `
+
+	var typeFlagName string
+	if cmdPrefix == "" {
+		typeFlagName = "Type"
+	} else {
+		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+	}
+
+	var typeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigNetworkFlags(depth int, m *models.PluginConfigNetwork, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, typeAdded := retrievePluginConfigNetworkTypeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typeAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigNetworkTypeFlags(depth int, m *models.PluginConfigNetwork, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(typeFlagName) {
+
+		var typeFlagName string
+		if cmdPrefix == "" {
+			typeFlagName = "Type"
+		} else {
+			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		}
+
+		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Type = typeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfigRootfs
+
+// register flags to command
+func registerModelPluginConfigRootfsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigRootfsDiffIds(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigRootfsType(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigRootfsDiffIds(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: diff_ids []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigRootfsType(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	typeDescription := ``
+
+	var typeFlagName string
+	if cmdPrefix == "" {
+		typeFlagName = "type"
+	} else {
+		typeFlagName = fmt.Sprintf("%v.type", cmdPrefix)
+	}
+
+	var typeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigRootfsFlags(depth int, m *models.PluginConfigRootfs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, diffIdsAdded := retrievePluginConfigRootfsDiffIdsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || diffIdsAdded
+
+	err, typeAdded := retrievePluginConfigRootfsTypeFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || typeAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigRootfsDiffIdsFlags(depth int, m *models.PluginConfigRootfs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	diffIdsFlagName := fmt.Sprintf("%v.diff_ids", cmdPrefix)
+	if cmd.Flags().Changed(diffIdsFlagName) {
+		// warning: diff_ids array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigRootfsTypeFlags(depth int, m *models.PluginConfigRootfs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	typeFlagName := fmt.Sprintf("%v.type", cmdPrefix)
+	if cmd.Flags().Changed(typeFlagName) {
+
+		var typeFlagName string
+		if cmdPrefix == "" {
+			typeFlagName = "type"
+		} else {
+			typeFlagName = fmt.Sprintf("%v.type", cmdPrefix)
+		}
+
+		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Type = typeFlagValue
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginConfigUser
+
+// register flags to command
+func registerModelPluginConfigUserFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginConfigUserGID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginConfigUserUID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginConfigUserGID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive GID uint32 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginConfigUserUID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primitive UID uint32 is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginConfigUserFlags(depth int, m *models.PluginConfigUser, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, gIdAdded := retrievePluginConfigUserGIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || gIdAdded
+
+	err, uidAdded := retrievePluginConfigUserUIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || uidAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginConfigUserGIDFlags(depth int, m *models.PluginConfigUser, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
+	if cmd.Flags().Changed(gIdFlagName) {
+
+		// warning: primitive GID uint32 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+func retrievePluginConfigUserUIDFlags(depth int, m *models.PluginConfigUser, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
+	if cmd.Flags().Changed(uidFlagName) {
+
+		// warning: primitive UID uint32 is not supported by go-swagger cli yet
+
+		retAdded = true
+	}
+	return nil, retAdded
+}
+
+// Extra schema cli for PluginSettings
+
+// register flags to command
+func registerModelPluginSettingsFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerPluginSettingsArgs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginSettingsDevices(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginSettingsEnv(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerPluginSettingsMounts(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerPluginSettingsArgs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Args []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginSettingsDevices(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Devices []PluginDevice array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginSettingsEnv(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Env []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerPluginSettingsMounts(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+	// warning: Mounts []PluginMount array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelPluginSettingsFlags(depth int, m *models.PluginSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, argsAdded := retrievePluginSettingsArgsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || argsAdded
+
+	err, devicesAdded := retrievePluginSettingsDevicesFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || devicesAdded
+
+	err, envAdded := retrievePluginSettingsEnvFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || envAdded
+
+	err, mountsAdded := retrievePluginSettingsMountsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || mountsAdded
+
+	return nil, retAdded
+}
+
+func retrievePluginSettingsArgsFlags(depth int, m *models.PluginSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
+	if cmd.Flags().Changed(argsFlagName) {
+		// warning: Args array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginSettingsDevicesFlags(depth int, m *models.PluginSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
+	if cmd.Flags().Changed(devicesFlagName) {
+		// warning: Devices array type []PluginDevice is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginSettingsEnvFlags(depth int, m *models.PluginSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(envFlagName) {
+		// warning: Env array type []string is not supported by go-swagger cli yet
+	}
+	return nil, retAdded
+}
+
+func retrievePluginSettingsMountsFlags(depth int, m *models.PluginSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
+	if cmd.Flags().Changed(mountsFlagName) {
+		// warning: Mounts array type []PluginMount is not supported by go-swagger cli yet
 	}
 	return nil, retAdded
 }

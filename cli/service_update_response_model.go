@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ServiceUpdateResponse
+
 // register flags to command
 func registerModelServiceUpdateResponseFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

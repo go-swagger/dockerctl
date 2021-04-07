@@ -334,7 +334,9 @@ func registerSystemEventsOKBodyActor(depth int, cmdPrefix string, cmd *cobra.Com
 		actorFlagName = fmt.Sprintf("%v.Actor", cmdPrefix)
 	}
 
-	registerModelSystemEventsOKBodyFlags(depth+1, actorFlagName, cmd)
+	if err := registerModelSystemEventsOKBodyActorFlags(depth+1, actorFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -473,12 +475,15 @@ func retrieveSystemEventsOKBodyActorFlags(depth int, m *system.SystemEventsOKBod
 	actorFlagName := fmt.Sprintf("%v.Actor", cmdPrefix)
 	if cmd.Flags().Changed(actorFlagName) {
 
-		actorFlagValue := &system.SystemEventsOKBody{}
-		err, added := retrieveModelSystemEventsOKBodyFlags(depth+1, actorFlagValue, actorFlagName, cmd)
+		actorFlagValue := &system.SystemEventsOKBodyActor{}
+		err, added := retrieveModelSystemEventsOKBodyActorFlags(depth+1, actorFlagValue, actorFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.Actor = actorFlagValue
+		}
 	}
 	return nil, retAdded
 }

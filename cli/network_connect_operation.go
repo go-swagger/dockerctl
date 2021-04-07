@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/network"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -253,7 +254,9 @@ func registerNetworkConnectBodyEndpointConfig(depth int, cmdPrefix string, cmd *
 		endpointConfigFlagName = fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
 	}
 
-	registerModelNetworkConnectBodyFlags(depth+1, endpointConfigFlagName, cmd)
+	if err := registerModelEndpointSettingsFlags(depth+1, endpointConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -311,12 +314,15 @@ func retrieveNetworkConnectBodyEndpointConfigFlags(depth int, m *network.Network
 	endpointConfigFlagName := fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
 	if cmd.Flags().Changed(endpointConfigFlagName) {
 
-		endpointConfigFlagValue := &network.NetworkConnectBody{}
-		err, added := retrieveModelNetworkConnectBodyFlags(depth+1, endpointConfigFlagValue, endpointConfigFlagName, cmd)
+		endpointConfigFlagValue := &models.EndpointSettings{}
+		err, added := retrieveModelEndpointSettingsFlags(depth+1, endpointConfigFlagValue, endpointConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
+		if added {
+			m.EndpointConfig = endpointConfigFlagValue
+		}
 	}
 	return nil, retAdded
 }

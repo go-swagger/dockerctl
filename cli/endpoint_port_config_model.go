@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for EndpointPortConfig
+
 // register flags to command
 func registerModelEndpointPortConfigFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

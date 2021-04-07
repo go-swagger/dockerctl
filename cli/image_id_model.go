@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for ImageID
+
 // register flags to command
 func registerModelImageIDFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

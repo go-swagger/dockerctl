@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Schema cli for GraphDriverData
+
 // register flags to command
 func registerModelGraphDriverDataFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 

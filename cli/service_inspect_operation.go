@@ -51,6 +51,52 @@ func runOperationServiceServiceInspect(cmd *cobra.Command, args []string) error 
 	return nil
 }
 
+// registerOperationServiceServiceInspectParamFlags registers all flags needed to fill params
+func registerOperationServiceServiceInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationServiceServiceInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceInspectInsertDefaultsParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationServiceServiceInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of service.`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationServiceServiceInspectInsertDefaultsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	insertDefaultsDescription := `Fill empty fields with default values.`
+
+	var insertDefaultsFlagName string
+	if cmdPrefix == "" {
+		insertDefaultsFlagName = "insertDefaults"
+	} else {
+		insertDefaultsFlagName = fmt.Sprintf("%v.insertDefaults", cmdPrefix)
+	}
+
+	var insertDefaultsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(insertDefaultsFlagName, insertDefaultsFlagDefault, insertDefaultsDescription)
+
+	return nil
+}
+
 func retrieveOperationServiceServiceInspectIDFlag(m *service.ServiceInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -158,52 +204,6 @@ func printOperationServiceServiceInspectResult(resp0 *service.ServiceInspectOK, 
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationServiceServiceInspectParamFlags registers all flags needed to fill params
-func registerOperationServiceServiceInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationServiceServiceInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceInspectInsertDefaultsParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationServiceServiceInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of service.`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationServiceServiceInspectInsertDefaultsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	insertDefaultsDescription := `Fill empty fields with default values.`
-
-	var insertDefaultsFlagName string
-	if cmdPrefix == "" {
-		insertDefaultsFlagName = "insertDefaults"
-	} else {
-		insertDefaultsFlagName = fmt.Sprintf("%v.insertDefaults", cmdPrefix)
-	}
-
-	var insertDefaultsFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(insertDefaultsFlagName, insertDefaultsFlagDefault, insertDefaultsDescription)
 
 	return nil
 }

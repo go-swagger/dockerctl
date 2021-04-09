@@ -125,6 +125,7 @@ func retrieveTLSInfoCertIssuerPublicKeyFlags(depth int, m *models.TLSInfo, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	certIssuerPublicKeyFlagName := fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
 	if cmd.Flags().Changed(certIssuerPublicKeyFlagName) {
 
@@ -143,6 +144,7 @@ func retrieveTLSInfoCertIssuerPublicKeyFlags(depth int, m *models.TLSInfo, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -151,6 +153,7 @@ func retrieveTLSInfoCertIssuerSubjectFlags(depth int, m *models.TLSInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	certIssuerSubjectFlagName := fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
 	if cmd.Flags().Changed(certIssuerSubjectFlagName) {
 
@@ -169,6 +172,7 @@ func retrieveTLSInfoCertIssuerSubjectFlags(depth int, m *models.TLSInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -177,6 +181,7 @@ func retrieveTLSInfoTrustRootFlags(depth int, m *models.TLSInfo, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	trustRootFlagName := fmt.Sprintf("%v.TrustRoot", cmdPrefix)
 	if cmd.Flags().Changed(trustRootFlagName) {
 
@@ -195,5 +200,6 @@ func retrieveTLSInfoTrustRootFlags(depth int, m *models.TLSInfo, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -61,6 +61,52 @@ func runOperationContainerContainerStats(cmd *cobra.Command, args []string) erro
 	return nil
 }
 
+// registerOperationContainerContainerStatsParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerStatsParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerStatsIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerStatsStreamParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerStatsIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerStatsStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	streamDescription := `Stream the output. If false, the stats will be output once and then it will disconnect.`
+
+	var streamFlagName string
+	if cmdPrefix == "" {
+		streamFlagName = "stream"
+	} else {
+		streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
+	}
+
+	var streamFlagDefault bool = true
+
+	_ = cmd.PersistentFlags().Bool(streamFlagName, streamFlagDefault, streamDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerStatsIDFlag(m *container.ContainerStatsParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -152,52 +198,6 @@ func printOperationContainerContainerStatsResult(resp0 *container.ContainerStats
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationContainerContainerStatsParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerStatsParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerStatsIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerStatsStreamParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerStatsIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerStatsStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	streamDescription := `Stream the output. If false, the stats will be output once and then it will disconnect.`
-
-	var streamFlagName string
-	if cmdPrefix == "" {
-		streamFlagName = "stream"
-	} else {
-		streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
-	}
-
-	var streamFlagDefault bool = true
-
-	_ = cmd.PersistentFlags().Bool(streamFlagName, streamFlagDefault, streamDescription)
 
 	return nil
 }

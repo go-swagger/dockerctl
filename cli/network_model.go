@@ -97,6 +97,7 @@ func registerNetworkContainers(depth int, cmdPrefix string, cmd *cobra.Command) 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Containers map[string]NetworkContainer map type is not supported by go-swagger cli yet
 
 	return nil
@@ -251,6 +252,7 @@ func registerNetworkLabels(depth int, cmdPrefix string, cmd *cobra.Command) erro
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -281,6 +283,7 @@ func registerNetworkOptions(depth int, cmdPrefix string, cmd *cobra.Command) err
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -397,6 +400,7 @@ func retrieveNetworkAttachableFlags(depth int, m *models.Network, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	attachableFlagName := fmt.Sprintf("%v.Attachable", cmdPrefix)
 	if cmd.Flags().Changed(attachableFlagName) {
 
@@ -415,6 +419,7 @@ func retrieveNetworkAttachableFlags(depth int, m *models.Network, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -423,10 +428,12 @@ func retrieveNetworkContainersFlags(depth int, m *models.Network, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	containersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
 	if cmd.Flags().Changed(containersFlagName) {
 		// warning: Containers map type map[string]NetworkContainer is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -435,6 +442,7 @@ func retrieveNetworkCreatedFlags(depth int, m *models.Network, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	createdFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
 	if cmd.Flags().Changed(createdFlagName) {
 
@@ -453,6 +461,7 @@ func retrieveNetworkCreatedFlags(depth int, m *models.Network, cmdPrefix string,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -461,6 +470,7 @@ func retrieveNetworkDriverFlags(depth int, m *models.Network, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -479,6 +489,7 @@ func retrieveNetworkDriverFlags(depth int, m *models.Network, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -487,6 +498,7 @@ func retrieveNetworkEnableIPV6Flags(depth int, m *models.Network, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	enableIpv6FlagName := fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
 	if cmd.Flags().Changed(enableIpv6FlagName) {
 
@@ -505,6 +517,7 @@ func retrieveNetworkEnableIPV6Flags(depth int, m *models.Network, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -513,19 +526,21 @@ func retrieveNetworkIPAMFlags(depth int, m *models.Network, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
 	if cmd.Flags().Changed(ipAMFlagName) {
 
-		ipAMFlagValue := &models.IPAM{}
-		err, added := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
+		ipAMFlagValue := models.IPAM{}
+		err, added := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.IPAM = ipAMFlagValue
+			m.IPAM = &ipAMFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -534,6 +549,7 @@ func retrieveNetworkIDFlags(depth int, m *models.Network, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -552,6 +568,7 @@ func retrieveNetworkIDFlags(depth int, m *models.Network, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -560,6 +577,7 @@ func retrieveNetworkIngressFlags(depth int, m *models.Network, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	ingressFlagName := fmt.Sprintf("%v.Ingress", cmdPrefix)
 	if cmd.Flags().Changed(ingressFlagName) {
 
@@ -578,6 +596,7 @@ func retrieveNetworkIngressFlags(depth int, m *models.Network, cmdPrefix string,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -586,6 +605,7 @@ func retrieveNetworkInternalFlags(depth int, m *models.Network, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	internalFlagName := fmt.Sprintf("%v.Internal", cmdPrefix)
 	if cmd.Flags().Changed(internalFlagName) {
 
@@ -604,6 +624,7 @@ func retrieveNetworkInternalFlags(depth int, m *models.Network, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -612,10 +633,12 @@ func retrieveNetworkLabelsFlags(depth int, m *models.Network, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -624,6 +647,7 @@ func retrieveNetworkNameFlags(depth int, m *models.Network, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -642,6 +666,7 @@ func retrieveNetworkNameFlags(depth int, m *models.Network, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -650,10 +675,12 @@ func retrieveNetworkOptionsFlags(depth int, m *models.Network, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -662,6 +689,7 @@ func retrieveNetworkScopeFlags(depth int, m *models.Network, cmdPrefix string, c
 		return nil, false
 	}
 	retAdded := false
+
 	scopeFlagName := fmt.Sprintf("%v.Scope", cmdPrefix)
 	if cmd.Flags().Changed(scopeFlagName) {
 
@@ -680,5 +708,6 @@ func retrieveNetworkScopeFlags(depth int, m *models.Network, cmdPrefix string, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

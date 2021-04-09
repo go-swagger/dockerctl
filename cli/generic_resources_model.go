@@ -94,19 +94,21 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	discreteResourceSpecFlagName := fmt.Sprintf("%v.DiscreteResourceSpec", cmdPrefix)
 	if cmd.Flags().Changed(discreteResourceSpecFlagName) {
 
-		discreteResourceSpecFlagValue := &models.GenericResourcesItems0DiscreteResourceSpec{}
-		err, added := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
+		discreteResourceSpecFlagValue := models.GenericResourcesItems0DiscreteResourceSpec{}
+		err, added := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, &discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.DiscreteResourceSpec = discreteResourceSpecFlagValue
+			m.DiscreteResourceSpec = &discreteResourceSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -115,19 +117,21 @@ func retrieveGenericResourcesItems0NamedResourceSpecFlags(depth int, m *models.G
 		return nil, false
 	}
 	retAdded := false
+
 	namedResourceSpecFlagName := fmt.Sprintf("%v.NamedResourceSpec", cmdPrefix)
 	if cmd.Flags().Changed(namedResourceSpecFlagName) {
 
-		namedResourceSpecFlagValue := &models.GenericResourcesItems0NamedResourceSpec{}
-		err, added := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
+		namedResourceSpecFlagValue := models.GenericResourcesItems0NamedResourceSpec{}
+		err, added := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, &namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.NamedResourceSpec = namedResourceSpecFlagValue
+			m.NamedResourceSpec = &namedResourceSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -213,6 +217,7 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecKindFlags(depth int, m *m
 		return nil, false
 	}
 	retAdded := false
+
 	kindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
 	if cmd.Flags().Changed(kindFlagName) {
 
@@ -231,6 +236,7 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecKindFlags(depth int, m *m
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -239,6 +245,7 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecValueFlags(depth int, m *
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 
@@ -257,6 +264,7 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecValueFlags(depth int, m *
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -342,6 +350,7 @@ func retrieveGenericResourcesItems0NamedResourceSpecKindFlags(depth int, m *mode
 		return nil, false
 	}
 	retAdded := false
+
 	kindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
 	if cmd.Flags().Changed(kindFlagName) {
 
@@ -360,6 +369,7 @@ func retrieveGenericResourcesItems0NamedResourceSpecKindFlags(depth int, m *mode
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -368,6 +378,7 @@ func retrieveGenericResourcesItems0NamedResourceSpecValueFlags(depth int, m *mod
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 
@@ -386,5 +397,6 @@ func retrieveGenericResourcesItems0NamedResourceSpecValueFlags(depth int, m *mod
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

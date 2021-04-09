@@ -89,6 +89,7 @@ func registerSecretSpecLabels(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -176,6 +177,7 @@ func retrieveSecretSpecDataFlags(depth int, m *models.SecretSpec, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	dataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
 	if cmd.Flags().Changed(dataFlagName) {
 
@@ -194,6 +196,7 @@ func retrieveSecretSpecDataFlags(depth int, m *models.SecretSpec, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -202,19 +205,21 @@ func retrieveSecretSpecDriverFlags(depth int, m *models.SecretSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
-		driverFlagValue := &models.Driver{}
-		err, added := retrieveModelDriverFlags(depth+1, driverFlagValue, driverFlagName, cmd)
+		driverFlagValue := models.Driver{}
+		err, added := retrieveModelDriverFlags(depth+1, &driverFlagValue, driverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Driver = driverFlagValue
+			m.Driver = &driverFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -223,10 +228,12 @@ func retrieveSecretSpecLabelsFlags(depth int, m *models.SecretSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -235,6 +242,7 @@ func retrieveSecretSpecNameFlags(depth int, m *models.SecretSpec, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -253,6 +261,7 @@ func retrieveSecretSpecNameFlags(depth int, m *models.SecretSpec, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -261,18 +270,20 @@ func retrieveSecretSpecTemplatingFlags(depth int, m *models.SecretSpec, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
 	if cmd.Flags().Changed(templatingFlagName) {
 
-		templatingFlagValue := &models.Driver{}
-		err, added := retrieveModelDriverFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
+		templatingFlagValue := models.Driver{}
+		err, added := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Templating = templatingFlagValue
+			m.Templating = &templatingFlagValue
 		}
 	}
+
 	return nil, retAdded
 }

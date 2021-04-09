@@ -51,6 +51,52 @@ func runOperationContainerContainerRename(cmd *cobra.Command, args []string) err
 	return nil
 }
 
+// registerOperationContainerContainerRenameParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerRenameParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerRenameIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerRenameNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerRenameIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerRenameNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. New name for the container`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerRenameIDFlag(m *container.ContainerRenameParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -141,52 +187,6 @@ func printOperationContainerContainerRenameResult(resp0 *container.ContainerRena
 	}
 
 	// warning: non schema response containerRenameNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerRenameParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerRenameParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerRenameIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerRenameNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerRenameIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerRenameNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. New name for the container`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

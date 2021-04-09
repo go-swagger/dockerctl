@@ -115,6 +115,7 @@ func retrieveManagerStatusAddrFlags(depth int, m *models.ManagerStatus, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
 	if cmd.Flags().Changed(addrFlagName) {
 
@@ -133,6 +134,7 @@ func retrieveManagerStatusAddrFlags(depth int, m *models.ManagerStatus, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -141,6 +143,7 @@ func retrieveManagerStatusLeaderFlags(depth int, m *models.ManagerStatus, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	leaderFlagName := fmt.Sprintf("%v.Leader", cmdPrefix)
 	if cmd.Flags().Changed(leaderFlagName) {
 
@@ -159,6 +162,7 @@ func retrieveManagerStatusLeaderFlags(depth int, m *models.ManagerStatus, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -167,6 +171,7 @@ func retrieveManagerStatusReachabilityFlags(depth int, m *models.ManagerStatus, 
 		return nil, false
 	}
 	retAdded := false
+
 	reachabilityFlagName := fmt.Sprintf("%v.Reachability", cmdPrefix)
 	if cmd.Flags().Changed(reachabilityFlagName) {
 
@@ -174,5 +179,6 @@ func retrieveManagerStatusReachabilityFlags(depth int, m *models.ManagerStatus, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

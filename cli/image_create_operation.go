@@ -66,6 +66,152 @@ func runOperationImageImageCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageCreateParamFlags registers all flags needed to fill params
+func registerOperationImageImageCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageCreateXRegistryAuthParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCreateFromImageParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCreateFromSrcParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCreateInputImageParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCreatePlatformParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCreateRepoParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCreateTagParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageCreateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	xRegistryAuthDescription := `A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
+
+	var xRegistryAuthFlagName string
+	if cmdPrefix == "" {
+		xRegistryAuthFlagName = "X-Registry-Auth"
+	} else {
+		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+	}
+
+	var xRegistryAuthFlagDefault string
+
+	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+
+	return nil
+}
+func registerOperationImageImageCreateFromImageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	fromImageDescription := `Name of the image to pull. The name may include a tag or digest. This parameter may only be used when pulling an image. The pull is cancelled if the HTTP connection is closed.`
+
+	var fromImageFlagName string
+	if cmdPrefix == "" {
+		fromImageFlagName = "fromImage"
+	} else {
+		fromImageFlagName = fmt.Sprintf("%v.fromImage", cmdPrefix)
+	}
+
+	var fromImageFlagDefault string
+
+	_ = cmd.PersistentFlags().String(fromImageFlagName, fromImageFlagDefault, fromImageDescription)
+
+	return nil
+}
+func registerOperationImageImageCreateFromSrcParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	fromSrcDescription := `Source to import. The value may be a URL from which the image can be retrieved or ` + "`" + `-` + "`" + ` to read the image from the request body. This parameter may only be used when importing an image.`
+
+	var fromSrcFlagName string
+	if cmdPrefix == "" {
+		fromSrcFlagName = "fromSrc"
+	} else {
+		fromSrcFlagName = fmt.Sprintf("%v.fromSrc", cmdPrefix)
+	}
+
+	var fromSrcFlagDefault string
+
+	_ = cmd.PersistentFlags().String(fromSrcFlagName, fromSrcFlagDefault, fromSrcDescription)
+
+	return nil
+}
+func registerOperationImageImageCreateInputImageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	inputImageDescription := `Image content if the value ` + "`" + `-` + "`" + ` has been specified in fromSrc query parameter`
+
+	var inputImageFlagName string
+	if cmdPrefix == "" {
+		inputImageFlagName = "inputImage"
+	} else {
+		inputImageFlagName = fmt.Sprintf("%v.inputImage", cmdPrefix)
+	}
+
+	var inputImageFlagDefault string
+
+	_ = cmd.PersistentFlags().String(inputImageFlagName, inputImageFlagDefault, inputImageDescription)
+
+	return nil
+}
+func registerOperationImageImageCreatePlatformParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	platformDescription := `Platform in the format os[/arch[/variant]]`
+
+	var platformFlagName string
+	if cmdPrefix == "" {
+		platformFlagName = "platform"
+	} else {
+		platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
+	}
+
+	var platformFlagDefault string
+
+	_ = cmd.PersistentFlags().String(platformFlagName, platformFlagDefault, platformDescription)
+
+	return nil
+}
+func registerOperationImageImageCreateRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	repoDescription := `Repository name given to an image when it is imported. The repo may include a tag. This parameter may only be used when importing an image.`
+
+	var repoFlagName string
+	if cmdPrefix == "" {
+		repoFlagName = "repo"
+	} else {
+		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+	}
+
+	var repoFlagDefault string
+
+	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
+
+	return nil
+}
+func registerOperationImageImageCreateTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tagDescription := `Tag or digest. If empty when pulling an image, this causes all tags for the given image to be pulled.`
+
+	var tagFlagName string
+	if cmdPrefix == "" {
+		tagFlagName = "tag"
+	} else {
+		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+	}
+
+	var tagFlagDefault string
+
+	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageCreateXRegistryAuthFlag(m *image.ImageCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
@@ -243,152 +389,6 @@ func printOperationImageImageCreateResult(resp0 *image.ImageCreateOK, respErr er
 	}
 
 	// warning: non schema response imageCreateOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationImageImageCreateParamFlags registers all flags needed to fill params
-func registerOperationImageImageCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageCreateXRegistryAuthParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCreateFromImageParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCreateFromSrcParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCreateInputImageParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCreatePlatformParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCreateRepoParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCreateTagParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageCreateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	xRegistryAuthDescription := `A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
-
-	var xRegistryAuthFlagName string
-	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
-	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
-	}
-
-	var xRegistryAuthFlagDefault string
-
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
-
-	return nil
-}
-func registerOperationImageImageCreateFromImageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	fromImageDescription := `Name of the image to pull. The name may include a tag or digest. This parameter may only be used when pulling an image. The pull is cancelled if the HTTP connection is closed.`
-
-	var fromImageFlagName string
-	if cmdPrefix == "" {
-		fromImageFlagName = "fromImage"
-	} else {
-		fromImageFlagName = fmt.Sprintf("%v.fromImage", cmdPrefix)
-	}
-
-	var fromImageFlagDefault string
-
-	_ = cmd.PersistentFlags().String(fromImageFlagName, fromImageFlagDefault, fromImageDescription)
-
-	return nil
-}
-func registerOperationImageImageCreateFromSrcParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	fromSrcDescription := `Source to import. The value may be a URL from which the image can be retrieved or ` + "`" + `-` + "`" + ` to read the image from the request body. This parameter may only be used when importing an image.`
-
-	var fromSrcFlagName string
-	if cmdPrefix == "" {
-		fromSrcFlagName = "fromSrc"
-	} else {
-		fromSrcFlagName = fmt.Sprintf("%v.fromSrc", cmdPrefix)
-	}
-
-	var fromSrcFlagDefault string
-
-	_ = cmd.PersistentFlags().String(fromSrcFlagName, fromSrcFlagDefault, fromSrcDescription)
-
-	return nil
-}
-func registerOperationImageImageCreateInputImageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	inputImageDescription := `Image content if the value ` + "`" + `-` + "`" + ` has been specified in fromSrc query parameter`
-
-	var inputImageFlagName string
-	if cmdPrefix == "" {
-		inputImageFlagName = "inputImage"
-	} else {
-		inputImageFlagName = fmt.Sprintf("%v.inputImage", cmdPrefix)
-	}
-
-	var inputImageFlagDefault string
-
-	_ = cmd.PersistentFlags().String(inputImageFlagName, inputImageFlagDefault, inputImageDescription)
-
-	return nil
-}
-func registerOperationImageImageCreatePlatformParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	platformDescription := `Platform in the format os[/arch[/variant]]`
-
-	var platformFlagName string
-	if cmdPrefix == "" {
-		platformFlagName = "platform"
-	} else {
-		platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
-	}
-
-	var platformFlagDefault string
-
-	_ = cmd.PersistentFlags().String(platformFlagName, platformFlagDefault, platformDescription)
-
-	return nil
-}
-func registerOperationImageImageCreateRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	repoDescription := `Repository name given to an image when it is imported. The repo may include a tag. This parameter may only be used when importing an image.`
-
-	var repoFlagName string
-	if cmdPrefix == "" {
-		repoFlagName = "repo"
-	} else {
-		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
-	}
-
-	var repoFlagDefault string
-
-	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
-
-	return nil
-}
-func registerOperationImageImageCreateTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tagDescription := `Tag or digest. If empty when pulling an image, this causes all tags for the given image to be pulled.`
-
-	var tagFlagName string
-	if cmdPrefix == "" {
-		tagFlagName = "tag"
-	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
-	}
-
-	var tagFlagDefault string
-
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
 
 	return nil
 }

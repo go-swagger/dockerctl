@@ -48,6 +48,34 @@ func runOperationConfigConfigCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationConfigConfigCreateParamFlags registers all flags needed to fill params
+func registerOperationConfigConfigCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationConfigConfigCreateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationConfigConfigCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelConfigCreateBodyFlags(0, "configCreateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationConfigConfigCreateBodyFlag(m *config.ConfigCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -152,34 +180,6 @@ func printOperationConfigConfigCreateResult(resp0 *config.ConfigCreateCreated, r
 	return nil
 }
 
-// registerOperationConfigConfigCreateParamFlags registers all flags needed to fill params
-func registerOperationConfigConfigCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationConfigConfigCreateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationConfigConfigCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelConfigCreateBodyFlags(0, "configCreateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // register flags to command
 func registerModelConfigCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -204,8 +204,6 @@ func retrieveModelConfigCreateBodyFlags(depth int, m *config.ConfigCreateBody, c
 		return err, false
 	}
 	retAdded = retAdded || configCreateParamsBodyAO0Added
-
-	// retrieve ConfigCreateParamsBodyAO1 ConfigCreateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

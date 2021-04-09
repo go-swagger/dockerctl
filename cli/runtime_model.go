@@ -57,6 +57,7 @@ func registerRuntimeRuntimeArgs(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: runtimeArgs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -86,6 +87,7 @@ func retrieveRuntimePathFlags(depth int, m *models.Runtime, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	pathFlagName := fmt.Sprintf("%v.path", cmdPrefix)
 	if cmd.Flags().Changed(pathFlagName) {
 
@@ -104,6 +106,7 @@ func retrieveRuntimePathFlags(depth int, m *models.Runtime, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -112,9 +115,11 @@ func retrieveRuntimeRuntimeArgsFlags(depth int, m *models.Runtime, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	runtimeArgsFlagName := fmt.Sprintf("%v.runtimeArgs", cmdPrefix)
 	if cmd.Flags().Changed(runtimeArgsFlagName) {
 		// warning: runtimeArgs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

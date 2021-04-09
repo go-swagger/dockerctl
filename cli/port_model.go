@@ -134,6 +134,7 @@ func retrievePortIPFlags(depth int, m *models.Port, cmdPrefix string, cmd *cobra
 		return nil, false
 	}
 	retAdded := false
+
 	ipFlagName := fmt.Sprintf("%v.IP", cmdPrefix)
 	if cmd.Flags().Changed(ipFlagName) {
 
@@ -152,6 +153,7 @@ func retrievePortIPFlags(depth int, m *models.Port, cmdPrefix string, cmd *cobra
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -160,6 +162,7 @@ func retrievePortPrivatePortFlags(depth int, m *models.Port, cmdPrefix string, c
 		return nil, false
 	}
 	retAdded := false
+
 	privatePortFlagName := fmt.Sprintf("%v.PrivatePort", cmdPrefix)
 	if cmd.Flags().Changed(privatePortFlagName) {
 
@@ -167,6 +170,7 @@ func retrievePortPrivatePortFlags(depth int, m *models.Port, cmdPrefix string, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -175,6 +179,7 @@ func retrievePortPublicPortFlags(depth int, m *models.Port, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	publicPortFlagName := fmt.Sprintf("%v.PublicPort", cmdPrefix)
 	if cmd.Flags().Changed(publicPortFlagName) {
 
@@ -182,6 +187,7 @@ func retrievePortPublicPortFlags(depth int, m *models.Port, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -190,6 +196,7 @@ func retrievePortTypeFlags(depth int, m *models.Port, cmdPrefix string, cmd *cob
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -208,5 +215,6 @@ func retrievePortTypeFlags(depth int, m *models.Port, cmdPrefix string, cmd *cob
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

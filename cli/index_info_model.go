@@ -40,6 +40,7 @@ func registerIndexInfoMirrors(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Mirrors []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -158,10 +159,12 @@ func retrieveIndexInfoMirrorsFlags(depth int, m *models.IndexInfo, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	mirrorsFlagName := fmt.Sprintf("%v.Mirrors", cmdPrefix)
 	if cmd.Flags().Changed(mirrorsFlagName) {
 		// warning: Mirrors array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -170,6 +173,7 @@ func retrieveIndexInfoNameFlags(depth int, m *models.IndexInfo, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -188,6 +192,7 @@ func retrieveIndexInfoNameFlags(depth int, m *models.IndexInfo, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -196,6 +201,7 @@ func retrieveIndexInfoOfficialFlags(depth int, m *models.IndexInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	officialFlagName := fmt.Sprintf("%v.Official", cmdPrefix)
 	if cmd.Flags().Changed(officialFlagName) {
 
@@ -214,6 +220,7 @@ func retrieveIndexInfoOfficialFlags(depth int, m *models.IndexInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -222,6 +229,7 @@ func retrieveIndexInfoSecureFlags(depth int, m *models.IndexInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	secureFlagName := fmt.Sprintf("%v.Secure", cmdPrefix)
 	if cmd.Flags().Changed(secureFlagName) {
 
@@ -240,5 +248,6 @@ func retrieveIndexInfoSecureFlags(depth int, m *models.IndexInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

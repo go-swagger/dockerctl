@@ -55,6 +55,74 @@ func runOperationNodeNodeUpdate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNodeNodeUpdateParamFlags registers all flags needed to fill params
+func registerOperationNodeNodeUpdateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNodeNodeUpdateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNodeNodeUpdateIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNodeNodeUpdateVersionParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNodeNodeUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelNodeSpecFlags(0, "nodeSpec", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationNodeNodeUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. The ID of the node`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationNodeNodeUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	versionDescription := `Required. The version number of the node object being updated. This is required to avoid conflicting writes.`
+
+	var versionFlagName string
+	if cmdPrefix == "" {
+		versionFlagName = "version"
+	} else {
+		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+	}
+
+	var versionFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+
+	return nil
+}
+
 func retrieveOperationNodeNodeUpdateBodyFlag(m *node.NodeUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -191,74 +259,6 @@ func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error)
 	}
 
 	// warning: non schema response nodeUpdateOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationNodeNodeUpdateParamFlags registers all flags needed to fill params
-func registerOperationNodeNodeUpdateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNodeNodeUpdateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNodeNodeUpdateIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNodeNodeUpdateVersionParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNodeNodeUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelNodeSpecFlags(0, "nodeSpec", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationNodeNodeUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. The ID of the node`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationNodeNodeUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	versionDescription := `Required. The version number of the node object being updated. This is required to avoid conflicting writes.`
-
-	var versionFlagName string
-	if cmdPrefix == "" {
-		versionFlagName = "version"
-	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
-	}
-
-	var versionFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
 
 	return nil
 }

@@ -51,6 +51,39 @@ func runOperationPluginPluginSet(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginSetParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginSetParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginSetBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginSetNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginSetBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type []string is not supported by go-swagger cli yet.
+	return nil
+}
+func registerOperationPluginPluginSetNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginPluginSetBodyFlag(m *plugin.PluginSetParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -115,39 +148,6 @@ func printOperationPluginPluginSetResult(resp0 *plugin.PluginSetNoContent, respE
 	}
 
 	// warning: non schema response pluginSetNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationPluginPluginSetParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginSetParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginSetBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginSetNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginSetBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type []string is not supported by go-swagger cli yet.
-	return nil
-}
-func registerOperationPluginPluginSetNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

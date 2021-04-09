@@ -280,6 +280,7 @@ func retrieveMountPointDestinationFlags(depth int, m *models.MountPoint, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	destinationFlagName := fmt.Sprintf("%v.Destination", cmdPrefix)
 	if cmd.Flags().Changed(destinationFlagName) {
 
@@ -298,6 +299,7 @@ func retrieveMountPointDestinationFlags(depth int, m *models.MountPoint, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -306,6 +308,7 @@ func retrieveMountPointDriverFlags(depth int, m *models.MountPoint, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -324,6 +327,7 @@ func retrieveMountPointDriverFlags(depth int, m *models.MountPoint, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -332,6 +336,7 @@ func retrieveMountPointModeFlags(depth int, m *models.MountPoint, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
@@ -350,6 +355,7 @@ func retrieveMountPointModeFlags(depth int, m *models.MountPoint, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -358,6 +364,7 @@ func retrieveMountPointNameFlags(depth int, m *models.MountPoint, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -376,6 +383,7 @@ func retrieveMountPointNameFlags(depth int, m *models.MountPoint, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -384,6 +392,7 @@ func retrieveMountPointPropagationFlags(depth int, m *models.MountPoint, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	propagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
 	if cmd.Flags().Changed(propagationFlagName) {
 
@@ -402,6 +411,7 @@ func retrieveMountPointPropagationFlags(depth int, m *models.MountPoint, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -410,6 +420,7 @@ func retrieveMountPointRWFlags(depth int, m *models.MountPoint, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	rWFlagName := fmt.Sprintf("%v.RW", cmdPrefix)
 	if cmd.Flags().Changed(rWFlagName) {
 
@@ -428,6 +439,7 @@ func retrieveMountPointRWFlags(depth int, m *models.MountPoint, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -436,6 +448,7 @@ func retrieveMountPointSourceFlags(depth int, m *models.MountPoint, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	sourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
 	if cmd.Flags().Changed(sourceFlagName) {
 
@@ -454,6 +467,7 @@ func retrieveMountPointSourceFlags(depth int, m *models.MountPoint, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -462,6 +476,7 @@ func retrieveMountPointTypeFlags(depth int, m *models.MountPoint, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -480,5 +495,6 @@ func retrieveMountPointTypeFlags(depth int, m *models.MountPoint, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

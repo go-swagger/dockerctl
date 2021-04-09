@@ -36,6 +36,7 @@ func registerIPAMConfig(depth int, cmdPrefix string, cmd *cobra.Command) error {
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Config []map[string]string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -66,6 +67,7 @@ func registerIPAMOptions(depth int, cmdPrefix string, cmd *cobra.Command) error 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -101,10 +103,12 @@ func retrieveIPAMConfigFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 		// warning: Config array type []map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -113,6 +117,7 @@ func retrieveIPAMDriverFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -131,6 +136,7 @@ func retrieveIPAMDriverFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -139,9 +145,11 @@ func retrieveIPAMOptionsFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

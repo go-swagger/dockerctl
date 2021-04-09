@@ -54,6 +54,72 @@ func runOperationImageImageTag(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageTagParamFlags registers all flags needed to fill params
+func registerOperationImageImageTagParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageTagNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageTagRepoParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageTagTagParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageTagNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Image name or ID to tag.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+func registerOperationImageImageTagRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	repoDescription := `The repository to tag in. For example, ` + "`" + `someuser/someimage` + "`" + `.`
+
+	var repoFlagName string
+	if cmdPrefix == "" {
+		repoFlagName = "repo"
+	} else {
+		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+	}
+
+	var repoFlagDefault string
+
+	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
+
+	return nil
+}
+func registerOperationImageImageTagTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tagDescription := `The name of the new tag.`
+
+	var tagFlagName string
+	if cmdPrefix == "" {
+		tagFlagName = "tag"
+	} else {
+		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+	}
+
+	var tagFlagDefault string
+
+	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageTagNameFlag(m *image.ImageTagParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -177,72 +243,6 @@ func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr err
 	}
 
 	// warning: non schema response imageTagCreated is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationImageImageTagParamFlags registers all flags needed to fill params
-func registerOperationImageImageTagParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageTagNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageTagRepoParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageTagTagParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageTagNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Image name or ID to tag.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-func registerOperationImageImageTagRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	repoDescription := `The repository to tag in. For example, ` + "`" + `someuser/someimage` + "`" + `.`
-
-	var repoFlagName string
-	if cmdPrefix == "" {
-		repoFlagName = "repo"
-	} else {
-		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
-	}
-
-	var repoFlagDefault string
-
-	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
-
-	return nil
-}
-func registerOperationImageImageTagTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tagDescription := `The name of the new tag.`
-
-	var tagFlagName string
-	if cmdPrefix == "" {
-		tagFlagName = "tag"
-	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
-	}
-
-	var tagFlagDefault string
-
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
 
 	return nil
 }

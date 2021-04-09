@@ -57,6 +57,92 @@ func runOperationContainerContainerDelete(cmd *cobra.Command, args []string) err
 	return nil
 }
 
+// registerOperationContainerContainerDeleteParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerDeleteForceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerDeleteIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerDeleteLinkParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerDeleteVParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forceDescription := `If the container is running, kill it before removing it.`
+
+	var forceFlagName string
+	if cmdPrefix == "" {
+		forceFlagName = "force"
+	} else {
+		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+	}
+
+	var forceFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+
+	return nil
+}
+func registerOperationContainerContainerDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerDeleteLinkParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	linkDescription := `Remove the specified link associated with the container.`
+
+	var linkFlagName string
+	if cmdPrefix == "" {
+		linkFlagName = "link"
+	} else {
+		linkFlagName = fmt.Sprintf("%v.link", cmdPrefix)
+	}
+
+	var linkFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(linkFlagName, linkFlagDefault, linkDescription)
+
+	return nil
+}
+func registerOperationContainerContainerDeleteVParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	vDescription := `Remove the volumes associated with the container.`
+
+	var vFlagName string
+	if cmdPrefix == "" {
+		vFlagName = "v"
+	} else {
+		vFlagName = fmt.Sprintf("%v.v", cmdPrefix)
+	}
+
+	var vFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(vFlagName, vFlagDefault, vDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerDeleteForceFlag(m *container.ContainerDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("force") {
@@ -200,92 +286,6 @@ func printOperationContainerContainerDeleteResult(resp0 *container.ContainerDele
 	}
 
 	// warning: non schema response containerDeleteNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerDeleteParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerDeleteForceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerDeleteIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerDeleteLinkParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerDeleteVParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forceDescription := `If the container is running, kill it before removing it.`
-
-	var forceFlagName string
-	if cmdPrefix == "" {
-		forceFlagName = "force"
-	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
-	}
-
-	var forceFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
-
-	return nil
-}
-func registerOperationContainerContainerDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerDeleteLinkParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	linkDescription := `Remove the specified link associated with the container.`
-
-	var linkFlagName string
-	if cmdPrefix == "" {
-		linkFlagName = "link"
-	} else {
-		linkFlagName = fmt.Sprintf("%v.link", cmdPrefix)
-	}
-
-	var linkFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(linkFlagName, linkFlagDefault, linkDescription)
-
-	return nil
-}
-func registerOperationContainerContainerDeleteVParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	vDescription := `Remove the volumes associated with the container.`
-
-	var vFlagName string
-	if cmdPrefix == "" {
-		vFlagName = "v"
-	} else {
-		vFlagName = fmt.Sprintf("%v.v", cmdPrefix)
-	}
-
-	var vFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(vFlagName, vFlagDefault, vDescription)
 
 	return nil
 }

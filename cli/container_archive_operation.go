@@ -51,6 +51,52 @@ func runOperationContainerContainerArchive(cmd *cobra.Command, args []string) er
 	return nil
 }
 
+// registerOperationContainerContainerArchiveParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerArchiveParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerArchiveIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerArchivePathParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerArchiveIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerArchivePathParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	pathDescription := `Required. Resource in the container’s filesystem to archive.`
+
+	var pathFlagName string
+	if cmdPrefix == "" {
+		pathFlagName = "path"
+	} else {
+		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+	}
+
+	var pathFlagDefault string
+
+	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerArchiveIDFlag(m *container.ContainerArchiveParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -145,52 +191,6 @@ func printOperationContainerContainerArchiveResult(resp0 *container.ContainerArc
 	return nil
 }
 
-// registerOperationContainerContainerArchiveParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerArchiveParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerArchiveIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerArchivePathParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerArchiveIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerArchivePathParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	pathDescription := `Required. Resource in the container’s filesystem to archive.`
-
-	var pathFlagName string
-	if cmdPrefix == "" {
-		pathFlagName = "path"
-	} else {
-		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
-	}
-
-	var pathFlagDefault string
-
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerArchiveBadRequestBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -200,7 +200,11 @@ func registerModelContainerArchiveBadRequestBodyFlags(depth int, cmdPrefix strin
 		return err
 	}
 
-	// inline allOf containerArchiveBadRequestBodyAO1 of type  is not supported by go-swagger cli yet
+	// register anonymous fields for containerArchiveBadRequestBodyAO1
+
+	if err := registerContainerArchiveBadRequestBodyAnonContainerArchiveBadRequestBodyAO1Message(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -239,7 +243,43 @@ func retrieveModelContainerArchiveBadRequestBodyFlags(depth int, m *container.Co
 	}
 	retAdded = retAdded || containerArchiveBadRequestBodyAO0Added
 
-	// inline allOf containerArchiveBadRequestBodyAO1 is not supported by go-swagger cli yet
+	// retrieve allOf containerArchiveBadRequestBodyAO1 fields
+
+	err, messageAdded := retrieveContainerArchiveBadRequestBodyAnonContainerArchiveBadRequestBodyAO1MessageFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || messageAdded
+
+	return nil, retAdded
+}
+
+// define retrieve functions for fields for inline definition name containerArchiveBadRequestBodyAO1
+
+func retrieveContainerArchiveBadRequestBodyAnonContainerArchiveBadRequestBodyAO1MessageFlags(depth int, m *container.ContainerArchiveBadRequestBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	messageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
+	if cmd.Flags().Changed(messageFlagName) {
+
+		var messageFlagName string
+		if cmdPrefix == "" {
+			messageFlagName = "message"
+		} else {
+			messageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
+		}
+
+		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Message = messageFlagValue
+
+		retAdded = true
+	}
 
 	return nil, retAdded
 }

@@ -58,6 +58,85 @@ func runOperationPluginPluginPull(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginPullParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginPullParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginPullXRegistryAuthParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginPullBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginPullNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginPullRemoteParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginPullXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	xRegistryAuthDescription := `A base64-encoded auth configuration to use when pulling a plugin from a registry. [See the authentication section for details.](#section/Authentication)`
+
+	var xRegistryAuthFlagName string
+	if cmdPrefix == "" {
+		xRegistryAuthFlagName = "X-Registry-Auth"
+	} else {
+		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+	}
+
+	var xRegistryAuthFlagDefault string
+
+	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+
+	return nil
+}
+func registerOperationPluginPluginPullBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type []*PluginPullParamsBodyItems0 is not supported by go-swagger cli yet.
+	return nil
+}
+func registerOperationPluginPluginPullNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Local name for the pulled plugin.
+
+The ` + "`" + `:latest` + "`" + ` tag is optional, and is used as the default if omitted.
+`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+func registerOperationPluginPluginPullRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	remoteDescription := `Required. Remote reference for plugin to install.
+
+The ` + "`" + `:latest` + "`" + ` tag is optional, and is used as the default if omitted.
+`
+
+	var remoteFlagName string
+	if cmdPrefix == "" {
+		remoteFlagName = "remote"
+	} else {
+		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+	}
+
+	var remoteFlagDefault string
+
+	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginPluginPullXRegistryAuthFlag(m *plugin.PluginPullParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
@@ -153,85 +232,6 @@ func printOperationPluginPluginPullResult(resp0 *plugin.PluginPullNoContent, res
 	return nil
 }
 
-// registerOperationPluginPluginPullParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginPullParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginPullXRegistryAuthParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginPullBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginPullNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginPullRemoteParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginPullXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	xRegistryAuthDescription := `A base64-encoded auth configuration to use when pulling a plugin from a registry. [See the authentication section for details.](#section/Authentication)`
-
-	var xRegistryAuthFlagName string
-	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
-	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
-	}
-
-	var xRegistryAuthFlagDefault string
-
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
-
-	return nil
-}
-func registerOperationPluginPluginPullBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type []*PluginPullParamsBodyItems0 is not supported by go-swagger cli yet.
-	return nil
-}
-func registerOperationPluginPluginPullNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Local name for the pulled plugin.
-
-The ` + "`" + `:latest` + "`" + ` tag is optional, and is used as the default if omitted.
-`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-func registerOperationPluginPluginPullRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	remoteDescription := `Required. Remote reference for plugin to install.
-
-The ` + "`" + `:latest` + "`" + ` tag is optional, and is used as the default if omitted.
-`
-
-	var remoteFlagName string
-	if cmdPrefix == "" {
-		remoteFlagName = "remote"
-	} else {
-		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
-	}
-
-	var remoteFlagDefault string
-
-	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelPluginPullParamsBodyItems0Flags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -296,6 +296,7 @@ func registerPluginPullParamsBodyItems0Value(depth int, cmdPrefix string, cmd *c
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Value []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -331,6 +332,7 @@ func retrievePluginPullParamsBodyItems0DescriptionFlags(depth int, m *plugin.Plu
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -349,6 +351,7 @@ func retrievePluginPullParamsBodyItems0DescriptionFlags(depth int, m *plugin.Plu
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -357,6 +360,7 @@ func retrievePluginPullParamsBodyItems0NameFlags(depth int, m *plugin.PluginPull
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -375,6 +379,7 @@ func retrievePluginPullParamsBodyItems0NameFlags(depth int, m *plugin.PluginPull
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -383,9 +388,11 @@ func retrievePluginPullParamsBodyItems0ValueFlags(depth int, m *plugin.PluginPul
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 		// warning: Value array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

@@ -52,6 +52,44 @@ func runOperationNetworkNetworkList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNetworkNetworkListParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the networks list. Available filters:
+
+- ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), returns all
+   networks that are not in use by a container. When set to ` + "`" + `false` + "`" + `
+   (or ` + "`" + `0` + "`" + `), only networks that are in use by one or more
+   containers are returned.
+- ` + "`" + `driver=<driver-name>` + "`" + ` Matches a network's driver.
+- ` + "`" + `id=<network-id>` + "`" + ` Matches all or part of a network ID.
+- ` + "`" + `label=<key>` + "`" + ` or ` + "`" + `label=<key>=<value>` + "`" + ` of a network label.
+- ` + "`" + `name=<network-name>` + "`" + ` Matches all or part of a network name.
+- ` + "`" + `scope=["swarm"|"global"|"local"]` + "`" + ` Filters networks by scope (` + "`" + `swarm` + "`" + `, ` + "`" + `global` + "`" + `, or ` + "`" + `local` + "`" + `).
+- ` + "`" + `type=["custom"|"builtin"]` + "`" + ` Filters networks by type. The ` + "`" + `custom` + "`" + ` keyword returns all user-defined networks.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkListFiltersFlag(m *network.NetworkListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -113,44 +151,6 @@ func printOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respEr
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationNetworkNetworkListParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the networks list. Available filters:
-
-- ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), returns all
-   networks that are not in use by a container. When set to ` + "`" + `false` + "`" + `
-   (or ` + "`" + `0` + "`" + `), only networks that are in use by one or more
-   containers are returned.
-- ` + "`" + `driver=<driver-name>` + "`" + ` Matches a network's driver.
-- ` + "`" + `id=<network-id>` + "`" + ` Matches all or part of a network ID.
-- ` + "`" + `label=<key>` + "`" + ` or ` + "`" + `label=<key>=<value>` + "`" + ` of a network label.
-- ` + "`" + `name=<network-name>` + "`" + ` Matches all or part of a network name.
-- ` + "`" + `scope=["swarm"|"global"|"local"]` + "`" + ` Filters networks by scope (` + "`" + `swarm` + "`" + `, ` + "`" + `global` + "`" + `, or ` + "`" + `local` + "`" + `).
-- ` + "`" + `type=["custom"|"builtin"]` + "`" + ` Filters networks by type. The ` + "`" + `custom` + "`" + ` keyword returns all user-defined networks.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
 
 	return nil
 }

@@ -51,6 +51,54 @@ func runOperationExecExecStart(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationExecExecStartParamFlags registers all flags needed to fill params
+func registerOperationExecExecStartParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationExecExecStartExecStartConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationExecExecStartIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationExecExecStartExecStartConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var execStartConfigFlagName string
+	if cmdPrefix == "" {
+		execStartConfigFlagName = "execStartConfig"
+	} else {
+		execStartConfigFlagName = fmt.Sprintf("%v.execStartConfig", cmdPrefix)
+	}
+
+	exampleExecStartConfigStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(execStartConfigFlagName, "", fmt.Sprintf("Optional json string for [execStartConfig] of form %v.", string(exampleExecStartConfigStr)))
+
+	// add flags for body
+	if err := registerModelExecStartBodyFlags(0, "execStartBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationExecExecStartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Exec instance ID`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationExecExecStartExecStartConfigFlag(m *exec.ExecStartParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("execStartConfig") {
@@ -145,54 +193,6 @@ func printOperationExecExecStartResult(resp0 *exec.ExecStartOK, respErr error) e
 	return nil
 }
 
-// registerOperationExecExecStartParamFlags registers all flags needed to fill params
-func registerOperationExecExecStartParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationExecExecStartExecStartConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationExecExecStartIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationExecExecStartExecStartConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var execStartConfigFlagName string
-	if cmdPrefix == "" {
-		execStartConfigFlagName = "execStartConfig"
-	} else {
-		execStartConfigFlagName = fmt.Sprintf("%v.execStartConfig", cmdPrefix)
-	}
-
-	exampleExecStartConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(execStartConfigFlagName, "", fmt.Sprintf("Optional json string for [execStartConfig] of form %v.", string(exampleExecStartConfigStr)))
-
-	// add flags for body
-	if err := registerModelExecStartBodyFlags(0, "execStartBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationExecExecStartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Exec instance ID`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelExecStartBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -273,6 +273,7 @@ func retrieveExecStartBodyDetachFlags(depth int, m *exec.ExecStartBody, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	detachFlagName := fmt.Sprintf("%v.Detach", cmdPrefix)
 	if cmd.Flags().Changed(detachFlagName) {
 
@@ -291,6 +292,7 @@ func retrieveExecStartBodyDetachFlags(depth int, m *exec.ExecStartBody, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -299,6 +301,7 @@ func retrieveExecStartBodyTtyFlags(depth int, m *exec.ExecStartBody, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	ttyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
 	if cmd.Flags().Changed(ttyFlagName) {
 
@@ -317,5 +320,6 @@ func retrieveExecStartBodyTtyFlags(depth int, m *exec.ExecStartBody, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

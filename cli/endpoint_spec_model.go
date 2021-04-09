@@ -54,6 +54,7 @@ func registerEndpointSpecPorts(depth int, cmdPrefix string, cmd *cobra.Command) 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Ports []*EndpointPortConfig array type is not supported by go-swagger cli yet
 
 	return nil
@@ -83,6 +84,7 @@ func retrieveEndpointSpecModeFlags(depth int, m *models.EndpointSpec, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
@@ -101,6 +103,7 @@ func retrieveEndpointSpecModeFlags(depth int, m *models.EndpointSpec, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -109,9 +112,11 @@ func retrieveEndpointSpecPortsFlags(depth int, m *models.EndpointSpec, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	portsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
 	if cmd.Flags().Changed(portsFlagName) {
 		// warning: Ports array type []*EndpointPortConfig is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

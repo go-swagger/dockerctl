@@ -51,6 +51,52 @@ func runOperationPluginPluginDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginDeleteParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginDeleteForceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginDeleteNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forceDescription := `Disable the plugin before removing. This may result in issues if the plugin is in use by a container.`
+
+	var forceFlagName string
+	if cmdPrefix == "" {
+		forceFlagName = "force"
+	} else {
+		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+	}
+
+	var forceFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+
+	return nil
+}
+func registerOperationPluginPluginDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginPluginDeleteForceFlag(m *plugin.PluginDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("force") {
@@ -145,52 +191,6 @@ func printOperationPluginPluginDeleteResult(resp0 *plugin.PluginDeleteOK, respEr
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationPluginPluginDeleteParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginDeleteForceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginDeleteNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forceDescription := `Disable the plugin before removing. This may result in issues if the plugin is in use by a container.`
-
-	var forceFlagName string
-	if cmdPrefix == "" {
-		forceFlagName = "force"
-	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
-	}
-
-	var forceFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
-
-	return nil
-}
-func registerOperationPluginPluginDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

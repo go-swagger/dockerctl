@@ -45,6 +45,11 @@ func runOperationSwarmSwarmUnlockkey(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmUnlockkeyParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmUnlockkeyParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSwarmSwarmUnlockkeyResult prints output to stdout
 func printOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, respErr error) error {
 	if respErr != nil {
@@ -102,11 +107,6 @@ func printOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, resp
 	return nil
 }
 
-// registerOperationSwarmSwarmUnlockkeyParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmUnlockkeyParamFlags(cmd *cobra.Command) error {
-	return nil
-}
-
 // register flags to command
 func registerModelSwarmUnlockkeyOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -156,6 +156,7 @@ func retrieveSwarmUnlockkeyOKBodyUnlockKeyFlags(depth int, m *swarm.SwarmUnlockk
 		return nil, false
 	}
 	retAdded := false
+
 	unlockKeyFlagName := fmt.Sprintf("%v.UnlockKey", cmdPrefix)
 	if cmd.Flags().Changed(unlockKeyFlagName) {
 
@@ -174,5 +175,6 @@ func retrieveSwarmUnlockkeyOKBodyUnlockKeyFlags(depth int, m *swarm.SwarmUnlockk
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

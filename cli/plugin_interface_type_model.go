@@ -125,6 +125,7 @@ func retrievePluginInterfaceTypeCapabilityFlags(depth int, m *models.PluginInter
 		return nil, false
 	}
 	retAdded := false
+
 	capabilityFlagName := fmt.Sprintf("%v.Capability", cmdPrefix)
 	if cmd.Flags().Changed(capabilityFlagName) {
 
@@ -143,6 +144,7 @@ func retrievePluginInterfaceTypeCapabilityFlags(depth int, m *models.PluginInter
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -151,6 +153,7 @@ func retrievePluginInterfaceTypePrefixFlags(depth int, m *models.PluginInterface
 		return nil, false
 	}
 	retAdded := false
+
 	prefixFlagName := fmt.Sprintf("%v.Prefix", cmdPrefix)
 	if cmd.Flags().Changed(prefixFlagName) {
 
@@ -169,6 +172,7 @@ func retrievePluginInterfaceTypePrefixFlags(depth int, m *models.PluginInterface
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -177,6 +181,7 @@ func retrievePluginInterfaceTypeVersionFlags(depth int, m *models.PluginInterfac
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
@@ -195,5 +200,6 @@ func retrievePluginInterfaceTypeVersionFlags(depth int, m *models.PluginInterfac
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

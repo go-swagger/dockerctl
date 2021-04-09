@@ -72,6 +72,32 @@ func runOperationImageImageGet(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageGetParamFlags registers all flags needed to fill params
+func registerOperationImageImageGetParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageGetNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageGetNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Image name or ID`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageGetNameFlag(m *image.ImageGetParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -130,32 +156,6 @@ func printOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) e
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationImageImageGetParamFlags registers all flags needed to fill params
-func registerOperationImageImageGetParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageGetNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageGetNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Image name or ID`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

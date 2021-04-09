@@ -54,6 +54,79 @@ func runOperationImageImageList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageListParamFlags registers all flags needed to fill params
+func registerOperationImageImageListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageListAllParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageListDigestsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageListAllParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	allDescription := `Show all images. Only images from a final layer (no children) are shown by default.`
+
+	var allFlagName string
+	if cmdPrefix == "" {
+		allFlagName = "all"
+	} else {
+		allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+	}
+
+	var allFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(allFlagName, allFlagDefault, allDescription)
+
+	return nil
+}
+func registerOperationImageImageListDigestsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	digestsDescription := `Show digest information as a ` + "`" + `RepoDigests` + "`" + ` field on each image.`
+
+	var digestsFlagName string
+	if cmdPrefix == "" {
+		digestsFlagName = "digests"
+	} else {
+		digestsFlagName = fmt.Sprintf("%v.digests", cmdPrefix)
+	}
+
+	var digestsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(digestsFlagName, digestsFlagDefault, digestsDescription)
+
+	return nil
+}
+func registerOperationImageImageListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
+
+- ` + "`" + `before` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `,  ` + "`" + `<image id>` + "`" + ` or ` + "`" + `<image@digest>` + "`" + `)
+- ` + "`" + `dangling=true` + "`" + `
+- ` + "`" + `label=key` + "`" + ` or ` + "`" + `label="key=value"` + "`" + ` of an image label
+- ` + "`" + `reference` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `)
+- ` + "`" + `since` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `,  ` + "`" + `<image id>` + "`" + ` or ` + "`" + `<image@digest>` + "`" + `)
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageListAllFlag(m *image.ImageListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("all") {
@@ -155,79 +228,6 @@ func printOperationImageImageListResult(resp0 *image.ImageListOK, respErr error)
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationImageImageListParamFlags registers all flags needed to fill params
-func registerOperationImageImageListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageListAllParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageListDigestsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageListAllParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	allDescription := `Show all images. Only images from a final layer (no children) are shown by default.`
-
-	var allFlagName string
-	if cmdPrefix == "" {
-		allFlagName = "all"
-	} else {
-		allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
-	}
-
-	var allFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(allFlagName, allFlagDefault, allDescription)
-
-	return nil
-}
-func registerOperationImageImageListDigestsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	digestsDescription := `Show digest information as a ` + "`" + `RepoDigests` + "`" + ` field on each image.`
-
-	var digestsFlagName string
-	if cmdPrefix == "" {
-		digestsFlagName = "digests"
-	} else {
-		digestsFlagName = fmt.Sprintf("%v.digests", cmdPrefix)
-	}
-
-	var digestsFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(digestsFlagName, digestsFlagDefault, digestsDescription)
-
-	return nil
-}
-func registerOperationImageImageListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
-
-- ` + "`" + `before` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `,  ` + "`" + `<image id>` + "`" + ` or ` + "`" + `<image@digest>` + "`" + `)
-- ` + "`" + `dangling=true` + "`" + `
-- ` + "`" + `label=key` + "`" + ` or ` + "`" + `label="key=value"` + "`" + ` of an image label
-- ` + "`" + `reference` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `)
-- ` + "`" + `since` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `,  ` + "`" + `<image id>` + "`" + ` or ` + "`" + `<image@digest>` + "`" + `)
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
 
 	return nil
 }

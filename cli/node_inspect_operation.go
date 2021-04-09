@@ -48,6 +48,32 @@ func runOperationNodeNodeInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNodeNodeInspectParamFlags registers all flags needed to fill params
+func registerOperationNodeNodeInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNodeNodeInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNodeNodeInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. The ID or name of the node`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationNodeNodeInspectIDFlag(m *node.NodeInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -135,32 +161,6 @@ func printOperationNodeNodeInspectResult(resp0 *node.NodeInspectOK, respErr erro
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationNodeNodeInspectParamFlags registers all flags needed to fill params
-func registerOperationNodeNodeInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNodeNodeInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNodeNodeInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. The ID or name of the node`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

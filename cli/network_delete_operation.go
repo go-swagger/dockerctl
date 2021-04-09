@@ -48,6 +48,32 @@ func runOperationNetworkNetworkDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNetworkNetworkDeleteParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkDeleteIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Network ID or name`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkDeleteIDFlag(m *network.NetworkDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -118,32 +144,6 @@ func printOperationNetworkNetworkDeleteResult(resp0 *network.NetworkDeleteNoCont
 	}
 
 	// warning: non schema response networkDeleteNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationNetworkNetworkDeleteParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkDeleteIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Network ID or name`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

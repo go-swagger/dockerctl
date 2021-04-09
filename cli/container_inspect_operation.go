@@ -52,6 +52,52 @@ func runOperationContainerContainerInspect(cmd *cobra.Command, args []string) er
 	return nil
 }
 
+// registerOperationContainerContainerInspectParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerInspectSizeParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerInspectSizeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	sizeDescription := `Return the size of container as fields ` + "`" + `SizeRw` + "`" + ` and ` + "`" + `SizeRootFs` + "`" + ``
+
+	var sizeFlagName string
+	if cmdPrefix == "" {
+		sizeFlagName = "size"
+	} else {
+		sizeFlagName = fmt.Sprintf("%v.size", cmdPrefix)
+	}
+
+	var sizeFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(sizeFlagName, sizeFlagDefault, sizeDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerInspectIDFlag(m *container.ContainerInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -146,52 +192,6 @@ func printOperationContainerContainerInspectResult(resp0 *container.ContainerIns
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationContainerContainerInspectParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerInspectSizeParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerInspectSizeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	sizeDescription := `Return the size of container as fields ` + "`" + `SizeRw` + "`" + ` and ` + "`" + `SizeRootFs` + "`" + ``
-
-	var sizeFlagName string
-	if cmdPrefix == "" {
-		sizeFlagName = "size"
-	} else {
-		sizeFlagName = fmt.Sprintf("%v.size", cmdPrefix)
-	}
-
-	var sizeFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(sizeFlagName, sizeFlagDefault, sizeDescription)
 
 	return nil
 }
@@ -331,6 +331,7 @@ func registerContainerInspectOKBodyArgs(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Args []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -401,6 +402,7 @@ func registerContainerInspectOKBodyExecIDs(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: ExecIDs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -574,6 +576,7 @@ func registerContainerInspectOKBodyMounts(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Mounts []*models.MountPoint array type is not supported by go-swagger cli yet
 
 	return nil
@@ -623,6 +626,7 @@ func registerContainerInspectOKBodyNode(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Node interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -962,6 +966,7 @@ func retrieveContainerInspectOKBodyAppArmorProfileFlags(depth int, m *container.
 		return nil, false
 	}
 	retAdded := false
+
 	appArmorProfileFlagName := fmt.Sprintf("%v.AppArmorProfile", cmdPrefix)
 	if cmd.Flags().Changed(appArmorProfileFlagName) {
 
@@ -980,6 +985,7 @@ func retrieveContainerInspectOKBodyAppArmorProfileFlags(depth int, m *container.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -988,10 +994,12 @@ func retrieveContainerInspectOKBodyArgsFlags(depth int, m *container.ContainerIn
 		return nil, false
 	}
 	retAdded := false
+
 	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
 	if cmd.Flags().Changed(argsFlagName) {
 		// warning: Args array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1000,19 +1008,21 @@ func retrieveContainerInspectOKBodyConfigFlags(depth int, m *container.Container
 		return nil, false
 	}
 	retAdded := false
+
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 
-		configFlagValue := &models.ContainerConfig{}
-		err, added := retrieveModelContainerConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
+		configFlagValue := models.ContainerConfig{}
+		err, added := retrieveModelContainerConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Config = configFlagValue
+			m.Config = &configFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1021,6 +1031,7 @@ func retrieveContainerInspectOKBodyCreatedFlags(depth int, m *container.Containe
 		return nil, false
 	}
 	retAdded := false
+
 	createdFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
 	if cmd.Flags().Changed(createdFlagName) {
 
@@ -1039,6 +1050,7 @@ func retrieveContainerInspectOKBodyCreatedFlags(depth int, m *container.Containe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1047,6 +1059,7 @@ func retrieveContainerInspectOKBodyDriverFlags(depth int, m *container.Container
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -1065,6 +1078,7 @@ func retrieveContainerInspectOKBodyDriverFlags(depth int, m *container.Container
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1073,10 +1087,12 @@ func retrieveContainerInspectOKBodyExecIDsFlags(depth int, m *container.Containe
 		return nil, false
 	}
 	retAdded := false
+
 	execIDsFlagName := fmt.Sprintf("%v.ExecIDs", cmdPrefix)
 	if cmd.Flags().Changed(execIDsFlagName) {
 		// warning: ExecIDs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1085,19 +1101,21 @@ func retrieveContainerInspectOKBodyGraphDriverFlags(depth int, m *container.Cont
 		return nil, false
 	}
 	retAdded := false
+
 	graphDriverFlagName := fmt.Sprintf("%v.GraphDriver", cmdPrefix)
 	if cmd.Flags().Changed(graphDriverFlagName) {
 
-		graphDriverFlagValue := &models.GraphDriverData{}
-		err, added := retrieveModelGraphDriverDataFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
+		graphDriverFlagValue := models.GraphDriverData{}
+		err, added := retrieveModelGraphDriverDataFlags(depth+1, &graphDriverFlagValue, graphDriverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.GraphDriver = graphDriverFlagValue
+			m.GraphDriver = &graphDriverFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1106,19 +1124,21 @@ func retrieveContainerInspectOKBodyHostConfigFlags(depth int, m *container.Conta
 		return nil, false
 	}
 	retAdded := false
+
 	hostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
 	if cmd.Flags().Changed(hostConfigFlagName) {
 
-		hostConfigFlagValue := &models.HostConfig{}
-		err, added := retrieveModelHostConfigFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
+		hostConfigFlagValue := models.HostConfig{}
+		err, added := retrieveModelHostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.HostConfig = hostConfigFlagValue
+			m.HostConfig = &hostConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1127,6 +1147,7 @@ func retrieveContainerInspectOKBodyHostnamePathFlags(depth int, m *container.Con
 		return nil, false
 	}
 	retAdded := false
+
 	hostnamePathFlagName := fmt.Sprintf("%v.HostnamePath", cmdPrefix)
 	if cmd.Flags().Changed(hostnamePathFlagName) {
 
@@ -1145,6 +1166,7 @@ func retrieveContainerInspectOKBodyHostnamePathFlags(depth int, m *container.Con
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1153,6 +1175,7 @@ func retrieveContainerInspectOKBodyHostsPathFlags(depth int, m *container.Contai
 		return nil, false
 	}
 	retAdded := false
+
 	hostsPathFlagName := fmt.Sprintf("%v.HostsPath", cmdPrefix)
 	if cmd.Flags().Changed(hostsPathFlagName) {
 
@@ -1171,6 +1194,7 @@ func retrieveContainerInspectOKBodyHostsPathFlags(depth int, m *container.Contai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1179,6 +1203,7 @@ func retrieveContainerInspectOKBodyIDFlags(depth int, m *container.ContainerInsp
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -1197,6 +1222,7 @@ func retrieveContainerInspectOKBodyIDFlags(depth int, m *container.ContainerInsp
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1205,6 +1231,7 @@ func retrieveContainerInspectOKBodyImageFlags(depth int, m *container.ContainerI
 		return nil, false
 	}
 	retAdded := false
+
 	imageFlagName := fmt.Sprintf("%v.Image", cmdPrefix)
 	if cmd.Flags().Changed(imageFlagName) {
 
@@ -1223,6 +1250,7 @@ func retrieveContainerInspectOKBodyImageFlags(depth int, m *container.ContainerI
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1231,6 +1259,7 @@ func retrieveContainerInspectOKBodyLogPathFlags(depth int, m *container.Containe
 		return nil, false
 	}
 	retAdded := false
+
 	logPathFlagName := fmt.Sprintf("%v.LogPath", cmdPrefix)
 	if cmd.Flags().Changed(logPathFlagName) {
 
@@ -1249,6 +1278,7 @@ func retrieveContainerInspectOKBodyLogPathFlags(depth int, m *container.Containe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1257,6 +1287,7 @@ func retrieveContainerInspectOKBodyMountLabelFlags(depth int, m *container.Conta
 		return nil, false
 	}
 	retAdded := false
+
 	mountLabelFlagName := fmt.Sprintf("%v.MountLabel", cmdPrefix)
 	if cmd.Flags().Changed(mountLabelFlagName) {
 
@@ -1275,6 +1306,7 @@ func retrieveContainerInspectOKBodyMountLabelFlags(depth int, m *container.Conta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1283,10 +1315,12 @@ func retrieveContainerInspectOKBodyMountsFlags(depth int, m *container.Container
 		return nil, false
 	}
 	retAdded := false
+
 	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
 	if cmd.Flags().Changed(mountsFlagName) {
 		// warning: Mounts array type []*models.MountPoint is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1295,6 +1329,7 @@ func retrieveContainerInspectOKBodyNameFlags(depth int, m *container.ContainerIn
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -1313,6 +1348,7 @@ func retrieveContainerInspectOKBodyNameFlags(depth int, m *container.ContainerIn
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1321,19 +1357,21 @@ func retrieveContainerInspectOKBodyNetworkSettingsFlags(depth int, m *container.
 		return nil, false
 	}
 	retAdded := false
+
 	networkSettingsFlagName := fmt.Sprintf("%v.NetworkSettings", cmdPrefix)
 	if cmd.Flags().Changed(networkSettingsFlagName) {
 
-		networkSettingsFlagValue := &models.NetworkSettings{}
-		err, added := retrieveModelNetworkSettingsFlags(depth+1, networkSettingsFlagValue, networkSettingsFlagName, cmd)
+		networkSettingsFlagValue := models.NetworkSettings{}
+		err, added := retrieveModelNetworkSettingsFlags(depth+1, &networkSettingsFlagValue, networkSettingsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.NetworkSettings = networkSettingsFlagValue
+			m.NetworkSettings = &networkSettingsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1342,10 +1380,12 @@ func retrieveContainerInspectOKBodyNodeFlags(depth int, m *container.ContainerIn
 		return nil, false
 	}
 	retAdded := false
+
 	nodeFlagName := fmt.Sprintf("%v.Node", cmdPrefix)
 	if cmd.Flags().Changed(nodeFlagName) {
 		// warning: Node map type interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1354,6 +1394,7 @@ func retrieveContainerInspectOKBodyPathFlags(depth int, m *container.ContainerIn
 		return nil, false
 	}
 	retAdded := false
+
 	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
 	if cmd.Flags().Changed(pathFlagName) {
 
@@ -1372,6 +1413,7 @@ func retrieveContainerInspectOKBodyPathFlags(depth int, m *container.ContainerIn
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1380,6 +1422,7 @@ func retrieveContainerInspectOKBodyPlatformFlags(depth int, m *container.Contain
 		return nil, false
 	}
 	retAdded := false
+
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
 
@@ -1398,6 +1441,7 @@ func retrieveContainerInspectOKBodyPlatformFlags(depth int, m *container.Contain
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1406,6 +1450,7 @@ func retrieveContainerInspectOKBodyProcessLabelFlags(depth int, m *container.Con
 		return nil, false
 	}
 	retAdded := false
+
 	processLabelFlagName := fmt.Sprintf("%v.ProcessLabel", cmdPrefix)
 	if cmd.Flags().Changed(processLabelFlagName) {
 
@@ -1424,6 +1469,7 @@ func retrieveContainerInspectOKBodyProcessLabelFlags(depth int, m *container.Con
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1432,6 +1478,7 @@ func retrieveContainerInspectOKBodyResolvConfPathFlags(depth int, m *container.C
 		return nil, false
 	}
 	retAdded := false
+
 	resolvConfPathFlagName := fmt.Sprintf("%v.ResolvConfPath", cmdPrefix)
 	if cmd.Flags().Changed(resolvConfPathFlagName) {
 
@@ -1450,6 +1497,7 @@ func retrieveContainerInspectOKBodyResolvConfPathFlags(depth int, m *container.C
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1458,6 +1506,7 @@ func retrieveContainerInspectOKBodyRestartCountFlags(depth int, m *container.Con
 		return nil, false
 	}
 	retAdded := false
+
 	restartCountFlagName := fmt.Sprintf("%v.RestartCount", cmdPrefix)
 	if cmd.Flags().Changed(restartCountFlagName) {
 
@@ -1476,6 +1525,7 @@ func retrieveContainerInspectOKBodyRestartCountFlags(depth int, m *container.Con
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1484,6 +1534,7 @@ func retrieveContainerInspectOKBodySizeRootFsFlags(depth int, m *container.Conta
 		return nil, false
 	}
 	retAdded := false
+
 	sizeRootFsFlagName := fmt.Sprintf("%v.SizeRootFs", cmdPrefix)
 	if cmd.Flags().Changed(sizeRootFsFlagName) {
 
@@ -1502,6 +1553,7 @@ func retrieveContainerInspectOKBodySizeRootFsFlags(depth int, m *container.Conta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1510,6 +1562,7 @@ func retrieveContainerInspectOKBodySizeRwFlags(depth int, m *container.Container
 		return nil, false
 	}
 	retAdded := false
+
 	sizeRwFlagName := fmt.Sprintf("%v.SizeRw", cmdPrefix)
 	if cmd.Flags().Changed(sizeRwFlagName) {
 
@@ -1528,6 +1581,7 @@ func retrieveContainerInspectOKBodySizeRwFlags(depth int, m *container.Container
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1536,19 +1590,21 @@ func retrieveContainerInspectOKBodyStateFlags(depth int, m *container.ContainerI
 		return nil, false
 	}
 	retAdded := false
+
 	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
 	if cmd.Flags().Changed(stateFlagName) {
 
-		stateFlagValue := &container.ContainerInspectOKBodyState{}
-		err, added := retrieveModelContainerInspectOKBodyStateFlags(depth+1, stateFlagValue, stateFlagName, cmd)
+		stateFlagValue := container.ContainerInspectOKBodyState{}
+		err, added := retrieveModelContainerInspectOKBodyStateFlags(depth+1, &stateFlagValue, stateFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.State = stateFlagValue
+			m.State = &stateFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1922,6 +1978,7 @@ func retrieveContainerInspectOKBodyStateDeadFlags(depth int, m *container.Contai
 		return nil, false
 	}
 	retAdded := false
+
 	deadFlagName := fmt.Sprintf("%v.Dead", cmdPrefix)
 	if cmd.Flags().Changed(deadFlagName) {
 
@@ -1940,6 +1997,7 @@ func retrieveContainerInspectOKBodyStateDeadFlags(depth int, m *container.Contai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1948,6 +2006,7 @@ func retrieveContainerInspectOKBodyStateErrorFlags(depth int, m *container.Conta
 		return nil, false
 	}
 	retAdded := false
+
 	errorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
 
@@ -1966,6 +2025,7 @@ func retrieveContainerInspectOKBodyStateErrorFlags(depth int, m *container.Conta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1974,6 +2034,7 @@ func retrieveContainerInspectOKBodyStateExitCodeFlags(depth int, m *container.Co
 		return nil, false
 	}
 	retAdded := false
+
 	exitCodeFlagName := fmt.Sprintf("%v.ExitCode", cmdPrefix)
 	if cmd.Flags().Changed(exitCodeFlagName) {
 
@@ -1992,6 +2053,7 @@ func retrieveContainerInspectOKBodyStateExitCodeFlags(depth int, m *container.Co
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2000,6 +2062,7 @@ func retrieveContainerInspectOKBodyStateFinishedAtFlags(depth int, m *container.
 		return nil, false
 	}
 	retAdded := false
+
 	finishedAtFlagName := fmt.Sprintf("%v.FinishedAt", cmdPrefix)
 	if cmd.Flags().Changed(finishedAtFlagName) {
 
@@ -2018,6 +2081,7 @@ func retrieveContainerInspectOKBodyStateFinishedAtFlags(depth int, m *container.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2026,6 +2090,7 @@ func retrieveContainerInspectOKBodyStateOOMKilledFlags(depth int, m *container.C
 		return nil, false
 	}
 	retAdded := false
+
 	oOMKilledFlagName := fmt.Sprintf("%v.OOMKilled", cmdPrefix)
 	if cmd.Flags().Changed(oOMKilledFlagName) {
 
@@ -2044,6 +2109,7 @@ func retrieveContainerInspectOKBodyStateOOMKilledFlags(depth int, m *container.C
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2052,6 +2118,7 @@ func retrieveContainerInspectOKBodyStatePausedFlags(depth int, m *container.Cont
 		return nil, false
 	}
 	retAdded := false
+
 	pausedFlagName := fmt.Sprintf("%v.Paused", cmdPrefix)
 	if cmd.Flags().Changed(pausedFlagName) {
 
@@ -2070,6 +2137,7 @@ func retrieveContainerInspectOKBodyStatePausedFlags(depth int, m *container.Cont
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2078,6 +2146,7 @@ func retrieveContainerInspectOKBodyStatePidFlags(depth int, m *container.Contain
 		return nil, false
 	}
 	retAdded := false
+
 	pidFlagName := fmt.Sprintf("%v.Pid", cmdPrefix)
 	if cmd.Flags().Changed(pidFlagName) {
 
@@ -2096,6 +2165,7 @@ func retrieveContainerInspectOKBodyStatePidFlags(depth int, m *container.Contain
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2104,6 +2174,7 @@ func retrieveContainerInspectOKBodyStateRestartingFlags(depth int, m *container.
 		return nil, false
 	}
 	retAdded := false
+
 	restartingFlagName := fmt.Sprintf("%v.Restarting", cmdPrefix)
 	if cmd.Flags().Changed(restartingFlagName) {
 
@@ -2122,6 +2193,7 @@ func retrieveContainerInspectOKBodyStateRestartingFlags(depth int, m *container.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2130,6 +2202,7 @@ func retrieveContainerInspectOKBodyStateRunningFlags(depth int, m *container.Con
 		return nil, false
 	}
 	retAdded := false
+
 	runningFlagName := fmt.Sprintf("%v.Running", cmdPrefix)
 	if cmd.Flags().Changed(runningFlagName) {
 
@@ -2148,6 +2221,7 @@ func retrieveContainerInspectOKBodyStateRunningFlags(depth int, m *container.Con
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2156,6 +2230,7 @@ func retrieveContainerInspectOKBodyStateStartedAtFlags(depth int, m *container.C
 		return nil, false
 	}
 	retAdded := false
+
 	startedAtFlagName := fmt.Sprintf("%v.StartedAt", cmdPrefix)
 	if cmd.Flags().Changed(startedAtFlagName) {
 
@@ -2174,6 +2249,7 @@ func retrieveContainerInspectOKBodyStateStartedAtFlags(depth int, m *container.C
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2182,6 +2258,7 @@ func retrieveContainerInspectOKBodyStateStatusFlags(depth int, m *container.Cont
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
@@ -2200,5 +2277,6 @@ func retrieveContainerInspectOKBodyStateStatusFlags(depth int, m *container.Cont
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

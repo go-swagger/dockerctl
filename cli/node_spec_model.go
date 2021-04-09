@@ -61,6 +61,7 @@ func registerNodeSpecLabels(depth int, cmdPrefix string, cmd *cobra.Command) err
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -144,6 +145,7 @@ func retrieveNodeSpecAvailabilityFlags(depth int, m *models.NodeSpec, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	availabilityFlagName := fmt.Sprintf("%v.Availability", cmdPrefix)
 	if cmd.Flags().Changed(availabilityFlagName) {
 
@@ -162,6 +164,7 @@ func retrieveNodeSpecAvailabilityFlags(depth int, m *models.NodeSpec, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -170,10 +173,12 @@ func retrieveNodeSpecLabelsFlags(depth int, m *models.NodeSpec, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -182,6 +187,7 @@ func retrieveNodeSpecNameFlags(depth int, m *models.NodeSpec, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -200,6 +206,7 @@ func retrieveNodeSpecNameFlags(depth int, m *models.NodeSpec, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -208,6 +215,7 @@ func retrieveNodeSpecRoleFlags(depth int, m *models.NodeSpec, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	roleFlagName := fmt.Sprintf("%v.Role", cmdPrefix)
 	if cmd.Flags().Changed(roleFlagName) {
 
@@ -226,5 +234,6 @@ func retrieveNodeSpecRoleFlags(depth int, m *models.NodeSpec, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

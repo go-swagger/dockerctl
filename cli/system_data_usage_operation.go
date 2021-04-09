@@ -45,6 +45,11 @@ func runOperationSystemSystemDataUsage(cmd *cobra.Command, args []string) error 
 	return nil
 }
 
+// registerOperationSystemSystemDataUsageParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemDataUsageParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSystemSystemDataUsageResult prints output to stdout
 func printOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, respErr error) error {
 	if respErr != nil {
@@ -89,11 +94,6 @@ func printOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, 
 	return nil
 }
 
-// registerOperationSystemSystemDataUsageParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemDataUsageParamFlags(cmd *cobra.Command) error {
-	return nil
-}
-
 // register flags to command
 func registerModelSystemDataUsageOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -124,6 +124,7 @@ func registerSystemDataUsageOKBodyBuildCache(depth int, cmdPrefix string, cmd *c
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: BuildCache []*models.BuildCache array type is not supported by go-swagger cli yet
 
 	return nil
@@ -133,6 +134,7 @@ func registerSystemDataUsageOKBodyContainers(depth int, cmdPrefix string, cmd *c
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Containers []models.ContainerSummary array type is not supported by go-swagger cli yet
 
 	return nil
@@ -142,6 +144,7 @@ func registerSystemDataUsageOKBodyImages(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Images []*models.ImageSummary array type is not supported by go-swagger cli yet
 
 	return nil
@@ -172,6 +175,7 @@ func registerSystemDataUsageOKBodyVolumes(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Volumes []*models.Volume array type is not supported by go-swagger cli yet
 
 	return nil
@@ -219,10 +223,12 @@ func retrieveSystemDataUsageOKBodyBuildCacheFlags(depth int, m *system.SystemDat
 		return nil, false
 	}
 	retAdded := false
+
 	buildCacheFlagName := fmt.Sprintf("%v.BuildCache", cmdPrefix)
 	if cmd.Flags().Changed(buildCacheFlagName) {
 		// warning: BuildCache array type []*models.BuildCache is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -231,10 +237,12 @@ func retrieveSystemDataUsageOKBodyContainersFlags(depth int, m *system.SystemDat
 		return nil, false
 	}
 	retAdded := false
+
 	containersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
 	if cmd.Flags().Changed(containersFlagName) {
 		// warning: Containers array type []models.ContainerSummary is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -243,10 +251,12 @@ func retrieveSystemDataUsageOKBodyImagesFlags(depth int, m *system.SystemDataUsa
 		return nil, false
 	}
 	retAdded := false
+
 	imagesFlagName := fmt.Sprintf("%v.Images", cmdPrefix)
 	if cmd.Flags().Changed(imagesFlagName) {
 		// warning: Images array type []*models.ImageSummary is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -255,6 +265,7 @@ func retrieveSystemDataUsageOKBodyLayersSizeFlags(depth int, m *system.SystemDat
 		return nil, false
 	}
 	retAdded := false
+
 	layersSizeFlagName := fmt.Sprintf("%v.LayersSize", cmdPrefix)
 	if cmd.Flags().Changed(layersSizeFlagName) {
 
@@ -273,6 +284,7 @@ func retrieveSystemDataUsageOKBodyLayersSizeFlags(depth int, m *system.SystemDat
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -281,9 +293,11 @@ func retrieveSystemDataUsageOKBodyVolumesFlags(depth int, m *system.SystemDataUs
 		return nil, false
 	}
 	retAdded := false
+
 	volumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
 	if cmd.Flags().Changed(volumesFlagName) {
 		// warning: Volumes array type []*models.Volume is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

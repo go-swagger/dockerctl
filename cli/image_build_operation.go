@@ -133,6 +133,566 @@ func runOperationImageImageBuild(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageBuildParamFlags registers all flags needed to fill params
+func registerOperationImageImageBuildParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageBuildContentTypeParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildXRegistryConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildBuildargsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildCachefromParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildCpuperiodParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildCpuquotaParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildCpusetcpusParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildCpusharesParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildDockerfileParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildExtrahostsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildForcermParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildInputStreamParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildLabelsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildMemoryParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildMemswapParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildNetworkmodeParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildNocacheParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildOutputsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildPlatformParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildPullParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildQParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildRemoteParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildRmParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildShmsizeParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildSquashParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildTParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageBuildTargetParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageBuildContentTypeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	contentTypeDescription := ``
+
+	var contentTypeFlagName string
+	if cmdPrefix == "" {
+		contentTypeFlagName = "Content-type"
+	} else {
+		contentTypeFlagName = fmt.Sprintf("%v.Content-type", cmdPrefix)
+	}
+
+	var contentTypeFlagDefault string = "application/x-tar"
+
+	_ = cmd.PersistentFlags().String(contentTypeFlagName, contentTypeFlagDefault, contentTypeDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildXRegistryConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	xRegistryConfigDescription := `This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
+
+The key is a registry URL, and the value is an auth configuration object, [as described in the authentication section](#section/Authentication). For example:
+
+` + "`" + `` + "`" + `` + "`" + `
+{
+  "docker.example.com": {
+    "username": "janedoe",
+    "password": "hunter2"
+  },
+  "https://index.docker.io/v1/": {
+    "username": "mobydock",
+    "password": "conta1n3rize14"
+  }
+}
+` + "`" + `` + "`" + `` + "`" + `
+
+Only the registry domain name (and port if not the default 443) are required. However, for legacy reasons, the Docker Hub registry must be specified with both a ` + "`" + `https://` + "`" + ` prefix and a ` + "`" + `/v1/` + "`" + ` suffix even though Docker will prefer to use the v2 registry API.
+`
+
+	var xRegistryConfigFlagName string
+	if cmdPrefix == "" {
+		xRegistryConfigFlagName = "X-Registry-Config"
+	} else {
+		xRegistryConfigFlagName = fmt.Sprintf("%v.X-Registry-Config", cmdPrefix)
+	}
+
+	var xRegistryConfigFlagDefault string
+
+	_ = cmd.PersistentFlags().String(xRegistryConfigFlagName, xRegistryConfigFlagDefault, xRegistryConfigDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildBuildargsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	buildargsDescription := `JSON map of string pairs for build-time variables. Users pass these values at build-time. Docker uses the buildargs as the environment context for commands run via the ` + "`" + `Dockerfile` + "`" + ` RUN instruction, or for variable expansion in other ` + "`" + `Dockerfile` + "`" + ` instructions. This is not meant for passing secret values.
+
+For example, the build arg ` + "`" + `FOO=bar` + "`" + ` would become ` + "`" + `{"FOO":"bar"}` + "`" + ` in JSON. This would result in the the query parameter ` + "`" + `buildargs={"FOO":"bar"}` + "`" + `. Note that ` + "`" + `{"FOO":"bar"}` + "`" + ` should be URI component encoded.
+
+[Read more about the buildargs instruction.](https://docs.docker.com/engine/reference/builder/#arg)
+`
+
+	var buildargsFlagName string
+	if cmdPrefix == "" {
+		buildargsFlagName = "buildargs"
+	} else {
+		buildargsFlagName = fmt.Sprintf("%v.buildargs", cmdPrefix)
+	}
+
+	var buildargsFlagDefault string
+
+	_ = cmd.PersistentFlags().String(buildargsFlagName, buildargsFlagDefault, buildargsDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildCachefromParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	cachefromDescription := `JSON array of images used for build cache resolution.`
+
+	var cachefromFlagName string
+	if cmdPrefix == "" {
+		cachefromFlagName = "cachefrom"
+	} else {
+		cachefromFlagName = fmt.Sprintf("%v.cachefrom", cmdPrefix)
+	}
+
+	var cachefromFlagDefault string
+
+	_ = cmd.PersistentFlags().String(cachefromFlagName, cachefromFlagDefault, cachefromDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildCpuperiodParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	cpuperiodDescription := `The length of a CPU period in microseconds.`
+
+	var cpuperiodFlagName string
+	if cmdPrefix == "" {
+		cpuperiodFlagName = "cpuperiod"
+	} else {
+		cpuperiodFlagName = fmt.Sprintf("%v.cpuperiod", cmdPrefix)
+	}
+
+	var cpuperiodFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(cpuperiodFlagName, cpuperiodFlagDefault, cpuperiodDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildCpuquotaParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	cpuquotaDescription := `Microseconds of CPU time that the container can get in a CPU period.`
+
+	var cpuquotaFlagName string
+	if cmdPrefix == "" {
+		cpuquotaFlagName = "cpuquota"
+	} else {
+		cpuquotaFlagName = fmt.Sprintf("%v.cpuquota", cmdPrefix)
+	}
+
+	var cpuquotaFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(cpuquotaFlagName, cpuquotaFlagDefault, cpuquotaDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildCpusetcpusParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	cpusetcpusDescription := `CPUs in which to allow execution (e.g., ` + "`" + `0-3` + "`" + `, ` + "`" + `0,1` + "`" + `).`
+
+	var cpusetcpusFlagName string
+	if cmdPrefix == "" {
+		cpusetcpusFlagName = "cpusetcpus"
+	} else {
+		cpusetcpusFlagName = fmt.Sprintf("%v.cpusetcpus", cmdPrefix)
+	}
+
+	var cpusetcpusFlagDefault string
+
+	_ = cmd.PersistentFlags().String(cpusetcpusFlagName, cpusetcpusFlagDefault, cpusetcpusDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildCpusharesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	cpusharesDescription := `CPU shares (relative weight).`
+
+	var cpusharesFlagName string
+	if cmdPrefix == "" {
+		cpusharesFlagName = "cpushares"
+	} else {
+		cpusharesFlagName = fmt.Sprintf("%v.cpushares", cmdPrefix)
+	}
+
+	var cpusharesFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(cpusharesFlagName, cpusharesFlagDefault, cpusharesDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildDockerfileParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	dockerfileDescription := `Path within the build context to the ` + "`" + `Dockerfile` + "`" + `. This is ignored if ` + "`" + `remote` + "`" + ` is specified and points to an external ` + "`" + `Dockerfile` + "`" + `.`
+
+	var dockerfileFlagName string
+	if cmdPrefix == "" {
+		dockerfileFlagName = "dockerfile"
+	} else {
+		dockerfileFlagName = fmt.Sprintf("%v.dockerfile", cmdPrefix)
+	}
+
+	var dockerfileFlagDefault string = "Dockerfile"
+
+	_ = cmd.PersistentFlags().String(dockerfileFlagName, dockerfileFlagDefault, dockerfileDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildExtrahostsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	extrahostsDescription := `Extra hosts to add to /etc/hosts`
+
+	var extrahostsFlagName string
+	if cmdPrefix == "" {
+		extrahostsFlagName = "extrahosts"
+	} else {
+		extrahostsFlagName = fmt.Sprintf("%v.extrahosts", cmdPrefix)
+	}
+
+	var extrahostsFlagDefault string
+
+	_ = cmd.PersistentFlags().String(extrahostsFlagName, extrahostsFlagDefault, extrahostsDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildForcermParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forcermDescription := `Always remove intermediate containers, even upon failure.`
+
+	var forcermFlagName string
+	if cmdPrefix == "" {
+		forcermFlagName = "forcerm"
+	} else {
+		forcermFlagName = fmt.Sprintf("%v.forcerm", cmdPrefix)
+	}
+
+	var forcermFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forcermFlagName, forcermFlagDefault, forcermDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildInputStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
+	return nil
+}
+func registerOperationImageImageBuildLabelsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	labelsDescription := `Arbitrary key/value labels to set on the image, as a JSON map of string pairs.`
+
+	var labelsFlagName string
+	if cmdPrefix == "" {
+		labelsFlagName = "labels"
+	} else {
+		labelsFlagName = fmt.Sprintf("%v.labels", cmdPrefix)
+	}
+
+	var labelsFlagDefault string
+
+	_ = cmd.PersistentFlags().String(labelsFlagName, labelsFlagDefault, labelsDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildMemoryParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	memoryDescription := `Set memory limit for build.`
+
+	var memoryFlagName string
+	if cmdPrefix == "" {
+		memoryFlagName = "memory"
+	} else {
+		memoryFlagName = fmt.Sprintf("%v.memory", cmdPrefix)
+	}
+
+	var memoryFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(memoryFlagName, memoryFlagDefault, memoryDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildMemswapParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	memswapDescription := `Total memory (memory + swap). Set as ` + "`" + `-1` + "`" + ` to disable swap.`
+
+	var memswapFlagName string
+	if cmdPrefix == "" {
+		memswapFlagName = "memswap"
+	} else {
+		memswapFlagName = fmt.Sprintf("%v.memswap", cmdPrefix)
+	}
+
+	var memswapFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(memswapFlagName, memswapFlagDefault, memswapDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildNetworkmodeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	networkmodeDescription := `Sets the networking mode for the run commands during build. Supported
+standard values are: ` + "`" + `bridge` + "`" + `, ` + "`" + `host` + "`" + `, ` + "`" + `none` + "`" + `, and ` + "`" + `container:<name|id>` + "`" + `.
+Any other value is taken as a custom network's name or ID to which this
+container should connect to.
+`
+
+	var networkmodeFlagName string
+	if cmdPrefix == "" {
+		networkmodeFlagName = "networkmode"
+	} else {
+		networkmodeFlagName = fmt.Sprintf("%v.networkmode", cmdPrefix)
+	}
+
+	var networkmodeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(networkmodeFlagName, networkmodeFlagDefault, networkmodeDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildNocacheParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nocacheDescription := `Do not use the cache when building the image.`
+
+	var nocacheFlagName string
+	if cmdPrefix == "" {
+		nocacheFlagName = "nocache"
+	} else {
+		nocacheFlagName = fmt.Sprintf("%v.nocache", cmdPrefix)
+	}
+
+	var nocacheFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(nocacheFlagName, nocacheFlagDefault, nocacheDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildOutputsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	outputsDescription := `BuildKit output configuration`
+
+	var outputsFlagName string
+	if cmdPrefix == "" {
+		outputsFlagName = "outputs"
+	} else {
+		outputsFlagName = fmt.Sprintf("%v.outputs", cmdPrefix)
+	}
+
+	var outputsFlagDefault string
+
+	_ = cmd.PersistentFlags().String(outputsFlagName, outputsFlagDefault, outputsDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildPlatformParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	platformDescription := `Platform in the format os[/arch[/variant]]`
+
+	var platformFlagName string
+	if cmdPrefix == "" {
+		platformFlagName = "platform"
+	} else {
+		platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
+	}
+
+	var platformFlagDefault string
+
+	_ = cmd.PersistentFlags().String(platformFlagName, platformFlagDefault, platformDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildPullParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	pullDescription := `Attempt to pull the image even if an older image exists locally.`
+
+	var pullFlagName string
+	if cmdPrefix == "" {
+		pullFlagName = "pull"
+	} else {
+		pullFlagName = fmt.Sprintf("%v.pull", cmdPrefix)
+	}
+
+	var pullFlagDefault string
+
+	_ = cmd.PersistentFlags().String(pullFlagName, pullFlagDefault, pullDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildQParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	qDescription := `Suppress verbose build output.`
+
+	var qFlagName string
+	if cmdPrefix == "" {
+		qFlagName = "q"
+	} else {
+		qFlagName = fmt.Sprintf("%v.q", cmdPrefix)
+	}
+
+	var qFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(qFlagName, qFlagDefault, qDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	remoteDescription := `A Git repository URI or HTTP/HTTPS context URI. If the URI points to a single text file, the file’s contents are placed into a file called ` + "`" + `Dockerfile` + "`" + ` and the image is built from that file. If the URI points to a tarball, the file is downloaded by the daemon and the contents therein used as the context for the build. If the URI points to a tarball and the ` + "`" + `dockerfile` + "`" + ` parameter is also specified, there must be a file with the corresponding path inside the tarball.`
+
+	var remoteFlagName string
+	if cmdPrefix == "" {
+		remoteFlagName = "remote"
+	} else {
+		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+	}
+
+	var remoteFlagDefault string
+
+	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildRmParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	rmDescription := `Remove intermediate containers after a successful build.`
+
+	var rmFlagName string
+	if cmdPrefix == "" {
+		rmFlagName = "rm"
+	} else {
+		rmFlagName = fmt.Sprintf("%v.rm", cmdPrefix)
+	}
+
+	var rmFlagDefault bool = true
+
+	_ = cmd.PersistentFlags().Bool(rmFlagName, rmFlagDefault, rmDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildShmsizeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	shmsizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. The size must be greater than 0. If omitted the system uses 64MB.`
+
+	var shmsizeFlagName string
+	if cmdPrefix == "" {
+		shmsizeFlagName = "shmsize"
+	} else {
+		shmsizeFlagName = fmt.Sprintf("%v.shmsize", cmdPrefix)
+	}
+
+	var shmsizeFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(shmsizeFlagName, shmsizeFlagDefault, shmsizeDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildSquashParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	squashDescription := `Squash the resulting images layers into a single layer. *(Experimental release only.)*`
+
+	var squashFlagName string
+	if cmdPrefix == "" {
+		squashFlagName = "squash"
+	} else {
+		squashFlagName = fmt.Sprintf("%v.squash", cmdPrefix)
+	}
+
+	var squashFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(squashFlagName, squashFlagDefault, squashDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildTParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tDescription := `A name and optional tag to apply to the image in the ` + "`" + `name:tag` + "`" + ` format. If you omit the tag the default ` + "`" + `latest` + "`" + ` value is assumed. You can provide several ` + "`" + `t` + "`" + ` parameters.`
+
+	var tFlagName string
+	if cmdPrefix == "" {
+		tFlagName = "t"
+	} else {
+		tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
+	}
+
+	var tFlagDefault string
+
+	_ = cmd.PersistentFlags().String(tFlagName, tFlagDefault, tDescription)
+
+	return nil
+}
+func registerOperationImageImageBuildTargetParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	targetDescription := `Target build stage`
+
+	var targetFlagName string
+	if cmdPrefix == "" {
+		targetFlagName = "target"
+	} else {
+		targetFlagName = fmt.Sprintf("%v.target", cmdPrefix)
+	}
+
+	var targetFlagDefault string
+
+	_ = cmd.PersistentFlags().String(targetFlagName, targetFlagDefault, targetDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageBuildContentTypeFlag(m *image.ImageBuildParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("Content-type") {
@@ -697,566 +1257,6 @@ func printOperationImageImageBuildResult(resp0 *image.ImageBuildOK, respErr erro
 	}
 
 	// warning: non schema response imageBuildOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationImageImageBuildParamFlags registers all flags needed to fill params
-func registerOperationImageImageBuildParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageBuildContentTypeParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildXRegistryConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildBuildargsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildCachefromParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildCpuperiodParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildCpuquotaParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildCpusetcpusParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildCpusharesParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildDockerfileParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildExtrahostsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildForcermParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildInputStreamParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildLabelsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildMemoryParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildMemswapParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildNetworkmodeParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildNocacheParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildOutputsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildPlatformParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildPullParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildQParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildRemoteParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildRmParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildShmsizeParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildSquashParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildTParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageBuildTargetParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageBuildContentTypeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	contentTypeDescription := ``
-
-	var contentTypeFlagName string
-	if cmdPrefix == "" {
-		contentTypeFlagName = "Content-type"
-	} else {
-		contentTypeFlagName = fmt.Sprintf("%v.Content-type", cmdPrefix)
-	}
-
-	var contentTypeFlagDefault string = "application/x-tar"
-
-	_ = cmd.PersistentFlags().String(contentTypeFlagName, contentTypeFlagDefault, contentTypeDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildXRegistryConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	xRegistryConfigDescription := `This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
-
-The key is a registry URL, and the value is an auth configuration object, [as described in the authentication section](#section/Authentication). For example:
-
-` + "`" + `` + "`" + `` + "`" + `
-{
-  "docker.example.com": {
-    "username": "janedoe",
-    "password": "hunter2"
-  },
-  "https://index.docker.io/v1/": {
-    "username": "mobydock",
-    "password": "conta1n3rize14"
-  }
-}
-` + "`" + `` + "`" + `` + "`" + `
-
-Only the registry domain name (and port if not the default 443) are required. However, for legacy reasons, the Docker Hub registry must be specified with both a ` + "`" + `https://` + "`" + ` prefix and a ` + "`" + `/v1/` + "`" + ` suffix even though Docker will prefer to use the v2 registry API.
-`
-
-	var xRegistryConfigFlagName string
-	if cmdPrefix == "" {
-		xRegistryConfigFlagName = "X-Registry-Config"
-	} else {
-		xRegistryConfigFlagName = fmt.Sprintf("%v.X-Registry-Config", cmdPrefix)
-	}
-
-	var xRegistryConfigFlagDefault string
-
-	_ = cmd.PersistentFlags().String(xRegistryConfigFlagName, xRegistryConfigFlagDefault, xRegistryConfigDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildBuildargsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	buildargsDescription := `JSON map of string pairs for build-time variables. Users pass these values at build-time. Docker uses the buildargs as the environment context for commands run via the ` + "`" + `Dockerfile` + "`" + ` RUN instruction, or for variable expansion in other ` + "`" + `Dockerfile` + "`" + ` instructions. This is not meant for passing secret values.
-
-For example, the build arg ` + "`" + `FOO=bar` + "`" + ` would become ` + "`" + `{"FOO":"bar"}` + "`" + ` in JSON. This would result in the the query parameter ` + "`" + `buildargs={"FOO":"bar"}` + "`" + `. Note that ` + "`" + `{"FOO":"bar"}` + "`" + ` should be URI component encoded.
-
-[Read more about the buildargs instruction.](https://docs.docker.com/engine/reference/builder/#arg)
-`
-
-	var buildargsFlagName string
-	if cmdPrefix == "" {
-		buildargsFlagName = "buildargs"
-	} else {
-		buildargsFlagName = fmt.Sprintf("%v.buildargs", cmdPrefix)
-	}
-
-	var buildargsFlagDefault string
-
-	_ = cmd.PersistentFlags().String(buildargsFlagName, buildargsFlagDefault, buildargsDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildCachefromParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	cachefromDescription := `JSON array of images used for build cache resolution.`
-
-	var cachefromFlagName string
-	if cmdPrefix == "" {
-		cachefromFlagName = "cachefrom"
-	} else {
-		cachefromFlagName = fmt.Sprintf("%v.cachefrom", cmdPrefix)
-	}
-
-	var cachefromFlagDefault string
-
-	_ = cmd.PersistentFlags().String(cachefromFlagName, cachefromFlagDefault, cachefromDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildCpuperiodParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	cpuperiodDescription := `The length of a CPU period in microseconds.`
-
-	var cpuperiodFlagName string
-	if cmdPrefix == "" {
-		cpuperiodFlagName = "cpuperiod"
-	} else {
-		cpuperiodFlagName = fmt.Sprintf("%v.cpuperiod", cmdPrefix)
-	}
-
-	var cpuperiodFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(cpuperiodFlagName, cpuperiodFlagDefault, cpuperiodDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildCpuquotaParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	cpuquotaDescription := `Microseconds of CPU time that the container can get in a CPU period.`
-
-	var cpuquotaFlagName string
-	if cmdPrefix == "" {
-		cpuquotaFlagName = "cpuquota"
-	} else {
-		cpuquotaFlagName = fmt.Sprintf("%v.cpuquota", cmdPrefix)
-	}
-
-	var cpuquotaFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(cpuquotaFlagName, cpuquotaFlagDefault, cpuquotaDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildCpusetcpusParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	cpusetcpusDescription := `CPUs in which to allow execution (e.g., ` + "`" + `0-3` + "`" + `, ` + "`" + `0,1` + "`" + `).`
-
-	var cpusetcpusFlagName string
-	if cmdPrefix == "" {
-		cpusetcpusFlagName = "cpusetcpus"
-	} else {
-		cpusetcpusFlagName = fmt.Sprintf("%v.cpusetcpus", cmdPrefix)
-	}
-
-	var cpusetcpusFlagDefault string
-
-	_ = cmd.PersistentFlags().String(cpusetcpusFlagName, cpusetcpusFlagDefault, cpusetcpusDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildCpusharesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	cpusharesDescription := `CPU shares (relative weight).`
-
-	var cpusharesFlagName string
-	if cmdPrefix == "" {
-		cpusharesFlagName = "cpushares"
-	} else {
-		cpusharesFlagName = fmt.Sprintf("%v.cpushares", cmdPrefix)
-	}
-
-	var cpusharesFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(cpusharesFlagName, cpusharesFlagDefault, cpusharesDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildDockerfileParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	dockerfileDescription := `Path within the build context to the ` + "`" + `Dockerfile` + "`" + `. This is ignored if ` + "`" + `remote` + "`" + ` is specified and points to an external ` + "`" + `Dockerfile` + "`" + `.`
-
-	var dockerfileFlagName string
-	if cmdPrefix == "" {
-		dockerfileFlagName = "dockerfile"
-	} else {
-		dockerfileFlagName = fmt.Sprintf("%v.dockerfile", cmdPrefix)
-	}
-
-	var dockerfileFlagDefault string = "Dockerfile"
-
-	_ = cmd.PersistentFlags().String(dockerfileFlagName, dockerfileFlagDefault, dockerfileDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildExtrahostsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	extrahostsDescription := `Extra hosts to add to /etc/hosts`
-
-	var extrahostsFlagName string
-	if cmdPrefix == "" {
-		extrahostsFlagName = "extrahosts"
-	} else {
-		extrahostsFlagName = fmt.Sprintf("%v.extrahosts", cmdPrefix)
-	}
-
-	var extrahostsFlagDefault string
-
-	_ = cmd.PersistentFlags().String(extrahostsFlagName, extrahostsFlagDefault, extrahostsDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildForcermParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forcermDescription := `Always remove intermediate containers, even upon failure.`
-
-	var forcermFlagName string
-	if cmdPrefix == "" {
-		forcermFlagName = "forcerm"
-	} else {
-		forcermFlagName = fmt.Sprintf("%v.forcerm", cmdPrefix)
-	}
-
-	var forcermFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forcermFlagName, forcermFlagDefault, forcermDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildInputStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
-	return nil
-}
-func registerOperationImageImageBuildLabelsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	labelsDescription := `Arbitrary key/value labels to set on the image, as a JSON map of string pairs.`
-
-	var labelsFlagName string
-	if cmdPrefix == "" {
-		labelsFlagName = "labels"
-	} else {
-		labelsFlagName = fmt.Sprintf("%v.labels", cmdPrefix)
-	}
-
-	var labelsFlagDefault string
-
-	_ = cmd.PersistentFlags().String(labelsFlagName, labelsFlagDefault, labelsDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildMemoryParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	memoryDescription := `Set memory limit for build.`
-
-	var memoryFlagName string
-	if cmdPrefix == "" {
-		memoryFlagName = "memory"
-	} else {
-		memoryFlagName = fmt.Sprintf("%v.memory", cmdPrefix)
-	}
-
-	var memoryFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(memoryFlagName, memoryFlagDefault, memoryDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildMemswapParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	memswapDescription := `Total memory (memory + swap). Set as ` + "`" + `-1` + "`" + ` to disable swap.`
-
-	var memswapFlagName string
-	if cmdPrefix == "" {
-		memswapFlagName = "memswap"
-	} else {
-		memswapFlagName = fmt.Sprintf("%v.memswap", cmdPrefix)
-	}
-
-	var memswapFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(memswapFlagName, memswapFlagDefault, memswapDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildNetworkmodeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	networkmodeDescription := `Sets the networking mode for the run commands during build. Supported
-standard values are: ` + "`" + `bridge` + "`" + `, ` + "`" + `host` + "`" + `, ` + "`" + `none` + "`" + `, and ` + "`" + `container:<name|id>` + "`" + `.
-Any other value is taken as a custom network's name or ID to which this
-container should connect to.
-`
-
-	var networkmodeFlagName string
-	if cmdPrefix == "" {
-		networkmodeFlagName = "networkmode"
-	} else {
-		networkmodeFlagName = fmt.Sprintf("%v.networkmode", cmdPrefix)
-	}
-
-	var networkmodeFlagDefault string
-
-	_ = cmd.PersistentFlags().String(networkmodeFlagName, networkmodeFlagDefault, networkmodeDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildNocacheParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nocacheDescription := `Do not use the cache when building the image.`
-
-	var nocacheFlagName string
-	if cmdPrefix == "" {
-		nocacheFlagName = "nocache"
-	} else {
-		nocacheFlagName = fmt.Sprintf("%v.nocache", cmdPrefix)
-	}
-
-	var nocacheFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(nocacheFlagName, nocacheFlagDefault, nocacheDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildOutputsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	outputsDescription := `BuildKit output configuration`
-
-	var outputsFlagName string
-	if cmdPrefix == "" {
-		outputsFlagName = "outputs"
-	} else {
-		outputsFlagName = fmt.Sprintf("%v.outputs", cmdPrefix)
-	}
-
-	var outputsFlagDefault string
-
-	_ = cmd.PersistentFlags().String(outputsFlagName, outputsFlagDefault, outputsDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildPlatformParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	platformDescription := `Platform in the format os[/arch[/variant]]`
-
-	var platformFlagName string
-	if cmdPrefix == "" {
-		platformFlagName = "platform"
-	} else {
-		platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
-	}
-
-	var platformFlagDefault string
-
-	_ = cmd.PersistentFlags().String(platformFlagName, platformFlagDefault, platformDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildPullParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	pullDescription := `Attempt to pull the image even if an older image exists locally.`
-
-	var pullFlagName string
-	if cmdPrefix == "" {
-		pullFlagName = "pull"
-	} else {
-		pullFlagName = fmt.Sprintf("%v.pull", cmdPrefix)
-	}
-
-	var pullFlagDefault string
-
-	_ = cmd.PersistentFlags().String(pullFlagName, pullFlagDefault, pullDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildQParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	qDescription := `Suppress verbose build output.`
-
-	var qFlagName string
-	if cmdPrefix == "" {
-		qFlagName = "q"
-	} else {
-		qFlagName = fmt.Sprintf("%v.q", cmdPrefix)
-	}
-
-	var qFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(qFlagName, qFlagDefault, qDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	remoteDescription := `A Git repository URI or HTTP/HTTPS context URI. If the URI points to a single text file, the file’s contents are placed into a file called ` + "`" + `Dockerfile` + "`" + ` and the image is built from that file. If the URI points to a tarball, the file is downloaded by the daemon and the contents therein used as the context for the build. If the URI points to a tarball and the ` + "`" + `dockerfile` + "`" + ` parameter is also specified, there must be a file with the corresponding path inside the tarball.`
-
-	var remoteFlagName string
-	if cmdPrefix == "" {
-		remoteFlagName = "remote"
-	} else {
-		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
-	}
-
-	var remoteFlagDefault string
-
-	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildRmParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	rmDescription := `Remove intermediate containers after a successful build.`
-
-	var rmFlagName string
-	if cmdPrefix == "" {
-		rmFlagName = "rm"
-	} else {
-		rmFlagName = fmt.Sprintf("%v.rm", cmdPrefix)
-	}
-
-	var rmFlagDefault bool = true
-
-	_ = cmd.PersistentFlags().Bool(rmFlagName, rmFlagDefault, rmDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildShmsizeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	shmsizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. The size must be greater than 0. If omitted the system uses 64MB.`
-
-	var shmsizeFlagName string
-	if cmdPrefix == "" {
-		shmsizeFlagName = "shmsize"
-	} else {
-		shmsizeFlagName = fmt.Sprintf("%v.shmsize", cmdPrefix)
-	}
-
-	var shmsizeFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(shmsizeFlagName, shmsizeFlagDefault, shmsizeDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildSquashParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	squashDescription := `Squash the resulting images layers into a single layer. *(Experimental release only.)*`
-
-	var squashFlagName string
-	if cmdPrefix == "" {
-		squashFlagName = "squash"
-	} else {
-		squashFlagName = fmt.Sprintf("%v.squash", cmdPrefix)
-	}
-
-	var squashFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(squashFlagName, squashFlagDefault, squashDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildTParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tDescription := `A name and optional tag to apply to the image in the ` + "`" + `name:tag` + "`" + ` format. If you omit the tag the default ` + "`" + `latest` + "`" + ` value is assumed. You can provide several ` + "`" + `t` + "`" + ` parameters.`
-
-	var tFlagName string
-	if cmdPrefix == "" {
-		tFlagName = "t"
-	} else {
-		tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
-	}
-
-	var tFlagDefault string
-
-	_ = cmd.PersistentFlags().String(tFlagName, tFlagDefault, tDescription)
-
-	return nil
-}
-func registerOperationImageImageBuildTargetParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	targetDescription := `Target build stage`
-
-	var targetFlagName string
-	if cmdPrefix == "" {
-		targetFlagName = "target"
-	} else {
-		targetFlagName = fmt.Sprintf("%v.target", cmdPrefix)
-	}
-
-	var targetFlagDefault string
-
-	_ = cmd.PersistentFlags().String(targetFlagName, targetFlagDefault, targetDescription)
 
 	return nil
 }

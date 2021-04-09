@@ -49,6 +49,32 @@ func runOperationPluginPluginPush(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginPushParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginPushParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginPushNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginPushNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginPluginPushNameFlag(m *plugin.PluginPushParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -106,32 +132,6 @@ func printOperationPluginPluginPushResult(resp0 *plugin.PluginPushOK, respErr er
 	}
 
 	// warning: non schema response pluginPushOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationPluginPluginPushParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginPushParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginPushNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginPushNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

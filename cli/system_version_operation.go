@@ -45,6 +45,11 @@ func runOperationSystemSystemVersion(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSystemSystemVersionParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemVersionParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSystemSystemVersionResult prints output to stdout
 func printOperationSystemSystemVersionResult(resp0 *system.SystemVersionOK, respErr error) error {
 	if respErr != nil {
@@ -89,11 +94,6 @@ func printOperationSystemSystemVersionResult(resp0 *system.SystemVersionOK, resp
 	return nil
 }
 
-// registerOperationSystemSystemVersionParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemVersionParamFlags(cmd *cobra.Command) error {
-	return nil
-}
-
 // register flags to command
 func registerModelComponentVersionFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -116,6 +116,7 @@ func registerComponentVersionDetails(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Details interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -193,10 +194,12 @@ func retrieveComponentVersionDetailsFlags(depth int, m *system.ComponentVersion,
 		return nil, false
 	}
 	retAdded := false
+
 	detailsFlagName := fmt.Sprintf("%v.Details", cmdPrefix)
 	if cmd.Flags().Changed(detailsFlagName) {
 		// warning: Details map type interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -205,6 +208,7 @@ func retrieveComponentVersionNameFlags(depth int, m *system.ComponentVersion, cm
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -223,6 +227,7 @@ func retrieveComponentVersionNameFlags(depth int, m *system.ComponentVersion, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -231,6 +236,7 @@ func retrieveComponentVersionVersionFlags(depth int, m *system.ComponentVersion,
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
@@ -249,6 +255,7 @@ func retrieveComponentVersionVersionFlags(depth int, m *system.ComponentVersion,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -373,6 +380,7 @@ func registerSystemVersionOKBodyComponents(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Components []*ComponentVersion array type is not supported by go-swagger cli yet
 
 	return nil
@@ -628,6 +636,7 @@ func retrieveSystemVersionOKBodyAPIVersionFlags(depth int, m *system.SystemVersi
 		return nil, false
 	}
 	retAdded := false
+
 	apiVersionFlagName := fmt.Sprintf("%v.ApiVersion", cmdPrefix)
 	if cmd.Flags().Changed(apiVersionFlagName) {
 
@@ -646,6 +655,7 @@ func retrieveSystemVersionOKBodyAPIVersionFlags(depth int, m *system.SystemVersi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -654,6 +664,7 @@ func retrieveSystemVersionOKBodyArchFlags(depth int, m *system.SystemVersionOKBo
 		return nil, false
 	}
 	retAdded := false
+
 	archFlagName := fmt.Sprintf("%v.Arch", cmdPrefix)
 	if cmd.Flags().Changed(archFlagName) {
 
@@ -672,6 +683,7 @@ func retrieveSystemVersionOKBodyArchFlags(depth int, m *system.SystemVersionOKBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -680,6 +692,7 @@ func retrieveSystemVersionOKBodyBuildTimeFlags(depth int, m *system.SystemVersio
 		return nil, false
 	}
 	retAdded := false
+
 	buildTimeFlagName := fmt.Sprintf("%v.BuildTime", cmdPrefix)
 	if cmd.Flags().Changed(buildTimeFlagName) {
 
@@ -698,6 +711,7 @@ func retrieveSystemVersionOKBodyBuildTimeFlags(depth int, m *system.SystemVersio
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -706,10 +720,12 @@ func retrieveSystemVersionOKBodyComponentsFlags(depth int, m *system.SystemVersi
 		return nil, false
 	}
 	retAdded := false
+
 	componentsFlagName := fmt.Sprintf("%v.Components", cmdPrefix)
 	if cmd.Flags().Changed(componentsFlagName) {
 		// warning: Components array type []*ComponentVersion is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -718,6 +734,7 @@ func retrieveSystemVersionOKBodyExperimentalFlags(depth int, m *system.SystemVer
 		return nil, false
 	}
 	retAdded := false
+
 	experimentalFlagName := fmt.Sprintf("%v.Experimental", cmdPrefix)
 	if cmd.Flags().Changed(experimentalFlagName) {
 
@@ -736,6 +753,7 @@ func retrieveSystemVersionOKBodyExperimentalFlags(depth int, m *system.SystemVer
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -744,6 +762,7 @@ func retrieveSystemVersionOKBodyGitCommitFlags(depth int, m *system.SystemVersio
 		return nil, false
 	}
 	retAdded := false
+
 	gitCommitFlagName := fmt.Sprintf("%v.GitCommit", cmdPrefix)
 	if cmd.Flags().Changed(gitCommitFlagName) {
 
@@ -762,6 +781,7 @@ func retrieveSystemVersionOKBodyGitCommitFlags(depth int, m *system.SystemVersio
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -770,6 +790,7 @@ func retrieveSystemVersionOKBodyGoVersionFlags(depth int, m *system.SystemVersio
 		return nil, false
 	}
 	retAdded := false
+
 	goVersionFlagName := fmt.Sprintf("%v.GoVersion", cmdPrefix)
 	if cmd.Flags().Changed(goVersionFlagName) {
 
@@ -788,6 +809,7 @@ func retrieveSystemVersionOKBodyGoVersionFlags(depth int, m *system.SystemVersio
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -796,6 +818,7 @@ func retrieveSystemVersionOKBodyKernelVersionFlags(depth int, m *system.SystemVe
 		return nil, false
 	}
 	retAdded := false
+
 	kernelVersionFlagName := fmt.Sprintf("%v.KernelVersion", cmdPrefix)
 	if cmd.Flags().Changed(kernelVersionFlagName) {
 
@@ -814,6 +837,7 @@ func retrieveSystemVersionOKBodyKernelVersionFlags(depth int, m *system.SystemVe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -822,6 +846,7 @@ func retrieveSystemVersionOKBodyMinAPIVersionFlags(depth int, m *system.SystemVe
 		return nil, false
 	}
 	retAdded := false
+
 	minApiVersionFlagName := fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
 	if cmd.Flags().Changed(minApiVersionFlagName) {
 
@@ -840,6 +865,7 @@ func retrieveSystemVersionOKBodyMinAPIVersionFlags(depth int, m *system.SystemVe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -848,6 +874,7 @@ func retrieveSystemVersionOKBodyOsFlags(depth int, m *system.SystemVersionOKBody
 		return nil, false
 	}
 	retAdded := false
+
 	osFlagName := fmt.Sprintf("%v.Os", cmdPrefix)
 	if cmd.Flags().Changed(osFlagName) {
 
@@ -866,6 +893,7 @@ func retrieveSystemVersionOKBodyOsFlags(depth int, m *system.SystemVersionOKBody
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -874,19 +902,21 @@ func retrieveSystemVersionOKBodyPlatformFlags(depth int, m *system.SystemVersion
 		return nil, false
 	}
 	retAdded := false
+
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
 
-		platformFlagValue := &system.SystemVersionOKBodyPlatform{}
-		err, added := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
+		platformFlagValue := system.SystemVersionOKBodyPlatform{}
+		err, added := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Platform = platformFlagValue
+			m.Platform = &platformFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -895,6 +925,7 @@ func retrieveSystemVersionOKBodyVersionFlags(depth int, m *system.SystemVersionO
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
@@ -913,6 +944,7 @@ func retrieveSystemVersionOKBodyVersionFlags(depth int, m *system.SystemVersionO
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -965,6 +997,7 @@ func retrieveSystemVersionOKBodyPlatformNameFlags(depth int, m *system.SystemVer
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -983,5 +1016,6 @@ func retrieveSystemVersionOKBodyPlatformNameFlags(depth int, m *system.SystemVer
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

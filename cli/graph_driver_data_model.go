@@ -32,6 +32,7 @@ func registerGraphDriverDataData(depth int, cmdPrefix string, cmd *cobra.Command
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Data map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -82,10 +83,12 @@ func retrieveGraphDriverDataDataFlags(depth int, m *models.GraphDriverData, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	dataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
 	if cmd.Flags().Changed(dataFlagName) {
 		// warning: Data map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -94,6 +97,7 @@ func retrieveGraphDriverDataNameFlags(depth int, m *models.GraphDriverData, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -112,5 +116,6 @@ func retrieveGraphDriverDataNameFlags(depth int, m *models.GraphDriverData, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

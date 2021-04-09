@@ -48,6 +48,36 @@ func runOperationVolumeVolumePrune(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationVolumeVolumePruneParamFlags registers all flags needed to fill params
+func registerOperationVolumeVolumePruneParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationVolumeVolumePruneFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationVolumeVolumePruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+
+Available filters:
+- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune volumes with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationVolumeVolumePruneFiltersFlag(m *volume.VolumePruneParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -113,36 +143,6 @@ func printOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr 
 	return nil
 }
 
-// registerOperationVolumeVolumePruneParamFlags registers all flags needed to fill params
-func registerOperationVolumeVolumePruneParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationVolumeVolumePruneFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationVolumeVolumePruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
-
-Available filters:
-- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune volumes with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelVolumePruneOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -182,6 +182,7 @@ func registerVolumePruneOKBodyVolumesDeleted(depth int, cmdPrefix string, cmd *c
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: VolumesDeleted []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -211,6 +212,7 @@ func retrieveVolumePruneOKBodySpaceReclaimedFlags(depth int, m *volume.VolumePru
 		return nil, false
 	}
 	retAdded := false
+
 	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	if cmd.Flags().Changed(spaceReclaimedFlagName) {
 
@@ -229,6 +231,7 @@ func retrieveVolumePruneOKBodySpaceReclaimedFlags(depth int, m *volume.VolumePru
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -237,9 +240,11 @@ func retrieveVolumePruneOKBodyVolumesDeletedFlags(depth int, m *volume.VolumePru
 		return nil, false
 	}
 	retAdded := false
+
 	volumesDeletedFlagName := fmt.Sprintf("%v.VolumesDeleted", cmdPrefix)
 	if cmd.Flags().Changed(volumesDeletedFlagName) {
 		// warning: VolumesDeleted array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

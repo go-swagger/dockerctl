@@ -48,6 +48,32 @@ func runOperationSecretSecretDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSecretSecretDeleteParamFlags registers all flags needed to fill params
+func registerOperationSecretSecretDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSecretSecretDeleteIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSecretSecretDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID of the secret`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationSecretSecretDeleteIDFlag(m *secret.SecretDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -118,32 +144,6 @@ func printOperationSecretSecretDeleteResult(resp0 *secret.SecretDeleteNoContent,
 	}
 
 	// warning: non schema response secretDeleteNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationSecretSecretDeleteParamFlags registers all flags needed to fill params
-func registerOperationSecretSecretDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSecretSecretDeleteIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSecretSecretDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID of the secret`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

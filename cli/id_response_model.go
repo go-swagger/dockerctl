@@ -63,6 +63,7 @@ func retrieveIDResponseIDFlags(depth int, m *models.IDResponse, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -81,5 +82,6 @@ func retrieveIDResponseIDFlags(depth int, m *models.IDResponse, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -44,6 +44,7 @@ func registerProcessConfigArguments(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: arguments []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -175,10 +176,12 @@ func retrieveProcessConfigArgumentsFlags(depth int, m *models.ProcessConfig, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	argumentsFlagName := fmt.Sprintf("%v.arguments", cmdPrefix)
 	if cmd.Flags().Changed(argumentsFlagName) {
 		// warning: arguments array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -187,6 +190,7 @@ func retrieveProcessConfigEntrypointFlags(depth int, m *models.ProcessConfig, cm
 		return nil, false
 	}
 	retAdded := false
+
 	entrypointFlagName := fmt.Sprintf("%v.entrypoint", cmdPrefix)
 	if cmd.Flags().Changed(entrypointFlagName) {
 
@@ -205,6 +209,7 @@ func retrieveProcessConfigEntrypointFlags(depth int, m *models.ProcessConfig, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -213,6 +218,7 @@ func retrieveProcessConfigPrivilegedFlags(depth int, m *models.ProcessConfig, cm
 		return nil, false
 	}
 	retAdded := false
+
 	privilegedFlagName := fmt.Sprintf("%v.privileged", cmdPrefix)
 	if cmd.Flags().Changed(privilegedFlagName) {
 
@@ -231,6 +237,7 @@ func retrieveProcessConfigPrivilegedFlags(depth int, m *models.ProcessConfig, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -239,6 +246,7 @@ func retrieveProcessConfigTtyFlags(depth int, m *models.ProcessConfig, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	ttyFlagName := fmt.Sprintf("%v.tty", cmdPrefix)
 	if cmd.Flags().Changed(ttyFlagName) {
 
@@ -257,6 +265,7 @@ func retrieveProcessConfigTtyFlags(depth int, m *models.ProcessConfig, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -265,6 +274,7 @@ func retrieveProcessConfigUserFlags(depth int, m *models.ProcessConfig, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	userFlagName := fmt.Sprintf("%v.user", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
 
@@ -283,5 +293,6 @@ func retrieveProcessConfigUserFlags(depth int, m *models.ProcessConfig, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

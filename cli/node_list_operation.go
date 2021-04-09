@@ -48,6 +48,41 @@ func runOperationNodeNodeList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNodeNodeListParamFlags registers all flags needed to fill params
+func registerOperationNodeNodeListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNodeNodeListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNodeNodeListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `Filters to process on the nodes list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+
+Available filters:
+- ` + "`" + `id=<node id>` + "`" + `
+- ` + "`" + `label=<engine label>` + "`" + `
+- ` + "`" + `membership=` + "`" + `(` + "`" + `accepted` + "`" + `|` + "`" + `pending` + "`" + `)` + "`" + `
+- ` + "`" + `name=<node name>` + "`" + `
+- ` + "`" + `node.label=<node label>` + "`" + `
+- ` + "`" + `role=` + "`" + `(` + "`" + `manager` + "`" + `|` + "`" + `worker` + "`" + `)` + "`" + `
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationNodeNodeListFiltersFlag(m *node.NodeListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -122,41 +157,6 @@ func printOperationNodeNodeListResult(resp0 *node.NodeListOK, respErr error) err
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationNodeNodeListParamFlags registers all flags needed to fill params
-func registerOperationNodeNodeListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNodeNodeListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNodeNodeListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `Filters to process on the nodes list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
-
-Available filters:
-- ` + "`" + `id=<node id>` + "`" + `
-- ` + "`" + `label=<engine label>` + "`" + `
-- ` + "`" + `membership=` + "`" + `(` + "`" + `accepted` + "`" + `|` + "`" + `pending` + "`" + `)` + "`" + `
-- ` + "`" + `name=<node name>` + "`" + `
-- ` + "`" + `node.label=<node label>` + "`" + `
-- ` + "`" + `role=` + "`" + `(` + "`" + `manager` + "`" + `|` + "`" + `worker` + "`" + `)` + "`" + `
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
 
 	return nil
 }

@@ -51,6 +51,52 @@ func runOperationVolumeVolumeDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationVolumeVolumeDeleteParamFlags registers all flags needed to fill params
+func registerOperationVolumeVolumeDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationVolumeVolumeDeleteForceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationVolumeVolumeDeleteNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationVolumeVolumeDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forceDescription := `Force the removal of the volume`
+
+	var forceFlagName string
+	if cmdPrefix == "" {
+		forceFlagName = "force"
+	} else {
+		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+	}
+
+	var forceFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+
+	return nil
+}
+func registerOperationVolumeVolumeDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Volume name or ID`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationVolumeVolumeDeleteForceFlag(m *volume.VolumeDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("force") {
@@ -141,52 +187,6 @@ func printOperationVolumeVolumeDeleteResult(resp0 *volume.VolumeDeleteNoContent,
 	}
 
 	// warning: non schema response volumeDeleteNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationVolumeVolumeDeleteParamFlags registers all flags needed to fill params
-func registerOperationVolumeVolumeDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationVolumeVolumeDeleteForceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationVolumeVolumeDeleteNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationVolumeVolumeDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forceDescription := `Force the removal of the volume`
-
-	var forceFlagName string
-	if cmdPrefix == "" {
-		forceFlagName = "force"
-	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
-	}
-
-	var forceFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
-
-	return nil
-}
-func registerOperationVolumeVolumeDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Volume name or ID`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

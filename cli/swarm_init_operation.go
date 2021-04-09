@@ -49,6 +49,34 @@ func runOperationSwarmSwarmInit(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmInitParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmInitParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSwarmSwarmInitBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSwarmSwarmInitBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelSwarmInitBodyFlags(0, "swarmInitBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationSwarmSwarmInitBodyFlag(m *swarm.SwarmInitParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -145,34 +173,6 @@ func printOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error)
 	if !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
 		fmt.Println(string(msgStr))
-	}
-
-	return nil
-}
-
-// registerOperationSwarmSwarmInitParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmInitParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSwarmSwarmInitBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSwarmSwarmInitBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelSwarmInitBodyFlags(0, "swarmInitBody", cmd); err != nil {
-		return err
 	}
 
 	return nil
@@ -279,6 +279,7 @@ func registerSwarmInitBodyDefaultAddrPool(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DefaultAddrPool []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -415,6 +416,7 @@ func retrieveSwarmInitBodyAdvertiseAddrFlags(depth int, m *swarm.SwarmInitBody, 
 		return nil, false
 	}
 	retAdded := false
+
 	advertiseAddrFlagName := fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
 	if cmd.Flags().Changed(advertiseAddrFlagName) {
 
@@ -433,6 +435,7 @@ func retrieveSwarmInitBodyAdvertiseAddrFlags(depth int, m *swarm.SwarmInitBody, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -441,6 +444,7 @@ func retrieveSwarmInitBodyDataPathAddrFlags(depth int, m *swarm.SwarmInitBody, c
 		return nil, false
 	}
 	retAdded := false
+
 	dataPathAddrFlagName := fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
 	if cmd.Flags().Changed(dataPathAddrFlagName) {
 
@@ -459,6 +463,7 @@ func retrieveSwarmInitBodyDataPathAddrFlags(depth int, m *swarm.SwarmInitBody, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -467,6 +472,7 @@ func retrieveSwarmInitBodyDataPathPortFlags(depth int, m *swarm.SwarmInitBody, c
 		return nil, false
 	}
 	retAdded := false
+
 	dataPathPortFlagName := fmt.Sprintf("%v.DataPathPort", cmdPrefix)
 	if cmd.Flags().Changed(dataPathPortFlagName) {
 
@@ -474,6 +480,7 @@ func retrieveSwarmInitBodyDataPathPortFlags(depth int, m *swarm.SwarmInitBody, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -482,10 +489,12 @@ func retrieveSwarmInitBodyDefaultAddrPoolFlags(depth int, m *swarm.SwarmInitBody
 		return nil, false
 	}
 	retAdded := false
+
 	defaultAddrPoolFlagName := fmt.Sprintf("%v.DefaultAddrPool", cmdPrefix)
 	if cmd.Flags().Changed(defaultAddrPoolFlagName) {
 		// warning: DefaultAddrPool array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -494,6 +503,7 @@ func retrieveSwarmInitBodyForceNewClusterFlags(depth int, m *swarm.SwarmInitBody
 		return nil, false
 	}
 	retAdded := false
+
 	forceNewClusterFlagName := fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
 	if cmd.Flags().Changed(forceNewClusterFlagName) {
 
@@ -512,6 +522,7 @@ func retrieveSwarmInitBodyForceNewClusterFlags(depth int, m *swarm.SwarmInitBody
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -520,6 +531,7 @@ func retrieveSwarmInitBodyListenAddrFlags(depth int, m *swarm.SwarmInitBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	listenAddrFlagName := fmt.Sprintf("%v.ListenAddr", cmdPrefix)
 	if cmd.Flags().Changed(listenAddrFlagName) {
 
@@ -538,6 +550,7 @@ func retrieveSwarmInitBodyListenAddrFlags(depth int, m *swarm.SwarmInitBody, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -546,19 +559,21 @@ func retrieveSwarmInitBodySpecFlags(depth int, m *swarm.SwarmInitBody, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := models.SwarmSpec{}
+		err, added := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spec = specFlagValue
+			m.Spec = &specFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -567,6 +582,7 @@ func retrieveSwarmInitBodySubnetSizeFlags(depth int, m *swarm.SwarmInitBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	subnetSizeFlagName := fmt.Sprintf("%v.SubnetSize", cmdPrefix)
 	if cmd.Flags().Changed(subnetSizeFlagName) {
 
@@ -574,5 +590,6 @@ func retrieveSwarmInitBodySubnetSizeFlags(depth int, m *swarm.SwarmInitBody, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -54,6 +54,39 @@ func runOperationImageImageLoad(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageLoadParamFlags registers all flags needed to fill params
+func registerOperationImageImageLoadParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageLoadImagesTarballParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageLoadQuietParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageLoadImagesTarballParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
+	return nil
+}
+func registerOperationImageImageLoadQuietParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	quietDescription := `Suppress progress details during load.`
+
+	var quietFlagName string
+	if cmdPrefix == "" {
+		quietFlagName = "quiet"
+	} else {
+		quietFlagName = fmt.Sprintf("%v.quiet", cmdPrefix)
+	}
+
+	var quietFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(quietFlagName, quietFlagDefault, quietDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageLoadImagesTarballFlag(m *image.ImageLoadParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("imagesTarball") {
@@ -105,39 +138,6 @@ func printOperationImageImageLoadResult(resp0 *image.ImageLoadOK, respErr error)
 	}
 
 	// warning: non schema response imageLoadOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationImageImageLoadParamFlags registers all flags needed to fill params
-func registerOperationImageImageLoadParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageLoadImagesTarballParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageLoadQuietParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageLoadImagesTarballParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
-	return nil
-}
-func registerOperationImageImageLoadQuietParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	quietDescription := `Suppress progress details during load.`
-
-	var quietFlagName string
-	if cmdPrefix == "" {
-		quietFlagName = "quiet"
-	} else {
-		quietFlagName = fmt.Sprintf("%v.quiet", cmdPrefix)
-	}
-
-	var quietFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(quietFlagName, quietFlagDefault, quietDescription)
 
 	return nil
 }

@@ -76,6 +76,7 @@ func registerTaskAssignedGenericResources(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: AssignedGenericResources GenericResources array type is not supported by go-swagger cli yet
 
 	return nil
@@ -137,6 +138,7 @@ func registerTaskLabels(depth int, cmdPrefix string, cmd *cobra.Command) error {
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -394,10 +396,12 @@ func retrieveTaskAssignedGenericResourcesFlags(depth int, m *models.Task, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	assignedGenericResourcesFlagName := fmt.Sprintf("%v.AssignedGenericResources", cmdPrefix)
 	if cmd.Flags().Changed(assignedGenericResourcesFlagName) {
 		// warning: AssignedGenericResources array type GenericResources is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -406,6 +410,7 @@ func retrieveTaskCreatedAtFlags(depth int, m *models.Task, cmdPrefix string, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	if cmd.Flags().Changed(createdAtFlagName) {
 
@@ -424,6 +429,7 @@ func retrieveTaskCreatedAtFlags(depth int, m *models.Task, cmdPrefix string, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -432,6 +438,7 @@ func retrieveTaskDesiredStateFlags(depth int, m *models.Task, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	desiredStateFlagName := fmt.Sprintf("%v.DesiredState", cmdPrefix)
 	if cmd.Flags().Changed(desiredStateFlagName) {
 
@@ -439,6 +446,7 @@ func retrieveTaskDesiredStateFlags(depth int, m *models.Task, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -447,6 +455,7 @@ func retrieveTaskIDFlags(depth int, m *models.Task, cmdPrefix string, cmd *cobra
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -465,6 +474,7 @@ func retrieveTaskIDFlags(depth int, m *models.Task, cmdPrefix string, cmd *cobra
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -473,10 +483,12 @@ func retrieveTaskLabelsFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -485,6 +497,7 @@ func retrieveTaskNameFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -503,6 +516,7 @@ func retrieveTaskNameFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -511,6 +525,7 @@ func retrieveTaskNodeIDFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	nodeIdFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
 	if cmd.Flags().Changed(nodeIdFlagName) {
 
@@ -529,6 +544,7 @@ func retrieveTaskNodeIDFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -537,6 +553,7 @@ func retrieveTaskServiceIDFlags(depth int, m *models.Task, cmdPrefix string, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	serviceIdFlagName := fmt.Sprintf("%v.ServiceID", cmdPrefix)
 	if cmd.Flags().Changed(serviceIdFlagName) {
 
@@ -555,6 +572,7 @@ func retrieveTaskServiceIDFlags(depth int, m *models.Task, cmdPrefix string, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -563,6 +581,7 @@ func retrieveTaskSlotFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 		return nil, false
 	}
 	retAdded := false
+
 	slotFlagName := fmt.Sprintf("%v.Slot", cmdPrefix)
 	if cmd.Flags().Changed(slotFlagName) {
 
@@ -581,6 +600,7 @@ func retrieveTaskSlotFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -589,19 +609,21 @@ func retrieveTaskSpecFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 		return nil, false
 	}
 	retAdded := false
+
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := models.TaskSpec{}
+		err, added := retrieveModelTaskSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spec = specFlagValue
+			m.Spec = &specFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -610,19 +632,21 @@ func retrieveTaskStatusFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
-		statusFlagValue := &models.TaskStatus{}
-		err, added := retrieveModelTaskStatusFlags(depth+1, statusFlagValue, statusFlagName, cmd)
+		statusFlagValue := models.TaskStatus{}
+		err, added := retrieveModelTaskStatusFlags(depth+1, &statusFlagValue, statusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Status = statusFlagValue
+			m.Status = &statusFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -631,6 +655,7 @@ func retrieveTaskUpdatedAtFlags(depth int, m *models.Task, cmdPrefix string, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	if cmd.Flags().Changed(updatedAtFlagName) {
 
@@ -649,6 +674,7 @@ func retrieveTaskUpdatedAtFlags(depth int, m *models.Task, cmdPrefix string, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -657,19 +683,21 @@ func retrieveTaskVersionFlags(depth int, m *models.Task, cmdPrefix string, cmd *
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Version = versionFlagValue
+			m.Version = &versionFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -835,19 +863,21 @@ func retrieveTaskStatusContainerStatusFlags(depth int, m *models.TaskStatus, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	containerStatusFlagName := fmt.Sprintf("%v.ContainerStatus", cmdPrefix)
 	if cmd.Flags().Changed(containerStatusFlagName) {
 
-		containerStatusFlagValue := &models.TaskStatusContainerStatus{}
-		err, added := retrieveModelTaskStatusContainerStatusFlags(depth+1, containerStatusFlagValue, containerStatusFlagName, cmd)
+		containerStatusFlagValue := models.TaskStatusContainerStatus{}
+		err, added := retrieveModelTaskStatusContainerStatusFlags(depth+1, &containerStatusFlagValue, containerStatusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ContainerStatus = containerStatusFlagValue
+			m.ContainerStatus = &containerStatusFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -856,6 +886,7 @@ func retrieveTaskStatusErrFlags(depth int, m *models.TaskStatus, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	errFlagName := fmt.Sprintf("%v.Err", cmdPrefix)
 	if cmd.Flags().Changed(errFlagName) {
 
@@ -874,6 +905,7 @@ func retrieveTaskStatusErrFlags(depth int, m *models.TaskStatus, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -882,6 +914,7 @@ func retrieveTaskStatusMessageFlags(depth int, m *models.TaskStatus, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
 	if cmd.Flags().Changed(messageFlagName) {
 
@@ -900,6 +933,7 @@ func retrieveTaskStatusMessageFlags(depth int, m *models.TaskStatus, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -908,6 +942,7 @@ func retrieveTaskStatusStateFlags(depth int, m *models.TaskStatus, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
 	if cmd.Flags().Changed(stateFlagName) {
 
@@ -915,6 +950,7 @@ func retrieveTaskStatusStateFlags(depth int, m *models.TaskStatus, cmdPrefix str
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -923,6 +959,7 @@ func retrieveTaskStatusTimestampFlags(depth int, m *models.TaskStatus, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	timestampFlagName := fmt.Sprintf("%v.Timestamp", cmdPrefix)
 	if cmd.Flags().Changed(timestampFlagName) {
 
@@ -941,6 +978,7 @@ func retrieveTaskStatusTimestampFlags(depth int, m *models.TaskStatus, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1057,6 +1095,7 @@ func retrieveTaskStatusContainerStatusContainerIDFlags(depth int, m *models.Task
 		return nil, false
 	}
 	retAdded := false
+
 	containerIdFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
 	if cmd.Flags().Changed(containerIdFlagName) {
 
@@ -1075,6 +1114,7 @@ func retrieveTaskStatusContainerStatusContainerIDFlags(depth int, m *models.Task
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1083,6 +1123,7 @@ func retrieveTaskStatusContainerStatusExitCodeFlags(depth int, m *models.TaskSta
 		return nil, false
 	}
 	retAdded := false
+
 	exitCodeFlagName := fmt.Sprintf("%v.ExitCode", cmdPrefix)
 	if cmd.Flags().Changed(exitCodeFlagName) {
 
@@ -1101,6 +1142,7 @@ func retrieveTaskStatusContainerStatusExitCodeFlags(depth int, m *models.TaskSta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1109,6 +1151,7 @@ func retrieveTaskStatusContainerStatusPIDFlags(depth int, m *models.TaskStatusCo
 		return nil, false
 	}
 	retAdded := false
+
 	pIdFlagName := fmt.Sprintf("%v.PID", cmdPrefix)
 	if cmd.Flags().Changed(pIdFlagName) {
 
@@ -1127,5 +1170,6 @@ func retrieveTaskStatusContainerStatusPIDFlags(depth int, m *models.TaskStatusCo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

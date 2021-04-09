@@ -53,6 +53,7 @@ func registerDriverOptions(depth int, cmdPrefix string, cmd *cobra.Command) erro
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -82,6 +83,7 @@ func retrieveDriverNameFlags(depth int, m *models.Driver, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -100,6 +102,7 @@ func retrieveDriverNameFlags(depth int, m *models.Driver, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -108,9 +111,11 @@ func retrieveDriverOptionsFlags(depth int, m *models.Driver, cmdPrefix string, c
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

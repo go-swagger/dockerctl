@@ -217,6 +217,7 @@ func registerSwarmInfoRemoteManagers(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: RemoteManagers []*PeerNode array type is not supported by go-swagger cli yet
 
 	return nil
@@ -288,19 +289,21 @@ func retrieveSwarmInfoClusterFlags(depth int, m *models.SwarmInfo, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	clusterFlagName := fmt.Sprintf("%v.Cluster", cmdPrefix)
 	if cmd.Flags().Changed(clusterFlagName) {
 
-		clusterFlagValue := &models.ClusterInfo{}
-		err, added := retrieveModelClusterInfoFlags(depth+1, clusterFlagValue, clusterFlagName, cmd)
+		clusterFlagValue := models.ClusterInfo{}
+		err, added := retrieveModelClusterInfoFlags(depth+1, &clusterFlagValue, clusterFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Cluster = clusterFlagValue
+			m.Cluster = &clusterFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -309,6 +312,7 @@ func retrieveSwarmInfoControlAvailableFlags(depth int, m *models.SwarmInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	controlAvailableFlagName := fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
 	if cmd.Flags().Changed(controlAvailableFlagName) {
 
@@ -327,6 +331,7 @@ func retrieveSwarmInfoControlAvailableFlags(depth int, m *models.SwarmInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -335,6 +340,7 @@ func retrieveSwarmInfoErrorFlags(depth int, m *models.SwarmInfo, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	errorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
 
@@ -353,6 +359,7 @@ func retrieveSwarmInfoErrorFlags(depth int, m *models.SwarmInfo, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -361,6 +368,7 @@ func retrieveSwarmInfoLocalNodeStateFlags(depth int, m *models.SwarmInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	localNodeStateFlagName := fmt.Sprintf("%v.LocalNodeState", cmdPrefix)
 	if cmd.Flags().Changed(localNodeStateFlagName) {
 
@@ -368,6 +376,7 @@ func retrieveSwarmInfoLocalNodeStateFlags(depth int, m *models.SwarmInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -376,6 +385,7 @@ func retrieveSwarmInfoManagersFlags(depth int, m *models.SwarmInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	managersFlagName := fmt.Sprintf("%v.Managers", cmdPrefix)
 	if cmd.Flags().Changed(managersFlagName) {
 
@@ -394,6 +404,7 @@ func retrieveSwarmInfoManagersFlags(depth int, m *models.SwarmInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -402,6 +413,7 @@ func retrieveSwarmInfoNodeAddrFlags(depth int, m *models.SwarmInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	nodeAddrFlagName := fmt.Sprintf("%v.NodeAddr", cmdPrefix)
 	if cmd.Flags().Changed(nodeAddrFlagName) {
 
@@ -420,6 +432,7 @@ func retrieveSwarmInfoNodeAddrFlags(depth int, m *models.SwarmInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -428,6 +441,7 @@ func retrieveSwarmInfoNodeIDFlags(depth int, m *models.SwarmInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	nodeIdFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
 	if cmd.Flags().Changed(nodeIdFlagName) {
 
@@ -446,6 +460,7 @@ func retrieveSwarmInfoNodeIDFlags(depth int, m *models.SwarmInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -454,6 +469,7 @@ func retrieveSwarmInfoNodesFlags(depth int, m *models.SwarmInfo, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	nodesFlagName := fmt.Sprintf("%v.Nodes", cmdPrefix)
 	if cmd.Flags().Changed(nodesFlagName) {
 
@@ -472,6 +488,7 @@ func retrieveSwarmInfoNodesFlags(depth int, m *models.SwarmInfo, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -480,9 +497,11 @@ func retrieveSwarmInfoRemoteManagersFlags(depth int, m *models.SwarmInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	remoteManagersFlagName := fmt.Sprintf("%v.RemoteManagers", cmdPrefix)
 	if cmd.Flags().Changed(remoteManagersFlagName) {
 		// warning: RemoteManagers array type []*PeerNode is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

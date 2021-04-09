@@ -49,6 +49,32 @@ func runOperationExecExecInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationExecExecInspectParamFlags registers all flags needed to fill params
+func registerOperationExecExecInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationExecExecInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationExecExecInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Exec instance ID`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationExecExecInspectIDFlag(m *exec.ExecInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -123,32 +149,6 @@ func printOperationExecExecInspectResult(resp0 *exec.ExecInspectOK, respErr erro
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationExecExecInspectParamFlags registers all flags needed to fill params
-func registerOperationExecExecInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationExecExecInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationExecExecInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Exec instance ID`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }
@@ -510,6 +510,7 @@ func retrieveExecInspectOKBodyCanRemoveFlags(depth int, m *exec.ExecInspectOKBod
 		return nil, false
 	}
 	retAdded := false
+
 	canRemoveFlagName := fmt.Sprintf("%v.CanRemove", cmdPrefix)
 	if cmd.Flags().Changed(canRemoveFlagName) {
 
@@ -528,6 +529,7 @@ func retrieveExecInspectOKBodyCanRemoveFlags(depth int, m *exec.ExecInspectOKBod
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -536,6 +538,7 @@ func retrieveExecInspectOKBodyContainerIDFlags(depth int, m *exec.ExecInspectOKB
 		return nil, false
 	}
 	retAdded := false
+
 	containerIdFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
 	if cmd.Flags().Changed(containerIdFlagName) {
 
@@ -554,6 +557,7 @@ func retrieveExecInspectOKBodyContainerIDFlags(depth int, m *exec.ExecInspectOKB
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -562,6 +566,7 @@ func retrieveExecInspectOKBodyDetachKeysFlags(depth int, m *exec.ExecInspectOKBo
 		return nil, false
 	}
 	retAdded := false
+
 	detachKeysFlagName := fmt.Sprintf("%v.DetachKeys", cmdPrefix)
 	if cmd.Flags().Changed(detachKeysFlagName) {
 
@@ -580,6 +585,7 @@ func retrieveExecInspectOKBodyDetachKeysFlags(depth int, m *exec.ExecInspectOKBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -588,6 +594,7 @@ func retrieveExecInspectOKBodyExitCodeFlags(depth int, m *exec.ExecInspectOKBody
 		return nil, false
 	}
 	retAdded := false
+
 	exitCodeFlagName := fmt.Sprintf("%v.ExitCode", cmdPrefix)
 	if cmd.Flags().Changed(exitCodeFlagName) {
 
@@ -606,6 +613,7 @@ func retrieveExecInspectOKBodyExitCodeFlags(depth int, m *exec.ExecInspectOKBody
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -614,6 +622,7 @@ func retrieveExecInspectOKBodyIDFlags(depth int, m *exec.ExecInspectOKBody, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -632,6 +641,7 @@ func retrieveExecInspectOKBodyIDFlags(depth int, m *exec.ExecInspectOKBody, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -640,6 +650,7 @@ func retrieveExecInspectOKBodyOpenStderrFlags(depth int, m *exec.ExecInspectOKBo
 		return nil, false
 	}
 	retAdded := false
+
 	openStderrFlagName := fmt.Sprintf("%v.OpenStderr", cmdPrefix)
 	if cmd.Flags().Changed(openStderrFlagName) {
 
@@ -658,6 +669,7 @@ func retrieveExecInspectOKBodyOpenStderrFlags(depth int, m *exec.ExecInspectOKBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -666,6 +678,7 @@ func retrieveExecInspectOKBodyOpenStdinFlags(depth int, m *exec.ExecInspectOKBod
 		return nil, false
 	}
 	retAdded := false
+
 	openStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 	if cmd.Flags().Changed(openStdinFlagName) {
 
@@ -684,6 +697,7 @@ func retrieveExecInspectOKBodyOpenStdinFlags(depth int, m *exec.ExecInspectOKBod
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -692,6 +706,7 @@ func retrieveExecInspectOKBodyOpenStdoutFlags(depth int, m *exec.ExecInspectOKBo
 		return nil, false
 	}
 	retAdded := false
+
 	openStdoutFlagName := fmt.Sprintf("%v.OpenStdout", cmdPrefix)
 	if cmd.Flags().Changed(openStdoutFlagName) {
 
@@ -710,6 +725,7 @@ func retrieveExecInspectOKBodyOpenStdoutFlags(depth int, m *exec.ExecInspectOKBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -718,6 +734,7 @@ func retrieveExecInspectOKBodyPidFlags(depth int, m *exec.ExecInspectOKBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	pidFlagName := fmt.Sprintf("%v.Pid", cmdPrefix)
 	if cmd.Flags().Changed(pidFlagName) {
 
@@ -736,6 +753,7 @@ func retrieveExecInspectOKBodyPidFlags(depth int, m *exec.ExecInspectOKBody, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -744,19 +762,21 @@ func retrieveExecInspectOKBodyProcessConfigFlags(depth int, m *exec.ExecInspectO
 		return nil, false
 	}
 	retAdded := false
+
 	processConfigFlagName := fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
 	if cmd.Flags().Changed(processConfigFlagName) {
 
-		processConfigFlagValue := &models.ProcessConfig{}
-		err, added := retrieveModelProcessConfigFlags(depth+1, processConfigFlagValue, processConfigFlagName, cmd)
+		processConfigFlagValue := models.ProcessConfig{}
+		err, added := retrieveModelProcessConfigFlags(depth+1, &processConfigFlagValue, processConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ProcessConfig = processConfigFlagValue
+			m.ProcessConfig = &processConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -765,6 +785,7 @@ func retrieveExecInspectOKBodyRunningFlags(depth int, m *exec.ExecInspectOKBody,
 		return nil, false
 	}
 	retAdded := false
+
 	runningFlagName := fmt.Sprintf("%v.Running", cmdPrefix)
 	if cmd.Flags().Changed(runningFlagName) {
 
@@ -783,5 +804,6 @@ func retrieveExecInspectOKBodyRunningFlags(depth int, m *exec.ExecInspectOKBody,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

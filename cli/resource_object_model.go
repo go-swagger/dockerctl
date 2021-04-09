@@ -36,6 +36,7 @@ func registerResourceObjectGenericResources(depth int, cmdPrefix string, cmd *co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: GenericResources GenericResources array type is not supported by go-swagger cli yet
 
 	return nil
@@ -113,10 +114,12 @@ func retrieveResourceObjectGenericResourcesFlags(depth int, m *models.ResourceOb
 		return nil, false
 	}
 	retAdded := false
+
 	genericResourcesFlagName := fmt.Sprintf("%v.GenericResources", cmdPrefix)
 	if cmd.Flags().Changed(genericResourcesFlagName) {
 		// warning: GenericResources array type GenericResources is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -125,6 +128,7 @@ func retrieveResourceObjectMemoryBytesFlags(depth int, m *models.ResourceObject,
 		return nil, false
 	}
 	retAdded := false
+
 	memoryBytesFlagName := fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
 	if cmd.Flags().Changed(memoryBytesFlagName) {
 
@@ -143,6 +147,7 @@ func retrieveResourceObjectMemoryBytesFlags(depth int, m *models.ResourceObject,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -151,6 +156,7 @@ func retrieveResourceObjectNanoCPUsFlags(depth int, m *models.ResourceObject, cm
 		return nil, false
 	}
 	retAdded := false
+
 	nanoCPUsFlagName := fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
 	if cmd.Flags().Changed(nanoCPUsFlagName) {
 
@@ -169,5 +175,6 @@ func retrieveResourceObjectNanoCPUsFlags(depth int, m *models.ResourceObject, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -48,6 +48,38 @@ func runOperationConfigConfigList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationConfigConfigListParamFlags registers all flags needed to fill params
+func registerOperationConfigConfigListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationConfigConfigListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationConfigConfigListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the configs list. Available filters:
+
+- ` + "`" + `id=<config id>` + "`" + `
+- ` + "`" + `label=<key> or label=<key>=value` + "`" + `
+- ` + "`" + `name=<config name>` + "`" + `
+- ` + "`" + `names=<config name>` + "`" + `
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationConfigConfigListFiltersFlag(m *config.ConfigListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -122,38 +154,6 @@ func printOperationConfigConfigListResult(resp0 *config.ConfigListOK, respErr er
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationConfigConfigListParamFlags registers all flags needed to fill params
-func registerOperationConfigConfigListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationConfigConfigListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationConfigConfigListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the configs list. Available filters:
-
-- ` + "`" + `id=<config id>` + "`" + `
-- ` + "`" + `label=<key> or label=<key>=value` + "`" + `
-- ` + "`" + `name=<config name>` + "`" + `
-- ` + "`" + `names=<config name>` + "`" + `
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
 
 	return nil
 }

@@ -115,6 +115,7 @@ func registerPluginMountOptions(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -124,6 +125,7 @@ func registerPluginMountSettable(depth int, cmdPrefix string, cmd *cobra.Command
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Settable []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -225,6 +227,7 @@ func retrievePluginMountDescriptionFlags(depth int, m *models.PluginMount, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -243,6 +246,7 @@ func retrievePluginMountDescriptionFlags(depth int, m *models.PluginMount, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -251,6 +255,7 @@ func retrievePluginMountDestinationFlags(depth int, m *models.PluginMount, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	destinationFlagName := fmt.Sprintf("%v.Destination", cmdPrefix)
 	if cmd.Flags().Changed(destinationFlagName) {
 
@@ -269,6 +274,7 @@ func retrievePluginMountDestinationFlags(depth int, m *models.PluginMount, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -277,6 +283,7 @@ func retrievePluginMountNameFlags(depth int, m *models.PluginMount, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -295,6 +302,7 @@ func retrievePluginMountNameFlags(depth int, m *models.PluginMount, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -303,10 +311,12 @@ func retrievePluginMountOptionsFlags(depth int, m *models.PluginMount, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -315,10 +325,12 @@ func retrievePluginMountSettableFlags(depth int, m *models.PluginMount, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
 	if cmd.Flags().Changed(settableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -327,6 +339,7 @@ func retrievePluginMountSourceFlags(depth int, m *models.PluginMount, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	sourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
 	if cmd.Flags().Changed(sourceFlagName) {
 
@@ -345,6 +358,7 @@ func retrievePluginMountSourceFlags(depth int, m *models.PluginMount, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -353,6 +367,7 @@ func retrievePluginMountTypeFlags(depth int, m *models.PluginMount, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -371,5 +386,6 @@ func retrievePluginMountTypeFlags(depth int, m *models.PluginMount, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

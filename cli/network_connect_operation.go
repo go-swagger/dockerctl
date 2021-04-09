@@ -52,6 +52,54 @@ func runOperationNetworkNetworkConnect(cmd *cobra.Command, args []string) error 
 	return nil
 }
 
+// registerOperationNetworkNetworkConnectParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkConnectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkConnectContainerParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNetworkNetworkConnectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkConnectContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var containerFlagName string
+	if cmdPrefix == "" {
+		containerFlagName = "container"
+	} else {
+		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+	}
+
+	exampleContainerStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(containerFlagName, "", fmt.Sprintf("Optional json string for [container] of form %v.", string(exampleContainerStr)))
+
+	// add flags for body
+	if err := registerModelNetworkConnectBodyFlags(0, "networkConnectBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationNetworkNetworkConnectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Network ID or name`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkConnectContainerFlag(m *network.NetworkConnectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("container") {
@@ -159,54 +207,6 @@ func printOperationNetworkNetworkConnectResult(resp0 *network.NetworkConnectOK, 
 	return nil
 }
 
-// registerOperationNetworkNetworkConnectParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkConnectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkConnectContainerParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNetworkNetworkConnectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkConnectContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var containerFlagName string
-	if cmdPrefix == "" {
-		containerFlagName = "container"
-	} else {
-		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
-	}
-
-	exampleContainerStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(containerFlagName, "", fmt.Sprintf("Optional json string for [container] of form %v.", string(exampleContainerStr)))
-
-	// add flags for body
-	if err := registerModelNetworkConnectBodyFlags(0, "networkConnectBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationNetworkNetworkConnectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Network ID or name`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelNetworkConnectBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -285,6 +285,7 @@ func retrieveNetworkConnectBodyContainerFlags(depth int, m *network.NetworkConne
 		return nil, false
 	}
 	retAdded := false
+
 	containerFlagName := fmt.Sprintf("%v.Container", cmdPrefix)
 	if cmd.Flags().Changed(containerFlagName) {
 
@@ -303,6 +304,7 @@ func retrieveNetworkConnectBodyContainerFlags(depth int, m *network.NetworkConne
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -311,18 +313,20 @@ func retrieveNetworkConnectBodyEndpointConfigFlags(depth int, m *network.Network
 		return nil, false
 	}
 	retAdded := false
+
 	endpointConfigFlagName := fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
 	if cmd.Flags().Changed(endpointConfigFlagName) {
 
-		endpointConfigFlagValue := &models.EndpointSettings{}
-		err, added := retrieveModelEndpointSettingsFlags(depth+1, endpointConfigFlagValue, endpointConfigFlagName, cmd)
+		endpointConfigFlagValue := models.EndpointSettings{}
+		err, added := retrieveModelEndpointSettingsFlags(depth+1, &endpointConfigFlagValue, endpointConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.EndpointConfig = endpointConfigFlagValue
+			m.EndpointConfig = &endpointConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }

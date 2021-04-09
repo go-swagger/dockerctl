@@ -49,6 +49,34 @@ func runOperationNetworkNetworkCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNetworkNetworkCreateParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkCreateNetworkConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkCreateNetworkConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var networkConfigFlagName string
+	if cmdPrefix == "" {
+		networkConfigFlagName = "networkConfig"
+	} else {
+		networkConfigFlagName = fmt.Sprintf("%v.networkConfig", cmdPrefix)
+	}
+
+	exampleNetworkConfigStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(networkConfigFlagName, "", fmt.Sprintf("Optional json string for [networkConfig] of form %v.Network configuration", string(exampleNetworkConfigStr)))
+
+	// add flags for body
+	if err := registerModelNetworkCreateBodyFlags(0, "networkCreateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkCreateNetworkConfigFlag(m *network.NetworkCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("networkConfig") {
@@ -148,34 +176,6 @@ func printOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 			return err
 		}
 		fmt.Println(string(msgStr))
-	}
-
-	return nil
-}
-
-// registerOperationNetworkNetworkCreateParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkCreateNetworkConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkCreateNetworkConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var networkConfigFlagName string
-	if cmdPrefix == "" {
-		networkConfigFlagName = "networkConfig"
-	} else {
-		networkConfigFlagName = fmt.Sprintf("%v.networkConfig", cmdPrefix)
-	}
-
-	exampleNetworkConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(networkConfigFlagName, "", fmt.Sprintf("Optional json string for [networkConfig] of form %v.Network configuration", string(exampleNetworkConfigStr)))
-
-	// add flags for body
-	if err := registerModelNetworkCreateBodyFlags(0, "networkCreateBody", cmd); err != nil {
-		return err
 	}
 
 	return nil
@@ -376,6 +376,7 @@ func registerNetworkCreateBodyLabels(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -406,6 +407,7 @@ func registerNetworkCreateBodyOptions(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -483,6 +485,7 @@ func retrieveNetworkCreateBodyAttachableFlags(depth int, m *network.NetworkCreat
 		return nil, false
 	}
 	retAdded := false
+
 	attachableFlagName := fmt.Sprintf("%v.Attachable", cmdPrefix)
 	if cmd.Flags().Changed(attachableFlagName) {
 
@@ -501,6 +504,7 @@ func retrieveNetworkCreateBodyAttachableFlags(depth int, m *network.NetworkCreat
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -509,6 +513,7 @@ func retrieveNetworkCreateBodyCheckDuplicateFlags(depth int, m *network.NetworkC
 		return nil, false
 	}
 	retAdded := false
+
 	checkDuplicateFlagName := fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
 	if cmd.Flags().Changed(checkDuplicateFlagName) {
 
@@ -527,6 +532,7 @@ func retrieveNetworkCreateBodyCheckDuplicateFlags(depth int, m *network.NetworkC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -535,6 +541,7 @@ func retrieveNetworkCreateBodyDriverFlags(depth int, m *network.NetworkCreateBod
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -553,6 +560,7 @@ func retrieveNetworkCreateBodyDriverFlags(depth int, m *network.NetworkCreateBod
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -561,6 +569,7 @@ func retrieveNetworkCreateBodyEnableIPV6Flags(depth int, m *network.NetworkCreat
 		return nil, false
 	}
 	retAdded := false
+
 	enableIpv6FlagName := fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
 	if cmd.Flags().Changed(enableIpv6FlagName) {
 
@@ -579,6 +588,7 @@ func retrieveNetworkCreateBodyEnableIPV6Flags(depth int, m *network.NetworkCreat
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -587,19 +597,21 @@ func retrieveNetworkCreateBodyIPAMFlags(depth int, m *network.NetworkCreateBody,
 		return nil, false
 	}
 	retAdded := false
+
 	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
 	if cmd.Flags().Changed(ipAMFlagName) {
 
-		ipAMFlagValue := &models.IPAM{}
-		err, added := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
+		ipAMFlagValue := models.IPAM{}
+		err, added := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.IPAM = ipAMFlagValue
+			m.IPAM = &ipAMFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -608,6 +620,7 @@ func retrieveNetworkCreateBodyIngressFlags(depth int, m *network.NetworkCreateBo
 		return nil, false
 	}
 	retAdded := false
+
 	ingressFlagName := fmt.Sprintf("%v.Ingress", cmdPrefix)
 	if cmd.Flags().Changed(ingressFlagName) {
 
@@ -626,6 +639,7 @@ func retrieveNetworkCreateBodyIngressFlags(depth int, m *network.NetworkCreateBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -634,6 +648,7 @@ func retrieveNetworkCreateBodyInternalFlags(depth int, m *network.NetworkCreateB
 		return nil, false
 	}
 	retAdded := false
+
 	internalFlagName := fmt.Sprintf("%v.Internal", cmdPrefix)
 	if cmd.Flags().Changed(internalFlagName) {
 
@@ -652,6 +667,7 @@ func retrieveNetworkCreateBodyInternalFlags(depth int, m *network.NetworkCreateB
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -660,10 +676,12 @@ func retrieveNetworkCreateBodyLabelsFlags(depth int, m *network.NetworkCreateBod
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -672,6 +690,7 @@ func retrieveNetworkCreateBodyNameFlags(depth int, m *network.NetworkCreateBody,
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -690,6 +709,7 @@ func retrieveNetworkCreateBodyNameFlags(depth int, m *network.NetworkCreateBody,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -698,10 +718,12 @@ func retrieveNetworkCreateBodyOptionsFlags(depth int, m *network.NetworkCreateBo
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -785,6 +807,7 @@ func retrieveNetworkCreateCreatedBodyIDFlags(depth int, m *network.NetworkCreate
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -803,6 +826,7 @@ func retrieveNetworkCreateCreatedBodyIDFlags(depth int, m *network.NetworkCreate
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -811,6 +835,7 @@ func retrieveNetworkCreateCreatedBodyWarningFlags(depth int, m *network.NetworkC
 		return nil, false
 	}
 	retAdded := false
+
 	warningFlagName := fmt.Sprintf("%v.Warning", cmdPrefix)
 	if cmd.Flags().Changed(warningFlagName) {
 
@@ -829,5 +854,6 @@ func retrieveNetworkCreateCreatedBodyWarningFlags(depth int, m *network.NetworkC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

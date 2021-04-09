@@ -82,6 +82,7 @@ func registerPluginEnvSettable(depth int, cmdPrefix string, cmd *cobra.Command) 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Settable []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -144,6 +145,7 @@ func retrievePluginEnvDescriptionFlags(depth int, m *models.PluginEnv, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -162,6 +164,7 @@ func retrievePluginEnvDescriptionFlags(depth int, m *models.PluginEnv, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -170,6 +173,7 @@ func retrievePluginEnvNameFlags(depth int, m *models.PluginEnv, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -188,6 +192,7 @@ func retrievePluginEnvNameFlags(depth int, m *models.PluginEnv, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -196,10 +201,12 @@ func retrievePluginEnvSettableFlags(depth int, m *models.PluginEnv, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
 	if cmd.Flags().Changed(settableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -208,6 +215,7 @@ func retrievePluginEnvValueFlags(depth int, m *models.PluginEnv, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 
@@ -226,5 +234,6 @@ func retrievePluginEnvValueFlags(depth int, m *models.PluginEnv, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

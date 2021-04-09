@@ -44,6 +44,7 @@ func registerDeviceRequestCapabilities(depth int, cmdPrefix string, cmd *cobra.C
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Capabilities [][]string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -74,6 +75,7 @@ func registerDeviceRequestDeviceIDs(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DeviceIDs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -104,6 +106,7 @@ func registerDeviceRequestOptions(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -151,10 +154,12 @@ func retrieveDeviceRequestCapabilitiesFlags(depth int, m *models.DeviceRequest, 
 		return nil, false
 	}
 	retAdded := false
+
 	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
 	if cmd.Flags().Changed(capabilitiesFlagName) {
 		// warning: Capabilities array type [][]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -163,6 +168,7 @@ func retrieveDeviceRequestCountFlags(depth int, m *models.DeviceRequest, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	countFlagName := fmt.Sprintf("%v.Count", cmdPrefix)
 	if cmd.Flags().Changed(countFlagName) {
 
@@ -181,6 +187,7 @@ func retrieveDeviceRequestCountFlags(depth int, m *models.DeviceRequest, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -189,10 +196,12 @@ func retrieveDeviceRequestDeviceIDsFlags(depth int, m *models.DeviceRequest, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	deviceIDsFlagName := fmt.Sprintf("%v.DeviceIDs", cmdPrefix)
 	if cmd.Flags().Changed(deviceIDsFlagName) {
 		// warning: DeviceIDs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -201,6 +210,7 @@ func retrieveDeviceRequestDriverFlags(depth int, m *models.DeviceRequest, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -219,6 +229,7 @@ func retrieveDeviceRequestDriverFlags(depth int, m *models.DeviceRequest, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -227,9 +238,11 @@ func retrieveDeviceRequestOptionsFlags(depth int, m *models.DeviceRequest, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

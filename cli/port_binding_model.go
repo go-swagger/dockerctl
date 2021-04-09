@@ -94,6 +94,7 @@ func retrievePortBindingHostIPFlags(depth int, m *models.PortBinding, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	hostIpFlagName := fmt.Sprintf("%v.HostIp", cmdPrefix)
 	if cmd.Flags().Changed(hostIpFlagName) {
 
@@ -112,6 +113,7 @@ func retrievePortBindingHostIPFlags(depth int, m *models.PortBinding, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -120,6 +122,7 @@ func retrievePortBindingHostPortFlags(depth int, m *models.PortBinding, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	hostPortFlagName := fmt.Sprintf("%v.HostPort", cmdPrefix)
 	if cmd.Flags().Changed(hostPortFlagName) {
 
@@ -138,5 +141,6 @@ func retrievePortBindingHostPortFlags(depth int, m *models.PortBinding, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

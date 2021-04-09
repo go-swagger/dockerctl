@@ -63,6 +63,139 @@ func runOperationServiceServiceUpdate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationServiceServiceUpdateParamFlags registers all flags needed to fill params
+func registerOperationServiceServiceUpdateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationServiceServiceUpdateXRegistryAuthParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceUpdateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceUpdateIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceUpdateRegistryAuthFromParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceUpdateRollbackParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceUpdateVersionParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationServiceServiceUpdateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	xRegistryAuthDescription := `A base64-encoded auth configuration for pulling from private registries. [See the authentication section for details.](#section/Authentication)`
+
+	var xRegistryAuthFlagName string
+	if cmdPrefix == "" {
+		xRegistryAuthFlagName = "X-Registry-Auth"
+	} else {
+		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+	}
+
+	var xRegistryAuthFlagDefault string
+
+	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+
+	return nil
+}
+func registerOperationServiceServiceUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelServiceUpdateBodyFlags(0, "serviceUpdateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationServiceServiceUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of service.`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationServiceServiceUpdateRegistryAuthFromParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	registryAuthFromDescription := `If the ` + "`" + `X-Registry-Auth` + "`" + ` header is not specified, this parameter
+indicates where to find registry authorization credentials.
+`
+
+	var registryAuthFromFlagName string
+	if cmdPrefix == "" {
+		registryAuthFromFlagName = "registryAuthFrom"
+	} else {
+		registryAuthFromFlagName = fmt.Sprintf("%v.registryAuthFrom", cmdPrefix)
+	}
+
+	var registryAuthFromFlagDefault string = "spec"
+
+	_ = cmd.PersistentFlags().String(registryAuthFromFlagName, registryAuthFromFlagDefault, registryAuthFromDescription)
+
+	return nil
+}
+func registerOperationServiceServiceUpdateRollbackParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	rollbackDescription := `Set to this parameter to ` + "`" + `previous` + "`" + ` to cause a server-side rollback
+to the previous service spec. The supplied spec will be ignored in
+this case.
+`
+
+	var rollbackFlagName string
+	if cmdPrefix == "" {
+		rollbackFlagName = "rollback"
+	} else {
+		rollbackFlagName = fmt.Sprintf("%v.rollback", cmdPrefix)
+	}
+
+	var rollbackFlagDefault string
+
+	_ = cmd.PersistentFlags().String(rollbackFlagName, rollbackFlagDefault, rollbackDescription)
+
+	return nil
+}
+func registerOperationServiceServiceUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	versionDescription := `Required. The version number of the service object being updated. This is required to avoid conflicting writes. This version number should be the value as currently set on the service *before* the update. You can find the current version by calling ` + "`" + `GET /services/{id}` + "`" + ``
+
+	var versionFlagName string
+	if cmdPrefix == "" {
+		versionFlagName = "version"
+	} else {
+		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+	}
+
+	var versionFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+
+	return nil
+}
+
 func retrieveOperationServiceServiceUpdateXRegistryAuthFlag(m *service.ServiceUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
@@ -280,139 +413,6 @@ func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, re
 	return nil
 }
 
-// registerOperationServiceServiceUpdateParamFlags registers all flags needed to fill params
-func registerOperationServiceServiceUpdateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationServiceServiceUpdateXRegistryAuthParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceUpdateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceUpdateIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceUpdateRegistryAuthFromParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceUpdateRollbackParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceUpdateVersionParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationServiceServiceUpdateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	xRegistryAuthDescription := `A base64-encoded auth configuration for pulling from private registries. [See the authentication section for details.](#section/Authentication)`
-
-	var xRegistryAuthFlagName string
-	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
-	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
-	}
-
-	var xRegistryAuthFlagDefault string
-
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
-
-	return nil
-}
-func registerOperationServiceServiceUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelServiceUpdateBodyFlags(0, "serviceUpdateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationServiceServiceUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of service.`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationServiceServiceUpdateRegistryAuthFromParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	registryAuthFromDescription := `If the ` + "`" + `X-Registry-Auth` + "`" + ` header is not specified, this parameter
-indicates where to find registry authorization credentials.
-`
-
-	var registryAuthFromFlagName string
-	if cmdPrefix == "" {
-		registryAuthFromFlagName = "registryAuthFrom"
-	} else {
-		registryAuthFromFlagName = fmt.Sprintf("%v.registryAuthFrom", cmdPrefix)
-	}
-
-	var registryAuthFromFlagDefault string = "spec"
-
-	_ = cmd.PersistentFlags().String(registryAuthFromFlagName, registryAuthFromFlagDefault, registryAuthFromDescription)
-
-	return nil
-}
-func registerOperationServiceServiceUpdateRollbackParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	rollbackDescription := `Set to this parameter to ` + "`" + `previous` + "`" + ` to cause a server-side rollback
-to the previous service spec. The supplied spec will be ignored in
-this case.
-`
-
-	var rollbackFlagName string
-	if cmdPrefix == "" {
-		rollbackFlagName = "rollback"
-	} else {
-		rollbackFlagName = fmt.Sprintf("%v.rollback", cmdPrefix)
-	}
-
-	var rollbackFlagDefault string
-
-	_ = cmd.PersistentFlags().String(rollbackFlagName, rollbackFlagDefault, rollbackDescription)
-
-	return nil
-}
-func registerOperationServiceServiceUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	versionDescription := `Required. The version number of the service object being updated. This is required to avoid conflicting writes. This version number should be the value as currently set on the service *before* the update. You can find the current version by calling ` + "`" + `GET /services/{id}` + "`" + ``
-
-	var versionFlagName string
-	if cmdPrefix == "" {
-		versionFlagName = "version"
-	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
-	}
-
-	var versionFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelServiceUpdateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -437,8 +437,6 @@ func retrieveModelServiceUpdateBodyFlags(depth int, m *service.ServiceUpdateBody
 		return err, false
 	}
 	retAdded = retAdded || serviceUpdateParamsBodyAO0Added
-
-	// retrieve ServiceUpdateParamsBodyAO1 ServiceUpdateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

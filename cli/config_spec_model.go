@@ -63,6 +63,7 @@ func registerConfigSpecLabels(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -144,6 +145,7 @@ func retrieveConfigSpecDataFlags(depth int, m *models.ConfigSpec, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	dataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
 	if cmd.Flags().Changed(dataFlagName) {
 
@@ -162,6 +164,7 @@ func retrieveConfigSpecDataFlags(depth int, m *models.ConfigSpec, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -170,10 +173,12 @@ func retrieveConfigSpecLabelsFlags(depth int, m *models.ConfigSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -182,6 +187,7 @@ func retrieveConfigSpecNameFlags(depth int, m *models.ConfigSpec, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -200,6 +206,7 @@ func retrieveConfigSpecNameFlags(depth int, m *models.ConfigSpec, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -208,18 +215,20 @@ func retrieveConfigSpecTemplatingFlags(depth int, m *models.ConfigSpec, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
 	if cmd.Flags().Changed(templatingFlagName) {
 
-		templatingFlagValue := &models.Driver{}
-		err, added := retrieveModelDriverFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
+		templatingFlagValue := models.Driver{}
+		err, added := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Templating = templatingFlagValue
+			m.Templating = &templatingFlagValue
 		}
 	}
+
 	return nil, retAdded
 }

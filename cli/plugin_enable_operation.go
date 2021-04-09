@@ -51,6 +51,52 @@ func runOperationPluginPluginEnable(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginEnableParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginEnableParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginEnableNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginEnableTimeoutParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginEnableNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+func registerOperationPluginPluginEnableTimeoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	timeoutDescription := `Set the HTTP client timeout (in seconds)`
+
+	var timeoutFlagName string
+	if cmdPrefix == "" {
+		timeoutFlagName = "timeout"
+	} else {
+		timeoutFlagName = fmt.Sprintf("%v.timeout", cmdPrefix)
+	}
+
+	var timeoutFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(timeoutFlagName, timeoutFlagDefault, timeoutDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginPluginEnableNameFlag(m *plugin.PluginEnableParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -128,52 +174,6 @@ func printOperationPluginPluginEnableResult(resp0 *plugin.PluginEnableOK, respEr
 	}
 
 	// warning: non schema response pluginEnableOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationPluginPluginEnableParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginEnableParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginEnableNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginEnableTimeoutParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginEnableNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-func registerOperationPluginPluginEnableTimeoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	timeoutDescription := `Set the HTTP client timeout (in seconds)`
-
-	var timeoutFlagName string
-	if cmdPrefix == "" {
-		timeoutFlagName = "timeout"
-	} else {
-		timeoutFlagName = fmt.Sprintf("%v.timeout", cmdPrefix)
-	}
-
-	var timeoutFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(timeoutFlagName, timeoutFlagDefault, timeoutDescription)
 
 	return nil
 }

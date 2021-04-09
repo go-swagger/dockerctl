@@ -54,6 +54,77 @@ func runOperationImageImageSearch(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageSearchParamFlags registers all flags needed to fill params
+func registerOperationImageImageSearchParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageSearchFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageSearchLimitParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageSearchTermParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageSearchFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
+
+- ` + "`" + `is-automated=(true|false)` + "`" + `
+- ` + "`" + `is-official=(true|false)` + "`" + `
+- ` + "`" + `stars=<number>` + "`" + ` Matches images that has at least 'number' stars.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+func registerOperationImageImageSearchLimitParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	limitDescription := `Maximum number of results to return`
+
+	var limitFlagName string
+	if cmdPrefix == "" {
+		limitFlagName = "limit"
+	} else {
+		limitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
+	}
+
+	var limitFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(limitFlagName, limitFlagDefault, limitDescription)
+
+	return nil
+}
+func registerOperationImageImageSearchTermParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	termDescription := `Required. Term to search`
+
+	var termFlagName string
+	if cmdPrefix == "" {
+		termFlagName = "term"
+	} else {
+		termFlagName = fmt.Sprintf("%v.term", cmdPrefix)
+	}
+
+	var termFlagDefault string
+
+	_ = cmd.PersistentFlags().String(termFlagName, termFlagDefault, termDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageSearchFiltersFlag(m *image.ImageSearchParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -155,77 +226,6 @@ func printOperationImageImageSearchResult(resp0 *image.ImageSearchOK, respErr er
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationImageImageSearchParamFlags registers all flags needed to fill params
-func registerOperationImageImageSearchParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageSearchFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageSearchLimitParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageSearchTermParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageSearchFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
-
-- ` + "`" + `is-automated=(true|false)` + "`" + `
-- ` + "`" + `is-official=(true|false)` + "`" + `
-- ` + "`" + `stars=<number>` + "`" + ` Matches images that has at least 'number' stars.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-func registerOperationImageImageSearchLimitParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	limitDescription := `Maximum number of results to return`
-
-	var limitFlagName string
-	if cmdPrefix == "" {
-		limitFlagName = "limit"
-	} else {
-		limitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
-	}
-
-	var limitFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(limitFlagName, limitFlagDefault, limitDescription)
-
-	return nil
-}
-func registerOperationImageImageSearchTermParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	termDescription := `Required. Term to search`
-
-	var termFlagName string
-	if cmdPrefix == "" {
-		termFlagName = "term"
-	} else {
-		termFlagName = fmt.Sprintf("%v.term", cmdPrefix)
-	}
-
-	var termFlagDefault string
-
-	_ = cmd.PersistentFlags().String(termFlagName, termFlagDefault, termDescription)
 
 	return nil
 }
@@ -403,6 +403,7 @@ func retrieveImageSearchOKBodyItems0DescriptionFlags(depth int, m *image.ImageSe
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -421,6 +422,7 @@ func retrieveImageSearchOKBodyItems0DescriptionFlags(depth int, m *image.ImageSe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -429,6 +431,7 @@ func retrieveImageSearchOKBodyItems0IsAutomatedFlags(depth int, m *image.ImageSe
 		return nil, false
 	}
 	retAdded := false
+
 	isAutomatedFlagName := fmt.Sprintf("%v.is_automated", cmdPrefix)
 	if cmd.Flags().Changed(isAutomatedFlagName) {
 
@@ -447,6 +450,7 @@ func retrieveImageSearchOKBodyItems0IsAutomatedFlags(depth int, m *image.ImageSe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -455,6 +459,7 @@ func retrieveImageSearchOKBodyItems0IsOfficialFlags(depth int, m *image.ImageSea
 		return nil, false
 	}
 	retAdded := false
+
 	isOfficialFlagName := fmt.Sprintf("%v.is_official", cmdPrefix)
 	if cmd.Flags().Changed(isOfficialFlagName) {
 
@@ -473,6 +478,7 @@ func retrieveImageSearchOKBodyItems0IsOfficialFlags(depth int, m *image.ImageSea
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -481,6 +487,7 @@ func retrieveImageSearchOKBodyItems0NameFlags(depth int, m *image.ImageSearchOKB
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -499,6 +506,7 @@ func retrieveImageSearchOKBodyItems0NameFlags(depth int, m *image.ImageSearchOKB
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -507,6 +515,7 @@ func retrieveImageSearchOKBodyItems0StarCountFlags(depth int, m *image.ImageSear
 		return nil, false
 	}
 	retAdded := false
+
 	starCountFlagName := fmt.Sprintf("%v.star_count", cmdPrefix)
 	if cmd.Flags().Changed(starCountFlagName) {
 
@@ -525,5 +534,6 @@ func retrieveImageSearchOKBodyItems0StarCountFlags(depth int, m *image.ImageSear
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

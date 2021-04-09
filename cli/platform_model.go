@@ -97,6 +97,7 @@ func retrievePlatformArchitectureFlags(depth int, m *models.Platform, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	architectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
 	if cmd.Flags().Changed(architectureFlagName) {
 
@@ -115,6 +116,7 @@ func retrievePlatformArchitectureFlags(depth int, m *models.Platform, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -123,6 +125,7 @@ func retrievePlatformOSFlags(depth int, m *models.Platform, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	oSFlagName := fmt.Sprintf("%v.OS", cmdPrefix)
 	if cmd.Flags().Changed(oSFlagName) {
 
@@ -141,5 +144,6 @@ func retrievePlatformOSFlags(depth int, m *models.Platform, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

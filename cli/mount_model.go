@@ -280,19 +280,21 @@ func retrieveMountBindOptionsFlags(depth int, m *models.Mount, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	bindOptionsFlagName := fmt.Sprintf("%v.BindOptions", cmdPrefix)
 	if cmd.Flags().Changed(bindOptionsFlagName) {
 
-		bindOptionsFlagValue := &models.MountBindOptions{}
-		err, added := retrieveModelMountBindOptionsFlags(depth+1, bindOptionsFlagValue, bindOptionsFlagName, cmd)
+		bindOptionsFlagValue := models.MountBindOptions{}
+		err, added := retrieveModelMountBindOptionsFlags(depth+1, &bindOptionsFlagValue, bindOptionsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.BindOptions = bindOptionsFlagValue
+			m.BindOptions = &bindOptionsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -301,6 +303,7 @@ func retrieveMountConsistencyFlags(depth int, m *models.Mount, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	consistencyFlagName := fmt.Sprintf("%v.Consistency", cmdPrefix)
 	if cmd.Flags().Changed(consistencyFlagName) {
 
@@ -319,6 +322,7 @@ func retrieveMountConsistencyFlags(depth int, m *models.Mount, cmdPrefix string,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -327,6 +331,7 @@ func retrieveMountReadOnlyFlags(depth int, m *models.Mount, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	readOnlyFlagName := fmt.Sprintf("%v.ReadOnly", cmdPrefix)
 	if cmd.Flags().Changed(readOnlyFlagName) {
 
@@ -345,6 +350,7 @@ func retrieveMountReadOnlyFlags(depth int, m *models.Mount, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -353,6 +359,7 @@ func retrieveMountSourceFlags(depth int, m *models.Mount, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	sourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
 	if cmd.Flags().Changed(sourceFlagName) {
 
@@ -371,6 +378,7 @@ func retrieveMountSourceFlags(depth int, m *models.Mount, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -379,6 +387,7 @@ func retrieveMountTargetFlags(depth int, m *models.Mount, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	targetFlagName := fmt.Sprintf("%v.Target", cmdPrefix)
 	if cmd.Flags().Changed(targetFlagName) {
 
@@ -397,6 +406,7 @@ func retrieveMountTargetFlags(depth int, m *models.Mount, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -405,19 +415,21 @@ func retrieveMountTmpfsOptionsFlags(depth int, m *models.Mount, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	tmpfsOptionsFlagName := fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
 	if cmd.Flags().Changed(tmpfsOptionsFlagName) {
 
-		tmpfsOptionsFlagValue := &models.MountTmpfsOptions{}
-		err, added := retrieveModelMountTmpfsOptionsFlags(depth+1, tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
+		tmpfsOptionsFlagValue := models.MountTmpfsOptions{}
+		err, added := retrieveModelMountTmpfsOptionsFlags(depth+1, &tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.TmpfsOptions = tmpfsOptionsFlagValue
+			m.TmpfsOptions = &tmpfsOptionsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -426,6 +438,7 @@ func retrieveMountTypeFlags(depth int, m *models.Mount, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -444,6 +457,7 @@ func retrieveMountTypeFlags(depth int, m *models.Mount, cmdPrefix string, cmd *c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -452,19 +466,21 @@ func retrieveMountVolumeOptionsFlags(depth int, m *models.Mount, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	volumeOptionsFlagName := fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
 	if cmd.Flags().Changed(volumeOptionsFlagName) {
 
-		volumeOptionsFlagValue := &models.MountVolumeOptions{}
-		err, added := retrieveModelMountVolumeOptionsFlags(depth+1, volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
+		volumeOptionsFlagValue := models.MountVolumeOptions{}
+		err, added := retrieveModelMountVolumeOptionsFlags(depth+1, &volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.VolumeOptions = volumeOptionsFlagValue
+			m.VolumeOptions = &volumeOptionsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -550,6 +566,7 @@ func retrieveMountBindOptionsNonRecursiveFlags(depth int, m *models.MountBindOpt
 		return nil, false
 	}
 	retAdded := false
+
 	nonRecursiveFlagName := fmt.Sprintf("%v.NonRecursive", cmdPrefix)
 	if cmd.Flags().Changed(nonRecursiveFlagName) {
 
@@ -568,6 +585,7 @@ func retrieveMountBindOptionsNonRecursiveFlags(depth int, m *models.MountBindOpt
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -576,6 +594,7 @@ func retrieveMountBindOptionsPropagationFlags(depth int, m *models.MountBindOpti
 		return nil, false
 	}
 	retAdded := false
+
 	propagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
 	if cmd.Flags().Changed(propagationFlagName) {
 
@@ -594,6 +613,7 @@ func retrieveMountBindOptionsPropagationFlags(depth int, m *models.MountBindOpti
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -679,6 +699,7 @@ func retrieveMountTmpfsOptionsModeFlags(depth int, m *models.MountTmpfsOptions, 
 		return nil, false
 	}
 	retAdded := false
+
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
@@ -697,6 +718,7 @@ func retrieveMountTmpfsOptionsModeFlags(depth int, m *models.MountTmpfsOptions, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -705,6 +727,7 @@ func retrieveMountTmpfsOptionsSizeBytesFlags(depth int, m *models.MountTmpfsOpti
 		return nil, false
 	}
 	retAdded := false
+
 	sizeBytesFlagName := fmt.Sprintf("%v.SizeBytes", cmdPrefix)
 	if cmd.Flags().Changed(sizeBytesFlagName) {
 
@@ -723,6 +746,7 @@ func retrieveMountTmpfsOptionsSizeBytesFlags(depth int, m *models.MountTmpfsOpti
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -769,6 +793,7 @@ func registerMountVolumeOptionsLabels(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -825,19 +850,21 @@ func retrieveMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolum
 		return nil, false
 	}
 	retAdded := false
+
 	driverConfigFlagName := fmt.Sprintf("%v.DriverConfig", cmdPrefix)
 	if cmd.Flags().Changed(driverConfigFlagName) {
 
-		driverConfigFlagValue := &models.MountVolumeOptionsDriverConfig{}
-		err, added := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, driverConfigFlagValue, driverConfigFlagName, cmd)
+		driverConfigFlagValue := models.MountVolumeOptionsDriverConfig{}
+		err, added := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, &driverConfigFlagValue, driverConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.DriverConfig = driverConfigFlagValue
+			m.DriverConfig = &driverConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -846,10 +873,12 @@ func retrieveMountVolumeOptionsLabelsFlags(depth int, m *models.MountVolumeOptio
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -858,6 +887,7 @@ func retrieveMountVolumeOptionsNoCopyFlags(depth int, m *models.MountVolumeOptio
 		return nil, false
 	}
 	retAdded := false
+
 	noCopyFlagName := fmt.Sprintf("%v.NoCopy", cmdPrefix)
 	if cmd.Flags().Changed(noCopyFlagName) {
 
@@ -876,6 +906,7 @@ func retrieveMountVolumeOptionsNoCopyFlags(depth int, m *models.MountVolumeOptio
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -920,6 +951,7 @@ func registerMountVolumeOptionsDriverConfigOptions(depth int, cmdPrefix string, 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -949,6 +981,7 @@ func retrieveMountVolumeOptionsDriverConfigNameFlags(depth int, m *models.MountV
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -967,6 +1000,7 @@ func retrieveMountVolumeOptionsDriverConfigNameFlags(depth int, m *models.MountV
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -975,9 +1009,11 @@ func retrieveMountVolumeOptionsDriverConfigOptionsFlags(depth int, m *models.Mou
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

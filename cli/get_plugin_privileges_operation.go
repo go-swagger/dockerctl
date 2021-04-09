@@ -48,6 +48,32 @@ func runOperationPluginGetPluginPrivileges(cmd *cobra.Command, args []string) er
 	return nil
 }
 
+// registerOperationPluginGetPluginPrivilegesParamFlags registers all flags needed to fill params
+func registerOperationPluginGetPluginPrivilegesParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginGetPluginPrivilegesRemoteParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginGetPluginPrivilegesRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	remoteDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var remoteFlagName string
+	if cmdPrefix == "" {
+		remoteFlagName = "remote"
+	} else {
+		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+	}
+
+	var remoteFlagDefault string
+
+	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginGetPluginPrivilegesRemoteFlag(m *plugin.GetPluginPrivilegesParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("remote") {
@@ -109,32 +135,6 @@ func printOperationPluginGetPluginPrivilegesResult(resp0 *plugin.GetPluginPrivil
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationPluginGetPluginPrivilegesParamFlags registers all flags needed to fill params
-func registerOperationPluginGetPluginPrivilegesParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginGetPluginPrivilegesRemoteParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginGetPluginPrivilegesRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	remoteDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var remoteFlagName string
-	if cmdPrefix == "" {
-		remoteFlagName = "remote"
-	} else {
-		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
-	}
-
-	var remoteFlagDefault string
-
-	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
 
 	return nil
 }
@@ -203,6 +203,7 @@ func registerGetPluginPrivilegesOKBodyItems0Value(depth int, cmdPrefix string, c
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Value []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -238,6 +239,7 @@ func retrieveGetPluginPrivilegesOKBodyItems0DescriptionFlags(depth int, m *plugi
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -256,6 +258,7 @@ func retrieveGetPluginPrivilegesOKBodyItems0DescriptionFlags(depth int, m *plugi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -264,6 +267,7 @@ func retrieveGetPluginPrivilegesOKBodyItems0NameFlags(depth int, m *plugin.GetPl
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -282,6 +286,7 @@ func retrieveGetPluginPrivilegesOKBodyItems0NameFlags(depth int, m *plugin.GetPl
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -290,9 +295,11 @@ func retrieveGetPluginPrivilegesOKBodyItems0ValueFlags(depth int, m *plugin.GetP
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 		// warning: Value array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

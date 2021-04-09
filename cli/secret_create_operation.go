@@ -48,6 +48,34 @@ func runOperationSecretSecretCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSecretSecretCreateParamFlags registers all flags needed to fill params
+func registerOperationSecretSecretCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSecretSecretCreateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSecretSecretCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelSecretCreateBodyFlags(0, "secretCreateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationSecretSecretCreateBodyFlag(m *secret.SecretCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -152,34 +180,6 @@ func printOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, r
 	return nil
 }
 
-// registerOperationSecretSecretCreateParamFlags registers all flags needed to fill params
-func registerOperationSecretSecretCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSecretSecretCreateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSecretSecretCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelSecretCreateBodyFlags(0, "secretCreateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // register flags to command
 func registerModelSecretCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -204,8 +204,6 @@ func retrieveModelSecretCreateBodyFlags(depth int, m *secret.SecretCreateBody, c
 		return err, false
 	}
 	retAdded = retAdded || secretCreateParamsBodyAO0Added
-
-	// retrieve SecretCreateParamsBodyAO1 SecretCreateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }

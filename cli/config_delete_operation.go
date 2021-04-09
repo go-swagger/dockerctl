@@ -48,6 +48,32 @@ func runOperationConfigConfigDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationConfigConfigDeleteParamFlags registers all flags needed to fill params
+func registerOperationConfigConfigDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationConfigConfigDeleteIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationConfigConfigDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID of the config`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationConfigConfigDeleteIDFlag(m *config.ConfigDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -118,32 +144,6 @@ func printOperationConfigConfigDeleteResult(resp0 *config.ConfigDeleteNoContent,
 	}
 
 	// warning: non schema response configDeleteNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationConfigConfigDeleteParamFlags registers all flags needed to fill params
-func registerOperationConfigConfigDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationConfigConfigDeleteIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationConfigConfigDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID of the config`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

@@ -51,6 +51,52 @@ func runOperationContainerContainerStart(cmd *cobra.Command, args []string) erro
 	return nil
 }
 
+// registerOperationContainerContainerStartParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerStartParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerStartDetachKeysParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerStartIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerStartDetachKeysParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	detachKeysDescription := `Override the key sequence for detaching a container. Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
+
+	var detachKeysFlagName string
+	if cmdPrefix == "" {
+		detachKeysFlagName = "detachKeys"
+	} else {
+		detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
+	}
+
+	var detachKeysFlagDefault string
+
+	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
+
+	return nil
+}
+func registerOperationContainerContainerStartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerStartDetachKeysFlag(m *container.ContainerStartParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("detachKeys") {
@@ -130,52 +176,6 @@ func printOperationContainerContainerStartResult(resp0 *container.ContainerStart
 	}
 
 	// warning: non schema response containerStartNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerStartParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerStartParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerStartDetachKeysParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerStartIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerStartDetachKeysParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	detachKeysDescription := `Override the key sequence for detaching a container. Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
-
-	var detachKeysFlagName string
-	if cmdPrefix == "" {
-		detachKeysFlagName = "detachKeys"
-	} else {
-		detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
-	}
-
-	var detachKeysFlagDefault string
-
-	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
-
-	return nil
-}
-func registerOperationContainerContainerStartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

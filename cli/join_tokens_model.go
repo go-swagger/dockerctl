@@ -96,6 +96,7 @@ func retrieveJoinTokensManagerFlags(depth int, m *models.JoinTokens, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	managerFlagName := fmt.Sprintf("%v.Manager", cmdPrefix)
 	if cmd.Flags().Changed(managerFlagName) {
 
@@ -114,6 +115,7 @@ func retrieveJoinTokensManagerFlags(depth int, m *models.JoinTokens, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -122,6 +124,7 @@ func retrieveJoinTokensWorkerFlags(depth int, m *models.JoinTokens, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	workerFlagName := fmt.Sprintf("%v.Worker", cmdPrefix)
 	if cmd.Flags().Changed(workerFlagName) {
 
@@ -140,5 +143,6 @@ func retrieveJoinTokensWorkerFlags(depth int, m *models.JoinTokens, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

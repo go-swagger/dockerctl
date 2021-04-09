@@ -48,6 +48,32 @@ func runOperationDistributionDistributionInspect(cmd *cobra.Command, args []stri
 	return nil
 }
 
+// registerOperationDistributionDistributionInspectParamFlags registers all flags needed to fill params
+func registerOperationDistributionDistributionInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationDistributionDistributionInspectNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationDistributionDistributionInspectNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Image name or id`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationDistributionDistributionInspectNameFlag(m *distribution.DistributionInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -122,32 +148,6 @@ func printOperationDistributionDistributionInspectResult(resp0 *distribution.Dis
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationDistributionDistributionInspectParamFlags registers all flags needed to fill params
-func registerOperationDistributionDistributionInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationDistributionDistributionInspectNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationDistributionDistributionInspectNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Image name or id`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }
@@ -241,6 +241,7 @@ func registerDistributionInspectDistributionInspectOKBodyDescriptorURLs(depth in
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: URLs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -282,6 +283,7 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorDigestFlags(d
 		return nil, false
 	}
 	retAdded := false
+
 	digestFlagName := fmt.Sprintf("%v.Digest", cmdPrefix)
 	if cmd.Flags().Changed(digestFlagName) {
 
@@ -300,6 +302,7 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorDigestFlags(d
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -308,6 +311,7 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorMediaTypeFlag
 		return nil, false
 	}
 	retAdded := false
+
 	mediaTypeFlagName := fmt.Sprintf("%v.MediaType", cmdPrefix)
 	if cmd.Flags().Changed(mediaTypeFlagName) {
 
@@ -326,6 +330,7 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorMediaTypeFlag
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -334,6 +339,7 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorSizeFlags(dep
 		return nil, false
 	}
 	retAdded := false
+
 	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
 	if cmd.Flags().Changed(sizeFlagName) {
 
@@ -352,6 +358,7 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorSizeFlags(dep
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -360,10 +367,12 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorURLsFlags(dep
 		return nil, false
 	}
 	retAdded := false
+
 	uRLsFlagName := fmt.Sprintf("%v.URLs", cmdPrefix)
 	if cmd.Flags().Changed(uRLsFlagName) {
 		// warning: URLs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -408,6 +417,7 @@ func registerDistributionInspectOKBodyPlatforms(depth int, cmdPrefix string, cmd
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Platforms []*DistributionInspectPlatformsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -437,19 +447,21 @@ func retrieveDistributionInspectOKBodyDescriptorFlags(depth int, m *distribution
 		return nil, false
 	}
 	retAdded := false
+
 	descriptorFlagName := fmt.Sprintf("%v.Descriptor", cmdPrefix)
 	if cmd.Flags().Changed(descriptorFlagName) {
 
-		descriptorFlagValue := &distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
-		err, added := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, descriptorFlagValue, descriptorFlagName, cmd)
+		descriptorFlagValue := distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
+		err, added := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, &descriptorFlagValue, descriptorFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Descriptor = descriptorFlagValue
+			m.Descriptor = &descriptorFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -458,10 +470,12 @@ func retrieveDistributionInspectOKBodyPlatformsFlags(depth int, m *distribution.
 		return nil, false
 	}
 	retAdded := false
+
 	platformsFlagName := fmt.Sprintf("%v.Platforms", cmdPrefix)
 	if cmd.Flags().Changed(platformsFlagName) {
 		// warning: Platforms array type []*DistributionInspectPlatformsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -520,6 +534,7 @@ func registerDistributionInspectPlatformsItems0Features(depth int, cmdPrefix str
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Features []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -550,6 +565,7 @@ func registerDistributionInspectPlatformsItems0OSFeatures(depth int, cmdPrefix s
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: OSFeatures []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -645,6 +661,7 @@ func retrieveDistributionInspectPlatformsItems0ArchitectureFlags(depth int, m *d
 		return nil, false
 	}
 	retAdded := false
+
 	architectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
 	if cmd.Flags().Changed(architectureFlagName) {
 
@@ -663,6 +680,7 @@ func retrieveDistributionInspectPlatformsItems0ArchitectureFlags(depth int, m *d
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -671,10 +689,12 @@ func retrieveDistributionInspectPlatformsItems0FeaturesFlags(depth int, m *distr
 		return nil, false
 	}
 	retAdded := false
+
 	featuresFlagName := fmt.Sprintf("%v.Features", cmdPrefix)
 	if cmd.Flags().Changed(featuresFlagName) {
 		// warning: Features array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -683,6 +703,7 @@ func retrieveDistributionInspectPlatformsItems0OSFlags(depth int, m *distributio
 		return nil, false
 	}
 	retAdded := false
+
 	oSFlagName := fmt.Sprintf("%v.OS", cmdPrefix)
 	if cmd.Flags().Changed(oSFlagName) {
 
@@ -701,6 +722,7 @@ func retrieveDistributionInspectPlatformsItems0OSFlags(depth int, m *distributio
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -709,10 +731,12 @@ func retrieveDistributionInspectPlatformsItems0OSFeaturesFlags(depth int, m *dis
 		return nil, false
 	}
 	retAdded := false
+
 	oSFeaturesFlagName := fmt.Sprintf("%v.OSFeatures", cmdPrefix)
 	if cmd.Flags().Changed(oSFeaturesFlagName) {
 		// warning: OSFeatures array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -721,6 +745,7 @@ func retrieveDistributionInspectPlatformsItems0OSVersionFlags(depth int, m *dist
 		return nil, false
 	}
 	retAdded := false
+
 	oSVersionFlagName := fmt.Sprintf("%v.OSVersion", cmdPrefix)
 	if cmd.Flags().Changed(oSVersionFlagName) {
 
@@ -739,6 +764,7 @@ func retrieveDistributionInspectPlatformsItems0OSVersionFlags(depth int, m *dist
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -747,6 +773,7 @@ func retrieveDistributionInspectPlatformsItems0VariantFlags(depth int, m *distri
 		return nil, false
 	}
 	retAdded := false
+
 	variantFlagName := fmt.Sprintf("%v.Variant", cmdPrefix)
 	if cmd.Flags().Changed(variantFlagName) {
 
@@ -765,5 +792,6 @@ func retrieveDistributionInspectPlatformsItems0VariantFlags(depth int, m *distri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

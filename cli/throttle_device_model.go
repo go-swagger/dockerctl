@@ -94,6 +94,7 @@ func retrieveThrottleDevicePathFlags(depth int, m *models.ThrottleDevice, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
 	if cmd.Flags().Changed(pathFlagName) {
 
@@ -112,6 +113,7 @@ func retrieveThrottleDevicePathFlags(depth int, m *models.ThrottleDevice, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -120,6 +122,7 @@ func retrieveThrottleDeviceRateFlags(depth int, m *models.ThrottleDevice, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	rateFlagName := fmt.Sprintf("%v.Rate", cmdPrefix)
 	if cmd.Flags().Changed(rateFlagName) {
 
@@ -138,5 +141,6 @@ func retrieveThrottleDeviceRateFlags(depth int, m *models.ThrottleDevice, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

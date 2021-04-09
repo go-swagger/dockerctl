@@ -51,6 +51,54 @@ func runOperationExecContainerExec(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationExecContainerExecParamFlags registers all flags needed to fill params
+func registerOperationExecContainerExecParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationExecContainerExecExecConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationExecContainerExecIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationExecContainerExecExecConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var execConfigFlagName string
+	if cmdPrefix == "" {
+		execConfigFlagName = "execConfig"
+	} else {
+		execConfigFlagName = fmt.Sprintf("%v.execConfig", cmdPrefix)
+	}
+
+	exampleExecConfigStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(execConfigFlagName, "", fmt.Sprintf("Optional json string for [execConfig] of form %v.Exec configuration", string(exampleExecConfigStr)))
+
+	// add flags for body
+	if err := registerModelContainerExecBodyFlags(0, "containerExecBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationExecContainerExecIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationExecContainerExecExecConfigFlag(m *exec.ContainerExecParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("execConfig") {
@@ -175,54 +223,6 @@ func printOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 	return nil
 }
 
-// registerOperationExecContainerExecParamFlags registers all flags needed to fill params
-func registerOperationExecContainerExecParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationExecContainerExecExecConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationExecContainerExecIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationExecContainerExecExecConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var execConfigFlagName string
-	if cmdPrefix == "" {
-		execConfigFlagName = "execConfig"
-	} else {
-		execConfigFlagName = fmt.Sprintf("%v.execConfig", cmdPrefix)
-	}
-
-	exampleExecConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(execConfigFlagName, "", fmt.Sprintf("Optional json string for [execConfig] of form %v.Exec configuration", string(exampleExecConfigStr)))
-
-	// add flags for body
-	if err := registerModelContainerExecBodyFlags(0, "containerExecBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationExecContainerExecIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerExecBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -336,6 +336,7 @@ func registerContainerExecBodyCmd(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Cmd []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -366,6 +367,7 @@ func registerContainerExecBodyEnv(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Env []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -527,6 +529,7 @@ func retrieveContainerExecBodyAttachStderrFlags(depth int, m *exec.ContainerExec
 		return nil, false
 	}
 	retAdded := false
+
 	attachStderrFlagName := fmt.Sprintf("%v.AttachStderr", cmdPrefix)
 	if cmd.Flags().Changed(attachStderrFlagName) {
 
@@ -545,6 +548,7 @@ func retrieveContainerExecBodyAttachStderrFlags(depth int, m *exec.ContainerExec
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -553,6 +557,7 @@ func retrieveContainerExecBodyAttachStdinFlags(depth int, m *exec.ContainerExecB
 		return nil, false
 	}
 	retAdded := false
+
 	attachStdinFlagName := fmt.Sprintf("%v.AttachStdin", cmdPrefix)
 	if cmd.Flags().Changed(attachStdinFlagName) {
 
@@ -571,6 +576,7 @@ func retrieveContainerExecBodyAttachStdinFlags(depth int, m *exec.ContainerExecB
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -579,6 +585,7 @@ func retrieveContainerExecBodyAttachStdoutFlags(depth int, m *exec.ContainerExec
 		return nil, false
 	}
 	retAdded := false
+
 	attachStdoutFlagName := fmt.Sprintf("%v.AttachStdout", cmdPrefix)
 	if cmd.Flags().Changed(attachStdoutFlagName) {
 
@@ -597,6 +604,7 @@ func retrieveContainerExecBodyAttachStdoutFlags(depth int, m *exec.ContainerExec
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -605,10 +613,12 @@ func retrieveContainerExecBodyCmdFlags(depth int, m *exec.ContainerExecBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	cmdFlagName := fmt.Sprintf("%v.Cmd", cmdPrefix)
 	if cmd.Flags().Changed(cmdFlagName) {
 		// warning: Cmd array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -617,6 +627,7 @@ func retrieveContainerExecBodyDetachKeysFlags(depth int, m *exec.ContainerExecBo
 		return nil, false
 	}
 	retAdded := false
+
 	detachKeysFlagName := fmt.Sprintf("%v.DetachKeys", cmdPrefix)
 	if cmd.Flags().Changed(detachKeysFlagName) {
 
@@ -635,6 +646,7 @@ func retrieveContainerExecBodyDetachKeysFlags(depth int, m *exec.ContainerExecBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -643,10 +655,12 @@ func retrieveContainerExecBodyEnvFlags(depth int, m *exec.ContainerExecBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
 	if cmd.Flags().Changed(envFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -655,6 +669,7 @@ func retrieveContainerExecBodyPrivilegedFlags(depth int, m *exec.ContainerExecBo
 		return nil, false
 	}
 	retAdded := false
+
 	privilegedFlagName := fmt.Sprintf("%v.Privileged", cmdPrefix)
 	if cmd.Flags().Changed(privilegedFlagName) {
 
@@ -673,6 +688,7 @@ func retrieveContainerExecBodyPrivilegedFlags(depth int, m *exec.ContainerExecBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -681,6 +697,7 @@ func retrieveContainerExecBodyTtyFlags(depth int, m *exec.ContainerExecBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	ttyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
 	if cmd.Flags().Changed(ttyFlagName) {
 
@@ -699,6 +716,7 @@ func retrieveContainerExecBodyTtyFlags(depth int, m *exec.ContainerExecBody, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -707,6 +725,7 @@ func retrieveContainerExecBodyUserFlags(depth int, m *exec.ContainerExecBody, cm
 		return nil, false
 	}
 	retAdded := false
+
 	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
 
@@ -725,6 +744,7 @@ func retrieveContainerExecBodyUserFlags(depth int, m *exec.ContainerExecBody, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -733,6 +753,7 @@ func retrieveContainerExecBodyWorkingDirFlags(depth int, m *exec.ContainerExecBo
 		return nil, false
 	}
 	retAdded := false
+
 	workingDirFlagName := fmt.Sprintf("%v.WorkingDir", cmdPrefix)
 	if cmd.Flags().Changed(workingDirFlagName) {
 
@@ -751,5 +772,6 @@ func retrieveContainerExecBodyWorkingDirFlags(depth int, m *exec.ContainerExecBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

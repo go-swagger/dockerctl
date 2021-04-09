@@ -54,6 +54,32 @@ func runOperationContainerContainerChanges(cmd *cobra.Command, args []string) er
 	return nil
 }
 
+// registerOperationContainerContainerChangesParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerChangesParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerChangesIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerChangesIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerChangesIDFlag(m *container.ContainerChangesParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -132,32 +158,6 @@ func printOperationContainerContainerChangesResult(resp0 *container.ContainerCha
 	return nil
 }
 
-// registerOperationContainerContainerChangesParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerChangesParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerChangesIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerChangesIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerChangeResponseItemFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -227,6 +227,7 @@ func retrieveContainerChangeResponseItemKindFlags(depth int, m *container.Contai
 		return nil, false
 	}
 	retAdded := false
+
 	kindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
 	if cmd.Flags().Changed(kindFlagName) {
 
@@ -234,6 +235,7 @@ func retrieveContainerChangeResponseItemKindFlags(depth int, m *container.Contai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -242,6 +244,7 @@ func retrieveContainerChangeResponseItemPathFlags(depth int, m *container.Contai
 		return nil, false
 	}
 	retAdded := false
+
 	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
 	if cmd.Flags().Changed(pathFlagName) {
 
@@ -260,5 +263,6 @@ func retrieveContainerChangeResponseItemPathFlags(depth int, m *container.Contai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

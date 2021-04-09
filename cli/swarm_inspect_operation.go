@@ -45,6 +45,11 @@ func runOperationSwarmSwarmInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmInspectParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmInspectParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSwarmSwarmInspectResult prints output to stdout
 func printOperationSwarmSwarmInspectResult(resp0 *swarm.SwarmInspectOK, respErr error) error {
 	if respErr != nil {
@@ -112,10 +117,5 @@ func printOperationSwarmSwarmInspectResult(resp0 *swarm.SwarmInspectOK, respErr 
 		fmt.Println(string(msgStr))
 	}
 
-	return nil
-}
-
-// registerOperationSwarmSwarmInspectParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmInspectParamFlags(cmd *cobra.Command) error {
 	return nil
 }

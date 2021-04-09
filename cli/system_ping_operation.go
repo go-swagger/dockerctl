@@ -45,6 +45,11 @@ func runOperationSystemSystemPing(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSystemSystemPingParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemPingParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSystemSystemPingResult prints output to stdout
 func printOperationSystemSystemPingResult(resp0 *system.SystemPingOK, respErr error) error {
 	if respErr != nil {
@@ -83,10 +88,5 @@ func printOperationSystemSystemPingResult(resp0 *system.SystemPingOK, respErr er
 		fmt.Println(string(msgStr))
 	}
 
-	return nil
-}
-
-// registerOperationSystemSystemPingParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemPingParamFlags(cmd *cobra.Command) error {
 	return nil
 }

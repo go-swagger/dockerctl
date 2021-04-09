@@ -54,6 +54,72 @@ func runOperationExecExecResize(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationExecExecResizeParamFlags registers all flags needed to fill params
+func registerOperationExecExecResizeParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationExecExecResizeHParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationExecExecResizeIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationExecExecResizeWParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationExecExecResizeHParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	hDescription := `Height of the TTY session in characters`
+
+	var hFlagName string
+	if cmdPrefix == "" {
+		hFlagName = "h"
+	} else {
+		hFlagName = fmt.Sprintf("%v.h", cmdPrefix)
+	}
+
+	var hFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(hFlagName, hFlagDefault, hDescription)
+
+	return nil
+}
+func registerOperationExecExecResizeIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Exec instance ID`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationExecExecResizeWParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	wDescription := `Width of the TTY session in characters`
+
+	var wFlagName string
+	if cmdPrefix == "" {
+		wFlagName = "w"
+	} else {
+		wFlagName = fmt.Sprintf("%v.w", cmdPrefix)
+	}
+
+	var wFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(wFlagName, wFlagDefault, wDescription)
+
+	return nil
+}
+
 func retrieveOperationExecExecResizeHFlag(m *exec.ExecResizeParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("h") {
@@ -138,72 +204,6 @@ func printOperationExecExecResizeResult(resp0 *exec.ExecResizeCreated, respErr e
 	}
 
 	// warning: non schema response execResizeCreated is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationExecExecResizeParamFlags registers all flags needed to fill params
-func registerOperationExecExecResizeParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationExecExecResizeHParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationExecExecResizeIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationExecExecResizeWParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationExecExecResizeHParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	hDescription := `Height of the TTY session in characters`
-
-	var hFlagName string
-	if cmdPrefix == "" {
-		hFlagName = "h"
-	} else {
-		hFlagName = fmt.Sprintf("%v.h", cmdPrefix)
-	}
-
-	var hFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(hFlagName, hFlagDefault, hDescription)
-
-	return nil
-}
-func registerOperationExecExecResizeIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Exec instance ID`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationExecExecResizeWParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	wDescription := `Width of the TTY session in characters`
-
-	var wFlagName string
-	if cmdPrefix == "" {
-		wFlagName = "w"
-	} else {
-		wFlagName = fmt.Sprintf("%v.w", cmdPrefix)
-	}
-
-	var wFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(wFlagName, wFlagDefault, wDescription)
 
 	return nil
 }

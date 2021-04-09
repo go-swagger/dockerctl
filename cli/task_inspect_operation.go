@@ -48,6 +48,32 @@ func runOperationTaskTaskInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationTaskTaskInspectParamFlags registers all flags needed to fill params
+func registerOperationTaskTaskInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationTaskTaskInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationTaskTaskInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID of the task`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationTaskTaskInspectIDFlag(m *task.TaskInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -135,32 +161,6 @@ func printOperationTaskTaskInspectResult(resp0 *task.TaskInspectOK, respErr erro
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationTaskTaskInspectParamFlags registers all flags needed to fill params
-func registerOperationTaskTaskInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationTaskTaskInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationTaskTaskInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID of the task`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

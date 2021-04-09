@@ -60,6 +60,99 @@ func runOperationContainerPutContainerArchive(cmd *cobra.Command, args []string)
 	return nil
 }
 
+// registerOperationContainerPutContainerArchiveParamFlags registers all flags needed to fill params
+func registerOperationContainerPutContainerArchiveParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerPutContainerArchiveCopyUIDGIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerPutContainerArchiveIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerPutContainerArchiveInputStreamParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerPutContainerArchiveNoOverwriteDirNonDirParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerPutContainerArchivePathParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerPutContainerArchiveCopyUIDGIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	copyUidGIdDescription := `If “1”, “true”, then it will copy UID/GID maps to the dest file or dir`
+
+	var copyUidGIdFlagName string
+	if cmdPrefix == "" {
+		copyUidGIdFlagName = "copyUIDGID"
+	} else {
+		copyUidGIdFlagName = fmt.Sprintf("%v.copyUIDGID", cmdPrefix)
+	}
+
+	var copyUidGIdFlagDefault string
+
+	_ = cmd.PersistentFlags().String(copyUidGIdFlagName, copyUidGIdFlagDefault, copyUidGIdDescription)
+
+	return nil
+}
+func registerOperationContainerPutContainerArchiveIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerPutContainerArchiveInputStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
+	return nil
+}
+func registerOperationContainerPutContainerArchiveNoOverwriteDirNonDirParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	noOverwriteDirNonDirDescription := `If “1”, “true”, or “True” then it will be an error if unpacking the given content would cause an existing directory to be replaced with a non-directory and vice versa.`
+
+	var noOverwriteDirNonDirFlagName string
+	if cmdPrefix == "" {
+		noOverwriteDirNonDirFlagName = "noOverwriteDirNonDir"
+	} else {
+		noOverwriteDirNonDirFlagName = fmt.Sprintf("%v.noOverwriteDirNonDir", cmdPrefix)
+	}
+
+	var noOverwriteDirNonDirFlagDefault string
+
+	_ = cmd.PersistentFlags().String(noOverwriteDirNonDirFlagName, noOverwriteDirNonDirFlagDefault, noOverwriteDirNonDirDescription)
+
+	return nil
+}
+func registerOperationContainerPutContainerArchivePathParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	pathDescription := `Required. Path to a directory in the container to extract the archive’s contents into. `
+
+	var pathFlagName string
+	if cmdPrefix == "" {
+		pathFlagName = "path"
+	} else {
+		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+	}
+
+	var pathFlagDefault string
+
+	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerPutContainerArchiveCopyUIDGIDFlag(m *container.PutContainerArchiveParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("copyUIDGID") {
@@ -210,99 +303,6 @@ func printOperationContainerPutContainerArchiveResult(resp0 *container.PutContai
 	}
 
 	// warning: non schema response putContainerArchiveOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerPutContainerArchiveParamFlags registers all flags needed to fill params
-func registerOperationContainerPutContainerArchiveParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerPutContainerArchiveCopyUIDGIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerPutContainerArchiveIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerPutContainerArchiveInputStreamParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerPutContainerArchiveNoOverwriteDirNonDirParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerPutContainerArchivePathParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerPutContainerArchiveCopyUIDGIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	copyUidGIdDescription := `If “1”, “true”, then it will copy UID/GID maps to the dest file or dir`
-
-	var copyUidGIdFlagName string
-	if cmdPrefix == "" {
-		copyUidGIdFlagName = "copyUIDGID"
-	} else {
-		copyUidGIdFlagName = fmt.Sprintf("%v.copyUIDGID", cmdPrefix)
-	}
-
-	var copyUidGIdFlagDefault string
-
-	_ = cmd.PersistentFlags().String(copyUidGIdFlagName, copyUidGIdFlagDefault, copyUidGIdDescription)
-
-	return nil
-}
-func registerOperationContainerPutContainerArchiveIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerPutContainerArchiveInputStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
-	return nil
-}
-func registerOperationContainerPutContainerArchiveNoOverwriteDirNonDirParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	noOverwriteDirNonDirDescription := `If “1”, “true”, or “True” then it will be an error if unpacking the given content would cause an existing directory to be replaced with a non-directory and vice versa.`
-
-	var noOverwriteDirNonDirFlagName string
-	if cmdPrefix == "" {
-		noOverwriteDirNonDirFlagName = "noOverwriteDirNonDir"
-	} else {
-		noOverwriteDirNonDirFlagName = fmt.Sprintf("%v.noOverwriteDirNonDir", cmdPrefix)
-	}
-
-	var noOverwriteDirNonDirFlagDefault string
-
-	_ = cmd.PersistentFlags().String(noOverwriteDirNonDirFlagName, noOverwriteDirNonDirFlagDefault, noOverwriteDirNonDirDescription)
-
-	return nil
-}
-func registerOperationContainerPutContainerArchivePathParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	pathDescription := `Required. Path to a directory in the container to extract the archive’s contents into. `
-
-	var pathFlagName string
-	if cmdPrefix == "" {
-		pathFlagName = "path"
-	} else {
-		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
-	}
-
-	var pathFlagDefault string
-
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
 
 	return nil
 }

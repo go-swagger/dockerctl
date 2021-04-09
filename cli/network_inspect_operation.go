@@ -54,6 +54,72 @@ func runOperationNetworkNetworkInspect(cmd *cobra.Command, args []string) error 
 	return nil
 }
 
+// registerOperationNetworkNetworkInspectParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNetworkNetworkInspectScopeParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNetworkNetworkInspectVerboseParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Network ID or name`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationNetworkNetworkInspectScopeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	scopeDescription := `Filter the network by scope (swarm, global, or local)`
+
+	var scopeFlagName string
+	if cmdPrefix == "" {
+		scopeFlagName = "scope"
+	} else {
+		scopeFlagName = fmt.Sprintf("%v.scope", cmdPrefix)
+	}
+
+	var scopeFlagDefault string
+
+	_ = cmd.PersistentFlags().String(scopeFlagName, scopeFlagDefault, scopeDescription)
+
+	return nil
+}
+func registerOperationNetworkNetworkInspectVerboseParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	verboseDescription := `Detailed inspect output for troubleshooting`
+
+	var verboseFlagName string
+	if cmdPrefix == "" {
+		verboseFlagName = "verbose"
+	} else {
+		verboseFlagName = fmt.Sprintf("%v.verbose", cmdPrefix)
+	}
+
+	var verboseFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(verboseFlagName, verboseFlagDefault, verboseDescription)
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkInspectIDFlag(m *network.NetworkInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -168,72 +234,6 @@ func printOperationNetworkNetworkInspectResult(resp0 *network.NetworkInspectOK, 
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationNetworkNetworkInspectParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNetworkNetworkInspectScopeParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNetworkNetworkInspectVerboseParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Network ID or name`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationNetworkNetworkInspectScopeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	scopeDescription := `Filter the network by scope (swarm, global, or local)`
-
-	var scopeFlagName string
-	if cmdPrefix == "" {
-		scopeFlagName = "scope"
-	} else {
-		scopeFlagName = fmt.Sprintf("%v.scope", cmdPrefix)
-	}
-
-	var scopeFlagDefault string
-
-	_ = cmd.PersistentFlags().String(scopeFlagName, scopeFlagDefault, scopeDescription)
-
-	return nil
-}
-func registerOperationNetworkNetworkInspectVerboseParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	verboseDescription := `Detailed inspect output for troubleshooting`
-
-	var verboseFlagName string
-	if cmdPrefix == "" {
-		verboseFlagName = "verbose"
-	} else {
-		verboseFlagName = fmt.Sprintf("%v.verbose", cmdPrefix)
-	}
-
-	var verboseFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(verboseFlagName, verboseFlagDefault, verboseDescription)
 
 	return nil
 }

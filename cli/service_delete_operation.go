@@ -48,6 +48,32 @@ func runOperationServiceServiceDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationServiceServiceDeleteParamFlags registers all flags needed to fill params
+func registerOperationServiceServiceDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationServiceServiceDeleteIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationServiceServiceDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of service.`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationServiceServiceDeleteIDFlag(m *service.ServiceDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -118,32 +144,6 @@ func printOperationServiceServiceDeleteResult(resp0 *service.ServiceDeleteOK, re
 	}
 
 	// warning: non schema response serviceDeleteOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationServiceServiceDeleteParamFlags registers all flags needed to fill params
-func registerOperationServiceServiceDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationServiceServiceDeleteIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationServiceServiceDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of service.`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

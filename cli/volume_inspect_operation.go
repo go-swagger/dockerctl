@@ -48,6 +48,32 @@ func runOperationVolumeVolumeInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationVolumeVolumeInspectParamFlags registers all flags needed to fill params
+func registerOperationVolumeVolumeInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationVolumeVolumeInspectNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationVolumeVolumeInspectNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Volume name or ID`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationVolumeVolumeInspectNameFlag(m *volume.VolumeInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -122,32 +148,6 @@ func printOperationVolumeVolumeInspectResult(resp0 *volume.VolumeInspectOK, resp
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationVolumeVolumeInspectParamFlags registers all flags needed to fill params
-func registerOperationVolumeVolumeInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationVolumeVolumeInspectNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationVolumeVolumeInspectNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Volume name or ID`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

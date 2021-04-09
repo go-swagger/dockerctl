@@ -48,6 +48,32 @@ func runOperationImageImageHistory(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageHistoryParamFlags registers all flags needed to fill params
+func registerOperationImageImageHistoryParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageHistoryNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageHistoryNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Image name or ID`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageHistoryNameFlag(m *image.ImageHistoryParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -122,32 +148,6 @@ func printOperationImageImageHistoryResult(resp0 *image.ImageHistoryOK, respErr 
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationImageImageHistoryParamFlags registers all flags needed to fill params
-func registerOperationImageImageHistoryParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageHistoryNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageHistoryNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Image name or ID`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }
@@ -291,6 +291,7 @@ func registerHistoryResponseItemTags(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Tags []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -344,6 +345,7 @@ func retrieveHistoryResponseItemCommentFlags(depth int, m *image.HistoryResponse
 		return nil, false
 	}
 	retAdded := false
+
 	commentFlagName := fmt.Sprintf("%v.Comment", cmdPrefix)
 	if cmd.Flags().Changed(commentFlagName) {
 
@@ -362,6 +364,7 @@ func retrieveHistoryResponseItemCommentFlags(depth int, m *image.HistoryResponse
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -370,6 +373,7 @@ func retrieveHistoryResponseItemCreatedFlags(depth int, m *image.HistoryResponse
 		return nil, false
 	}
 	retAdded := false
+
 	createdFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
 	if cmd.Flags().Changed(createdFlagName) {
 
@@ -388,6 +392,7 @@ func retrieveHistoryResponseItemCreatedFlags(depth int, m *image.HistoryResponse
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -396,6 +401,7 @@ func retrieveHistoryResponseItemCreatedByFlags(depth int, m *image.HistoryRespon
 		return nil, false
 	}
 	retAdded := false
+
 	createdByFlagName := fmt.Sprintf("%v.CreatedBy", cmdPrefix)
 	if cmd.Flags().Changed(createdByFlagName) {
 
@@ -414,6 +420,7 @@ func retrieveHistoryResponseItemCreatedByFlags(depth int, m *image.HistoryRespon
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -422,6 +429,7 @@ func retrieveHistoryResponseItemIDFlags(depth int, m *image.HistoryResponseItem,
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -440,6 +448,7 @@ func retrieveHistoryResponseItemIDFlags(depth int, m *image.HistoryResponseItem,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -448,6 +457,7 @@ func retrieveHistoryResponseItemSizeFlags(depth int, m *image.HistoryResponseIte
 		return nil, false
 	}
 	retAdded := false
+
 	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
 	if cmd.Flags().Changed(sizeFlagName) {
 
@@ -466,6 +476,7 @@ func retrieveHistoryResponseItemSizeFlags(depth int, m *image.HistoryResponseIte
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -474,9 +485,11 @@ func retrieveHistoryResponseItemTagsFlags(depth int, m *image.HistoryResponseIte
 		return nil, false
 	}
 	retAdded := false
+
 	tagsFlagName := fmt.Sprintf("%v.Tags", cmdPrefix)
 	if cmd.Flags().Changed(tagsFlagName) {
 		// warning: Tags array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

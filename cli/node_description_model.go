@@ -179,19 +179,21 @@ func retrieveNodeDescriptionEngineFlags(depth int, m *models.NodeDescription, cm
 		return nil, false
 	}
 	retAdded := false
+
 	engineFlagName := fmt.Sprintf("%v.Engine", cmdPrefix)
 	if cmd.Flags().Changed(engineFlagName) {
 
-		engineFlagValue := &models.EngineDescription{}
-		err, added := retrieveModelEngineDescriptionFlags(depth+1, engineFlagValue, engineFlagName, cmd)
+		engineFlagValue := models.EngineDescription{}
+		err, added := retrieveModelEngineDescriptionFlags(depth+1, &engineFlagValue, engineFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Engine = engineFlagValue
+			m.Engine = &engineFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -200,6 +202,7 @@ func retrieveNodeDescriptionHostnameFlags(depth int, m *models.NodeDescription, 
 		return nil, false
 	}
 	retAdded := false
+
 	hostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
 	if cmd.Flags().Changed(hostnameFlagName) {
 
@@ -218,6 +221,7 @@ func retrieveNodeDescriptionHostnameFlags(depth int, m *models.NodeDescription, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -226,19 +230,21 @@ func retrieveNodeDescriptionPlatformFlags(depth int, m *models.NodeDescription, 
 		return nil, false
 	}
 	retAdded := false
+
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
 
-		platformFlagValue := &models.Platform{}
-		err, added := retrieveModelPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
+		platformFlagValue := models.Platform{}
+		err, added := retrieveModelPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Platform = platformFlagValue
+			m.Platform = &platformFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -247,19 +253,21 @@ func retrieveNodeDescriptionResourcesFlags(depth int, m *models.NodeDescription,
 		return nil, false
 	}
 	retAdded := false
+
 	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
 	if cmd.Flags().Changed(resourcesFlagName) {
 
-		resourcesFlagValue := &models.ResourceObject{}
-		err, added := retrieveModelResourceObjectFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
+		resourcesFlagValue := models.ResourceObject{}
+		err, added := retrieveModelResourceObjectFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Resources = resourcesFlagValue
+			m.Resources = &resourcesFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -268,18 +276,20 @@ func retrieveNodeDescriptionTLSInfoFlags(depth int, m *models.NodeDescription, c
 		return nil, false
 	}
 	retAdded := false
+
 	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	if cmd.Flags().Changed(tlsInfoFlagName) {
 
-		tlsInfoFlagValue := &models.TLSInfo{}
-		err, added := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
+		tlsInfoFlagValue := models.TLSInfo{}
+		err, added := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.TLSInfo = tlsInfoFlagValue
+			m.TLSInfo = &tlsInfoFlagValue
 		}
 	}
+
 	return nil, retAdded
 }

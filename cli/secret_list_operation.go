@@ -48,6 +48,38 @@ func runOperationSecretSecretList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSecretSecretListParamFlags registers all flags needed to fill params
+func registerOperationSecretSecretListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSecretSecretListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSecretSecretListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the secrets list. Available filters:
+
+- ` + "`" + `id=<secret id>` + "`" + `
+- ` + "`" + `label=<key> or label=<key>=value` + "`" + `
+- ` + "`" + `name=<secret name>` + "`" + `
+- ` + "`" + `names=<secret name>` + "`" + `
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationSecretSecretListFiltersFlag(m *secret.SecretListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -122,38 +154,6 @@ func printOperationSecretSecretListResult(resp0 *secret.SecretListOK, respErr er
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationSecretSecretListParamFlags registers all flags needed to fill params
-func registerOperationSecretSecretListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSecretSecretListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSecretSecretListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the secrets list. Available filters:
-
-- ` + "`" + `id=<secret id>` + "`" + `
-- ` + "`" + `label=<key> or label=<key>=value` + "`" + `
-- ` + "`" + `name=<secret name>` + "`" + `
-- ` + "`" + `names=<secret name>` + "`" + `
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
 
 	return nil
 }

@@ -66,6 +66,152 @@ func runOperationContainerContainerAttachWebsocket(cmd *cobra.Command, args []st
 	return nil
 }
 
+// registerOperationContainerContainerAttachWebsocketParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerAttachWebsocketParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerAttachWebsocketDetachKeysParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerAttachWebsocketIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerAttachWebsocketLogsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerAttachWebsocketStderrParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerAttachWebsocketStdinParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerAttachWebsocketStdoutParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerAttachWebsocketStreamParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerAttachWebsocketDetachKeysParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	detachKeysDescription := `Override the key sequence for detaching a container.Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + `, or ` + "`" + `_` + "`" + `.`
+
+	var detachKeysFlagName string
+	if cmdPrefix == "" {
+		detachKeysFlagName = "detachKeys"
+	} else {
+		detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
+	}
+
+	var detachKeysFlagDefault string
+
+	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
+
+	return nil
+}
+func registerOperationContainerContainerAttachWebsocketIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerAttachWebsocketLogsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	logsDescription := `Return logs`
+
+	var logsFlagName string
+	if cmdPrefix == "" {
+		logsFlagName = "logs"
+	} else {
+		logsFlagName = fmt.Sprintf("%v.logs", cmdPrefix)
+	}
+
+	var logsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(logsFlagName, logsFlagDefault, logsDescription)
+
+	return nil
+}
+func registerOperationContainerContainerAttachWebsocketStderrParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	stderrDescription := `Attach to ` + "`" + `stderr` + "`" + ``
+
+	var stderrFlagName string
+	if cmdPrefix == "" {
+		stderrFlagName = "stderr"
+	} else {
+		stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
+	}
+
+	var stderrFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(stderrFlagName, stderrFlagDefault, stderrDescription)
+
+	return nil
+}
+func registerOperationContainerContainerAttachWebsocketStdinParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	stdinDescription := `Attach to ` + "`" + `stdin` + "`" + ``
+
+	var stdinFlagName string
+	if cmdPrefix == "" {
+		stdinFlagName = "stdin"
+	} else {
+		stdinFlagName = fmt.Sprintf("%v.stdin", cmdPrefix)
+	}
+
+	var stdinFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(stdinFlagName, stdinFlagDefault, stdinDescription)
+
+	return nil
+}
+func registerOperationContainerContainerAttachWebsocketStdoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	stdoutDescription := `Attach to ` + "`" + `stdout` + "`" + ``
+
+	var stdoutFlagName string
+	if cmdPrefix == "" {
+		stdoutFlagName = "stdout"
+	} else {
+		stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
+	}
+
+	var stdoutFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(stdoutFlagName, stdoutFlagDefault, stdoutDescription)
+
+	return nil
+}
+func registerOperationContainerContainerAttachWebsocketStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	streamDescription := `Return stream`
+
+	var streamFlagName string
+	if cmdPrefix == "" {
+		streamFlagName = "stream"
+	} else {
+		streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
+	}
+
+	var streamFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(streamFlagName, streamFlagDefault, streamDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerAttachWebsocketDetachKeysFlag(m *container.ContainerAttachWebsocketParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("detachKeys") {
@@ -258,152 +404,6 @@ func printOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 	}
 
 	// warning: non schema response containerAttachWebsocketOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerAttachWebsocketParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerAttachWebsocketParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerAttachWebsocketDetachKeysParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerAttachWebsocketIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerAttachWebsocketLogsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerAttachWebsocketStderrParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerAttachWebsocketStdinParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerAttachWebsocketStdoutParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerAttachWebsocketStreamParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerAttachWebsocketDetachKeysParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	detachKeysDescription := `Override the key sequence for detaching a container.Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + `, or ` + "`" + `_` + "`" + `.`
-
-	var detachKeysFlagName string
-	if cmdPrefix == "" {
-		detachKeysFlagName = "detachKeys"
-	} else {
-		detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
-	}
-
-	var detachKeysFlagDefault string
-
-	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
-
-	return nil
-}
-func registerOperationContainerContainerAttachWebsocketIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerAttachWebsocketLogsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	logsDescription := `Return logs`
-
-	var logsFlagName string
-	if cmdPrefix == "" {
-		logsFlagName = "logs"
-	} else {
-		logsFlagName = fmt.Sprintf("%v.logs", cmdPrefix)
-	}
-
-	var logsFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(logsFlagName, logsFlagDefault, logsDescription)
-
-	return nil
-}
-func registerOperationContainerContainerAttachWebsocketStderrParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	stderrDescription := `Attach to ` + "`" + `stderr` + "`" + ``
-
-	var stderrFlagName string
-	if cmdPrefix == "" {
-		stderrFlagName = "stderr"
-	} else {
-		stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
-	}
-
-	var stderrFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(stderrFlagName, stderrFlagDefault, stderrDescription)
-
-	return nil
-}
-func registerOperationContainerContainerAttachWebsocketStdinParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	stdinDescription := `Attach to ` + "`" + `stdin` + "`" + ``
-
-	var stdinFlagName string
-	if cmdPrefix == "" {
-		stdinFlagName = "stdin"
-	} else {
-		stdinFlagName = fmt.Sprintf("%v.stdin", cmdPrefix)
-	}
-
-	var stdinFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(stdinFlagName, stdinFlagDefault, stdinDescription)
-
-	return nil
-}
-func registerOperationContainerContainerAttachWebsocketStdoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	stdoutDescription := `Attach to ` + "`" + `stdout` + "`" + ``
-
-	var stdoutFlagName string
-	if cmdPrefix == "" {
-		stdoutFlagName = "stdout"
-	} else {
-		stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
-	}
-
-	var stdoutFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(stdoutFlagName, stdoutFlagDefault, stdoutDescription)
-
-	return nil
-}
-func registerOperationContainerContainerAttachWebsocketStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	streamDescription := `Return stream`
-
-	var streamFlagName string
-	if cmdPrefix == "" {
-		streamFlagName = "stream"
-	} else {
-		streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
-	}
-
-	var streamFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(streamFlagName, streamFlagDefault, streamDescription)
 
 	return nil
 }

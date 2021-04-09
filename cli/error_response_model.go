@@ -63,6 +63,7 @@ func retrieveErrorResponseMessageFlags(depth int, m *models.ErrorResponse, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	messageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
 	if cmd.Flags().Changed(messageFlagName) {
 
@@ -81,5 +82,6 @@ func retrieveErrorResponseMessageFlags(depth int, m *models.ErrorResponse, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

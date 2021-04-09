@@ -48,6 +48,43 @@ func runOperationVolumeVolumeList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationVolumeVolumeListParamFlags registers all flags needed to fill params
+func registerOperationVolumeVolumeListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationVolumeVolumeListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationVolumeVolumeListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to
+process on the volumes list. Available filters:
+
+- ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), returns all
+   volumes that are not in use by a container. When set to ` + "`" + `false` + "`" + `
+   (or ` + "`" + `0` + "`" + `), only volumes that are in use by one or more
+   containers are returned.
+- ` + "`" + `driver=<volume-driver-name>` + "`" + ` Matches volumes based on their driver.
+- ` + "`" + `label=<key>` + "`" + ` or ` + "`" + `label=<key>:<value>` + "`" + ` Matches volumes based on
+   the presence of a ` + "`" + `label` + "`" + ` alone or a ` + "`" + `label` + "`" + ` and a value.
+- ` + "`" + `name=<volume-name>` + "`" + ` Matches all or part of a volume name.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationVolumeVolumeListFiltersFlag(m *volume.VolumeListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -113,43 +150,6 @@ func printOperationVolumeVolumeListResult(resp0 *volume.VolumeListOK, respErr er
 	return nil
 }
 
-// registerOperationVolumeVolumeListParamFlags registers all flags needed to fill params
-func registerOperationVolumeVolumeListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationVolumeVolumeListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationVolumeVolumeListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to
-process on the volumes list. Available filters:
-
-- ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), returns all
-   volumes that are not in use by a container. When set to ` + "`" + `false` + "`" + `
-   (or ` + "`" + `0` + "`" + `), only volumes that are in use by one or more
-   containers are returned.
-- ` + "`" + `driver=<volume-driver-name>` + "`" + ` Matches volumes based on their driver.
-- ` + "`" + `label=<key>` + "`" + ` or ` + "`" + `label=<key>:<value>` + "`" + ` Matches volumes based on
-   the presence of a ` + "`" + `label` + "`" + ` alone or a ` + "`" + `label` + "`" + ` and a value.
-- ` + "`" + `name=<volume-name>` + "`" + ` Matches all or part of a volume name.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelVolumeListOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -168,6 +168,7 @@ func registerVolumeListOKBodyVolumes(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Volumes []*models.Volume array type is not supported by go-swagger cli yet
 
 	return nil
@@ -177,6 +178,7 @@ func registerVolumeListOKBodyWarnings(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Warnings []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -206,10 +208,12 @@ func retrieveVolumeListOKBodyVolumesFlags(depth int, m *volume.VolumeListOKBody,
 		return nil, false
 	}
 	retAdded := false
+
 	volumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
 	if cmd.Flags().Changed(volumesFlagName) {
 		// warning: Volumes array type []*models.Volume is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -218,9 +222,11 @@ func retrieveVolumeListOKBodyWarningsFlags(depth int, m *volume.VolumeListOKBody
 		return nil, false
 	}
 	retAdded := false
+
 	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
 	if cmd.Flags().Changed(warningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

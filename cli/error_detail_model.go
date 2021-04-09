@@ -94,6 +94,7 @@ func retrieveErrorDetailCodeFlags(depth int, m *models.ErrorDetail, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	codeFlagName := fmt.Sprintf("%v.code", cmdPrefix)
 	if cmd.Flags().Changed(codeFlagName) {
 
@@ -112,6 +113,7 @@ func retrieveErrorDetailCodeFlags(depth int, m *models.ErrorDetail, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -120,6 +122,7 @@ func retrieveErrorDetailMessageFlags(depth int, m *models.ErrorDetail, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	messageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
 	if cmd.Flags().Changed(messageFlagName) {
 
@@ -138,5 +141,6 @@ func retrieveErrorDetailMessageFlags(depth int, m *models.ErrorDetail, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

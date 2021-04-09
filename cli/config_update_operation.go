@@ -55,6 +55,74 @@ func runOperationConfigConfigUpdate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationConfigConfigUpdateParamFlags registers all flags needed to fill params
+func registerOperationConfigConfigUpdateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationConfigConfigUpdateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationConfigConfigUpdateIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationConfigConfigUpdateVersionParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationConfigConfigUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.The spec of the config to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [ConfigInspect endpoint](#operation/ConfigInspect) response values.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelConfigSpecFlags(0, "configSpec", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationConfigConfigUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. The ID or name of the config`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationConfigConfigUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	versionDescription := `Required. The version number of the config object being updated. This is required to avoid conflicting writes.`
+
+	var versionFlagName string
+	if cmdPrefix == "" {
+		versionFlagName = "version"
+	} else {
+		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+	}
+
+	var versionFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+
+	return nil
+}
+
 func retrieveOperationConfigConfigUpdateBodyFlag(m *config.ConfigUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -191,74 +259,6 @@ func printOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respEr
 	}
 
 	// warning: non schema response configUpdateOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationConfigConfigUpdateParamFlags registers all flags needed to fill params
-func registerOperationConfigConfigUpdateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationConfigConfigUpdateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationConfigConfigUpdateIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationConfigConfigUpdateVersionParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationConfigConfigUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.The spec of the config to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [ConfigInspect endpoint](#operation/ConfigInspect) response values.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelConfigSpecFlags(0, "configSpec", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationConfigConfigUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. The ID or name of the config`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationConfigConfigUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	versionDescription := `Required. The version number of the config object being updated. This is required to avoid conflicting writes.`
-
-	var versionFlagName string
-	if cmdPrefix == "" {
-		versionFlagName = "version"
-	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
-	}
-
-	var versionFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
 
 	return nil
 }

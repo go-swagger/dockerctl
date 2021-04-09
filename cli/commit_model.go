@@ -95,6 +95,7 @@ func retrieveCommitExpectedFlags(depth int, m *models.Commit, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	expectedFlagName := fmt.Sprintf("%v.Expected", cmdPrefix)
 	if cmd.Flags().Changed(expectedFlagName) {
 
@@ -113,6 +114,7 @@ func retrieveCommitExpectedFlags(depth int, m *models.Commit, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -121,6 +123,7 @@ func retrieveCommitIDFlags(depth int, m *models.Commit, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -139,5 +142,6 @@ func retrieveCommitIDFlags(depth int, m *models.Commit, cmdPrefix string, cmd *c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -98,6 +98,7 @@ func retrieveRestartPolicyMaximumRetryCountFlags(depth int, m *models.RestartPol
 		return nil, false
 	}
 	retAdded := false
+
 	maximumRetryCountFlagName := fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
 	if cmd.Flags().Changed(maximumRetryCountFlagName) {
 
@@ -116,6 +117,7 @@ func retrieveRestartPolicyMaximumRetryCountFlags(depth int, m *models.RestartPol
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -124,6 +126,7 @@ func retrieveRestartPolicyNameFlags(depth int, m *models.RestartPolicy, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -142,5 +145,6 @@ func retrieveRestartPolicyNameFlags(depth int, m *models.RestartPolicy, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

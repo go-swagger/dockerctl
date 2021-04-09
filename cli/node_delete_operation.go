@@ -51,6 +51,52 @@ func runOperationNodeNodeDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNodeNodeDeleteParamFlags registers all flags needed to fill params
+func registerOperationNodeNodeDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNodeNodeDeleteForceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNodeNodeDeleteIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNodeNodeDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forceDescription := `Force remove a node from the swarm`
+
+	var forceFlagName string
+	if cmdPrefix == "" {
+		forceFlagName = "force"
+	} else {
+		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+	}
+
+	var forceFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+
+	return nil
+}
+func registerOperationNodeNodeDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. The ID or name of the node`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationNodeNodeDeleteForceFlag(m *node.NodeDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("force") {
@@ -141,52 +187,6 @@ func printOperationNodeNodeDeleteResult(resp0 *node.NodeDeleteOK, respErr error)
 	}
 
 	// warning: non schema response nodeDeleteOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationNodeNodeDeleteParamFlags registers all flags needed to fill params
-func registerOperationNodeNodeDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNodeNodeDeleteForceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNodeNodeDeleteIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNodeNodeDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forceDescription := `Force remove a node from the swarm`
-
-	var forceFlagName string
-	if cmdPrefix == "" {
-		forceFlagName = "force"
-	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
-	}
-
-	var forceFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
-
-	return nil
-}
-func registerOperationNodeNodeDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. The ID or name of the node`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

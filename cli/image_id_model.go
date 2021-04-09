@@ -63,6 +63,7 @@ func retrieveImageIDIDFlags(depth int, m *models.ImageID, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -81,5 +82,6 @@ func retrieveImageIDIDFlags(depth int, m *models.ImageID, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -59,6 +59,72 @@ func runOperationImageImageDelete(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageDeleteParamFlags registers all flags needed to fill params
+func registerOperationImageImageDeleteParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageDeleteForceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageDeleteNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageDeleteNopruneParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forceDescription := `Remove the image even if it is being used by stopped containers or has other tags`
+
+	var forceFlagName string
+	if cmdPrefix == "" {
+		forceFlagName = "force"
+	} else {
+		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+	}
+
+	var forceFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+
+	return nil
+}
+func registerOperationImageImageDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Image name or ID`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+func registerOperationImageImageDeleteNopruneParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nopruneDescription := `Do not delete untagged parent images`
+
+	var nopruneFlagName string
+	if cmdPrefix == "" {
+		nopruneFlagName = "noprune"
+	} else {
+		nopruneFlagName = fmt.Sprintf("%v.noprune", cmdPrefix)
+	}
+
+	var nopruneFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(nopruneFlagName, nopruneFlagDefault, nopruneDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageDeleteForceFlag(m *image.ImageDeleteParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("force") {
@@ -186,72 +252,6 @@ func printOperationImageImageDeleteResult(resp0 *image.ImageDeleteOK, respErr er
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationImageImageDeleteParamFlags registers all flags needed to fill params
-func registerOperationImageImageDeleteParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageDeleteForceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageDeleteNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageDeleteNopruneParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forceDescription := `Remove the image even if it is being used by stopped containers or has other tags`
-
-	var forceFlagName string
-	if cmdPrefix == "" {
-		forceFlagName = "force"
-	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
-	}
-
-	var forceFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
-
-	return nil
-}
-func registerOperationImageImageDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Image name or ID`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-func registerOperationImageImageDeleteNopruneParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nopruneDescription := `Do not delete untagged parent images`
-
-	var nopruneFlagName string
-	if cmdPrefix == "" {
-		nopruneFlagName = "noprune"
-	} else {
-		nopruneFlagName = fmt.Sprintf("%v.noprune", cmdPrefix)
-	}
-
-	var nopruneFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(nopruneFlagName, nopruneFlagDefault, nopruneDescription)
 
 	return nil
 }

@@ -45,6 +45,11 @@ func runOperationSystemSystemPingHead(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSystemSystemPingHeadParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemPingHeadParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSystemSystemPingHeadResult prints output to stdout
 func printOperationSystemSystemPingHeadResult(resp0 *system.SystemPingHeadOK, respErr error) error {
 	if respErr != nil {
@@ -83,10 +88,5 @@ func printOperationSystemSystemPingHeadResult(resp0 *system.SystemPingHeadOK, re
 		fmt.Println(string(msgStr))
 	}
 
-	return nil
-}
-
-// registerOperationSystemSystemPingHeadParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemPingHeadParamFlags(cmd *cobra.Command) error {
 	return nil
 }

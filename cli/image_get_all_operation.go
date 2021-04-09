@@ -54,6 +54,19 @@ func runOperationImageImageGetAll(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageGetAllParamFlags registers all flags needed to fill params
+func registerOperationImageImageGetAllParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageGetAllNamesParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageGetAllNamesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type []string is not supported by go-swagger cli yet.
+	return nil
+}
+
 func retrieveOperationImageImageGetAllNamesFlag(m *image.ImageGetAllParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("names") {
@@ -100,18 +113,5 @@ func printOperationImageImageGetAllResult(resp0 *image.ImageGetAllOK, respErr er
 		fmt.Println(string(msgStr))
 	}
 
-	return nil
-}
-
-// registerOperationImageImageGetAllParamFlags registers all flags needed to fill params
-func registerOperationImageImageGetAllParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageGetAllNamesParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageGetAllNamesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type []string is not supported by go-swagger cli yet.
 	return nil
 }

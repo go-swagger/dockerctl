@@ -154,6 +154,7 @@ func retrievePushImageInfoErrorFlags(depth int, m *models.PushImageInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	errorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
 
@@ -172,6 +173,7 @@ func retrievePushImageInfoErrorFlags(depth int, m *models.PushImageInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -180,6 +182,7 @@ func retrievePushImageInfoProgressFlags(depth int, m *models.PushImageInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	progressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
 	if cmd.Flags().Changed(progressFlagName) {
 
@@ -198,6 +201,7 @@ func retrievePushImageInfoProgressFlags(depth int, m *models.PushImageInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -206,19 +210,21 @@ func retrievePushImageInfoProgressDetailFlags(depth int, m *models.PushImageInfo
 		return nil, false
 	}
 	retAdded := false
+
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
 
-		progressDetailFlagValue := &models.ProgressDetail{}
-		err, added := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+		progressDetailFlagValue := models.ProgressDetail{}
+		err, added := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ProgressDetail = progressDetailFlagValue
+			m.ProgressDetail = &progressDetailFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -227,6 +233,7 @@ func retrievePushImageInfoStatusFlags(depth int, m *models.PushImageInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
@@ -245,5 +252,6 @@ func retrievePushImageInfoStatusFlags(depth int, m *models.PushImageInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

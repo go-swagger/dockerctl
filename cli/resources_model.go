@@ -152,6 +152,7 @@ func registerResourcesBlkioDeviceReadBps(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: BlkioDeviceReadBps []*ThrottleDevice array type is not supported by go-swagger cli yet
 
 	return nil
@@ -161,6 +162,7 @@ func registerResourcesBlkioDeviceReadIOps(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: BlkioDeviceReadIOps []*ThrottleDevice array type is not supported by go-swagger cli yet
 
 	return nil
@@ -170,6 +172,7 @@ func registerResourcesBlkioDeviceWriteBps(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: BlkioDeviceWriteBps []*ThrottleDevice array type is not supported by go-swagger cli yet
 
 	return nil
@@ -179,6 +182,7 @@ func registerResourcesBlkioDeviceWriteIOps(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: BlkioDeviceWriteIOps []*ThrottleDevice array type is not supported by go-swagger cli yet
 
 	return nil
@@ -209,6 +213,7 @@ func registerResourcesBlkioWeightDevice(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: BlkioWeightDevice []*ResourcesBlkioWeightDeviceItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -434,6 +439,7 @@ func registerResourcesDeviceCgroupRules(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DeviceCgroupRules []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -443,6 +449,7 @@ func registerResourcesDeviceRequests(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DeviceRequests []*DeviceRequest array type is not supported by go-swagger cli yet
 
 	return nil
@@ -452,6 +459,7 @@ func registerResourcesDevices(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Devices []*DeviceMapping array type is not supported by go-swagger cli yet
 
 	return nil
@@ -714,6 +722,7 @@ func registerResourcesUlimits(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Ulimits []*ResourcesUlimitsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -923,10 +932,12 @@ func retrieveResourcesBlkioDeviceReadBpsFlags(depth int, m *models.Resources, cm
 		return nil, false
 	}
 	retAdded := false
+
 	blkioDeviceReadBpsFlagName := fmt.Sprintf("%v.BlkioDeviceReadBps", cmdPrefix)
 	if cmd.Flags().Changed(blkioDeviceReadBpsFlagName) {
 		// warning: BlkioDeviceReadBps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -935,10 +946,12 @@ func retrieveResourcesBlkioDeviceReadIOpsFlags(depth int, m *models.Resources, c
 		return nil, false
 	}
 	retAdded := false
+
 	blkioDeviceReadIOpsFlagName := fmt.Sprintf("%v.BlkioDeviceReadIOps", cmdPrefix)
 	if cmd.Flags().Changed(blkioDeviceReadIOpsFlagName) {
 		// warning: BlkioDeviceReadIOps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -947,10 +960,12 @@ func retrieveResourcesBlkioDeviceWriteBpsFlags(depth int, m *models.Resources, c
 		return nil, false
 	}
 	retAdded := false
+
 	blkioDeviceWriteBpsFlagName := fmt.Sprintf("%v.BlkioDeviceWriteBps", cmdPrefix)
 	if cmd.Flags().Changed(blkioDeviceWriteBpsFlagName) {
 		// warning: BlkioDeviceWriteBps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -959,10 +974,12 @@ func retrieveResourcesBlkioDeviceWriteIOpsFlags(depth int, m *models.Resources, 
 		return nil, false
 	}
 	retAdded := false
+
 	blkioDeviceWriteIOpsFlagName := fmt.Sprintf("%v.BlkioDeviceWriteIOps", cmdPrefix)
 	if cmd.Flags().Changed(blkioDeviceWriteIOpsFlagName) {
 		// warning: BlkioDeviceWriteIOps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -971,6 +988,7 @@ func retrieveResourcesBlkioWeightFlags(depth int, m *models.Resources, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	blkioWeightFlagName := fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
 	if cmd.Flags().Changed(blkioWeightFlagName) {
 
@@ -989,6 +1007,7 @@ func retrieveResourcesBlkioWeightFlags(depth int, m *models.Resources, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -997,10 +1016,12 @@ func retrieveResourcesBlkioWeightDeviceFlags(depth int, m *models.Resources, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	blkioWeightDeviceFlagName := fmt.Sprintf("%v.BlkioWeightDevice", cmdPrefix)
 	if cmd.Flags().Changed(blkioWeightDeviceFlagName) {
 		// warning: BlkioWeightDevice array type []*ResourcesBlkioWeightDeviceItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1009,6 +1030,7 @@ func retrieveResourcesCgroupParentFlags(depth int, m *models.Resources, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	cgroupParentFlagName := fmt.Sprintf("%v.CgroupParent", cmdPrefix)
 	if cmd.Flags().Changed(cgroupParentFlagName) {
 
@@ -1027,6 +1049,7 @@ func retrieveResourcesCgroupParentFlags(depth int, m *models.Resources, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1035,6 +1058,7 @@ func retrieveResourcesCPUCountFlags(depth int, m *models.Resources, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	cpuCountFlagName := fmt.Sprintf("%v.CpuCount", cmdPrefix)
 	if cmd.Flags().Changed(cpuCountFlagName) {
 
@@ -1053,6 +1077,7 @@ func retrieveResourcesCPUCountFlags(depth int, m *models.Resources, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1061,6 +1086,7 @@ func retrieveResourcesCPUPercentFlags(depth int, m *models.Resources, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	cpuPercentFlagName := fmt.Sprintf("%v.CpuPercent", cmdPrefix)
 	if cmd.Flags().Changed(cpuPercentFlagName) {
 
@@ -1079,6 +1105,7 @@ func retrieveResourcesCPUPercentFlags(depth int, m *models.Resources, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1087,6 +1114,7 @@ func retrieveResourcesCPUPeriodFlags(depth int, m *models.Resources, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	cpuPeriodFlagName := fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
 	if cmd.Flags().Changed(cpuPeriodFlagName) {
 
@@ -1105,6 +1133,7 @@ func retrieveResourcesCPUPeriodFlags(depth int, m *models.Resources, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1113,6 +1142,7 @@ func retrieveResourcesCPUQuotaFlags(depth int, m *models.Resources, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	cpuQuotaFlagName := fmt.Sprintf("%v.CpuQuota", cmdPrefix)
 	if cmd.Flags().Changed(cpuQuotaFlagName) {
 
@@ -1131,6 +1161,7 @@ func retrieveResourcesCPUQuotaFlags(depth int, m *models.Resources, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1139,6 +1170,7 @@ func retrieveResourcesCPURealtimePeriodFlags(depth int, m *models.Resources, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	cpuRealtimePeriodFlagName := fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
 	if cmd.Flags().Changed(cpuRealtimePeriodFlagName) {
 
@@ -1157,6 +1189,7 @@ func retrieveResourcesCPURealtimePeriodFlags(depth int, m *models.Resources, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1165,6 +1198,7 @@ func retrieveResourcesCPURealtimeRuntimeFlags(depth int, m *models.Resources, cm
 		return nil, false
 	}
 	retAdded := false
+
 	cpuRealtimeRuntimeFlagName := fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
 	if cmd.Flags().Changed(cpuRealtimeRuntimeFlagName) {
 
@@ -1183,6 +1217,7 @@ func retrieveResourcesCPURealtimeRuntimeFlags(depth int, m *models.Resources, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1191,6 +1226,7 @@ func retrieveResourcesCPUSharesFlags(depth int, m *models.Resources, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	cpuSharesFlagName := fmt.Sprintf("%v.CpuShares", cmdPrefix)
 	if cmd.Flags().Changed(cpuSharesFlagName) {
 
@@ -1209,6 +1245,7 @@ func retrieveResourcesCPUSharesFlags(depth int, m *models.Resources, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1217,6 +1254,7 @@ func retrieveResourcesCpusetCpusFlags(depth int, m *models.Resources, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	cpusetCpusFlagName := fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
 	if cmd.Flags().Changed(cpusetCpusFlagName) {
 
@@ -1235,6 +1273,7 @@ func retrieveResourcesCpusetCpusFlags(depth int, m *models.Resources, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1243,6 +1282,7 @@ func retrieveResourcesCpusetMemsFlags(depth int, m *models.Resources, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	cpusetMemsFlagName := fmt.Sprintf("%v.CpusetMems", cmdPrefix)
 	if cmd.Flags().Changed(cpusetMemsFlagName) {
 
@@ -1261,6 +1301,7 @@ func retrieveResourcesCpusetMemsFlags(depth int, m *models.Resources, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1269,10 +1310,12 @@ func retrieveResourcesDeviceCgroupRulesFlags(depth int, m *models.Resources, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	deviceCgroupRulesFlagName := fmt.Sprintf("%v.DeviceCgroupRules", cmdPrefix)
 	if cmd.Flags().Changed(deviceCgroupRulesFlagName) {
 		// warning: DeviceCgroupRules array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1281,10 +1324,12 @@ func retrieveResourcesDeviceRequestsFlags(depth int, m *models.Resources, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	deviceRequestsFlagName := fmt.Sprintf("%v.DeviceRequests", cmdPrefix)
 	if cmd.Flags().Changed(deviceRequestsFlagName) {
 		// warning: DeviceRequests array type []*DeviceRequest is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1293,10 +1338,12 @@ func retrieveResourcesDevicesFlags(depth int, m *models.Resources, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
 	if cmd.Flags().Changed(devicesFlagName) {
 		// warning: Devices array type []*DeviceMapping is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1305,6 +1352,7 @@ func retrieveResourcesIOMaximumBandwidthFlags(depth int, m *models.Resources, cm
 		return nil, false
 	}
 	retAdded := false
+
 	iOMaximumBandwidthFlagName := fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
 	if cmd.Flags().Changed(iOMaximumBandwidthFlagName) {
 
@@ -1323,6 +1371,7 @@ func retrieveResourcesIOMaximumBandwidthFlags(depth int, m *models.Resources, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1331,6 +1380,7 @@ func retrieveResourcesIOMaximumIOpsFlags(depth int, m *models.Resources, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	iOMaximumIOpsFlagName := fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
 	if cmd.Flags().Changed(iOMaximumIOpsFlagName) {
 
@@ -1349,6 +1399,7 @@ func retrieveResourcesIOMaximumIOpsFlags(depth int, m *models.Resources, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1357,6 +1408,7 @@ func retrieveResourcesInitFlags(depth int, m *models.Resources, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	initFlagName := fmt.Sprintf("%v.Init", cmdPrefix)
 	if cmd.Flags().Changed(initFlagName) {
 
@@ -1375,6 +1427,7 @@ func retrieveResourcesInitFlags(depth int, m *models.Resources, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1383,6 +1436,7 @@ func retrieveResourcesKernelMemoryFlags(depth int, m *models.Resources, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	kernelMemoryFlagName := fmt.Sprintf("%v.KernelMemory", cmdPrefix)
 	if cmd.Flags().Changed(kernelMemoryFlagName) {
 
@@ -1401,6 +1455,7 @@ func retrieveResourcesKernelMemoryFlags(depth int, m *models.Resources, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1409,6 +1464,7 @@ func retrieveResourcesKernelMemoryTCPFlags(depth int, m *models.Resources, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	kernelMemoryTcpFlagName := fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
 	if cmd.Flags().Changed(kernelMemoryTcpFlagName) {
 
@@ -1427,6 +1483,7 @@ func retrieveResourcesKernelMemoryTCPFlags(depth int, m *models.Resources, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1435,6 +1492,7 @@ func retrieveResourcesMemoryFlags(depth int, m *models.Resources, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	memoryFlagName := fmt.Sprintf("%v.Memory", cmdPrefix)
 	if cmd.Flags().Changed(memoryFlagName) {
 
@@ -1453,6 +1511,7 @@ func retrieveResourcesMemoryFlags(depth int, m *models.Resources, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1461,6 +1520,7 @@ func retrieveResourcesMemoryReservationFlags(depth int, m *models.Resources, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	memoryReservationFlagName := fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
 	if cmd.Flags().Changed(memoryReservationFlagName) {
 
@@ -1479,6 +1539,7 @@ func retrieveResourcesMemoryReservationFlags(depth int, m *models.Resources, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1487,6 +1548,7 @@ func retrieveResourcesMemorySwapFlags(depth int, m *models.Resources, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	memorySwapFlagName := fmt.Sprintf("%v.MemorySwap", cmdPrefix)
 	if cmd.Flags().Changed(memorySwapFlagName) {
 
@@ -1505,6 +1567,7 @@ func retrieveResourcesMemorySwapFlags(depth int, m *models.Resources, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1513,6 +1576,7 @@ func retrieveResourcesMemorySwappinessFlags(depth int, m *models.Resources, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	memorySwappinessFlagName := fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
 	if cmd.Flags().Changed(memorySwappinessFlagName) {
 
@@ -1531,6 +1595,7 @@ func retrieveResourcesMemorySwappinessFlags(depth int, m *models.Resources, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1539,6 +1604,7 @@ func retrieveResourcesNanoCPUsFlags(depth int, m *models.Resources, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	nanoCPUsFlagName := fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
 	if cmd.Flags().Changed(nanoCPUsFlagName) {
 
@@ -1557,6 +1623,7 @@ func retrieveResourcesNanoCPUsFlags(depth int, m *models.Resources, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1565,6 +1632,7 @@ func retrieveResourcesOomKillDisableFlags(depth int, m *models.Resources, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	oomKillDisableFlagName := fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
 	if cmd.Flags().Changed(oomKillDisableFlagName) {
 
@@ -1583,6 +1651,7 @@ func retrieveResourcesOomKillDisableFlags(depth int, m *models.Resources, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1591,6 +1660,7 @@ func retrieveResourcesPidsLimitFlags(depth int, m *models.Resources, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	pidsLimitFlagName := fmt.Sprintf("%v.PidsLimit", cmdPrefix)
 	if cmd.Flags().Changed(pidsLimitFlagName) {
 
@@ -1609,6 +1679,7 @@ func retrieveResourcesPidsLimitFlags(depth int, m *models.Resources, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1617,10 +1688,12 @@ func retrieveResourcesUlimitsFlags(depth int, m *models.Resources, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	ulimitsFlagName := fmt.Sprintf("%v.Ulimits", cmdPrefix)
 	if cmd.Flags().Changed(ulimitsFlagName) {
 		// warning: Ulimits array type []*ResourcesUlimitsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1706,6 +1779,7 @@ func retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth int, m *models.Reso
 		return nil, false
 	}
 	retAdded := false
+
 	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
 	if cmd.Flags().Changed(pathFlagName) {
 
@@ -1724,6 +1798,7 @@ func retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth int, m *models.Reso
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1732,6 +1807,7 @@ func retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth int, m *models.Re
 		return nil, false
 	}
 	retAdded := false
+
 	weightFlagName := fmt.Sprintf("%v.Weight", cmdPrefix)
 	if cmd.Flags().Changed(weightFlagName) {
 
@@ -1750,6 +1826,7 @@ func retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth int, m *models.Re
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1866,6 +1943,7 @@ func retrieveResourcesUlimitsItems0HardFlags(depth int, m *models.ResourcesUlimi
 		return nil, false
 	}
 	retAdded := false
+
 	hardFlagName := fmt.Sprintf("%v.Hard", cmdPrefix)
 	if cmd.Flags().Changed(hardFlagName) {
 
@@ -1884,6 +1962,7 @@ func retrieveResourcesUlimitsItems0HardFlags(depth int, m *models.ResourcesUlimi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1892,6 +1971,7 @@ func retrieveResourcesUlimitsItems0NameFlags(depth int, m *models.ResourcesUlimi
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -1910,6 +1990,7 @@ func retrieveResourcesUlimitsItems0NameFlags(depth int, m *models.ResourcesUlimi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1918,6 +1999,7 @@ func retrieveResourcesUlimitsItems0SoftFlags(depth int, m *models.ResourcesUlimi
 		return nil, false
 	}
 	retAdded := false
+
 	softFlagName := fmt.Sprintf("%v.Soft", cmdPrefix)
 	if cmd.Flags().Changed(softFlagName) {
 
@@ -1936,5 +2018,6 @@ func retrieveResourcesUlimitsItems0SoftFlags(depth int, m *models.ResourcesUlimi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

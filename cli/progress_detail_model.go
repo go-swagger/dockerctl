@@ -94,6 +94,7 @@ func retrieveProgressDetailCurrentFlags(depth int, m *models.ProgressDetail, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	currentFlagName := fmt.Sprintf("%v.current", cmdPrefix)
 	if cmd.Flags().Changed(currentFlagName) {
 
@@ -112,6 +113,7 @@ func retrieveProgressDetailCurrentFlags(depth int, m *models.ProgressDetail, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -120,6 +122,7 @@ func retrieveProgressDetailTotalFlags(depth int, m *models.ProgressDetail, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	totalFlagName := fmt.Sprintf("%v.total", cmdPrefix)
 	if cmd.Flags().Changed(totalFlagName) {
 
@@ -138,5 +141,6 @@ func retrieveProgressDetailTotalFlags(depth int, m *models.ProgressDetail, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

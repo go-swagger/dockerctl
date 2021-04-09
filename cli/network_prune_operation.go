@@ -48,6 +48,37 @@ func runOperationNetworkNetworkPrune(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationNetworkNetworkPruneParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkPruneParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkPruneFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+
+Available filters:
+- ` + "`" + `until=<timestamp>` + "`" + ` Prune networks created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
+- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune networks with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkPruneFiltersFlag(m *network.NetworkPruneParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -113,37 +144,6 @@ func printOperationNetworkNetworkPruneResult(resp0 *network.NetworkPruneOK, resp
 	return nil
 }
 
-// registerOperationNetworkNetworkPruneParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkPruneParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkPruneFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
-
-Available filters:
-- ` + "`" + `until=<timestamp>` + "`" + ` Prune networks created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
-- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune networks with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelNetworkPruneOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -158,6 +158,7 @@ func registerNetworkPruneOKBodyNetworksDeleted(depth int, cmdPrefix string, cmd 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: NetworksDeleted []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -181,9 +182,11 @@ func retrieveNetworkPruneOKBodyNetworksDeletedFlags(depth int, m *network.Networ
 		return nil, false
 	}
 	retAdded := false
+
 	networksDeletedFlagName := fmt.Sprintf("%v.NetworksDeleted", cmdPrefix)
 	if cmd.Flags().Changed(networksDeletedFlagName) {
 		// warning: NetworksDeleted array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

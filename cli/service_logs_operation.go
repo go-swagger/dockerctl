@@ -73,6 +73,172 @@ func runOperationServiceServiceLogs(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationServiceServiceLogsParamFlags registers all flags needed to fill params
+func registerOperationServiceServiceLogsParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationServiceServiceLogsDetailsParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsFollowParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsSinceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsStderrParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsStdoutParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsTailParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceLogsTimestampsParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationServiceServiceLogsDetailsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	detailsDescription := `Show service context and extra details provided to logs.`
+
+	var detailsFlagName string
+	if cmdPrefix == "" {
+		detailsFlagName = "details"
+	} else {
+		detailsFlagName = fmt.Sprintf("%v.details", cmdPrefix)
+	}
+
+	var detailsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(detailsFlagName, detailsFlagDefault, detailsDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsFollowParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	followDescription := `Keep connection after returning logs.`
+
+	var followFlagName string
+	if cmdPrefix == "" {
+		followFlagName = "follow"
+	} else {
+		followFlagName = fmt.Sprintf("%v.follow", cmdPrefix)
+	}
+
+	var followFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(followFlagName, followFlagDefault, followDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the service`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsSinceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	sinceDescription := `Only return logs since this time, as a UNIX timestamp`
+
+	var sinceFlagName string
+	if cmdPrefix == "" {
+		sinceFlagName = "since"
+	} else {
+		sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
+	}
+
+	var sinceFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(sinceFlagName, sinceFlagDefault, sinceDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsStderrParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	stderrDescription := `Return logs from ` + "`" + `stderr` + "`" + ``
+
+	var stderrFlagName string
+	if cmdPrefix == "" {
+		stderrFlagName = "stderr"
+	} else {
+		stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
+	}
+
+	var stderrFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(stderrFlagName, stderrFlagDefault, stderrDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsStdoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	stdoutDescription := `Return logs from ` + "`" + `stdout` + "`" + ``
+
+	var stdoutFlagName string
+	if cmdPrefix == "" {
+		stdoutFlagName = "stdout"
+	} else {
+		stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
+	}
+
+	var stdoutFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(stdoutFlagName, stdoutFlagDefault, stdoutDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsTailParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tailDescription := `Only return this number of log lines from the end of the logs. Specify as an integer or ` + "`" + `all` + "`" + ` to output all log lines.`
+
+	var tailFlagName string
+	if cmdPrefix == "" {
+		tailFlagName = "tail"
+	} else {
+		tailFlagName = fmt.Sprintf("%v.tail", cmdPrefix)
+	}
+
+	var tailFlagDefault string = "all"
+
+	_ = cmd.PersistentFlags().String(tailFlagName, tailFlagDefault, tailDescription)
+
+	return nil
+}
+func registerOperationServiceServiceLogsTimestampsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	timestampsDescription := `Add timestamps to every log line`
+
+	var timestampsFlagName string
+	if cmdPrefix == "" {
+		timestampsFlagName = "timestamps"
+	} else {
+		timestampsFlagName = fmt.Sprintf("%v.timestamps", cmdPrefix)
+	}
+
+	var timestampsFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(timestampsFlagName, timestampsFlagDefault, timestampsDescription)
+
+	return nil
+}
+
 func retrieveOperationServiceServiceLogsDetailsFlag(m *service.ServiceLogsParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("details") {
@@ -297,172 +463,6 @@ func printOperationServiceServiceLogsResult(resp0 *service.ServiceLogsOK, respEr
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationServiceServiceLogsParamFlags registers all flags needed to fill params
-func registerOperationServiceServiceLogsParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationServiceServiceLogsDetailsParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsFollowParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsSinceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsStderrParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsStdoutParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsTailParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceLogsTimestampsParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationServiceServiceLogsDetailsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	detailsDescription := `Show service context and extra details provided to logs.`
-
-	var detailsFlagName string
-	if cmdPrefix == "" {
-		detailsFlagName = "details"
-	} else {
-		detailsFlagName = fmt.Sprintf("%v.details", cmdPrefix)
-	}
-
-	var detailsFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(detailsFlagName, detailsFlagDefault, detailsDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsFollowParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	followDescription := `Keep connection after returning logs.`
-
-	var followFlagName string
-	if cmdPrefix == "" {
-		followFlagName = "follow"
-	} else {
-		followFlagName = fmt.Sprintf("%v.follow", cmdPrefix)
-	}
-
-	var followFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(followFlagName, followFlagDefault, followDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the service`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsSinceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	sinceDescription := `Only return logs since this time, as a UNIX timestamp`
-
-	var sinceFlagName string
-	if cmdPrefix == "" {
-		sinceFlagName = "since"
-	} else {
-		sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
-	}
-
-	var sinceFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(sinceFlagName, sinceFlagDefault, sinceDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsStderrParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	stderrDescription := `Return logs from ` + "`" + `stderr` + "`" + ``
-
-	var stderrFlagName string
-	if cmdPrefix == "" {
-		stderrFlagName = "stderr"
-	} else {
-		stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
-	}
-
-	var stderrFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(stderrFlagName, stderrFlagDefault, stderrDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsStdoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	stdoutDescription := `Return logs from ` + "`" + `stdout` + "`" + ``
-
-	var stdoutFlagName string
-	if cmdPrefix == "" {
-		stdoutFlagName = "stdout"
-	} else {
-		stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
-	}
-
-	var stdoutFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(stdoutFlagName, stdoutFlagDefault, stdoutDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsTailParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tailDescription := `Only return this number of log lines from the end of the logs. Specify as an integer or ` + "`" + `all` + "`" + ` to output all log lines.`
-
-	var tailFlagName string
-	if cmdPrefix == "" {
-		tailFlagName = "tail"
-	} else {
-		tailFlagName = fmt.Sprintf("%v.tail", cmdPrefix)
-	}
-
-	var tailFlagDefault string = "all"
-
-	_ = cmd.PersistentFlags().String(tailFlagName, tailFlagDefault, tailDescription)
-
-	return nil
-}
-func registerOperationServiceServiceLogsTimestampsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	timestampsDescription := `Add timestamps to every log line`
-
-	var timestampsFlagName string
-	if cmdPrefix == "" {
-		timestampsFlagName = "timestamps"
-	} else {
-		timestampsFlagName = fmt.Sprintf("%v.timestamps", cmdPrefix)
-	}
-
-	var timestampsFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(timestampsFlagName, timestampsFlagDefault, timestampsDescription)
 
 	return nil
 }

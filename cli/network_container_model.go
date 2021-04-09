@@ -187,6 +187,7 @@ func retrieveNetworkContainerEndpointIDFlags(depth int, m *models.NetworkContain
 		return nil, false
 	}
 	retAdded := false
+
 	endpointIdFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
 	if cmd.Flags().Changed(endpointIdFlagName) {
 
@@ -205,6 +206,7 @@ func retrieveNetworkContainerEndpointIDFlags(depth int, m *models.NetworkContain
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -213,6 +215,7 @@ func retrieveNetworkContainerIPV4AddressFlags(depth int, m *models.NetworkContai
 		return nil, false
 	}
 	retAdded := false
+
 	ipv4AddressFlagName := fmt.Sprintf("%v.IPv4Address", cmdPrefix)
 	if cmd.Flags().Changed(ipv4AddressFlagName) {
 
@@ -231,6 +234,7 @@ func retrieveNetworkContainerIPV4AddressFlags(depth int, m *models.NetworkContai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -239,6 +243,7 @@ func retrieveNetworkContainerIPV6AddressFlags(depth int, m *models.NetworkContai
 		return nil, false
 	}
 	retAdded := false
+
 	ipv6AddressFlagName := fmt.Sprintf("%v.IPv6Address", cmdPrefix)
 	if cmd.Flags().Changed(ipv6AddressFlagName) {
 
@@ -257,6 +262,7 @@ func retrieveNetworkContainerIPV6AddressFlags(depth int, m *models.NetworkContai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -265,6 +271,7 @@ func retrieveNetworkContainerMacAddressFlags(depth int, m *models.NetworkContain
 		return nil, false
 	}
 	retAdded := false
+
 	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	if cmd.Flags().Changed(macAddressFlagName) {
 
@@ -283,6 +290,7 @@ func retrieveNetworkContainerMacAddressFlags(depth int, m *models.NetworkContain
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -291,6 +299,7 @@ func retrieveNetworkContainerNameFlags(depth int, m *models.NetworkContainer, cm
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -309,5 +318,6 @@ func retrieveNetworkContainerNameFlags(depth int, m *models.NetworkContainer, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

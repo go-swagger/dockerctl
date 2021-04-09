@@ -76,6 +76,7 @@ func registerEndpointSettingsAliases(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Aliases []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -85,6 +86,7 @@ func registerEndpointSettingsDriverOpts(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DriverOpts map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -267,6 +269,7 @@ func registerEndpointSettingsLinks(depth int, cmdPrefix string, cmd *cobra.Comma
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Links []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -406,10 +409,12 @@ func retrieveEndpointSettingsAliasesFlags(depth int, m *models.EndpointSettings,
 		return nil, false
 	}
 	retAdded := false
+
 	aliasesFlagName := fmt.Sprintf("%v.Aliases", cmdPrefix)
 	if cmd.Flags().Changed(aliasesFlagName) {
 		// warning: Aliases array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -418,10 +423,12 @@ func retrieveEndpointSettingsDriverOptsFlags(depth int, m *models.EndpointSettin
 		return nil, false
 	}
 	retAdded := false
+
 	driverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
 	if cmd.Flags().Changed(driverOptsFlagName) {
 		// warning: DriverOpts map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -430,6 +437,7 @@ func retrieveEndpointSettingsEndpointIDFlags(depth int, m *models.EndpointSettin
 		return nil, false
 	}
 	retAdded := false
+
 	endpointIdFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
 	if cmd.Flags().Changed(endpointIdFlagName) {
 
@@ -448,6 +456,7 @@ func retrieveEndpointSettingsEndpointIDFlags(depth int, m *models.EndpointSettin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -456,6 +465,7 @@ func retrieveEndpointSettingsGatewayFlags(depth int, m *models.EndpointSettings,
 		return nil, false
 	}
 	retAdded := false
+
 	gatewayFlagName := fmt.Sprintf("%v.Gateway", cmdPrefix)
 	if cmd.Flags().Changed(gatewayFlagName) {
 
@@ -474,6 +484,7 @@ func retrieveEndpointSettingsGatewayFlags(depth int, m *models.EndpointSettings,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -482,6 +493,7 @@ func retrieveEndpointSettingsGlobalIPV6AddressFlags(depth int, m *models.Endpoin
 		return nil, false
 	}
 	retAdded := false
+
 	globalIpv6AddressFlagName := fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
 	if cmd.Flags().Changed(globalIpv6AddressFlagName) {
 
@@ -500,6 +512,7 @@ func retrieveEndpointSettingsGlobalIPV6AddressFlags(depth int, m *models.Endpoin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -508,6 +521,7 @@ func retrieveEndpointSettingsGlobalIPV6PrefixLenFlags(depth int, m *models.Endpo
 		return nil, false
 	}
 	retAdded := false
+
 	globalIpv6PrefixLenFlagName := fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
 	if cmd.Flags().Changed(globalIpv6PrefixLenFlagName) {
 
@@ -526,6 +540,7 @@ func retrieveEndpointSettingsGlobalIPV6PrefixLenFlags(depth int, m *models.Endpo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -534,19 +549,21 @@ func retrieveEndpointSettingsIPAMConfigFlags(depth int, m *models.EndpointSettin
 		return nil, false
 	}
 	retAdded := false
+
 	ipAMConfigFlagName := fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
 	if cmd.Flags().Changed(ipAMConfigFlagName) {
 
-		ipAMConfigFlagValue := &models.EndpointIPAMConfig{}
-		err, added := retrieveModelEndpointIPAMConfigFlags(depth+1, ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
+		ipAMConfigFlagValue := models.EndpointIPAMConfig{}
+		err, added := retrieveModelEndpointIPAMConfigFlags(depth+1, &ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.IPAMConfig = ipAMConfigFlagValue
+			m.IPAMConfig = &ipAMConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -555,6 +572,7 @@ func retrieveEndpointSettingsIPAddressFlags(depth int, m *models.EndpointSetting
 		return nil, false
 	}
 	retAdded := false
+
 	ipAddressFlagName := fmt.Sprintf("%v.IPAddress", cmdPrefix)
 	if cmd.Flags().Changed(ipAddressFlagName) {
 
@@ -573,6 +591,7 @@ func retrieveEndpointSettingsIPAddressFlags(depth int, m *models.EndpointSetting
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -581,6 +600,7 @@ func retrieveEndpointSettingsIPPrefixLenFlags(depth int, m *models.EndpointSetti
 		return nil, false
 	}
 	retAdded := false
+
 	ipPrefixLenFlagName := fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
 	if cmd.Flags().Changed(ipPrefixLenFlagName) {
 
@@ -599,6 +619,7 @@ func retrieveEndpointSettingsIPPrefixLenFlags(depth int, m *models.EndpointSetti
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -607,6 +628,7 @@ func retrieveEndpointSettingsIPV6GatewayFlags(depth int, m *models.EndpointSetti
 		return nil, false
 	}
 	retAdded := false
+
 	ipv6GatewayFlagName := fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
 	if cmd.Flags().Changed(ipv6GatewayFlagName) {
 
@@ -625,6 +647,7 @@ func retrieveEndpointSettingsIPV6GatewayFlags(depth int, m *models.EndpointSetti
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -633,10 +656,12 @@ func retrieveEndpointSettingsLinksFlags(depth int, m *models.EndpointSettings, c
 		return nil, false
 	}
 	retAdded := false
+
 	linksFlagName := fmt.Sprintf("%v.Links", cmdPrefix)
 	if cmd.Flags().Changed(linksFlagName) {
 		// warning: Links array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -645,6 +670,7 @@ func retrieveEndpointSettingsMacAddressFlags(depth int, m *models.EndpointSettin
 		return nil, false
 	}
 	retAdded := false
+
 	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	if cmd.Flags().Changed(macAddressFlagName) {
 
@@ -663,6 +689,7 @@ func retrieveEndpointSettingsMacAddressFlags(depth int, m *models.EndpointSettin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -671,6 +698,7 @@ func retrieveEndpointSettingsNetworkIDFlags(depth int, m *models.EndpointSetting
 		return nil, false
 	}
 	retAdded := false
+
 	networkIdFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
 	if cmd.Flags().Changed(networkIdFlagName) {
 
@@ -689,5 +717,6 @@ func retrieveEndpointSettingsNetworkIDFlags(depth int, m *models.EndpointSetting
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

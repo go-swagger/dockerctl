@@ -48,6 +48,32 @@ func runOperationContainerContainerUnpause(cmd *cobra.Command, args []string) er
 	return nil
 }
 
+// registerOperationContainerContainerUnpauseParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerUnpauseParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerUnpauseIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerUnpauseIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerUnpauseIDFlag(m *container.ContainerUnpauseParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -105,32 +131,6 @@ func printOperationContainerContainerUnpauseResult(resp0 *container.ContainerUnp
 	}
 
 	// warning: non schema response containerUnpauseNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerUnpauseParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerUnpauseParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerUnpauseIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerUnpauseIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

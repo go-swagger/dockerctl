@@ -75,6 +75,88 @@ func runOperationSystemSystemEvents(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSystemSystemEventsParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemEventsParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSystemSystemEventsFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSystemSystemEventsSinceParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSystemSystemEventsUntilParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSystemSystemEventsFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the event list. Available filters:
+
+- ` + "`" + `config=<string>` + "`" + ` config name or ID
+- ` + "`" + `container=<string>` + "`" + ` container name or ID
+- ` + "`" + `daemon=<string>` + "`" + ` daemon name or ID
+- ` + "`" + `event=<string>` + "`" + ` event type
+- ` + "`" + `image=<string>` + "`" + ` image name or ID
+- ` + "`" + `label=<string>` + "`" + ` image or container label
+- ` + "`" + `network=<string>` + "`" + ` network name or ID
+- ` + "`" + `node=<string>` + "`" + ` node ID
+- ` + "`" + `plugin` + "`" + `=<string> plugin name or ID
+- ` + "`" + `scope` + "`" + `=<string> local or swarm
+- ` + "`" + `secret=<string>` + "`" + ` secret name or ID
+- ` + "`" + `service=<string>` + "`" + ` service name or ID
+- ` + "`" + `type=<string>` + "`" + ` object to filter by, one of ` + "`" + `container` + "`" + `, ` + "`" + `image` + "`" + `, ` + "`" + `volume` + "`" + `, ` + "`" + `network` + "`" + `, ` + "`" + `daemon` + "`" + `, ` + "`" + `plugin` + "`" + `, ` + "`" + `node` + "`" + `, ` + "`" + `service` + "`" + `, ` + "`" + `secret` + "`" + ` or ` + "`" + `config` + "`" + `
+- ` + "`" + `volume=<string>` + "`" + ` volume name
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+func registerOperationSystemSystemEventsSinceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	sinceDescription := `Show events created since this timestamp then stream new events.`
+
+	var sinceFlagName string
+	if cmdPrefix == "" {
+		sinceFlagName = "since"
+	} else {
+		sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
+	}
+
+	var sinceFlagDefault string
+
+	_ = cmd.PersistentFlags().String(sinceFlagName, sinceFlagDefault, sinceDescription)
+
+	return nil
+}
+func registerOperationSystemSystemEventsUntilParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	untilDescription := `Show events created until this timestamp then stop streaming.`
+
+	var untilFlagName string
+	if cmdPrefix == "" {
+		untilFlagName = "until"
+	} else {
+		untilFlagName = fmt.Sprintf("%v.until", cmdPrefix)
+	}
+
+	var untilFlagDefault string
+
+	_ = cmd.PersistentFlags().String(untilFlagName, untilFlagDefault, untilDescription)
+
+	return nil
+}
+
 func retrieveOperationSystemSystemEventsFiltersFlag(m *system.SystemEventsParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -189,88 +271,6 @@ func printOperationSystemSystemEventsResult(resp0 *system.SystemEventsOK, respEr
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationSystemSystemEventsParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemEventsParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSystemSystemEventsFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSystemSystemEventsSinceParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSystemSystemEventsUntilParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSystemSystemEventsFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the event list. Available filters:
-
-- ` + "`" + `config=<string>` + "`" + ` config name or ID
-- ` + "`" + `container=<string>` + "`" + ` container name or ID
-- ` + "`" + `daemon=<string>` + "`" + ` daemon name or ID
-- ` + "`" + `event=<string>` + "`" + ` event type
-- ` + "`" + `image=<string>` + "`" + ` image name or ID
-- ` + "`" + `label=<string>` + "`" + ` image or container label
-- ` + "`" + `network=<string>` + "`" + ` network name or ID
-- ` + "`" + `node=<string>` + "`" + ` node ID
-- ` + "`" + `plugin` + "`" + `=<string> plugin name or ID
-- ` + "`" + `scope` + "`" + `=<string> local or swarm
-- ` + "`" + `secret=<string>` + "`" + ` secret name or ID
-- ` + "`" + `service=<string>` + "`" + ` service name or ID
-- ` + "`" + `type=<string>` + "`" + ` object to filter by, one of ` + "`" + `container` + "`" + `, ` + "`" + `image` + "`" + `, ` + "`" + `volume` + "`" + `, ` + "`" + `network` + "`" + `, ` + "`" + `daemon` + "`" + `, ` + "`" + `plugin` + "`" + `, ` + "`" + `node` + "`" + `, ` + "`" + `service` + "`" + `, ` + "`" + `secret` + "`" + ` or ` + "`" + `config` + "`" + `
-- ` + "`" + `volume=<string>` + "`" + ` volume name
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-func registerOperationSystemSystemEventsSinceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	sinceDescription := `Show events created since this timestamp then stream new events.`
-
-	var sinceFlagName string
-	if cmdPrefix == "" {
-		sinceFlagName = "since"
-	} else {
-		sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
-	}
-
-	var sinceFlagDefault string
-
-	_ = cmd.PersistentFlags().String(sinceFlagName, sinceFlagDefault, sinceDescription)
-
-	return nil
-}
-func registerOperationSystemSystemEventsUntilParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	untilDescription := `Show events created until this timestamp then stop streaming.`
-
-	var untilFlagName string
-	if cmdPrefix == "" {
-		untilFlagName = "until"
-	} else {
-		untilFlagName = fmt.Sprintf("%v.until", cmdPrefix)
-	}
-
-	var untilFlagDefault string
-
-	_ = cmd.PersistentFlags().String(untilFlagName, untilFlagDefault, untilDescription)
 
 	return nil
 }
@@ -446,6 +446,7 @@ func retrieveSystemEventsOKBodyActionFlags(depth int, m *system.SystemEventsOKBo
 		return nil, false
 	}
 	retAdded := false
+
 	actionFlagName := fmt.Sprintf("%v.Action", cmdPrefix)
 	if cmd.Flags().Changed(actionFlagName) {
 
@@ -464,6 +465,7 @@ func retrieveSystemEventsOKBodyActionFlags(depth int, m *system.SystemEventsOKBo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -472,19 +474,21 @@ func retrieveSystemEventsOKBodyActorFlags(depth int, m *system.SystemEventsOKBod
 		return nil, false
 	}
 	retAdded := false
+
 	actorFlagName := fmt.Sprintf("%v.Actor", cmdPrefix)
 	if cmd.Flags().Changed(actorFlagName) {
 
-		actorFlagValue := &system.SystemEventsOKBodyActor{}
-		err, added := retrieveModelSystemEventsOKBodyActorFlags(depth+1, actorFlagValue, actorFlagName, cmd)
+		actorFlagValue := system.SystemEventsOKBodyActor{}
+		err, added := retrieveModelSystemEventsOKBodyActorFlags(depth+1, &actorFlagValue, actorFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Actor = actorFlagValue
+			m.Actor = &actorFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -493,6 +497,7 @@ func retrieveSystemEventsOKBodyTypeFlags(depth int, m *system.SystemEventsOKBody
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -511,6 +516,7 @@ func retrieveSystemEventsOKBodyTypeFlags(depth int, m *system.SystemEventsOKBody
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -519,6 +525,7 @@ func retrieveSystemEventsOKBodyTimeFlags(depth int, m *system.SystemEventsOKBody
 		return nil, false
 	}
 	retAdded := false
+
 	timeFlagName := fmt.Sprintf("%v.time", cmdPrefix)
 	if cmd.Flags().Changed(timeFlagName) {
 
@@ -537,6 +544,7 @@ func retrieveSystemEventsOKBodyTimeFlags(depth int, m *system.SystemEventsOKBody
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -545,6 +553,7 @@ func retrieveSystemEventsOKBodyTimeNanoFlags(depth int, m *system.SystemEventsOK
 		return nil, false
 	}
 	retAdded := false
+
 	timeNanoFlagName := fmt.Sprintf("%v.timeNano", cmdPrefix)
 	if cmd.Flags().Changed(timeNanoFlagName) {
 
@@ -563,6 +572,7 @@ func retrieveSystemEventsOKBodyTimeNanoFlags(depth int, m *system.SystemEventsOK
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -584,6 +594,7 @@ func registerSystemEventsOKBodyActorAttributes(depth int, cmdPrefix string, cmd 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Attributes map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -634,10 +645,12 @@ func retrieveSystemEventsOKBodyActorAttributesFlags(depth int, m *system.SystemE
 		return nil, false
 	}
 	retAdded := false
+
 	attributesFlagName := fmt.Sprintf("%v.Attributes", cmdPrefix)
 	if cmd.Flags().Changed(attributesFlagName) {
 		// warning: Attributes map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -646,6 +659,7 @@ func retrieveSystemEventsOKBodyActorIDFlags(depth int, m *system.SystemEventsOKB
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -664,5 +678,6 @@ func retrieveSystemEventsOKBodyActorIDFlags(depth int, m *system.SystemEventsOKB
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

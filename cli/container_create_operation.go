@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/container"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -48,6 +49,54 @@ func runOperationContainerContainerCreate(cmd *cobra.Command, args []string) err
 	if err := printOperationContainerContainerCreateResult(appCli.Container.ContainerCreate(params)); err != nil {
 		return err
 	}
+	return nil
+}
+
+// registerOperationContainerContainerCreateParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerCreateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerCreateNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.Container to create", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelContainerCreateBodyFlags(0, "containerCreateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationContainerContainerCreateNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Assign the specified name to the container. Must match ` + "`" + `/?[a-zA-Z0-9][a-zA-Z0-9_.-]+` + "`" + `.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
 	return nil
 }
 
@@ -188,54 +237,6 @@ func printOperationContainerContainerCreateResult(resp0 *container.ContainerCrea
 	return nil
 }
 
-// registerOperationContainerContainerCreateParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerCreateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerCreateNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.Container to create", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelContainerCreateBodyFlags(0, "containerCreateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationContainerContainerCreateNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Assign the specified name to the container. Must match ` + "`" + `/?[a-zA-Z0-9][a-zA-Z0-9_.-]+` + "`" + `.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -245,7 +246,15 @@ func registerModelContainerCreateBodyFlags(depth int, cmdPrefix string, cmd *cob
 		return err
 	}
 
-	// inline allOf ContainerCreateParamsBodyAO1 of type  is not supported by go-swagger cli yet
+	// register anonymous fields for ContainerCreateParamsBodyAO1
+
+	if err := registerContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfig(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -257,7 +266,16 @@ func registerContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfig(depth
 		return nil
 	}
 
-	// inline allOf HostConfig of type models.HostConfig is not supported by go-swagger cli yet
+	var hostConfigFlagName string
+	if cmdPrefix == "" {
+		hostConfigFlagName = "HostConfig"
+	} else {
+		hostConfigFlagName = fmt.Sprintf("%v.HostConfig", cmdPrefix)
+	}
+
+	if err := registerModelHostConfigFlags(depth+1, hostConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -267,7 +285,16 @@ func registerContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig
 		return nil
 	}
 
-	// inline allOf NetworkingConfig of type ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig is not supported by go-swagger cli yet
+	var networkingConfigFlagName string
+	if cmdPrefix == "" {
+		networkingConfigFlagName = "NetworkingConfig"
+	} else {
+		networkingConfigFlagName = fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
+	}
+
+	if err := registerModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, networkingConfigFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -283,7 +310,67 @@ func retrieveModelContainerCreateBodyFlags(depth int, m *container.ContainerCrea
 	}
 	retAdded = retAdded || containerCreateParamsBodyAO0Added
 
-	// inline allOf ContainerCreateParamsBodyAO1 is not supported by go-swagger cli yet
+	// retrieve allOf ContainerCreateParamsBodyAO1 fields
+
+	err, hostConfigAdded := retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || hostConfigAdded
+
+	err, networkingConfigAdded := retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfigFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkingConfigAdded
+
+	return nil, retAdded
+}
+
+// define retrieve functions for fields for inline definition name ContainerCreateParamsBodyAO1
+
+func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(depth int, m *container.ContainerCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	hostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
+	if cmd.Flags().Changed(hostConfigFlagName) {
+
+		hostConfigFlagValue := models.HostConfig{}
+		err, added := retrieveModelHostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.HostConfig = &hostConfigFlagValue
+		}
+	}
+
+	return nil, retAdded
+}
+
+func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfigFlags(depth int, m *container.ContainerCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	networkingConfigFlagName := fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
+	if cmd.Flags().Changed(networkingConfigFlagName) {
+
+		networkingConfigFlagValue := container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
+		err, added := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, &networkingConfigFlagValue, networkingConfigFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.NetworkingConfig = &networkingConfigFlagValue
+		}
+	}
 
 	return nil, retAdded
 }
@@ -327,6 +414,7 @@ func registerContainerCreateCreatedBodyWarnings(depth int, cmdPrefix string, cmd
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Warnings []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -356,6 +444,7 @@ func retrieveContainerCreateCreatedBodyIDFlags(depth int, m *container.Container
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -374,6 +463,7 @@ func retrieveContainerCreateCreatedBodyIDFlags(depth int, m *container.Container
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -382,10 +472,12 @@ func retrieveContainerCreateCreatedBodyWarningsFlags(depth int, m *container.Con
 		return nil, false
 	}
 	retAdded := false
+
 	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
 	if cmd.Flags().Changed(warningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -403,6 +495,7 @@ func registerContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConf
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: EndpointsConfig map[string]models.EndpointSettings map type is not supported by go-swagger cli yet
 
 	return nil
@@ -426,9 +519,11 @@ func retrieveContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConf
 		return nil, false
 	}
 	retAdded := false
+
 	endpointsConfigFlagName := fmt.Sprintf("%v.EndpointsConfig", cmdPrefix)
 	if cmd.Flags().Changed(endpointsConfigFlagName) {
 		// warning: EndpointsConfig map type map[string]models.EndpointSettings is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

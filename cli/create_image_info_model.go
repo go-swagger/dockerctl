@@ -185,6 +185,7 @@ func retrieveCreateImageInfoErrorFlags(depth int, m *models.CreateImageInfo, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	errorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
 
@@ -203,6 +204,7 @@ func retrieveCreateImageInfoErrorFlags(depth int, m *models.CreateImageInfo, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -211,6 +213,7 @@ func retrieveCreateImageInfoIDFlags(depth int, m *models.CreateImageInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -229,6 +232,7 @@ func retrieveCreateImageInfoIDFlags(depth int, m *models.CreateImageInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -237,6 +241,7 @@ func retrieveCreateImageInfoProgressFlags(depth int, m *models.CreateImageInfo, 
 		return nil, false
 	}
 	retAdded := false
+
 	progressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
 	if cmd.Flags().Changed(progressFlagName) {
 
@@ -255,6 +260,7 @@ func retrieveCreateImageInfoProgressFlags(depth int, m *models.CreateImageInfo, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -263,19 +269,21 @@ func retrieveCreateImageInfoProgressDetailFlags(depth int, m *models.CreateImage
 		return nil, false
 	}
 	retAdded := false
+
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
 
-		progressDetailFlagValue := &models.ProgressDetail{}
-		err, added := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+		progressDetailFlagValue := models.ProgressDetail{}
+		err, added := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ProgressDetail = progressDetailFlagValue
+			m.ProgressDetail = &progressDetailFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -284,6 +292,7 @@ func retrieveCreateImageInfoStatusFlags(depth int, m *models.CreateImageInfo, cm
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
@@ -302,5 +311,6 @@ func retrieveCreateImageInfoStatusFlags(depth int, m *models.CreateImageInfo, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

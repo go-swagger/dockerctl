@@ -222,19 +222,21 @@ func retrievePluginConfigFlags(depth int, m *models.Plugin, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 
-		configFlagValue := &models.PluginConfig{}
-		err, added := retrieveModelPluginConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
+		configFlagValue := models.PluginConfig{}
+		err, added := retrieveModelPluginConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Config = *configFlagValue
+			m.Config = configFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -243,6 +245,7 @@ func retrievePluginEnabledFlags(depth int, m *models.Plugin, cmdPrefix string, c
 		return nil, false
 	}
 	retAdded := false
+
 	enabledFlagName := fmt.Sprintf("%v.Enabled", cmdPrefix)
 	if cmd.Flags().Changed(enabledFlagName) {
 
@@ -261,6 +264,7 @@ func retrievePluginEnabledFlags(depth int, m *models.Plugin, cmdPrefix string, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -269,6 +273,7 @@ func retrievePluginIDFlags(depth int, m *models.Plugin, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -287,6 +292,7 @@ func retrievePluginIDFlags(depth int, m *models.Plugin, cmdPrefix string, cmd *c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -295,6 +301,7 @@ func retrievePluginNameFlags(depth int, m *models.Plugin, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -313,6 +320,7 @@ func retrievePluginNameFlags(depth int, m *models.Plugin, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -321,6 +329,7 @@ func retrievePluginPluginReferenceFlags(depth int, m *models.Plugin, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	pluginReferenceFlagName := fmt.Sprintf("%v.PluginReference", cmdPrefix)
 	if cmd.Flags().Changed(pluginReferenceFlagName) {
 
@@ -339,6 +348,7 @@ func retrievePluginPluginReferenceFlags(depth int, m *models.Plugin, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -347,19 +357,21 @@ func retrievePluginSettingsFlags(depth int, m *models.Plugin, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	settingsFlagName := fmt.Sprintf("%v.Settings", cmdPrefix)
 	if cmd.Flags().Changed(settingsFlagName) {
 
-		settingsFlagValue := &models.PluginSettings{}
-		err, added := retrieveModelPluginSettingsFlags(depth+1, settingsFlagValue, settingsFlagName, cmd)
+		settingsFlagValue := models.PluginSettings{}
+		err, added := retrieveModelPluginSettingsFlags(depth+1, &settingsFlagValue, settingsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Settings = *settingsFlagValue
+			m.Settings = settingsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -525,6 +537,7 @@ func registerPluginConfigEntrypoint(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Entrypoint []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -534,6 +547,7 @@ func registerPluginConfigEnv(depth int, cmdPrefix string, cmd *cobra.Command) er
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Env []PluginEnv array type is not supported by go-swagger cli yet
 
 	return nil
@@ -610,6 +624,7 @@ func registerPluginConfigMounts(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Mounts []PluginMount array type is not supported by go-swagger cli yet
 
 	return nil
@@ -847,19 +862,21 @@ func retrievePluginConfigArgsFlags(depth int, m *models.PluginConfig, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
 	if cmd.Flags().Changed(argsFlagName) {
 
-		argsFlagValue := &models.PluginConfigArgs{}
-		err, added := retrieveModelPluginConfigArgsFlags(depth+1, argsFlagValue, argsFlagName, cmd)
+		argsFlagValue := models.PluginConfigArgs{}
+		err, added := retrieveModelPluginConfigArgsFlags(depth+1, &argsFlagValue, argsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Args = *argsFlagValue
+			m.Args = argsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -868,6 +885,7 @@ func retrievePluginConfigDescriptionFlags(depth int, m *models.PluginConfig, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -886,6 +904,7 @@ func retrievePluginConfigDescriptionFlags(depth int, m *models.PluginConfig, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -894,6 +913,7 @@ func retrievePluginConfigDockerVersionFlags(depth int, m *models.PluginConfig, c
 		return nil, false
 	}
 	retAdded := false
+
 	dockerVersionFlagName := fmt.Sprintf("%v.DockerVersion", cmdPrefix)
 	if cmd.Flags().Changed(dockerVersionFlagName) {
 
@@ -912,6 +932,7 @@ func retrievePluginConfigDockerVersionFlags(depth int, m *models.PluginConfig, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -920,6 +941,7 @@ func retrievePluginConfigDocumentationFlags(depth int, m *models.PluginConfig, c
 		return nil, false
 	}
 	retAdded := false
+
 	documentationFlagName := fmt.Sprintf("%v.Documentation", cmdPrefix)
 	if cmd.Flags().Changed(documentationFlagName) {
 
@@ -938,6 +960,7 @@ func retrievePluginConfigDocumentationFlags(depth int, m *models.PluginConfig, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -946,10 +969,12 @@ func retrievePluginConfigEntrypointFlags(depth int, m *models.PluginConfig, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	entrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
 	if cmd.Flags().Changed(entrypointFlagName) {
 		// warning: Entrypoint array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -958,10 +983,12 @@ func retrievePluginConfigEnvFlags(depth int, m *models.PluginConfig, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
 	if cmd.Flags().Changed(envFlagName) {
 		// warning: Env array type []PluginEnv is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -970,19 +997,21 @@ func retrievePluginConfigInterfaceFlags(depth int, m *models.PluginConfig, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	interfaceFlagName := fmt.Sprintf("%v.Interface", cmdPrefix)
 	if cmd.Flags().Changed(interfaceFlagName) {
 
-		interfaceFlagValue := &models.PluginConfigInterface{}
-		err, added := retrieveModelPluginConfigInterfaceFlags(depth+1, interfaceFlagValue, interfaceFlagName, cmd)
+		interfaceFlagValue := models.PluginConfigInterface{}
+		err, added := retrieveModelPluginConfigInterfaceFlags(depth+1, &interfaceFlagValue, interfaceFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Interface = *interfaceFlagValue
+			m.Interface = interfaceFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -991,6 +1020,7 @@ func retrievePluginConfigIpcHostFlags(depth int, m *models.PluginConfig, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	ipcHostFlagName := fmt.Sprintf("%v.IpcHost", cmdPrefix)
 	if cmd.Flags().Changed(ipcHostFlagName) {
 
@@ -1009,6 +1039,7 @@ func retrievePluginConfigIpcHostFlags(depth int, m *models.PluginConfig, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1017,19 +1048,21 @@ func retrievePluginConfigLinuxFlags(depth int, m *models.PluginConfig, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	linuxFlagName := fmt.Sprintf("%v.Linux", cmdPrefix)
 	if cmd.Flags().Changed(linuxFlagName) {
 
-		linuxFlagValue := &models.PluginConfigLinux{}
-		err, added := retrieveModelPluginConfigLinuxFlags(depth+1, linuxFlagValue, linuxFlagName, cmd)
+		linuxFlagValue := models.PluginConfigLinux{}
+		err, added := retrieveModelPluginConfigLinuxFlags(depth+1, &linuxFlagValue, linuxFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Linux = *linuxFlagValue
+			m.Linux = linuxFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1038,10 +1071,12 @@ func retrievePluginConfigMountsFlags(depth int, m *models.PluginConfig, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
 	if cmd.Flags().Changed(mountsFlagName) {
 		// warning: Mounts array type []PluginMount is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1050,19 +1085,21 @@ func retrievePluginConfigNetworkFlags(depth int, m *models.PluginConfig, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	networkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
 	if cmd.Flags().Changed(networkFlagName) {
 
-		networkFlagValue := &models.PluginConfigNetwork{}
-		err, added := retrieveModelPluginConfigNetworkFlags(depth+1, networkFlagValue, networkFlagName, cmd)
+		networkFlagValue := models.PluginConfigNetwork{}
+		err, added := retrieveModelPluginConfigNetworkFlags(depth+1, &networkFlagValue, networkFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Network = *networkFlagValue
+			m.Network = networkFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1071,6 +1108,7 @@ func retrievePluginConfigPidHostFlags(depth int, m *models.PluginConfig, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	pidHostFlagName := fmt.Sprintf("%v.PidHost", cmdPrefix)
 	if cmd.Flags().Changed(pidHostFlagName) {
 
@@ -1089,6 +1127,7 @@ func retrievePluginConfigPidHostFlags(depth int, m *models.PluginConfig, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1097,6 +1136,7 @@ func retrievePluginConfigPropagatedMountFlags(depth int, m *models.PluginConfig,
 		return nil, false
 	}
 	retAdded := false
+
 	propagatedMountFlagName := fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
 	if cmd.Flags().Changed(propagatedMountFlagName) {
 
@@ -1115,6 +1155,7 @@ func retrievePluginConfigPropagatedMountFlags(depth int, m *models.PluginConfig,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1123,19 +1164,21 @@ func retrievePluginConfigUserFlags(depth int, m *models.PluginConfig, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
 
-		userFlagValue := &models.PluginConfigUser{}
-		err, added := retrieveModelPluginConfigUserFlags(depth+1, userFlagValue, userFlagName, cmd)
+		userFlagValue := models.PluginConfigUser{}
+		err, added := retrieveModelPluginConfigUserFlags(depth+1, &userFlagValue, userFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.User = *userFlagValue
+			m.User = userFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1144,6 +1187,7 @@ func retrievePluginConfigWorkDirFlags(depth int, m *models.PluginConfig, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	workDirFlagName := fmt.Sprintf("%v.WorkDir", cmdPrefix)
 	if cmd.Flags().Changed(workDirFlagName) {
 
@@ -1162,6 +1206,7 @@ func retrievePluginConfigWorkDirFlags(depth int, m *models.PluginConfig, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1170,19 +1215,21 @@ func retrievePluginConfigRootfsFlags(depth int, m *models.PluginConfig, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	rootfsFlagName := fmt.Sprintf("%v.rootfs", cmdPrefix)
 	if cmd.Flags().Changed(rootfsFlagName) {
 
-		rootfsFlagValue := &models.PluginConfigRootfs{}
-		err, added := retrieveModelPluginConfigRootfsFlags(depth+1, rootfsFlagValue, rootfsFlagName, cmd)
+		rootfsFlagValue := models.PluginConfigRootfs{}
+		err, added := retrieveModelPluginConfigRootfsFlags(depth+1, &rootfsFlagValue, rootfsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Rootfs = rootfsFlagValue
+			m.Rootfs = &rootfsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1256,6 +1303,7 @@ func registerPluginConfigArgsSettable(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Settable []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1265,6 +1313,7 @@ func registerPluginConfigArgsValue(depth int, cmdPrefix string, cmd *cobra.Comma
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Value []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1306,6 +1355,7 @@ func retrievePluginConfigArgsDescriptionFlags(depth int, m *models.PluginConfigA
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -1324,6 +1374,7 @@ func retrievePluginConfigArgsDescriptionFlags(depth int, m *models.PluginConfigA
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1332,6 +1383,7 @@ func retrievePluginConfigArgsNameFlags(depth int, m *models.PluginConfigArgs, cm
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -1350,6 +1402,7 @@ func retrievePluginConfigArgsNameFlags(depth int, m *models.PluginConfigArgs, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1358,10 +1411,12 @@ func retrievePluginConfigArgsSettableFlags(depth int, m *models.PluginConfigArgs
 		return nil, false
 	}
 	retAdded := false
+
 	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
 	if cmd.Flags().Changed(settableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1370,10 +1425,12 @@ func retrievePluginConfigArgsValueFlags(depth int, m *models.PluginConfigArgs, c
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 		// warning: Value array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1443,6 +1500,7 @@ func registerPluginConfigInterfaceTypes(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Types []PluginInterfaceType array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1478,6 +1536,7 @@ func retrievePluginConfigInterfaceProtocolSchemeFlags(depth int, m *models.Plugi
 		return nil, false
 	}
 	retAdded := false
+
 	protocolSchemeFlagName := fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
 	if cmd.Flags().Changed(protocolSchemeFlagName) {
 
@@ -1496,6 +1555,7 @@ func retrievePluginConfigInterfaceProtocolSchemeFlags(depth int, m *models.Plugi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1504,6 +1564,7 @@ func retrievePluginConfigInterfaceSocketFlags(depth int, m *models.PluginConfigI
 		return nil, false
 	}
 	retAdded := false
+
 	socketFlagName := fmt.Sprintf("%v.Socket", cmdPrefix)
 	if cmd.Flags().Changed(socketFlagName) {
 
@@ -1522,6 +1583,7 @@ func retrievePluginConfigInterfaceSocketFlags(depth int, m *models.PluginConfigI
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1530,10 +1592,12 @@ func retrievePluginConfigInterfaceTypesFlags(depth int, m *models.PluginConfigIn
 		return nil, false
 	}
 	retAdded := false
+
 	typesFlagName := fmt.Sprintf("%v.Types", cmdPrefix)
 	if cmd.Flags().Changed(typesFlagName) {
 		// warning: Types array type []PluginInterfaceType is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1582,6 +1646,7 @@ func registerPluginConfigLinuxCapabilities(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Capabilities []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1591,6 +1656,7 @@ func registerPluginConfigLinuxDevices(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Devices []PluginDevice array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1626,6 +1692,7 @@ func retrievePluginConfigLinuxAllowAllDevicesFlags(depth int, m *models.PluginCo
 		return nil, false
 	}
 	retAdded := false
+
 	allowAllDevicesFlagName := fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
 	if cmd.Flags().Changed(allowAllDevicesFlagName) {
 
@@ -1644,6 +1711,7 @@ func retrievePluginConfigLinuxAllowAllDevicesFlags(depth int, m *models.PluginCo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1652,10 +1720,12 @@ func retrievePluginConfigLinuxCapabilitiesFlags(depth int, m *models.PluginConfi
 		return nil, false
 	}
 	retAdded := false
+
 	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
 	if cmd.Flags().Changed(capabilitiesFlagName) {
 		// warning: Capabilities array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1664,10 +1734,12 @@ func retrievePluginConfigLinuxDevicesFlags(depth int, m *models.PluginConfigLinu
 		return nil, false
 	}
 	retAdded := false
+
 	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
 	if cmd.Flags().Changed(devicesFlagName) {
 		// warning: Devices array type []PluginDevice is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1722,6 +1794,7 @@ func retrievePluginConfigNetworkTypeFlags(depth int, m *models.PluginConfigNetwo
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -1740,6 +1813,7 @@ func retrievePluginConfigNetworkTypeFlags(depth int, m *models.PluginConfigNetwo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1763,6 +1837,7 @@ func registerPluginConfigRootfsDiffIds(depth int, cmdPrefix string, cmd *cobra.C
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: diff_ids []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1813,10 +1888,12 @@ func retrievePluginConfigRootfsDiffIdsFlags(depth int, m *models.PluginConfigRoo
 		return nil, false
 	}
 	retAdded := false
+
 	diffIdsFlagName := fmt.Sprintf("%v.diff_ids", cmdPrefix)
 	if cmd.Flags().Changed(diffIdsFlagName) {
 		// warning: diff_ids array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1825,6 +1902,7 @@ func retrievePluginConfigRootfsTypeFlags(depth int, m *models.PluginConfigRootfs
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -1843,6 +1921,7 @@ func retrievePluginConfigRootfsTypeFlags(depth int, m *models.PluginConfigRootfs
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1906,6 +1985,7 @@ func retrievePluginConfigUserGIDFlags(depth int, m *models.PluginConfigUser, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
 	if cmd.Flags().Changed(gIdFlagName) {
 
@@ -1913,6 +1993,7 @@ func retrievePluginConfigUserGIDFlags(depth int, m *models.PluginConfigUser, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1921,6 +2002,7 @@ func retrievePluginConfigUserUIDFlags(depth int, m *models.PluginConfigUser, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
 	if cmd.Flags().Changed(uidFlagName) {
 
@@ -1928,6 +2010,7 @@ func retrievePluginConfigUserUIDFlags(depth int, m *models.PluginConfigUser, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1959,6 +2042,7 @@ func registerPluginSettingsArgs(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Args []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1968,6 +2052,7 @@ func registerPluginSettingsDevices(depth int, cmdPrefix string, cmd *cobra.Comma
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Devices []PluginDevice array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1977,6 +2062,7 @@ func registerPluginSettingsEnv(depth int, cmdPrefix string, cmd *cobra.Command) 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Env []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1986,6 +2072,7 @@ func registerPluginSettingsMounts(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Mounts []PluginMount array type is not supported by go-swagger cli yet
 
 	return nil
@@ -2027,10 +2114,12 @@ func retrievePluginSettingsArgsFlags(depth int, m *models.PluginSettings, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
 	if cmd.Flags().Changed(argsFlagName) {
 		// warning: Args array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2039,10 +2128,12 @@ func retrievePluginSettingsDevicesFlags(depth int, m *models.PluginSettings, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
 	if cmd.Flags().Changed(devicesFlagName) {
 		// warning: Devices array type []PluginDevice is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2051,10 +2142,12 @@ func retrievePluginSettingsEnvFlags(depth int, m *models.PluginSettings, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
 	if cmd.Flags().Changed(envFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2063,9 +2156,11 @@ func retrievePluginSettingsMountsFlags(depth int, m *models.PluginSettings, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
 	if cmd.Flags().Changed(mountsFlagName) {
 		// warning: Mounts array type []PluginMount is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

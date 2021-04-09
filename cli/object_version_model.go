@@ -52,6 +52,7 @@ func retrieveObjectVersionIndexFlags(depth int, m *models.ObjectVersion, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	indexFlagName := fmt.Sprintf("%v.Index", cmdPrefix)
 	if cmd.Flags().Changed(indexFlagName) {
 
@@ -59,5 +60,6 @@ func retrieveObjectVersionIndexFlags(depth int, m *models.ObjectVersion, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

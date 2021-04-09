@@ -57,6 +57,7 @@ func registerEngineDescriptionLabels(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -66,6 +67,7 @@ func registerEngineDescriptionPlugins(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Plugins []*EngineDescriptionPluginsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -101,6 +103,7 @@ func retrieveEngineDescriptionEngineVersionFlags(depth int, m *models.EngineDesc
 		return nil, false
 	}
 	retAdded := false
+
 	engineVersionFlagName := fmt.Sprintf("%v.EngineVersion", cmdPrefix)
 	if cmd.Flags().Changed(engineVersionFlagName) {
 
@@ -119,6 +122,7 @@ func retrieveEngineDescriptionEngineVersionFlags(depth int, m *models.EngineDesc
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -127,10 +131,12 @@ func retrieveEngineDescriptionLabelsFlags(depth int, m *models.EngineDescription
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -139,10 +145,12 @@ func retrieveEngineDescriptionPluginsFlags(depth int, m *models.EngineDescriptio
 		return nil, false
 	}
 	retAdded := false
+
 	pluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
 	if cmd.Flags().Changed(pluginsFlagName) {
 		// warning: Plugins array type []*EngineDescriptionPluginsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -228,6 +236,7 @@ func retrieveEngineDescriptionPluginsItems0NameFlags(depth int, m *models.Engine
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -246,6 +255,7 @@ func retrieveEngineDescriptionPluginsItems0NameFlags(depth int, m *models.Engine
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -254,6 +264,7 @@ func retrieveEngineDescriptionPluginsItems0TypeFlags(depth int, m *models.Engine
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -272,5 +283,6 @@ func retrieveEngineDescriptionPluginsItems0TypeFlags(depth int, m *models.Engine
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

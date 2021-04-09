@@ -51,6 +51,58 @@ func runOperationServiceServiceList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationServiceServiceListParamFlags registers all flags needed to fill params
+func registerOperationServiceServiceListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationServiceServiceListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceListStatusParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationServiceServiceListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the services list. Available filters:
+
+- ` + "`" + `id=<service id>` + "`" + `
+- ` + "`" + `label=<service label>` + "`" + `
+- ` + "`" + `mode=["replicated"|"global"]` + "`" + `
+- ` + "`" + `name=<service name>` + "`" + `
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+func registerOperationServiceServiceListStatusParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	statusDescription := `Include service status, with count of running and desired tasks`
+
+	var statusFlagName string
+	if cmdPrefix == "" {
+		statusFlagName = "status"
+	} else {
+		statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+	}
+
+	var statusFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(statusFlagName, statusFlagDefault, statusDescription)
+
+	return nil
+}
+
 func retrieveOperationServiceServiceListFiltersFlag(m *service.ServiceListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -145,58 +197,6 @@ func printOperationServiceServiceListResult(resp0 *service.ServiceListOK, respEr
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationServiceServiceListParamFlags registers all flags needed to fill params
-func registerOperationServiceServiceListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationServiceServiceListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceListStatusParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationServiceServiceListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the services list. Available filters:
-
-- ` + "`" + `id=<service id>` + "`" + `
-- ` + "`" + `label=<service label>` + "`" + `
-- ` + "`" + `mode=["replicated"|"global"]` + "`" + `
-- ` + "`" + `name=<service name>` + "`" + `
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-func registerOperationServiceServiceListStatusParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	statusDescription := `Include service status, with count of running and desired tasks`
-
-	var statusFlagName string
-	if cmdPrefix == "" {
-		statusFlagName = "status"
-	} else {
-		statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
-	}
-
-	var statusFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(statusFlagName, statusFlagDefault, statusDescription)
 
 	return nil
 }

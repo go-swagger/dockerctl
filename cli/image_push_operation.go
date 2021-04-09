@@ -59,6 +59,72 @@ func runOperationImageImagePush(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImagePushParamFlags registers all flags needed to fill params
+func registerOperationImageImagePushParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImagePushXRegistryAuthParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImagePushNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImagePushTagParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImagePushXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	xRegistryAuthDescription := `Required. A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
+
+	var xRegistryAuthFlagName string
+	if cmdPrefix == "" {
+		xRegistryAuthFlagName = "X-Registry-Auth"
+	} else {
+		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+	}
+
+	var xRegistryAuthFlagDefault string
+
+	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+
+	return nil
+}
+func registerOperationImageImagePushNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. Image name or ID.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+func registerOperationImageImagePushTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tagDescription := `The tag to associate with the image on the registry.`
+
+	var tagFlagName string
+	if cmdPrefix == "" {
+		tagFlagName = "tag"
+	} else {
+		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+	}
+
+	var tagFlagDefault string
+
+	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImagePushXRegistryAuthFlag(m *image.ImagePushParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
@@ -156,72 +222,6 @@ func printOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error)
 	}
 
 	// warning: non schema response imagePushOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationImageImagePushParamFlags registers all flags needed to fill params
-func registerOperationImageImagePushParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImagePushXRegistryAuthParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImagePushNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImagePushTagParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImagePushXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	xRegistryAuthDescription := `Required. A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
-
-	var xRegistryAuthFlagName string
-	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
-	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
-	}
-
-	var xRegistryAuthFlagDefault string
-
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
-
-	return nil
-}
-func registerOperationImageImagePushNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. Image name or ID.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-func registerOperationImageImagePushTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tagDescription := `The tag to associate with the image on the registry.`
-
-	var tagFlagName string
-	if cmdPrefix == "" {
-		tagFlagName = "tag"
-	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
-	}
-
-	var tagFlagDefault string
-
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
 
 	return nil
 }

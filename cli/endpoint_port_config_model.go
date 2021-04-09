@@ -196,6 +196,7 @@ func retrieveEndpointPortConfigNameFlags(depth int, m *models.EndpointPortConfig
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -214,6 +215,7 @@ func retrieveEndpointPortConfigNameFlags(depth int, m *models.EndpointPortConfig
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -222,6 +224,7 @@ func retrieveEndpointPortConfigProtocolFlags(depth int, m *models.EndpointPortCo
 		return nil, false
 	}
 	retAdded := false
+
 	protocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
 	if cmd.Flags().Changed(protocolFlagName) {
 
@@ -240,6 +243,7 @@ func retrieveEndpointPortConfigProtocolFlags(depth int, m *models.EndpointPortCo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -248,6 +252,7 @@ func retrieveEndpointPortConfigPublishModeFlags(depth int, m *models.EndpointPor
 		return nil, false
 	}
 	retAdded := false
+
 	publishModeFlagName := fmt.Sprintf("%v.PublishMode", cmdPrefix)
 	if cmd.Flags().Changed(publishModeFlagName) {
 
@@ -266,6 +271,7 @@ func retrieveEndpointPortConfigPublishModeFlags(depth int, m *models.EndpointPor
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -274,6 +280,7 @@ func retrieveEndpointPortConfigPublishedPortFlags(depth int, m *models.EndpointP
 		return nil, false
 	}
 	retAdded := false
+
 	publishedPortFlagName := fmt.Sprintf("%v.PublishedPort", cmdPrefix)
 	if cmd.Flags().Changed(publishedPortFlagName) {
 
@@ -292,6 +299,7 @@ func retrieveEndpointPortConfigPublishedPortFlags(depth int, m *models.EndpointP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -300,6 +308,7 @@ func retrieveEndpointPortConfigTargetPortFlags(depth int, m *models.EndpointPort
 		return nil, false
 	}
 	retAdded := false
+
 	targetPortFlagName := fmt.Sprintf("%v.TargetPort", cmdPrefix)
 	if cmd.Flags().Changed(targetPortFlagName) {
 
@@ -318,5 +327,6 @@ func retrieveEndpointPortConfigTargetPortFlags(depth int, m *models.EndpointPort
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

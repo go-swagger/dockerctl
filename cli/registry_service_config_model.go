@@ -44,6 +44,7 @@ func registerRegistryServiceConfigAllowNondistributableArtifactsCIDRs(depth int,
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: AllowNondistributableArtifactsCIDRs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -53,6 +54,7 @@ func registerRegistryServiceConfigAllowNondistributableArtifactsHostnames(depth 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: AllowNondistributableArtifactsHostnames []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -62,6 +64,7 @@ func registerRegistryServiceConfigIndexConfigs(depth int, cmdPrefix string, cmd 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: IndexConfigs map[string]IndexInfo map type is not supported by go-swagger cli yet
 
 	return nil
@@ -71,6 +74,7 @@ func registerRegistryServiceConfigInsecureRegistryCIDRs(depth int, cmdPrefix str
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: InsecureRegistryCIDRs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -80,6 +84,7 @@ func registerRegistryServiceConfigMirrors(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Mirrors []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -127,10 +132,12 @@ func retrieveRegistryServiceConfigAllowNondistributableArtifactsCIDRsFlags(depth
 		return nil, false
 	}
 	retAdded := false
+
 	allowNondistributableArtifactsCIdRsFlagName := fmt.Sprintf("%v.AllowNondistributableArtifactsCIDRs", cmdPrefix)
 	if cmd.Flags().Changed(allowNondistributableArtifactsCIdRsFlagName) {
 		// warning: AllowNondistributableArtifactsCIDRs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -139,10 +146,12 @@ func retrieveRegistryServiceConfigAllowNondistributableArtifactsHostnamesFlags(d
 		return nil, false
 	}
 	retAdded := false
+
 	allowNondistributableArtifactsHostnamesFlagName := fmt.Sprintf("%v.AllowNondistributableArtifactsHostnames", cmdPrefix)
 	if cmd.Flags().Changed(allowNondistributableArtifactsHostnamesFlagName) {
 		// warning: AllowNondistributableArtifactsHostnames array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -151,10 +160,12 @@ func retrieveRegistryServiceConfigIndexConfigsFlags(depth int, m *models.Registr
 		return nil, false
 	}
 	retAdded := false
+
 	indexConfigsFlagName := fmt.Sprintf("%v.IndexConfigs", cmdPrefix)
 	if cmd.Flags().Changed(indexConfigsFlagName) {
 		// warning: IndexConfigs map type map[string]IndexInfo is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -163,10 +174,12 @@ func retrieveRegistryServiceConfigInsecureRegistryCIDRsFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	insecureRegistryCIdRsFlagName := fmt.Sprintf("%v.InsecureRegistryCIDRs", cmdPrefix)
 	if cmd.Flags().Changed(insecureRegistryCIdRsFlagName) {
 		// warning: InsecureRegistryCIDRs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -175,9 +188,11 @@ func retrieveRegistryServiceConfigMirrorsFlags(depth int, m *models.RegistryServ
 		return nil, false
 	}
 	retAdded := false
+
 	mirrorsFlagName := fmt.Sprintf("%v.Mirrors", cmdPrefix)
 	if cmd.Flags().Changed(mirrorsFlagName) {
 		// warning: Mirrors array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

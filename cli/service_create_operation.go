@@ -51,6 +51,54 @@ func runOperationServiceServiceCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationServiceServiceCreateParamFlags registers all flags needed to fill params
+func registerOperationServiceServiceCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationServiceServiceCreateXRegistryAuthParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationServiceServiceCreateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationServiceServiceCreateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	xRegistryAuthDescription := `A base64-encoded auth configuration for pulling from private registries. [See the authentication section for details.](#section/Authentication)`
+
+	var xRegistryAuthFlagName string
+	if cmdPrefix == "" {
+		xRegistryAuthFlagName = "X-Registry-Auth"
+	} else {
+		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+	}
+
+	var xRegistryAuthFlagDefault string
+
+	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+
+	return nil
+}
+func registerOperationServiceServiceCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelServiceCreateBodyFlags(0, "serviceCreateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationServiceServiceCreateXRegistryAuthFlag(m *service.ServiceCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
@@ -201,54 +249,6 @@ func printOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 	return nil
 }
 
-// registerOperationServiceServiceCreateParamFlags registers all flags needed to fill params
-func registerOperationServiceServiceCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationServiceServiceCreateXRegistryAuthParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationServiceServiceCreateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationServiceServiceCreateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	xRegistryAuthDescription := `A base64-encoded auth configuration for pulling from private registries. [See the authentication section for details.](#section/Authentication)`
-
-	var xRegistryAuthFlagName string
-	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
-	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
-	}
-
-	var xRegistryAuthFlagDefault string
-
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
-
-	return nil
-}
-func registerOperationServiceServiceCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelServiceCreateBodyFlags(0, "serviceCreateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // register flags to command
 func registerModelServiceCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -273,8 +273,6 @@ func retrieveModelServiceCreateBodyFlags(depth int, m *service.ServiceCreateBody
 		return err, false
 	}
 	retAdded = retAdded || serviceCreateParamsBodyAO0Added
-
-	// retrieve ServiceCreateParamsBodyAO1 ServiceCreateParamsBodyAllOf1 is skipped
 
 	return nil, retAdded
 }
@@ -359,6 +357,7 @@ func retrieveServiceCreateCreatedBodyIDFlags(depth int, m *service.ServiceCreate
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -377,6 +376,7 @@ func retrieveServiceCreateCreatedBodyIDFlags(depth int, m *service.ServiceCreate
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -385,6 +385,7 @@ func retrieveServiceCreateCreatedBodyWarningFlags(depth int, m *service.ServiceC
 		return nil, false
 	}
 	retAdded := false
+
 	warningFlagName := fmt.Sprintf("%v.Warning", cmdPrefix)
 	if cmd.Flags().Changed(warningFlagName) {
 
@@ -403,6 +404,7 @@ func retrieveServiceCreateCreatedBodyWarningFlags(depth int, m *service.ServiceC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 

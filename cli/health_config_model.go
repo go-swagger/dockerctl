@@ -107,6 +107,7 @@ func registerHealthConfigTest(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Test []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -175,6 +176,7 @@ func retrieveHealthConfigIntervalFlags(depth int, m *models.HealthConfig, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	intervalFlagName := fmt.Sprintf("%v.Interval", cmdPrefix)
 	if cmd.Flags().Changed(intervalFlagName) {
 
@@ -193,6 +195,7 @@ func retrieveHealthConfigIntervalFlags(depth int, m *models.HealthConfig, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -201,6 +204,7 @@ func retrieveHealthConfigRetriesFlags(depth int, m *models.HealthConfig, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	retriesFlagName := fmt.Sprintf("%v.Retries", cmdPrefix)
 	if cmd.Flags().Changed(retriesFlagName) {
 
@@ -219,6 +223,7 @@ func retrieveHealthConfigRetriesFlags(depth int, m *models.HealthConfig, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -227,6 +232,7 @@ func retrieveHealthConfigStartPeriodFlags(depth int, m *models.HealthConfig, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	startPeriodFlagName := fmt.Sprintf("%v.StartPeriod", cmdPrefix)
 	if cmd.Flags().Changed(startPeriodFlagName) {
 
@@ -245,6 +251,7 @@ func retrieveHealthConfigStartPeriodFlags(depth int, m *models.HealthConfig, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -253,10 +260,12 @@ func retrieveHealthConfigTestFlags(depth int, m *models.HealthConfig, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	testFlagName := fmt.Sprintf("%v.Test", cmdPrefix)
 	if cmd.Flags().Changed(testFlagName) {
 		// warning: Test array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -265,6 +274,7 @@ func retrieveHealthConfigTimeoutFlags(depth int, m *models.HealthConfig, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	timeoutFlagName := fmt.Sprintf("%v.Timeout", cmdPrefix)
 	if cmd.Flags().Changed(timeoutFlagName) {
 
@@ -283,5 +293,6 @@ func retrieveHealthConfigTimeoutFlags(depth int, m *models.HealthConfig, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

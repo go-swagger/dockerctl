@@ -102,6 +102,7 @@ func registerVolumeLabels(depth int, cmdPrefix string, cmd *cobra.Command) error
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -153,6 +154,7 @@ func registerVolumeOptions(depth int, cmdPrefix string, cmd *cobra.Command) erro
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -183,6 +185,7 @@ func registerVolumeStatus(depth int, cmdPrefix string, cmd *cobra.Command) error
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Status map[string]interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -273,6 +276,7 @@ func retrieveVolumeCreatedAtFlags(depth int, m *models.Volume, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	if cmd.Flags().Changed(createdAtFlagName) {
 
@@ -291,6 +295,7 @@ func retrieveVolumeCreatedAtFlags(depth int, m *models.Volume, cmdPrefix string,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -299,6 +304,7 @@ func retrieveVolumeDriverFlags(depth int, m *models.Volume, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -317,6 +323,7 @@ func retrieveVolumeDriverFlags(depth int, m *models.Volume, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -325,10 +332,12 @@ func retrieveVolumeLabelsFlags(depth int, m *models.Volume, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -337,6 +346,7 @@ func retrieveVolumeMountpointFlags(depth int, m *models.Volume, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	mountpointFlagName := fmt.Sprintf("%v.Mountpoint", cmdPrefix)
 	if cmd.Flags().Changed(mountpointFlagName) {
 
@@ -355,6 +365,7 @@ func retrieveVolumeMountpointFlags(depth int, m *models.Volume, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -363,6 +374,7 @@ func retrieveVolumeNameFlags(depth int, m *models.Volume, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -381,6 +393,7 @@ func retrieveVolumeNameFlags(depth int, m *models.Volume, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -389,10 +402,12 @@ func retrieveVolumeOptionsFlags(depth int, m *models.Volume, cmdPrefix string, c
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -401,6 +416,7 @@ func retrieveVolumeScopeFlags(depth int, m *models.Volume, cmdPrefix string, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	scopeFlagName := fmt.Sprintf("%v.Scope", cmdPrefix)
 	if cmd.Flags().Changed(scopeFlagName) {
 
@@ -419,6 +435,7 @@ func retrieveVolumeScopeFlags(depth int, m *models.Volume, cmdPrefix string, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -427,10 +444,12 @@ func retrieveVolumeStatusFlags(depth int, m *models.Volume, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 		// warning: Status map type map[string]interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -439,19 +458,21 @@ func retrieveVolumeUsageDataFlags(depth int, m *models.Volume, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	usageDataFlagName := fmt.Sprintf("%v.UsageData", cmdPrefix)
 	if cmd.Flags().Changed(usageDataFlagName) {
 
-		usageDataFlagValue := &models.VolumeUsageData{}
-		err, added := retrieveModelVolumeUsageDataFlags(depth+1, usageDataFlagValue, usageDataFlagName, cmd)
+		usageDataFlagValue := models.VolumeUsageData{}
+		err, added := retrieveModelVolumeUsageDataFlags(depth+1, &usageDataFlagValue, usageDataFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.UsageData = usageDataFlagValue
+			m.UsageData = &usageDataFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -543,6 +564,7 @@ func retrieveVolumeUsageDataRefCountFlags(depth int, m *models.VolumeUsageData, 
 		return nil, false
 	}
 	retAdded := false
+
 	refCountFlagName := fmt.Sprintf("%v.RefCount", cmdPrefix)
 	if cmd.Flags().Changed(refCountFlagName) {
 
@@ -561,6 +583,7 @@ func retrieveVolumeUsageDataRefCountFlags(depth int, m *models.VolumeUsageData, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -569,6 +592,7 @@ func retrieveVolumeUsageDataSizeFlags(depth int, m *models.VolumeUsageData, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
 	if cmd.Flags().Changed(sizeFlagName) {
 
@@ -587,5 +611,6 @@ func retrieveVolumeUsageDataSizeFlags(depth int, m *models.VolumeUsageData, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

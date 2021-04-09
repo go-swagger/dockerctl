@@ -48,6 +48,34 @@ func runOperationVolumeVolumeCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationVolumeVolumeCreateParamFlags registers all flags needed to fill params
+func registerOperationVolumeVolumeCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationVolumeVolumeCreateVolumeConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationVolumeVolumeCreateVolumeConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var volumeConfigFlagName string
+	if cmdPrefix == "" {
+		volumeConfigFlagName = "volumeConfig"
+	} else {
+		volumeConfigFlagName = fmt.Sprintf("%v.volumeConfig", cmdPrefix)
+	}
+
+	exampleVolumeConfigStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(volumeConfigFlagName, "", fmt.Sprintf("Optional json string for [volumeConfig] of form %v.Volume configuration", string(exampleVolumeConfigStr)))
+
+	// add flags for body
+	if err := registerModelVolumeCreateBodyFlags(0, "volumeCreateBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationVolumeVolumeCreateVolumeConfigFlag(m *volume.VolumeCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("volumeConfig") {
@@ -126,34 +154,6 @@ func printOperationVolumeVolumeCreateResult(resp0 *volume.VolumeCreateCreated, r
 	return nil
 }
 
-// registerOperationVolumeVolumeCreateParamFlags registers all flags needed to fill params
-func registerOperationVolumeVolumeCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationVolumeVolumeCreateVolumeConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationVolumeVolumeCreateVolumeConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var volumeConfigFlagName string
-	if cmdPrefix == "" {
-		volumeConfigFlagName = "volumeConfig"
-	} else {
-		volumeConfigFlagName = fmt.Sprintf("%v.volumeConfig", cmdPrefix)
-	}
-
-	exampleVolumeConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(volumeConfigFlagName, "", fmt.Sprintf("Optional json string for [volumeConfig] of form %v.Volume configuration", string(exampleVolumeConfigStr)))
-
-	// add flags for body
-	if err := registerModelVolumeCreateBodyFlags(0, "volumeCreateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // register flags to command
 func registerModelVolumeCreateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -201,6 +201,7 @@ func registerVolumeCreateBodyDriverOpts(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DriverOpts map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -210,6 +211,7 @@ func registerVolumeCreateBodyLabels(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -272,6 +274,7 @@ func retrieveVolumeCreateBodyDriverFlags(depth int, m *volume.VolumeCreateBody, 
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -290,6 +293,7 @@ func retrieveVolumeCreateBodyDriverFlags(depth int, m *volume.VolumeCreateBody, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -298,10 +302,12 @@ func retrieveVolumeCreateBodyDriverOptsFlags(depth int, m *volume.VolumeCreateBo
 		return nil, false
 	}
 	retAdded := false
+
 	driverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
 	if cmd.Flags().Changed(driverOptsFlagName) {
 		// warning: DriverOpts map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -310,10 +316,12 @@ func retrieveVolumeCreateBodyLabelsFlags(depth int, m *volume.VolumeCreateBody, 
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -322,6 +330,7 @@ func retrieveVolumeCreateBodyNameFlags(depth int, m *volume.VolumeCreateBody, cm
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -340,5 +349,6 @@ func retrieveVolumeCreateBodyNameFlags(depth int, m *volume.VolumeCreateBody, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

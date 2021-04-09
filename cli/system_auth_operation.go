@@ -49,6 +49,34 @@ func runOperationSystemSystemAuth(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSystemSystemAuthParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemAuthParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSystemSystemAuthAuthConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSystemSystemAuthAuthConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var authConfigFlagName string
+	if cmdPrefix == "" {
+		authConfigFlagName = "authConfig"
+	} else {
+		authConfigFlagName = fmt.Sprintf("%v.authConfig", cmdPrefix)
+	}
+
+	exampleAuthConfigStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(authConfigFlagName, "", fmt.Sprintf("Optional json string for [authConfig] of form %v.Authentication to check", string(exampleAuthConfigStr)))
+
+	// add flags for body
+	if err := registerModelAuthConfigFlags(0, "authConfig", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationSystemSystemAuthAuthConfigFlag(m *system.SystemAuthParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("authConfig") {
@@ -127,34 +155,6 @@ func printOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *sys
 	}
 
 	// warning: non schema response systemAuthNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationSystemSystemAuthParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemAuthParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSystemSystemAuthAuthConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSystemSystemAuthAuthConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var authConfigFlagName string
-	if cmdPrefix == "" {
-		authConfigFlagName = "authConfig"
-	} else {
-		authConfigFlagName = fmt.Sprintf("%v.authConfig", cmdPrefix)
-	}
-
-	exampleAuthConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(authConfigFlagName, "", fmt.Sprintf("Optional json string for [authConfig] of form %v.Authentication to check", string(exampleAuthConfigStr)))
-
-	// add flags for body
-	if err := registerModelAuthConfigFlags(0, "authConfig", cmd); err != nil {
-		return err
-	}
 
 	return nil
 }
@@ -239,6 +239,7 @@ func retrieveSystemAuthOKBodyIdentityTokenFlags(depth int, m *system.SystemAuthO
 		return nil, false
 	}
 	retAdded := false
+
 	identityTokenFlagName := fmt.Sprintf("%v.IdentityToken", cmdPrefix)
 	if cmd.Flags().Changed(identityTokenFlagName) {
 
@@ -257,6 +258,7 @@ func retrieveSystemAuthOKBodyIdentityTokenFlags(depth int, m *system.SystemAuthO
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -265,6 +267,7 @@ func retrieveSystemAuthOKBodyStatusFlags(depth int, m *system.SystemAuthOKBody, 
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
@@ -283,5 +286,6 @@ func retrieveSystemAuthOKBodyStatusFlags(depth int, m *system.SystemAuthOKBody, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

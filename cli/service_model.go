@@ -270,6 +270,7 @@ func retrieveServiceCreatedAtFlags(depth int, m *models.Service, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	if cmd.Flags().Changed(createdAtFlagName) {
 
@@ -288,6 +289,7 @@ func retrieveServiceCreatedAtFlags(depth int, m *models.Service, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -296,19 +298,21 @@ func retrieveServiceEndpointFlags(depth int, m *models.Service, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	endpointFlagName := fmt.Sprintf("%v.Endpoint", cmdPrefix)
 	if cmd.Flags().Changed(endpointFlagName) {
 
-		endpointFlagValue := &models.ServiceEndpoint{}
-		err, added := retrieveModelServiceEndpointFlags(depth+1, endpointFlagValue, endpointFlagName, cmd)
+		endpointFlagValue := models.ServiceEndpoint{}
+		err, added := retrieveModelServiceEndpointFlags(depth+1, &endpointFlagValue, endpointFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Endpoint = endpointFlagValue
+			m.Endpoint = &endpointFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -317,6 +321,7 @@ func retrieveServiceIDFlags(depth int, m *models.Service, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -335,6 +340,7 @@ func retrieveServiceIDFlags(depth int, m *models.Service, cmdPrefix string, cmd 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -343,19 +349,21 @@ func retrieveServiceServiceStatusFlags(depth int, m *models.Service, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	serviceStatusFlagName := fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
 	if cmd.Flags().Changed(serviceStatusFlagName) {
 
-		serviceStatusFlagValue := &models.ServiceServiceStatus{}
-		err, added := retrieveModelServiceServiceStatusFlags(depth+1, serviceStatusFlagValue, serviceStatusFlagName, cmd)
+		serviceStatusFlagValue := models.ServiceServiceStatus{}
+		err, added := retrieveModelServiceServiceStatusFlags(depth+1, &serviceStatusFlagValue, serviceStatusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ServiceStatus = serviceStatusFlagValue
+			m.ServiceStatus = &serviceStatusFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -364,19 +372,21 @@ func retrieveServiceSpecFlags(depth int, m *models.Service, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := models.ServiceSpec{}
+		err, added := retrieveModelServiceSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spec = specFlagValue
+			m.Spec = &specFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -385,19 +395,21 @@ func retrieveServiceUpdateStatusFlags(depth int, m *models.Service, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	updateStatusFlagName := fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
 	if cmd.Flags().Changed(updateStatusFlagName) {
 
-		updateStatusFlagValue := &models.ServiceUpdateStatus{}
-		err, added := retrieveModelServiceUpdateStatusFlags(depth+1, updateStatusFlagValue, updateStatusFlagName, cmd)
+		updateStatusFlagValue := models.ServiceUpdateStatus{}
+		err, added := retrieveModelServiceUpdateStatusFlags(depth+1, &updateStatusFlagValue, updateStatusFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.UpdateStatus = updateStatusFlagValue
+			m.UpdateStatus = &updateStatusFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -406,6 +418,7 @@ func retrieveServiceUpdatedAtFlags(depth int, m *models.Service, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	if cmd.Flags().Changed(updatedAtFlagName) {
 
@@ -424,6 +437,7 @@ func retrieveServiceUpdatedAtFlags(depth int, m *models.Service, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -432,19 +446,21 @@ func retrieveServiceVersionFlags(depth int, m *models.Service, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Version = versionFlagValue
+			m.Version = &versionFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -472,6 +488,7 @@ func registerServiceEndpointPorts(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Ports []*EndpointPortConfig array type is not supported by go-swagger cli yet
 
 	return nil
@@ -500,6 +517,7 @@ func registerServiceEndpointVirtualIPs(depth int, cmdPrefix string, cmd *cobra.C
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: VirtualIPs []*ServiceEndpointVirtualIPsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -535,10 +553,12 @@ func retrieveServiceEndpointPortsFlags(depth int, m *models.ServiceEndpoint, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	portsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
 	if cmd.Flags().Changed(portsFlagName) {
 		// warning: Ports array type []*EndpointPortConfig is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -547,19 +567,21 @@ func retrieveServiceEndpointSpecFlags(depth int, m *models.ServiceEndpoint, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.EndpointSpec{}
-		err, added := retrieveModelEndpointSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := models.EndpointSpec{}
+		err, added := retrieveModelEndpointSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spec = specFlagValue
+			m.Spec = &specFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -568,10 +590,12 @@ func retrieveServiceEndpointVirtualIPsFlags(depth int, m *models.ServiceEndpoint
 		return nil, false
 	}
 	retAdded := false
+
 	virtualIPsFlagName := fmt.Sprintf("%v.VirtualIPs", cmdPrefix)
 	if cmd.Flags().Changed(virtualIPsFlagName) {
 		// warning: VirtualIPs array type []*ServiceEndpointVirtualIPsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -657,6 +681,7 @@ func retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth int, m *models.Servi
 		return nil, false
 	}
 	retAdded := false
+
 	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
 	if cmd.Flags().Changed(addrFlagName) {
 
@@ -675,6 +700,7 @@ func retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth int, m *models.Servi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -683,6 +709,7 @@ func retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth int, m *models.
 		return nil, false
 	}
 	retAdded := false
+
 	networkIdFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
 	if cmd.Flags().Changed(networkIdFlagName) {
 
@@ -701,6 +728,7 @@ func retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth int, m *models.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -764,6 +792,7 @@ func retrieveServiceServiceStatusDesiredTasksFlags(depth int, m *models.ServiceS
 		return nil, false
 	}
 	retAdded := false
+
 	desiredTasksFlagName := fmt.Sprintf("%v.DesiredTasks", cmdPrefix)
 	if cmd.Flags().Changed(desiredTasksFlagName) {
 
@@ -771,6 +800,7 @@ func retrieveServiceServiceStatusDesiredTasksFlags(depth int, m *models.ServiceS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -779,6 +809,7 @@ func retrieveServiceServiceStatusRunningTasksFlags(depth int, m *models.ServiceS
 		return nil, false
 	}
 	retAdded := false
+
 	runningTasksFlagName := fmt.Sprintf("%v.RunningTasks", cmdPrefix)
 	if cmd.Flags().Changed(runningTasksFlagName) {
 
@@ -786,6 +817,7 @@ func retrieveServiceServiceStatusRunningTasksFlags(depth int, m *models.ServiceS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -933,6 +965,7 @@ func retrieveServiceUpdateStatusCompletedAtFlags(depth int, m *models.ServiceUpd
 		return nil, false
 	}
 	retAdded := false
+
 	completedAtFlagName := fmt.Sprintf("%v.CompletedAt", cmdPrefix)
 	if cmd.Flags().Changed(completedAtFlagName) {
 
@@ -951,6 +984,7 @@ func retrieveServiceUpdateStatusCompletedAtFlags(depth int, m *models.ServiceUpd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -959,6 +993,7 @@ func retrieveServiceUpdateStatusMessageFlags(depth int, m *models.ServiceUpdateS
 		return nil, false
 	}
 	retAdded := false
+
 	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
 	if cmd.Flags().Changed(messageFlagName) {
 
@@ -977,6 +1012,7 @@ func retrieveServiceUpdateStatusMessageFlags(depth int, m *models.ServiceUpdateS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -985,6 +1021,7 @@ func retrieveServiceUpdateStatusStartedAtFlags(depth int, m *models.ServiceUpdat
 		return nil, false
 	}
 	retAdded := false
+
 	startedAtFlagName := fmt.Sprintf("%v.StartedAt", cmdPrefix)
 	if cmd.Flags().Changed(startedAtFlagName) {
 
@@ -1003,6 +1040,7 @@ func retrieveServiceUpdateStatusStartedAtFlags(depth int, m *models.ServiceUpdat
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1011,6 +1049,7 @@ func retrieveServiceUpdateStatusStateFlags(depth int, m *models.ServiceUpdateSta
 		return nil, false
 	}
 	retAdded := false
+
 	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
 	if cmd.Flags().Changed(stateFlagName) {
 
@@ -1029,5 +1068,6 @@ func retrieveServiceUpdateStatusStateFlags(depth int, m *models.ServiceUpdateSta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

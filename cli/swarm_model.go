@@ -6,6 +6,8 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"fmt"
+
 	"github.com/go-swagger/dockerctl/models"
 	"github.com/spf13/cobra"
 )
@@ -21,7 +23,11 @@ func registerModelSwarmFlags(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return err
 	}
 
-	// inline allOf AO1 of type  is not supported by go-swagger cli yet
+	// register anonymous fields for AO1
+
+	if err := registerSwarmAnonAO1JoinTokens(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -33,7 +39,16 @@ func registerSwarmAnonAO1JoinTokens(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	// inline allOf JoinTokens of type JoinTokens is not supported by go-swagger cli yet
+	var joinTokensFlagName string
+	if cmdPrefix == "" {
+		joinTokensFlagName = "JoinTokens"
+	} else {
+		joinTokensFlagName = fmt.Sprintf("%v.JoinTokens", cmdPrefix)
+	}
+
+	if err := registerModelJoinTokensFlags(depth+1, joinTokensFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -49,7 +64,38 @@ func retrieveModelSwarmFlags(depth int, m *models.Swarm, cmdPrefix string, cmd *
 	}
 	retAdded = retAdded || aO0Added
 
-	// inline allOf AO1 is not supported by go-swagger cli yet
+	// retrieve allOf AO1 fields
+
+	err, joinTokensAdded := retrieveSwarmAnonAO1JoinTokensFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || joinTokensAdded
+
+	return nil, retAdded
+}
+
+// define retrieve functions for fields for inline definition name AO1
+
+func retrieveSwarmAnonAO1JoinTokensFlags(depth int, m *models.Swarm, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	joinTokensFlagName := fmt.Sprintf("%v.JoinTokens", cmdPrefix)
+	if cmd.Flags().Changed(joinTokensFlagName) {
+
+		joinTokensFlagValue := models.JoinTokens{}
+		err, added := retrieveModelJoinTokensFlags(depth+1, &joinTokensFlagValue, joinTokensFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.JoinTokens = &joinTokensFlagValue
+		}
+	}
 
 	return nil, retAdded
 }

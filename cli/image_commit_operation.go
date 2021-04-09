@@ -70,6 +70,174 @@ func runOperationImageImageCommit(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImageCommitParamFlags registers all flags needed to fill params
+func registerOperationImageImageCommitParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImageCommitAuthorParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitChangesParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitCommentParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitContainerParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitContainerConfigParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitPauseParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitRepoParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationImageImageCommitTagParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImageCommitAuthorParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	authorDescription := `Author of the image (e.g., ` + "`" + `John Hannibal Smith <hannibal@a-team.com>` + "`" + `)`
+
+	var authorFlagName string
+	if cmdPrefix == "" {
+		authorFlagName = "author"
+	} else {
+		authorFlagName = fmt.Sprintf("%v.author", cmdPrefix)
+	}
+
+	var authorFlagDefault string
+
+	_ = cmd.PersistentFlags().String(authorFlagName, authorFlagDefault, authorDescription)
+
+	return nil
+}
+func registerOperationImageImageCommitChangesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	changesDescription := `` + "`" + `Dockerfile` + "`" + ` instructions to apply while committing`
+
+	var changesFlagName string
+	if cmdPrefix == "" {
+		changesFlagName = "changes"
+	} else {
+		changesFlagName = fmt.Sprintf("%v.changes", cmdPrefix)
+	}
+
+	var changesFlagDefault string
+
+	_ = cmd.PersistentFlags().String(changesFlagName, changesFlagDefault, changesDescription)
+
+	return nil
+}
+func registerOperationImageImageCommitCommentParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	commentDescription := `Commit message`
+
+	var commentFlagName string
+	if cmdPrefix == "" {
+		commentFlagName = "comment"
+	} else {
+		commentFlagName = fmt.Sprintf("%v.comment", cmdPrefix)
+	}
+
+	var commentFlagDefault string
+
+	_ = cmd.PersistentFlags().String(commentFlagName, commentFlagDefault, commentDescription)
+
+	return nil
+}
+func registerOperationImageImageCommitContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	containerDescription := `The ID or name of the container to commit`
+
+	var containerFlagName string
+	if cmdPrefix == "" {
+		containerFlagName = "container"
+	} else {
+		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+	}
+
+	var containerFlagDefault string
+
+	_ = cmd.PersistentFlags().String(containerFlagName, containerFlagDefault, containerDescription)
+
+	return nil
+}
+func registerOperationImageImageCommitContainerConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var containerConfigFlagName string
+	if cmdPrefix == "" {
+		containerConfigFlagName = "containerConfig"
+	} else {
+		containerConfigFlagName = fmt.Sprintf("%v.containerConfig", cmdPrefix)
+	}
+
+	exampleContainerConfigStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(containerConfigFlagName, "", fmt.Sprintf("Optional json string for [containerConfig] of form %v.The container configuration", string(exampleContainerConfigStr)))
+
+	// add flags for body
+	if err := registerModelContainerConfigFlags(0, "containerConfig", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationImageImageCommitPauseParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	pauseDescription := `Whether to pause the container before committing`
+
+	var pauseFlagName string
+	if cmdPrefix == "" {
+		pauseFlagName = "pause"
+	} else {
+		pauseFlagName = fmt.Sprintf("%v.pause", cmdPrefix)
+	}
+
+	var pauseFlagDefault bool = true
+
+	_ = cmd.PersistentFlags().Bool(pauseFlagName, pauseFlagDefault, pauseDescription)
+
+	return nil
+}
+func registerOperationImageImageCommitRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	repoDescription := `Repository name for the created image`
+
+	var repoFlagName string
+	if cmdPrefix == "" {
+		repoFlagName = "repo"
+	} else {
+		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+	}
+
+	var repoFlagDefault string
+
+	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
+
+	return nil
+}
+func registerOperationImageImageCommitTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tagDescription := `Tag name for the create image`
+
+	var tagFlagName string
+	if cmdPrefix == "" {
+		tagFlagName = "tag"
+	} else {
+		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+	}
+
+	var tagFlagDefault string
+
+	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImageCommitAuthorFlag(m *image.ImageCommitParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("author") {
@@ -297,174 +465,6 @@ func printOperationImageImageCommitResult(resp0 *image.ImageCommitCreated, respE
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationImageImageCommitParamFlags registers all flags needed to fill params
-func registerOperationImageImageCommitParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImageCommitAuthorParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitChangesParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitCommentParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitContainerParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitContainerConfigParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitPauseParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitRepoParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationImageImageCommitTagParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImageCommitAuthorParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	authorDescription := `Author of the image (e.g., ` + "`" + `John Hannibal Smith <hannibal@a-team.com>` + "`" + `)`
-
-	var authorFlagName string
-	if cmdPrefix == "" {
-		authorFlagName = "author"
-	} else {
-		authorFlagName = fmt.Sprintf("%v.author", cmdPrefix)
-	}
-
-	var authorFlagDefault string
-
-	_ = cmd.PersistentFlags().String(authorFlagName, authorFlagDefault, authorDescription)
-
-	return nil
-}
-func registerOperationImageImageCommitChangesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	changesDescription := `` + "`" + `Dockerfile` + "`" + ` instructions to apply while committing`
-
-	var changesFlagName string
-	if cmdPrefix == "" {
-		changesFlagName = "changes"
-	} else {
-		changesFlagName = fmt.Sprintf("%v.changes", cmdPrefix)
-	}
-
-	var changesFlagDefault string
-
-	_ = cmd.PersistentFlags().String(changesFlagName, changesFlagDefault, changesDescription)
-
-	return nil
-}
-func registerOperationImageImageCommitCommentParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	commentDescription := `Commit message`
-
-	var commentFlagName string
-	if cmdPrefix == "" {
-		commentFlagName = "comment"
-	} else {
-		commentFlagName = fmt.Sprintf("%v.comment", cmdPrefix)
-	}
-
-	var commentFlagDefault string
-
-	_ = cmd.PersistentFlags().String(commentFlagName, commentFlagDefault, commentDescription)
-
-	return nil
-}
-func registerOperationImageImageCommitContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	containerDescription := `The ID or name of the container to commit`
-
-	var containerFlagName string
-	if cmdPrefix == "" {
-		containerFlagName = "container"
-	} else {
-		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
-	}
-
-	var containerFlagDefault string
-
-	_ = cmd.PersistentFlags().String(containerFlagName, containerFlagDefault, containerDescription)
-
-	return nil
-}
-func registerOperationImageImageCommitContainerConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var containerConfigFlagName string
-	if cmdPrefix == "" {
-		containerConfigFlagName = "containerConfig"
-	} else {
-		containerConfigFlagName = fmt.Sprintf("%v.containerConfig", cmdPrefix)
-	}
-
-	exampleContainerConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(containerConfigFlagName, "", fmt.Sprintf("Optional json string for [containerConfig] of form %v.The container configuration", string(exampleContainerConfigStr)))
-
-	// add flags for body
-	if err := registerModelContainerConfigFlags(0, "containerConfig", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationImageImageCommitPauseParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	pauseDescription := `Whether to pause the container before committing`
-
-	var pauseFlagName string
-	if cmdPrefix == "" {
-		pauseFlagName = "pause"
-	} else {
-		pauseFlagName = fmt.Sprintf("%v.pause", cmdPrefix)
-	}
-
-	var pauseFlagDefault bool = true
-
-	_ = cmd.PersistentFlags().Bool(pauseFlagName, pauseFlagDefault, pauseDescription)
-
-	return nil
-}
-func registerOperationImageImageCommitRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	repoDescription := `Repository name for the created image`
-
-	var repoFlagName string
-	if cmdPrefix == "" {
-		repoFlagName = "repo"
-	} else {
-		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
-	}
-
-	var repoFlagDefault string
-
-	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
-
-	return nil
-}
-func registerOperationImageImageCommitTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tagDescription := `Tag name for the create image`
-
-	var tagFlagName string
-	if cmdPrefix == "" {
-		tagFlagName = "tag"
-	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
-	}
-
-	var tagFlagDefault string
-
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
 
 	return nil
 }

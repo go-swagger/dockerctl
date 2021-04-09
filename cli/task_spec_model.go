@@ -142,6 +142,7 @@ func registerTaskSpecNetworks(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Networks []*NetworkAttachmentConfig array type is not supported by go-swagger cli yet
 
 	return nil
@@ -316,19 +317,21 @@ func retrieveTaskSpecContainerSpecFlags(depth int, m *models.TaskSpec, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	containerSpecFlagName := fmt.Sprintf("%v.ContainerSpec", cmdPrefix)
 	if cmd.Flags().Changed(containerSpecFlagName) {
 
-		containerSpecFlagValue := &models.TaskSpecContainerSpec{}
-		err, added := retrieveModelTaskSpecContainerSpecFlags(depth+1, containerSpecFlagValue, containerSpecFlagName, cmd)
+		containerSpecFlagValue := models.TaskSpecContainerSpec{}
+		err, added := retrieveModelTaskSpecContainerSpecFlags(depth+1, &containerSpecFlagValue, containerSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ContainerSpec = containerSpecFlagValue
+			m.ContainerSpec = &containerSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -337,6 +340,7 @@ func retrieveTaskSpecForceUpdateFlags(depth int, m *models.TaskSpec, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	forceUpdateFlagName := fmt.Sprintf("%v.ForceUpdate", cmdPrefix)
 	if cmd.Flags().Changed(forceUpdateFlagName) {
 
@@ -355,6 +359,7 @@ func retrieveTaskSpecForceUpdateFlags(depth int, m *models.TaskSpec, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -363,19 +368,21 @@ func retrieveTaskSpecLogDriverFlags(depth int, m *models.TaskSpec, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	logDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
 	if cmd.Flags().Changed(logDriverFlagName) {
 
-		logDriverFlagValue := &models.TaskSpecLogDriver{}
-		err, added := retrieveModelTaskSpecLogDriverFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
+		logDriverFlagValue := models.TaskSpecLogDriver{}
+		err, added := retrieveModelTaskSpecLogDriverFlags(depth+1, &logDriverFlagValue, logDriverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.LogDriver = logDriverFlagValue
+			m.LogDriver = &logDriverFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -384,19 +391,21 @@ func retrieveTaskSpecNetworkAttachmentSpecFlags(depth int, m *models.TaskSpec, c
 		return nil, false
 	}
 	retAdded := false
+
 	networkAttachmentSpecFlagName := fmt.Sprintf("%v.NetworkAttachmentSpec", cmdPrefix)
 	if cmd.Flags().Changed(networkAttachmentSpecFlagName) {
 
-		networkAttachmentSpecFlagValue := &models.TaskSpecNetworkAttachmentSpec{}
-		err, added := retrieveModelTaskSpecNetworkAttachmentSpecFlags(depth+1, networkAttachmentSpecFlagValue, networkAttachmentSpecFlagName, cmd)
+		networkAttachmentSpecFlagValue := models.TaskSpecNetworkAttachmentSpec{}
+		err, added := retrieveModelTaskSpecNetworkAttachmentSpecFlags(depth+1, &networkAttachmentSpecFlagValue, networkAttachmentSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.NetworkAttachmentSpec = networkAttachmentSpecFlagValue
+			m.NetworkAttachmentSpec = &networkAttachmentSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -405,10 +414,12 @@ func retrieveTaskSpecNetworksFlags(depth int, m *models.TaskSpec, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	networksFlagName := fmt.Sprintf("%v.Networks", cmdPrefix)
 	if cmd.Flags().Changed(networksFlagName) {
 		// warning: Networks array type []*NetworkAttachmentConfig is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -417,19 +428,21 @@ func retrieveTaskSpecPlacementFlags(depth int, m *models.TaskSpec, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	placementFlagName := fmt.Sprintf("%v.Placement", cmdPrefix)
 	if cmd.Flags().Changed(placementFlagName) {
 
-		placementFlagValue := &models.TaskSpecPlacement{}
-		err, added := retrieveModelTaskSpecPlacementFlags(depth+1, placementFlagValue, placementFlagName, cmd)
+		placementFlagValue := models.TaskSpecPlacement{}
+		err, added := retrieveModelTaskSpecPlacementFlags(depth+1, &placementFlagValue, placementFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Placement = placementFlagValue
+			m.Placement = &placementFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -438,19 +451,21 @@ func retrieveTaskSpecPluginSpecFlags(depth int, m *models.TaskSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	pluginSpecFlagName := fmt.Sprintf("%v.PluginSpec", cmdPrefix)
 	if cmd.Flags().Changed(pluginSpecFlagName) {
 
-		pluginSpecFlagValue := &models.TaskSpecPluginSpec{}
-		err, added := retrieveModelTaskSpecPluginSpecFlags(depth+1, pluginSpecFlagValue, pluginSpecFlagName, cmd)
+		pluginSpecFlagValue := models.TaskSpecPluginSpec{}
+		err, added := retrieveModelTaskSpecPluginSpecFlags(depth+1, &pluginSpecFlagValue, pluginSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.PluginSpec = pluginSpecFlagValue
+			m.PluginSpec = &pluginSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -459,19 +474,21 @@ func retrieveTaskSpecResourcesFlags(depth int, m *models.TaskSpec, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
 	if cmd.Flags().Changed(resourcesFlagName) {
 
-		resourcesFlagValue := &models.TaskSpecResources{}
-		err, added := retrieveModelTaskSpecResourcesFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
+		resourcesFlagValue := models.TaskSpecResources{}
+		err, added := retrieveModelTaskSpecResourcesFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Resources = resourcesFlagValue
+			m.Resources = &resourcesFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -480,19 +497,21 @@ func retrieveTaskSpecRestartPolicyFlags(depth int, m *models.TaskSpec, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	if cmd.Flags().Changed(restartPolicyFlagName) {
 
-		restartPolicyFlagValue := &models.TaskSpecRestartPolicy{}
-		err, added := retrieveModelTaskSpecRestartPolicyFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
+		restartPolicyFlagValue := models.TaskSpecRestartPolicy{}
+		err, added := retrieveModelTaskSpecRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.RestartPolicy = restartPolicyFlagValue
+			m.RestartPolicy = &restartPolicyFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -501,6 +520,7 @@ func retrieveTaskSpecRuntimeFlags(depth int, m *models.TaskSpec, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	runtimeFlagName := fmt.Sprintf("%v.Runtime", cmdPrefix)
 	if cmd.Flags().Changed(runtimeFlagName) {
 
@@ -519,6 +539,7 @@ func retrieveTaskSpecRuntimeFlags(depth int, m *models.TaskSpec, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -634,6 +655,7 @@ func registerTaskSpecContainerSpecArgs(depth int, cmdPrefix string, cmd *cobra.C
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Args []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -643,6 +665,7 @@ func registerTaskSpecContainerSpecCapabilities(depth int, cmdPrefix string, cmd 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Capabilities []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -652,6 +675,7 @@ func registerTaskSpecContainerSpecCommand(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Command []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -661,6 +685,7 @@ func registerTaskSpecContainerSpecConfigs(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Configs []*TaskSpecContainerSpecConfigsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -710,6 +735,7 @@ func registerTaskSpecContainerSpecEnv(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Env []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -719,6 +745,7 @@ func registerTaskSpecContainerSpecGroups(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Groups []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -768,6 +795,7 @@ func registerTaskSpecContainerSpecHosts(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Hosts []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -840,6 +868,7 @@ func registerTaskSpecContainerSpecLabels(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -849,6 +878,7 @@ func registerTaskSpecContainerSpecMounts(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Mounts []*Mount array type is not supported by go-swagger cli yet
 
 	return nil
@@ -919,6 +949,7 @@ func registerTaskSpecContainerSpecSecrets(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Secrets []*TaskSpecContainerSpecSecretsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -970,6 +1001,7 @@ func registerTaskSpecContainerSpecSysctls(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Sysctls map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -1179,10 +1211,12 @@ func retrieveTaskSpecContainerSpecArgsFlags(depth int, m *models.TaskSpecContain
 		return nil, false
 	}
 	retAdded := false
+
 	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
 	if cmd.Flags().Changed(argsFlagName) {
 		// warning: Args array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1191,10 +1225,12 @@ func retrieveTaskSpecContainerSpecCapabilitiesFlags(depth int, m *models.TaskSpe
 		return nil, false
 	}
 	retAdded := false
+
 	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
 	if cmd.Flags().Changed(capabilitiesFlagName) {
 		// warning: Capabilities array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1203,10 +1239,12 @@ func retrieveTaskSpecContainerSpecCommandFlags(depth int, m *models.TaskSpecCont
 		return nil, false
 	}
 	retAdded := false
+
 	commandFlagName := fmt.Sprintf("%v.Command", cmdPrefix)
 	if cmd.Flags().Changed(commandFlagName) {
 		// warning: Command array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1215,10 +1253,12 @@ func retrieveTaskSpecContainerSpecConfigsFlags(depth int, m *models.TaskSpecCont
 		return nil, false
 	}
 	retAdded := false
+
 	configsFlagName := fmt.Sprintf("%v.Configs", cmdPrefix)
 	if cmd.Flags().Changed(configsFlagName) {
 		// warning: Configs array type []*TaskSpecContainerSpecConfigsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1227,19 +1267,21 @@ func retrieveTaskSpecContainerSpecDNSConfigFlags(depth int, m *models.TaskSpecCo
 		return nil, false
 	}
 	retAdded := false
+
 	dnsConfigFlagName := fmt.Sprintf("%v.DNSConfig", cmdPrefix)
 	if cmd.Flags().Changed(dnsConfigFlagName) {
 
-		dnsConfigFlagValue := &models.TaskSpecContainerSpecDNSConfig{}
-		err, added := retrieveModelTaskSpecContainerSpecDNSConfigFlags(depth+1, dnsConfigFlagValue, dnsConfigFlagName, cmd)
+		dnsConfigFlagValue := models.TaskSpecContainerSpecDNSConfig{}
+		err, added := retrieveModelTaskSpecContainerSpecDNSConfigFlags(depth+1, &dnsConfigFlagValue, dnsConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.DNSConfig = dnsConfigFlagValue
+			m.DNSConfig = &dnsConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1248,6 +1290,7 @@ func retrieveTaskSpecContainerSpecDirFlags(depth int, m *models.TaskSpecContaine
 		return nil, false
 	}
 	retAdded := false
+
 	dirFlagName := fmt.Sprintf("%v.Dir", cmdPrefix)
 	if cmd.Flags().Changed(dirFlagName) {
 
@@ -1266,6 +1309,7 @@ func retrieveTaskSpecContainerSpecDirFlags(depth int, m *models.TaskSpecContaine
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1274,10 +1318,12 @@ func retrieveTaskSpecContainerSpecEnvFlags(depth int, m *models.TaskSpecContaine
 		return nil, false
 	}
 	retAdded := false
+
 	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
 	if cmd.Flags().Changed(envFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1286,10 +1332,12 @@ func retrieveTaskSpecContainerSpecGroupsFlags(depth int, m *models.TaskSpecConta
 		return nil, false
 	}
 	retAdded := false
+
 	groupsFlagName := fmt.Sprintf("%v.Groups", cmdPrefix)
 	if cmd.Flags().Changed(groupsFlagName) {
 		// warning: Groups array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1298,19 +1346,21 @@ func retrieveTaskSpecContainerSpecHealthCheckFlags(depth int, m *models.TaskSpec
 		return nil, false
 	}
 	retAdded := false
+
 	healthCheckFlagName := fmt.Sprintf("%v.HealthCheck", cmdPrefix)
 	if cmd.Flags().Changed(healthCheckFlagName) {
 
-		healthCheckFlagValue := &models.HealthConfig{}
-		err, added := retrieveModelHealthConfigFlags(depth+1, healthCheckFlagValue, healthCheckFlagName, cmd)
+		healthCheckFlagValue := models.HealthConfig{}
+		err, added := retrieveModelHealthConfigFlags(depth+1, &healthCheckFlagValue, healthCheckFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.HealthCheck = healthCheckFlagValue
+			m.HealthCheck = &healthCheckFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1319,6 +1369,7 @@ func retrieveTaskSpecContainerSpecHostnameFlags(depth int, m *models.TaskSpecCon
 		return nil, false
 	}
 	retAdded := false
+
 	hostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
 	if cmd.Flags().Changed(hostnameFlagName) {
 
@@ -1337,6 +1388,7 @@ func retrieveTaskSpecContainerSpecHostnameFlags(depth int, m *models.TaskSpecCon
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1345,10 +1397,12 @@ func retrieveTaskSpecContainerSpecHostsFlags(depth int, m *models.TaskSpecContai
 		return nil, false
 	}
 	retAdded := false
+
 	hostsFlagName := fmt.Sprintf("%v.Hosts", cmdPrefix)
 	if cmd.Flags().Changed(hostsFlagName) {
 		// warning: Hosts array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1357,6 +1411,7 @@ func retrieveTaskSpecContainerSpecImageFlags(depth int, m *models.TaskSpecContai
 		return nil, false
 	}
 	retAdded := false
+
 	imageFlagName := fmt.Sprintf("%v.Image", cmdPrefix)
 	if cmd.Flags().Changed(imageFlagName) {
 
@@ -1375,6 +1430,7 @@ func retrieveTaskSpecContainerSpecImageFlags(depth int, m *models.TaskSpecContai
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1383,6 +1439,7 @@ func retrieveTaskSpecContainerSpecInitFlags(depth int, m *models.TaskSpecContain
 		return nil, false
 	}
 	retAdded := false
+
 	initFlagName := fmt.Sprintf("%v.Init", cmdPrefix)
 	if cmd.Flags().Changed(initFlagName) {
 
@@ -1401,6 +1458,7 @@ func retrieveTaskSpecContainerSpecInitFlags(depth int, m *models.TaskSpecContain
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1409,6 +1467,7 @@ func retrieveTaskSpecContainerSpecIsolationFlags(depth int, m *models.TaskSpecCo
 		return nil, false
 	}
 	retAdded := false
+
 	isolationFlagName := fmt.Sprintf("%v.Isolation", cmdPrefix)
 	if cmd.Flags().Changed(isolationFlagName) {
 
@@ -1427,6 +1486,7 @@ func retrieveTaskSpecContainerSpecIsolationFlags(depth int, m *models.TaskSpecCo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1435,10 +1495,12 @@ func retrieveTaskSpecContainerSpecLabelsFlags(depth int, m *models.TaskSpecConta
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1447,10 +1509,12 @@ func retrieveTaskSpecContainerSpecMountsFlags(depth int, m *models.TaskSpecConta
 		return nil, false
 	}
 	retAdded := false
+
 	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
 	if cmd.Flags().Changed(mountsFlagName) {
 		// warning: Mounts array type []*Mount is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1459,6 +1523,7 @@ func retrieveTaskSpecContainerSpecOpenStdinFlags(depth int, m *models.TaskSpecCo
 		return nil, false
 	}
 	retAdded := false
+
 	openStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 	if cmd.Flags().Changed(openStdinFlagName) {
 
@@ -1477,6 +1542,7 @@ func retrieveTaskSpecContainerSpecOpenStdinFlags(depth int, m *models.TaskSpecCo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1485,19 +1551,21 @@ func retrieveTaskSpecContainerSpecPrivilegesFlags(depth int, m *models.TaskSpecC
 		return nil, false
 	}
 	retAdded := false
+
 	privilegesFlagName := fmt.Sprintf("%v.Privileges", cmdPrefix)
 	if cmd.Flags().Changed(privilegesFlagName) {
 
-		privilegesFlagValue := &models.TaskSpecContainerSpecPrivileges{}
-		err, added := retrieveModelTaskSpecContainerSpecPrivilegesFlags(depth+1, privilegesFlagValue, privilegesFlagName, cmd)
+		privilegesFlagValue := models.TaskSpecContainerSpecPrivileges{}
+		err, added := retrieveModelTaskSpecContainerSpecPrivilegesFlags(depth+1, &privilegesFlagValue, privilegesFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Privileges = privilegesFlagValue
+			m.Privileges = &privilegesFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1506,6 +1574,7 @@ func retrieveTaskSpecContainerSpecReadOnlyFlags(depth int, m *models.TaskSpecCon
 		return nil, false
 	}
 	retAdded := false
+
 	readOnlyFlagName := fmt.Sprintf("%v.ReadOnly", cmdPrefix)
 	if cmd.Flags().Changed(readOnlyFlagName) {
 
@@ -1524,6 +1593,7 @@ func retrieveTaskSpecContainerSpecReadOnlyFlags(depth int, m *models.TaskSpecCon
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1532,10 +1602,12 @@ func retrieveTaskSpecContainerSpecSecretsFlags(depth int, m *models.TaskSpecCont
 		return nil, false
 	}
 	retAdded := false
+
 	secretsFlagName := fmt.Sprintf("%v.Secrets", cmdPrefix)
 	if cmd.Flags().Changed(secretsFlagName) {
 		// warning: Secrets array type []*TaskSpecContainerSpecSecretsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1544,6 +1616,7 @@ func retrieveTaskSpecContainerSpecStopGracePeriodFlags(depth int, m *models.Task
 		return nil, false
 	}
 	retAdded := false
+
 	stopGracePeriodFlagName := fmt.Sprintf("%v.StopGracePeriod", cmdPrefix)
 	if cmd.Flags().Changed(stopGracePeriodFlagName) {
 
@@ -1562,6 +1635,7 @@ func retrieveTaskSpecContainerSpecStopGracePeriodFlags(depth int, m *models.Task
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1570,6 +1644,7 @@ func retrieveTaskSpecContainerSpecStopSignalFlags(depth int, m *models.TaskSpecC
 		return nil, false
 	}
 	retAdded := false
+
 	stopSignalFlagName := fmt.Sprintf("%v.StopSignal", cmdPrefix)
 	if cmd.Flags().Changed(stopSignalFlagName) {
 
@@ -1588,6 +1663,7 @@ func retrieveTaskSpecContainerSpecStopSignalFlags(depth int, m *models.TaskSpecC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1596,10 +1672,12 @@ func retrieveTaskSpecContainerSpecSysctlsFlags(depth int, m *models.TaskSpecCont
 		return nil, false
 	}
 	retAdded := false
+
 	sysctlsFlagName := fmt.Sprintf("%v.Sysctls", cmdPrefix)
 	if cmd.Flags().Changed(sysctlsFlagName) {
 		// warning: Sysctls map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1608,6 +1686,7 @@ func retrieveTaskSpecContainerSpecTTYFlags(depth int, m *models.TaskSpecContaine
 		return nil, false
 	}
 	retAdded := false
+
 	tTYFlagName := fmt.Sprintf("%v.TTY", cmdPrefix)
 	if cmd.Flags().Changed(tTYFlagName) {
 
@@ -1626,6 +1705,7 @@ func retrieveTaskSpecContainerSpecTTYFlags(depth int, m *models.TaskSpecContaine
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1634,6 +1714,7 @@ func retrieveTaskSpecContainerSpecUserFlags(depth int, m *models.TaskSpecContain
 		return nil, false
 	}
 	retAdded := false
+
 	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
 
@@ -1652,6 +1733,7 @@ func retrieveTaskSpecContainerSpecUserFlags(depth int, m *models.TaskSpecContain
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1746,6 +1828,7 @@ func registerTaskSpecContainerSpecConfigsItems0Runtime(depth int, cmdPrefix stri
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Runtime interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -1787,6 +1870,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0ConfigIDFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	configIdFlagName := fmt.Sprintf("%v.ConfigID", cmdPrefix)
 	if cmd.Flags().Changed(configIdFlagName) {
 
@@ -1805,6 +1889,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0ConfigIDFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1813,6 +1898,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0ConfigNameFlags(depth int, m *mod
 		return nil, false
 	}
 	retAdded := false
+
 	configNameFlagName := fmt.Sprintf("%v.ConfigName", cmdPrefix)
 	if cmd.Flags().Changed(configNameFlagName) {
 
@@ -1831,6 +1917,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0ConfigNameFlags(depth int, m *mod
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1839,19 +1926,21 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileFlags(depth int, m *models.Ta
 		return nil, false
 	}
 	retAdded := false
+
 	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
 	if cmd.Flags().Changed(fileFlagName) {
 
-		fileFlagValue := &models.TaskSpecContainerSpecConfigsItems0File{}
-		err, added := retrieveModelTaskSpecContainerSpecConfigsItems0FileFlags(depth+1, fileFlagValue, fileFlagName, cmd)
+		fileFlagValue := models.TaskSpecContainerSpecConfigsItems0File{}
+		err, added := retrieveModelTaskSpecContainerSpecConfigsItems0FileFlags(depth+1, &fileFlagValue, fileFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.File = fileFlagValue
+			m.File = &fileFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1860,10 +1949,12 @@ func retrieveTaskSpecContainerSpecConfigsItems0RuntimeFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	runtimeFlagName := fmt.Sprintf("%v.Runtime", cmdPrefix)
 	if cmd.Flags().Changed(runtimeFlagName) {
 		// warning: Runtime map type interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2000,6 +2091,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileGIDFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
 	if cmd.Flags().Changed(gIdFlagName) {
 
@@ -2018,6 +2110,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileGIDFlags(depth int, m *models
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2026,6 +2119,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileModeFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
@@ -2033,6 +2127,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileModeFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2041,6 +2136,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileNameFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -2059,6 +2155,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileNameFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2067,6 +2164,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileUIDFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
 	if cmd.Flags().Changed(uidFlagName) {
 
@@ -2085,6 +2183,7 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileUIDFlags(depth int, m *models
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2112,6 +2211,7 @@ func registerTaskSpecContainerSpecDNSConfigNameservers(depth int, cmdPrefix stri
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Nameservers []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -2121,6 +2221,7 @@ func registerTaskSpecContainerSpecDNSConfigOptions(depth int, cmdPrefix string, 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -2130,6 +2231,7 @@ func registerTaskSpecContainerSpecDNSConfigSearch(depth int, cmdPrefix string, c
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Search []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -2165,10 +2267,12 @@ func retrieveTaskSpecContainerSpecDNSConfigNameserversFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	nameserversFlagName := fmt.Sprintf("%v.Nameservers", cmdPrefix)
 	if cmd.Flags().Changed(nameserversFlagName) {
 		// warning: Nameservers array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2177,10 +2281,12 @@ func retrieveTaskSpecContainerSpecDNSConfigOptionsFlags(depth int, m *models.Tas
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2189,10 +2295,12 @@ func retrieveTaskSpecContainerSpecDNSConfigSearchFlags(depth int, m *models.Task
 		return nil, false
 	}
 	retAdded := false
+
 	searchFlagName := fmt.Sprintf("%v.Search", cmdPrefix)
 	if cmd.Flags().Changed(searchFlagName) {
 		// warning: Search array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2274,19 +2382,21 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth int, m *mo
 		return nil, false
 	}
 	retAdded := false
+
 	credentialSpecFlagName := fmt.Sprintf("%v.CredentialSpec", cmdPrefix)
 	if cmd.Flags().Changed(credentialSpecFlagName) {
 
-		credentialSpecFlagValue := &models.TaskSpecContainerSpecPrivilegesCredentialSpec{}
-		err, added := retrieveModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth+1, credentialSpecFlagValue, credentialSpecFlagName, cmd)
+		credentialSpecFlagValue := models.TaskSpecContainerSpecPrivilegesCredentialSpec{}
+		err, added := retrieveModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth+1, &credentialSpecFlagValue, credentialSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.CredentialSpec = credentialSpecFlagValue
+			m.CredentialSpec = &credentialSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -2295,19 +2405,21 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth int, m *mo
 		return nil, false
 	}
 	retAdded := false
+
 	sELinuxContextFlagName := fmt.Sprintf("%v.SELinuxContext", cmdPrefix)
 	if cmd.Flags().Changed(sELinuxContextFlagName) {
 
-		sELinuxContextFlagValue := &models.TaskSpecContainerSpecPrivilegesSELinuxContext{}
-		err, added := retrieveModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth+1, sELinuxContextFlagValue, sELinuxContextFlagName, cmd)
+		sELinuxContextFlagValue := models.TaskSpecContainerSpecPrivilegesSELinuxContext{}
+		err, added := retrieveModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth+1, &sELinuxContextFlagValue, sELinuxContextFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.SELinuxContext = sELinuxContextFlagValue
+			m.SELinuxContext = &sELinuxContextFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -2449,6 +2561,7 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecConfigFlags(depth int,
 		return nil, false
 	}
 	retAdded := false
+
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
 
@@ -2467,6 +2580,7 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecConfigFlags(depth int,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2475,6 +2589,7 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFileFlags(depth int, m
 		return nil, false
 	}
 	retAdded := false
+
 	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
 	if cmd.Flags().Changed(fileFlagName) {
 
@@ -2493,6 +2608,7 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFileFlags(depth int, m
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2501,6 +2617,7 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecRegistryFlags(depth in
 		return nil, false
 	}
 	retAdded := false
+
 	registryFlagName := fmt.Sprintf("%v.Registry", cmdPrefix)
 	if cmd.Flags().Changed(registryFlagName) {
 
@@ -2519,6 +2636,7 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecRegistryFlags(depth in
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2697,6 +2815,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextDisableFlags(depth int
 		return nil, false
 	}
 	retAdded := false
+
 	disableFlagName := fmt.Sprintf("%v.Disable", cmdPrefix)
 	if cmd.Flags().Changed(disableFlagName) {
 
@@ -2715,6 +2834,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextDisableFlags(depth int
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2723,6 +2843,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextLevelFlags(depth int, 
 		return nil, false
 	}
 	retAdded := false
+
 	levelFlagName := fmt.Sprintf("%v.Level", cmdPrefix)
 	if cmd.Flags().Changed(levelFlagName) {
 
@@ -2741,6 +2862,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextLevelFlags(depth int, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2749,6 +2871,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextRoleFlags(depth int, m
 		return nil, false
 	}
 	retAdded := false
+
 	roleFlagName := fmt.Sprintf("%v.Role", cmdPrefix)
 	if cmd.Flags().Changed(roleFlagName) {
 
@@ -2767,6 +2890,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextRoleFlags(depth int, m
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2775,6 +2899,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextTypeFlags(depth int, m
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -2793,6 +2918,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextTypeFlags(depth int, m
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2801,6 +2927,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextUserFlags(depth int, m
 		return nil, false
 	}
 	retAdded := false
+
 	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
 
@@ -2819,6 +2946,7 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextUserFlags(depth int, m
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2935,19 +3063,21 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileFlags(depth int, m *models.Ta
 		return nil, false
 	}
 	retAdded := false
+
 	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
 	if cmd.Flags().Changed(fileFlagName) {
 
-		fileFlagValue := &models.TaskSpecContainerSpecSecretsItems0File{}
-		err, added := retrieveModelTaskSpecContainerSpecSecretsItems0FileFlags(depth+1, fileFlagValue, fileFlagName, cmd)
+		fileFlagValue := models.TaskSpecContainerSpecSecretsItems0File{}
+		err, added := retrieveModelTaskSpecContainerSpecSecretsItems0FileFlags(depth+1, &fileFlagValue, fileFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.File = fileFlagValue
+			m.File = &fileFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -2956,6 +3086,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0SecretIDFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	secretIdFlagName := fmt.Sprintf("%v.SecretID", cmdPrefix)
 	if cmd.Flags().Changed(secretIdFlagName) {
 
@@ -2974,6 +3105,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0SecretIDFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2982,6 +3114,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0SecretNameFlags(depth int, m *mod
 		return nil, false
 	}
 	retAdded := false
+
 	secretNameFlagName := fmt.Sprintf("%v.SecretName", cmdPrefix)
 	if cmd.Flags().Changed(secretNameFlagName) {
 
@@ -3000,6 +3133,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0SecretNameFlags(depth int, m *mod
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3136,6 +3270,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileGIDFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
 	if cmd.Flags().Changed(gIdFlagName) {
 
@@ -3154,6 +3289,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileGIDFlags(depth int, m *models
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3162,6 +3298,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileModeFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
@@ -3169,6 +3306,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileModeFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3177,6 +3315,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileNameFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -3195,6 +3334,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileNameFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3203,6 +3343,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileUIDFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
 	if cmd.Flags().Changed(uidFlagName) {
 
@@ -3221,6 +3362,7 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileUIDFlags(depth int, m *models
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3265,6 +3407,7 @@ func registerTaskSpecLogDriverOptions(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -3294,6 +3437,7 @@ func retrieveTaskSpecLogDriverNameFlags(depth int, m *models.TaskSpecLogDriver, 
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -3312,6 +3456,7 @@ func retrieveTaskSpecLogDriverNameFlags(depth int, m *models.TaskSpecLogDriver, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3320,10 +3465,12 @@ func retrieveTaskSpecLogDriverOptionsFlags(depth int, m *models.TaskSpecLogDrive
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3378,6 +3525,7 @@ func retrieveTaskSpecNetworkAttachmentSpecContainerIDFlags(depth int, m *models.
 		return nil, false
 	}
 	retAdded := false
+
 	containerIdFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
 	if cmd.Flags().Changed(containerIdFlagName) {
 
@@ -3396,6 +3544,7 @@ func retrieveTaskSpecNetworkAttachmentSpecContainerIDFlags(depth int, m *models.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3427,6 +3576,7 @@ func registerTaskSpecPlacementConstraints(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Constraints []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -3457,6 +3607,7 @@ func registerTaskSpecPlacementPlatforms(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Platforms []*Platform array type is not supported by go-swagger cli yet
 
 	return nil
@@ -3466,6 +3617,7 @@ func registerTaskSpecPlacementPreferences(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Preferences []*TaskSpecPlacementPreferencesItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -3507,10 +3659,12 @@ func retrieveTaskSpecPlacementConstraintsFlags(depth int, m *models.TaskSpecPlac
 		return nil, false
 	}
 	retAdded := false
+
 	constraintsFlagName := fmt.Sprintf("%v.Constraints", cmdPrefix)
 	if cmd.Flags().Changed(constraintsFlagName) {
 		// warning: Constraints array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3519,6 +3673,7 @@ func retrieveTaskSpecPlacementMaxReplicasFlags(depth int, m *models.TaskSpecPlac
 		return nil, false
 	}
 	retAdded := false
+
 	maxReplicasFlagName := fmt.Sprintf("%v.MaxReplicas", cmdPrefix)
 	if cmd.Flags().Changed(maxReplicasFlagName) {
 
@@ -3537,6 +3692,7 @@ func retrieveTaskSpecPlacementMaxReplicasFlags(depth int, m *models.TaskSpecPlac
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3545,10 +3701,12 @@ func retrieveTaskSpecPlacementPlatformsFlags(depth int, m *models.TaskSpecPlacem
 		return nil, false
 	}
 	retAdded := false
+
 	platformsFlagName := fmt.Sprintf("%v.Platforms", cmdPrefix)
 	if cmd.Flags().Changed(platformsFlagName) {
 		// warning: Platforms array type []*Platform is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3557,10 +3715,12 @@ func retrieveTaskSpecPlacementPreferencesFlags(depth int, m *models.TaskSpecPlac
 		return nil, false
 	}
 	retAdded := false
+
 	preferencesFlagName := fmt.Sprintf("%v.Preferences", cmdPrefix)
 	if cmd.Flags().Changed(preferencesFlagName) {
 		// warning: Preferences array type []*TaskSpecPlacementPreferencesItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3613,19 +3773,21 @@ func retrieveTaskSpecPlacementPreferencesItems0SpreadFlags(depth int, m *models.
 		return nil, false
 	}
 	retAdded := false
+
 	spreadFlagName := fmt.Sprintf("%v.Spread", cmdPrefix)
 	if cmd.Flags().Changed(spreadFlagName) {
 
-		spreadFlagValue := &models.TaskSpecPlacementPreferencesItems0Spread{}
-		err, added := retrieveModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth+1, spreadFlagValue, spreadFlagName, cmd)
+		spreadFlagValue := models.TaskSpecPlacementPreferencesItems0Spread{}
+		err, added := retrieveModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth+1, &spreadFlagValue, spreadFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spread = spreadFlagValue
+			m.Spread = &spreadFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -3680,6 +3842,7 @@ func retrieveTaskSpecPlacementPreferencesItems0SpreadSpreadDescriptorFlags(depth
 		return nil, false
 	}
 	retAdded := false
+
 	spreadDescriptorFlagName := fmt.Sprintf("%v.SpreadDescriptor", cmdPrefix)
 	if cmd.Flags().Changed(spreadDescriptorFlagName) {
 
@@ -3698,6 +3861,7 @@ func retrieveTaskSpecPlacementPreferencesItems0SpreadSpreadDescriptorFlags(depth
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3771,6 +3935,7 @@ func registerTaskSpecPluginSpecPluginPrivilege(depth int, cmdPrefix string, cmd 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: PluginPrivilege []*TaskSpecPluginSpecPluginPrivilegeItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -3833,6 +3998,7 @@ func retrieveTaskSpecPluginSpecDisabledFlags(depth int, m *models.TaskSpecPlugin
 		return nil, false
 	}
 	retAdded := false
+
 	disabledFlagName := fmt.Sprintf("%v.Disabled", cmdPrefix)
 	if cmd.Flags().Changed(disabledFlagName) {
 
@@ -3851,6 +4017,7 @@ func retrieveTaskSpecPluginSpecDisabledFlags(depth int, m *models.TaskSpecPlugin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3859,6 +4026,7 @@ func retrieveTaskSpecPluginSpecNameFlags(depth int, m *models.TaskSpecPluginSpec
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -3877,6 +4045,7 @@ func retrieveTaskSpecPluginSpecNameFlags(depth int, m *models.TaskSpecPluginSpec
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3885,10 +4054,12 @@ func retrieveTaskSpecPluginSpecPluginPrivilegeFlags(depth int, m *models.TaskSpe
 		return nil, false
 	}
 	retAdded := false
+
 	pluginPrivilegeFlagName := fmt.Sprintf("%v.PluginPrivilege", cmdPrefix)
 	if cmd.Flags().Changed(pluginPrivilegeFlagName) {
 		// warning: PluginPrivilege array type []*TaskSpecPluginSpecPluginPrivilegeItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3897,6 +4068,7 @@ func retrieveTaskSpecPluginSpecRemoteFlags(depth int, m *models.TaskSpecPluginSp
 		return nil, false
 	}
 	retAdded := false
+
 	remoteFlagName := fmt.Sprintf("%v.Remote", cmdPrefix)
 	if cmd.Flags().Changed(remoteFlagName) {
 
@@ -3915,6 +4087,7 @@ func retrieveTaskSpecPluginSpecRemoteFlags(depth int, m *models.TaskSpecPluginSp
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3984,6 +4157,7 @@ func registerTaskSpecPluginSpecPluginPrivilegeItems0Value(depth int, cmdPrefix s
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Value []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -4019,6 +4193,7 @@ func retrieveTaskSpecPluginSpecPluginPrivilegeItems0DescriptionFlags(depth int, 
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -4037,6 +4212,7 @@ func retrieveTaskSpecPluginSpecPluginPrivilegeItems0DescriptionFlags(depth int, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -4045,6 +4221,7 @@ func retrieveTaskSpecPluginSpecPluginPrivilegeItems0NameFlags(depth int, m *mode
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -4063,6 +4240,7 @@ func retrieveTaskSpecPluginSpecPluginPrivilegeItems0NameFlags(depth int, m *mode
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -4071,10 +4249,12 @@ func retrieveTaskSpecPluginSpecPluginPrivilegeItems0ValueFlags(depth int, m *mod
 		return nil, false
 	}
 	retAdded := false
+
 	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
 	if cmd.Flags().Changed(valueFlagName) {
 		// warning: Value array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -4156,19 +4336,21 @@ func retrieveTaskSpecResourcesLimitsFlags(depth int, m *models.TaskSpecResources
 		return nil, false
 	}
 	retAdded := false
+
 	limitsFlagName := fmt.Sprintf("%v.Limits", cmdPrefix)
 	if cmd.Flags().Changed(limitsFlagName) {
 
-		limitsFlagValue := &models.ResourceObject{}
-		err, added := retrieveModelResourceObjectFlags(depth+1, limitsFlagValue, limitsFlagName, cmd)
+		limitsFlagValue := models.ResourceObject{}
+		err, added := retrieveModelResourceObjectFlags(depth+1, &limitsFlagValue, limitsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Limits = limitsFlagValue
+			m.Limits = &limitsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -4177,19 +4359,21 @@ func retrieveTaskSpecResourcesReservationFlags(depth int, m *models.TaskSpecReso
 		return nil, false
 	}
 	retAdded := false
+
 	reservationFlagName := fmt.Sprintf("%v.Reservation", cmdPrefix)
 	if cmd.Flags().Changed(reservationFlagName) {
 
-		reservationFlagValue := &models.ResourceObject{}
-		err, added := retrieveModelResourceObjectFlags(depth+1, reservationFlagValue, reservationFlagName, cmd)
+		reservationFlagValue := models.ResourceObject{}
+		err, added := retrieveModelResourceObjectFlags(depth+1, &reservationFlagValue, reservationFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Reservation = reservationFlagValue
+			m.Reservation = &reservationFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -4337,6 +4521,7 @@ func retrieveTaskSpecRestartPolicyConditionFlags(depth int, m *models.TaskSpecRe
 		return nil, false
 	}
 	retAdded := false
+
 	conditionFlagName := fmt.Sprintf("%v.Condition", cmdPrefix)
 	if cmd.Flags().Changed(conditionFlagName) {
 
@@ -4355,6 +4540,7 @@ func retrieveTaskSpecRestartPolicyConditionFlags(depth int, m *models.TaskSpecRe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -4363,6 +4549,7 @@ func retrieveTaskSpecRestartPolicyDelayFlags(depth int, m *models.TaskSpecRestar
 		return nil, false
 	}
 	retAdded := false
+
 	delayFlagName := fmt.Sprintf("%v.Delay", cmdPrefix)
 	if cmd.Flags().Changed(delayFlagName) {
 
@@ -4381,6 +4568,7 @@ func retrieveTaskSpecRestartPolicyDelayFlags(depth int, m *models.TaskSpecRestar
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -4389,6 +4577,7 @@ func retrieveTaskSpecRestartPolicyMaxAttemptsFlags(depth int, m *models.TaskSpec
 		return nil, false
 	}
 	retAdded := false
+
 	maxAttemptsFlagName := fmt.Sprintf("%v.MaxAttempts", cmdPrefix)
 	if cmd.Flags().Changed(maxAttemptsFlagName) {
 
@@ -4407,6 +4596,7 @@ func retrieveTaskSpecRestartPolicyMaxAttemptsFlags(depth int, m *models.TaskSpec
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -4415,6 +4605,7 @@ func retrieveTaskSpecRestartPolicyWindowFlags(depth int, m *models.TaskSpecResta
 		return nil, false
 	}
 	retAdded := false
+
 	windowFlagName := fmt.Sprintf("%v.Window", cmdPrefix)
 	if cmd.Flags().Changed(windowFlagName) {
 
@@ -4433,5 +4624,6 @@ func retrieveTaskSpecRestartPolicyWindowFlags(depth int, m *models.TaskSpecResta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

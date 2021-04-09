@@ -55,6 +55,74 @@ func runOperationSecretSecretUpdate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSecretSecretUpdateParamFlags registers all flags needed to fill params
+func registerOperationSecretSecretUpdateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSecretSecretUpdateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSecretSecretUpdateIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSecretSecretUpdateVersionParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSecretSecretUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.The spec of the secret to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [SecretInspect endpoint](#operation/SecretInspect) response values.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelSecretSpecFlags(0, "secretSpec", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationSecretSecretUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. The ID or name of the secret`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationSecretSecretUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	versionDescription := `Required. The version number of the secret object being updated. This is required to avoid conflicting writes.`
+
+	var versionFlagName string
+	if cmdPrefix == "" {
+		versionFlagName = "version"
+	} else {
+		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+	}
+
+	var versionFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+
+	return nil
+}
+
 func retrieveOperationSecretSecretUpdateBodyFlag(m *secret.SecretUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -191,74 +259,6 @@ func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respEr
 	}
 
 	// warning: non schema response secretUpdateOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationSecretSecretUpdateParamFlags registers all flags needed to fill params
-func registerOperationSecretSecretUpdateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSecretSecretUpdateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSecretSecretUpdateIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSecretSecretUpdateVersionParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSecretSecretUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.The spec of the secret to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [SecretInspect endpoint](#operation/SecretInspect) response values.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelSecretSpecFlags(0, "secretSpec", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationSecretSecretUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. The ID or name of the secret`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationSecretSecretUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	versionDescription := `Required. The version number of the secret object being updated. This is required to avoid conflicting writes.`
-
-	var versionFlagName string
-	if cmdPrefix == "" {
-		versionFlagName = "version"
-	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
-	}
-
-	var versionFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
 
 	return nil
 }

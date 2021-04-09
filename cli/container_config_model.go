@@ -208,6 +208,7 @@ func registerContainerConfigCmd(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Cmd []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -238,6 +239,7 @@ func registerContainerConfigEntrypoint(depth int, cmdPrefix string, cmd *cobra.C
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Entrypoint []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -247,6 +249,7 @@ func registerContainerConfigEnv(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Env []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -256,6 +259,7 @@ func registerContainerConfigExposedPorts(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: ExposedPorts map[string]interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -326,6 +330,7 @@ func registerContainerConfigLabels(depth int, cmdPrefix string, cmd *cobra.Comma
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -377,6 +382,7 @@ func registerContainerConfigOnBuild(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: OnBuild []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -407,6 +413,7 @@ func registerContainerConfigShell(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Shell []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -521,6 +528,7 @@ func registerContainerConfigVolumes(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Volumes map[string]interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -709,6 +717,7 @@ func retrieveContainerConfigArgsEscapedFlags(depth int, m *models.ContainerConfi
 		return nil, false
 	}
 	retAdded := false
+
 	argsEscapedFlagName := fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
 	if cmd.Flags().Changed(argsEscapedFlagName) {
 
@@ -727,6 +736,7 @@ func retrieveContainerConfigArgsEscapedFlags(depth int, m *models.ContainerConfi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -735,6 +745,7 @@ func retrieveContainerConfigAttachStderrFlags(depth int, m *models.ContainerConf
 		return nil, false
 	}
 	retAdded := false
+
 	attachStderrFlagName := fmt.Sprintf("%v.AttachStderr", cmdPrefix)
 	if cmd.Flags().Changed(attachStderrFlagName) {
 
@@ -753,6 +764,7 @@ func retrieveContainerConfigAttachStderrFlags(depth int, m *models.ContainerConf
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -761,6 +773,7 @@ func retrieveContainerConfigAttachStdinFlags(depth int, m *models.ContainerConfi
 		return nil, false
 	}
 	retAdded := false
+
 	attachStdinFlagName := fmt.Sprintf("%v.AttachStdin", cmdPrefix)
 	if cmd.Flags().Changed(attachStdinFlagName) {
 
@@ -779,6 +792,7 @@ func retrieveContainerConfigAttachStdinFlags(depth int, m *models.ContainerConfi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -787,6 +801,7 @@ func retrieveContainerConfigAttachStdoutFlags(depth int, m *models.ContainerConf
 		return nil, false
 	}
 	retAdded := false
+
 	attachStdoutFlagName := fmt.Sprintf("%v.AttachStdout", cmdPrefix)
 	if cmd.Flags().Changed(attachStdoutFlagName) {
 
@@ -805,6 +820,7 @@ func retrieveContainerConfigAttachStdoutFlags(depth int, m *models.ContainerConf
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -813,10 +829,12 @@ func retrieveContainerConfigCmdFlags(depth int, m *models.ContainerConfig, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	cmdFlagName := fmt.Sprintf("%v.Cmd", cmdPrefix)
 	if cmd.Flags().Changed(cmdFlagName) {
 		// warning: Cmd array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -825,6 +843,7 @@ func retrieveContainerConfigDomainnameFlags(depth int, m *models.ContainerConfig
 		return nil, false
 	}
 	retAdded := false
+
 	domainnameFlagName := fmt.Sprintf("%v.Domainname", cmdPrefix)
 	if cmd.Flags().Changed(domainnameFlagName) {
 
@@ -843,6 +862,7 @@ func retrieveContainerConfigDomainnameFlags(depth int, m *models.ContainerConfig
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -851,10 +871,12 @@ func retrieveContainerConfigEntrypointFlags(depth int, m *models.ContainerConfig
 		return nil, false
 	}
 	retAdded := false
+
 	entrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
 	if cmd.Flags().Changed(entrypointFlagName) {
 		// warning: Entrypoint array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -863,10 +885,12 @@ func retrieveContainerConfigEnvFlags(depth int, m *models.ContainerConfig, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
 	if cmd.Flags().Changed(envFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -875,10 +899,12 @@ func retrieveContainerConfigExposedPortsFlags(depth int, m *models.ContainerConf
 		return nil, false
 	}
 	retAdded := false
+
 	exposedPortsFlagName := fmt.Sprintf("%v.ExposedPorts", cmdPrefix)
 	if cmd.Flags().Changed(exposedPortsFlagName) {
 		// warning: ExposedPorts map type map[string]interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -887,19 +913,21 @@ func retrieveContainerConfigHealthcheckFlags(depth int, m *models.ContainerConfi
 		return nil, false
 	}
 	retAdded := false
+
 	healthcheckFlagName := fmt.Sprintf("%v.Healthcheck", cmdPrefix)
 	if cmd.Flags().Changed(healthcheckFlagName) {
 
-		healthcheckFlagValue := &models.HealthConfig{}
-		err, added := retrieveModelHealthConfigFlags(depth+1, healthcheckFlagValue, healthcheckFlagName, cmd)
+		healthcheckFlagValue := models.HealthConfig{}
+		err, added := retrieveModelHealthConfigFlags(depth+1, &healthcheckFlagValue, healthcheckFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Healthcheck = healthcheckFlagValue
+			m.Healthcheck = &healthcheckFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -908,6 +936,7 @@ func retrieveContainerConfigHostnameFlags(depth int, m *models.ContainerConfig, 
 		return nil, false
 	}
 	retAdded := false
+
 	hostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
 	if cmd.Flags().Changed(hostnameFlagName) {
 
@@ -926,6 +955,7 @@ func retrieveContainerConfigHostnameFlags(depth int, m *models.ContainerConfig, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -934,6 +964,7 @@ func retrieveContainerConfigImageFlags(depth int, m *models.ContainerConfig, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	imageFlagName := fmt.Sprintf("%v.Image", cmdPrefix)
 	if cmd.Flags().Changed(imageFlagName) {
 
@@ -952,6 +983,7 @@ func retrieveContainerConfigImageFlags(depth int, m *models.ContainerConfig, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -960,10 +992,12 @@ func retrieveContainerConfigLabelsFlags(depth int, m *models.ContainerConfig, cm
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -972,6 +1006,7 @@ func retrieveContainerConfigMacAddressFlags(depth int, m *models.ContainerConfig
 		return nil, false
 	}
 	retAdded := false
+
 	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	if cmd.Flags().Changed(macAddressFlagName) {
 
@@ -990,6 +1025,7 @@ func retrieveContainerConfigMacAddressFlags(depth int, m *models.ContainerConfig
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -998,6 +1034,7 @@ func retrieveContainerConfigNetworkDisabledFlags(depth int, m *models.ContainerC
 		return nil, false
 	}
 	retAdded := false
+
 	networkDisabledFlagName := fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
 	if cmd.Flags().Changed(networkDisabledFlagName) {
 
@@ -1016,6 +1053,7 @@ func retrieveContainerConfigNetworkDisabledFlags(depth int, m *models.ContainerC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1024,10 +1062,12 @@ func retrieveContainerConfigOnBuildFlags(depth int, m *models.ContainerConfig, c
 		return nil, false
 	}
 	retAdded := false
+
 	onBuildFlagName := fmt.Sprintf("%v.OnBuild", cmdPrefix)
 	if cmd.Flags().Changed(onBuildFlagName) {
 		// warning: OnBuild array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1036,6 +1076,7 @@ func retrieveContainerConfigOpenStdinFlags(depth int, m *models.ContainerConfig,
 		return nil, false
 	}
 	retAdded := false
+
 	openStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 	if cmd.Flags().Changed(openStdinFlagName) {
 
@@ -1054,6 +1095,7 @@ func retrieveContainerConfigOpenStdinFlags(depth int, m *models.ContainerConfig,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1062,10 +1104,12 @@ func retrieveContainerConfigShellFlags(depth int, m *models.ContainerConfig, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	shellFlagName := fmt.Sprintf("%v.Shell", cmdPrefix)
 	if cmd.Flags().Changed(shellFlagName) {
 		// warning: Shell array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1074,6 +1118,7 @@ func retrieveContainerConfigStdinOnceFlags(depth int, m *models.ContainerConfig,
 		return nil, false
 	}
 	retAdded := false
+
 	stdinOnceFlagName := fmt.Sprintf("%v.StdinOnce", cmdPrefix)
 	if cmd.Flags().Changed(stdinOnceFlagName) {
 
@@ -1092,6 +1137,7 @@ func retrieveContainerConfigStdinOnceFlags(depth int, m *models.ContainerConfig,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1100,6 +1146,7 @@ func retrieveContainerConfigStopSignalFlags(depth int, m *models.ContainerConfig
 		return nil, false
 	}
 	retAdded := false
+
 	stopSignalFlagName := fmt.Sprintf("%v.StopSignal", cmdPrefix)
 	if cmd.Flags().Changed(stopSignalFlagName) {
 
@@ -1118,6 +1165,7 @@ func retrieveContainerConfigStopSignalFlags(depth int, m *models.ContainerConfig
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1126,6 +1174,7 @@ func retrieveContainerConfigStopTimeoutFlags(depth int, m *models.ContainerConfi
 		return nil, false
 	}
 	retAdded := false
+
 	stopTimeoutFlagName := fmt.Sprintf("%v.StopTimeout", cmdPrefix)
 	if cmd.Flags().Changed(stopTimeoutFlagName) {
 
@@ -1144,6 +1193,7 @@ func retrieveContainerConfigStopTimeoutFlags(depth int, m *models.ContainerConfi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1152,6 +1202,7 @@ func retrieveContainerConfigTtyFlags(depth int, m *models.ContainerConfig, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	ttyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
 	if cmd.Flags().Changed(ttyFlagName) {
 
@@ -1170,6 +1221,7 @@ func retrieveContainerConfigTtyFlags(depth int, m *models.ContainerConfig, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1178,6 +1230,7 @@ func retrieveContainerConfigUserFlags(depth int, m *models.ContainerConfig, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
 
@@ -1196,6 +1249,7 @@ func retrieveContainerConfigUserFlags(depth int, m *models.ContainerConfig, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1204,10 +1258,12 @@ func retrieveContainerConfigVolumesFlags(depth int, m *models.ContainerConfig, c
 		return nil, false
 	}
 	retAdded := false
+
 	volumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
 	if cmd.Flags().Changed(volumesFlagName) {
 		// warning: Volumes map type map[string]interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1216,6 +1272,7 @@ func retrieveContainerConfigWorkingDirFlags(depth int, m *models.ContainerConfig
 		return nil, false
 	}
 	retAdded := false
+
 	workingDirFlagName := fmt.Sprintf("%v.WorkingDir", cmdPrefix)
 	if cmd.Flags().Changed(workingDirFlagName) {
 
@@ -1234,5 +1291,6 @@ func retrieveContainerConfigWorkingDirFlags(depth int, m *models.ContainerConfig
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -78,6 +78,7 @@ func registerEndpointIPAMConfigLinkLocalIPs(depth int, cmdPrefix string, cmd *co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: LinkLocalIPs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -113,6 +114,7 @@ func retrieveEndpointIPAMConfigIPV4AddressFlags(depth int, m *models.EndpointIPA
 		return nil, false
 	}
 	retAdded := false
+
 	ipv4AddressFlagName := fmt.Sprintf("%v.IPv4Address", cmdPrefix)
 	if cmd.Flags().Changed(ipv4AddressFlagName) {
 
@@ -131,6 +133,7 @@ func retrieveEndpointIPAMConfigIPV4AddressFlags(depth int, m *models.EndpointIPA
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -139,6 +142,7 @@ func retrieveEndpointIPAMConfigIPV6AddressFlags(depth int, m *models.EndpointIPA
 		return nil, false
 	}
 	retAdded := false
+
 	ipv6AddressFlagName := fmt.Sprintf("%v.IPv6Address", cmdPrefix)
 	if cmd.Flags().Changed(ipv6AddressFlagName) {
 
@@ -157,6 +161,7 @@ func retrieveEndpointIPAMConfigIPV6AddressFlags(depth int, m *models.EndpointIPA
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -165,9 +170,11 @@ func retrieveEndpointIPAMConfigLinkLocalIPsFlags(depth int, m *models.EndpointIP
 		return nil, false
 	}
 	retAdded := false
+
 	linkLocalIPsFlagName := fmt.Sprintf("%v.LinkLocalIPs", cmdPrefix)
 	if cmd.Flags().Changed(linkLocalIPsFlagName) {
 		// warning: LinkLocalIPs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

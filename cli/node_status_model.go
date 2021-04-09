@@ -114,6 +114,7 @@ func retrieveNodeStatusAddrFlags(depth int, m *models.NodeStatus, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
 	if cmd.Flags().Changed(addrFlagName) {
 
@@ -132,6 +133,7 @@ func retrieveNodeStatusAddrFlags(depth int, m *models.NodeStatus, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -140,6 +142,7 @@ func retrieveNodeStatusMessageFlags(depth int, m *models.NodeStatus, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
 	if cmd.Flags().Changed(messageFlagName) {
 
@@ -158,6 +161,7 @@ func retrieveNodeStatusMessageFlags(depth int, m *models.NodeStatus, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -166,6 +170,7 @@ func retrieveNodeStatusStateFlags(depth int, m *models.NodeStatus, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
 	if cmd.Flags().Changed(stateFlagName) {
 
@@ -173,5 +178,6 @@ func retrieveNodeStatusStateFlags(depth int, m *models.NodeStatus, cmdPrefix str
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

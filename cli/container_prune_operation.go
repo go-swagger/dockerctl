@@ -48,6 +48,37 @@ func runOperationContainerContainerPrune(cmd *cobra.Command, args []string) erro
 	return nil
 }
 
+// registerOperationContainerContainerPruneParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerPruneParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerPruneFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+
+Available filters:
+- ` + "`" + `until=<timestamp>` + "`" + ` Prune containers created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
+- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune containers with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerPruneFiltersFlag(m *container.ContainerPruneParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -113,37 +144,6 @@ func printOperationContainerContainerPruneResult(resp0 *container.ContainerPrune
 	return nil
 }
 
-// registerOperationContainerContainerPruneParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerPruneParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerPruneFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
-
-Available filters:
-- ` + "`" + `until=<timestamp>` + "`" + ` Prune containers created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
-- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune containers with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerPruneOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -162,6 +162,7 @@ func registerContainerPruneOKBodyContainersDeleted(depth int, cmdPrefix string, 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: ContainersDeleted []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -212,10 +213,12 @@ func retrieveContainerPruneOKBodyContainersDeletedFlags(depth int, m *container.
 		return nil, false
 	}
 	retAdded := false
+
 	containersDeletedFlagName := fmt.Sprintf("%v.ContainersDeleted", cmdPrefix)
 	if cmd.Flags().Changed(containersDeletedFlagName) {
 		// warning: ContainersDeleted array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -224,6 +227,7 @@ func retrieveContainerPruneOKBodySpaceReclaimedFlags(depth int, m *container.Con
 		return nil, false
 	}
 	retAdded := false
+
 	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	if cmd.Flags().Changed(spaceReclaimedFlagName) {
 
@@ -242,5 +246,6 @@ func retrieveContainerPruneOKBodySpaceReclaimedFlags(depth int, m *container.Con
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

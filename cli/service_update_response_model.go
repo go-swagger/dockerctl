@@ -28,6 +28,7 @@ func registerServiceUpdateResponseWarnings(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Warnings []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -51,9 +52,11 @@ func retrieveServiceUpdateResponseWarningsFlags(depth int, m *models.ServiceUpda
 		return nil, false
 	}
 	retAdded := false
+
 	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
 	if cmd.Flags().Changed(warningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

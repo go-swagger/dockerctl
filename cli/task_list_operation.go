@@ -48,6 +48,40 @@ func runOperationTaskTaskList(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationTaskTaskListParamFlags registers all flags needed to fill params
+func registerOperationTaskTaskListParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationTaskTaskListFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationTaskTaskListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the tasks list. Available filters:
+
+- ` + "`" + `desired-state=(running | shutdown | accepted)` + "`" + `
+- ` + "`" + `id=<task id>` + "`" + `
+- ` + "`" + `label=key` + "`" + ` or ` + "`" + `label="key=value"` + "`" + `
+- ` + "`" + `name=<task name>` + "`" + `
+- ` + "`" + `node=<node id or name>` + "`" + `
+- ` + "`" + `service=<service name>` + "`" + `
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationTaskTaskListFiltersFlag(m *task.TaskListParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -122,40 +156,6 @@ func printOperationTaskTaskListResult(resp0 *task.TaskListOK, respErr error) err
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationTaskTaskListParamFlags registers all flags needed to fill params
-func registerOperationTaskTaskListParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationTaskTaskListFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationTaskTaskListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the tasks list. Available filters:
-
-- ` + "`" + `desired-state=(running | shutdown | accepted)` + "`" + `
-- ` + "`" + `id=<task id>` + "`" + `
-- ` + "`" + `label=key` + "`" + ` or ` + "`" + `label="key=value"` + "`" + `
-- ` + "`" + `name=<task name>` + "`" + `
-- ` + "`" + `node=<node id or name>` + "`" + `
-- ` + "`" + `service=<service name>` + "`" + `
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
 
 	return nil
 }

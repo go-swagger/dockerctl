@@ -156,6 +156,7 @@ func retrieveAuthConfigEmailFlags(depth int, m *models.AuthConfig, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	emailFlagName := fmt.Sprintf("%v.email", cmdPrefix)
 	if cmd.Flags().Changed(emailFlagName) {
 
@@ -174,6 +175,7 @@ func retrieveAuthConfigEmailFlags(depth int, m *models.AuthConfig, cmdPrefix str
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -182,6 +184,7 @@ func retrieveAuthConfigPasswordFlags(depth int, m *models.AuthConfig, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	passwordFlagName := fmt.Sprintf("%v.password", cmdPrefix)
 	if cmd.Flags().Changed(passwordFlagName) {
 
@@ -200,6 +203,7 @@ func retrieveAuthConfigPasswordFlags(depth int, m *models.AuthConfig, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -208,6 +212,7 @@ func retrieveAuthConfigServeraddressFlags(depth int, m *models.AuthConfig, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	serveraddressFlagName := fmt.Sprintf("%v.serveraddress", cmdPrefix)
 	if cmd.Flags().Changed(serveraddressFlagName) {
 
@@ -226,6 +231,7 @@ func retrieveAuthConfigServeraddressFlags(depth int, m *models.AuthConfig, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -234,6 +240,7 @@ func retrieveAuthConfigUsernameFlags(depth int, m *models.AuthConfig, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	usernameFlagName := fmt.Sprintf("%v.username", cmdPrefix)
 	if cmd.Flags().Changed(usernameFlagName) {
 
@@ -252,5 +259,6 @@ func retrieveAuthConfigUsernameFlags(depth int, m *models.AuthConfig, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

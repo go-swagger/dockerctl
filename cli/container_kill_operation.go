@@ -51,6 +51,52 @@ func runOperationContainerContainerKill(cmd *cobra.Command, args []string) error
 	return nil
 }
 
+// registerOperationContainerContainerKillParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerKillParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerKillIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerKillSignalParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerKillIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerKillSignalParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	signalDescription := `Signal to send to the container as an integer or string (e.g. ` + "`" + `SIGINT` + "`" + `)`
+
+	var signalFlagName string
+	if cmdPrefix == "" {
+		signalFlagName = "signal"
+	} else {
+		signalFlagName = fmt.Sprintf("%v.signal", cmdPrefix)
+	}
+
+	var signalFlagDefault string = "SIGKILL"
+
+	_ = cmd.PersistentFlags().String(signalFlagName, signalFlagDefault, signalDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerKillIDFlag(m *container.ContainerKillParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -141,52 +187,6 @@ func printOperationContainerContainerKillResult(resp0 *container.ContainerKillNo
 	}
 
 	// warning: non schema response containerKillNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerKillParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerKillParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerKillIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerKillSignalParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerKillIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerKillSignalParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	signalDescription := `Signal to send to the container as an integer or string (e.g. ` + "`" + `SIGINT` + "`" + `)`
-
-	var signalFlagName string
-	if cmdPrefix == "" {
-		signalFlagName = "signal"
-	} else {
-		signalFlagName = fmt.Sprintf("%v.signal", cmdPrefix)
-	}
-
-	var signalFlagDefault string = "SIGKILL"
-
-	_ = cmd.PersistentFlags().String(signalFlagName, signalFlagDefault, signalDescription)
 
 	return nil
 }

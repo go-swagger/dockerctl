@@ -51,6 +51,52 @@ func runOperationContainerContainerTop(cmd *cobra.Command, args []string) error 
 	return nil
 }
 
+// registerOperationContainerContainerTopParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerTopParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerTopIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerTopPsArgsParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerTopIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerTopPsArgsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	psArgsDescription := `The arguments to pass to ` + "`" + `ps` + "`" + `. For example, ` + "`" + `aux` + "`" + ``
+
+	var psArgsFlagName string
+	if cmdPrefix == "" {
+		psArgsFlagName = "ps_args"
+	} else {
+		psArgsFlagName = fmt.Sprintf("%v.ps_args", cmdPrefix)
+	}
+
+	var psArgsFlagDefault string = "-ef"
+
+	_ = cmd.PersistentFlags().String(psArgsFlagName, psArgsFlagDefault, psArgsDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerTopIDFlag(m *container.ContainerTopParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -149,52 +195,6 @@ func printOperationContainerContainerTopResult(resp0 *container.ContainerTopOK, 
 	return nil
 }
 
-// registerOperationContainerContainerTopParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerTopParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerTopIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerTopPsArgsParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerTopIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerTopPsArgsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	psArgsDescription := `The arguments to pass to ` + "`" + `ps` + "`" + `. For example, ` + "`" + `aux` + "`" + ``
-
-	var psArgsFlagName string
-	if cmdPrefix == "" {
-		psArgsFlagName = "ps_args"
-	} else {
-		psArgsFlagName = fmt.Sprintf("%v.ps_args", cmdPrefix)
-	}
-
-	var psArgsFlagDefault string = "-ef"
-
-	_ = cmd.PersistentFlags().String(psArgsFlagName, psArgsFlagDefault, psArgsDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerTopOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -213,6 +213,7 @@ func registerContainerTopOKBodyProcesses(depth int, cmdPrefix string, cmd *cobra
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Processes [][]string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -222,6 +223,7 @@ func registerContainerTopOKBodyTitles(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Titles []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -251,10 +253,12 @@ func retrieveContainerTopOKBodyProcessesFlags(depth int, m *container.ContainerT
 		return nil, false
 	}
 	retAdded := false
+
 	processesFlagName := fmt.Sprintf("%v.Processes", cmdPrefix)
 	if cmd.Flags().Changed(processesFlagName) {
 		// warning: Processes array type [][]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -263,9 +267,11 @@ func retrieveContainerTopOKBodyTitlesFlags(depth int, m *container.ContainerTopO
 		return nil, false
 	}
 	retAdded := false
+
 	titlesFlagName := fmt.Sprintf("%v.Titles", cmdPrefix)
 	if cmd.Flags().Changed(titlesFlagName) {
 		// warning: Titles array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

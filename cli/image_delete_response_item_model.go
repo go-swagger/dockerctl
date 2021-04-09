@@ -94,6 +94,7 @@ func retrieveImageDeleteResponseItemDeletedFlags(depth int, m *models.ImageDelet
 		return nil, false
 	}
 	retAdded := false
+
 	deletedFlagName := fmt.Sprintf("%v.Deleted", cmdPrefix)
 	if cmd.Flags().Changed(deletedFlagName) {
 
@@ -112,6 +113,7 @@ func retrieveImageDeleteResponseItemDeletedFlags(depth int, m *models.ImageDelet
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -120,6 +122,7 @@ func retrieveImageDeleteResponseItemUntaggedFlags(depth int, m *models.ImageDele
 		return nil, false
 	}
 	retAdded := false
+
 	untaggedFlagName := fmt.Sprintf("%v.Untagged", cmdPrefix)
 	if cmd.Flags().Changed(untaggedFlagName) {
 
@@ -138,5 +141,6 @@ func retrieveImageDeleteResponseItemUntaggedFlags(depth int, m *models.ImageDele
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

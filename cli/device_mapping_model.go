@@ -125,6 +125,7 @@ func retrieveDeviceMappingCgroupPermissionsFlags(depth int, m *models.DeviceMapp
 		return nil, false
 	}
 	retAdded := false
+
 	cgroupPermissionsFlagName := fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
 	if cmd.Flags().Changed(cgroupPermissionsFlagName) {
 
@@ -143,6 +144,7 @@ func retrieveDeviceMappingCgroupPermissionsFlags(depth int, m *models.DeviceMapp
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -151,6 +153,7 @@ func retrieveDeviceMappingPathInContainerFlags(depth int, m *models.DeviceMappin
 		return nil, false
 	}
 	retAdded := false
+
 	pathInContainerFlagName := fmt.Sprintf("%v.PathInContainer", cmdPrefix)
 	if cmd.Flags().Changed(pathInContainerFlagName) {
 
@@ -169,6 +172,7 @@ func retrieveDeviceMappingPathInContainerFlags(depth int, m *models.DeviceMappin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -177,6 +181,7 @@ func retrieveDeviceMappingPathOnHostFlags(depth int, m *models.DeviceMapping, cm
 		return nil, false
 	}
 	retAdded := false
+
 	pathOnHostFlagName := fmt.Sprintf("%v.PathOnHost", cmdPrefix)
 	if cmd.Flags().Changed(pathOnHostFlagName) {
 
@@ -195,5 +200,6 @@ func retrieveDeviceMappingPathOnHostFlags(depth int, m *models.DeviceMapping, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

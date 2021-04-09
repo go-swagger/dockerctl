@@ -40,6 +40,7 @@ func registerPluginsInfoAuthorization(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Authorization []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -49,6 +50,7 @@ func registerPluginsInfoLog(depth int, cmdPrefix string, cmd *cobra.Command) err
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Log []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -58,6 +60,7 @@ func registerPluginsInfoNetwork(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Network []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -67,6 +70,7 @@ func registerPluginsInfoVolume(depth int, cmdPrefix string, cmd *cobra.Command) 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Volume []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -108,10 +112,12 @@ func retrievePluginsInfoAuthorizationFlags(depth int, m *models.PluginsInfo, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	authorizationFlagName := fmt.Sprintf("%v.Authorization", cmdPrefix)
 	if cmd.Flags().Changed(authorizationFlagName) {
 		// warning: Authorization array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -120,10 +126,12 @@ func retrievePluginsInfoLogFlags(depth int, m *models.PluginsInfo, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	logFlagName := fmt.Sprintf("%v.Log", cmdPrefix)
 	if cmd.Flags().Changed(logFlagName) {
 		// warning: Log array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -132,10 +140,12 @@ func retrievePluginsInfoNetworkFlags(depth int, m *models.PluginsInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	networkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
 	if cmd.Flags().Changed(networkFlagName) {
 		// warning: Network array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -144,9 +154,11 @@ func retrievePluginsInfoVolumeFlags(depth int, m *models.PluginsInfo, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	volumeFlagName := fmt.Sprintf("%v.Volume", cmdPrefix)
 	if cmd.Flags().Changed(volumeFlagName) {
 		// warning: Volume array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

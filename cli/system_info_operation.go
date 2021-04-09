@@ -45,6 +45,11 @@ func runOperationSystemSystemInfo(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSystemSystemInfoParamFlags registers all flags needed to fill params
+func registerOperationSystemSystemInfoParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSystemSystemInfoResult prints output to stdout
 func printOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr error) error {
 	if respErr != nil {
@@ -86,10 +91,5 @@ func printOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr er
 		fmt.Println(string(msgStr))
 	}
 
-	return nil
-}
-
-// registerOperationSystemSystemInfoParamFlags registers all flags needed to fill params
-func registerOperationSystemSystemInfoParamFlags(cmd *cobra.Command) error {
 	return nil
 }

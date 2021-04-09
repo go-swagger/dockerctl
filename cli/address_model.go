@@ -94,6 +94,7 @@ func retrieveAddressAddrFlags(depth int, m *models.Address, cmdPrefix string, cm
 		return nil, false
 	}
 	retAdded := false
+
 	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
 	if cmd.Flags().Changed(addrFlagName) {
 
@@ -112,6 +113,7 @@ func retrieveAddressAddrFlags(depth int, m *models.Address, cmdPrefix string, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -120,6 +122,7 @@ func retrieveAddressPrefixLenFlags(depth int, m *models.Address, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	prefixLenFlagName := fmt.Sprintf("%v.PrefixLen", cmdPrefix)
 	if cmd.Flags().Changed(prefixLenFlagName) {
 
@@ -138,5 +141,6 @@ func retrieveAddressPrefixLenFlags(depth int, m *models.Address, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

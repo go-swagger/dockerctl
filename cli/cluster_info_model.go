@@ -97,6 +97,7 @@ func registerClusterInfoDefaultAddrPool(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DefaultAddrPool []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -306,6 +307,7 @@ func retrieveClusterInfoCreatedAtFlags(depth int, m *models.ClusterInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	if cmd.Flags().Changed(createdAtFlagName) {
 
@@ -324,6 +326,7 @@ func retrieveClusterInfoCreatedAtFlags(depth int, m *models.ClusterInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -332,6 +335,7 @@ func retrieveClusterInfoDataPathPortFlags(depth int, m *models.ClusterInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	dataPathPortFlagName := fmt.Sprintf("%v.DataPathPort", cmdPrefix)
 	if cmd.Flags().Changed(dataPathPortFlagName) {
 
@@ -339,6 +343,7 @@ func retrieveClusterInfoDataPathPortFlags(depth int, m *models.ClusterInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -347,10 +352,12 @@ func retrieveClusterInfoDefaultAddrPoolFlags(depth int, m *models.ClusterInfo, c
 		return nil, false
 	}
 	retAdded := false
+
 	defaultAddrPoolFlagName := fmt.Sprintf("%v.DefaultAddrPool", cmdPrefix)
 	if cmd.Flags().Changed(defaultAddrPoolFlagName) {
 		// warning: DefaultAddrPool array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -359,6 +366,7 @@ func retrieveClusterInfoIDFlags(depth int, m *models.ClusterInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -377,6 +385,7 @@ func retrieveClusterInfoIDFlags(depth int, m *models.ClusterInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -385,6 +394,7 @@ func retrieveClusterInfoRootRotationInProgressFlags(depth int, m *models.Cluster
 		return nil, false
 	}
 	retAdded := false
+
 	rootRotationInProgressFlagName := fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
 	if cmd.Flags().Changed(rootRotationInProgressFlagName) {
 
@@ -403,6 +413,7 @@ func retrieveClusterInfoRootRotationInProgressFlags(depth int, m *models.Cluster
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -411,19 +422,21 @@ func retrieveClusterInfoSpecFlags(depth int, m *models.ClusterInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := models.SwarmSpec{}
+		err, added := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spec = specFlagValue
+			m.Spec = &specFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -432,6 +445,7 @@ func retrieveClusterInfoSubnetSizeFlags(depth int, m *models.ClusterInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	subnetSizeFlagName := fmt.Sprintf("%v.SubnetSize", cmdPrefix)
 	if cmd.Flags().Changed(subnetSizeFlagName) {
 
@@ -439,6 +453,7 @@ func retrieveClusterInfoSubnetSizeFlags(depth int, m *models.ClusterInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -447,19 +462,21 @@ func retrieveClusterInfoTLSInfoFlags(depth int, m *models.ClusterInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	if cmd.Flags().Changed(tlsInfoFlagName) {
 
-		tlsInfoFlagValue := &models.TLSInfo{}
-		err, added := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
+		tlsInfoFlagValue := models.TLSInfo{}
+		err, added := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.TLSInfo = tlsInfoFlagValue
+			m.TLSInfo = &tlsInfoFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -468,6 +485,7 @@ func retrieveClusterInfoUpdatedAtFlags(depth int, m *models.ClusterInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	if cmd.Flags().Changed(updatedAtFlagName) {
 
@@ -486,6 +504,7 @@ func retrieveClusterInfoUpdatedAtFlags(depth int, m *models.ClusterInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -494,18 +513,20 @@ func retrieveClusterInfoVersionFlags(depth int, m *models.ClusterInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Version = versionFlagValue
+			m.Version = &versionFlagValue
 		}
 	}
+
 	return nil, retAdded
 }

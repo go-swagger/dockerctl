@@ -51,6 +51,54 @@ func runOperationNetworkNetworkDisconnect(cmd *cobra.Command, args []string) err
 	return nil
 }
 
+// registerOperationNetworkNetworkDisconnectParamFlags registers all flags needed to fill params
+func registerOperationNetworkNetworkDisconnectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationNetworkNetworkDisconnectContainerParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationNetworkNetworkDisconnectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationNetworkNetworkDisconnectContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var containerFlagName string
+	if cmdPrefix == "" {
+		containerFlagName = "container"
+	} else {
+		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+	}
+
+	exampleContainerStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(containerFlagName, "", fmt.Sprintf("Optional json string for [container] of form %v.", string(exampleContainerStr)))
+
+	// add flags for body
+	if err := registerModelNetworkDisconnectBodyFlags(0, "networkDisconnectBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationNetworkNetworkDisconnectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. Network ID or name`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationNetworkNetworkDisconnectContainerFlag(m *network.NetworkDisconnectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("container") {
@@ -158,54 +206,6 @@ func printOperationNetworkNetworkDisconnectResult(resp0 *network.NetworkDisconne
 	return nil
 }
 
-// registerOperationNetworkNetworkDisconnectParamFlags registers all flags needed to fill params
-func registerOperationNetworkNetworkDisconnectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationNetworkNetworkDisconnectContainerParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationNetworkNetworkDisconnectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationNetworkNetworkDisconnectContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var containerFlagName string
-	if cmdPrefix == "" {
-		containerFlagName = "container"
-	} else {
-		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
-	}
-
-	exampleContainerStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(containerFlagName, "", fmt.Sprintf("Optional json string for [container] of form %v.", string(exampleContainerStr)))
-
-	// add flags for body
-	if err := registerModelNetworkDisconnectBodyFlags(0, "networkDisconnectBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationNetworkNetworkDisconnectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. Network ID or name`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelNetworkDisconnectBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -286,6 +286,7 @@ func retrieveNetworkDisconnectBodyContainerFlags(depth int, m *network.NetworkDi
 		return nil, false
 	}
 	retAdded := false
+
 	containerFlagName := fmt.Sprintf("%v.Container", cmdPrefix)
 	if cmd.Flags().Changed(containerFlagName) {
 
@@ -304,6 +305,7 @@ func retrieveNetworkDisconnectBodyContainerFlags(depth int, m *network.NetworkDi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -312,6 +314,7 @@ func retrieveNetworkDisconnectBodyForceFlags(depth int, m *network.NetworkDiscon
 		return nil, false
 	}
 	retAdded := false
+
 	forceFlagName := fmt.Sprintf("%v.Force", cmdPrefix)
 	if cmd.Flags().Changed(forceFlagName) {
 
@@ -330,5 +333,6 @@ func retrieveNetworkDisconnectBodyForceFlags(depth int, m *network.NetworkDiscon
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

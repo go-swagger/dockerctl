@@ -66,6 +66,11 @@ func runOperationSessionSession(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSessionSessionParamFlags registers all flags needed to fill params
+func registerOperationSessionSessionParamFlags(cmd *cobra.Command) error {
+	return nil
+}
+
 // printOperationSessionSessionResult prints output to stdout
 func printOperationSessionSessionResult(respErr error) error {
 	if respErr != nil {
@@ -100,10 +105,5 @@ func printOperationSessionSessionResult(respErr error) error {
 
 		return respErr
 	}
-	return nil
-}
-
-// registerOperationSessionSessionParamFlags registers all flags needed to fill params
-func registerOperationSessionSessionParamFlags(cmd *cobra.Command) error {
 	return nil
 }

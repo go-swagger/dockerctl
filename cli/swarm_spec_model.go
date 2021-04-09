@@ -113,6 +113,7 @@ func registerSwarmSpecLabels(depth int, cmdPrefix string, cmd *cobra.Command) er
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -256,19 +257,21 @@ func retrieveSwarmSpecCAConfigFlags(depth int, m *models.SwarmSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	cAConfigFlagName := fmt.Sprintf("%v.CAConfig", cmdPrefix)
 	if cmd.Flags().Changed(cAConfigFlagName) {
 
-		cAConfigFlagValue := &models.SwarmSpecCAConfig{}
-		err, added := retrieveModelSwarmSpecCAConfigFlags(depth+1, cAConfigFlagValue, cAConfigFlagName, cmd)
+		cAConfigFlagValue := models.SwarmSpecCAConfig{}
+		err, added := retrieveModelSwarmSpecCAConfigFlags(depth+1, &cAConfigFlagValue, cAConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.CAConfig = cAConfigFlagValue
+			m.CAConfig = &cAConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -277,19 +280,21 @@ func retrieveSwarmSpecDispatcherFlags(depth int, m *models.SwarmSpec, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	dispatcherFlagName := fmt.Sprintf("%v.Dispatcher", cmdPrefix)
 	if cmd.Flags().Changed(dispatcherFlagName) {
 
-		dispatcherFlagValue := &models.SwarmSpecDispatcher{}
-		err, added := retrieveModelSwarmSpecDispatcherFlags(depth+1, dispatcherFlagValue, dispatcherFlagName, cmd)
+		dispatcherFlagValue := models.SwarmSpecDispatcher{}
+		err, added := retrieveModelSwarmSpecDispatcherFlags(depth+1, &dispatcherFlagValue, dispatcherFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Dispatcher = dispatcherFlagValue
+			m.Dispatcher = &dispatcherFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -298,19 +303,21 @@ func retrieveSwarmSpecEncryptionConfigFlags(depth int, m *models.SwarmSpec, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	encryptionConfigFlagName := fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
 	if cmd.Flags().Changed(encryptionConfigFlagName) {
 
-		encryptionConfigFlagValue := &models.SwarmSpecEncryptionConfig{}
-		err, added := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
+		encryptionConfigFlagValue := models.SwarmSpecEncryptionConfig{}
+		err, added := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, &encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.EncryptionConfig = encryptionConfigFlagValue
+			m.EncryptionConfig = &encryptionConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -319,10 +326,12 @@ func retrieveSwarmSpecLabelsFlags(depth int, m *models.SwarmSpec, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -331,6 +340,7 @@ func retrieveSwarmSpecNameFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -349,6 +359,7 @@ func retrieveSwarmSpecNameFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -357,19 +368,21 @@ func retrieveSwarmSpecOrchestrationFlags(depth int, m *models.SwarmSpec, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	orchestrationFlagName := fmt.Sprintf("%v.Orchestration", cmdPrefix)
 	if cmd.Flags().Changed(orchestrationFlagName) {
 
-		orchestrationFlagValue := &models.SwarmSpecOrchestration{}
-		err, added := retrieveModelSwarmSpecOrchestrationFlags(depth+1, orchestrationFlagValue, orchestrationFlagName, cmd)
+		orchestrationFlagValue := models.SwarmSpecOrchestration{}
+		err, added := retrieveModelSwarmSpecOrchestrationFlags(depth+1, &orchestrationFlagValue, orchestrationFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Orchestration = orchestrationFlagValue
+			m.Orchestration = &orchestrationFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -378,19 +391,21 @@ func retrieveSwarmSpecRaftFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	raftFlagName := fmt.Sprintf("%v.Raft", cmdPrefix)
 	if cmd.Flags().Changed(raftFlagName) {
 
-		raftFlagValue := &models.SwarmSpecRaft{}
-		err, added := retrieveModelSwarmSpecRaftFlags(depth+1, raftFlagValue, raftFlagName, cmd)
+		raftFlagValue := models.SwarmSpecRaft{}
+		err, added := retrieveModelSwarmSpecRaftFlags(depth+1, &raftFlagValue, raftFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Raft = raftFlagValue
+			m.Raft = &raftFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -399,19 +414,21 @@ func retrieveSwarmSpecTaskDefaultsFlags(depth int, m *models.SwarmSpec, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	taskDefaultsFlagName := fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
 	if cmd.Flags().Changed(taskDefaultsFlagName) {
 
-		taskDefaultsFlagValue := &models.SwarmSpecTaskDefaults{}
-		err, added := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
+		taskDefaultsFlagValue := models.SwarmSpecTaskDefaults{}
+		err, added := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, &taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.TaskDefaults = taskDefaultsFlagValue
+			m.TaskDefaults = &taskDefaultsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -447,6 +464,7 @@ func registerSwarmSpecCAConfigExternalCAs(depth int, cmdPrefix string, cmd *cobr
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: ExternalCAs []*SwarmSpecCAConfigExternalCAsItems0 array type is not supported by go-swagger cli yet
 
 	return nil
@@ -567,10 +585,12 @@ func retrieveSwarmSpecCAConfigExternalCAsFlags(depth int, m *models.SwarmSpecCAC
 		return nil, false
 	}
 	retAdded := false
+
 	externalCAsFlagName := fmt.Sprintf("%v.ExternalCAs", cmdPrefix)
 	if cmd.Flags().Changed(externalCAsFlagName) {
 		// warning: ExternalCAs array type []*SwarmSpecCAConfigExternalCAsItems0 is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -579,6 +599,7 @@ func retrieveSwarmSpecCAConfigForceRotateFlags(depth int, m *models.SwarmSpecCAC
 		return nil, false
 	}
 	retAdded := false
+
 	forceRotateFlagName := fmt.Sprintf("%v.ForceRotate", cmdPrefix)
 	if cmd.Flags().Changed(forceRotateFlagName) {
 
@@ -586,6 +607,7 @@ func retrieveSwarmSpecCAConfigForceRotateFlags(depth int, m *models.SwarmSpecCAC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -594,6 +616,7 @@ func retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth int, m *models.SwarmSpec
 		return nil, false
 	}
 	retAdded := false
+
 	nodeCertExpiryFlagName := fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
 	if cmd.Flags().Changed(nodeCertExpiryFlagName) {
 
@@ -612,6 +635,7 @@ func retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth int, m *models.SwarmSpec
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -620,6 +644,7 @@ func retrieveSwarmSpecCAConfigSigningCACertFlags(depth int, m *models.SwarmSpecC
 		return nil, false
 	}
 	retAdded := false
+
 	signingCACertFlagName := fmt.Sprintf("%v.SigningCACert", cmdPrefix)
 	if cmd.Flags().Changed(signingCACertFlagName) {
 
@@ -638,6 +663,7 @@ func retrieveSwarmSpecCAConfigSigningCACertFlags(depth int, m *models.SwarmSpecC
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -646,6 +672,7 @@ func retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth int, m *models.SwarmSpecCA
 		return nil, false
 	}
 	retAdded := false
+
 	signingCAKeyFlagName := fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
 	if cmd.Flags().Changed(signingCAKeyFlagName) {
 
@@ -664,6 +691,7 @@ func retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth int, m *models.SwarmSpecCA
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -716,6 +744,7 @@ func registerSwarmSpecCAConfigExternalCAsItems0Options(depth int, cmdPrefix stri
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -799,6 +828,7 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth int, m *models.
 		return nil, false
 	}
 	retAdded := false
+
 	cACertFlagName := fmt.Sprintf("%v.CACert", cmdPrefix)
 	if cmd.Flags().Changed(cACertFlagName) {
 
@@ -817,6 +847,7 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth int, m *models.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -825,10 +856,12 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0OptionsFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -837,6 +870,7 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth int, m *model
 		return nil, false
 	}
 	retAdded := false
+
 	protocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
 	if cmd.Flags().Changed(protocolFlagName) {
 
@@ -855,6 +889,7 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth int, m *model
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -863,6 +898,7 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth int, m *models.Swa
 		return nil, false
 	}
 	retAdded := false
+
 	urlFlagName := fmt.Sprintf("%v.URL", cmdPrefix)
 	if cmd.Flags().Changed(urlFlagName) {
 
@@ -881,6 +917,7 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth int, m *models.Swa
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -935,6 +972,7 @@ func retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth int, m *models.SwarmS
 		return nil, false
 	}
 	retAdded := false
+
 	heartbeatPeriodFlagName := fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
 	if cmd.Flags().Changed(heartbeatPeriodFlagName) {
 
@@ -953,6 +991,7 @@ func retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth int, m *models.SwarmS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1007,6 +1046,7 @@ func retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth int, m *models
 		return nil, false
 	}
 	retAdded := false
+
 	autoLockManagersFlagName := fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
 	if cmd.Flags().Changed(autoLockManagersFlagName) {
 
@@ -1025,6 +1065,7 @@ func retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth int, m *models
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1079,6 +1120,7 @@ func retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth int, m *
 		return nil, false
 	}
 	retAdded := false
+
 	taskHistoryRetentionLimitFlagName := fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
 	if cmd.Flags().Changed(taskHistoryRetentionLimitFlagName) {
 
@@ -1097,6 +1139,7 @@ func retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth int, m *
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1248,6 +1291,7 @@ func retrieveSwarmSpecRaftElectionTickFlags(depth int, m *models.SwarmSpecRaft, 
 		return nil, false
 	}
 	retAdded := false
+
 	electionTickFlagName := fmt.Sprintf("%v.ElectionTick", cmdPrefix)
 	if cmd.Flags().Changed(electionTickFlagName) {
 
@@ -1266,6 +1310,7 @@ func retrieveSwarmSpecRaftElectionTickFlags(depth int, m *models.SwarmSpecRaft, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1274,6 +1319,7 @@ func retrieveSwarmSpecRaftHeartbeatTickFlags(depth int, m *models.SwarmSpecRaft,
 		return nil, false
 	}
 	retAdded := false
+
 	heartbeatTickFlagName := fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
 	if cmd.Flags().Changed(heartbeatTickFlagName) {
 
@@ -1292,6 +1338,7 @@ func retrieveSwarmSpecRaftHeartbeatTickFlags(depth int, m *models.SwarmSpecRaft,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1300,6 +1347,7 @@ func retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth int, m *models.SwarmSpecRa
 		return nil, false
 	}
 	retAdded := false
+
 	keepOldSnapshotsFlagName := fmt.Sprintf("%v.KeepOldSnapshots", cmdPrefix)
 	if cmd.Flags().Changed(keepOldSnapshotsFlagName) {
 
@@ -1307,6 +1355,7 @@ func retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth int, m *models.SwarmSpecRa
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1315,6 +1364,7 @@ func retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth int, m *models.S
 		return nil, false
 	}
 	retAdded := false
+
 	logEntriesForSlowFollowersFlagName := fmt.Sprintf("%v.LogEntriesForSlowFollowers", cmdPrefix)
 	if cmd.Flags().Changed(logEntriesForSlowFollowersFlagName) {
 
@@ -1322,6 +1372,7 @@ func retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth int, m *models.S
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1330,6 +1381,7 @@ func retrieveSwarmSpecRaftSnapshotIntervalFlags(depth int, m *models.SwarmSpecRa
 		return nil, false
 	}
 	retAdded := false
+
 	snapshotIntervalFlagName := fmt.Sprintf("%v.SnapshotInterval", cmdPrefix)
 	if cmd.Flags().Changed(snapshotIntervalFlagName) {
 
@@ -1337,6 +1389,7 @@ func retrieveSwarmSpecRaftSnapshotIntervalFlags(depth int, m *models.SwarmSpecRa
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1389,19 +1442,21 @@ func retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth int, m *models.SwarmSpecT
 		return nil, false
 	}
 	retAdded := false
+
 	logDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
 	if cmd.Flags().Changed(logDriverFlagName) {
 
-		logDriverFlagValue := &models.SwarmSpecTaskDefaultsLogDriver{}
-		err, added := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
+		logDriverFlagValue := models.SwarmSpecTaskDefaultsLogDriver{}
+		err, added := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, &logDriverFlagValue, logDriverFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.LogDriver = logDriverFlagValue
+			m.LogDriver = &logDriverFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -1447,6 +1502,7 @@ func registerSwarmSpecTaskDefaultsLogDriverOptions(depth int, cmdPrefix string, 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Options map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -1476,6 +1532,7 @@ func retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth int, m *models.SwarmS
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -1494,6 +1551,7 @@ func retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth int, m *models.SwarmS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1502,9 +1560,11 @@ func retrieveSwarmSpecTaskDefaultsLogDriverOptionsFlags(depth int, m *models.Swa
 		return nil, false
 	}
 	retAdded := false
+
 	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
 	if cmd.Flags().Changed(optionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

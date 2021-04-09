@@ -48,6 +48,34 @@ func runOperationSwarmSwarmUnlock(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmUnlockParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmUnlockParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSwarmSwarmUnlockBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSwarmSwarmUnlockBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelSwarmUnlockBodyFlags(0, "swarmUnlockBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationSwarmSwarmUnlockBodyFlag(m *swarm.SwarmUnlockParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -122,34 +150,6 @@ func printOperationSwarmSwarmUnlockResult(resp0 *swarm.SwarmUnlockOK, respErr er
 	return nil
 }
 
-// registerOperationSwarmSwarmUnlockParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmUnlockParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSwarmSwarmUnlockBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSwarmSwarmUnlockBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelSwarmUnlockBodyFlags(0, "swarmUnlockBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // register flags to command
 func registerModelSwarmUnlockBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -199,6 +199,7 @@ func retrieveSwarmUnlockBodyUnlockKeyFlags(depth int, m *swarm.SwarmUnlockBody, 
 		return nil, false
 	}
 	retAdded := false
+
 	unlockKeyFlagName := fmt.Sprintf("%v.UnlockKey", cmdPrefix)
 	if cmd.Flags().Changed(unlockKeyFlagName) {
 
@@ -217,5 +218,6 @@ func retrieveSwarmUnlockBodyUnlockKeyFlags(depth int, m *swarm.SwarmUnlockBody, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

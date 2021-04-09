@@ -48,6 +48,32 @@ func runOperationPluginPluginDisable(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginDisableParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginDisableParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginDisableNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginDisableNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+
 func retrieveOperationPluginPluginDisableNameFlag(m *plugin.PluginDisableParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -105,32 +131,6 @@ func printOperationPluginPluginDisableResult(resp0 *plugin.PluginDisableOK, resp
 	}
 
 	// warning: non schema response pluginDisableOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationPluginPluginDisableParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginDisableParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginDisableNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginDisableNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
 
 	return nil
 }

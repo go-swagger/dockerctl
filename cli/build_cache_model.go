@@ -342,6 +342,7 @@ func retrieveBuildCacheCreatedAtFlags(depth int, m *models.BuildCache, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	if cmd.Flags().Changed(createdAtFlagName) {
 
@@ -360,6 +361,7 @@ func retrieveBuildCacheCreatedAtFlags(depth int, m *models.BuildCache, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -368,6 +370,7 @@ func retrieveBuildCacheDescriptionFlags(depth int, m *models.BuildCache, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -386,6 +389,7 @@ func retrieveBuildCacheDescriptionFlags(depth int, m *models.BuildCache, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -394,6 +398,7 @@ func retrieveBuildCacheIDFlags(depth int, m *models.BuildCache, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -412,6 +417,7 @@ func retrieveBuildCacheIDFlags(depth int, m *models.BuildCache, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -420,6 +426,7 @@ func retrieveBuildCacheInUseFlags(depth int, m *models.BuildCache, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	inUseFlagName := fmt.Sprintf("%v.InUse", cmdPrefix)
 	if cmd.Flags().Changed(inUseFlagName) {
 
@@ -438,6 +445,7 @@ func retrieveBuildCacheInUseFlags(depth int, m *models.BuildCache, cmdPrefix str
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -446,6 +454,7 @@ func retrieveBuildCacheLastUsedAtFlags(depth int, m *models.BuildCache, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	lastUsedAtFlagName := fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
 	if cmd.Flags().Changed(lastUsedAtFlagName) {
 
@@ -464,6 +473,7 @@ func retrieveBuildCacheLastUsedAtFlags(depth int, m *models.BuildCache, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -472,6 +482,7 @@ func retrieveBuildCacheParentFlags(depth int, m *models.BuildCache, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	parentFlagName := fmt.Sprintf("%v.Parent", cmdPrefix)
 	if cmd.Flags().Changed(parentFlagName) {
 
@@ -490,6 +501,7 @@ func retrieveBuildCacheParentFlags(depth int, m *models.BuildCache, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -498,6 +510,7 @@ func retrieveBuildCacheSharedFlags(depth int, m *models.BuildCache, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	sharedFlagName := fmt.Sprintf("%v.Shared", cmdPrefix)
 	if cmd.Flags().Changed(sharedFlagName) {
 
@@ -516,6 +529,7 @@ func retrieveBuildCacheSharedFlags(depth int, m *models.BuildCache, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -524,6 +538,7 @@ func retrieveBuildCacheSizeFlags(depth int, m *models.BuildCache, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
 	if cmd.Flags().Changed(sizeFlagName) {
 
@@ -542,6 +557,7 @@ func retrieveBuildCacheSizeFlags(depth int, m *models.BuildCache, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -550,6 +566,7 @@ func retrieveBuildCacheTypeFlags(depth int, m *models.BuildCache, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
 	if cmd.Flags().Changed(typeFlagName) {
 
@@ -568,6 +585,7 @@ func retrieveBuildCacheTypeFlags(depth int, m *models.BuildCache, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -576,6 +594,7 @@ func retrieveBuildCacheUsageCountFlags(depth int, m *models.BuildCache, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	usageCountFlagName := fmt.Sprintf("%v.UsageCount", cmdPrefix)
 	if cmd.Flags().Changed(usageCountFlagName) {
 
@@ -594,5 +613,6 @@ func retrieveBuildCacheUsageCountFlags(depth int, m *models.BuildCache, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

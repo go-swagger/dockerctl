@@ -36,6 +36,7 @@ func registerNetworkAttachmentConfigAliases(depth int, cmdPrefix string, cmd *co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Aliases []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -45,6 +46,7 @@ func registerNetworkAttachmentConfigDriverOpts(depth int, cmdPrefix string, cmd 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DriverOpts map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -101,10 +103,12 @@ func retrieveNetworkAttachmentConfigAliasesFlags(depth int, m *models.NetworkAtt
 		return nil, false
 	}
 	retAdded := false
+
 	aliasesFlagName := fmt.Sprintf("%v.Aliases", cmdPrefix)
 	if cmd.Flags().Changed(aliasesFlagName) {
 		// warning: Aliases array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -113,10 +117,12 @@ func retrieveNetworkAttachmentConfigDriverOptsFlags(depth int, m *models.Network
 		return nil, false
 	}
 	retAdded := false
+
 	driverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
 	if cmd.Flags().Changed(driverOptsFlagName) {
 		// warning: DriverOpts map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -125,6 +131,7 @@ func retrieveNetworkAttachmentConfigTargetFlags(depth int, m *models.NetworkAtta
 		return nil, false
 	}
 	retAdded := false
+
 	targetFlagName := fmt.Sprintf("%v.Target", cmdPrefix)
 	if cmd.Flags().Changed(targetFlagName) {
 
@@ -143,5 +150,6 @@ func retrieveNetworkAttachmentConfigTargetFlags(depth int, m *models.NetworkAtta
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -75,6 +75,7 @@ func registerServiceSpecLabels(depth int, cmdPrefix string, cmd *cobra.Command) 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels map[string]string map type is not supported by go-swagger cli yet
 
 	return nil
@@ -124,6 +125,7 @@ func registerServiceSpecNetworks(depth int, cmdPrefix string, cmd *cobra.Command
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Networks []*NetworkAttachmentConfig array type is not supported by go-swagger cli yet
 
 	return nil
@@ -246,19 +248,21 @@ func retrieveServiceSpecEndpointSpecFlags(depth int, m *models.ServiceSpec, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	endpointSpecFlagName := fmt.Sprintf("%v.EndpointSpec", cmdPrefix)
 	if cmd.Flags().Changed(endpointSpecFlagName) {
 
-		endpointSpecFlagValue := &models.EndpointSpec{}
-		err, added := retrieveModelEndpointSpecFlags(depth+1, endpointSpecFlagValue, endpointSpecFlagName, cmd)
+		endpointSpecFlagValue := models.EndpointSpec{}
+		err, added := retrieveModelEndpointSpecFlags(depth+1, &endpointSpecFlagValue, endpointSpecFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.EndpointSpec = endpointSpecFlagValue
+			m.EndpointSpec = &endpointSpecFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -267,10 +271,12 @@ func retrieveServiceSpecLabelsFlags(depth int, m *models.ServiceSpec, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -279,19 +285,21 @@ func retrieveServiceSpecModeFlags(depth int, m *models.ServiceSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
 	if cmd.Flags().Changed(modeFlagName) {
 
-		modeFlagValue := &models.ServiceSpecMode{}
-		err, added := retrieveModelServiceSpecModeFlags(depth+1, modeFlagValue, modeFlagName, cmd)
+		modeFlagValue := models.ServiceSpecMode{}
+		err, added := retrieveModelServiceSpecModeFlags(depth+1, &modeFlagValue, modeFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Mode = modeFlagValue
+			m.Mode = &modeFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -300,6 +308,7 @@ func retrieveServiceSpecNameFlags(depth int, m *models.ServiceSpec, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -318,6 +327,7 @@ func retrieveServiceSpecNameFlags(depth int, m *models.ServiceSpec, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -326,10 +336,12 @@ func retrieveServiceSpecNetworksFlags(depth int, m *models.ServiceSpec, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	networksFlagName := fmt.Sprintf("%v.Networks", cmdPrefix)
 	if cmd.Flags().Changed(networksFlagName) {
 		// warning: Networks array type []*NetworkAttachmentConfig is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -338,19 +350,21 @@ func retrieveServiceSpecRollbackConfigFlags(depth int, m *models.ServiceSpec, cm
 		return nil, false
 	}
 	retAdded := false
+
 	rollbackConfigFlagName := fmt.Sprintf("%v.RollbackConfig", cmdPrefix)
 	if cmd.Flags().Changed(rollbackConfigFlagName) {
 
-		rollbackConfigFlagValue := &models.ServiceSpecRollbackConfig{}
-		err, added := retrieveModelServiceSpecRollbackConfigFlags(depth+1, rollbackConfigFlagValue, rollbackConfigFlagName, cmd)
+		rollbackConfigFlagValue := models.ServiceSpecRollbackConfig{}
+		err, added := retrieveModelServiceSpecRollbackConfigFlags(depth+1, &rollbackConfigFlagValue, rollbackConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.RollbackConfig = rollbackConfigFlagValue
+			m.RollbackConfig = &rollbackConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -359,19 +373,21 @@ func retrieveServiceSpecTaskTemplateFlags(depth int, m *models.ServiceSpec, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	taskTemplateFlagName := fmt.Sprintf("%v.TaskTemplate", cmdPrefix)
 	if cmd.Flags().Changed(taskTemplateFlagName) {
 
-		taskTemplateFlagValue := &models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, taskTemplateFlagValue, taskTemplateFlagName, cmd)
+		taskTemplateFlagValue := models.TaskSpec{}
+		err, added := retrieveModelTaskSpecFlags(depth+1, &taskTemplateFlagValue, taskTemplateFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.TaskTemplate = taskTemplateFlagValue
+			m.TaskTemplate = &taskTemplateFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -380,19 +396,21 @@ func retrieveServiceSpecUpdateConfigFlags(depth int, m *models.ServiceSpec, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	updateConfigFlagName := fmt.Sprintf("%v.UpdateConfig", cmdPrefix)
 	if cmd.Flags().Changed(updateConfigFlagName) {
 
-		updateConfigFlagValue := &models.ServiceSpecUpdateConfig{}
-		err, added := retrieveModelServiceSpecUpdateConfigFlags(depth+1, updateConfigFlagValue, updateConfigFlagName, cmd)
+		updateConfigFlagValue := models.ServiceSpecUpdateConfig{}
+		err, added := retrieveModelServiceSpecUpdateConfigFlags(depth+1, &updateConfigFlagValue, updateConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.UpdateConfig = updateConfigFlagValue
+			m.UpdateConfig = &updateConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -416,6 +434,7 @@ func registerServiceSpecModeGlobal(depth int, cmdPrefix string, cmd *cobra.Comma
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Global interface{} map type is not supported by go-swagger cli yet
 
 	return nil
@@ -464,10 +483,12 @@ func retrieveServiceSpecModeGlobalFlags(depth int, m *models.ServiceSpecMode, cm
 		return nil, false
 	}
 	retAdded := false
+
 	globalFlagName := fmt.Sprintf("%v.Global", cmdPrefix)
 	if cmd.Flags().Changed(globalFlagName) {
 		// warning: Global map type interface{} is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -476,19 +497,21 @@ func retrieveServiceSpecModeReplicatedFlags(depth int, m *models.ServiceSpecMode
 		return nil, false
 	}
 	retAdded := false
+
 	replicatedFlagName := fmt.Sprintf("%v.Replicated", cmdPrefix)
 	if cmd.Flags().Changed(replicatedFlagName) {
 
-		replicatedFlagValue := &models.ServiceSpecModeReplicated{}
-		err, added := retrieveModelServiceSpecModeReplicatedFlags(depth+1, replicatedFlagValue, replicatedFlagName, cmd)
+		replicatedFlagValue := models.ServiceSpecModeReplicated{}
+		err, added := retrieveModelServiceSpecModeReplicatedFlags(depth+1, &replicatedFlagValue, replicatedFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Replicated = replicatedFlagValue
+			m.Replicated = &replicatedFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -543,6 +566,7 @@ func retrieveServiceSpecModeReplicatedReplicasFlags(depth int, m *models.Service
 		return nil, false
 	}
 	retAdded := false
+
 	replicasFlagName := fmt.Sprintf("%v.Replicas", cmdPrefix)
 	if cmd.Flags().Changed(replicasFlagName) {
 
@@ -561,6 +585,7 @@ func retrieveServiceSpecModeReplicatedReplicasFlags(depth int, m *models.Service
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -770,6 +795,7 @@ func retrieveServiceSpecRollbackConfigDelayFlags(depth int, m *models.ServiceSpe
 		return nil, false
 	}
 	retAdded := false
+
 	delayFlagName := fmt.Sprintf("%v.Delay", cmdPrefix)
 	if cmd.Flags().Changed(delayFlagName) {
 
@@ -788,6 +814,7 @@ func retrieveServiceSpecRollbackConfigDelayFlags(depth int, m *models.ServiceSpe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -796,6 +823,7 @@ func retrieveServiceSpecRollbackConfigFailureActionFlags(depth int, m *models.Se
 		return nil, false
 	}
 	retAdded := false
+
 	failureActionFlagName := fmt.Sprintf("%v.FailureAction", cmdPrefix)
 	if cmd.Flags().Changed(failureActionFlagName) {
 
@@ -814,6 +842,7 @@ func retrieveServiceSpecRollbackConfigFailureActionFlags(depth int, m *models.Se
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -822,6 +851,7 @@ func retrieveServiceSpecRollbackConfigMaxFailureRatioFlags(depth int, m *models.
 		return nil, false
 	}
 	retAdded := false
+
 	maxFailureRatioFlagName := fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
 	if cmd.Flags().Changed(maxFailureRatioFlagName) {
 
@@ -840,6 +870,7 @@ func retrieveServiceSpecRollbackConfigMaxFailureRatioFlags(depth int, m *models.
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -848,6 +879,7 @@ func retrieveServiceSpecRollbackConfigMonitorFlags(depth int, m *models.ServiceS
 		return nil, false
 	}
 	retAdded := false
+
 	monitorFlagName := fmt.Sprintf("%v.Monitor", cmdPrefix)
 	if cmd.Flags().Changed(monitorFlagName) {
 
@@ -866,6 +898,7 @@ func retrieveServiceSpecRollbackConfigMonitorFlags(depth int, m *models.ServiceS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -874,6 +907,7 @@ func retrieveServiceSpecRollbackConfigOrderFlags(depth int, m *models.ServiceSpe
 		return nil, false
 	}
 	retAdded := false
+
 	orderFlagName := fmt.Sprintf("%v.Order", cmdPrefix)
 	if cmd.Flags().Changed(orderFlagName) {
 
@@ -892,6 +926,7 @@ func retrieveServiceSpecRollbackConfigOrderFlags(depth int, m *models.ServiceSpe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -900,6 +935,7 @@ func retrieveServiceSpecRollbackConfigParallelismFlags(depth int, m *models.Serv
 		return nil, false
 	}
 	retAdded := false
+
 	parallelismFlagName := fmt.Sprintf("%v.Parallelism", cmdPrefix)
 	if cmd.Flags().Changed(parallelismFlagName) {
 
@@ -918,6 +954,7 @@ func retrieveServiceSpecRollbackConfigParallelismFlags(depth int, m *models.Serv
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1127,6 +1164,7 @@ func retrieveServiceSpecUpdateConfigDelayFlags(depth int, m *models.ServiceSpecU
 		return nil, false
 	}
 	retAdded := false
+
 	delayFlagName := fmt.Sprintf("%v.Delay", cmdPrefix)
 	if cmd.Flags().Changed(delayFlagName) {
 
@@ -1145,6 +1183,7 @@ func retrieveServiceSpecUpdateConfigDelayFlags(depth int, m *models.ServiceSpecU
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1153,6 +1192,7 @@ func retrieveServiceSpecUpdateConfigFailureActionFlags(depth int, m *models.Serv
 		return nil, false
 	}
 	retAdded := false
+
 	failureActionFlagName := fmt.Sprintf("%v.FailureAction", cmdPrefix)
 	if cmd.Flags().Changed(failureActionFlagName) {
 
@@ -1171,6 +1211,7 @@ func retrieveServiceSpecUpdateConfigFailureActionFlags(depth int, m *models.Serv
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1179,6 +1220,7 @@ func retrieveServiceSpecUpdateConfigMaxFailureRatioFlags(depth int, m *models.Se
 		return nil, false
 	}
 	retAdded := false
+
 	maxFailureRatioFlagName := fmt.Sprintf("%v.MaxFailureRatio", cmdPrefix)
 	if cmd.Flags().Changed(maxFailureRatioFlagName) {
 
@@ -1197,6 +1239,7 @@ func retrieveServiceSpecUpdateConfigMaxFailureRatioFlags(depth int, m *models.Se
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1205,6 +1248,7 @@ func retrieveServiceSpecUpdateConfigMonitorFlags(depth int, m *models.ServiceSpe
 		return nil, false
 	}
 	retAdded := false
+
 	monitorFlagName := fmt.Sprintf("%v.Monitor", cmdPrefix)
 	if cmd.Flags().Changed(monitorFlagName) {
 
@@ -1223,6 +1267,7 @@ func retrieveServiceSpecUpdateConfigMonitorFlags(depth int, m *models.ServiceSpe
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1231,6 +1276,7 @@ func retrieveServiceSpecUpdateConfigOrderFlags(depth int, m *models.ServiceSpecU
 		return nil, false
 	}
 	retAdded := false
+
 	orderFlagName := fmt.Sprintf("%v.Order", cmdPrefix)
 	if cmd.Flags().Changed(orderFlagName) {
 
@@ -1249,6 +1295,7 @@ func retrieveServiceSpecUpdateConfigOrderFlags(depth int, m *models.ServiceSpecU
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1257,6 +1304,7 @@ func retrieveServiceSpecUpdateConfigParallelismFlags(depth int, m *models.Servic
 		return nil, false
 	}
 	retAdded := false
+
 	parallelismFlagName := fmt.Sprintf("%v.Parallelism", cmdPrefix)
 	if cmd.Flags().Changed(parallelismFlagName) {
 
@@ -1275,5 +1323,6 @@ func retrieveServiceSpecUpdateConfigParallelismFlags(depth int, m *models.Servic
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -421,6 +421,7 @@ func registerNetworkSettingsNetworks(depth int, cmdPrefix string, cmd *cobra.Com
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Networks map[string]EndpointSettings map type is not supported by go-swagger cli yet
 
 	return nil
@@ -430,6 +431,7 @@ func registerNetworkSettingsPorts(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Ports PortMap map type is not supported by go-swagger cli yet
 
 	return nil
@@ -481,6 +483,7 @@ func registerNetworkSettingsSecondaryIPAddresses(depth int, cmdPrefix string, cm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: SecondaryIPAddresses []*Address array type is not supported by go-swagger cli yet
 
 	return nil
@@ -490,6 +493,7 @@ func registerNetworkSettingsSecondaryIPV6Addresses(depth int, cmdPrefix string, 
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: SecondaryIPv6Addresses []*Address array type is not supported by go-swagger cli yet
 
 	return nil
@@ -615,6 +619,7 @@ func retrieveNetworkSettingsBridgeFlags(depth int, m *models.NetworkSettings, cm
 		return nil, false
 	}
 	retAdded := false
+
 	bridgeFlagName := fmt.Sprintf("%v.Bridge", cmdPrefix)
 	if cmd.Flags().Changed(bridgeFlagName) {
 
@@ -633,6 +638,7 @@ func retrieveNetworkSettingsBridgeFlags(depth int, m *models.NetworkSettings, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -641,6 +647,7 @@ func retrieveNetworkSettingsEndpointIDFlags(depth int, m *models.NetworkSettings
 		return nil, false
 	}
 	retAdded := false
+
 	endpointIdFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
 	if cmd.Flags().Changed(endpointIdFlagName) {
 
@@ -659,6 +666,7 @@ func retrieveNetworkSettingsEndpointIDFlags(depth int, m *models.NetworkSettings
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -667,6 +675,7 @@ func retrieveNetworkSettingsGatewayFlags(depth int, m *models.NetworkSettings, c
 		return nil, false
 	}
 	retAdded := false
+
 	gatewayFlagName := fmt.Sprintf("%v.Gateway", cmdPrefix)
 	if cmd.Flags().Changed(gatewayFlagName) {
 
@@ -685,6 +694,7 @@ func retrieveNetworkSettingsGatewayFlags(depth int, m *models.NetworkSettings, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -693,6 +703,7 @@ func retrieveNetworkSettingsGlobalIPV6AddressFlags(depth int, m *models.NetworkS
 		return nil, false
 	}
 	retAdded := false
+
 	globalIpv6AddressFlagName := fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
 	if cmd.Flags().Changed(globalIpv6AddressFlagName) {
 
@@ -711,6 +722,7 @@ func retrieveNetworkSettingsGlobalIPV6AddressFlags(depth int, m *models.NetworkS
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -719,6 +731,7 @@ func retrieveNetworkSettingsGlobalIPV6PrefixLenFlags(depth int, m *models.Networ
 		return nil, false
 	}
 	retAdded := false
+
 	globalIpv6PrefixLenFlagName := fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
 	if cmd.Flags().Changed(globalIpv6PrefixLenFlagName) {
 
@@ -737,6 +750,7 @@ func retrieveNetworkSettingsGlobalIPV6PrefixLenFlags(depth int, m *models.Networ
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -745,6 +759,7 @@ func retrieveNetworkSettingsHairpinModeFlags(depth int, m *models.NetworkSetting
 		return nil, false
 	}
 	retAdded := false
+
 	hairpinModeFlagName := fmt.Sprintf("%v.HairpinMode", cmdPrefix)
 	if cmd.Flags().Changed(hairpinModeFlagName) {
 
@@ -763,6 +778,7 @@ func retrieveNetworkSettingsHairpinModeFlags(depth int, m *models.NetworkSetting
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -771,6 +787,7 @@ func retrieveNetworkSettingsIPAddressFlags(depth int, m *models.NetworkSettings,
 		return nil, false
 	}
 	retAdded := false
+
 	ipAddressFlagName := fmt.Sprintf("%v.IPAddress", cmdPrefix)
 	if cmd.Flags().Changed(ipAddressFlagName) {
 
@@ -789,6 +806,7 @@ func retrieveNetworkSettingsIPAddressFlags(depth int, m *models.NetworkSettings,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -797,6 +815,7 @@ func retrieveNetworkSettingsIPPrefixLenFlags(depth int, m *models.NetworkSetting
 		return nil, false
 	}
 	retAdded := false
+
 	ipPrefixLenFlagName := fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
 	if cmd.Flags().Changed(ipPrefixLenFlagName) {
 
@@ -815,6 +834,7 @@ func retrieveNetworkSettingsIPPrefixLenFlags(depth int, m *models.NetworkSetting
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -823,6 +843,7 @@ func retrieveNetworkSettingsIPV6GatewayFlags(depth int, m *models.NetworkSetting
 		return nil, false
 	}
 	retAdded := false
+
 	ipv6GatewayFlagName := fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
 	if cmd.Flags().Changed(ipv6GatewayFlagName) {
 
@@ -841,6 +862,7 @@ func retrieveNetworkSettingsIPV6GatewayFlags(depth int, m *models.NetworkSetting
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -849,6 +871,7 @@ func retrieveNetworkSettingsLinkLocalIPV6AddressFlags(depth int, m *models.Netwo
 		return nil, false
 	}
 	retAdded := false
+
 	linkLocalIpv6AddressFlagName := fmt.Sprintf("%v.LinkLocalIPv6Address", cmdPrefix)
 	if cmd.Flags().Changed(linkLocalIpv6AddressFlagName) {
 
@@ -867,6 +890,7 @@ func retrieveNetworkSettingsLinkLocalIPV6AddressFlags(depth int, m *models.Netwo
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -875,6 +899,7 @@ func retrieveNetworkSettingsLinkLocalIPV6PrefixLenFlags(depth int, m *models.Net
 		return nil, false
 	}
 	retAdded := false
+
 	linkLocalIpv6PrefixLenFlagName := fmt.Sprintf("%v.LinkLocalIPv6PrefixLen", cmdPrefix)
 	if cmd.Flags().Changed(linkLocalIpv6PrefixLenFlagName) {
 
@@ -893,6 +918,7 @@ func retrieveNetworkSettingsLinkLocalIPV6PrefixLenFlags(depth int, m *models.Net
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -901,6 +927,7 @@ func retrieveNetworkSettingsMacAddressFlags(depth int, m *models.NetworkSettings
 		return nil, false
 	}
 	retAdded := false
+
 	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	if cmd.Flags().Changed(macAddressFlagName) {
 
@@ -919,6 +946,7 @@ func retrieveNetworkSettingsMacAddressFlags(depth int, m *models.NetworkSettings
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -927,10 +955,12 @@ func retrieveNetworkSettingsNetworksFlags(depth int, m *models.NetworkSettings, 
 		return nil, false
 	}
 	retAdded := false
+
 	networksFlagName := fmt.Sprintf("%v.Networks", cmdPrefix)
 	if cmd.Flags().Changed(networksFlagName) {
 		// warning: Networks map type map[string]EndpointSettings is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -939,10 +969,12 @@ func retrieveNetworkSettingsPortsFlags(depth int, m *models.NetworkSettings, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	portsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
 	if cmd.Flags().Changed(portsFlagName) {
 		// warning: Ports map type PortMap is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -951,6 +983,7 @@ func retrieveNetworkSettingsSandboxIDFlags(depth int, m *models.NetworkSettings,
 		return nil, false
 	}
 	retAdded := false
+
 	sandboxIdFlagName := fmt.Sprintf("%v.SandboxID", cmdPrefix)
 	if cmd.Flags().Changed(sandboxIdFlagName) {
 
@@ -969,6 +1002,7 @@ func retrieveNetworkSettingsSandboxIDFlags(depth int, m *models.NetworkSettings,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -977,6 +1011,7 @@ func retrieveNetworkSettingsSandboxKeyFlags(depth int, m *models.NetworkSettings
 		return nil, false
 	}
 	retAdded := false
+
 	sandboxKeyFlagName := fmt.Sprintf("%v.SandboxKey", cmdPrefix)
 	if cmd.Flags().Changed(sandboxKeyFlagName) {
 
@@ -995,6 +1030,7 @@ func retrieveNetworkSettingsSandboxKeyFlags(depth int, m *models.NetworkSettings
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1003,10 +1039,12 @@ func retrieveNetworkSettingsSecondaryIPAddressesFlags(depth int, m *models.Netwo
 		return nil, false
 	}
 	retAdded := false
+
 	secondaryIpAddressesFlagName := fmt.Sprintf("%v.SecondaryIPAddresses", cmdPrefix)
 	if cmd.Flags().Changed(secondaryIpAddressesFlagName) {
 		// warning: SecondaryIPAddresses array type []*Address is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -1015,9 +1053,11 @@ func retrieveNetworkSettingsSecondaryIPV6AddressesFlags(depth int, m *models.Net
 		return nil, false
 	}
 	retAdded := false
+
 	secondaryIpv6AddressesFlagName := fmt.Sprintf("%v.SecondaryIPv6Addresses", cmdPrefix)
 	if cmd.Flags().Changed(secondaryIpv6AddressesFlagName) {
 		// warning: SecondaryIPv6Addresses array type []*Address is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

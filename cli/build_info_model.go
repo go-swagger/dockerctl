@@ -274,19 +274,21 @@ func retrieveBuildInfoAuxFlags(depth int, m *models.BuildInfo, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	auxFlagName := fmt.Sprintf("%v.aux", cmdPrefix)
 	if cmd.Flags().Changed(auxFlagName) {
 
-		auxFlagValue := &models.ImageID{}
-		err, added := retrieveModelImageIDFlags(depth+1, auxFlagValue, auxFlagName, cmd)
+		auxFlagValue := models.ImageID{}
+		err, added := retrieveModelImageIDFlags(depth+1, &auxFlagValue, auxFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Aux = auxFlagValue
+			m.Aux = &auxFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -295,6 +297,7 @@ func retrieveBuildInfoErrorFlags(depth int, m *models.BuildInfo, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	errorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
 
@@ -313,6 +316,7 @@ func retrieveBuildInfoErrorFlags(depth int, m *models.BuildInfo, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -321,19 +325,21 @@ func retrieveBuildInfoErrorDetailFlags(depth int, m *models.BuildInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	errorDetailFlagName := fmt.Sprintf("%v.errorDetail", cmdPrefix)
 	if cmd.Flags().Changed(errorDetailFlagName) {
 
-		errorDetailFlagValue := &models.ErrorDetail{}
-		err, added := retrieveModelErrorDetailFlags(depth+1, errorDetailFlagValue, errorDetailFlagName, cmd)
+		errorDetailFlagValue := models.ErrorDetail{}
+		err, added := retrieveModelErrorDetailFlags(depth+1, &errorDetailFlagValue, errorDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ErrorDetail = errorDetailFlagValue
+			m.ErrorDetail = &errorDetailFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -342,6 +348,7 @@ func retrieveBuildInfoIDFlags(depth int, m *models.BuildInfo, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.id", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -360,6 +367,7 @@ func retrieveBuildInfoIDFlags(depth int, m *models.BuildInfo, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -368,6 +376,7 @@ func retrieveBuildInfoProgressFlags(depth int, m *models.BuildInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	progressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
 	if cmd.Flags().Changed(progressFlagName) {
 
@@ -386,6 +395,7 @@ func retrieveBuildInfoProgressFlags(depth int, m *models.BuildInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -394,19 +404,21 @@ func retrieveBuildInfoProgressDetailFlags(depth int, m *models.BuildInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
 
-		progressDetailFlagValue := &models.ProgressDetail{}
-		err, added := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+		progressDetailFlagValue := models.ProgressDetail{}
+		err, added := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ProgressDetail = progressDetailFlagValue
+			m.ProgressDetail = &progressDetailFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -415,6 +427,7 @@ func retrieveBuildInfoStatusFlags(depth int, m *models.BuildInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	statusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
 
@@ -433,6 +446,7 @@ func retrieveBuildInfoStatusFlags(depth int, m *models.BuildInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -441,6 +455,7 @@ func retrieveBuildInfoStreamFlags(depth int, m *models.BuildInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	streamFlagName := fmt.Sprintf("%v.stream", cmdPrefix)
 	if cmd.Flags().Changed(streamFlagName) {
 
@@ -459,5 +474,6 @@ func retrieveBuildInfoStreamFlags(depth int, m *models.BuildInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

@@ -183,6 +183,7 @@ func retrieveConfigCreatedAtFlags(depth int, m *models.Config, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	if cmd.Flags().Changed(createdAtFlagName) {
 
@@ -201,6 +202,7 @@ func retrieveConfigCreatedAtFlags(depth int, m *models.Config, cmdPrefix string,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -209,6 +211,7 @@ func retrieveConfigIDFlags(depth int, m *models.Config, cmdPrefix string, cmd *c
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -227,6 +230,7 @@ func retrieveConfigIDFlags(depth int, m *models.Config, cmdPrefix string, cmd *c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -235,19 +239,21 @@ func retrieveConfigSpecFlags(depth int, m *models.Config, cmdPrefix string, cmd 
 		return nil, false
 	}
 	retAdded := false
+
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
 
-		specFlagValue := &models.ConfigSpec{}
-		err, added := retrieveModelConfigSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+		specFlagValue := models.ConfigSpec{}
+		err, added := retrieveModelConfigSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Spec = specFlagValue
+			m.Spec = &specFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -256,6 +262,7 @@ func retrieveConfigUpdatedAtFlags(depth int, m *models.Config, cmdPrefix string,
 		return nil, false
 	}
 	retAdded := false
+
 	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	if cmd.Flags().Changed(updatedAtFlagName) {
 
@@ -274,6 +281,7 @@ func retrieveConfigUpdatedAtFlags(depth int, m *models.Config, cmdPrefix string,
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -282,18 +290,20 @@ func retrieveConfigVersionFlags(depth int, m *models.Config, cmdPrefix string, c
 		return nil, false
 	}
 	retAdded := false
+
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
 
-		versionFlagValue := &models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+		versionFlagValue := models.ObjectVersion{}
+		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Version = versionFlagValue
+			m.Version = &versionFlagValue
 		}
 	}
+
 	return nil, retAdded
 }

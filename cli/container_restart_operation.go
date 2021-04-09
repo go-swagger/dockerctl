@@ -51,6 +51,52 @@ func runOperationContainerContainerRestart(cmd *cobra.Command, args []string) er
 	return nil
 }
 
+// registerOperationContainerContainerRestartParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerRestartParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerRestartIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerRestartTParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerRestartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerRestartTParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	tDescription := `Number of seconds to wait before killing the container`
+
+	var tFlagName string
+	if cmdPrefix == "" {
+		tFlagName = "t"
+	} else {
+		tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
+	}
+
+	var tFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(tFlagName, tFlagDefault, tDescription)
+
+	return nil
+}
+
 func retrieveOperationContainerContainerRestartIDFlag(m *container.ContainerRestartParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -128,52 +174,6 @@ func printOperationContainerContainerRestartResult(resp0 *container.ContainerRes
 	}
 
 	// warning: non schema response containerRestartNoContent is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationContainerContainerRestartParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerRestartParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerRestartIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerRestartTParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerRestartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerRestartTParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	tDescription := `Number of seconds to wait before killing the container`
-
-	var tFlagName string
-	if cmdPrefix == "" {
-		tFlagName = "t"
-	} else {
-		tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
-	}
-
-	var tFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(tFlagName, tFlagDefault, tDescription)
 
 	return nil
 }

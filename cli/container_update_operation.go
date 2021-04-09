@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/client/container"
+	"github.com/go-swagger/dockerctl/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -48,6 +49,54 @@ func runOperationContainerContainerUpdate(cmd *cobra.Command, args []string) err
 	if err := printOperationContainerContainerUpdateResult(appCli.Container.ContainerUpdate(params)); err != nil {
 		return err
 	}
+	return nil
+}
+
+// registerOperationContainerContainerUpdateParamFlags registers all flags needed to fill params
+func registerOperationContainerContainerUpdateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationContainerContainerUpdateIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationContainerContainerUpdateUpdateParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationContainerContainerUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID or name of the container`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+func registerOperationContainerContainerUpdateUpdateParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var updateFlagName string
+	if cmdPrefix == "" {
+		updateFlagName = "update"
+	} else {
+		updateFlagName = fmt.Sprintf("%v.update", cmdPrefix)
+	}
+
+	exampleUpdateStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(updateFlagName, "", fmt.Sprintf("Optional json string for [update] of form %v.", string(exampleUpdateStr)))
+
+	// add flags for body
+	if err := registerModelContainerUpdateBodyFlags(0, "containerUpdateBody", cmd); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -162,54 +211,6 @@ func printOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 	return nil
 }
 
-// registerOperationContainerContainerUpdateParamFlags registers all flags needed to fill params
-func registerOperationContainerContainerUpdateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationContainerContainerUpdateIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationContainerContainerUpdateUpdateParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationContainerContainerUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID or name of the container`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
-
-	return nil
-}
-func registerOperationContainerContainerUpdateUpdateParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var updateFlagName string
-	if cmdPrefix == "" {
-		updateFlagName = "update"
-	} else {
-		updateFlagName = fmt.Sprintf("%v.update", cmdPrefix)
-	}
-
-	exampleUpdateStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(updateFlagName, "", fmt.Sprintf("Optional json string for [update] of form %v.", string(exampleUpdateStr)))
-
-	// add flags for body
-	if err := registerModelContainerUpdateBodyFlags(0, "containerUpdateBody", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // register flags to command
 func registerModelContainerUpdateBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -219,7 +220,11 @@ func registerModelContainerUpdateBodyFlags(depth int, cmdPrefix string, cmd *cob
 		return err
 	}
 
-	// inline allOf ContainerUpdateParamsBodyAO1 of type  is not supported by go-swagger cli yet
+	// register anonymous fields for ContainerUpdateParamsBodyAO1
+
+	if err := registerContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicy(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -231,7 +236,16 @@ func registerContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicy(de
 		return nil
 	}
 
-	// inline allOf RestartPolicy of type models.RestartPolicy is not supported by go-swagger cli yet
+	var restartPolicyFlagName string
+	if cmdPrefix == "" {
+		restartPolicyFlagName = "RestartPolicy"
+	} else {
+		restartPolicyFlagName = fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
+	}
+
+	if err := registerModelRestartPolicyFlags(depth+1, restartPolicyFlagName, cmd); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -247,7 +261,38 @@ func retrieveModelContainerUpdateBodyFlags(depth int, m *container.ContainerUpda
 	}
 	retAdded = retAdded || containerUpdateParamsBodyAO0Added
 
-	// inline allOf ContainerUpdateParamsBodyAO1 is not supported by go-swagger cli yet
+	// retrieve allOf ContainerUpdateParamsBodyAO1 fields
+
+	err, restartPolicyAdded := retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || restartPolicyAdded
+
+	return nil, retAdded
+}
+
+// define retrieve functions for fields for inline definition name ContainerUpdateParamsBodyAO1
+
+func retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFlags(depth int, m *container.ContainerUpdateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
+	if cmd.Flags().Changed(restartPolicyFlagName) {
+
+		restartPolicyFlagValue := models.RestartPolicy{}
+		err, added := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
+		if err != nil {
+			return err, false
+		}
+		retAdded = retAdded || added
+		if added {
+			m.RestartPolicy = &restartPolicyFlagValue
+		}
+	}
 
 	return nil, retAdded
 }
@@ -266,6 +311,7 @@ func registerContainerUpdateOKBodyWarnings(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Warnings []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -289,9 +335,11 @@ func retrieveContainerUpdateOKBodyWarningsFlags(depth int, m *container.Containe
 		return nil, false
 	}
 	retAdded := false
+
 	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
 	if cmd.Flags().Changed(warningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

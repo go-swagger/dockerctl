@@ -705,6 +705,7 @@ func registerSystemInfoDriverStatus(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: DriverStatus [][]string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -736,6 +737,7 @@ func registerSystemInfoGenericResources(depth int, cmdPrefix string, cmd *cobra.
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: GenericResources GenericResources array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1013,6 +1015,7 @@ func registerSystemInfoLabels(depth int, cmdPrefix string, cmd *cobra.Command) e
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Labels []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1455,6 +1458,7 @@ func registerSystemInfoRuntimes(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Runtimes map[string]Runtime map type is not supported by go-swagger cli yet
 
 	return nil
@@ -1464,6 +1468,7 @@ func registerSystemInfoSecurityOptions(depth int, cmdPrefix string, cmd *cobra.C
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: SecurityOptions []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1539,6 +1544,7 @@ func registerSystemInfoSystemStatus(depth int, cmdPrefix string, cmd *cobra.Comm
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: SystemStatus [][]string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1571,6 +1577,7 @@ func registerSystemInfoWarnings(depth int, cmdPrefix string, cmd *cobra.Command)
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Warnings []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -1954,6 +1961,7 @@ func retrieveSystemInfoArchitectureFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	architectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
 	if cmd.Flags().Changed(architectureFlagName) {
 
@@ -1972,6 +1980,7 @@ func retrieveSystemInfoArchitectureFlags(depth int, m *models.SystemInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -1980,6 +1989,7 @@ func retrieveSystemInfoBridgeNfIp6tablesFlags(depth int, m *models.SystemInfo, c
 		return nil, false
 	}
 	retAdded := false
+
 	bridgeNfIp6tablesFlagName := fmt.Sprintf("%v.BridgeNfIp6tables", cmdPrefix)
 	if cmd.Flags().Changed(bridgeNfIp6tablesFlagName) {
 
@@ -1998,6 +2008,7 @@ func retrieveSystemInfoBridgeNfIp6tablesFlags(depth int, m *models.SystemInfo, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2006,6 +2017,7 @@ func retrieveSystemInfoBridgeNfIptablesFlags(depth int, m *models.SystemInfo, cm
 		return nil, false
 	}
 	retAdded := false
+
 	bridgeNfIptablesFlagName := fmt.Sprintf("%v.BridgeNfIptables", cmdPrefix)
 	if cmd.Flags().Changed(bridgeNfIptablesFlagName) {
 
@@ -2024,6 +2036,7 @@ func retrieveSystemInfoBridgeNfIptablesFlags(depth int, m *models.SystemInfo, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2032,6 +2045,7 @@ func retrieveSystemInfoCPUSetFlags(depth int, m *models.SystemInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	cpuSetFlagName := fmt.Sprintf("%v.CPUSet", cmdPrefix)
 	if cmd.Flags().Changed(cpuSetFlagName) {
 
@@ -2050,6 +2064,7 @@ func retrieveSystemInfoCPUSetFlags(depth int, m *models.SystemInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2058,6 +2073,7 @@ func retrieveSystemInfoCPUSharesFlags(depth int, m *models.SystemInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	cpuSharesFlagName := fmt.Sprintf("%v.CPUShares", cmdPrefix)
 	if cmd.Flags().Changed(cpuSharesFlagName) {
 
@@ -2076,6 +2092,7 @@ func retrieveSystemInfoCPUSharesFlags(depth int, m *models.SystemInfo, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2084,6 +2101,7 @@ func retrieveSystemInfoCgroupDriverFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	cgroupDriverFlagName := fmt.Sprintf("%v.CgroupDriver", cmdPrefix)
 	if cmd.Flags().Changed(cgroupDriverFlagName) {
 
@@ -2102,6 +2120,7 @@ func retrieveSystemInfoCgroupDriverFlags(depth int, m *models.SystemInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2110,6 +2129,7 @@ func retrieveSystemInfoClusterAdvertiseFlags(depth int, m *models.SystemInfo, cm
 		return nil, false
 	}
 	retAdded := false
+
 	clusterAdvertiseFlagName := fmt.Sprintf("%v.ClusterAdvertise", cmdPrefix)
 	if cmd.Flags().Changed(clusterAdvertiseFlagName) {
 
@@ -2128,6 +2148,7 @@ func retrieveSystemInfoClusterAdvertiseFlags(depth int, m *models.SystemInfo, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2136,6 +2157,7 @@ func retrieveSystemInfoClusterStoreFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	clusterStoreFlagName := fmt.Sprintf("%v.ClusterStore", cmdPrefix)
 	if cmd.Flags().Changed(clusterStoreFlagName) {
 
@@ -2154,6 +2176,7 @@ func retrieveSystemInfoClusterStoreFlags(depth int, m *models.SystemInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2162,19 +2185,21 @@ func retrieveSystemInfoContainerdCommitFlags(depth int, m *models.SystemInfo, cm
 		return nil, false
 	}
 	retAdded := false
+
 	containerdCommitFlagName := fmt.Sprintf("%v.ContainerdCommit", cmdPrefix)
 	if cmd.Flags().Changed(containerdCommitFlagName) {
 
-		containerdCommitFlagValue := &models.Commit{}
-		err, added := retrieveModelCommitFlags(depth+1, containerdCommitFlagValue, containerdCommitFlagName, cmd)
+		containerdCommitFlagValue := models.Commit{}
+		err, added := retrieveModelCommitFlags(depth+1, &containerdCommitFlagValue, containerdCommitFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.ContainerdCommit = containerdCommitFlagValue
+			m.ContainerdCommit = &containerdCommitFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -2183,6 +2208,7 @@ func retrieveSystemInfoContainersFlags(depth int, m *models.SystemInfo, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	containersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
 	if cmd.Flags().Changed(containersFlagName) {
 
@@ -2201,6 +2227,7 @@ func retrieveSystemInfoContainersFlags(depth int, m *models.SystemInfo, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2209,6 +2236,7 @@ func retrieveSystemInfoContainersPausedFlags(depth int, m *models.SystemInfo, cm
 		return nil, false
 	}
 	retAdded := false
+
 	containersPausedFlagName := fmt.Sprintf("%v.ContainersPaused", cmdPrefix)
 	if cmd.Flags().Changed(containersPausedFlagName) {
 
@@ -2227,6 +2255,7 @@ func retrieveSystemInfoContainersPausedFlags(depth int, m *models.SystemInfo, cm
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2235,6 +2264,7 @@ func retrieveSystemInfoContainersRunningFlags(depth int, m *models.SystemInfo, c
 		return nil, false
 	}
 	retAdded := false
+
 	containersRunningFlagName := fmt.Sprintf("%v.ContainersRunning", cmdPrefix)
 	if cmd.Flags().Changed(containersRunningFlagName) {
 
@@ -2253,6 +2283,7 @@ func retrieveSystemInfoContainersRunningFlags(depth int, m *models.SystemInfo, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2261,6 +2292,7 @@ func retrieveSystemInfoContainersStoppedFlags(depth int, m *models.SystemInfo, c
 		return nil, false
 	}
 	retAdded := false
+
 	containersStoppedFlagName := fmt.Sprintf("%v.ContainersStopped", cmdPrefix)
 	if cmd.Flags().Changed(containersStoppedFlagName) {
 
@@ -2279,6 +2311,7 @@ func retrieveSystemInfoContainersStoppedFlags(depth int, m *models.SystemInfo, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2287,6 +2320,7 @@ func retrieveSystemInfoCPUCfsPeriodFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	cpuCfsPeriodFlagName := fmt.Sprintf("%v.CpuCfsPeriod", cmdPrefix)
 	if cmd.Flags().Changed(cpuCfsPeriodFlagName) {
 
@@ -2305,6 +2339,7 @@ func retrieveSystemInfoCPUCfsPeriodFlags(depth int, m *models.SystemInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2313,6 +2348,7 @@ func retrieveSystemInfoCPUCfsQuotaFlags(depth int, m *models.SystemInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	cpuCfsQuotaFlagName := fmt.Sprintf("%v.CpuCfsQuota", cmdPrefix)
 	if cmd.Flags().Changed(cpuCfsQuotaFlagName) {
 
@@ -2331,6 +2367,7 @@ func retrieveSystemInfoCPUCfsQuotaFlags(depth int, m *models.SystemInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2339,6 +2376,7 @@ func retrieveSystemInfoDebugFlags(depth int, m *models.SystemInfo, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	debugFlagName := fmt.Sprintf("%v.Debug", cmdPrefix)
 	if cmd.Flags().Changed(debugFlagName) {
 
@@ -2357,6 +2395,7 @@ func retrieveSystemInfoDebugFlags(depth int, m *models.SystemInfo, cmdPrefix str
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2365,6 +2404,7 @@ func retrieveSystemInfoDefaultRuntimeFlags(depth int, m *models.SystemInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	defaultRuntimeFlagName := fmt.Sprintf("%v.DefaultRuntime", cmdPrefix)
 	if cmd.Flags().Changed(defaultRuntimeFlagName) {
 
@@ -2383,6 +2423,7 @@ func retrieveSystemInfoDefaultRuntimeFlags(depth int, m *models.SystemInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2391,6 +2432,7 @@ func retrieveSystemInfoDockerRootDirFlags(depth int, m *models.SystemInfo, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	dockerRootDirFlagName := fmt.Sprintf("%v.DockerRootDir", cmdPrefix)
 	if cmd.Flags().Changed(dockerRootDirFlagName) {
 
@@ -2409,6 +2451,7 @@ func retrieveSystemInfoDockerRootDirFlags(depth int, m *models.SystemInfo, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2417,6 +2460,7 @@ func retrieveSystemInfoDriverFlags(depth int, m *models.SystemInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
 
@@ -2435,6 +2479,7 @@ func retrieveSystemInfoDriverFlags(depth int, m *models.SystemInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2443,10 +2488,12 @@ func retrieveSystemInfoDriverStatusFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	driverStatusFlagName := fmt.Sprintf("%v.DriverStatus", cmdPrefix)
 	if cmd.Flags().Changed(driverStatusFlagName) {
 		// warning: DriverStatus array type [][]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2455,6 +2502,7 @@ func retrieveSystemInfoExperimentalBuildFlags(depth int, m *models.SystemInfo, c
 		return nil, false
 	}
 	retAdded := false
+
 	experimentalBuildFlagName := fmt.Sprintf("%v.ExperimentalBuild", cmdPrefix)
 	if cmd.Flags().Changed(experimentalBuildFlagName) {
 
@@ -2473,6 +2521,7 @@ func retrieveSystemInfoExperimentalBuildFlags(depth int, m *models.SystemInfo, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2481,10 +2530,12 @@ func retrieveSystemInfoGenericResourcesFlags(depth int, m *models.SystemInfo, cm
 		return nil, false
 	}
 	retAdded := false
+
 	genericResourcesFlagName := fmt.Sprintf("%v.GenericResources", cmdPrefix)
 	if cmd.Flags().Changed(genericResourcesFlagName) {
 		// warning: GenericResources array type GenericResources is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2493,6 +2544,7 @@ func retrieveSystemInfoHTTPProxyFlags(depth int, m *models.SystemInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	httpProxyFlagName := fmt.Sprintf("%v.HttpProxy", cmdPrefix)
 	if cmd.Flags().Changed(httpProxyFlagName) {
 
@@ -2511,6 +2563,7 @@ func retrieveSystemInfoHTTPProxyFlags(depth int, m *models.SystemInfo, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2519,6 +2572,7 @@ func retrieveSystemInfoHTTPSProxyFlags(depth int, m *models.SystemInfo, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	httpsProxyFlagName := fmt.Sprintf("%v.HttpsProxy", cmdPrefix)
 	if cmd.Flags().Changed(httpsProxyFlagName) {
 
@@ -2537,6 +2591,7 @@ func retrieveSystemInfoHTTPSProxyFlags(depth int, m *models.SystemInfo, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2545,6 +2600,7 @@ func retrieveSystemInfoIDFlags(depth int, m *models.SystemInfo, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
 	if cmd.Flags().Changed(idFlagName) {
 
@@ -2563,6 +2619,7 @@ func retrieveSystemInfoIDFlags(depth int, m *models.SystemInfo, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2571,6 +2628,7 @@ func retrieveSystemInfoIPV4ForwardingFlags(depth int, m *models.SystemInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	ipv4ForwardingFlagName := fmt.Sprintf("%v.IPv4Forwarding", cmdPrefix)
 	if cmd.Flags().Changed(ipv4ForwardingFlagName) {
 
@@ -2589,6 +2647,7 @@ func retrieveSystemInfoIPV4ForwardingFlags(depth int, m *models.SystemInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2597,6 +2656,7 @@ func retrieveSystemInfoImagesFlags(depth int, m *models.SystemInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	imagesFlagName := fmt.Sprintf("%v.Images", cmdPrefix)
 	if cmd.Flags().Changed(imagesFlagName) {
 
@@ -2615,6 +2675,7 @@ func retrieveSystemInfoImagesFlags(depth int, m *models.SystemInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2623,6 +2684,7 @@ func retrieveSystemInfoIndexServerAddressFlags(depth int, m *models.SystemInfo, 
 		return nil, false
 	}
 	retAdded := false
+
 	indexServerAddressFlagName := fmt.Sprintf("%v.IndexServerAddress", cmdPrefix)
 	if cmd.Flags().Changed(indexServerAddressFlagName) {
 
@@ -2641,6 +2703,7 @@ func retrieveSystemInfoIndexServerAddressFlags(depth int, m *models.SystemInfo, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2649,6 +2712,7 @@ func retrieveSystemInfoInitBinaryFlags(depth int, m *models.SystemInfo, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	initBinaryFlagName := fmt.Sprintf("%v.InitBinary", cmdPrefix)
 	if cmd.Flags().Changed(initBinaryFlagName) {
 
@@ -2667,6 +2731,7 @@ func retrieveSystemInfoInitBinaryFlags(depth int, m *models.SystemInfo, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2675,19 +2740,21 @@ func retrieveSystemInfoInitCommitFlags(depth int, m *models.SystemInfo, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	initCommitFlagName := fmt.Sprintf("%v.InitCommit", cmdPrefix)
 	if cmd.Flags().Changed(initCommitFlagName) {
 
-		initCommitFlagValue := &models.Commit{}
-		err, added := retrieveModelCommitFlags(depth+1, initCommitFlagValue, initCommitFlagName, cmd)
+		initCommitFlagValue := models.Commit{}
+		err, added := retrieveModelCommitFlags(depth+1, &initCommitFlagValue, initCommitFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.InitCommit = initCommitFlagValue
+			m.InitCommit = &initCommitFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -2696,6 +2763,7 @@ func retrieveSystemInfoIsolationFlags(depth int, m *models.SystemInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	isolationFlagName := fmt.Sprintf("%v.Isolation", cmdPrefix)
 	if cmd.Flags().Changed(isolationFlagName) {
 
@@ -2714,6 +2782,7 @@ func retrieveSystemInfoIsolationFlags(depth int, m *models.SystemInfo, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2722,6 +2791,7 @@ func retrieveSystemInfoKernelMemoryFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	kernelMemoryFlagName := fmt.Sprintf("%v.KernelMemory", cmdPrefix)
 	if cmd.Flags().Changed(kernelMemoryFlagName) {
 
@@ -2740,6 +2810,7 @@ func retrieveSystemInfoKernelMemoryFlags(depth int, m *models.SystemInfo, cmdPre
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2748,6 +2819,7 @@ func retrieveSystemInfoKernelVersionFlags(depth int, m *models.SystemInfo, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	kernelVersionFlagName := fmt.Sprintf("%v.KernelVersion", cmdPrefix)
 	if cmd.Flags().Changed(kernelVersionFlagName) {
 
@@ -2766,6 +2838,7 @@ func retrieveSystemInfoKernelVersionFlags(depth int, m *models.SystemInfo, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2774,10 +2847,12 @@ func retrieveSystemInfoLabelsFlags(depth int, m *models.SystemInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
 	if cmd.Flags().Changed(labelsFlagName) {
 		// warning: Labels array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -2786,6 +2861,7 @@ func retrieveSystemInfoLiveRestoreEnabledFlags(depth int, m *models.SystemInfo, 
 		return nil, false
 	}
 	retAdded := false
+
 	liveRestoreEnabledFlagName := fmt.Sprintf("%v.LiveRestoreEnabled", cmdPrefix)
 	if cmd.Flags().Changed(liveRestoreEnabledFlagName) {
 
@@ -2804,6 +2880,7 @@ func retrieveSystemInfoLiveRestoreEnabledFlags(depth int, m *models.SystemInfo, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2812,6 +2889,7 @@ func retrieveSystemInfoLoggingDriverFlags(depth int, m *models.SystemInfo, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	loggingDriverFlagName := fmt.Sprintf("%v.LoggingDriver", cmdPrefix)
 	if cmd.Flags().Changed(loggingDriverFlagName) {
 
@@ -2830,6 +2908,7 @@ func retrieveSystemInfoLoggingDriverFlags(depth int, m *models.SystemInfo, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2838,6 +2917,7 @@ func retrieveSystemInfoMemTotalFlags(depth int, m *models.SystemInfo, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	memTotalFlagName := fmt.Sprintf("%v.MemTotal", cmdPrefix)
 	if cmd.Flags().Changed(memTotalFlagName) {
 
@@ -2856,6 +2936,7 @@ func retrieveSystemInfoMemTotalFlags(depth int, m *models.SystemInfo, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2864,6 +2945,7 @@ func retrieveSystemInfoMemoryLimitFlags(depth int, m *models.SystemInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	memoryLimitFlagName := fmt.Sprintf("%v.MemoryLimit", cmdPrefix)
 	if cmd.Flags().Changed(memoryLimitFlagName) {
 
@@ -2882,6 +2964,7 @@ func retrieveSystemInfoMemoryLimitFlags(depth int, m *models.SystemInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2890,6 +2973,7 @@ func retrieveSystemInfoNCPUFlags(depth int, m *models.SystemInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	nCpuFlagName := fmt.Sprintf("%v.NCPU", cmdPrefix)
 	if cmd.Flags().Changed(nCpuFlagName) {
 
@@ -2908,6 +2992,7 @@ func retrieveSystemInfoNCPUFlags(depth int, m *models.SystemInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2916,6 +3001,7 @@ func retrieveSystemInfoNEventsListenerFlags(depth int, m *models.SystemInfo, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	nEventsListenerFlagName := fmt.Sprintf("%v.NEventsListener", cmdPrefix)
 	if cmd.Flags().Changed(nEventsListenerFlagName) {
 
@@ -2934,6 +3020,7 @@ func retrieveSystemInfoNEventsListenerFlags(depth int, m *models.SystemInfo, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2942,6 +3029,7 @@ func retrieveSystemInfoNFdFlags(depth int, m *models.SystemInfo, cmdPrefix strin
 		return nil, false
 	}
 	retAdded := false
+
 	nFdFlagName := fmt.Sprintf("%v.NFd", cmdPrefix)
 	if cmd.Flags().Changed(nFdFlagName) {
 
@@ -2960,6 +3048,7 @@ func retrieveSystemInfoNFdFlags(depth int, m *models.SystemInfo, cmdPrefix strin
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2968,6 +3057,7 @@ func retrieveSystemInfoNGoroutinesFlags(depth int, m *models.SystemInfo, cmdPref
 		return nil, false
 	}
 	retAdded := false
+
 	nGoroutinesFlagName := fmt.Sprintf("%v.NGoroutines", cmdPrefix)
 	if cmd.Flags().Changed(nGoroutinesFlagName) {
 
@@ -2986,6 +3076,7 @@ func retrieveSystemInfoNGoroutinesFlags(depth int, m *models.SystemInfo, cmdPref
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -2994,6 +3085,7 @@ func retrieveSystemInfoNameFlags(depth int, m *models.SystemInfo, cmdPrefix stri
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -3012,6 +3104,7 @@ func retrieveSystemInfoNameFlags(depth int, m *models.SystemInfo, cmdPrefix stri
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3020,6 +3113,7 @@ func retrieveSystemInfoNoProxyFlags(depth int, m *models.SystemInfo, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	noProxyFlagName := fmt.Sprintf("%v.NoProxy", cmdPrefix)
 	if cmd.Flags().Changed(noProxyFlagName) {
 
@@ -3038,6 +3132,7 @@ func retrieveSystemInfoNoProxyFlags(depth int, m *models.SystemInfo, cmdPrefix s
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3046,6 +3141,7 @@ func retrieveSystemInfoOSTypeFlags(depth int, m *models.SystemInfo, cmdPrefix st
 		return nil, false
 	}
 	retAdded := false
+
 	oSTypeFlagName := fmt.Sprintf("%v.OSType", cmdPrefix)
 	if cmd.Flags().Changed(oSTypeFlagName) {
 
@@ -3064,6 +3160,7 @@ func retrieveSystemInfoOSTypeFlags(depth int, m *models.SystemInfo, cmdPrefix st
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3072,6 +3169,7 @@ func retrieveSystemInfoOSVersionFlags(depth int, m *models.SystemInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	oSVersionFlagName := fmt.Sprintf("%v.OSVersion", cmdPrefix)
 	if cmd.Flags().Changed(oSVersionFlagName) {
 
@@ -3090,6 +3188,7 @@ func retrieveSystemInfoOSVersionFlags(depth int, m *models.SystemInfo, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3098,6 +3197,7 @@ func retrieveSystemInfoOomKillDisableFlags(depth int, m *models.SystemInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	oomKillDisableFlagName := fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
 	if cmd.Flags().Changed(oomKillDisableFlagName) {
 
@@ -3116,6 +3216,7 @@ func retrieveSystemInfoOomKillDisableFlags(depth int, m *models.SystemInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3124,6 +3225,7 @@ func retrieveSystemInfoOperatingSystemFlags(depth int, m *models.SystemInfo, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	operatingSystemFlagName := fmt.Sprintf("%v.OperatingSystem", cmdPrefix)
 	if cmd.Flags().Changed(operatingSystemFlagName) {
 
@@ -3142,6 +3244,7 @@ func retrieveSystemInfoOperatingSystemFlags(depth int, m *models.SystemInfo, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3150,6 +3253,7 @@ func retrieveSystemInfoPidsLimitFlags(depth int, m *models.SystemInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	pidsLimitFlagName := fmt.Sprintf("%v.PidsLimit", cmdPrefix)
 	if cmd.Flags().Changed(pidsLimitFlagName) {
 
@@ -3168,6 +3272,7 @@ func retrieveSystemInfoPidsLimitFlags(depth int, m *models.SystemInfo, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3176,19 +3281,21 @@ func retrieveSystemInfoPluginsFlags(depth int, m *models.SystemInfo, cmdPrefix s
 		return nil, false
 	}
 	retAdded := false
+
 	pluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
 	if cmd.Flags().Changed(pluginsFlagName) {
 
-		pluginsFlagValue := &models.PluginsInfo{}
-		err, added := retrieveModelPluginsInfoFlags(depth+1, pluginsFlagValue, pluginsFlagName, cmd)
+		pluginsFlagValue := models.PluginsInfo{}
+		err, added := retrieveModelPluginsInfoFlags(depth+1, &pluginsFlagValue, pluginsFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Plugins = pluginsFlagValue
+			m.Plugins = &pluginsFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -3197,6 +3304,7 @@ func retrieveSystemInfoProductLicenseFlags(depth int, m *models.SystemInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	productLicenseFlagName := fmt.Sprintf("%v.ProductLicense", cmdPrefix)
 	if cmd.Flags().Changed(productLicenseFlagName) {
 
@@ -3215,6 +3323,7 @@ func retrieveSystemInfoProductLicenseFlags(depth int, m *models.SystemInfo, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3223,19 +3332,21 @@ func retrieveSystemInfoRegistryConfigFlags(depth int, m *models.SystemInfo, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	registryConfigFlagName := fmt.Sprintf("%v.RegistryConfig", cmdPrefix)
 	if cmd.Flags().Changed(registryConfigFlagName) {
 
-		registryConfigFlagValue := &models.RegistryServiceConfig{}
-		err, added := retrieveModelRegistryServiceConfigFlags(depth+1, registryConfigFlagValue, registryConfigFlagName, cmd)
+		registryConfigFlagValue := models.RegistryServiceConfig{}
+		err, added := retrieveModelRegistryServiceConfigFlags(depth+1, &registryConfigFlagValue, registryConfigFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.RegistryConfig = registryConfigFlagValue
+			m.RegistryConfig = &registryConfigFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -3244,19 +3355,21 @@ func retrieveSystemInfoRuncCommitFlags(depth int, m *models.SystemInfo, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	runcCommitFlagName := fmt.Sprintf("%v.RuncCommit", cmdPrefix)
 	if cmd.Flags().Changed(runcCommitFlagName) {
 
-		runcCommitFlagValue := &models.Commit{}
-		err, added := retrieveModelCommitFlags(depth+1, runcCommitFlagValue, runcCommitFlagName, cmd)
+		runcCommitFlagValue := models.Commit{}
+		err, added := retrieveModelCommitFlags(depth+1, &runcCommitFlagValue, runcCommitFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.RuncCommit = runcCommitFlagValue
+			m.RuncCommit = &runcCommitFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -3265,10 +3378,12 @@ func retrieveSystemInfoRuntimesFlags(depth int, m *models.SystemInfo, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	runtimesFlagName := fmt.Sprintf("%v.Runtimes", cmdPrefix)
 	if cmd.Flags().Changed(runtimesFlagName) {
 		// warning: Runtimes map type map[string]Runtime is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3277,10 +3392,12 @@ func retrieveSystemInfoSecurityOptionsFlags(depth int, m *models.SystemInfo, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	securityOptionsFlagName := fmt.Sprintf("%v.SecurityOptions", cmdPrefix)
 	if cmd.Flags().Changed(securityOptionsFlagName) {
 		// warning: SecurityOptions array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3289,6 +3406,7 @@ func retrieveSystemInfoServerVersionFlags(depth int, m *models.SystemInfo, cmdPr
 		return nil, false
 	}
 	retAdded := false
+
 	serverVersionFlagName := fmt.Sprintf("%v.ServerVersion", cmdPrefix)
 	if cmd.Flags().Changed(serverVersionFlagName) {
 
@@ -3307,6 +3425,7 @@ func retrieveSystemInfoServerVersionFlags(depth int, m *models.SystemInfo, cmdPr
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3315,6 +3434,7 @@ func retrieveSystemInfoSwapLimitFlags(depth int, m *models.SystemInfo, cmdPrefix
 		return nil, false
 	}
 	retAdded := false
+
 	swapLimitFlagName := fmt.Sprintf("%v.SwapLimit", cmdPrefix)
 	if cmd.Flags().Changed(swapLimitFlagName) {
 
@@ -3333,6 +3453,7 @@ func retrieveSystemInfoSwapLimitFlags(depth int, m *models.SystemInfo, cmdPrefix
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3341,19 +3462,21 @@ func retrieveSystemInfoSwarmFlags(depth int, m *models.SystemInfo, cmdPrefix str
 		return nil, false
 	}
 	retAdded := false
+
 	swarmFlagName := fmt.Sprintf("%v.Swarm", cmdPrefix)
 	if cmd.Flags().Changed(swarmFlagName) {
 
-		swarmFlagValue := &models.SwarmInfo{}
-		err, added := retrieveModelSwarmInfoFlags(depth+1, swarmFlagValue, swarmFlagName, cmd)
+		swarmFlagValue := models.SwarmInfo{}
+		err, added := retrieveModelSwarmInfoFlags(depth+1, &swarmFlagValue, swarmFlagName, cmd)
 		if err != nil {
 			return err, false
 		}
 		retAdded = retAdded || added
 		if added {
-			m.Swarm = swarmFlagValue
+			m.Swarm = &swarmFlagValue
 		}
 	}
+
 	return nil, retAdded
 }
 
@@ -3362,10 +3485,12 @@ func retrieveSystemInfoSystemStatusFlags(depth int, m *models.SystemInfo, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	systemStatusFlagName := fmt.Sprintf("%v.SystemStatus", cmdPrefix)
 	if cmd.Flags().Changed(systemStatusFlagName) {
 		// warning: SystemStatus array type [][]string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -3374,6 +3499,7 @@ func retrieveSystemInfoSystemTimeFlags(depth int, m *models.SystemInfo, cmdPrefi
 		return nil, false
 	}
 	retAdded := false
+
 	systemTimeFlagName := fmt.Sprintf("%v.SystemTime", cmdPrefix)
 	if cmd.Flags().Changed(systemTimeFlagName) {
 
@@ -3392,6 +3518,7 @@ func retrieveSystemInfoSystemTimeFlags(depth int, m *models.SystemInfo, cmdPrefi
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -3400,9 +3527,11 @@ func retrieveSystemInfoWarningsFlags(depth int, m *models.SystemInfo, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
 	if cmd.Flags().Changed(warningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

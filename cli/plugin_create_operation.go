@@ -51,6 +51,39 @@ func runOperationPluginPluginCreate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationPluginPluginCreateParamFlags registers all flags needed to fill params
+func registerOperationPluginPluginCreateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationPluginPluginCreateNameParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationPluginPluginCreateTarContextParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationPluginPluginCreateNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+
+	var nameFlagName string
+	if cmdPrefix == "" {
+		nameFlagName = "name"
+	} else {
+		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+	}
+
+	var nameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	return nil
+}
+func registerOperationPluginPluginCreateTarContextParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
+	return nil
+}
+
 func retrieveOperationPluginPluginCreateNameFlag(m *plugin.PluginCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("name") {
@@ -103,38 +136,5 @@ func printOperationPluginPluginCreateResult(resp0 *plugin.PluginCreateNoContent,
 
 	// warning: non schema response pluginCreateNoContent is not supported by go-swagger cli yet.
 
-	return nil
-}
-
-// registerOperationPluginPluginCreateParamFlags registers all flags needed to fill params
-func registerOperationPluginPluginCreateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationPluginPluginCreateNameParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationPluginPluginCreateTarContextParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationPluginPluginCreateNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
-
-	var nameFlagName string
-	if cmdPrefix == "" {
-		nameFlagName = "name"
-	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
-	}
-
-	var nameFlagDefault string
-
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
-
-	return nil
-}
-func registerOperationPluginPluginCreateTarContextParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type io.ReadCloser is not supported by go-swagger cli yet.
 	return nil
 }

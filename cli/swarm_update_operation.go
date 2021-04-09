@@ -61,6 +61,114 @@ func runOperationSwarmSwarmUpdate(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmUpdateParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmUpdateParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSwarmSwarmUpdateBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSwarmSwarmUpdateRotateManagerTokenParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSwarmSwarmUpdateRotateManagerUnlockKeyParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSwarmSwarmUpdateRotateWorkerTokenParamFlags("", cmd); err != nil {
+		return err
+	}
+	if err := registerOperationSwarmSwarmUpdateVersionParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSwarmSwarmUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelSwarmSpecFlags(0, "swarmSpec", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+func registerOperationSwarmSwarmUpdateRotateManagerTokenParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	rotateManagerTokenDescription := `Rotate the manager join token.`
+
+	var rotateManagerTokenFlagName string
+	if cmdPrefix == "" {
+		rotateManagerTokenFlagName = "rotateManagerToken"
+	} else {
+		rotateManagerTokenFlagName = fmt.Sprintf("%v.rotateManagerToken", cmdPrefix)
+	}
+
+	var rotateManagerTokenFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(rotateManagerTokenFlagName, rotateManagerTokenFlagDefault, rotateManagerTokenDescription)
+
+	return nil
+}
+func registerOperationSwarmSwarmUpdateRotateManagerUnlockKeyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	rotateManagerUnlockKeyDescription := `Rotate the manager unlock key.`
+
+	var rotateManagerUnlockKeyFlagName string
+	if cmdPrefix == "" {
+		rotateManagerUnlockKeyFlagName = "rotateManagerUnlockKey"
+	} else {
+		rotateManagerUnlockKeyFlagName = fmt.Sprintf("%v.rotateManagerUnlockKey", cmdPrefix)
+	}
+
+	var rotateManagerUnlockKeyFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(rotateManagerUnlockKeyFlagName, rotateManagerUnlockKeyFlagDefault, rotateManagerUnlockKeyDescription)
+
+	return nil
+}
+func registerOperationSwarmSwarmUpdateRotateWorkerTokenParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	rotateWorkerTokenDescription := `Rotate the worker join token.`
+
+	var rotateWorkerTokenFlagName string
+	if cmdPrefix == "" {
+		rotateWorkerTokenFlagName = "rotateWorkerToken"
+	} else {
+		rotateWorkerTokenFlagName = fmt.Sprintf("%v.rotateWorkerToken", cmdPrefix)
+	}
+
+	var rotateWorkerTokenFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(rotateWorkerTokenFlagName, rotateWorkerTokenFlagDefault, rotateWorkerTokenDescription)
+
+	return nil
+}
+func registerOperationSwarmSwarmUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	versionDescription := `Required. The version number of the swarm object being updated. This is required to avoid conflicting writes.`
+
+	var versionFlagName string
+	if cmdPrefix == "" {
+		versionFlagName = "version"
+	} else {
+		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+	}
+
+	var versionFlagDefault int64
+
+	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+
+	return nil
+}
+
 func retrieveOperationSwarmSwarmUpdateBodyFlag(m *swarm.SwarmUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -224,114 +332,6 @@ func printOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 	}
 
 	// warning: non schema response swarmUpdateOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationSwarmSwarmUpdateParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmUpdateParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSwarmSwarmUpdateBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSwarmSwarmUpdateRotateManagerTokenParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSwarmSwarmUpdateRotateManagerUnlockKeyParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSwarmSwarmUpdateRotateWorkerTokenParamFlags("", cmd); err != nil {
-		return err
-	}
-	if err := registerOperationSwarmSwarmUpdateVersionParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSwarmSwarmUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelSwarmSpecFlags(0, "swarmSpec", cmd); err != nil {
-		return err
-	}
-
-	return nil
-}
-func registerOperationSwarmSwarmUpdateRotateManagerTokenParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	rotateManagerTokenDescription := `Rotate the manager join token.`
-
-	var rotateManagerTokenFlagName string
-	if cmdPrefix == "" {
-		rotateManagerTokenFlagName = "rotateManagerToken"
-	} else {
-		rotateManagerTokenFlagName = fmt.Sprintf("%v.rotateManagerToken", cmdPrefix)
-	}
-
-	var rotateManagerTokenFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(rotateManagerTokenFlagName, rotateManagerTokenFlagDefault, rotateManagerTokenDescription)
-
-	return nil
-}
-func registerOperationSwarmSwarmUpdateRotateManagerUnlockKeyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	rotateManagerUnlockKeyDescription := `Rotate the manager unlock key.`
-
-	var rotateManagerUnlockKeyFlagName string
-	if cmdPrefix == "" {
-		rotateManagerUnlockKeyFlagName = "rotateManagerUnlockKey"
-	} else {
-		rotateManagerUnlockKeyFlagName = fmt.Sprintf("%v.rotateManagerUnlockKey", cmdPrefix)
-	}
-
-	var rotateManagerUnlockKeyFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(rotateManagerUnlockKeyFlagName, rotateManagerUnlockKeyFlagDefault, rotateManagerUnlockKeyDescription)
-
-	return nil
-}
-func registerOperationSwarmSwarmUpdateRotateWorkerTokenParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	rotateWorkerTokenDescription := `Rotate the worker join token.`
-
-	var rotateWorkerTokenFlagName string
-	if cmdPrefix == "" {
-		rotateWorkerTokenFlagName = "rotateWorkerToken"
-	} else {
-		rotateWorkerTokenFlagName = fmt.Sprintf("%v.rotateWorkerToken", cmdPrefix)
-	}
-
-	var rotateWorkerTokenFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(rotateWorkerTokenFlagName, rotateWorkerTokenFlagDefault, rotateWorkerTokenDescription)
-
-	return nil
-}
-func registerOperationSwarmSwarmUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	versionDescription := `Required. The version number of the swarm object being updated. This is required to avoid conflicting writes.`
-
-	var versionFlagName string
-	if cmdPrefix == "" {
-		versionFlagName = "version"
-	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
-	}
-
-	var versionFlagDefault int64
-
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
 
 	return nil
 }

@@ -48,6 +48,39 @@ func runOperationImageImagePrune(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationImageImagePruneParamFlags registers all flags needed to fill params
+func registerOperationImageImagePruneParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationImageImagePruneFiltersParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationImageImagePruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `). Available filters:
+
+- ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), prune only
+   unused *and* untagged images. When set to ` + "`" + `false` + "`" + `
+   (or ` + "`" + `0` + "`" + `), all unused images are pruned.
+- ` + "`" + `until=<string>` + "`" + ` Prune images created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
+- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune images with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
+`
+
+	var filtersFlagName string
+	if cmdPrefix == "" {
+		filtersFlagName = "filters"
+	} else {
+		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+	}
+
+	var filtersFlagDefault string
+
+	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+
+	return nil
+}
+
 func retrieveOperationImageImagePruneFiltersFlag(m *image.ImagePruneParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
@@ -113,39 +146,6 @@ func printOperationImageImagePruneResult(resp0 *image.ImagePruneOK, respErr erro
 	return nil
 }
 
-// registerOperationImageImagePruneParamFlags registers all flags needed to fill params
-func registerOperationImageImagePruneParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationImageImagePruneFiltersParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationImageImagePruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `). Available filters:
-
-- ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), prune only
-   unused *and* untagged images. When set to ` + "`" + `false` + "`" + `
-   (or ` + "`" + `0` + "`" + `), all unused images are pruned.
-- ` + "`" + `until=<string>` + "`" + ` Prune images created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
-- ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune images with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
-`
-
-	var filtersFlagName string
-	if cmdPrefix == "" {
-		filtersFlagName = "filters"
-	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
-	}
-
-	var filtersFlagDefault string
-
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
-
-	return nil
-}
-
 // register flags to command
 func registerModelImagePruneOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
 
@@ -164,6 +164,7 @@ func registerImagePruneOKBodyImagesDeleted(depth int, cmdPrefix string, cmd *cob
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: ImagesDeleted []*models.ImageDeleteResponseItem array type is not supported by go-swagger cli yet
 
 	return nil
@@ -214,10 +215,12 @@ func retrieveImagePruneOKBodyImagesDeletedFlags(depth int, m *image.ImagePruneOK
 		return nil, false
 	}
 	retAdded := false
+
 	imagesDeletedFlagName := fmt.Sprintf("%v.ImagesDeleted", cmdPrefix)
 	if cmd.Flags().Changed(imagesDeletedFlagName) {
 		// warning: ImagesDeleted array type []*models.ImageDeleteResponseItem is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }
 
@@ -226,6 +229,7 @@ func retrieveImagePruneOKBodySpaceReclaimedFlags(depth int, m *image.ImagePruneO
 		return nil, false
 	}
 	retAdded := false
+
 	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	if cmd.Flags().Changed(spaceReclaimedFlagName) {
 
@@ -244,5 +248,6 @@ func retrieveImagePruneOKBodySpaceReclaimedFlags(depth int, m *image.ImagePruneO
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

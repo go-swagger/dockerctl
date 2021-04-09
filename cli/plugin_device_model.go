@@ -103,6 +103,7 @@ func registerPluginDeviceSettable(depth int, cmdPrefix string, cmd *cobra.Comman
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: Settable []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -144,6 +145,7 @@ func retrievePluginDeviceDescriptionFlags(depth int, m *models.PluginDevice, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
 
@@ -162,6 +164,7 @@ func retrievePluginDeviceDescriptionFlags(depth int, m *models.PluginDevice, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -170,6 +173,7 @@ func retrievePluginDeviceNameFlags(depth int, m *models.PluginDevice, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
 	if cmd.Flags().Changed(nameFlagName) {
 
@@ -188,6 +192,7 @@ func retrievePluginDeviceNameFlags(depth int, m *models.PluginDevice, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -196,6 +201,7 @@ func retrievePluginDevicePathFlags(depth int, m *models.PluginDevice, cmdPrefix 
 		return nil, false
 	}
 	retAdded := false
+
 	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
 	if cmd.Flags().Changed(pathFlagName) {
 
@@ -214,6 +220,7 @@ func retrievePluginDevicePathFlags(depth int, m *models.PluginDevice, cmdPrefix 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -222,9 +229,11 @@ func retrievePluginDeviceSettableFlags(depth int, m *models.PluginDevice, cmdPre
 		return nil, false
 	}
 	retAdded := false
+
 	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
 	if cmd.Flags().Changed(settableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

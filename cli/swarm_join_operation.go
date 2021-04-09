@@ -48,6 +48,34 @@ func runOperationSwarmSwarmJoin(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmJoinParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmJoinParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSwarmSwarmJoinBodyParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSwarmSwarmJoinBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	exampleBodyStr := "go-swagger TODO"
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+
+	// add flags for body
+	if err := registerModelSwarmJoinBodyFlags(0, "swarmJoinBody", cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func retrieveOperationSwarmSwarmJoinBodyFlag(m *swarm.SwarmJoinParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
@@ -131,34 +159,6 @@ func printOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error)
 	}
 
 	// warning: non schema response swarmJoinOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationSwarmSwarmJoinParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmJoinParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSwarmSwarmJoinBodyParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSwarmSwarmJoinBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	var bodyFlagName string
-	if cmdPrefix == "" {
-		bodyFlagName = "body"
-	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
-	}
-
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
-
-	// add flags for body
-	if err := registerModelSwarmJoinBodyFlags(0, "swarmJoinBody", cmd); err != nil {
-		return err
-	}
 
 	return nil
 }
@@ -284,6 +284,7 @@ func registerSwarmJoinBodyRemoteAddrs(depth int, cmdPrefix string, cmd *cobra.Co
 	if depth > maxDepth {
 		return nil
 	}
+
 	// warning: RemoteAddrs []string array type is not supported by go-swagger cli yet
 
 	return nil
@@ -331,6 +332,7 @@ func retrieveSwarmJoinBodyAdvertiseAddrFlags(depth int, m *swarm.SwarmJoinBody, 
 		return nil, false
 	}
 	retAdded := false
+
 	advertiseAddrFlagName := fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
 	if cmd.Flags().Changed(advertiseAddrFlagName) {
 
@@ -349,6 +351,7 @@ func retrieveSwarmJoinBodyAdvertiseAddrFlags(depth int, m *swarm.SwarmJoinBody, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -357,6 +360,7 @@ func retrieveSwarmJoinBodyDataPathAddrFlags(depth int, m *swarm.SwarmJoinBody, c
 		return nil, false
 	}
 	retAdded := false
+
 	dataPathAddrFlagName := fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
 	if cmd.Flags().Changed(dataPathAddrFlagName) {
 
@@ -375,6 +379,7 @@ func retrieveSwarmJoinBodyDataPathAddrFlags(depth int, m *swarm.SwarmJoinBody, c
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -383,6 +388,7 @@ func retrieveSwarmJoinBodyJoinTokenFlags(depth int, m *swarm.SwarmJoinBody, cmdP
 		return nil, false
 	}
 	retAdded := false
+
 	joinTokenFlagName := fmt.Sprintf("%v.JoinToken", cmdPrefix)
 	if cmd.Flags().Changed(joinTokenFlagName) {
 
@@ -401,6 +407,7 @@ func retrieveSwarmJoinBodyJoinTokenFlags(depth int, m *swarm.SwarmJoinBody, cmdP
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -409,6 +416,7 @@ func retrieveSwarmJoinBodyListenAddrFlags(depth int, m *swarm.SwarmJoinBody, cmd
 		return nil, false
 	}
 	retAdded := false
+
 	listenAddrFlagName := fmt.Sprintf("%v.ListenAddr", cmdPrefix)
 	if cmd.Flags().Changed(listenAddrFlagName) {
 
@@ -427,6 +435,7 @@ func retrieveSwarmJoinBodyListenAddrFlags(depth int, m *swarm.SwarmJoinBody, cmd
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -435,9 +444,11 @@ func retrieveSwarmJoinBodyRemoteAddrsFlags(depth int, m *swarm.SwarmJoinBody, cm
 		return nil, false
 	}
 	retAdded := false
+
 	remoteAddrsFlagName := fmt.Sprintf("%v.RemoteAddrs", cmdPrefix)
 	if cmd.Flags().Changed(remoteAddrsFlagName) {
 		// warning: RemoteAddrs array type []string is not supported by go-swagger cli yet
 	}
+
 	return nil, retAdded
 }

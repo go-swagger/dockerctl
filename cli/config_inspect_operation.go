@@ -48,6 +48,32 @@ func runOperationConfigConfigInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationConfigConfigInspectParamFlags registers all flags needed to fill params
+func registerOperationConfigConfigInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationConfigConfigInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationConfigConfigInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID of the config`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationConfigConfigInspectIDFlag(m *config.ConfigInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -135,32 +161,6 @@ func printOperationConfigConfigInspectResult(resp0 *config.ConfigInspectOK, resp
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationConfigConfigInspectParamFlags registers all flags needed to fill params
-func registerOperationConfigConfigInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationConfigConfigInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationConfigConfigInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID of the config`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

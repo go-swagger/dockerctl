@@ -95,6 +95,7 @@ func retrievePeerNodeAddrFlags(depth int, m *models.PeerNode, cmdPrefix string, 
 		return nil, false
 	}
 	retAdded := false
+
 	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
 	if cmd.Flags().Changed(addrFlagName) {
 
@@ -113,6 +114,7 @@ func retrievePeerNodeAddrFlags(depth int, m *models.PeerNode, cmdPrefix string, 
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }
 
@@ -121,6 +123,7 @@ func retrievePeerNodeNodeIDFlags(depth int, m *models.PeerNode, cmdPrefix string
 		return nil, false
 	}
 	retAdded := false
+
 	nodeIdFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
 	if cmd.Flags().Changed(nodeIdFlagName) {
 
@@ -139,5 +142,6 @@ func retrievePeerNodeNodeIDFlags(depth int, m *models.PeerNode, cmdPrefix string
 
 		retAdded = true
 	}
+
 	return nil, retAdded
 }

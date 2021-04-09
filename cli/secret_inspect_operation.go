@@ -48,6 +48,32 @@ func runOperationSecretSecretInspect(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSecretSecretInspectParamFlags registers all flags needed to fill params
+func registerOperationSecretSecretInspectParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSecretSecretInspectIDParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSecretSecretInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	idDescription := `Required. ID of the secret`
+
+	var idFlagName string
+	if cmdPrefix == "" {
+		idFlagName = "id"
+	} else {
+		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+	}
+
+	var idFlagDefault string
+
+	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+
+	return nil
+}
+
 func retrieveOperationSecretSecretInspectIDFlag(m *secret.SecretInspectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("id") {
@@ -135,32 +161,6 @@ func printOperationSecretSecretInspectResult(resp0 *secret.SecretInspectOK, resp
 		}
 		fmt.Println(string(msgStr))
 	}
-
-	return nil
-}
-
-// registerOperationSecretSecretInspectParamFlags registers all flags needed to fill params
-func registerOperationSecretSecretInspectParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSecretSecretInspectIDParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSecretSecretInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	idDescription := `Required. ID of the secret`
-
-	var idFlagName string
-	if cmdPrefix == "" {
-		idFlagName = "id"
-	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
-	}
-
-	var idFlagDefault string
-
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
 
 	return nil
 }

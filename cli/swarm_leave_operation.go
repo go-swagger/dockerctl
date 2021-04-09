@@ -48,6 +48,32 @@ func runOperationSwarmSwarmLeave(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+// registerOperationSwarmSwarmLeaveParamFlags registers all flags needed to fill params
+func registerOperationSwarmSwarmLeaveParamFlags(cmd *cobra.Command) error {
+	if err := registerOperationSwarmSwarmLeaveForceParamFlags("", cmd); err != nil {
+		return err
+	}
+	return nil
+}
+
+func registerOperationSwarmSwarmLeaveForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
+
+	forceDescription := `Force leave swarm, even if this is the last manager or that it will break the cluster.`
+
+	var forceFlagName string
+	if cmdPrefix == "" {
+		forceFlagName = "force"
+	} else {
+		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+	}
+
+	var forceFlagDefault bool
+
+	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+
+	return nil
+}
+
 func retrieveOperationSwarmSwarmLeaveForceFlag(m *swarm.SwarmLeaveParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("force") {
@@ -105,32 +131,6 @@ func printOperationSwarmSwarmLeaveResult(resp0 *swarm.SwarmLeaveOK, respErr erro
 	}
 
 	// warning: non schema response swarmLeaveOK is not supported by go-swagger cli yet.
-
-	return nil
-}
-
-// registerOperationSwarmSwarmLeaveParamFlags registers all flags needed to fill params
-func registerOperationSwarmSwarmLeaveParamFlags(cmd *cobra.Command) error {
-	if err := registerOperationSwarmSwarmLeaveForceParamFlags("", cmd); err != nil {
-		return err
-	}
-	return nil
-}
-
-func registerOperationSwarmSwarmLeaveForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-
-	forceDescription := `Force leave swarm, even if this is the last manager or that it will break the cluster.`
-
-	var forceFlagName string
-	if cmdPrefix == "" {
-		forceFlagName = "force"
-	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
-	}
-
-	var forceFlagDefault bool
-
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
 
 	return nil
 }

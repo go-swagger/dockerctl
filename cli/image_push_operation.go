@@ -52,9 +52,19 @@ func runOperationImageImagePush(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationImageImagePushTagFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationImageImagePushResult(appCli.Image.ImagePush(params)); err != nil {
+	msgStr, err := parseOperationImageImagePushResult(appCli.Image.ImagePush(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -186,8 +196,8 @@ func retrieveOperationImageImagePushTagFlag(m *image.ImagePushParams, cmdPrefix 
 	return nil, retAdded
 }
 
-// printOperationImageImagePushResult prints output to stdout
-func printOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error) error {
+// parseOperationImageImagePushResult parses request result and return the string content
+func parseOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning imagePushOK is not supported
@@ -198,10 +208,9 @@ func printOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error)
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -211,17 +220,16 @@ func printOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error)
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response imagePushOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

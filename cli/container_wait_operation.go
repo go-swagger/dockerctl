@@ -44,9 +44,19 @@ func runOperationContainerContainerWait(cmd *cobra.Command, args []string) error
 	if err, _ := retrieveOperationContainerContainerWaitIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerWaitResult(appCli.Container.ContainerWait(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerWaitResult(appCli.Container.ContainerWait(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationContainerContainerWaitIDFlag(m *container.ContainerWaitPar
 	return nil, retAdded
 }
 
-// printOperationContainerContainerWaitResult prints output to stdout
-func printOperationContainerContainerWaitResult(resp0 *container.ContainerWaitOK, respErr error) error {
+// parseOperationContainerContainerWaitResult parses request result and return the string content
+func parseOperationContainerContainerWaitResult(resp0 *container.ContainerWaitOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -148,10 +158,9 @@ func printOperationContainerContainerWaitResult(resp0 *container.ContainerWaitOK
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -161,10 +170,9 @@ func printOperationContainerContainerWaitResult(resp0 *container.ContainerWaitOK
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -174,25 +182,24 @@ func printOperationContainerContainerWaitResult(resp0 *container.ContainerWaitOK
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -276,16 +283,17 @@ func retrieveContainerWaitOKBodyErrorFlags(depth int, m *container.ContainerWait
 
 	errorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
 	if cmd.Flags().Changed(errorFlagName) {
+		// info: complex object Error ContainerWaitOKBodyError is retrieved outside this Changed() block
+	}
 
-		errorFlagValue := container.ContainerWaitOKBodyError{}
-		err, added := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, &errorFlagValue, errorFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Error = &errorFlagValue
-		}
+	errorFlagValue := container.ContainerWaitOKBodyError{}
+	err, errorAdded := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, &errorFlagValue, errorFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || errorAdded
+	if errorAdded {
+		m.Error = &errorFlagValue
 	}
 
 	return nil, retAdded

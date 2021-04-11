@@ -218,16 +218,17 @@ func retrieveConfigSpecTemplatingFlags(depth int, m *models.ConfigSpec, cmdPrefi
 
 	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
 	if cmd.Flags().Changed(templatingFlagName) {
+		// info: complex object Templating Driver is retrieved outside this Changed() block
+	}
 
-		templatingFlagValue := models.Driver{}
-		err, added := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Templating = &templatingFlagValue
-		}
+	templatingFlagValue := models.Driver{}
+	err, templatingAdded := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || templatingAdded
+	if templatingAdded {
+		m.Templating = &templatingFlagValue
 	}
 
 	return nil, retAdded

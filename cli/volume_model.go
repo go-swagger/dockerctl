@@ -461,16 +461,17 @@ func retrieveVolumeUsageDataFlags(depth int, m *models.Volume, cmdPrefix string,
 
 	usageDataFlagName := fmt.Sprintf("%v.UsageData", cmdPrefix)
 	if cmd.Flags().Changed(usageDataFlagName) {
+		// info: complex object UsageData VolumeUsageData is retrieved outside this Changed() block
+	}
 
-		usageDataFlagValue := models.VolumeUsageData{}
-		err, added := retrieveModelVolumeUsageDataFlags(depth+1, &usageDataFlagValue, usageDataFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.UsageData = &usageDataFlagValue
-		}
+	usageDataFlagValue := models.VolumeUsageData{}
+	err, usageDataAdded := retrieveModelVolumeUsageDataFlags(depth+1, &usageDataFlagValue, usageDataFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || usageDataAdded
+	if usageDataAdded {
+		m.UsageData = &usageDataFlagValue
 	}
 
 	return nil, retAdded

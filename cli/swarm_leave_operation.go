@@ -41,9 +41,19 @@ func runOperationSwarmSwarmLeave(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSwarmSwarmLeaveForceFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSwarmSwarmLeaveResult(appCli.Swarm.SwarmLeave(params)); err != nil {
+	msgStr, err := parseOperationSwarmSwarmLeaveResult(appCli.Swarm.SwarmLeave(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -95,8 +105,8 @@ func retrieveOperationSwarmSwarmLeaveForceFlag(m *swarm.SwarmLeaveParams, cmdPre
 	return nil, retAdded
 }
 
-// printOperationSwarmSwarmLeaveResult prints output to stdout
-func printOperationSwarmSwarmLeaveResult(resp0 *swarm.SwarmLeaveOK, respErr error) error {
+// parseOperationSwarmSwarmLeaveResult parses request result and return the string content
+func parseOperationSwarmSwarmLeaveResult(resp0 *swarm.SwarmLeaveOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning swarmLeaveOK is not supported
@@ -107,10 +117,9 @@ func printOperationSwarmSwarmLeaveResult(resp0 *swarm.SwarmLeaveOK, respErr erro
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -120,17 +129,16 @@ func printOperationSwarmSwarmLeaveResult(resp0 *swarm.SwarmLeaveOK, respErr erro
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response swarmLeaveOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

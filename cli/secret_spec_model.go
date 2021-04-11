@@ -208,16 +208,17 @@ func retrieveSecretSpecDriverFlags(depth int, m *models.SecretSpec, cmdPrefix st
 
 	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
 	if cmd.Flags().Changed(driverFlagName) {
+		// info: complex object Driver Driver is retrieved outside this Changed() block
+	}
 
-		driverFlagValue := models.Driver{}
-		err, added := retrieveModelDriverFlags(depth+1, &driverFlagValue, driverFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Driver = &driverFlagValue
-		}
+	driverFlagValue := models.Driver{}
+	err, driverAdded := retrieveModelDriverFlags(depth+1, &driverFlagValue, driverFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || driverAdded
+	if driverAdded {
+		m.Driver = &driverFlagValue
 	}
 
 	return nil, retAdded
@@ -273,16 +274,17 @@ func retrieveSecretSpecTemplatingFlags(depth int, m *models.SecretSpec, cmdPrefi
 
 	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
 	if cmd.Flags().Changed(templatingFlagName) {
+		// info: complex object Templating Driver is retrieved outside this Changed() block
+	}
 
-		templatingFlagValue := models.Driver{}
-		err, added := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Templating = &templatingFlagValue
-		}
+	templatingFlagValue := models.Driver{}
+	err, templatingAdded := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || templatingAdded
+	if templatingAdded {
+		m.Templating = &templatingFlagValue
 	}
 
 	return nil, retAdded

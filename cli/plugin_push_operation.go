@@ -42,9 +42,19 @@ func runOperationPluginPluginPush(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationPluginPluginPushNameFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationPluginPluginPushResult(appCli.Plugin.PluginPush(params)); err != nil {
+	msgStr, err := parseOperationPluginPluginPushResult(appCli.Plugin.PluginPush(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -96,8 +106,8 @@ func retrieveOperationPluginPluginPushNameFlag(m *plugin.PluginPushParams, cmdPr
 	return nil, retAdded
 }
 
-// printOperationPluginPluginPushResult prints output to stdout
-func printOperationPluginPluginPushResult(resp0 *plugin.PluginPushOK, respErr error) error {
+// parseOperationPluginPluginPushResult parses request result and return the string content
+func parseOperationPluginPluginPushResult(resp0 *plugin.PluginPushOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning pluginPushOK is not supported
@@ -108,10 +118,9 @@ func printOperationPluginPluginPushResult(resp0 *plugin.PluginPushOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -121,17 +130,16 @@ func printOperationPluginPluginPushResult(resp0 *plugin.PluginPushOK, respErr er
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response pluginPushOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

@@ -68,9 +68,19 @@ func runOperationSystemSystemEvents(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSystemSystemEventsUntilFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemEventsResult(appCli.System.SystemEvents(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemEventsResult(appCli.System.SystemEvents(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -218,8 +228,8 @@ func retrieveOperationSystemSystemEventsUntilFlag(m *system.SystemEventsParams, 
 	return nil, retAdded
 }
 
-// printOperationSystemSystemEventsResult prints output to stdout
-func printOperationSystemSystemEventsResult(resp0 *system.SystemEventsOK, respErr error) error {
+// parseOperationSystemSystemEventsResult parses request result and return the string content
+func parseOperationSystemSystemEventsResult(resp0 *system.SystemEventsOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -228,10 +238,9 @@ func printOperationSystemSystemEventsResult(resp0 *system.SystemEventsOK, respEr
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -241,10 +250,9 @@ func printOperationSystemSystemEventsResult(resp0 *system.SystemEventsOK, respEr
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -254,25 +262,24 @@ func printOperationSystemSystemEventsResult(resp0 *system.SystemEventsOK, respEr
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -477,16 +484,17 @@ func retrieveSystemEventsOKBodyActorFlags(depth int, m *system.SystemEventsOKBod
 
 	actorFlagName := fmt.Sprintf("%v.Actor", cmdPrefix)
 	if cmd.Flags().Changed(actorFlagName) {
+		// info: complex object Actor SystemEventsOKBodyActor is retrieved outside this Changed() block
+	}
 
-		actorFlagValue := system.SystemEventsOKBodyActor{}
-		err, added := retrieveModelSystemEventsOKBodyActorFlags(depth+1, &actorFlagValue, actorFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Actor = &actorFlagValue
-		}
+	actorFlagValue := system.SystemEventsOKBodyActor{}
+	err, actorAdded := retrieveModelSystemEventsOKBodyActorFlags(depth+1, &actorFlagValue, actorFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || actorAdded
+	if actorAdded {
+		m.Actor = &actorFlagValue
 	}
 
 	return nil, retAdded

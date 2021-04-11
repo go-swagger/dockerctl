@@ -53,9 +53,19 @@ func runOperationContainerPutContainerArchive(cmd *cobra.Command, args []string)
 	if err, _ := retrieveOperationContainerPutContainerArchivePathFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerPutContainerArchiveResult(appCli.Container.PutContainerArchive(params)); err != nil {
+	msgStr, err := parseOperationContainerPutContainerArchiveResult(appCli.Container.PutContainerArchive(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -241,8 +251,8 @@ func retrieveOperationContainerPutContainerArchivePathFlag(m *container.PutConta
 	return nil, retAdded
 }
 
-// printOperationContainerPutContainerArchiveResult prints output to stdout
-func printOperationContainerPutContainerArchiveResult(resp0 *container.PutContainerArchiveOK, respErr error) error {
+// parseOperationContainerPutContainerArchiveResult parses request result and return the string content
+func parseOperationContainerPutContainerArchiveResult(resp0 *container.PutContainerArchiveOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning putContainerArchiveOK is not supported
@@ -253,10 +263,9 @@ func printOperationContainerPutContainerArchiveResult(resp0 *container.PutContai
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -266,10 +275,9 @@ func printOperationContainerPutContainerArchiveResult(resp0 *container.PutContai
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -279,10 +287,9 @@ func printOperationContainerPutContainerArchiveResult(resp0 *container.PutContai
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -292,17 +299,16 @@ func printOperationContainerPutContainerArchiveResult(resp0 *container.PutContai
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response putContainerArchiveOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

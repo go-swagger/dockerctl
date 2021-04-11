@@ -42,9 +42,19 @@ func runOperationSystemSystemAuth(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSystemSystemAuthAuthConfigFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemAuthResult(appCli.System.SystemAuth(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemAuthResult(appCli.System.SystemAuth(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -66,8 +76,7 @@ func registerOperationSystemSystemAuthAuthConfigParamFlags(cmdPrefix string, cmd
 		authConfigFlagName = fmt.Sprintf("%v.authConfig", cmdPrefix)
 	}
 
-	exampleAuthConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(authConfigFlagName, "", fmt.Sprintf("Optional json string for [authConfig] of form %v.Authentication to check", string(exampleAuthConfigStr)))
+	_ = cmd.PersistentFlags().String(authConfigFlagName, "", "Optional json string for [authConfig]. Authentication to check")
 
 	// add flags for body
 	if err := registerModelAuthConfigFlags(0, "authConfig", cmd); err != nil {
@@ -103,16 +112,21 @@ func retrieveOperationSystemSystemAuthAuthConfigFlag(m *system.SystemAuthParams,
 	if added {
 		m.AuthConfig = authConfigValueModel
 	}
-	authConfigValueDebugBytes, err := json.Marshal(m.AuthConfig)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		authConfigValueDebugBytes, err := json.Marshal(m.AuthConfig)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("AuthConfig dry-run payload: %v", string(authConfigValueDebugBytes))
 	}
-	logDebugf("AuthConfig payload: %v", string(authConfigValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 
-// printOperationSystemSystemAuthResult prints output to stdout
-func printOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *system.SystemAuthNoContent, respErr error) error {
+// parseOperationSystemSystemAuthResult parses request result and return the string content
+func parseOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *system.SystemAuthNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -121,10 +135,9 @@ func printOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *sys
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -136,27 +149,26 @@ func printOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *sys
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
 	// warning: non schema response systemAuthNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

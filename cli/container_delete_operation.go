@@ -50,9 +50,19 @@ func runOperationContainerContainerDelete(cmd *cobra.Command, args []string) err
 	if err, _ := retrieveOperationContainerContainerDeleteVFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerDeleteResult(appCli.Container.ContainerDelete(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerDeleteResult(appCli.Container.ContainerDelete(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -224,8 +234,8 @@ func retrieveOperationContainerContainerDeleteVFlag(m *container.ContainerDelete
 	return nil, retAdded
 }
 
-// printOperationContainerContainerDeleteResult prints output to stdout
-func printOperationContainerContainerDeleteResult(resp0 *container.ContainerDeleteNoContent, respErr error) error {
+// parseOperationContainerContainerDeleteResult parses request result and return the string content
+func parseOperationContainerContainerDeleteResult(resp0 *container.ContainerDeleteNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerDeleteNoContent is not supported
@@ -236,10 +246,9 @@ func printOperationContainerContainerDeleteResult(resp0 *container.ContainerDele
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -249,10 +258,9 @@ func printOperationContainerContainerDeleteResult(resp0 *container.ContainerDele
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -262,10 +270,9 @@ func printOperationContainerContainerDeleteResult(resp0 *container.ContainerDele
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -275,17 +282,16 @@ func printOperationContainerContainerDeleteResult(resp0 *container.ContainerDele
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerDeleteNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

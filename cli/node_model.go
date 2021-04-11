@@ -305,16 +305,17 @@ func retrieveNodeDescriptionFlags(depth int, m *models.Node, cmdPrefix string, c
 
 	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
 	if cmd.Flags().Changed(descriptionFlagName) {
+		// info: complex object Description NodeDescription is retrieved outside this Changed() block
+	}
 
-		descriptionFlagValue := models.NodeDescription{}
-		err, added := retrieveModelNodeDescriptionFlags(depth+1, &descriptionFlagValue, descriptionFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Description = &descriptionFlagValue
-		}
+	descriptionFlagValue := models.NodeDescription{}
+	err, descriptionAdded := retrieveModelNodeDescriptionFlags(depth+1, &descriptionFlagValue, descriptionFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || descriptionAdded
+	if descriptionAdded {
+		m.Description = &descriptionFlagValue
 	}
 
 	return nil, retAdded
@@ -356,16 +357,17 @@ func retrieveNodeManagerStatusFlags(depth int, m *models.Node, cmdPrefix string,
 
 	managerStatusFlagName := fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
 	if cmd.Flags().Changed(managerStatusFlagName) {
+		// info: complex object ManagerStatus ManagerStatus is retrieved outside this Changed() block
+	}
 
-		managerStatusFlagValue := models.ManagerStatus{}
-		err, added := retrieveModelManagerStatusFlags(depth+1, &managerStatusFlagValue, managerStatusFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ManagerStatus = &managerStatusFlagValue
-		}
+	managerStatusFlagValue := models.ManagerStatus{}
+	err, managerStatusAdded := retrieveModelManagerStatusFlags(depth+1, &managerStatusFlagValue, managerStatusFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || managerStatusAdded
+	if managerStatusAdded {
+		m.ManagerStatus = &managerStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -379,16 +381,17 @@ func retrieveNodeSpecFlags(depth int, m *models.Node, cmdPrefix string, cmd *cob
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec NodeSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.NodeSpec{}
-		err, added := retrieveModelNodeSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.NodeSpec{}
+	err, specAdded := retrieveModelNodeSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded
@@ -402,16 +405,17 @@ func retrieveNodeStatusFlags(depth int, m *models.Node, cmdPrefix string, cmd *c
 
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
+		// info: complex object Status NodeStatus is retrieved outside this Changed() block
+	}
 
-		statusFlagValue := models.NodeStatus{}
-		err, added := retrieveModelNodeStatusFlags(depth+1, &statusFlagValue, statusFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Status = &statusFlagValue
-		}
+	statusFlagValue := models.NodeStatus{}
+	err, statusAdded := retrieveModelNodeStatusFlags(depth+1, &statusFlagValue, statusFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || statusAdded
+	if statusAdded {
+		m.Status = &statusFlagValue
 	}
 
 	return nil, retAdded
@@ -453,16 +457,17 @@ func retrieveNodeVersionFlags(depth int, m *models.Node, cmdPrefix string, cmd *
 
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
+		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
+	}
 
-		versionFlagValue := models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Version = &versionFlagValue
-		}
+	versionFlagValue := models.ObjectVersion{}
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || versionAdded
+	if versionAdded {
+		m.Version = &versionFlagValue
 	}
 
 	return nil, retAdded

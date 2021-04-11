@@ -85,16 +85,17 @@ func retrieveSwarmAnonAO1JoinTokensFlags(depth int, m *models.Swarm, cmdPrefix s
 
 	joinTokensFlagName := fmt.Sprintf("%v.JoinTokens", cmdPrefix)
 	if cmd.Flags().Changed(joinTokensFlagName) {
+		// info: complex object JoinTokens JoinTokens is retrieved outside this Changed() block
+	}
 
-		joinTokensFlagValue := models.JoinTokens{}
-		err, added := retrieveModelJoinTokensFlags(depth+1, &joinTokensFlagValue, joinTokensFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.JoinTokens = &joinTokensFlagValue
-		}
+	joinTokensFlagValue := models.JoinTokens{}
+	err, joinTokensAdded := retrieveModelJoinTokensFlags(depth+1, &joinTokensFlagValue, joinTokensFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || joinTokensAdded
+	if joinTokensAdded {
+		m.JoinTokens = &joinTokensFlagValue
 	}
 
 	return nil, retAdded

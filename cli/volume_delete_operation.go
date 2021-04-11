@@ -44,9 +44,19 @@ func runOperationVolumeVolumeDelete(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationVolumeVolumeDeleteNameFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationVolumeVolumeDeleteResult(appCli.Volume.VolumeDelete(params)); err != nil {
+	msgStr, err := parseOperationVolumeVolumeDeleteResult(appCli.Volume.VolumeDelete(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationVolumeVolumeDeleteNameFlag(m *volume.VolumeDeleteParams, c
 	return nil, retAdded
 }
 
-// printOperationVolumeVolumeDeleteResult prints output to stdout
-func printOperationVolumeVolumeDeleteResult(resp0 *volume.VolumeDeleteNoContent, respErr error) error {
+// parseOperationVolumeVolumeDeleteResult parses request result and return the string content
+func parseOperationVolumeVolumeDeleteResult(resp0 *volume.VolumeDeleteNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning volumeDeleteNoContent is not supported
@@ -150,10 +160,9 @@ func printOperationVolumeVolumeDeleteResult(resp0 *volume.VolumeDeleteNoContent,
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -163,10 +172,9 @@ func printOperationVolumeVolumeDeleteResult(resp0 *volume.VolumeDeleteNoContent,
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -176,17 +184,16 @@ func printOperationVolumeVolumeDeleteResult(resp0 *volume.VolumeDeleteNoContent,
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response volumeDeleteNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

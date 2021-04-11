@@ -38,9 +38,19 @@ func runOperationSystemSystemVersion(cmd *cobra.Command, args []string) error {
 	}
 	// retrieve flag values from cmd and fill params
 	params := system.NewSystemVersionParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemVersionResult(appCli.System.SystemVersion(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemVersionResult(appCli.System.SystemVersion(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -50,8 +60,8 @@ func registerOperationSystemSystemVersionParamFlags(cmd *cobra.Command) error {
 	return nil
 }
 
-// printOperationSystemSystemVersionResult prints output to stdout
-func printOperationSystemSystemVersionResult(resp0 *system.SystemVersionOK, respErr error) error {
+// parseOperationSystemSystemVersionResult parses request result and return the string content
+func parseOperationSystemSystemVersionResult(resp0 *system.SystemVersionOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -60,10 +70,9 @@ func printOperationSystemSystemVersionResult(resp0 *system.SystemVersionOK, resp
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -73,25 +82,24 @@ func printOperationSystemSystemVersionResult(resp0 *system.SystemVersionOK, resp
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -905,16 +913,17 @@ func retrieveSystemVersionOKBodyPlatformFlags(depth int, m *system.SystemVersion
 
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
+		// info: complex object Platform SystemVersionOKBodyPlatform is retrieved outside this Changed() block
+	}
 
-		platformFlagValue := system.SystemVersionOKBodyPlatform{}
-		err, added := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Platform = &platformFlagValue
-		}
+	platformFlagValue := system.SystemVersionOKBodyPlatform{}
+	err, platformAdded := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || platformAdded
+	if platformAdded {
+		m.Platform = &platformFlagValue
 	}
 
 	return nil, retAdded

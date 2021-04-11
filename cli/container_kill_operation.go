@@ -44,9 +44,19 @@ func runOperationContainerContainerKill(cmd *cobra.Command, args []string) error
 	if err, _ := retrieveOperationContainerContainerKillSignalFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerKillResult(appCli.Container.ContainerKill(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerKillResult(appCli.Container.ContainerKill(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationContainerContainerKillSignalFlag(m *container.ContainerKil
 	return nil, retAdded
 }
 
-// printOperationContainerContainerKillResult prints output to stdout
-func printOperationContainerContainerKillResult(resp0 *container.ContainerKillNoContent, respErr error) error {
+// parseOperationContainerContainerKillResult parses request result and return the string content
+func parseOperationContainerContainerKillResult(resp0 *container.ContainerKillNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerKillNoContent is not supported
@@ -150,10 +160,9 @@ func printOperationContainerContainerKillResult(resp0 *container.ContainerKillNo
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -163,10 +172,9 @@ func printOperationContainerContainerKillResult(resp0 *container.ContainerKillNo
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -176,17 +184,16 @@ func printOperationContainerContainerKillResult(resp0 *container.ContainerKillNo
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerKillNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

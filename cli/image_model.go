@@ -684,16 +684,17 @@ func retrieveImageConfigFlags(depth int, m *models.Image, cmdPrefix string, cmd 
 
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
+		// info: complex object Config ContainerConfig is retrieved outside this Changed() block
+	}
 
-		configFlagValue := models.ContainerConfig{}
-		err, added := retrieveModelContainerConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Config = &configFlagValue
-		}
+	configFlagValue := models.ContainerConfig{}
+	err, configAdded := retrieveModelContainerConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configAdded
+	if configAdded {
+		m.Config = &configFlagValue
 	}
 
 	return nil, retAdded
@@ -735,16 +736,17 @@ func retrieveImageContainerConfigFlags(depth int, m *models.Image, cmdPrefix str
 
 	containerConfigFlagName := fmt.Sprintf("%v.ContainerConfig", cmdPrefix)
 	if cmd.Flags().Changed(containerConfigFlagName) {
+		// info: complex object ContainerConfig ContainerConfig is retrieved outside this Changed() block
+	}
 
-		containerConfigFlagValue := models.ContainerConfig{}
-		err, added := retrieveModelContainerConfigFlags(depth+1, &containerConfigFlagValue, containerConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ContainerConfig = &containerConfigFlagValue
-		}
+	containerConfigFlagValue := models.ContainerConfig{}
+	err, containerConfigAdded := retrieveModelContainerConfigFlags(depth+1, &containerConfigFlagValue, containerConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerConfigAdded
+	if containerConfigAdded {
+		m.ContainerConfig = &containerConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -814,16 +816,17 @@ func retrieveImageGraphDriverFlags(depth int, m *models.Image, cmdPrefix string,
 
 	graphDriverFlagName := fmt.Sprintf("%v.GraphDriver", cmdPrefix)
 	if cmd.Flags().Changed(graphDriverFlagName) {
+		// info: complex object GraphDriver GraphDriverData is retrieved outside this Changed() block
+	}
 
-		graphDriverFlagValue := models.GraphDriverData{}
-		err, added := retrieveModelGraphDriverDataFlags(depth+1, &graphDriverFlagValue, graphDriverFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.GraphDriver = &graphDriverFlagValue
-		}
+	graphDriverFlagValue := models.GraphDriverData{}
+	err, graphDriverAdded := retrieveModelGraphDriverDataFlags(depth+1, &graphDriverFlagValue, graphDriverFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || graphDriverAdded
+	if graphDriverAdded {
+		m.GraphDriver = &graphDriverFlagValue
 	}
 
 	return nil, retAdded
@@ -865,16 +868,17 @@ func retrieveImageMetadataFlags(depth int, m *models.Image, cmdPrefix string, cm
 
 	metadataFlagName := fmt.Sprintf("%v.Metadata", cmdPrefix)
 	if cmd.Flags().Changed(metadataFlagName) {
+		// info: complex object Metadata ImageMetadata is retrieved outside this Changed() block
+	}
 
-		metadataFlagValue := models.ImageMetadata{}
-		err, added := retrieveModelImageMetadataFlags(depth+1, &metadataFlagValue, metadataFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Metadata = &metadataFlagValue
-		}
+	metadataFlagValue := models.ImageMetadata{}
+	err, metadataAdded := retrieveModelImageMetadataFlags(depth+1, &metadataFlagValue, metadataFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || metadataAdded
+	if metadataAdded {
+		m.Metadata = &metadataFlagValue
 	}
 
 	return nil, retAdded
@@ -1000,16 +1004,17 @@ func retrieveImageRootFSFlags(depth int, m *models.Image, cmdPrefix string, cmd 
 
 	rootFSFlagName := fmt.Sprintf("%v.RootFS", cmdPrefix)
 	if cmd.Flags().Changed(rootFSFlagName) {
+		// info: complex object RootFS ImageRootFS is retrieved outside this Changed() block
+	}
 
-		rootFSFlagValue := models.ImageRootFS{}
-		err, added := retrieveModelImageRootFSFlags(depth+1, &rootFSFlagValue, rootFSFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.RootFS = &rootFSFlagValue
-		}
+	rootFSFlagValue := models.ImageRootFS{}
+	err, rootFSAdded := retrieveModelImageRootFSFlags(depth+1, &rootFSFlagValue, rootFSFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || rootFSAdded
+	if rootFSAdded {
+		m.RootFS = &rootFSFlagValue
 	}
 
 	return nil, retAdded

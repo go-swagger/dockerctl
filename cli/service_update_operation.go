@@ -56,9 +56,19 @@ func runOperationServiceServiceUpdate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationServiceServiceUpdateVersionFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationServiceServiceUpdateResult(appCli.Service.ServiceUpdate(params)); err != nil {
+	msgStr, err := parseOperationServiceServiceUpdateResult(appCli.Service.ServiceUpdate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -112,8 +122,7 @@ func registerOperationServiceServiceUpdateBodyParamFlags(cmdPrefix string, cmd *
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelServiceUpdateBodyFlags(0, "serviceUpdateBody", cmd); err != nil {
@@ -242,11 +251,16 @@ func retrieveOperationServiceServiceUpdateBodyFlag(m *service.ServiceUpdateParam
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationServiceServiceUpdateIDFlag(m *service.ServiceUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -330,8 +344,8 @@ func retrieveOperationServiceServiceUpdateVersionFlag(m *service.ServiceUpdatePa
 	return nil, retAdded
 }
 
-// printOperationServiceServiceUpdateResult prints output to stdout
-func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, respErr error) error {
+// parseOperationServiceServiceUpdateResult parses request result and return the string content
+func parseOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -340,10 +354,9 @@ func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, re
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -353,10 +366,9 @@ func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, re
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -366,10 +378,9 @@ func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, re
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -379,10 +390,9 @@ func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, re
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -392,25 +402,24 @@ func printOperationServiceServiceUpdateResult(resp0 *service.ServiceUpdateOK, re
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -441,4 +450,4 @@ func retrieveModelServiceUpdateBodyFlags(depth int, m *service.ServiceUpdateBody
 	return nil, retAdded
 }
 
-// interface{} register and retrieve functions are not rendered by go-swagger cli
+// Name: [ServiceUpdateParamsBodyAllOf1], Type:[interface{}], register and retrieve functions are not rendered by go-swagger cli

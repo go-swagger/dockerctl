@@ -51,9 +51,19 @@ func runOperationPluginPluginPull(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationPluginPluginPullRemoteFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationPluginPluginPullResult(appCli.Plugin.PluginPull(params)); err != nil {
+	msgStr, err := parseOperationPluginPluginPullResult(appCli.Plugin.PluginPull(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -205,8 +215,8 @@ func retrieveOperationPluginPluginPullRemoteFlag(m *plugin.PluginPullParams, cmd
 	return nil, retAdded
 }
 
-// printOperationPluginPluginPullResult prints output to stdout
-func printOperationPluginPluginPullResult(resp0 *plugin.PluginPullNoContent, respErr error) error {
+// parseOperationPluginPluginPullResult parses request result and return the string content
+func parseOperationPluginPluginPullResult(resp0 *plugin.PluginPullNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning pluginPullNoContent is not supported
@@ -217,19 +227,18 @@ func printOperationPluginPluginPullResult(resp0 *plugin.PluginPullNoContent, res
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response pluginPullNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

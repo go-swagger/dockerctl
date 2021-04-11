@@ -47,9 +47,19 @@ func runOperationContainerContainerResize(cmd *cobra.Command, args []string) err
 	if err, _ := retrieveOperationContainerContainerResizeWFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerResizeResult(appCli.Container.ContainerResize(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerResizeResult(appCli.Container.ContainerResize(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -181,8 +191,8 @@ func retrieveOperationContainerContainerResizeWFlag(m *container.ContainerResize
 	return nil, retAdded
 }
 
-// printOperationContainerContainerResizeResult prints output to stdout
-func printOperationContainerContainerResizeResult(resp0 *container.ContainerResizeOK, respErr error) error {
+// parseOperationContainerContainerResizeResult parses request result and return the string content
+func parseOperationContainerContainerResizeResult(resp0 *container.ContainerResizeOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerResizeOK is not supported
@@ -193,10 +203,9 @@ func printOperationContainerContainerResizeResult(resp0 *container.ContainerResi
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -206,17 +215,16 @@ func printOperationContainerContainerResizeResult(resp0 *container.ContainerResi
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerResizeOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

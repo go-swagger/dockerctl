@@ -47,9 +47,19 @@ func runOperationExecExecResize(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationExecExecResizeWFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationExecExecResizeResult(appCli.Exec.ExecResize(params)); err != nil {
+	msgStr, err := parseOperationExecExecResizeResult(appCli.Exec.ExecResize(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -181,8 +191,8 @@ func retrieveOperationExecExecResizeWFlag(m *exec.ExecResizeParams, cmdPrefix st
 	return nil, retAdded
 }
 
-// printOperationExecExecResizeResult prints output to stdout
-func printOperationExecExecResizeResult(resp0 *exec.ExecResizeCreated, respErr error) error {
+// parseOperationExecExecResizeResult parses request result and return the string content
+func parseOperationExecExecResizeResult(resp0 *exec.ExecResizeCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning execResizeCreated is not supported
@@ -193,17 +203,16 @@ func printOperationExecExecResizeResult(resp0 *exec.ExecResizeCreated, respErr e
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response execResizeCreated is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

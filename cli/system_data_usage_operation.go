@@ -38,9 +38,19 @@ func runOperationSystemSystemDataUsage(cmd *cobra.Command, args []string) error 
 	}
 	// retrieve flag values from cmd and fill params
 	params := system.NewSystemDataUsageParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemDataUsageResult(appCli.System.SystemDataUsage(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemDataUsageResult(appCli.System.SystemDataUsage(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -50,8 +60,8 @@ func registerOperationSystemSystemDataUsageParamFlags(cmd *cobra.Command) error 
 	return nil
 }
 
-// printOperationSystemSystemDataUsageResult prints output to stdout
-func printOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, respErr error) error {
+// parseOperationSystemSystemDataUsageResult parses request result and return the string content
+func parseOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -60,10 +70,9 @@ func printOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, 
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -73,25 +82,24 @@ func printOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, 
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

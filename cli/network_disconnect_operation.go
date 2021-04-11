@@ -44,9 +44,19 @@ func runOperationNetworkNetworkDisconnect(cmd *cobra.Command, args []string) err
 	if err, _ := retrieveOperationNetworkNetworkDisconnectIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNetworkNetworkDisconnectResult(appCli.Network.NetworkDisconnect(params)); err != nil {
+	msgStr, err := parseOperationNetworkNetworkDisconnectResult(appCli.Network.NetworkDisconnect(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -71,8 +81,7 @@ func registerOperationNetworkNetworkDisconnectContainerParamFlags(cmdPrefix stri
 		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
 	}
 
-	exampleContainerStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(containerFlagName, "", fmt.Sprintf("Optional json string for [container] of form %v.", string(exampleContainerStr)))
+	_ = cmd.PersistentFlags().String(containerFlagName, "", "Optional json string for [container]. ")
 
 	// add flags for body
 	if err := registerModelNetworkDisconnectBodyFlags(0, "networkDisconnectBody", cmd); err != nil {
@@ -125,11 +134,16 @@ func retrieveOperationNetworkNetworkDisconnectContainerFlag(m *network.NetworkDi
 	if added {
 		m.Container = containerValueModel
 	}
-	containerValueDebugBytes, err := json.Marshal(m.Container)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		containerValueDebugBytes, err := json.Marshal(m.Container)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Container dry-run payload: %v", string(containerValueDebugBytes))
 	}
-	logDebugf("Container payload: %v", string(containerValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationNetworkNetworkDisconnectIDFlag(m *network.NetworkDisconnectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -153,8 +167,8 @@ func retrieveOperationNetworkNetworkDisconnectIDFlag(m *network.NetworkDisconnec
 	return nil, retAdded
 }
 
-// printOperationNetworkNetworkDisconnectResult prints output to stdout
-func printOperationNetworkNetworkDisconnectResult(resp0 *network.NetworkDisconnectOK, respErr error) error {
+// parseOperationNetworkNetworkDisconnectResult parses request result and return the string content
+func parseOperationNetworkNetworkDisconnectResult(resp0 *network.NetworkDisconnectOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning networkDisconnectOK is not supported
@@ -165,10 +179,9 @@ func printOperationNetworkNetworkDisconnectResult(resp0 *network.NetworkDisconne
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -178,10 +191,9 @@ func printOperationNetworkNetworkDisconnectResult(resp0 *network.NetworkDisconne
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -191,19 +203,18 @@ func printOperationNetworkNetworkDisconnectResult(resp0 *network.NetworkDisconne
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response networkDisconnectOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

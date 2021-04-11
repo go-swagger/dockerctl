@@ -1392,16 +1392,17 @@ func retrieveHostConfigAnonAO1LogConfigFlags(depth int, m *models.HostConfig, cm
 
 	logConfigFlagName := fmt.Sprintf("%v.LogConfig", cmdPrefix)
 	if cmd.Flags().Changed(logConfigFlagName) {
+		// info: complex object LogConfig HostConfigAO1LogConfig is retrieved outside this Changed() block
+	}
 
-		logConfigFlagValue := models.HostConfigAO1LogConfig{}
-		err, added := retrieveModelHostConfigAO1LogConfigFlags(depth+1, &logConfigFlagValue, logConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.LogConfig = &logConfigFlagValue
-		}
+	logConfigFlagValue := models.HostConfigAO1LogConfig{}
+	err, logConfigAdded := retrieveModelHostConfigAO1LogConfigFlags(depth+1, &logConfigFlagValue, logConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || logConfigAdded
+	if logConfigAdded {
+		m.LogConfig = &logConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -1639,16 +1640,17 @@ func retrieveHostConfigAnonAO1RestartPolicyFlags(depth int, m *models.HostConfig
 
 	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	if cmd.Flags().Changed(restartPolicyFlagName) {
+		// info: complex object RestartPolicy RestartPolicy is retrieved outside this Changed() block
+	}
 
-		restartPolicyFlagValue := models.RestartPolicy{}
-		err, added := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.RestartPolicy = &restartPolicyFlagValue
-		}
+	restartPolicyFlagValue := models.RestartPolicy{}
+	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || restartPolicyAdded
+	if restartPolicyAdded {
+		m.RestartPolicy = &restartPolicyFlagValue
 	}
 
 	return nil, retAdded

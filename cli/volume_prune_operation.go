@@ -41,9 +41,19 @@ func runOperationVolumeVolumePrune(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationVolumeVolumePruneFiltersFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationVolumeVolumePruneResult(appCli.Volume.VolumePrune(params)); err != nil {
+	msgStr, err := parseOperationVolumeVolumePruneResult(appCli.Volume.VolumePrune(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -99,8 +109,8 @@ func retrieveOperationVolumeVolumePruneFiltersFlag(m *volume.VolumePruneParams, 
 	return nil, retAdded
 }
 
-// printOperationVolumeVolumePruneResult prints output to stdout
-func printOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr error) error {
+// parseOperationVolumeVolumePruneResult parses request result and return the string content
+func parseOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -109,10 +119,9 @@ func printOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr 
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -122,25 +131,24 @@ func printOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr 
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

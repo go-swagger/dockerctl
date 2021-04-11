@@ -44,9 +44,19 @@ func runOperationContainerContainerStart(cmd *cobra.Command, args []string) erro
 	if err, _ := retrieveOperationContainerContainerStartIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerStartResult(appCli.Container.ContainerStart(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerStartResult(appCli.Container.ContainerStart(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationContainerContainerStartIDFlag(m *container.ContainerStartP
 	return nil, retAdded
 }
 
-// printOperationContainerContainerStartResult prints output to stdout
-func printOperationContainerContainerStartResult(resp0 *container.ContainerStartNoContent, respErr error) error {
+// parseOperationContainerContainerStartResult parses request result and return the string content
+func parseOperationContainerContainerStartResult(resp0 *container.ContainerStartNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerStartNoContent is not supported
@@ -152,10 +162,9 @@ func printOperationContainerContainerStartResult(resp0 *container.ContainerStart
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -165,17 +174,16 @@ func printOperationContainerContainerStartResult(resp0 *container.ContainerStart
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerStartNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

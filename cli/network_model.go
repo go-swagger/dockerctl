@@ -529,16 +529,17 @@ func retrieveNetworkIPAMFlags(depth int, m *models.Network, cmdPrefix string, cm
 
 	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
 	if cmd.Flags().Changed(ipAMFlagName) {
+		// info: complex object IPAM IPAM is retrieved outside this Changed() block
+	}
 
-		ipAMFlagValue := models.IPAM{}
-		err, added := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.IPAM = &ipAMFlagValue
-		}
+	ipAMFlagValue := models.IPAM{}
+	err, ipAMAdded := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || ipAMAdded
+	if ipAMAdded {
+		m.IPAM = &ipAMFlagValue
 	}
 
 	return nil, retAdded

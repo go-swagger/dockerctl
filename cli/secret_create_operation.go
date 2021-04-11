@@ -41,9 +41,19 @@ func runOperationSecretSecretCreate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSecretSecretCreateBodyFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSecretSecretCreateResult(appCli.Secret.SecretCreate(params)); err != nil {
+	msgStr, err := parseOperationSecretSecretCreateResult(appCli.Secret.SecretCreate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -65,8 +75,7 @@ func registerOperationSecretSecretCreateBodyParamFlags(cmdPrefix string, cmd *co
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSecretCreateBodyFlags(0, "secretCreateBody", cmd); err != nil {
@@ -102,16 +111,21 @@ func retrieveOperationSecretSecretCreateBodyFlag(m *secret.SecretCreateParams, c
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 
-// printOperationSecretSecretCreateResult prints output to stdout
-func printOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, respErr error) error {
+// parseOperationSecretSecretCreateResult parses request result and return the string content
+func parseOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -120,10 +134,9 @@ func printOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, r
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -133,10 +146,9 @@ func printOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, r
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -146,10 +158,9 @@ func printOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, r
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -159,25 +170,24 @@ func printOperationSecretSecretCreateResult(resp0 *secret.SecretCreateCreated, r
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -208,4 +218,4 @@ func retrieveModelSecretCreateBodyFlags(depth int, m *secret.SecretCreateBody, c
 	return nil, retAdded
 }
 
-// interface{} register and retrieve functions are not rendered by go-swagger cli
+// Name: [SecretCreateParamsBodyAllOf1], Type:[interface{}], register and retrieve functions are not rendered by go-swagger cli

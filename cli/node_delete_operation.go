@@ -44,9 +44,19 @@ func runOperationNodeNodeDelete(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationNodeNodeDeleteIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNodeNodeDeleteResult(appCli.Node.NodeDelete(params)); err != nil {
+	msgStr, err := parseOperationNodeNodeDeleteResult(appCli.Node.NodeDelete(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationNodeNodeDeleteIDFlag(m *node.NodeDeleteParams, cmdPrefix s
 	return nil, retAdded
 }
 
-// printOperationNodeNodeDeleteResult prints output to stdout
-func printOperationNodeNodeDeleteResult(resp0 *node.NodeDeleteOK, respErr error) error {
+// parseOperationNodeNodeDeleteResult parses request result and return the string content
+func parseOperationNodeNodeDeleteResult(resp0 *node.NodeDeleteOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning nodeDeleteOK is not supported
@@ -150,10 +160,9 @@ func printOperationNodeNodeDeleteResult(resp0 *node.NodeDeleteOK, respErr error)
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -163,10 +172,9 @@ func printOperationNodeNodeDeleteResult(resp0 *node.NodeDeleteOK, respErr error)
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -176,17 +184,16 @@ func printOperationNodeNodeDeleteResult(resp0 *node.NodeDeleteOK, respErr error)
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response nodeDeleteOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

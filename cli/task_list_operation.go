@@ -41,9 +41,19 @@ func runOperationTaskTaskList(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationTaskTaskListFiltersFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationTaskTaskListResult(appCli.Task.TaskList(params)); err != nil {
+	msgStr, err := parseOperationTaskTaskListResult(appCli.Task.TaskList(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -103,8 +113,8 @@ func retrieveOperationTaskTaskListFiltersFlag(m *task.TaskListParams, cmdPrefix 
 	return nil, retAdded
 }
 
-// printOperationTaskTaskListResult prints output to stdout
-func printOperationTaskTaskListResult(resp0 *task.TaskListOK, respErr error) error {
+// parseOperationTaskTaskListResult parses request result and return the string content
+func parseOperationTaskTaskListResult(resp0 *task.TaskListOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -113,10 +123,9 @@ func printOperationTaskTaskListResult(resp0 *task.TaskListOK, respErr error) err
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -126,10 +135,9 @@ func printOperationTaskTaskListResult(resp0 *task.TaskListOK, respErr error) err
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -139,23 +147,22 @@ func printOperationTaskTaskListResult(resp0 *task.TaskListOK, respErr error) err
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

@@ -41,9 +41,19 @@ func runOperationConfigConfigDelete(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationConfigConfigDeleteIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationConfigConfigDeleteResult(appCli.Config.ConfigDelete(params)); err != nil {
+	msgStr, err := parseOperationConfigConfigDeleteResult(appCli.Config.ConfigDelete(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -95,8 +105,8 @@ func retrieveOperationConfigConfigDeleteIDFlag(m *config.ConfigDeleteParams, cmd
 	return nil, retAdded
 }
 
-// printOperationConfigConfigDeleteResult prints output to stdout
-func printOperationConfigConfigDeleteResult(resp0 *config.ConfigDeleteNoContent, respErr error) error {
+// parseOperationConfigConfigDeleteResult parses request result and return the string content
+func parseOperationConfigConfigDeleteResult(resp0 *config.ConfigDeleteNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning configDeleteNoContent is not supported
@@ -107,10 +117,9 @@ func printOperationConfigConfigDeleteResult(resp0 *config.ConfigDeleteNoContent,
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -120,10 +129,9 @@ func printOperationConfigConfigDeleteResult(resp0 *config.ConfigDeleteNoContent,
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -133,17 +141,16 @@ func printOperationConfigConfigDeleteResult(resp0 *config.ConfigDeleteNoContent,
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response configDeleteNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

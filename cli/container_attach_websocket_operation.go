@@ -59,9 +59,19 @@ func runOperationContainerContainerAttachWebsocket(cmd *cobra.Command, args []st
 	if err, _ := retrieveOperationContainerContainerAttachWebsocketStreamFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerAttachWebsocketResult(appCli.Container.ContainerAttachWebsocket(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerAttachWebsocketResult(appCli.Container.ContainerAttachWebsocket(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -353,8 +363,8 @@ func retrieveOperationContainerContainerAttachWebsocketStreamFlag(m *container.C
 	return nil, retAdded
 }
 
-// printOperationContainerContainerAttachWebsocketResult prints output to stdout
-func printOperationContainerContainerAttachWebsocketResult(resp0 *container.ContainerAttachWebsocketOK, respErr error) error {
+// parseOperationContainerContainerAttachWebsocketResult parses request result and return the string content
+func parseOperationContainerContainerAttachWebsocketResult(resp0 *container.ContainerAttachWebsocketOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerAttachWebsocketSwitchingProtocols is not supported
@@ -367,10 +377,9 @@ func printOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -380,10 +389,9 @@ func printOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -393,17 +401,16 @@ func printOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerAttachWebsocketOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

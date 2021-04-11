@@ -213,16 +213,17 @@ func retrievePushImageInfoProgressDetailFlags(depth int, m *models.PushImageInfo
 
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
+		// info: complex object progressDetail ProgressDetail is retrieved outside this Changed() block
+	}
 
-		progressDetailFlagValue := models.ProgressDetail{}
-		err, added := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ProgressDetail = &progressDetailFlagValue
-		}
+	progressDetailFlagValue := models.ProgressDetail{}
+	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || progressDetailAdded
+	if progressDetailAdded {
+		m.ProgressDetail = &progressDetailFlagValue
 	}
 
 	return nil, retAdded

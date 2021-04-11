@@ -44,9 +44,19 @@ func runOperationContainerContainerPause(cmd *cobra.Command, args []string) erro
 	if err, _ := retrieveOperationContainerContainerPauseIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerPauseResult(appCli.Container.ContainerPause(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerPauseResult(appCli.Container.ContainerPause(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -98,8 +108,8 @@ func retrieveOperationContainerContainerPauseIDFlag(m *container.ContainerPauseP
 	return nil, retAdded
 }
 
-// printOperationContainerContainerPauseResult prints output to stdout
-func printOperationContainerContainerPauseResult(resp0 *container.ContainerPauseNoContent, respErr error) error {
+// parseOperationContainerContainerPauseResult parses request result and return the string content
+func parseOperationContainerContainerPauseResult(resp0 *container.ContainerPauseNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerPauseNoContent is not supported
@@ -110,10 +120,9 @@ func printOperationContainerContainerPauseResult(resp0 *container.ContainerPause
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -123,17 +132,16 @@ func printOperationContainerContainerPauseResult(resp0 *container.ContainerPause
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerPauseNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

@@ -7,4 +7,4 @@ package cli
 
 // Schema cli for PortBinding
 
-// PortBinding register and retrieve functions are not rendered by go-swagger cli
+// Name: [PortMap], Type:[PortBinding], register and retrieve functions are not rendered by go-swagger cli

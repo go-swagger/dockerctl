@@ -242,16 +242,17 @@ func retrieveConfigSpecFlags(depth int, m *models.Config, cmdPrefix string, cmd 
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec ConfigSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.ConfigSpec{}
-		err, added := retrieveModelConfigSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.ConfigSpec{}
+	err, specAdded := retrieveModelConfigSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded
@@ -293,16 +294,17 @@ func retrieveConfigVersionFlags(depth int, m *models.Config, cmdPrefix string, c
 
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
+		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
+	}
 
-		versionFlagValue := models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Version = &versionFlagValue
-		}
+	versionFlagValue := models.ObjectVersion{}
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || versionAdded
+	if versionAdded {
+		m.Version = &versionFlagValue
 	}
 
 	return nil, retAdded

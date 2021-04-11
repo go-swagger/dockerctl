@@ -44,9 +44,19 @@ func runOperationExecExecStart(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationExecExecStartIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationExecExecStartResult(appCli.Exec.ExecStart(params)); err != nil {
+	msgStr, err := parseOperationExecExecStartResult(appCli.Exec.ExecStart(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -71,8 +81,7 @@ func registerOperationExecExecStartExecStartConfigParamFlags(cmdPrefix string, c
 		execStartConfigFlagName = fmt.Sprintf("%v.execStartConfig", cmdPrefix)
 	}
 
-	exampleExecStartConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(execStartConfigFlagName, "", fmt.Sprintf("Optional json string for [execStartConfig] of form %v.", string(exampleExecStartConfigStr)))
+	_ = cmd.PersistentFlags().String(execStartConfigFlagName, "", "Optional json string for [execStartConfig]. ")
 
 	// add flags for body
 	if err := registerModelExecStartBodyFlags(0, "execStartBody", cmd); err != nil {
@@ -125,11 +134,16 @@ func retrieveOperationExecExecStartExecStartConfigFlag(m *exec.ExecStartParams, 
 	if added {
 		m.ExecStartConfig = execStartConfigValueModel
 	}
-	execStartConfigValueDebugBytes, err := json.Marshal(m.ExecStartConfig)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		execStartConfigValueDebugBytes, err := json.Marshal(m.ExecStartConfig)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("ExecStartConfig dry-run payload: %v", string(execStartConfigValueDebugBytes))
 	}
-	logDebugf("ExecStartConfig payload: %v", string(execStartConfigValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationExecExecStartIDFlag(m *exec.ExecStartParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -153,8 +167,8 @@ func retrieveOperationExecExecStartIDFlag(m *exec.ExecStartParams, cmdPrefix str
 	return nil, retAdded
 }
 
-// printOperationExecExecStartResult prints output to stdout
-func printOperationExecExecStartResult(resp0 *exec.ExecStartOK, respErr error) error {
+// parseOperationExecExecStartResult parses request result and return the string content
+func parseOperationExecExecStartResult(resp0 *exec.ExecStartOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning execStartOK is not supported
@@ -165,10 +179,9 @@ func printOperationExecExecStartResult(resp0 *exec.ExecStartOK, respErr error) e
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -178,19 +191,18 @@ func printOperationExecExecStartResult(resp0 *exec.ExecStartOK, respErr error) e
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response execStartOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

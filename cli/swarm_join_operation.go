@@ -41,9 +41,19 @@ func runOperationSwarmSwarmJoin(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSwarmSwarmJoinBodyFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSwarmSwarmJoinResult(appCli.Swarm.SwarmJoin(params)); err != nil {
+	msgStr, err := parseOperationSwarmSwarmJoinResult(appCli.Swarm.SwarmJoin(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -65,8 +75,7 @@ func registerOperationSwarmSwarmJoinBodyParamFlags(cmdPrefix string, cmd *cobra.
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmJoinBodyFlags(0, "swarmJoinBody", cmd); err != nil {
@@ -102,16 +111,21 @@ func retrieveOperationSwarmSwarmJoinBodyFlag(m *swarm.SwarmJoinParams, cmdPrefix
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 
-// printOperationSwarmSwarmJoinResult prints output to stdout
-func printOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error) error {
+// parseOperationSwarmSwarmJoinResult parses request result and return the string content
+func parseOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning swarmJoinOK is not supported
@@ -122,10 +136,9 @@ func printOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error)
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -135,10 +148,9 @@ func printOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error)
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -148,19 +160,18 @@ func printOperationSwarmSwarmJoinResult(resp0 *swarm.SwarmJoinOK, respErr error)
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response swarmJoinOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

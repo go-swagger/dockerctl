@@ -47,9 +47,19 @@ func runOperationImageImageSearch(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationImageImageSearchTermFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationImageImageSearchResult(appCli.Image.ImageSearch(params)); err != nil {
+	msgStr, err := parseOperationImageImageSearchResult(appCli.Image.ImageSearch(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -186,8 +196,8 @@ func retrieveOperationImageImageSearchTermFlag(m *image.ImageSearchParams, cmdPr
 	return nil, retAdded
 }
 
-// printOperationImageImageSearchResult prints output to stdout
-func printOperationImageImageSearchResult(resp0 *image.ImageSearchOK, respErr error) error {
+// parseOperationImageImageSearchResult parses request result and return the string content
+func parseOperationImageImageSearchResult(resp0 *image.ImageSearchOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -196,10 +206,9 @@ func printOperationImageImageSearchResult(resp0 *image.ImageSearchOK, respErr er
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -209,25 +218,24 @@ func printOperationImageImageSearchResult(resp0 *image.ImageSearchOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

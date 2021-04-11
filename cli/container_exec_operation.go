@@ -44,9 +44,19 @@ func runOperationExecContainerExec(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationExecContainerExecIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationExecContainerExecResult(appCli.Exec.ContainerExec(params)); err != nil {
+	msgStr, err := parseOperationExecContainerExecResult(appCli.Exec.ContainerExec(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -71,8 +81,7 @@ func registerOperationExecContainerExecExecConfigParamFlags(cmdPrefix string, cm
 		execConfigFlagName = fmt.Sprintf("%v.execConfig", cmdPrefix)
 	}
 
-	exampleExecConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(execConfigFlagName, "", fmt.Sprintf("Optional json string for [execConfig] of form %v.Exec configuration", string(exampleExecConfigStr)))
+	_ = cmd.PersistentFlags().String(execConfigFlagName, "", "Optional json string for [execConfig]. Exec configuration")
 
 	// add flags for body
 	if err := registerModelContainerExecBodyFlags(0, "containerExecBody", cmd); err != nil {
@@ -125,11 +134,16 @@ func retrieveOperationExecContainerExecExecConfigFlag(m *exec.ContainerExecParam
 	if added {
 		m.ExecConfig = execConfigValueModel
 	}
-	execConfigValueDebugBytes, err := json.Marshal(m.ExecConfig)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		execConfigValueDebugBytes, err := json.Marshal(m.ExecConfig)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("ExecConfig dry-run payload: %v", string(execConfigValueDebugBytes))
 	}
-	logDebugf("ExecConfig payload: %v", string(execConfigValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationExecContainerExecIDFlag(m *exec.ContainerExecParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -153,8 +167,8 @@ func retrieveOperationExecContainerExecIDFlag(m *exec.ContainerExecParams, cmdPr
 	return nil, retAdded
 }
 
-// printOperationExecContainerExecResult prints output to stdout
-func printOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, respErr error) error {
+// parseOperationExecContainerExecResult parses request result and return the string content
+func parseOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -163,10 +177,9 @@ func printOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -176,10 +189,9 @@ func printOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -189,10 +201,9 @@ func printOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -202,25 +213,24 @@ func printOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

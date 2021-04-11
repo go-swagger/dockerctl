@@ -41,9 +41,19 @@ func runOperationServiceServiceDelete(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationServiceServiceDeleteIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationServiceServiceDeleteResult(appCli.Service.ServiceDelete(params)); err != nil {
+	msgStr, err := parseOperationServiceServiceDeleteResult(appCli.Service.ServiceDelete(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -95,8 +105,8 @@ func retrieveOperationServiceServiceDeleteIDFlag(m *service.ServiceDeleteParams,
 	return nil, retAdded
 }
 
-// printOperationServiceServiceDeleteResult prints output to stdout
-func printOperationServiceServiceDeleteResult(resp0 *service.ServiceDeleteOK, respErr error) error {
+// parseOperationServiceServiceDeleteResult parses request result and return the string content
+func parseOperationServiceServiceDeleteResult(resp0 *service.ServiceDeleteOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning serviceDeleteOK is not supported
@@ -107,10 +117,9 @@ func printOperationServiceServiceDeleteResult(resp0 *service.ServiceDeleteOK, re
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -120,10 +129,9 @@ func printOperationServiceServiceDeleteResult(resp0 *service.ServiceDeleteOK, re
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -133,17 +141,16 @@ func printOperationServiceServiceDeleteResult(resp0 *service.ServiceDeleteOK, re
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response serviceDeleteOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

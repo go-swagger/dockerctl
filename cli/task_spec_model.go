@@ -320,16 +320,17 @@ func retrieveTaskSpecContainerSpecFlags(depth int, m *models.TaskSpec, cmdPrefix
 
 	containerSpecFlagName := fmt.Sprintf("%v.ContainerSpec", cmdPrefix)
 	if cmd.Flags().Changed(containerSpecFlagName) {
+		// info: complex object ContainerSpec TaskSpecContainerSpec is retrieved outside this Changed() block
+	}
 
-		containerSpecFlagValue := models.TaskSpecContainerSpec{}
-		err, added := retrieveModelTaskSpecContainerSpecFlags(depth+1, &containerSpecFlagValue, containerSpecFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ContainerSpec = &containerSpecFlagValue
-		}
+	containerSpecFlagValue := models.TaskSpecContainerSpec{}
+	err, containerSpecAdded := retrieveModelTaskSpecContainerSpecFlags(depth+1, &containerSpecFlagValue, containerSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerSpecAdded
+	if containerSpecAdded {
+		m.ContainerSpec = &containerSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -371,16 +372,17 @@ func retrieveTaskSpecLogDriverFlags(depth int, m *models.TaskSpec, cmdPrefix str
 
 	logDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
 	if cmd.Flags().Changed(logDriverFlagName) {
+		// info: complex object LogDriver TaskSpecLogDriver is retrieved outside this Changed() block
+	}
 
-		logDriverFlagValue := models.TaskSpecLogDriver{}
-		err, added := retrieveModelTaskSpecLogDriverFlags(depth+1, &logDriverFlagValue, logDriverFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.LogDriver = &logDriverFlagValue
-		}
+	logDriverFlagValue := models.TaskSpecLogDriver{}
+	err, logDriverAdded := retrieveModelTaskSpecLogDriverFlags(depth+1, &logDriverFlagValue, logDriverFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || logDriverAdded
+	if logDriverAdded {
+		m.LogDriver = &logDriverFlagValue
 	}
 
 	return nil, retAdded
@@ -394,16 +396,17 @@ func retrieveTaskSpecNetworkAttachmentSpecFlags(depth int, m *models.TaskSpec, c
 
 	networkAttachmentSpecFlagName := fmt.Sprintf("%v.NetworkAttachmentSpec", cmdPrefix)
 	if cmd.Flags().Changed(networkAttachmentSpecFlagName) {
+		// info: complex object NetworkAttachmentSpec TaskSpecNetworkAttachmentSpec is retrieved outside this Changed() block
+	}
 
-		networkAttachmentSpecFlagValue := models.TaskSpecNetworkAttachmentSpec{}
-		err, added := retrieveModelTaskSpecNetworkAttachmentSpecFlags(depth+1, &networkAttachmentSpecFlagValue, networkAttachmentSpecFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.NetworkAttachmentSpec = &networkAttachmentSpecFlagValue
-		}
+	networkAttachmentSpecFlagValue := models.TaskSpecNetworkAttachmentSpec{}
+	err, networkAttachmentSpecAdded := retrieveModelTaskSpecNetworkAttachmentSpecFlags(depth+1, &networkAttachmentSpecFlagValue, networkAttachmentSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkAttachmentSpecAdded
+	if networkAttachmentSpecAdded {
+		m.NetworkAttachmentSpec = &networkAttachmentSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -431,16 +434,17 @@ func retrieveTaskSpecPlacementFlags(depth int, m *models.TaskSpec, cmdPrefix str
 
 	placementFlagName := fmt.Sprintf("%v.Placement", cmdPrefix)
 	if cmd.Flags().Changed(placementFlagName) {
+		// info: complex object Placement TaskSpecPlacement is retrieved outside this Changed() block
+	}
 
-		placementFlagValue := models.TaskSpecPlacement{}
-		err, added := retrieveModelTaskSpecPlacementFlags(depth+1, &placementFlagValue, placementFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Placement = &placementFlagValue
-		}
+	placementFlagValue := models.TaskSpecPlacement{}
+	err, placementAdded := retrieveModelTaskSpecPlacementFlags(depth+1, &placementFlagValue, placementFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || placementAdded
+	if placementAdded {
+		m.Placement = &placementFlagValue
 	}
 
 	return nil, retAdded
@@ -454,16 +458,17 @@ func retrieveTaskSpecPluginSpecFlags(depth int, m *models.TaskSpec, cmdPrefix st
 
 	pluginSpecFlagName := fmt.Sprintf("%v.PluginSpec", cmdPrefix)
 	if cmd.Flags().Changed(pluginSpecFlagName) {
+		// info: complex object PluginSpec TaskSpecPluginSpec is retrieved outside this Changed() block
+	}
 
-		pluginSpecFlagValue := models.TaskSpecPluginSpec{}
-		err, added := retrieveModelTaskSpecPluginSpecFlags(depth+1, &pluginSpecFlagValue, pluginSpecFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.PluginSpec = &pluginSpecFlagValue
-		}
+	pluginSpecFlagValue := models.TaskSpecPluginSpec{}
+	err, pluginSpecAdded := retrieveModelTaskSpecPluginSpecFlags(depth+1, &pluginSpecFlagValue, pluginSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || pluginSpecAdded
+	if pluginSpecAdded {
+		m.PluginSpec = &pluginSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -477,16 +482,17 @@ func retrieveTaskSpecResourcesFlags(depth int, m *models.TaskSpec, cmdPrefix str
 
 	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
 	if cmd.Flags().Changed(resourcesFlagName) {
+		// info: complex object Resources TaskSpecResources is retrieved outside this Changed() block
+	}
 
-		resourcesFlagValue := models.TaskSpecResources{}
-		err, added := retrieveModelTaskSpecResourcesFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Resources = &resourcesFlagValue
-		}
+	resourcesFlagValue := models.TaskSpecResources{}
+	err, resourcesAdded := retrieveModelTaskSpecResourcesFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || resourcesAdded
+	if resourcesAdded {
+		m.Resources = &resourcesFlagValue
 	}
 
 	return nil, retAdded
@@ -500,16 +506,17 @@ func retrieveTaskSpecRestartPolicyFlags(depth int, m *models.TaskSpec, cmdPrefix
 
 	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	if cmd.Flags().Changed(restartPolicyFlagName) {
+		// info: complex object RestartPolicy TaskSpecRestartPolicy is retrieved outside this Changed() block
+	}
 
-		restartPolicyFlagValue := models.TaskSpecRestartPolicy{}
-		err, added := retrieveModelTaskSpecRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.RestartPolicy = &restartPolicyFlagValue
-		}
+	restartPolicyFlagValue := models.TaskSpecRestartPolicy{}
+	err, restartPolicyAdded := retrieveModelTaskSpecRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || restartPolicyAdded
+	if restartPolicyAdded {
+		m.RestartPolicy = &restartPolicyFlagValue
 	}
 
 	return nil, retAdded
@@ -1270,16 +1277,17 @@ func retrieveTaskSpecContainerSpecDNSConfigFlags(depth int, m *models.TaskSpecCo
 
 	dnsConfigFlagName := fmt.Sprintf("%v.DNSConfig", cmdPrefix)
 	if cmd.Flags().Changed(dnsConfigFlagName) {
+		// info: complex object DNSConfig TaskSpecContainerSpecDNSConfig is retrieved outside this Changed() block
+	}
 
-		dnsConfigFlagValue := models.TaskSpecContainerSpecDNSConfig{}
-		err, added := retrieveModelTaskSpecContainerSpecDNSConfigFlags(depth+1, &dnsConfigFlagValue, dnsConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.DNSConfig = &dnsConfigFlagValue
-		}
+	dnsConfigFlagValue := models.TaskSpecContainerSpecDNSConfig{}
+	err, dnsConfigAdded := retrieveModelTaskSpecContainerSpecDNSConfigFlags(depth+1, &dnsConfigFlagValue, dnsConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || dnsConfigAdded
+	if dnsConfigAdded {
+		m.DNSConfig = &dnsConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -1349,16 +1357,17 @@ func retrieveTaskSpecContainerSpecHealthCheckFlags(depth int, m *models.TaskSpec
 
 	healthCheckFlagName := fmt.Sprintf("%v.HealthCheck", cmdPrefix)
 	if cmd.Flags().Changed(healthCheckFlagName) {
+		// info: complex object HealthCheck HealthConfig is retrieved outside this Changed() block
+	}
 
-		healthCheckFlagValue := models.HealthConfig{}
-		err, added := retrieveModelHealthConfigFlags(depth+1, &healthCheckFlagValue, healthCheckFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.HealthCheck = &healthCheckFlagValue
-		}
+	healthCheckFlagValue := models.HealthConfig{}
+	err, healthCheckAdded := retrieveModelHealthConfigFlags(depth+1, &healthCheckFlagValue, healthCheckFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || healthCheckAdded
+	if healthCheckAdded {
+		m.HealthCheck = &healthCheckFlagValue
 	}
 
 	return nil, retAdded
@@ -1554,16 +1563,17 @@ func retrieveTaskSpecContainerSpecPrivilegesFlags(depth int, m *models.TaskSpecC
 
 	privilegesFlagName := fmt.Sprintf("%v.Privileges", cmdPrefix)
 	if cmd.Flags().Changed(privilegesFlagName) {
+		// info: complex object Privileges TaskSpecContainerSpecPrivileges is retrieved outside this Changed() block
+	}
 
-		privilegesFlagValue := models.TaskSpecContainerSpecPrivileges{}
-		err, added := retrieveModelTaskSpecContainerSpecPrivilegesFlags(depth+1, &privilegesFlagValue, privilegesFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Privileges = &privilegesFlagValue
-		}
+	privilegesFlagValue := models.TaskSpecContainerSpecPrivileges{}
+	err, privilegesAdded := retrieveModelTaskSpecContainerSpecPrivilegesFlags(depth+1, &privilegesFlagValue, privilegesFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || privilegesAdded
+	if privilegesAdded {
+		m.Privileges = &privilegesFlagValue
 	}
 
 	return nil, retAdded
@@ -1929,16 +1939,17 @@ func retrieveTaskSpecContainerSpecConfigsItems0FileFlags(depth int, m *models.Ta
 
 	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
 	if cmd.Flags().Changed(fileFlagName) {
+		// info: complex object File TaskSpecContainerSpecConfigsItems0File is retrieved outside this Changed() block
+	}
 
-		fileFlagValue := models.TaskSpecContainerSpecConfigsItems0File{}
-		err, added := retrieveModelTaskSpecContainerSpecConfigsItems0FileFlags(depth+1, &fileFlagValue, fileFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.File = &fileFlagValue
-		}
+	fileFlagValue := models.TaskSpecContainerSpecConfigsItems0File{}
+	err, fileAdded := retrieveModelTaskSpecContainerSpecConfigsItems0FileFlags(depth+1, &fileFlagValue, fileFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || fileAdded
+	if fileAdded {
+		m.File = &fileFlagValue
 	}
 
 	return nil, retAdded
@@ -2385,16 +2396,17 @@ func retrieveTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth int, m *mo
 
 	credentialSpecFlagName := fmt.Sprintf("%v.CredentialSpec", cmdPrefix)
 	if cmd.Flags().Changed(credentialSpecFlagName) {
+		// info: complex object CredentialSpec TaskSpecContainerSpecPrivilegesCredentialSpec is retrieved outside this Changed() block
+	}
 
-		credentialSpecFlagValue := models.TaskSpecContainerSpecPrivilegesCredentialSpec{}
-		err, added := retrieveModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth+1, &credentialSpecFlagValue, credentialSpecFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.CredentialSpec = &credentialSpecFlagValue
-		}
+	credentialSpecFlagValue := models.TaskSpecContainerSpecPrivilegesCredentialSpec{}
+	err, credentialSpecAdded := retrieveModelTaskSpecContainerSpecPrivilegesCredentialSpecFlags(depth+1, &credentialSpecFlagValue, credentialSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || credentialSpecAdded
+	if credentialSpecAdded {
+		m.CredentialSpec = &credentialSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -2408,16 +2420,17 @@ func retrieveTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth int, m *mo
 
 	sELinuxContextFlagName := fmt.Sprintf("%v.SELinuxContext", cmdPrefix)
 	if cmd.Flags().Changed(sELinuxContextFlagName) {
+		// info: complex object SELinuxContext TaskSpecContainerSpecPrivilegesSELinuxContext is retrieved outside this Changed() block
+	}
 
-		sELinuxContextFlagValue := models.TaskSpecContainerSpecPrivilegesSELinuxContext{}
-		err, added := retrieveModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth+1, &sELinuxContextFlagValue, sELinuxContextFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.SELinuxContext = &sELinuxContextFlagValue
-		}
+	sELinuxContextFlagValue := models.TaskSpecContainerSpecPrivilegesSELinuxContext{}
+	err, sELinuxContextAdded := retrieveModelTaskSpecContainerSpecPrivilegesSELinuxContextFlags(depth+1, &sELinuxContextFlagValue, sELinuxContextFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || sELinuxContextAdded
+	if sELinuxContextAdded {
+		m.SELinuxContext = &sELinuxContextFlagValue
 	}
 
 	return nil, retAdded
@@ -3066,16 +3079,17 @@ func retrieveTaskSpecContainerSpecSecretsItems0FileFlags(depth int, m *models.Ta
 
 	fileFlagName := fmt.Sprintf("%v.File", cmdPrefix)
 	if cmd.Flags().Changed(fileFlagName) {
+		// info: complex object File TaskSpecContainerSpecSecretsItems0File is retrieved outside this Changed() block
+	}
 
-		fileFlagValue := models.TaskSpecContainerSpecSecretsItems0File{}
-		err, added := retrieveModelTaskSpecContainerSpecSecretsItems0FileFlags(depth+1, &fileFlagValue, fileFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.File = &fileFlagValue
-		}
+	fileFlagValue := models.TaskSpecContainerSpecSecretsItems0File{}
+	err, fileAdded := retrieveModelTaskSpecContainerSpecSecretsItems0FileFlags(depth+1, &fileFlagValue, fileFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || fileAdded
+	if fileAdded {
+		m.File = &fileFlagValue
 	}
 
 	return nil, retAdded
@@ -3776,16 +3790,17 @@ func retrieveTaskSpecPlacementPreferencesItems0SpreadFlags(depth int, m *models.
 
 	spreadFlagName := fmt.Sprintf("%v.Spread", cmdPrefix)
 	if cmd.Flags().Changed(spreadFlagName) {
+		// info: complex object Spread TaskSpecPlacementPreferencesItems0Spread is retrieved outside this Changed() block
+	}
 
-		spreadFlagValue := models.TaskSpecPlacementPreferencesItems0Spread{}
-		err, added := retrieveModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth+1, &spreadFlagValue, spreadFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spread = &spreadFlagValue
-		}
+	spreadFlagValue := models.TaskSpecPlacementPreferencesItems0Spread{}
+	err, spreadAdded := retrieveModelTaskSpecPlacementPreferencesItems0SpreadFlags(depth+1, &spreadFlagValue, spreadFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || spreadAdded
+	if spreadAdded {
+		m.Spread = &spreadFlagValue
 	}
 
 	return nil, retAdded
@@ -4339,16 +4354,17 @@ func retrieveTaskSpecResourcesLimitsFlags(depth int, m *models.TaskSpecResources
 
 	limitsFlagName := fmt.Sprintf("%v.Limits", cmdPrefix)
 	if cmd.Flags().Changed(limitsFlagName) {
+		// info: complex object Limits ResourceObject is retrieved outside this Changed() block
+	}
 
-		limitsFlagValue := models.ResourceObject{}
-		err, added := retrieveModelResourceObjectFlags(depth+1, &limitsFlagValue, limitsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Limits = &limitsFlagValue
-		}
+	limitsFlagValue := models.ResourceObject{}
+	err, limitsAdded := retrieveModelResourceObjectFlags(depth+1, &limitsFlagValue, limitsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || limitsAdded
+	if limitsAdded {
+		m.Limits = &limitsFlagValue
 	}
 
 	return nil, retAdded
@@ -4362,16 +4378,17 @@ func retrieveTaskSpecResourcesReservationFlags(depth int, m *models.TaskSpecReso
 
 	reservationFlagName := fmt.Sprintf("%v.Reservation", cmdPrefix)
 	if cmd.Flags().Changed(reservationFlagName) {
+		// info: complex object Reservation ResourceObject is retrieved outside this Changed() block
+	}
 
-		reservationFlagValue := models.ResourceObject{}
-		err, added := retrieveModelResourceObjectFlags(depth+1, &reservationFlagValue, reservationFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Reservation = &reservationFlagValue
-		}
+	reservationFlagValue := models.ResourceObject{}
+	err, reservationAdded := retrieveModelResourceObjectFlags(depth+1, &reservationFlagValue, reservationFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || reservationAdded
+	if reservationAdded {
+		m.Reservation = &reservationFlagValue
 	}
 
 	return nil, retAdded

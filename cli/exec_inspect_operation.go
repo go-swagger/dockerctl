@@ -42,9 +42,19 @@ func runOperationExecExecInspect(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationExecExecInspectIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationExecExecInspectResult(appCli.Exec.ExecInspect(params)); err != nil {
+	msgStr, err := parseOperationExecExecInspectResult(appCli.Exec.ExecInspect(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -96,8 +106,8 @@ func retrieveOperationExecExecInspectIDFlag(m *exec.ExecInspectParams, cmdPrefix
 	return nil, retAdded
 }
 
-// printOperationExecExecInspectResult prints output to stdout
-func printOperationExecExecInspectResult(resp0 *exec.ExecInspectOK, respErr error) error {
+// parseOperationExecExecInspectResult parses request result and return the string content
+func parseOperationExecExecInspectResult(resp0 *exec.ExecInspectOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -106,10 +116,9 @@ func printOperationExecExecInspectResult(resp0 *exec.ExecInspectOK, respErr erro
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -119,10 +128,9 @@ func printOperationExecExecInspectResult(resp0 *exec.ExecInspectOK, respErr erro
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -132,25 +140,24 @@ func printOperationExecExecInspectResult(resp0 *exec.ExecInspectOK, respErr erro
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -765,16 +772,17 @@ func retrieveExecInspectOKBodyProcessConfigFlags(depth int, m *exec.ExecInspectO
 
 	processConfigFlagName := fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
 	if cmd.Flags().Changed(processConfigFlagName) {
+		// info: complex object ProcessConfig models.ProcessConfig is retrieved outside this Changed() block
+	}
 
-		processConfigFlagValue := models.ProcessConfig{}
-		err, added := retrieveModelProcessConfigFlags(depth+1, &processConfigFlagValue, processConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ProcessConfig = &processConfigFlagValue
-		}
+	processConfigFlagValue := models.ProcessConfig{}
+	err, processConfigAdded := retrieveModelProcessConfigFlags(depth+1, &processConfigFlagValue, processConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || processConfigAdded
+	if processConfigAdded {
+		m.ProcessConfig = &processConfigFlagValue
 	}
 
 	return nil, retAdded

@@ -54,9 +54,19 @@ func runOperationSwarmSwarmUpdate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSwarmSwarmUpdateVersionFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSwarmSwarmUpdateResult(appCli.Swarm.SwarmUpdate(params)); err != nil {
+	msgStr, err := parseOperationSwarmSwarmUpdateResult(appCli.Swarm.SwarmUpdate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -90,8 +100,7 @@ func registerOperationSwarmSwarmUpdateBodyParamFlags(cmdPrefix string, cmd *cobr
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmSpecFlags(0, "swarmSpec", cmd); err != nil {
@@ -195,11 +204,16 @@ func retrieveOperationSwarmSwarmUpdateBodyFlag(m *swarm.SwarmUpdateParams, cmdPr
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationSwarmSwarmUpdateRotateManagerTokenFlag(m *swarm.SwarmUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -283,8 +297,8 @@ func retrieveOperationSwarmSwarmUpdateVersionFlag(m *swarm.SwarmUpdateParams, cm
 	return nil, retAdded
 }
 
-// printOperationSwarmSwarmUpdateResult prints output to stdout
-func printOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr error) error {
+// parseOperationSwarmSwarmUpdateResult parses request result and return the string content
+func parseOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning swarmUpdateOK is not supported
@@ -295,10 +309,9 @@ func printOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -308,10 +321,9 @@ func printOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -321,17 +333,16 @@ func printOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response swarmUpdateOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

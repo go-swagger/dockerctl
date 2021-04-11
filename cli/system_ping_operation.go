@@ -38,9 +38,19 @@ func runOperationSystemSystemPing(cmd *cobra.Command, args []string) error {
 	}
 	// retrieve flag values from cmd and fill params
 	params := system.NewSystemPingParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemPingResult(appCli.System.SystemPing(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemPingResult(appCli.System.SystemPing(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -50,8 +60,8 @@ func registerOperationSystemSystemPingParamFlags(cmd *cobra.Command) error {
 	return nil
 }
 
-// printOperationSystemSystemPingResult prints output to stdout
-func printOperationSystemSystemPingResult(resp0 *system.SystemPingOK, respErr error) error {
+// parseOperationSystemSystemPingResult parses request result and return the string content
+func parseOperationSystemSystemPingResult(resp0 *system.SystemPingOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -60,10 +70,9 @@ func printOperationSystemSystemPingResult(resp0 *system.SystemPingOK, respErr er
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -73,20 +82,19 @@ func printOperationSystemSystemPingResult(resp0 *system.SystemPingOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

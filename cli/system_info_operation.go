@@ -38,9 +38,19 @@ func runOperationSystemSystemInfo(cmd *cobra.Command, args []string) error {
 	}
 	// retrieve flag values from cmd and fill params
 	params := system.NewSystemInfoParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemInfoResult(appCli.System.SystemInfo(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemInfoResult(appCli.System.SystemInfo(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -50,8 +60,8 @@ func registerOperationSystemSystemInfoParamFlags(cmd *cobra.Command) error {
 	return nil
 }
 
-// printOperationSystemSystemInfoResult prints output to stdout
-func printOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr error) error {
+// parseOperationSystemSystemInfoResult parses request result and return the string content
+func parseOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -60,10 +70,9 @@ func printOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr er
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -73,23 +82,22 @@ func printOperationSystemSystemInfoResult(resp0 *system.SystemInfoOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

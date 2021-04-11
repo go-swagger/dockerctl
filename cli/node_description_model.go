@@ -182,16 +182,17 @@ func retrieveNodeDescriptionEngineFlags(depth int, m *models.NodeDescription, cm
 
 	engineFlagName := fmt.Sprintf("%v.Engine", cmdPrefix)
 	if cmd.Flags().Changed(engineFlagName) {
+		// info: complex object Engine EngineDescription is retrieved outside this Changed() block
+	}
 
-		engineFlagValue := models.EngineDescription{}
-		err, added := retrieveModelEngineDescriptionFlags(depth+1, &engineFlagValue, engineFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Engine = &engineFlagValue
-		}
+	engineFlagValue := models.EngineDescription{}
+	err, engineAdded := retrieveModelEngineDescriptionFlags(depth+1, &engineFlagValue, engineFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || engineAdded
+	if engineAdded {
+		m.Engine = &engineFlagValue
 	}
 
 	return nil, retAdded
@@ -233,16 +234,17 @@ func retrieveNodeDescriptionPlatformFlags(depth int, m *models.NodeDescription, 
 
 	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
 	if cmd.Flags().Changed(platformFlagName) {
+		// info: complex object Platform Platform is retrieved outside this Changed() block
+	}
 
-		platformFlagValue := models.Platform{}
-		err, added := retrieveModelPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Platform = &platformFlagValue
-		}
+	platformFlagValue := models.Platform{}
+	err, platformAdded := retrieveModelPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || platformAdded
+	if platformAdded {
+		m.Platform = &platformFlagValue
 	}
 
 	return nil, retAdded
@@ -256,16 +258,17 @@ func retrieveNodeDescriptionResourcesFlags(depth int, m *models.NodeDescription,
 
 	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
 	if cmd.Flags().Changed(resourcesFlagName) {
+		// info: complex object Resources ResourceObject is retrieved outside this Changed() block
+	}
 
-		resourcesFlagValue := models.ResourceObject{}
-		err, added := retrieveModelResourceObjectFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Resources = &resourcesFlagValue
-		}
+	resourcesFlagValue := models.ResourceObject{}
+	err, resourcesAdded := retrieveModelResourceObjectFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || resourcesAdded
+	if resourcesAdded {
+		m.Resources = &resourcesFlagValue
 	}
 
 	return nil, retAdded
@@ -279,16 +282,17 @@ func retrieveNodeDescriptionTLSInfoFlags(depth int, m *models.NodeDescription, c
 
 	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	if cmd.Flags().Changed(tlsInfoFlagName) {
+		// info: complex object TLSInfo TLSInfo is retrieved outside this Changed() block
+	}
 
-		tlsInfoFlagValue := models.TLSInfo{}
-		err, added := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.TLSInfo = &tlsInfoFlagValue
-		}
+	tlsInfoFlagValue := models.TLSInfo{}
+	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || tlsInfoAdded
+	if tlsInfoAdded {
+		m.TLSInfo = &tlsInfoFlagValue
 	}
 
 	return nil, retAdded

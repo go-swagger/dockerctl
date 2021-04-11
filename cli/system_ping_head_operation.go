@@ -38,9 +38,19 @@ func runOperationSystemSystemPingHead(cmd *cobra.Command, args []string) error {
 	}
 	// retrieve flag values from cmd and fill params
 	params := system.NewSystemPingHeadParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSystemSystemPingHeadResult(appCli.System.SystemPingHead(params)); err != nil {
+	msgStr, err := parseOperationSystemSystemPingHeadResult(appCli.System.SystemPingHead(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -50,8 +60,8 @@ func registerOperationSystemSystemPingHeadParamFlags(cmd *cobra.Command) error {
 	return nil
 }
 
-// printOperationSystemSystemPingHeadResult prints output to stdout
-func printOperationSystemSystemPingHeadResult(resp0 *system.SystemPingHeadOK, respErr error) error {
+// parseOperationSystemSystemPingHeadResult parses request result and return the string content
+func parseOperationSystemSystemPingHeadResult(resp0 *system.SystemPingHeadOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -60,10 +70,9 @@ func printOperationSystemSystemPingHeadResult(resp0 *system.SystemPingHeadOK, re
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -73,20 +82,19 @@ func printOperationSystemSystemPingHeadResult(resp0 *system.SystemPingHeadOK, re
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

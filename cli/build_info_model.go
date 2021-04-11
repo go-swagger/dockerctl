@@ -277,16 +277,17 @@ func retrieveBuildInfoAuxFlags(depth int, m *models.BuildInfo, cmdPrefix string,
 
 	auxFlagName := fmt.Sprintf("%v.aux", cmdPrefix)
 	if cmd.Flags().Changed(auxFlagName) {
+		// info: complex object aux ImageID is retrieved outside this Changed() block
+	}
 
-		auxFlagValue := models.ImageID{}
-		err, added := retrieveModelImageIDFlags(depth+1, &auxFlagValue, auxFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Aux = &auxFlagValue
-		}
+	auxFlagValue := models.ImageID{}
+	err, auxAdded := retrieveModelImageIDFlags(depth+1, &auxFlagValue, auxFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || auxAdded
+	if auxAdded {
+		m.Aux = &auxFlagValue
 	}
 
 	return nil, retAdded
@@ -328,16 +329,17 @@ func retrieveBuildInfoErrorDetailFlags(depth int, m *models.BuildInfo, cmdPrefix
 
 	errorDetailFlagName := fmt.Sprintf("%v.errorDetail", cmdPrefix)
 	if cmd.Flags().Changed(errorDetailFlagName) {
+		// info: complex object errorDetail ErrorDetail is retrieved outside this Changed() block
+	}
 
-		errorDetailFlagValue := models.ErrorDetail{}
-		err, added := retrieveModelErrorDetailFlags(depth+1, &errorDetailFlagValue, errorDetailFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ErrorDetail = &errorDetailFlagValue
-		}
+	errorDetailFlagValue := models.ErrorDetail{}
+	err, errorDetailAdded := retrieveModelErrorDetailFlags(depth+1, &errorDetailFlagValue, errorDetailFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || errorDetailAdded
+	if errorDetailAdded {
+		m.ErrorDetail = &errorDetailFlagValue
 	}
 
 	return nil, retAdded
@@ -407,16 +409,17 @@ func retrieveBuildInfoProgressDetailFlags(depth int, m *models.BuildInfo, cmdPre
 
 	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	if cmd.Flags().Changed(progressDetailFlagName) {
+		// info: complex object progressDetail ProgressDetail is retrieved outside this Changed() block
+	}
 
-		progressDetailFlagValue := models.ProgressDetail{}
-		err, added := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ProgressDetail = &progressDetailFlagValue
-		}
+	progressDetailFlagValue := models.ProgressDetail{}
+	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || progressDetailAdded
+	if progressDetailAdded {
+		m.ProgressDetail = &progressDetailFlagValue
 	}
 
 	return nil, retAdded

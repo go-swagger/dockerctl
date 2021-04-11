@@ -41,9 +41,19 @@ func runOperationDistributionDistributionInspect(cmd *cobra.Command, args []stri
 	if err, _ := retrieveOperationDistributionDistributionInspectNameFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationDistributionDistributionInspectResult(appCli.Distribution.DistributionInspect(params)); err != nil {
+	msgStr, err := parseOperationDistributionDistributionInspectResult(appCli.Distribution.DistributionInspect(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -95,8 +105,8 @@ func retrieveOperationDistributionDistributionInspectNameFlag(m *distribution.Di
 	return nil, retAdded
 }
 
-// printOperationDistributionDistributionInspectResult prints output to stdout
-func printOperationDistributionDistributionInspectResult(resp0 *distribution.DistributionInspectOK, respErr error) error {
+// parseOperationDistributionDistributionInspectResult parses request result and return the string content
+func parseOperationDistributionDistributionInspectResult(resp0 *distribution.DistributionInspectOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -105,10 +115,9 @@ func printOperationDistributionDistributionInspectResult(resp0 *distribution.Dis
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -118,10 +127,9 @@ func printOperationDistributionDistributionInspectResult(resp0 *distribution.Dis
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -131,25 +139,24 @@ func printOperationDistributionDistributionInspectResult(resp0 *distribution.Dis
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -450,16 +457,17 @@ func retrieveDistributionInspectOKBodyDescriptorFlags(depth int, m *distribution
 
 	descriptorFlagName := fmt.Sprintf("%v.Descriptor", cmdPrefix)
 	if cmd.Flags().Changed(descriptorFlagName) {
+		// info: complex object Descriptor DistributionInspectDistributionInspectOKBodyDescriptor is retrieved outside this Changed() block
+	}
 
-		descriptorFlagValue := distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
-		err, added := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, &descriptorFlagValue, descriptorFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Descriptor = &descriptorFlagValue
-		}
+	descriptorFlagValue := distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
+	err, descriptorAdded := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, &descriptorFlagValue, descriptorFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || descriptorAdded
+	if descriptorAdded {
+		m.Descriptor = &descriptorFlagValue
 	}
 
 	return nil, retAdded

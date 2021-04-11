@@ -552,16 +552,17 @@ func retrieveEndpointSettingsIPAMConfigFlags(depth int, m *models.EndpointSettin
 
 	ipAMConfigFlagName := fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
 	if cmd.Flags().Changed(ipAMConfigFlagName) {
+		// info: complex object IPAMConfig EndpointIPAMConfig is retrieved outside this Changed() block
+	}
 
-		ipAMConfigFlagValue := models.EndpointIPAMConfig{}
-		err, added := retrieveModelEndpointIPAMConfigFlags(depth+1, &ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.IPAMConfig = &ipAMConfigFlagValue
-		}
+	ipAMConfigFlagValue := models.EndpointIPAMConfig{}
+	err, ipAMConfigAdded := retrieveModelEndpointIPAMConfigFlags(depth+1, &ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || ipAMConfigAdded
+	if ipAMConfigAdded {
+		m.IPAMConfig = &ipAMConfigFlagValue
 	}
 
 	return nil, retAdded

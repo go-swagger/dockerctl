@@ -63,9 +63,19 @@ func runOperationImageImageCommit(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationImageImageCommitTagFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationImageImageCommitResult(appCli.Image.ImageCommit(params)); err != nil {
+	msgStr, err := parseOperationImageImageCommitResult(appCli.Image.ImageCommit(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -176,8 +186,7 @@ func registerOperationImageImageCommitContainerConfigParamFlags(cmdPrefix string
 		containerConfigFlagName = fmt.Sprintf("%v.containerConfig", cmdPrefix)
 	}
 
-	exampleContainerConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(containerConfigFlagName, "", fmt.Sprintf("Optional json string for [containerConfig] of form %v.The container configuration", string(exampleContainerConfigStr)))
+	_ = cmd.PersistentFlags().String(containerConfigFlagName, "", "Optional json string for [containerConfig]. The container configuration")
 
 	// add flags for body
 	if err := registerModelContainerConfigFlags(0, "containerConfig", cmd); err != nil {
@@ -344,11 +353,16 @@ func retrieveOperationImageImageCommitContainerConfigFlag(m *image.ImageCommitPa
 	if added {
 		m.ContainerConfig = containerConfigValueModel
 	}
-	containerConfigValueDebugBytes, err := json.Marshal(m.ContainerConfig)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		containerConfigValueDebugBytes, err := json.Marshal(m.ContainerConfig)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("ContainerConfig dry-run payload: %v", string(containerConfigValueDebugBytes))
 	}
-	logDebugf("ContainerConfig payload: %v", string(containerConfigValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationImageImageCommitPauseFlag(m *image.ImageCommitParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -412,8 +426,8 @@ func retrieveOperationImageImageCommitTagFlag(m *image.ImageCommitParams, cmdPre
 	return nil, retAdded
 }
 
-// printOperationImageImageCommitResult prints output to stdout
-func printOperationImageImageCommitResult(resp0 *image.ImageCommitCreated, respErr error) error {
+// parseOperationImageImageCommitResult parses request result and return the string content
+func parseOperationImageImageCommitResult(resp0 *image.ImageCommitCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -422,10 +436,9 @@ func printOperationImageImageCommitResult(resp0 *image.ImageCommitCreated, respE
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -435,10 +448,9 @@ func printOperationImageImageCommitResult(resp0 *image.ImageCommitCreated, respE
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -448,23 +460,22 @@ func printOperationImageImageCommitResult(resp0 *image.ImageCommitCreated, respE
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

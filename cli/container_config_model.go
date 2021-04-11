@@ -916,16 +916,17 @@ func retrieveContainerConfigHealthcheckFlags(depth int, m *models.ContainerConfi
 
 	healthcheckFlagName := fmt.Sprintf("%v.Healthcheck", cmdPrefix)
 	if cmd.Flags().Changed(healthcheckFlagName) {
+		// info: complex object Healthcheck HealthConfig is retrieved outside this Changed() block
+	}
 
-		healthcheckFlagValue := models.HealthConfig{}
-		err, added := retrieveModelHealthConfigFlags(depth+1, &healthcheckFlagValue, healthcheckFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Healthcheck = &healthcheckFlagValue
-		}
+	healthcheckFlagValue := models.HealthConfig{}
+	err, healthcheckAdded := retrieveModelHealthConfigFlags(depth+1, &healthcheckFlagValue, healthcheckFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || healthcheckAdded
+	if healthcheckAdded {
+		m.Healthcheck = &healthcheckFlagValue
 	}
 
 	return nil, retAdded

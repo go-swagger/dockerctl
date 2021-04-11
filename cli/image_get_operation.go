@@ -65,9 +65,19 @@ func runOperationImageImageGet(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationImageImageGetNameFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationImageImageGetResult(appCli.Image.ImageGet(params, &bytes.Buffer{})); err != nil {
+	msgStr, err := parseOperationImageImageGetResult(appCli.Image.ImageGet(params, &bytes.Buffer{}))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -119,8 +129,8 @@ func retrieveOperationImageImageGetNameFlag(m *image.ImageGetParams, cmdPrefix s
 	return nil, retAdded
 }
 
-// printOperationImageImageGetResult prints output to stdout
-func printOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) error {
+// parseOperationImageImageGetResult parses request result and return the string content
+func parseOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -129,10 +139,9 @@ func printOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) e
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -142,20 +151,19 @@ func printOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) e
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

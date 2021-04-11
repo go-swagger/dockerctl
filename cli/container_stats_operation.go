@@ -54,9 +54,19 @@ func runOperationContainerContainerStats(cmd *cobra.Command, args []string) erro
 	if err, _ := retrieveOperationContainerContainerStatsStreamFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerStatsResult(appCli.Container.ContainerStats(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerStatsResult(appCli.Container.ContainerStats(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -148,8 +158,8 @@ func retrieveOperationContainerContainerStatsStreamFlag(m *container.ContainerSt
 	return nil, retAdded
 }
 
-// printOperationContainerContainerStatsResult prints output to stdout
-func printOperationContainerContainerStatsResult(resp0 *container.ContainerStatsOK, respErr error) error {
+// parseOperationContainerContainerStatsResult parses request result and return the string content
+func parseOperationContainerContainerStatsResult(resp0 *container.ContainerStatsOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -158,10 +168,9 @@ func printOperationContainerContainerStatsResult(resp0 *container.ContainerStats
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -171,10 +180,9 @@ func printOperationContainerContainerStatsResult(resp0 *container.ContainerStats
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -184,20 +192,19 @@ func printOperationContainerContainerStatsResult(resp0 *container.ContainerStats
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

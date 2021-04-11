@@ -425,16 +425,17 @@ func retrieveClusterInfoSpecFlags(depth int, m *models.ClusterInfo, cmdPrefix st
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec SwarmSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.SwarmSpec{}
+	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded
@@ -465,16 +466,17 @@ func retrieveClusterInfoTLSInfoFlags(depth int, m *models.ClusterInfo, cmdPrefix
 
 	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	if cmd.Flags().Changed(tlsInfoFlagName) {
+		// info: complex object TLSInfo TLSInfo is retrieved outside this Changed() block
+	}
 
-		tlsInfoFlagValue := models.TLSInfo{}
-		err, added := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.TLSInfo = &tlsInfoFlagValue
-		}
+	tlsInfoFlagValue := models.TLSInfo{}
+	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || tlsInfoAdded
+	if tlsInfoAdded {
+		m.TLSInfo = &tlsInfoFlagValue
 	}
 
 	return nil, retAdded
@@ -516,16 +518,17 @@ func retrieveClusterInfoVersionFlags(depth int, m *models.ClusterInfo, cmdPrefix
 
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
+		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
+	}
 
-		versionFlagValue := models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Version = &versionFlagValue
-		}
+	versionFlagValue := models.ObjectVersion{}
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || versionAdded
+	if versionAdded {
+		m.Version = &versionFlagValue
 	}
 
 	return nil, retAdded

@@ -44,9 +44,19 @@ func runOperationPluginPluginCreate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationPluginPluginCreateTarContextFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationPluginPluginCreateResult(appCli.Plugin.PluginCreate(params)); err != nil {
+	msgStr, err := parseOperationPluginPluginCreateResult(appCli.Plugin.PluginCreate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -112,8 +122,8 @@ func retrieveOperationPluginPluginCreateTarContextFlag(m *plugin.PluginCreatePar
 	return nil, retAdded
 }
 
-// printOperationPluginPluginCreateResult prints output to stdout
-func printOperationPluginPluginCreateResult(resp0 *plugin.PluginCreateNoContent, respErr error) error {
+// parseOperationPluginPluginCreateResult parses request result and return the string content
+func parseOperationPluginPluginCreateResult(resp0 *plugin.PluginCreateNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning pluginCreateNoContent is not supported
@@ -124,17 +134,16 @@ func printOperationPluginPluginCreateResult(resp0 *plugin.PluginCreateNoContent,
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response pluginCreateNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

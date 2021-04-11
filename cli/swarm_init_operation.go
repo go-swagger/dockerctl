@@ -42,9 +42,19 @@ func runOperationSwarmSwarmInit(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSwarmSwarmInitBodyFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSwarmSwarmInitResult(appCli.Swarm.SwarmInit(params)); err != nil {
+	msgStr, err := parseOperationSwarmSwarmInitResult(appCli.Swarm.SwarmInit(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -66,8 +76,7 @@ func registerOperationSwarmSwarmInitBodyParamFlags(cmdPrefix string, cmd *cobra.
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmInitBodyFlags(0, "swarmInitBody", cmd); err != nil {
@@ -103,16 +112,21 @@ func retrieveOperationSwarmSwarmInitBodyFlag(m *swarm.SwarmInitParams, cmdPrefix
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 
-// printOperationSwarmSwarmInitResult prints output to stdout
-func printOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error) error {
+// parseOperationSwarmSwarmInitResult parses request result and return the string content
+func parseOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -121,10 +135,9 @@ func printOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error)
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -134,10 +147,9 @@ func printOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error)
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -147,10 +159,9 @@ func printOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error)
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -160,22 +171,21 @@ func printOperationSwarmSwarmInitResult(resp0 *swarm.SwarmInitOK, respErr error)
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -562,16 +572,17 @@ func retrieveSwarmInitBodySpecFlags(depth int, m *swarm.SwarmInitBody, cmdPrefix
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec models.SwarmSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.SwarmSpec{}
-		err, added := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.SwarmSpec{}
+	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded

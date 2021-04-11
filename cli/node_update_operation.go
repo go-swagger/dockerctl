@@ -48,9 +48,19 @@ func runOperationNodeNodeUpdate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationNodeNodeUpdateVersionFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNodeNodeUpdateResult(appCli.Node.NodeUpdate(params)); err != nil {
+	msgStr, err := parseOperationNodeNodeUpdateResult(appCli.Node.NodeUpdate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -78,8 +88,7 @@ func registerOperationNodeNodeUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelNodeSpecFlags(0, "nodeSpec", cmd); err != nil {
@@ -149,11 +158,16 @@ func retrieveOperationNodeNodeUpdateBodyFlag(m *node.NodeUpdateParams, cmdPrefix
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationNodeNodeUpdateIDFlag(m *node.NodeUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -197,8 +211,8 @@ func retrieveOperationNodeNodeUpdateVersionFlag(m *node.NodeUpdateParams, cmdPre
 	return nil, retAdded
 }
 
-// printOperationNodeNodeUpdateResult prints output to stdout
-func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error) error {
+// parseOperationNodeNodeUpdateResult parses request result and return the string content
+func parseOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning nodeUpdateOK is not supported
@@ -209,10 +223,9 @@ func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error)
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -222,10 +235,9 @@ func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error)
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -235,10 +247,9 @@ func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error)
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -248,17 +259,16 @@ func printOperationNodeNodeUpdateResult(resp0 *node.NodeUpdateOK, respErr error)
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response nodeUpdateOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

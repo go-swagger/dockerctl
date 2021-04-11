@@ -59,9 +59,19 @@ func runOperationImageImageCreate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationImageImageCreateTagFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationImageImageCreateResult(appCli.Image.ImageCreate(params)); err != nil {
+	msgStr, err := parseOperationImageImageCreateResult(appCli.Image.ImageCreate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -353,8 +363,8 @@ func retrieveOperationImageImageCreateTagFlag(m *image.ImageCreateParams, cmdPre
 	return nil, retAdded
 }
 
-// printOperationImageImageCreateResult prints output to stdout
-func printOperationImageImageCreateResult(resp0 *image.ImageCreateOK, respErr error) error {
+// parseOperationImageImageCreateResult parses request result and return the string content
+func parseOperationImageImageCreateResult(resp0 *image.ImageCreateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning imageCreateOK is not supported
@@ -365,10 +375,9 @@ func printOperationImageImageCreateResult(resp0 *image.ImageCreateOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -378,17 +387,16 @@ func printOperationImageImageCreateResult(resp0 *image.ImageCreateOK, respErr er
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response imageCreateOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

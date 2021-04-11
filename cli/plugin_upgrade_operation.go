@@ -50,9 +50,19 @@ func runOperationPluginPluginUpgrade(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationPluginPluginUpgradeRemoteFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationPluginPluginUpgradeResult(appCli.Plugin.PluginUpgrade(params)); err != nil {
+	msgStr, err := parseOperationPluginPluginUpgradeResult(appCli.Plugin.PluginUpgrade(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -201,8 +211,8 @@ func retrieveOperationPluginPluginUpgradeRemoteFlag(m *plugin.PluginUpgradeParam
 	return nil, retAdded
 }
 
-// printOperationPluginPluginUpgradeResult prints output to stdout
-func printOperationPluginPluginUpgradeResult(resp0 *plugin.PluginUpgradeNoContent, respErr error) error {
+// parseOperationPluginPluginUpgradeResult parses request result and return the string content
+func parseOperationPluginPluginUpgradeResult(resp0 *plugin.PluginUpgradeNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning pluginUpgradeNoContent is not supported
@@ -213,10 +223,9 @@ func printOperationPluginPluginUpgradeResult(resp0 *plugin.PluginUpgradeNoConten
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -226,19 +235,18 @@ func printOperationPluginPluginUpgradeResult(resp0 *plugin.PluginUpgradeNoConten
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response pluginUpgradeNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

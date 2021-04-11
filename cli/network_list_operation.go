@@ -45,9 +45,19 @@ func runOperationNetworkNetworkList(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationNetworkNetworkListFiltersFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNetworkNetworkListResult(appCli.Network.NetworkList(params)); err != nil {
+	msgStr, err := parseOperationNetworkNetworkListResult(appCli.Network.NetworkList(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -111,8 +121,8 @@ func retrieveOperationNetworkNetworkListFiltersFlag(m *network.NetworkListParams
 	return nil, retAdded
 }
 
-// printOperationNetworkNetworkListResult prints output to stdout
-func printOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respErr error) error {
+// parseOperationNetworkNetworkListResult parses request result and return the string content
+func parseOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -121,10 +131,9 @@ func printOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respEr
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -134,23 +143,22 @@ func printOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respEr
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

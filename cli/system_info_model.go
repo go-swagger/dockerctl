@@ -2188,16 +2188,17 @@ func retrieveSystemInfoContainerdCommitFlags(depth int, m *models.SystemInfo, cm
 
 	containerdCommitFlagName := fmt.Sprintf("%v.ContainerdCommit", cmdPrefix)
 	if cmd.Flags().Changed(containerdCommitFlagName) {
+		// info: complex object ContainerdCommit Commit is retrieved outside this Changed() block
+	}
 
-		containerdCommitFlagValue := models.Commit{}
-		err, added := retrieveModelCommitFlags(depth+1, &containerdCommitFlagValue, containerdCommitFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ContainerdCommit = &containerdCommitFlagValue
-		}
+	containerdCommitFlagValue := models.Commit{}
+	err, containerdCommitAdded := retrieveModelCommitFlags(depth+1, &containerdCommitFlagValue, containerdCommitFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerdCommitAdded
+	if containerdCommitAdded {
+		m.ContainerdCommit = &containerdCommitFlagValue
 	}
 
 	return nil, retAdded
@@ -2743,16 +2744,17 @@ func retrieveSystemInfoInitCommitFlags(depth int, m *models.SystemInfo, cmdPrefi
 
 	initCommitFlagName := fmt.Sprintf("%v.InitCommit", cmdPrefix)
 	if cmd.Flags().Changed(initCommitFlagName) {
+		// info: complex object InitCommit Commit is retrieved outside this Changed() block
+	}
 
-		initCommitFlagValue := models.Commit{}
-		err, added := retrieveModelCommitFlags(depth+1, &initCommitFlagValue, initCommitFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.InitCommit = &initCommitFlagValue
-		}
+	initCommitFlagValue := models.Commit{}
+	err, initCommitAdded := retrieveModelCommitFlags(depth+1, &initCommitFlagValue, initCommitFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || initCommitAdded
+	if initCommitAdded {
+		m.InitCommit = &initCommitFlagValue
 	}
 
 	return nil, retAdded
@@ -3284,16 +3286,17 @@ func retrieveSystemInfoPluginsFlags(depth int, m *models.SystemInfo, cmdPrefix s
 
 	pluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
 	if cmd.Flags().Changed(pluginsFlagName) {
+		// info: complex object Plugins PluginsInfo is retrieved outside this Changed() block
+	}
 
-		pluginsFlagValue := models.PluginsInfo{}
-		err, added := retrieveModelPluginsInfoFlags(depth+1, &pluginsFlagValue, pluginsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Plugins = &pluginsFlagValue
-		}
+	pluginsFlagValue := models.PluginsInfo{}
+	err, pluginsAdded := retrieveModelPluginsInfoFlags(depth+1, &pluginsFlagValue, pluginsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || pluginsAdded
+	if pluginsAdded {
+		m.Plugins = &pluginsFlagValue
 	}
 
 	return nil, retAdded
@@ -3335,16 +3338,17 @@ func retrieveSystemInfoRegistryConfigFlags(depth int, m *models.SystemInfo, cmdP
 
 	registryConfigFlagName := fmt.Sprintf("%v.RegistryConfig", cmdPrefix)
 	if cmd.Flags().Changed(registryConfigFlagName) {
+		// info: complex object RegistryConfig RegistryServiceConfig is retrieved outside this Changed() block
+	}
 
-		registryConfigFlagValue := models.RegistryServiceConfig{}
-		err, added := retrieveModelRegistryServiceConfigFlags(depth+1, &registryConfigFlagValue, registryConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.RegistryConfig = &registryConfigFlagValue
-		}
+	registryConfigFlagValue := models.RegistryServiceConfig{}
+	err, registryConfigAdded := retrieveModelRegistryServiceConfigFlags(depth+1, &registryConfigFlagValue, registryConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || registryConfigAdded
+	if registryConfigAdded {
+		m.RegistryConfig = &registryConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -3358,16 +3362,17 @@ func retrieveSystemInfoRuncCommitFlags(depth int, m *models.SystemInfo, cmdPrefi
 
 	runcCommitFlagName := fmt.Sprintf("%v.RuncCommit", cmdPrefix)
 	if cmd.Flags().Changed(runcCommitFlagName) {
+		// info: complex object RuncCommit Commit is retrieved outside this Changed() block
+	}
 
-		runcCommitFlagValue := models.Commit{}
-		err, added := retrieveModelCommitFlags(depth+1, &runcCommitFlagValue, runcCommitFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.RuncCommit = &runcCommitFlagValue
-		}
+	runcCommitFlagValue := models.Commit{}
+	err, runcCommitAdded := retrieveModelCommitFlags(depth+1, &runcCommitFlagValue, runcCommitFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || runcCommitAdded
+	if runcCommitAdded {
+		m.RuncCommit = &runcCommitFlagValue
 	}
 
 	return nil, retAdded
@@ -3465,16 +3470,17 @@ func retrieveSystemInfoSwarmFlags(depth int, m *models.SystemInfo, cmdPrefix str
 
 	swarmFlagName := fmt.Sprintf("%v.Swarm", cmdPrefix)
 	if cmd.Flags().Changed(swarmFlagName) {
+		// info: complex object Swarm SwarmInfo is retrieved outside this Changed() block
+	}
 
-		swarmFlagValue := models.SwarmInfo{}
-		err, added := retrieveModelSwarmInfoFlags(depth+1, &swarmFlagValue, swarmFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Swarm = &swarmFlagValue
-		}
+	swarmFlagValue := models.SwarmInfo{}
+	err, swarmAdded := retrieveModelSwarmInfoFlags(depth+1, &swarmFlagValue, swarmFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || swarmAdded
+	if swarmAdded {
+		m.Swarm = &swarmFlagValue
 	}
 
 	return nil, retAdded

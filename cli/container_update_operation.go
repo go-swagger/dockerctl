@@ -45,9 +45,19 @@ func runOperationContainerContainerUpdate(cmd *cobra.Command, args []string) err
 	if err, _ := retrieveOperationContainerContainerUpdateUpdateFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerUpdateResult(appCli.Container.ContainerUpdate(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerUpdateResult(appCli.Container.ContainerUpdate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -89,8 +99,7 @@ func registerOperationContainerContainerUpdateUpdateParamFlags(cmdPrefix string,
 		updateFlagName = fmt.Sprintf("%v.update", cmdPrefix)
 	}
 
-	exampleUpdateStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(updateFlagName, "", fmt.Sprintf("Optional json string for [update] of form %v.", string(exampleUpdateStr)))
+	_ = cmd.PersistentFlags().String(updateFlagName, "", "Optional json string for [update]. ")
 
 	// add flags for body
 	if err := registerModelContainerUpdateBodyFlags(0, "containerUpdateBody", cmd); err != nil {
@@ -146,16 +155,21 @@ func retrieveOperationContainerContainerUpdateUpdateFlag(m *container.ContainerU
 	if added {
 		m.Update = updateValueModel
 	}
-	updateValueDebugBytes, err := json.Marshal(m.Update)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		updateValueDebugBytes, err := json.Marshal(m.Update)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Update dry-run payload: %v", string(updateValueDebugBytes))
 	}
-	logDebugf("Update payload: %v", string(updateValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 
-// printOperationContainerContainerUpdateResult prints output to stdout
-func printOperationContainerContainerUpdateResult(resp0 *container.ContainerUpdateOK, respErr error) error {
+// parseOperationContainerContainerUpdateResult parses request result and return the string content
+func parseOperationContainerContainerUpdateResult(resp0 *container.ContainerUpdateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -164,10 +178,9 @@ func printOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -177,10 +190,9 @@ func printOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -190,25 +202,24 @@ func printOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -282,16 +293,17 @@ func retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFla
 
 	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	if cmd.Flags().Changed(restartPolicyFlagName) {
+		// info: complex object RestartPolicy models.RestartPolicy is retrieved outside this Changed() block
+	}
 
-		restartPolicyFlagValue := models.RestartPolicy{}
-		err, added := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.RestartPolicy = &restartPolicyFlagValue
-		}
+	restartPolicyFlagValue := models.RestartPolicy{}
+	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || restartPolicyAdded
+	if restartPolicyAdded {
+		m.RestartPolicy = &restartPolicyFlagValue
 	}
 
 	return nil, retAdded

@@ -292,16 +292,17 @@ func retrieveSwarmInfoClusterFlags(depth int, m *models.SwarmInfo, cmdPrefix str
 
 	clusterFlagName := fmt.Sprintf("%v.Cluster", cmdPrefix)
 	if cmd.Flags().Changed(clusterFlagName) {
+		// info: complex object Cluster ClusterInfo is retrieved outside this Changed() block
+	}
 
-		clusterFlagValue := models.ClusterInfo{}
-		err, added := retrieveModelClusterInfoFlags(depth+1, &clusterFlagValue, clusterFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Cluster = &clusterFlagValue
-		}
+	clusterFlagValue := models.ClusterInfo{}
+	err, clusterAdded := retrieveModelClusterInfoFlags(depth+1, &clusterFlagValue, clusterFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || clusterAdded
+	if clusterAdded {
+		m.Cluster = &clusterFlagValue
 	}
 
 	return nil, retAdded

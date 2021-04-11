@@ -14,7 +14,7 @@ import (
 
 // Schema cli for []*GenericResourcesItems0
 
-// []*GenericResourcesItems0 register and retrieve functions are not rendered by go-swagger cli
+// Name: [GenericResources], Type:[[]*GenericResourcesItems0], register and retrieve functions are not rendered by go-swagger cli
 
 // Extra schema cli for GenericResourcesItems0
 
@@ -97,16 +97,17 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecFlags(depth int, m *model
 
 	discreteResourceSpecFlagName := fmt.Sprintf("%v.DiscreteResourceSpec", cmdPrefix)
 	if cmd.Flags().Changed(discreteResourceSpecFlagName) {
+		// info: complex object DiscreteResourceSpec GenericResourcesItems0DiscreteResourceSpec is retrieved outside this Changed() block
+	}
 
-		discreteResourceSpecFlagValue := models.GenericResourcesItems0DiscreteResourceSpec{}
-		err, added := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, &discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.DiscreteResourceSpec = &discreteResourceSpecFlagValue
-		}
+	discreteResourceSpecFlagValue := models.GenericResourcesItems0DiscreteResourceSpec{}
+	err, discreteResourceSpecAdded := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, &discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || discreteResourceSpecAdded
+	if discreteResourceSpecAdded {
+		m.DiscreteResourceSpec = &discreteResourceSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -120,16 +121,17 @@ func retrieveGenericResourcesItems0NamedResourceSpecFlags(depth int, m *models.G
 
 	namedResourceSpecFlagName := fmt.Sprintf("%v.NamedResourceSpec", cmdPrefix)
 	if cmd.Flags().Changed(namedResourceSpecFlagName) {
+		// info: complex object NamedResourceSpec GenericResourcesItems0NamedResourceSpec is retrieved outside this Changed() block
+	}
 
-		namedResourceSpecFlagValue := models.GenericResourcesItems0NamedResourceSpec{}
-		err, added := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, &namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.NamedResourceSpec = &namedResourceSpecFlagValue
-		}
+	namedResourceSpecFlagValue := models.GenericResourcesItems0NamedResourceSpec{}
+	err, namedResourceSpecAdded := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, &namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || namedResourceSpecAdded
+	if namedResourceSpecAdded {
+		m.NamedResourceSpec = &namedResourceSpecFlagValue
 	}
 
 	return nil, retAdded

@@ -44,9 +44,19 @@ func runOperationContainerContainerArchiveInfo(cmd *cobra.Command, args []string
 	if err, _ := retrieveOperationContainerContainerArchiveInfoPathFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerArchiveInfoResult(appCli.Container.ContainerArchiveInfo(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerArchiveInfoResult(appCli.Container.ContainerArchiveInfo(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationContainerContainerArchiveInfoPathFlag(m *container.Contain
 	return nil, retAdded
 }
 
-// printOperationContainerContainerArchiveInfoResult prints output to stdout
-func printOperationContainerContainerArchiveInfoResult(resp0 *container.ContainerArchiveInfoOK, respErr error) error {
+// parseOperationContainerContainerArchiveInfoResult parses request result and return the string content
+func parseOperationContainerContainerArchiveInfoResult(resp0 *container.ContainerArchiveInfoOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerArchiveInfoOK is not supported
@@ -150,10 +160,9 @@ func printOperationContainerContainerArchiveInfoResult(resp0 *container.Containe
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -163,10 +172,9 @@ func printOperationContainerContainerArchiveInfoResult(resp0 *container.Containe
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -176,19 +184,18 @@ func printOperationContainerContainerArchiveInfoResult(resp0 *container.Containe
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerArchiveInfoOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

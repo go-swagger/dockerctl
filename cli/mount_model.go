@@ -283,16 +283,17 @@ func retrieveMountBindOptionsFlags(depth int, m *models.Mount, cmdPrefix string,
 
 	bindOptionsFlagName := fmt.Sprintf("%v.BindOptions", cmdPrefix)
 	if cmd.Flags().Changed(bindOptionsFlagName) {
+		// info: complex object BindOptions MountBindOptions is retrieved outside this Changed() block
+	}
 
-		bindOptionsFlagValue := models.MountBindOptions{}
-		err, added := retrieveModelMountBindOptionsFlags(depth+1, &bindOptionsFlagValue, bindOptionsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.BindOptions = &bindOptionsFlagValue
-		}
+	bindOptionsFlagValue := models.MountBindOptions{}
+	err, bindOptionsAdded := retrieveModelMountBindOptionsFlags(depth+1, &bindOptionsFlagValue, bindOptionsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || bindOptionsAdded
+	if bindOptionsAdded {
+		m.BindOptions = &bindOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -418,16 +419,17 @@ func retrieveMountTmpfsOptionsFlags(depth int, m *models.Mount, cmdPrefix string
 
 	tmpfsOptionsFlagName := fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
 	if cmd.Flags().Changed(tmpfsOptionsFlagName) {
+		// info: complex object TmpfsOptions MountTmpfsOptions is retrieved outside this Changed() block
+	}
 
-		tmpfsOptionsFlagValue := models.MountTmpfsOptions{}
-		err, added := retrieveModelMountTmpfsOptionsFlags(depth+1, &tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.TmpfsOptions = &tmpfsOptionsFlagValue
-		}
+	tmpfsOptionsFlagValue := models.MountTmpfsOptions{}
+	err, tmpfsOptionsAdded := retrieveModelMountTmpfsOptionsFlags(depth+1, &tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || tmpfsOptionsAdded
+	if tmpfsOptionsAdded {
+		m.TmpfsOptions = &tmpfsOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -469,16 +471,17 @@ func retrieveMountVolumeOptionsFlags(depth int, m *models.Mount, cmdPrefix strin
 
 	volumeOptionsFlagName := fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
 	if cmd.Flags().Changed(volumeOptionsFlagName) {
+		// info: complex object VolumeOptions MountVolumeOptions is retrieved outside this Changed() block
+	}
 
-		volumeOptionsFlagValue := models.MountVolumeOptions{}
-		err, added := retrieveModelMountVolumeOptionsFlags(depth+1, &volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.VolumeOptions = &volumeOptionsFlagValue
-		}
+	volumeOptionsFlagValue := models.MountVolumeOptions{}
+	err, volumeOptionsAdded := retrieveModelMountVolumeOptionsFlags(depth+1, &volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || volumeOptionsAdded
+	if volumeOptionsAdded {
+		m.VolumeOptions = &volumeOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -853,16 +856,17 @@ func retrieveMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolum
 
 	driverConfigFlagName := fmt.Sprintf("%v.DriverConfig", cmdPrefix)
 	if cmd.Flags().Changed(driverConfigFlagName) {
+		// info: complex object DriverConfig MountVolumeOptionsDriverConfig is retrieved outside this Changed() block
+	}
 
-		driverConfigFlagValue := models.MountVolumeOptionsDriverConfig{}
-		err, added := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, &driverConfigFlagValue, driverConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.DriverConfig = &driverConfigFlagValue
-		}
+	driverConfigFlagValue := models.MountVolumeOptionsDriverConfig{}
+	err, driverConfigAdded := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, &driverConfigFlagValue, driverConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || driverConfigAdded
+	if driverConfigAdded {
+		m.DriverConfig = &driverConfigFlagValue
 	}
 
 	return nil, retAdded

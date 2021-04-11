@@ -48,9 +48,19 @@ func runOperationSecretSecretUpdate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationSecretSecretUpdateVersionFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSecretSecretUpdateResult(appCli.Secret.SecretUpdate(params)); err != nil {
+	msgStr, err := parseOperationSecretSecretUpdateResult(appCli.Secret.SecretUpdate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -78,8 +88,7 @@ func registerOperationSecretSecretUpdateBodyParamFlags(cmdPrefix string, cmd *co
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.The spec of the secret to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [SecretInspect endpoint](#operation/SecretInspect) response values.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. The spec of the secret to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [SecretInspect endpoint](#operation/SecretInspect) response values.")
 
 	// add flags for body
 	if err := registerModelSecretSpecFlags(0, "secretSpec", cmd); err != nil {
@@ -149,11 +158,16 @@ func retrieveOperationSecretSecretUpdateBodyFlag(m *secret.SecretUpdateParams, c
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationSecretSecretUpdateIDFlag(m *secret.SecretUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -197,8 +211,8 @@ func retrieveOperationSecretSecretUpdateVersionFlag(m *secret.SecretUpdateParams
 	return nil, retAdded
 }
 
-// printOperationSecretSecretUpdateResult prints output to stdout
-func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respErr error) error {
+// parseOperationSecretSecretUpdateResult parses request result and return the string content
+func parseOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning secretUpdateOK is not supported
@@ -209,10 +223,9 @@ func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respEr
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -222,10 +235,9 @@ func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respEr
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -235,10 +247,9 @@ func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respEr
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -248,17 +259,16 @@ func printOperationSecretSecretUpdateResult(resp0 *secret.SecretUpdateOK, respEr
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response secretUpdateOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

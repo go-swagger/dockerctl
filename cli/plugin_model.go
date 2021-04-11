@@ -225,16 +225,17 @@ func retrievePluginConfigFlags(depth int, m *models.Plugin, cmdPrefix string, cm
 
 	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
 	if cmd.Flags().Changed(configFlagName) {
+		// info: complex object Config PluginConfig is retrieved outside this Changed() block
+	}
 
-		configFlagValue := models.PluginConfig{}
-		err, added := retrieveModelPluginConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Config = configFlagValue
-		}
+	configFlagValue := models.PluginConfig{}
+	err, configAdded := retrieveModelPluginConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || configAdded
+	if configAdded {
+		m.Config = configFlagValue
 	}
 
 	return nil, retAdded
@@ -360,16 +361,17 @@ func retrievePluginSettingsFlags(depth int, m *models.Plugin, cmdPrefix string, 
 
 	settingsFlagName := fmt.Sprintf("%v.Settings", cmdPrefix)
 	if cmd.Flags().Changed(settingsFlagName) {
+		// info: complex object Settings PluginSettings is retrieved outside this Changed() block
+	}
 
-		settingsFlagValue := models.PluginSettings{}
-		err, added := retrieveModelPluginSettingsFlags(depth+1, &settingsFlagValue, settingsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Settings = settingsFlagValue
-		}
+	settingsFlagValue := models.PluginSettings{}
+	err, settingsAdded := retrieveModelPluginSettingsFlags(depth+1, &settingsFlagValue, settingsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || settingsAdded
+	if settingsAdded {
+		m.Settings = settingsFlagValue
 	}
 
 	return nil, retAdded
@@ -865,16 +867,17 @@ func retrievePluginConfigArgsFlags(depth int, m *models.PluginConfig, cmdPrefix 
 
 	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
 	if cmd.Flags().Changed(argsFlagName) {
+		// info: complex object Args PluginConfigArgs is retrieved outside this Changed() block
+	}
 
-		argsFlagValue := models.PluginConfigArgs{}
-		err, added := retrieveModelPluginConfigArgsFlags(depth+1, &argsFlagValue, argsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Args = argsFlagValue
-		}
+	argsFlagValue := models.PluginConfigArgs{}
+	err, argsAdded := retrieveModelPluginConfigArgsFlags(depth+1, &argsFlagValue, argsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || argsAdded
+	if argsAdded {
+		m.Args = argsFlagValue
 	}
 
 	return nil, retAdded
@@ -1000,16 +1003,17 @@ func retrievePluginConfigInterfaceFlags(depth int, m *models.PluginConfig, cmdPr
 
 	interfaceFlagName := fmt.Sprintf("%v.Interface", cmdPrefix)
 	if cmd.Flags().Changed(interfaceFlagName) {
+		// info: complex object Interface PluginConfigInterface is retrieved outside this Changed() block
+	}
 
-		interfaceFlagValue := models.PluginConfigInterface{}
-		err, added := retrieveModelPluginConfigInterfaceFlags(depth+1, &interfaceFlagValue, interfaceFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Interface = interfaceFlagValue
-		}
+	interfaceFlagValue := models.PluginConfigInterface{}
+	err, interfaceAdded := retrieveModelPluginConfigInterfaceFlags(depth+1, &interfaceFlagValue, interfaceFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || interfaceAdded
+	if interfaceAdded {
+		m.Interface = interfaceFlagValue
 	}
 
 	return nil, retAdded
@@ -1051,16 +1055,17 @@ func retrievePluginConfigLinuxFlags(depth int, m *models.PluginConfig, cmdPrefix
 
 	linuxFlagName := fmt.Sprintf("%v.Linux", cmdPrefix)
 	if cmd.Flags().Changed(linuxFlagName) {
+		// info: complex object Linux PluginConfigLinux is retrieved outside this Changed() block
+	}
 
-		linuxFlagValue := models.PluginConfigLinux{}
-		err, added := retrieveModelPluginConfigLinuxFlags(depth+1, &linuxFlagValue, linuxFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Linux = linuxFlagValue
-		}
+	linuxFlagValue := models.PluginConfigLinux{}
+	err, linuxAdded := retrieveModelPluginConfigLinuxFlags(depth+1, &linuxFlagValue, linuxFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || linuxAdded
+	if linuxAdded {
+		m.Linux = linuxFlagValue
 	}
 
 	return nil, retAdded
@@ -1088,16 +1093,17 @@ func retrievePluginConfigNetworkFlags(depth int, m *models.PluginConfig, cmdPref
 
 	networkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
 	if cmd.Flags().Changed(networkFlagName) {
+		// info: complex object Network PluginConfigNetwork is retrieved outside this Changed() block
+	}
 
-		networkFlagValue := models.PluginConfigNetwork{}
-		err, added := retrieveModelPluginConfigNetworkFlags(depth+1, &networkFlagValue, networkFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Network = networkFlagValue
-		}
+	networkFlagValue := models.PluginConfigNetwork{}
+	err, networkAdded := retrieveModelPluginConfigNetworkFlags(depth+1, &networkFlagValue, networkFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkAdded
+	if networkAdded {
+		m.Network = networkFlagValue
 	}
 
 	return nil, retAdded
@@ -1167,16 +1173,17 @@ func retrievePluginConfigUserFlags(depth int, m *models.PluginConfig, cmdPrefix 
 
 	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
 	if cmd.Flags().Changed(userFlagName) {
+		// info: complex object User PluginConfigUser is retrieved outside this Changed() block
+	}
 
-		userFlagValue := models.PluginConfigUser{}
-		err, added := retrieveModelPluginConfigUserFlags(depth+1, &userFlagValue, userFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.User = userFlagValue
-		}
+	userFlagValue := models.PluginConfigUser{}
+	err, userAdded := retrieveModelPluginConfigUserFlags(depth+1, &userFlagValue, userFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || userAdded
+	if userAdded {
+		m.User = userFlagValue
 	}
 
 	return nil, retAdded
@@ -1218,16 +1225,17 @@ func retrievePluginConfigRootfsFlags(depth int, m *models.PluginConfig, cmdPrefi
 
 	rootfsFlagName := fmt.Sprintf("%v.rootfs", cmdPrefix)
 	if cmd.Flags().Changed(rootfsFlagName) {
+		// info: complex object rootfs PluginConfigRootfs is retrieved outside this Changed() block
+	}
 
-		rootfsFlagValue := models.PluginConfigRootfs{}
-		err, added := retrieveModelPluginConfigRootfsFlags(depth+1, &rootfsFlagValue, rootfsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Rootfs = &rootfsFlagValue
-		}
+	rootfsFlagValue := models.PluginConfigRootfs{}
+	err, rootfsAdded := retrieveModelPluginConfigRootfsFlags(depth+1, &rootfsFlagValue, rootfsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || rootfsAdded
+	if rootfsAdded {
+		m.Rootfs = &rootfsFlagValue
 	}
 
 	return nil, retAdded

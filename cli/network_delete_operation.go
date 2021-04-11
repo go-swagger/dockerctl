@@ -41,9 +41,19 @@ func runOperationNetworkNetworkDelete(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationNetworkNetworkDeleteIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNetworkNetworkDeleteResult(appCli.Network.NetworkDelete(params)); err != nil {
+	msgStr, err := parseOperationNetworkNetworkDeleteResult(appCli.Network.NetworkDelete(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -95,8 +105,8 @@ func retrieveOperationNetworkNetworkDeleteIDFlag(m *network.NetworkDeleteParams,
 	return nil, retAdded
 }
 
-// printOperationNetworkNetworkDeleteResult prints output to stdout
-func printOperationNetworkNetworkDeleteResult(resp0 *network.NetworkDeleteNoContent, respErr error) error {
+// parseOperationNetworkNetworkDeleteResult parses request result and return the string content
+func parseOperationNetworkNetworkDeleteResult(resp0 *network.NetworkDeleteNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning networkDeleteNoContent is not supported
@@ -107,10 +117,9 @@ func printOperationNetworkNetworkDeleteResult(resp0 *network.NetworkDeleteNoCont
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -120,10 +129,9 @@ func printOperationNetworkNetworkDeleteResult(resp0 *network.NetworkDeleteNoCont
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -133,17 +141,16 @@ func printOperationNetworkNetworkDeleteResult(resp0 *network.NetworkDeleteNoCont
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response networkDeleteNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

@@ -612,16 +612,17 @@ func retrieveTaskSpecFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec TaskSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.TaskSpec{}
-		err, added := retrieveModelTaskSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.TaskSpec{}
+	err, specAdded := retrieveModelTaskSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded
@@ -635,16 +636,17 @@ func retrieveTaskStatusFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 
 	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
 	if cmd.Flags().Changed(statusFlagName) {
+		// info: complex object Status TaskStatus is retrieved outside this Changed() block
+	}
 
-		statusFlagValue := models.TaskStatus{}
-		err, added := retrieveModelTaskStatusFlags(depth+1, &statusFlagValue, statusFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Status = &statusFlagValue
-		}
+	statusFlagValue := models.TaskStatus{}
+	err, statusAdded := retrieveModelTaskStatusFlags(depth+1, &statusFlagValue, statusFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || statusAdded
+	if statusAdded {
+		m.Status = &statusFlagValue
 	}
 
 	return nil, retAdded
@@ -686,16 +688,17 @@ func retrieveTaskVersionFlags(depth int, m *models.Task, cmdPrefix string, cmd *
 
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
+		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
+	}
 
-		versionFlagValue := models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Version = &versionFlagValue
-		}
+	versionFlagValue := models.ObjectVersion{}
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || versionAdded
+	if versionAdded {
+		m.Version = &versionFlagValue
 	}
 
 	return nil, retAdded
@@ -866,16 +869,17 @@ func retrieveTaskStatusContainerStatusFlags(depth int, m *models.TaskStatus, cmd
 
 	containerStatusFlagName := fmt.Sprintf("%v.ContainerStatus", cmdPrefix)
 	if cmd.Flags().Changed(containerStatusFlagName) {
+		// info: complex object ContainerStatus TaskStatusContainerStatus is retrieved outside this Changed() block
+	}
 
-		containerStatusFlagValue := models.TaskStatusContainerStatus{}
-		err, added := retrieveModelTaskStatusContainerStatusFlags(depth+1, &containerStatusFlagValue, containerStatusFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ContainerStatus = &containerStatusFlagValue
-		}
+	containerStatusFlagValue := models.TaskStatusContainerStatus{}
+	err, containerStatusAdded := retrieveModelTaskStatusContainerStatusFlags(depth+1, &containerStatusFlagValue, containerStatusFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || containerStatusAdded
+	if containerStatusAdded {
+		m.ContainerStatus = &containerStatusFlagValue
 	}
 
 	return nil, retAdded

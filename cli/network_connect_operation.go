@@ -45,9 +45,19 @@ func runOperationNetworkNetworkConnect(cmd *cobra.Command, args []string) error 
 	if err, _ := retrieveOperationNetworkNetworkConnectIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNetworkNetworkConnectResult(appCli.Network.NetworkConnect(params)); err != nil {
+	msgStr, err := parseOperationNetworkNetworkConnectResult(appCli.Network.NetworkConnect(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -72,8 +82,7 @@ func registerOperationNetworkNetworkConnectContainerParamFlags(cmdPrefix string,
 		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
 	}
 
-	exampleContainerStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(containerFlagName, "", fmt.Sprintf("Optional json string for [container] of form %v.", string(exampleContainerStr)))
+	_ = cmd.PersistentFlags().String(containerFlagName, "", "Optional json string for [container]. ")
 
 	// add flags for body
 	if err := registerModelNetworkConnectBodyFlags(0, "networkConnectBody", cmd); err != nil {
@@ -126,11 +135,16 @@ func retrieveOperationNetworkNetworkConnectContainerFlag(m *network.NetworkConne
 	if added {
 		m.Container = containerValueModel
 	}
-	containerValueDebugBytes, err := json.Marshal(m.Container)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		containerValueDebugBytes, err := json.Marshal(m.Container)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Container dry-run payload: %v", string(containerValueDebugBytes))
 	}
-	logDebugf("Container payload: %v", string(containerValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationNetworkNetworkConnectIDFlag(m *network.NetworkConnectParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -154,8 +168,8 @@ func retrieveOperationNetworkNetworkConnectIDFlag(m *network.NetworkConnectParam
 	return nil, retAdded
 }
 
-// printOperationNetworkNetworkConnectResult prints output to stdout
-func printOperationNetworkNetworkConnectResult(resp0 *network.NetworkConnectOK, respErr error) error {
+// parseOperationNetworkNetworkConnectResult parses request result and return the string content
+func parseOperationNetworkNetworkConnectResult(resp0 *network.NetworkConnectOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning networkConnectOK is not supported
@@ -166,10 +180,9 @@ func printOperationNetworkNetworkConnectResult(resp0 *network.NetworkConnectOK, 
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -179,10 +192,9 @@ func printOperationNetworkNetworkConnectResult(resp0 *network.NetworkConnectOK, 
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -192,19 +204,18 @@ func printOperationNetworkNetworkConnectResult(resp0 *network.NetworkConnectOK, 
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response networkConnectOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -316,16 +327,17 @@ func retrieveNetworkConnectBodyEndpointConfigFlags(depth int, m *network.Network
 
 	endpointConfigFlagName := fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
 	if cmd.Flags().Changed(endpointConfigFlagName) {
+		// info: complex object EndpointConfig models.EndpointSettings is retrieved outside this Changed() block
+	}
 
-		endpointConfigFlagValue := models.EndpointSettings{}
-		err, added := retrieveModelEndpointSettingsFlags(depth+1, &endpointConfigFlagValue, endpointConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.EndpointConfig = &endpointConfigFlagValue
-		}
+	endpointConfigFlagValue := models.EndpointSettings{}
+	err, endpointConfigAdded := retrieveModelEndpointSettingsFlags(depth+1, &endpointConfigFlagValue, endpointConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || endpointConfigAdded
+	if endpointConfigAdded {
+		m.EndpointConfig = &endpointConfigFlagValue
 	}
 
 	return nil, retAdded

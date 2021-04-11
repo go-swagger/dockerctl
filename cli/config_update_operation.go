@@ -48,9 +48,19 @@ func runOperationConfigConfigUpdate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationConfigConfigUpdateVersionFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationConfigConfigUpdateResult(appCli.Config.ConfigUpdate(params)); err != nil {
+	msgStr, err := parseOperationConfigConfigUpdateResult(appCli.Config.ConfigUpdate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -78,8 +88,7 @@ func registerOperationConfigConfigUpdateBodyParamFlags(cmdPrefix string, cmd *co
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.The spec of the config to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [ConfigInspect endpoint](#operation/ConfigInspect) response values.", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. The spec of the config to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [ConfigInspect endpoint](#operation/ConfigInspect) response values.")
 
 	// add flags for body
 	if err := registerModelConfigSpecFlags(0, "configSpec", cmd); err != nil {
@@ -149,11 +158,16 @@ func retrieveOperationConfigConfigUpdateBodyFlag(m *config.ConfigUpdateParams, c
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationConfigConfigUpdateIDFlag(m *config.ConfigUpdateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -197,8 +211,8 @@ func retrieveOperationConfigConfigUpdateVersionFlag(m *config.ConfigUpdateParams
 	return nil, retAdded
 }
 
-// printOperationConfigConfigUpdateResult prints output to stdout
-func printOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respErr error) error {
+// parseOperationConfigConfigUpdateResult parses request result and return the string content
+func parseOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning configUpdateOK is not supported
@@ -209,10 +223,9 @@ func printOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respEr
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -222,10 +235,9 @@ func printOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respEr
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -235,10 +247,9 @@ func printOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respEr
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -248,17 +259,16 @@ func printOperationConfigConfigUpdateResult(resp0 *config.ConfigUpdateOK, respEr
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response configUpdateOK is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

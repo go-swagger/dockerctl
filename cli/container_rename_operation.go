@@ -44,9 +44,19 @@ func runOperationContainerContainerRename(cmd *cobra.Command, args []string) err
 	if err, _ := retrieveOperationContainerContainerRenameNameFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerRenameResult(appCli.Container.ContainerRename(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerRenameResult(appCli.Container.ContainerRename(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationContainerContainerRenameNameFlag(m *container.ContainerRen
 	return nil, retAdded
 }
 
-// printOperationContainerContainerRenameResult prints output to stdout
-func printOperationContainerContainerRenameResult(resp0 *container.ContainerRenameNoContent, respErr error) error {
+// parseOperationContainerContainerRenameResult parses request result and return the string content
+func parseOperationContainerContainerRenameResult(resp0 *container.ContainerRenameNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerRenameNoContent is not supported
@@ -150,10 +160,9 @@ func printOperationContainerContainerRenameResult(resp0 *container.ContainerRena
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -163,10 +172,9 @@ func printOperationContainerContainerRenameResult(resp0 *container.ContainerRena
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -176,17 +184,16 @@ func printOperationContainerContainerRenameResult(resp0 *container.ContainerRena
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerRenameNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

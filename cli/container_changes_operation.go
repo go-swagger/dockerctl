@@ -47,9 +47,19 @@ func runOperationContainerContainerChanges(cmd *cobra.Command, args []string) er
 	if err, _ := retrieveOperationContainerContainerChangesIDFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerChangesResult(appCli.Container.ContainerChanges(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerChangesResult(appCli.Container.ContainerChanges(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -101,8 +111,8 @@ func retrieveOperationContainerContainerChangesIDFlag(m *container.ContainerChan
 	return nil, retAdded
 }
 
-// printOperationContainerContainerChangesResult prints output to stdout
-func printOperationContainerContainerChangesResult(resp0 *container.ContainerChangesOK, respErr error) error {
+// parseOperationContainerContainerChangesResult parses request result and return the string content
+func parseOperationContainerContainerChangesResult(resp0 *container.ContainerChangesOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -111,10 +121,9 @@ func printOperationContainerContainerChangesResult(resp0 *container.ContainerCha
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -124,10 +133,9 @@ func printOperationContainerContainerChangesResult(resp0 *container.ContainerCha
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -137,25 +145,24 @@ func printOperationContainerContainerChangesResult(resp0 *container.ContainerCha
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

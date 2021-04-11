@@ -44,9 +44,19 @@ func runOperationContainerContainerStop(cmd *cobra.Command, args []string) error
 	if err, _ := retrieveOperationContainerContainerStopTFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerStopResult(appCli.Container.ContainerStop(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerStopResult(appCli.Container.ContainerStop(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -138,8 +148,8 @@ func retrieveOperationContainerContainerStopTFlag(m *container.ContainerStopPara
 	return nil, retAdded
 }
 
-// printOperationContainerContainerStopResult prints output to stdout
-func printOperationContainerContainerStopResult(resp0 *container.ContainerStopNoContent, respErr error) error {
+// parseOperationContainerContainerStopResult parses request result and return the string content
+func parseOperationContainerContainerStopResult(resp0 *container.ContainerStopNoContent, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning containerStopNoContent is not supported
@@ -152,10 +162,9 @@ func printOperationContainerContainerStopResult(resp0 *container.ContainerStopNo
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -165,17 +174,16 @@ func printOperationContainerContainerStopResult(resp0 *container.ContainerStopNo
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response containerStopNoContent is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

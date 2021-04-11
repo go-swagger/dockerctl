@@ -59,9 +59,19 @@ func runOperationSessionSession(cmd *cobra.Command, args []string) error {
 	}
 	// retrieve flag values from cmd and fill params
 	params := session.NewSessionParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSessionSessionResult(appCli.Session.Session(params)); err != nil {
+	msgStr, err := parseOperationSessionSessionResult(appCli.Session.Session(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -71,8 +81,8 @@ func registerOperationSessionSessionParamFlags(cmd *cobra.Command) error {
 	return nil
 }
 
-// printOperationSessionSessionResult prints output to stdout
-func printOperationSessionSessionResult(respErr error) error {
+// parseOperationSessionSessionResult parses request result and return the string content
+func parseOperationSessionSessionResult(respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning sessionSwitchingProtocols is not supported
@@ -83,10 +93,9 @@ func printOperationSessionSessionResult(respErr error) error {
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -96,14 +105,13 @@ func printOperationSessionSessionResult(respErr error) error {
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
-	return nil
+	return "", nil
 }

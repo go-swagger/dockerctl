@@ -14,7 +14,7 @@ import (
 
 // Schema cli for []*ContainerSummaryItems0
 
-// []*ContainerSummaryItems0 register and retrieve functions are not rendered by go-swagger cli
+// Name: [ContainerSummary], Type:[[]*ContainerSummaryItems0], register and retrieve functions are not rendered by go-swagger cli
 
 // Extra schema cli for ContainerSummaryItems0
 
@@ -512,16 +512,17 @@ func retrieveContainerSummaryItems0HostConfigFlags(depth int, m *models.Containe
 
 	hostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
 	if cmd.Flags().Changed(hostConfigFlagName) {
+		// info: complex object HostConfig ContainerSummaryItems0HostConfig is retrieved outside this Changed() block
+	}
 
-		hostConfigFlagValue := models.ContainerSummaryItems0HostConfig{}
-		err, added := retrieveModelContainerSummaryItems0HostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.HostConfig = &hostConfigFlagValue
-		}
+	hostConfigFlagValue := models.ContainerSummaryItems0HostConfig{}
+	err, hostConfigAdded := retrieveModelContainerSummaryItems0HostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || hostConfigAdded
+	if hostConfigAdded {
+		m.HostConfig = &hostConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -661,16 +662,17 @@ func retrieveContainerSummaryItems0NetworkSettingsFlags(depth int, m *models.Con
 
 	networkSettingsFlagName := fmt.Sprintf("%v.NetworkSettings", cmdPrefix)
 	if cmd.Flags().Changed(networkSettingsFlagName) {
+		// info: complex object NetworkSettings ContainerSummaryItems0NetworkSettings is retrieved outside this Changed() block
+	}
 
-		networkSettingsFlagValue := models.ContainerSummaryItems0NetworkSettings{}
-		err, added := retrieveModelContainerSummaryItems0NetworkSettingsFlags(depth+1, &networkSettingsFlagValue, networkSettingsFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.NetworkSettings = &networkSettingsFlagValue
-		}
+	networkSettingsFlagValue := models.ContainerSummaryItems0NetworkSettings{}
+	err, networkSettingsAdded := retrieveModelContainerSummaryItems0NetworkSettingsFlags(depth+1, &networkSettingsFlagValue, networkSettingsFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkSettingsAdded
+	if networkSettingsAdded {
+		m.NetworkSettings = &networkSettingsFlagValue
 	}
 
 	return nil, retAdded

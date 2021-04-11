@@ -41,9 +41,19 @@ func runOperationPluginPluginList(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationPluginPluginListFiltersFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationPluginPluginListResult(appCli.Plugin.PluginList(params)); err != nil {
+	msgStr, err := parseOperationPluginPluginListResult(appCli.Plugin.PluginList(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -99,8 +109,8 @@ func retrieveOperationPluginPluginListFiltersFlag(m *plugin.PluginListParams, cm
 	return nil, retAdded
 }
 
-// printOperationPluginPluginListResult prints output to stdout
-func printOperationPluginPluginListResult(resp0 *plugin.PluginListOK, respErr error) error {
+// parseOperationPluginPluginListResult parses request result and return the string content
+func parseOperationPluginPluginListResult(resp0 *plugin.PluginListOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -109,10 +119,9 @@ func printOperationPluginPluginListResult(resp0 *plugin.PluginListOK, respErr er
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -122,23 +131,22 @@ func printOperationPluginPluginListResult(resp0 *plugin.PluginListOK, respErr er
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }

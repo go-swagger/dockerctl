@@ -45,9 +45,19 @@ func runOperationContainerContainerCreate(cmd *cobra.Command, args []string) err
 	if err, _ := retrieveOperationContainerContainerCreateNameFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationContainerContainerCreateResult(appCli.Container.ContainerCreate(params)); err != nil {
+	msgStr, err := parseOperationContainerContainerCreateResult(appCli.Container.ContainerCreate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -72,8 +82,7 @@ func registerOperationContainerContainerCreateBodyParamFlags(cmdPrefix string, c
 		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	exampleBodyStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", fmt.Sprintf("Optional json string for [body] of form %v.Container to create", string(exampleBodyStr)))
+	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. Container to create")
 
 	// add flags for body
 	if err := registerModelContainerCreateBodyFlags(0, "containerCreateBody", cmd); err != nil {
@@ -126,11 +135,16 @@ func retrieveOperationContainerContainerCreateBodyFlag(m *container.ContainerCre
 	if added {
 		m.Body = bodyValueModel
 	}
-	bodyValueDebugBytes, err := json.Marshal(m.Body)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		bodyValueDebugBytes, err := json.Marshal(m.Body)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("Body dry-run payload: %v", string(bodyValueDebugBytes))
 	}
-	logDebugf("Body payload: %v", string(bodyValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 func retrieveOperationContainerContainerCreateNameFlag(m *container.ContainerCreateParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
@@ -154,8 +168,8 @@ func retrieveOperationContainerContainerCreateNameFlag(m *container.ContainerCre
 	return nil, retAdded
 }
 
-// printOperationContainerContainerCreateResult prints output to stdout
-func printOperationContainerContainerCreateResult(resp0 *container.ContainerCreateCreated, respErr error) error {
+// parseOperationContainerContainerCreateResult parses request result and return the string content
+func parseOperationContainerContainerCreateResult(resp0 *container.ContainerCreateCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -164,10 +178,9 @@ func printOperationContainerContainerCreateResult(resp0 *container.ContainerCrea
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -177,10 +190,9 @@ func printOperationContainerContainerCreateResult(resp0 *container.ContainerCrea
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -190,10 +202,9 @@ func printOperationContainerContainerCreateResult(resp0 *container.ContainerCrea
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -203,10 +214,9 @@ func printOperationContainerContainerCreateResult(resp0 *container.ContainerCrea
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -216,25 +226,24 @@ func printOperationContainerContainerCreateResult(resp0 *container.ContainerCrea
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -337,16 +346,17 @@ func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(
 
 	hostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
 	if cmd.Flags().Changed(hostConfigFlagName) {
+		// info: complex object HostConfig models.HostConfig is retrieved outside this Changed() block
+	}
 
-		hostConfigFlagValue := models.HostConfig{}
-		err, added := retrieveModelHostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.HostConfig = &hostConfigFlagValue
-		}
+	hostConfigFlagValue := models.HostConfig{}
+	err, hostConfigAdded := retrieveModelHostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || hostConfigAdded
+	if hostConfigAdded {
+		m.HostConfig = &hostConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -360,16 +370,17 @@ func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig
 
 	networkingConfigFlagName := fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
 	if cmd.Flags().Changed(networkingConfigFlagName) {
+		// info: complex object NetworkingConfig ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig is retrieved outside this Changed() block
+	}
 
-		networkingConfigFlagValue := container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
-		err, added := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, &networkingConfigFlagValue, networkingConfigFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.NetworkingConfig = &networkingConfigFlagValue
-		}
+	networkingConfigFlagValue := container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
+	err, networkingConfigAdded := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, &networkingConfigFlagValue, networkingConfigFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || networkingConfigAdded
+	if networkingConfigAdded {
+		m.NetworkingConfig = &networkingConfigFlagValue
 	}
 
 	return nil, retAdded

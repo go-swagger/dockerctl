@@ -42,9 +42,19 @@ func runOperationNetworkNetworkCreate(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationNetworkNetworkCreateNetworkConfigFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationNetworkNetworkCreateResult(appCli.Network.NetworkCreate(params)); err != nil {
+	msgStr, err := parseOperationNetworkNetworkCreateResult(appCli.Network.NetworkCreate(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -66,8 +76,7 @@ func registerOperationNetworkNetworkCreateNetworkConfigParamFlags(cmdPrefix stri
 		networkConfigFlagName = fmt.Sprintf("%v.networkConfig", cmdPrefix)
 	}
 
-	exampleNetworkConfigStr := "go-swagger TODO"
-	_ = cmd.PersistentFlags().String(networkConfigFlagName, "", fmt.Sprintf("Optional json string for [networkConfig] of form %v.Network configuration", string(exampleNetworkConfigStr)))
+	_ = cmd.PersistentFlags().String(networkConfigFlagName, "", "Optional json string for [networkConfig]. Network configuration")
 
 	// add flags for body
 	if err := registerModelNetworkCreateBodyFlags(0, "networkCreateBody", cmd); err != nil {
@@ -103,16 +112,21 @@ func retrieveOperationNetworkNetworkCreateNetworkConfigFlag(m *network.NetworkCr
 	if added {
 		m.NetworkConfig = networkConfigValueModel
 	}
-	networkConfigValueDebugBytes, err := json.Marshal(m.NetworkConfig)
-	if err != nil {
-		return err, false
+	if dryRun && debug {
+
+		networkConfigValueDebugBytes, err := json.Marshal(m.NetworkConfig)
+		if err != nil {
+			return err, false
+		}
+		logDebugf("NetworkConfig dry-run payload: %v", string(networkConfigValueDebugBytes))
 	}
-	logDebugf("NetworkConfig payload: %v", string(networkConfigValueDebugBytes))
+	retAdded = retAdded || added
+
 	return nil, retAdded
 }
 
-// printOperationNetworkNetworkCreateResult prints output to stdout
-func printOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreated, respErr error) error {
+// parseOperationNetworkNetworkCreateResult parses request result and return the string content
+func parseOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -121,10 +135,9 @@ func printOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -134,10 +147,9 @@ func printOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -147,10 +159,9 @@ func printOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -160,25 +171,24 @@ func printOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command
@@ -600,16 +610,17 @@ func retrieveNetworkCreateBodyIPAMFlags(depth int, m *network.NetworkCreateBody,
 
 	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
 	if cmd.Flags().Changed(ipAMFlagName) {
+		// info: complex object IPAM models.IPAM is retrieved outside this Changed() block
+	}
 
-		ipAMFlagValue := models.IPAM{}
-		err, added := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.IPAM = &ipAMFlagValue
-		}
+	ipAMFlagValue := models.IPAM{}
+	err, ipAMAdded := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || ipAMAdded
+	if ipAMAdded {
+		m.IPAM = &ipAMFlagValue
 	}
 
 	return nil, retAdded

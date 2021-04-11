@@ -47,9 +47,19 @@ func runOperationImageImageTag(cmd *cobra.Command, args []string) error {
 	if err, _ := retrieveOperationImageImageTagTagFlag(params, "", cmd); err != nil {
 		return err
 	}
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationImageImageTagResult(appCli.Image.ImageTag(params)); err != nil {
+	msgStr, err := parseOperationImageImageTagResult(appCli.Image.ImageTag(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -181,8 +191,8 @@ func retrieveOperationImageImageTagTagFlag(m *image.ImageTagParams, cmdPrefix st
 	return nil, retAdded
 }
 
-// printOperationImageImageTagResult prints output to stdout
-func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr error) error {
+// parseOperationImageImageTagResult parses request result and return the string content
+func parseOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr error) (string, error) {
 	if respErr != nil {
 
 		// Non schema case: warning imageTagCreated is not supported
@@ -193,10 +203,9 @@ func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr err
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -206,10 +215,9 @@ func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr err
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -219,10 +227,9 @@ func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr err
 			if !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -232,17 +239,16 @@ func printOperationImageImageTagResult(resp0 *image.ImageTagCreated, respErr err
 			if !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	// warning: non schema response imageTagCreated is not supported by go-swagger cli yet.
 
-	return nil
+	return "", nil
 }

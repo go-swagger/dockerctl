@@ -301,16 +301,17 @@ func retrieveServiceEndpointFlags(depth int, m *models.Service, cmdPrefix string
 
 	endpointFlagName := fmt.Sprintf("%v.Endpoint", cmdPrefix)
 	if cmd.Flags().Changed(endpointFlagName) {
+		// info: complex object Endpoint ServiceEndpoint is retrieved outside this Changed() block
+	}
 
-		endpointFlagValue := models.ServiceEndpoint{}
-		err, added := retrieveModelServiceEndpointFlags(depth+1, &endpointFlagValue, endpointFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Endpoint = &endpointFlagValue
-		}
+	endpointFlagValue := models.ServiceEndpoint{}
+	err, endpointAdded := retrieveModelServiceEndpointFlags(depth+1, &endpointFlagValue, endpointFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || endpointAdded
+	if endpointAdded {
+		m.Endpoint = &endpointFlagValue
 	}
 
 	return nil, retAdded
@@ -352,16 +353,17 @@ func retrieveServiceServiceStatusFlags(depth int, m *models.Service, cmdPrefix s
 
 	serviceStatusFlagName := fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
 	if cmd.Flags().Changed(serviceStatusFlagName) {
+		// info: complex object ServiceStatus ServiceServiceStatus is retrieved outside this Changed() block
+	}
 
-		serviceStatusFlagValue := models.ServiceServiceStatus{}
-		err, added := retrieveModelServiceServiceStatusFlags(depth+1, &serviceStatusFlagValue, serviceStatusFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.ServiceStatus = &serviceStatusFlagValue
-		}
+	serviceStatusFlagValue := models.ServiceServiceStatus{}
+	err, serviceStatusAdded := retrieveModelServiceServiceStatusFlags(depth+1, &serviceStatusFlagValue, serviceStatusFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || serviceStatusAdded
+	if serviceStatusAdded {
+		m.ServiceStatus = &serviceStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -375,16 +377,17 @@ func retrieveServiceSpecFlags(depth int, m *models.Service, cmdPrefix string, cm
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec ServiceSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.ServiceSpec{}
-		err, added := retrieveModelServiceSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.ServiceSpec{}
+	err, specAdded := retrieveModelServiceSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded
@@ -398,16 +401,17 @@ func retrieveServiceUpdateStatusFlags(depth int, m *models.Service, cmdPrefix st
 
 	updateStatusFlagName := fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
 	if cmd.Flags().Changed(updateStatusFlagName) {
+		// info: complex object UpdateStatus ServiceUpdateStatus is retrieved outside this Changed() block
+	}
 
-		updateStatusFlagValue := models.ServiceUpdateStatus{}
-		err, added := retrieveModelServiceUpdateStatusFlags(depth+1, &updateStatusFlagValue, updateStatusFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.UpdateStatus = &updateStatusFlagValue
-		}
+	updateStatusFlagValue := models.ServiceUpdateStatus{}
+	err, updateStatusAdded := retrieveModelServiceUpdateStatusFlags(depth+1, &updateStatusFlagValue, updateStatusFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || updateStatusAdded
+	if updateStatusAdded {
+		m.UpdateStatus = &updateStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -449,16 +453,17 @@ func retrieveServiceVersionFlags(depth int, m *models.Service, cmdPrefix string,
 
 	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
 	if cmd.Flags().Changed(versionFlagName) {
+		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
+	}
 
-		versionFlagValue := models.ObjectVersion{}
-		err, added := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Version = &versionFlagValue
-		}
+	versionFlagValue := models.ObjectVersion{}
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || versionAdded
+	if versionAdded {
+		m.Version = &versionFlagValue
 	}
 
 	return nil, retAdded
@@ -570,16 +575,17 @@ func retrieveServiceEndpointSpecFlags(depth int, m *models.ServiceEndpoint, cmdP
 
 	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
 	if cmd.Flags().Changed(specFlagName) {
+		// info: complex object Spec EndpointSpec is retrieved outside this Changed() block
+	}
 
-		specFlagValue := models.EndpointSpec{}
-		err, added := retrieveModelEndpointSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
-		if err != nil {
-			return err, false
-		}
-		retAdded = retAdded || added
-		if added {
-			m.Spec = &specFlagValue
-		}
+	specFlagValue := models.EndpointSpec{}
+	err, specAdded := retrieveModelEndpointSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || specAdded
+	if specAdded {
+		m.Spec = &specFlagValue
 	}
 
 	return nil, retAdded

@@ -38,9 +38,19 @@ func runOperationSwarmSwarmUnlockkey(cmd *cobra.Command, args []string) error {
 	}
 	// retrieve flag values from cmd and fill params
 	params := swarm.NewSwarmUnlockkeyParams()
+	if dryRun {
+
+		logDebugf("dry-run flag specified. Skip sending request.")
+		return nil
+	}
 	// make request and then print result
-	if err := printOperationSwarmSwarmUnlockkeyResult(appCli.Swarm.SwarmUnlockkey(params)); err != nil {
+	msgStr, err := parseOperationSwarmSwarmUnlockkeyResult(appCli.Swarm.SwarmUnlockkey(params))
+	if err != nil {
 		return err
+	}
+	if !debug {
+
+		fmt.Println(msgStr)
 	}
 	return nil
 }
@@ -50,8 +60,8 @@ func registerOperationSwarmSwarmUnlockkeyParamFlags(cmd *cobra.Command) error {
 	return nil
 }
 
-// printOperationSwarmSwarmUnlockkeyResult prints output to stdout
-func printOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, respErr error) error {
+// parseOperationSwarmSwarmUnlockkeyResult parses request result and return the string content
+func parseOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, respErr error) (string, error) {
 	if respErr != nil {
 
 		var iResp0 interface{} = respErr
@@ -60,10 +70,9 @@ func printOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, resp
 			if !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -73,10 +82,9 @@ func printOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, resp
 			if !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
@@ -86,25 +94,24 @@ func printOperationSwarmSwarmUnlockkeyResult(resp0 *swarm.SwarmUnlockkeyOK, resp
 			if !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
-					return err
+					return "", err
 				}
-				fmt.Println(string(msgStr))
-				return nil
+				return string(msgStr), nil
 			}
 		}
 
-		return respErr
+		return "", respErr
 	}
 
 	if !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
-			return err
+			return "", err
 		}
-		fmt.Println(string(msgStr))
+		return string(msgStr), nil
 	}
 
-	return nil
+	return "", nil
 }
 
 // register flags to command

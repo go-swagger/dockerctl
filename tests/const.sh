@@ -7,7 +7,7 @@ set -x
 fi
 
 # cmd exe
-DOCKERCTL=cmd/cli/dockerctl
+DOCKERCTL=cmd/dockerctl/dockerctl
 
 # host of docker engine. configured by socat
 HOST=localhost:12345

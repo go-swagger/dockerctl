@@ -13,8 +13,11 @@ jobs:
       with:
         go-version: 1.16.2
     
+    - name: Install make
+      run: sudo apt-get install make
+
     - name: Build
-      run: CGO=0 go build -o cmd/dockerctl/dockerctl cmd/dockerctl/main.go
+      run: make build
 
     - name: Save dockerctl executable
       uses: actions/upload-artifact@v2

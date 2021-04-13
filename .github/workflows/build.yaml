@@ -14,13 +14,13 @@ jobs:
         go-version: 1.16.2
     
     - name: Build
-      run: CGO=0 go build -o cmd/cli/dockerctl cmd/cli/main.go
+      run: CGO=0 go build -o cmd/dockerctl/dockerctl cmd/dockerctl/main.go
 
     - name: Save dockerctl executable
       uses: actions/upload-artifact@v2
       with:
         name: dockerctl-exe
-        path: cmd/cli/dockerctl
+        path: cmd/dockerctl/dockerctl
         retention-days: 1
   
   test:
@@ -33,10 +33,10 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: dockerctl-exe
-          path: cmd/cli
+          path: cmd/dockerctl
       
       - name: make artifact executable
-        run: sudo chmod +x ./cmd/cli/dockerctl
+        run: sudo chmod +x ./cmd/dockerctl/dockerctl
 
       - name: check docker engine
         run: docker version

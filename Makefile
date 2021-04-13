@@ -7,20 +7,19 @@ build-container:
 	docker build -t dockerctl:dev -f dev/Dockerfile .
 
 generate:
-	swagger generate cli --target=. --spec=api/swagger.yaml
+	swagger generate cli --target=. --spec=api/swagger.yaml --cli-app-name dockerctl
 
 generate-completion:
-	cmd/cli/dockerctl completion bash > cmd/completion/dockerctl.bash-completion.sh
+	cmd/dockerctl/dockerctl completion bash > cmd/completion/dockerctl.bash-completion.sh
 
 clean-generate:
-	rm -rf cli client models cmd/cli
+	rm -rf cli client models cmd/dockerctl
 
 build:
-	CGO_ENABLED=0 go build -o cmd/cli/dockerctl cmd/cli/main.go
+	CGO_ENABLED=0 go build -o cmd/dockerctl/dockerctl cmd/dockerctl/main.go
 
 clean:
-	rm -f cmd/cli/dockerctl
-
+	rm -f cmd/dockerctl/dockerctl
 
 dind-start:
 	docker run --privileged --name dind -d \

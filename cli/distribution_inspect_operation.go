@@ -413,10 +413,6 @@ func registerDistributionInspectOKBodyDescriptor(depth int, cmdPrefix string, cm
 		return err
 	}
 
-	if err := cmd.MarkPersistentFlagRequired(descriptorFlagName); err != nil {
-		return err
-	}
-
 	return nil
 }
 

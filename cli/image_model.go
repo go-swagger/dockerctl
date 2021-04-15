@@ -276,10 +276,6 @@ func registerImageGraphDriver(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return err
 	}
 
-	if err := cmd.MarkPersistentFlagRequired(graphDriverFlagName); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -419,10 +415,6 @@ func registerImageRootFS(depth int, cmdPrefix string, cmd *cobra.Command) error 
 	}
 
 	if err := registerModelImageRootFSFlags(depth+1, rootFSFlagName, cmd); err != nil {
-		return err
-	}
-
-	if err := cmd.MarkPersistentFlagRequired(rootFSFlagName); err != nil {
 		return err
 	}
 

@@ -60,10 +60,6 @@ func registerPluginConfig(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return err
 	}
 
-	if err := cmd.MarkPersistentFlagRequired(configFlagName); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -164,10 +160,6 @@ func registerPluginSettings(depth int, cmdPrefix string, cmd *cobra.Command) err
 	}
 
 	if err := registerModelPluginSettingsFlags(depth+1, settingsFlagName, cmd); err != nil {
-		return err
-	}
-
-	if err := cmd.MarkPersistentFlagRequired(settingsFlagName); err != nil {
 		return err
 	}
 
@@ -465,10 +457,6 @@ func registerPluginConfigArgs(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return err
 	}
 
-	if err := cmd.MarkPersistentFlagRequired(argsFlagName); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -571,10 +559,6 @@ func registerPluginConfigInterface(depth int, cmdPrefix string, cmd *cobra.Comma
 		return err
 	}
 
-	if err := cmd.MarkPersistentFlagRequired(interfaceFlagName); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -615,10 +599,6 @@ func registerPluginConfigLinux(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return err
 	}
 
-	if err := cmd.MarkPersistentFlagRequired(linuxFlagName); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -645,10 +625,6 @@ func registerPluginConfigNetwork(depth int, cmdPrefix string, cmd *cobra.Command
 	}
 
 	if err := registerModelPluginConfigNetworkFlags(depth+1, networkFlagName, cmd); err != nil {
-		return err
-	}
-
-	if err := cmd.MarkPersistentFlagRequired(networkFlagName); err != nil {
 		return err
 	}
 

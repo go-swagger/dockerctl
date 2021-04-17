@@ -13,7 +13,7 @@ RUN apk add curl socat make jq bash bash-completion
 COPY cmd/completion/dockerctl.bash-completion.sh /etc/bash_completion.d/dockerctl
 
 # copy dockerctl exe
-COPY cmd/cli/dockerctl /usr/local/bin/dockerctl
+COPY cmd/dockerctl/dockerctl /usr/local/bin/dockerctl
 
 RUN echo "#!/bin/bash" >> /root/.bashrc && \
     echo "source /etc/profile.d/bash_completion.sh " >> /root/.bashrc && \

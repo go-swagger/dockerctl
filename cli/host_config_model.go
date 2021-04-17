@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -1394,15 +1396,18 @@ func retrieveHostConfigAnonAO1LogConfigFlags(depth int, m *models.HostConfig, cm
 	if cmd.Flags().Changed(logConfigFlagName) {
 		// info: complex object LogConfig HostConfigAO1LogConfig is retrieved outside this Changed() block
 	}
+	logConfigFlagValue := m.LogConfig
+	if swag.IsZero(logConfigFlagValue) {
+		logConfigFlagValue = &models.HostConfigAO1LogConfig{}
+	}
 
-	logConfigFlagValue := models.HostConfigAO1LogConfig{}
-	err, logConfigAdded := retrieveModelHostConfigAO1LogConfigFlags(depth+1, &logConfigFlagValue, logConfigFlagName, cmd)
+	err, logConfigAdded := retrieveModelHostConfigAO1LogConfigFlags(depth+1, logConfigFlagValue, logConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || logConfigAdded
 	if logConfigAdded {
-		m.LogConfig = &logConfigFlagValue
+		m.LogConfig = logConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -1642,15 +1647,18 @@ func retrieveHostConfigAnonAO1RestartPolicyFlags(depth int, m *models.HostConfig
 	if cmd.Flags().Changed(restartPolicyFlagName) {
 		// info: complex object RestartPolicy RestartPolicy is retrieved outside this Changed() block
 	}
+	restartPolicyFlagValue := m.RestartPolicy
+	if swag.IsZero(restartPolicyFlagValue) {
+		restartPolicyFlagValue = &models.RestartPolicy{}
+	}
 
-	restartPolicyFlagValue := models.RestartPolicy{}
-	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || restartPolicyAdded
 	if restartPolicyAdded {
-		m.RestartPolicy = &restartPolicyFlagValue
+		m.RestartPolicy = restartPolicyFlagValue
 	}
 
 	return nil, retAdded

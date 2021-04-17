@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -210,15 +212,18 @@ func retrieveSecretSpecDriverFlags(depth int, m *models.SecretSpec, cmdPrefix st
 	if cmd.Flags().Changed(driverFlagName) {
 		// info: complex object Driver Driver is retrieved outside this Changed() block
 	}
+	driverFlagValue := m.Driver
+	if swag.IsZero(driverFlagValue) {
+		driverFlagValue = &models.Driver{}
+	}
 
-	driverFlagValue := models.Driver{}
-	err, driverAdded := retrieveModelDriverFlags(depth+1, &driverFlagValue, driverFlagName, cmd)
+	err, driverAdded := retrieveModelDriverFlags(depth+1, driverFlagValue, driverFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || driverAdded
 	if driverAdded {
-		m.Driver = &driverFlagValue
+		m.Driver = driverFlagValue
 	}
 
 	return nil, retAdded
@@ -276,15 +281,18 @@ func retrieveSecretSpecTemplatingFlags(depth int, m *models.SecretSpec, cmdPrefi
 	if cmd.Flags().Changed(templatingFlagName) {
 		// info: complex object Templating Driver is retrieved outside this Changed() block
 	}
+	templatingFlagValue := m.Templating
+	if swag.IsZero(templatingFlagValue) {
+		templatingFlagValue = &models.Driver{}
+	}
 
-	templatingFlagValue := models.Driver{}
-	err, templatingAdded := retrieveModelDriverFlags(depth+1, &templatingFlagValue, templatingFlagName, cmd)
+	err, templatingAdded := retrieveModelDriverFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || templatingAdded
 	if templatingAdded {
-		m.Templating = &templatingFlagValue
+		m.Templating = templatingFlagValue
 	}
 
 	return nil, retAdded

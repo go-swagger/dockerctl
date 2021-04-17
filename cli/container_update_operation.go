@@ -295,15 +295,18 @@ func retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFla
 	if cmd.Flags().Changed(restartPolicyFlagName) {
 		// info: complex object RestartPolicy models.RestartPolicy is retrieved outside this Changed() block
 	}
+	restartPolicyFlagValue := m.RestartPolicy
+	if swag.IsZero(restartPolicyFlagValue) {
+		restartPolicyFlagValue = &models.RestartPolicy{}
+	}
 
-	restartPolicyFlagValue := models.RestartPolicy{}
-	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, &restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || restartPolicyAdded
 	if restartPolicyAdded {
-		m.RestartPolicy = &restartPolicyFlagValue
+		m.RestartPolicy = restartPolicyFlagValue
 	}
 
 	return nil, retAdded

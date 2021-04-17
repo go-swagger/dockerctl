@@ -915,15 +915,18 @@ func retrieveSystemVersionOKBodyPlatformFlags(depth int, m *system.SystemVersion
 	if cmd.Flags().Changed(platformFlagName) {
 		// info: complex object Platform SystemVersionOKBodyPlatform is retrieved outside this Changed() block
 	}
+	platformFlagValue := m.Platform
+	if swag.IsZero(platformFlagValue) {
+		platformFlagValue = &system.SystemVersionOKBodyPlatform{}
+	}
 
-	platformFlagValue := system.SystemVersionOKBodyPlatform{}
-	err, platformAdded := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
+	err, platformAdded := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || platformAdded
 	if platformAdded {
-		m.Platform = &platformFlagValue
+		m.Platform = platformFlagValue
 	}
 
 	return nil, retAdded

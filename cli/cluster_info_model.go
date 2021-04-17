@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -427,15 +429,18 @@ func retrieveClusterInfoSpecFlags(depth int, m *models.ClusterInfo, cmdPrefix st
 	if cmd.Flags().Changed(specFlagName) {
 		// info: complex object Spec SwarmSpec is retrieved outside this Changed() block
 	}
+	specFlagValue := m.Spec
+	if swag.IsZero(specFlagValue) {
+		specFlagValue = &models.SwarmSpec{}
+	}
 
-	specFlagValue := models.SwarmSpec{}
-	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || specAdded
 	if specAdded {
-		m.Spec = &specFlagValue
+		m.Spec = specFlagValue
 	}
 
 	return nil, retAdded
@@ -468,15 +473,18 @@ func retrieveClusterInfoTLSInfoFlags(depth int, m *models.ClusterInfo, cmdPrefix
 	if cmd.Flags().Changed(tlsInfoFlagName) {
 		// info: complex object TLSInfo TLSInfo is retrieved outside this Changed() block
 	}
+	tlsInfoFlagValue := m.TLSInfo
+	if swag.IsZero(tlsInfoFlagValue) {
+		tlsInfoFlagValue = &models.TLSInfo{}
+	}
 
-	tlsInfoFlagValue := models.TLSInfo{}
-	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
+	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || tlsInfoAdded
 	if tlsInfoAdded {
-		m.TLSInfo = &tlsInfoFlagValue
+		m.TLSInfo = tlsInfoFlagValue
 	}
 
 	return nil, retAdded
@@ -520,15 +528,18 @@ func retrieveClusterInfoVersionFlags(depth int, m *models.ClusterInfo, cmdPrefix
 	if cmd.Flags().Changed(versionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
+	versionFlagValue := m.Version
+	if swag.IsZero(versionFlagValue) {
+		versionFlagValue = &models.ObjectVersion{}
+	}
 
-	versionFlagValue := models.ObjectVersion{}
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || versionAdded
 	if versionAdded {
-		m.Version = &versionFlagValue
+		m.Version = versionFlagValue
 	}
 
 	return nil, retAdded

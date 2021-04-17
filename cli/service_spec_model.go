@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -253,15 +255,18 @@ func retrieveServiceSpecEndpointSpecFlags(depth int, m *models.ServiceSpec, cmdP
 	if cmd.Flags().Changed(endpointSpecFlagName) {
 		// info: complex object EndpointSpec EndpointSpec is retrieved outside this Changed() block
 	}
+	endpointSpecFlagValue := m.EndpointSpec
+	if swag.IsZero(endpointSpecFlagValue) {
+		endpointSpecFlagValue = &models.EndpointSpec{}
+	}
 
-	endpointSpecFlagValue := models.EndpointSpec{}
-	err, endpointSpecAdded := retrieveModelEndpointSpecFlags(depth+1, &endpointSpecFlagValue, endpointSpecFlagName, cmd)
+	err, endpointSpecAdded := retrieveModelEndpointSpecFlags(depth+1, endpointSpecFlagValue, endpointSpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || endpointSpecAdded
 	if endpointSpecAdded {
-		m.EndpointSpec = &endpointSpecFlagValue
+		m.EndpointSpec = endpointSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -291,15 +296,18 @@ func retrieveServiceSpecModeFlags(depth int, m *models.ServiceSpec, cmdPrefix st
 	if cmd.Flags().Changed(modeFlagName) {
 		// info: complex object Mode ServiceSpecMode is retrieved outside this Changed() block
 	}
+	modeFlagValue := m.Mode
+	if swag.IsZero(modeFlagValue) {
+		modeFlagValue = &models.ServiceSpecMode{}
+	}
 
-	modeFlagValue := models.ServiceSpecMode{}
-	err, modeAdded := retrieveModelServiceSpecModeFlags(depth+1, &modeFlagValue, modeFlagName, cmd)
+	err, modeAdded := retrieveModelServiceSpecModeFlags(depth+1, modeFlagValue, modeFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || modeAdded
 	if modeAdded {
-		m.Mode = &modeFlagValue
+		m.Mode = modeFlagValue
 	}
 
 	return nil, retAdded
@@ -357,15 +365,18 @@ func retrieveServiceSpecRollbackConfigFlags(depth int, m *models.ServiceSpec, cm
 	if cmd.Flags().Changed(rollbackConfigFlagName) {
 		// info: complex object RollbackConfig ServiceSpecRollbackConfig is retrieved outside this Changed() block
 	}
+	rollbackConfigFlagValue := m.RollbackConfig
+	if swag.IsZero(rollbackConfigFlagValue) {
+		rollbackConfigFlagValue = &models.ServiceSpecRollbackConfig{}
+	}
 
-	rollbackConfigFlagValue := models.ServiceSpecRollbackConfig{}
-	err, rollbackConfigAdded := retrieveModelServiceSpecRollbackConfigFlags(depth+1, &rollbackConfigFlagValue, rollbackConfigFlagName, cmd)
+	err, rollbackConfigAdded := retrieveModelServiceSpecRollbackConfigFlags(depth+1, rollbackConfigFlagValue, rollbackConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || rollbackConfigAdded
 	if rollbackConfigAdded {
-		m.RollbackConfig = &rollbackConfigFlagValue
+		m.RollbackConfig = rollbackConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -381,15 +392,18 @@ func retrieveServiceSpecTaskTemplateFlags(depth int, m *models.ServiceSpec, cmdP
 	if cmd.Flags().Changed(taskTemplateFlagName) {
 		// info: complex object TaskTemplate TaskSpec is retrieved outside this Changed() block
 	}
+	taskTemplateFlagValue := m.TaskTemplate
+	if swag.IsZero(taskTemplateFlagValue) {
+		taskTemplateFlagValue = &models.TaskSpec{}
+	}
 
-	taskTemplateFlagValue := models.TaskSpec{}
-	err, taskTemplateAdded := retrieveModelTaskSpecFlags(depth+1, &taskTemplateFlagValue, taskTemplateFlagName, cmd)
+	err, taskTemplateAdded := retrieveModelTaskSpecFlags(depth+1, taskTemplateFlagValue, taskTemplateFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || taskTemplateAdded
 	if taskTemplateAdded {
-		m.TaskTemplate = &taskTemplateFlagValue
+		m.TaskTemplate = taskTemplateFlagValue
 	}
 
 	return nil, retAdded
@@ -405,15 +419,18 @@ func retrieveServiceSpecUpdateConfigFlags(depth int, m *models.ServiceSpec, cmdP
 	if cmd.Flags().Changed(updateConfigFlagName) {
 		// info: complex object UpdateConfig ServiceSpecUpdateConfig is retrieved outside this Changed() block
 	}
+	updateConfigFlagValue := m.UpdateConfig
+	if swag.IsZero(updateConfigFlagValue) {
+		updateConfigFlagValue = &models.ServiceSpecUpdateConfig{}
+	}
 
-	updateConfigFlagValue := models.ServiceSpecUpdateConfig{}
-	err, updateConfigAdded := retrieveModelServiceSpecUpdateConfigFlags(depth+1, &updateConfigFlagValue, updateConfigFlagName, cmd)
+	err, updateConfigAdded := retrieveModelServiceSpecUpdateConfigFlags(depth+1, updateConfigFlagValue, updateConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || updateConfigAdded
 	if updateConfigAdded {
-		m.UpdateConfig = &updateConfigFlagValue
+		m.UpdateConfig = updateConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -507,15 +524,18 @@ func retrieveServiceSpecModeReplicatedFlags(depth int, m *models.ServiceSpecMode
 	if cmd.Flags().Changed(replicatedFlagName) {
 		// info: complex object Replicated ServiceSpecModeReplicated is retrieved outside this Changed() block
 	}
+	replicatedFlagValue := m.Replicated
+	if swag.IsZero(replicatedFlagValue) {
+		replicatedFlagValue = &models.ServiceSpecModeReplicated{}
+	}
 
-	replicatedFlagValue := models.ServiceSpecModeReplicated{}
-	err, replicatedAdded := retrieveModelServiceSpecModeReplicatedFlags(depth+1, &replicatedFlagValue, replicatedFlagName, cmd)
+	err, replicatedAdded := retrieveModelServiceSpecModeReplicatedFlags(depth+1, replicatedFlagValue, replicatedFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || replicatedAdded
 	if replicatedAdded {
-		m.Replicated = &replicatedFlagValue
+		m.Replicated = replicatedFlagValue
 	}
 
 	return nil, retAdded

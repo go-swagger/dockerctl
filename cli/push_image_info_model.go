@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -215,15 +217,18 @@ func retrievePushImageInfoProgressDetailFlags(depth int, m *models.PushImageInfo
 	if cmd.Flags().Changed(progressDetailFlagName) {
 		// info: complex object progressDetail ProgressDetail is retrieved outside this Changed() block
 	}
+	progressDetailFlagValue := m.ProgressDetail
+	if swag.IsZero(progressDetailFlagValue) {
+		progressDetailFlagValue = &models.ProgressDetail{}
+	}
 
-	progressDetailFlagValue := models.ProgressDetail{}
-	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
+	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || progressDetailAdded
 	if progressDetailAdded {
-		m.ProgressDetail = &progressDetailFlagValue
+		m.ProgressDetail = progressDetailFlagValue
 	}
 
 	return nil, retAdded

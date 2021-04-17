@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -99,15 +101,18 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecFlags(depth int, m *model
 	if cmd.Flags().Changed(discreteResourceSpecFlagName) {
 		// info: complex object DiscreteResourceSpec GenericResourcesItems0DiscreteResourceSpec is retrieved outside this Changed() block
 	}
+	discreteResourceSpecFlagValue := m.DiscreteResourceSpec
+	if swag.IsZero(discreteResourceSpecFlagValue) {
+		discreteResourceSpecFlagValue = &models.GenericResourcesItems0DiscreteResourceSpec{}
+	}
 
-	discreteResourceSpecFlagValue := models.GenericResourcesItems0DiscreteResourceSpec{}
-	err, discreteResourceSpecAdded := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, &discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
+	err, discreteResourceSpecAdded := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || discreteResourceSpecAdded
 	if discreteResourceSpecAdded {
-		m.DiscreteResourceSpec = &discreteResourceSpecFlagValue
+		m.DiscreteResourceSpec = discreteResourceSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -123,15 +128,18 @@ func retrieveGenericResourcesItems0NamedResourceSpecFlags(depth int, m *models.G
 	if cmd.Flags().Changed(namedResourceSpecFlagName) {
 		// info: complex object NamedResourceSpec GenericResourcesItems0NamedResourceSpec is retrieved outside this Changed() block
 	}
+	namedResourceSpecFlagValue := m.NamedResourceSpec
+	if swag.IsZero(namedResourceSpecFlagValue) {
+		namedResourceSpecFlagValue = &models.GenericResourcesItems0NamedResourceSpec{}
+	}
 
-	namedResourceSpecFlagValue := models.GenericResourcesItems0NamedResourceSpec{}
-	err, namedResourceSpecAdded := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, &namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
+	err, namedResourceSpecAdded := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || namedResourceSpecAdded
 	if namedResourceSpecAdded {
-		m.NamedResourceSpec = &namedResourceSpecFlagValue
+		m.NamedResourceSpec = namedResourceSpecFlagValue
 	}
 
 	return nil, retAdded

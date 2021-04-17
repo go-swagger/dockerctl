@@ -774,15 +774,18 @@ func retrieveExecInspectOKBodyProcessConfigFlags(depth int, m *exec.ExecInspectO
 	if cmd.Flags().Changed(processConfigFlagName) {
 		// info: complex object ProcessConfig models.ProcessConfig is retrieved outside this Changed() block
 	}
+	processConfigFlagValue := m.ProcessConfig
+	if swag.IsZero(processConfigFlagValue) {
+		processConfigFlagValue = &models.ProcessConfig{}
+	}
 
-	processConfigFlagValue := models.ProcessConfig{}
-	err, processConfigAdded := retrieveModelProcessConfigFlags(depth+1, &processConfigFlagValue, processConfigFlagName, cmd)
+	err, processConfigAdded := retrieveModelProcessConfigFlags(depth+1, processConfigFlagValue, processConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || processConfigAdded
 	if processConfigAdded {
-		m.ProcessConfig = &processConfigFlagValue
+		m.ProcessConfig = processConfigFlagValue
 	}
 
 	return nil, retAdded

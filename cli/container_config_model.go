@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -918,15 +920,18 @@ func retrieveContainerConfigHealthcheckFlags(depth int, m *models.ContainerConfi
 	if cmd.Flags().Changed(healthcheckFlagName) {
 		// info: complex object Healthcheck HealthConfig is retrieved outside this Changed() block
 	}
+	healthcheckFlagValue := m.Healthcheck
+	if swag.IsZero(healthcheckFlagValue) {
+		healthcheckFlagValue = &models.HealthConfig{}
+	}
 
-	healthcheckFlagValue := models.HealthConfig{}
-	err, healthcheckAdded := retrieveModelHealthConfigFlags(depth+1, &healthcheckFlagValue, healthcheckFlagName, cmd)
+	err, healthcheckAdded := retrieveModelHealthConfigFlags(depth+1, healthcheckFlagValue, healthcheckFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || healthcheckAdded
 	if healthcheckAdded {
-		m.Healthcheck = &healthcheckFlagValue
+		m.Healthcheck = healthcheckFlagValue
 	}
 
 	return nil, retAdded

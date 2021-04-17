@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -279,15 +281,18 @@ func retrieveBuildInfoAuxFlags(depth int, m *models.BuildInfo, cmdPrefix string,
 	if cmd.Flags().Changed(auxFlagName) {
 		// info: complex object aux ImageID is retrieved outside this Changed() block
 	}
+	auxFlagValue := m.Aux
+	if swag.IsZero(auxFlagValue) {
+		auxFlagValue = &models.ImageID{}
+	}
 
-	auxFlagValue := models.ImageID{}
-	err, auxAdded := retrieveModelImageIDFlags(depth+1, &auxFlagValue, auxFlagName, cmd)
+	err, auxAdded := retrieveModelImageIDFlags(depth+1, auxFlagValue, auxFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || auxAdded
 	if auxAdded {
-		m.Aux = &auxFlagValue
+		m.Aux = auxFlagValue
 	}
 
 	return nil, retAdded
@@ -331,15 +336,18 @@ func retrieveBuildInfoErrorDetailFlags(depth int, m *models.BuildInfo, cmdPrefix
 	if cmd.Flags().Changed(errorDetailFlagName) {
 		// info: complex object errorDetail ErrorDetail is retrieved outside this Changed() block
 	}
+	errorDetailFlagValue := m.ErrorDetail
+	if swag.IsZero(errorDetailFlagValue) {
+		errorDetailFlagValue = &models.ErrorDetail{}
+	}
 
-	errorDetailFlagValue := models.ErrorDetail{}
-	err, errorDetailAdded := retrieveModelErrorDetailFlags(depth+1, &errorDetailFlagValue, errorDetailFlagName, cmd)
+	err, errorDetailAdded := retrieveModelErrorDetailFlags(depth+1, errorDetailFlagValue, errorDetailFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || errorDetailAdded
 	if errorDetailAdded {
-		m.ErrorDetail = &errorDetailFlagValue
+		m.ErrorDetail = errorDetailFlagValue
 	}
 
 	return nil, retAdded
@@ -411,15 +419,18 @@ func retrieveBuildInfoProgressDetailFlags(depth int, m *models.BuildInfo, cmdPre
 	if cmd.Flags().Changed(progressDetailFlagName) {
 		// info: complex object progressDetail ProgressDetail is retrieved outside this Changed() block
 	}
+	progressDetailFlagValue := m.ProgressDetail
+	if swag.IsZero(progressDetailFlagValue) {
+		progressDetailFlagValue = &models.ProgressDetail{}
+	}
 
-	progressDetailFlagValue := models.ProgressDetail{}
-	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, &progressDetailFlagValue, progressDetailFlagName, cmd)
+	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || progressDetailAdded
 	if progressDetailAdded {
-		m.ProgressDetail = &progressDetailFlagValue
+		m.ProgressDetail = progressDetailFlagValue
 	}
 
 	return nil, retAdded

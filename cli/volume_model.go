@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -463,15 +465,18 @@ func retrieveVolumeUsageDataFlags(depth int, m *models.Volume, cmdPrefix string,
 	if cmd.Flags().Changed(usageDataFlagName) {
 		// info: complex object UsageData VolumeUsageData is retrieved outside this Changed() block
 	}
+	usageDataFlagValue := m.UsageData
+	if swag.IsZero(usageDataFlagValue) {
+		usageDataFlagValue = &models.VolumeUsageData{}
+	}
 
-	usageDataFlagValue := models.VolumeUsageData{}
-	err, usageDataAdded := retrieveModelVolumeUsageDataFlags(depth+1, &usageDataFlagValue, usageDataFlagName, cmd)
+	err, usageDataAdded := retrieveModelVolumeUsageDataFlags(depth+1, usageDataFlagValue, usageDataFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || usageDataAdded
 	if usageDataAdded {
-		m.UsageData = &usageDataFlagValue
+		m.UsageData = usageDataFlagValue
 	}
 
 	return nil, retAdded

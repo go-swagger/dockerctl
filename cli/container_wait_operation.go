@@ -285,15 +285,18 @@ func retrieveContainerWaitOKBodyErrorFlags(depth int, m *container.ContainerWait
 	if cmd.Flags().Changed(errorFlagName) {
 		// info: complex object Error ContainerWaitOKBodyError is retrieved outside this Changed() block
 	}
+	errorFlagValue := m.Error
+	if swag.IsZero(errorFlagValue) {
+		errorFlagValue = &container.ContainerWaitOKBodyError{}
+	}
 
-	errorFlagValue := container.ContainerWaitOKBodyError{}
-	err, errorAdded := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, &errorFlagValue, errorFlagName, cmd)
+	err, errorAdded := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, errorFlagValue, errorFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || errorAdded
 	if errorAdded {
-		m.Error = &errorFlagValue
+		m.Error = errorFlagValue
 	}
 
 	return nil, retAdded

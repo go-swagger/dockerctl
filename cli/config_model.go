@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -244,15 +246,18 @@ func retrieveConfigSpecFlags(depth int, m *models.Config, cmdPrefix string, cmd 
 	if cmd.Flags().Changed(specFlagName) {
 		// info: complex object Spec ConfigSpec is retrieved outside this Changed() block
 	}
+	specFlagValue := m.Spec
+	if swag.IsZero(specFlagValue) {
+		specFlagValue = &models.ConfigSpec{}
+	}
 
-	specFlagValue := models.ConfigSpec{}
-	err, specAdded := retrieveModelConfigSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	err, specAdded := retrieveModelConfigSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || specAdded
 	if specAdded {
-		m.Spec = &specFlagValue
+		m.Spec = specFlagValue
 	}
 
 	return nil, retAdded
@@ -296,15 +301,18 @@ func retrieveConfigVersionFlags(depth int, m *models.Config, cmdPrefix string, c
 	if cmd.Flags().Changed(versionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
+	versionFlagValue := m.Version
+	if swag.IsZero(versionFlagValue) {
+		versionFlagValue = &models.ObjectVersion{}
+	}
 
-	versionFlagValue := models.ObjectVersion{}
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || versionAdded
 	if versionAdded {
-		m.Version = &versionFlagValue
+		m.Version = versionFlagValue
 	}
 
 	return nil, retAdded

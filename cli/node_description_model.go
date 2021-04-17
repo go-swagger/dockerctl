@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -184,15 +186,18 @@ func retrieveNodeDescriptionEngineFlags(depth int, m *models.NodeDescription, cm
 	if cmd.Flags().Changed(engineFlagName) {
 		// info: complex object Engine EngineDescription is retrieved outside this Changed() block
 	}
+	engineFlagValue := m.Engine
+	if swag.IsZero(engineFlagValue) {
+		engineFlagValue = &models.EngineDescription{}
+	}
 
-	engineFlagValue := models.EngineDescription{}
-	err, engineAdded := retrieveModelEngineDescriptionFlags(depth+1, &engineFlagValue, engineFlagName, cmd)
+	err, engineAdded := retrieveModelEngineDescriptionFlags(depth+1, engineFlagValue, engineFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || engineAdded
 	if engineAdded {
-		m.Engine = &engineFlagValue
+		m.Engine = engineFlagValue
 	}
 
 	return nil, retAdded
@@ -236,15 +241,18 @@ func retrieveNodeDescriptionPlatformFlags(depth int, m *models.NodeDescription, 
 	if cmd.Flags().Changed(platformFlagName) {
 		// info: complex object Platform Platform is retrieved outside this Changed() block
 	}
+	platformFlagValue := m.Platform
+	if swag.IsZero(platformFlagValue) {
+		platformFlagValue = &models.Platform{}
+	}
 
-	platformFlagValue := models.Platform{}
-	err, platformAdded := retrieveModelPlatformFlags(depth+1, &platformFlagValue, platformFlagName, cmd)
+	err, platformAdded := retrieveModelPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || platformAdded
 	if platformAdded {
-		m.Platform = &platformFlagValue
+		m.Platform = platformFlagValue
 	}
 
 	return nil, retAdded
@@ -260,15 +268,18 @@ func retrieveNodeDescriptionResourcesFlags(depth int, m *models.NodeDescription,
 	if cmd.Flags().Changed(resourcesFlagName) {
 		// info: complex object Resources ResourceObject is retrieved outside this Changed() block
 	}
+	resourcesFlagValue := m.Resources
+	if swag.IsZero(resourcesFlagValue) {
+		resourcesFlagValue = &models.ResourceObject{}
+	}
 
-	resourcesFlagValue := models.ResourceObject{}
-	err, resourcesAdded := retrieveModelResourceObjectFlags(depth+1, &resourcesFlagValue, resourcesFlagName, cmd)
+	err, resourcesAdded := retrieveModelResourceObjectFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || resourcesAdded
 	if resourcesAdded {
-		m.Resources = &resourcesFlagValue
+		m.Resources = resourcesFlagValue
 	}
 
 	return nil, retAdded
@@ -284,15 +295,18 @@ func retrieveNodeDescriptionTLSInfoFlags(depth int, m *models.NodeDescription, c
 	if cmd.Flags().Changed(tlsInfoFlagName) {
 		// info: complex object TLSInfo TLSInfo is retrieved outside this Changed() block
 	}
+	tlsInfoFlagValue := m.TLSInfo
+	if swag.IsZero(tlsInfoFlagValue) {
+		tlsInfoFlagValue = &models.TLSInfo{}
+	}
 
-	tlsInfoFlagValue := models.TLSInfo{}
-	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, &tlsInfoFlagValue, tlsInfoFlagName, cmd)
+	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || tlsInfoAdded
 	if tlsInfoAdded {
-		m.TLSInfo = &tlsInfoFlagValue
+		m.TLSInfo = tlsInfoFlagValue
 	}
 
 	return nil, retAdded

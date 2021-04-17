@@ -7,3 +7,4 @@ docker pull hello-world:linux
 ${DOCKERCTL} --hostname=${HOST} --debug container ContainerCreate \
   --name my-hello --containerCreateBody.Domainname hello --containerCreateBody.Image hello-world:linux
 
+docker container rm my-hello

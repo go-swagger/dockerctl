@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -554,15 +556,18 @@ func retrieveEndpointSettingsIPAMConfigFlags(depth int, m *models.EndpointSettin
 	if cmd.Flags().Changed(ipAMConfigFlagName) {
 		// info: complex object IPAMConfig EndpointIPAMConfig is retrieved outside this Changed() block
 	}
+	ipAMConfigFlagValue := m.IPAMConfig
+	if swag.IsZero(ipAMConfigFlagValue) {
+		ipAMConfigFlagValue = &models.EndpointIPAMConfig{}
+	}
 
-	ipAMConfigFlagValue := models.EndpointIPAMConfig{}
-	err, ipAMConfigAdded := retrieveModelEndpointIPAMConfigFlags(depth+1, &ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
+	err, ipAMConfigAdded := retrieveModelEndpointIPAMConfigFlags(depth+1, ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || ipAMConfigAdded
 	if ipAMConfigAdded {
-		m.IPAMConfig = &ipAMConfigFlagValue
+		m.IPAMConfig = ipAMConfigFlagValue
 	}
 
 	return nil, retAdded

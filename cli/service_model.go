@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -303,15 +305,18 @@ func retrieveServiceEndpointFlags(depth int, m *models.Service, cmdPrefix string
 	if cmd.Flags().Changed(endpointFlagName) {
 		// info: complex object Endpoint ServiceEndpoint is retrieved outside this Changed() block
 	}
+	endpointFlagValue := m.Endpoint
+	if swag.IsZero(endpointFlagValue) {
+		endpointFlagValue = &models.ServiceEndpoint{}
+	}
 
-	endpointFlagValue := models.ServiceEndpoint{}
-	err, endpointAdded := retrieveModelServiceEndpointFlags(depth+1, &endpointFlagValue, endpointFlagName, cmd)
+	err, endpointAdded := retrieveModelServiceEndpointFlags(depth+1, endpointFlagValue, endpointFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || endpointAdded
 	if endpointAdded {
-		m.Endpoint = &endpointFlagValue
+		m.Endpoint = endpointFlagValue
 	}
 
 	return nil, retAdded
@@ -355,15 +360,18 @@ func retrieveServiceServiceStatusFlags(depth int, m *models.Service, cmdPrefix s
 	if cmd.Flags().Changed(serviceStatusFlagName) {
 		// info: complex object ServiceStatus ServiceServiceStatus is retrieved outside this Changed() block
 	}
+	serviceStatusFlagValue := m.ServiceStatus
+	if swag.IsZero(serviceStatusFlagValue) {
+		serviceStatusFlagValue = &models.ServiceServiceStatus{}
+	}
 
-	serviceStatusFlagValue := models.ServiceServiceStatus{}
-	err, serviceStatusAdded := retrieveModelServiceServiceStatusFlags(depth+1, &serviceStatusFlagValue, serviceStatusFlagName, cmd)
+	err, serviceStatusAdded := retrieveModelServiceServiceStatusFlags(depth+1, serviceStatusFlagValue, serviceStatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || serviceStatusAdded
 	if serviceStatusAdded {
-		m.ServiceStatus = &serviceStatusFlagValue
+		m.ServiceStatus = serviceStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -379,15 +387,18 @@ func retrieveServiceSpecFlags(depth int, m *models.Service, cmdPrefix string, cm
 	if cmd.Flags().Changed(specFlagName) {
 		// info: complex object Spec ServiceSpec is retrieved outside this Changed() block
 	}
+	specFlagValue := m.Spec
+	if swag.IsZero(specFlagValue) {
+		specFlagValue = &models.ServiceSpec{}
+	}
 
-	specFlagValue := models.ServiceSpec{}
-	err, specAdded := retrieveModelServiceSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	err, specAdded := retrieveModelServiceSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || specAdded
 	if specAdded {
-		m.Spec = &specFlagValue
+		m.Spec = specFlagValue
 	}
 
 	return nil, retAdded
@@ -403,15 +414,18 @@ func retrieveServiceUpdateStatusFlags(depth int, m *models.Service, cmdPrefix st
 	if cmd.Flags().Changed(updateStatusFlagName) {
 		// info: complex object UpdateStatus ServiceUpdateStatus is retrieved outside this Changed() block
 	}
+	updateStatusFlagValue := m.UpdateStatus
+	if swag.IsZero(updateStatusFlagValue) {
+		updateStatusFlagValue = &models.ServiceUpdateStatus{}
+	}
 
-	updateStatusFlagValue := models.ServiceUpdateStatus{}
-	err, updateStatusAdded := retrieveModelServiceUpdateStatusFlags(depth+1, &updateStatusFlagValue, updateStatusFlagName, cmd)
+	err, updateStatusAdded := retrieveModelServiceUpdateStatusFlags(depth+1, updateStatusFlagValue, updateStatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || updateStatusAdded
 	if updateStatusAdded {
-		m.UpdateStatus = &updateStatusFlagValue
+		m.UpdateStatus = updateStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -455,15 +469,18 @@ func retrieveServiceVersionFlags(depth int, m *models.Service, cmdPrefix string,
 	if cmd.Flags().Changed(versionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
+	versionFlagValue := m.Version
+	if swag.IsZero(versionFlagValue) {
+		versionFlagValue = &models.ObjectVersion{}
+	}
 
-	versionFlagValue := models.ObjectVersion{}
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || versionAdded
 	if versionAdded {
-		m.Version = &versionFlagValue
+		m.Version = versionFlagValue
 	}
 
 	return nil, retAdded
@@ -577,15 +594,18 @@ func retrieveServiceEndpointSpecFlags(depth int, m *models.ServiceEndpoint, cmdP
 	if cmd.Flags().Changed(specFlagName) {
 		// info: complex object Spec EndpointSpec is retrieved outside this Changed() block
 	}
+	specFlagValue := m.Spec
+	if swag.IsZero(specFlagValue) {
+		specFlagValue = &models.EndpointSpec{}
+	}
 
-	specFlagValue := models.EndpointSpec{}
-	err, specAdded := retrieveModelEndpointSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	err, specAdded := retrieveModelEndpointSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || specAdded
 	if specAdded {
-		m.Spec = &specFlagValue
+		m.Spec = specFlagValue
 	}
 
 	return nil, retAdded

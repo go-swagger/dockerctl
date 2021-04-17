@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -678,15 +680,18 @@ func retrieveImageConfigFlags(depth int, m *models.Image, cmdPrefix string, cmd 
 	if cmd.Flags().Changed(configFlagName) {
 		// info: complex object Config ContainerConfig is retrieved outside this Changed() block
 	}
+	configFlagValue := m.Config
+	if swag.IsZero(configFlagValue) {
+		configFlagValue = &models.ContainerConfig{}
+	}
 
-	configFlagValue := models.ContainerConfig{}
-	err, configAdded := retrieveModelContainerConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
+	err, configAdded := retrieveModelContainerConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || configAdded
 	if configAdded {
-		m.Config = &configFlagValue
+		m.Config = configFlagValue
 	}
 
 	return nil, retAdded
@@ -730,15 +735,18 @@ func retrieveImageContainerConfigFlags(depth int, m *models.Image, cmdPrefix str
 	if cmd.Flags().Changed(containerConfigFlagName) {
 		// info: complex object ContainerConfig ContainerConfig is retrieved outside this Changed() block
 	}
+	containerConfigFlagValue := m.ContainerConfig
+	if swag.IsZero(containerConfigFlagValue) {
+		containerConfigFlagValue = &models.ContainerConfig{}
+	}
 
-	containerConfigFlagValue := models.ContainerConfig{}
-	err, containerConfigAdded := retrieveModelContainerConfigFlags(depth+1, &containerConfigFlagValue, containerConfigFlagName, cmd)
+	err, containerConfigAdded := retrieveModelContainerConfigFlags(depth+1, containerConfigFlagValue, containerConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || containerConfigAdded
 	if containerConfigAdded {
-		m.ContainerConfig = &containerConfigFlagValue
+		m.ContainerConfig = containerConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -810,15 +818,18 @@ func retrieveImageGraphDriverFlags(depth int, m *models.Image, cmdPrefix string,
 	if cmd.Flags().Changed(graphDriverFlagName) {
 		// info: complex object GraphDriver GraphDriverData is retrieved outside this Changed() block
 	}
+	graphDriverFlagValue := m.GraphDriver
+	if swag.IsZero(graphDriverFlagValue) {
+		graphDriverFlagValue = &models.GraphDriverData{}
+	}
 
-	graphDriverFlagValue := models.GraphDriverData{}
-	err, graphDriverAdded := retrieveModelGraphDriverDataFlags(depth+1, &graphDriverFlagValue, graphDriverFlagName, cmd)
+	err, graphDriverAdded := retrieveModelGraphDriverDataFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || graphDriverAdded
 	if graphDriverAdded {
-		m.GraphDriver = &graphDriverFlagValue
+		m.GraphDriver = graphDriverFlagValue
 	}
 
 	return nil, retAdded
@@ -862,15 +873,18 @@ func retrieveImageMetadataFlags(depth int, m *models.Image, cmdPrefix string, cm
 	if cmd.Flags().Changed(metadataFlagName) {
 		// info: complex object Metadata ImageMetadata is retrieved outside this Changed() block
 	}
+	metadataFlagValue := m.Metadata
+	if swag.IsZero(metadataFlagValue) {
+		metadataFlagValue = &models.ImageMetadata{}
+	}
 
-	metadataFlagValue := models.ImageMetadata{}
-	err, metadataAdded := retrieveModelImageMetadataFlags(depth+1, &metadataFlagValue, metadataFlagName, cmd)
+	err, metadataAdded := retrieveModelImageMetadataFlags(depth+1, metadataFlagValue, metadataFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || metadataAdded
 	if metadataAdded {
-		m.Metadata = &metadataFlagValue
+		m.Metadata = metadataFlagValue
 	}
 
 	return nil, retAdded
@@ -998,15 +1012,18 @@ func retrieveImageRootFSFlags(depth int, m *models.Image, cmdPrefix string, cmd 
 	if cmd.Flags().Changed(rootFSFlagName) {
 		// info: complex object RootFS ImageRootFS is retrieved outside this Changed() block
 	}
+	rootFSFlagValue := m.RootFS
+	if swag.IsZero(rootFSFlagValue) {
+		rootFSFlagValue = &models.ImageRootFS{}
+	}
 
-	rootFSFlagValue := models.ImageRootFS{}
-	err, rootFSAdded := retrieveModelImageRootFSFlags(depth+1, &rootFSFlagValue, rootFSFlagName, cmd)
+	err, rootFSAdded := retrieveModelImageRootFSFlags(depth+1, rootFSFlagValue, rootFSFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || rootFSAdded
 	if rootFSAdded {
-		m.RootFS = &rootFSFlagValue
+		m.RootFS = rootFSFlagValue
 	}
 
 	return nil, retAdded

@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -262,15 +264,18 @@ func retrieveSwarmSpecCAConfigFlags(depth int, m *models.SwarmSpec, cmdPrefix st
 	if cmd.Flags().Changed(cAConfigFlagName) {
 		// info: complex object CAConfig SwarmSpecCAConfig is retrieved outside this Changed() block
 	}
+	cAConfigFlagValue := m.CAConfig
+	if swag.IsZero(cAConfigFlagValue) {
+		cAConfigFlagValue = &models.SwarmSpecCAConfig{}
+	}
 
-	cAConfigFlagValue := models.SwarmSpecCAConfig{}
-	err, cAConfigAdded := retrieveModelSwarmSpecCAConfigFlags(depth+1, &cAConfigFlagValue, cAConfigFlagName, cmd)
+	err, cAConfigAdded := retrieveModelSwarmSpecCAConfigFlags(depth+1, cAConfigFlagValue, cAConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || cAConfigAdded
 	if cAConfigAdded {
-		m.CAConfig = &cAConfigFlagValue
+		m.CAConfig = cAConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -286,15 +291,18 @@ func retrieveSwarmSpecDispatcherFlags(depth int, m *models.SwarmSpec, cmdPrefix 
 	if cmd.Flags().Changed(dispatcherFlagName) {
 		// info: complex object Dispatcher SwarmSpecDispatcher is retrieved outside this Changed() block
 	}
+	dispatcherFlagValue := m.Dispatcher
+	if swag.IsZero(dispatcherFlagValue) {
+		dispatcherFlagValue = &models.SwarmSpecDispatcher{}
+	}
 
-	dispatcherFlagValue := models.SwarmSpecDispatcher{}
-	err, dispatcherAdded := retrieveModelSwarmSpecDispatcherFlags(depth+1, &dispatcherFlagValue, dispatcherFlagName, cmd)
+	err, dispatcherAdded := retrieveModelSwarmSpecDispatcherFlags(depth+1, dispatcherFlagValue, dispatcherFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || dispatcherAdded
 	if dispatcherAdded {
-		m.Dispatcher = &dispatcherFlagValue
+		m.Dispatcher = dispatcherFlagValue
 	}
 
 	return nil, retAdded
@@ -310,15 +318,18 @@ func retrieveSwarmSpecEncryptionConfigFlags(depth int, m *models.SwarmSpec, cmdP
 	if cmd.Flags().Changed(encryptionConfigFlagName) {
 		// info: complex object EncryptionConfig SwarmSpecEncryptionConfig is retrieved outside this Changed() block
 	}
+	encryptionConfigFlagValue := m.EncryptionConfig
+	if swag.IsZero(encryptionConfigFlagValue) {
+		encryptionConfigFlagValue = &models.SwarmSpecEncryptionConfig{}
+	}
 
-	encryptionConfigFlagValue := models.SwarmSpecEncryptionConfig{}
-	err, encryptionConfigAdded := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, &encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
+	err, encryptionConfigAdded := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || encryptionConfigAdded
 	if encryptionConfigAdded {
-		m.EncryptionConfig = &encryptionConfigFlagValue
+		m.EncryptionConfig = encryptionConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -376,15 +387,18 @@ func retrieveSwarmSpecOrchestrationFlags(depth int, m *models.SwarmSpec, cmdPref
 	if cmd.Flags().Changed(orchestrationFlagName) {
 		// info: complex object Orchestration SwarmSpecOrchestration is retrieved outside this Changed() block
 	}
+	orchestrationFlagValue := m.Orchestration
+	if swag.IsZero(orchestrationFlagValue) {
+		orchestrationFlagValue = &models.SwarmSpecOrchestration{}
+	}
 
-	orchestrationFlagValue := models.SwarmSpecOrchestration{}
-	err, orchestrationAdded := retrieveModelSwarmSpecOrchestrationFlags(depth+1, &orchestrationFlagValue, orchestrationFlagName, cmd)
+	err, orchestrationAdded := retrieveModelSwarmSpecOrchestrationFlags(depth+1, orchestrationFlagValue, orchestrationFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || orchestrationAdded
 	if orchestrationAdded {
-		m.Orchestration = &orchestrationFlagValue
+		m.Orchestration = orchestrationFlagValue
 	}
 
 	return nil, retAdded
@@ -400,15 +414,18 @@ func retrieveSwarmSpecRaftFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 	if cmd.Flags().Changed(raftFlagName) {
 		// info: complex object Raft SwarmSpecRaft is retrieved outside this Changed() block
 	}
+	raftFlagValue := m.Raft
+	if swag.IsZero(raftFlagValue) {
+		raftFlagValue = &models.SwarmSpecRaft{}
+	}
 
-	raftFlagValue := models.SwarmSpecRaft{}
-	err, raftAdded := retrieveModelSwarmSpecRaftFlags(depth+1, &raftFlagValue, raftFlagName, cmd)
+	err, raftAdded := retrieveModelSwarmSpecRaftFlags(depth+1, raftFlagValue, raftFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || raftAdded
 	if raftAdded {
-		m.Raft = &raftFlagValue
+		m.Raft = raftFlagValue
 	}
 
 	return nil, retAdded
@@ -424,15 +441,18 @@ func retrieveSwarmSpecTaskDefaultsFlags(depth int, m *models.SwarmSpec, cmdPrefi
 	if cmd.Flags().Changed(taskDefaultsFlagName) {
 		// info: complex object TaskDefaults SwarmSpecTaskDefaults is retrieved outside this Changed() block
 	}
+	taskDefaultsFlagValue := m.TaskDefaults
+	if swag.IsZero(taskDefaultsFlagValue) {
+		taskDefaultsFlagValue = &models.SwarmSpecTaskDefaults{}
+	}
 
-	taskDefaultsFlagValue := models.SwarmSpecTaskDefaults{}
-	err, taskDefaultsAdded := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, &taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
+	err, taskDefaultsAdded := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || taskDefaultsAdded
 	if taskDefaultsAdded {
-		m.TaskDefaults = &taskDefaultsFlagValue
+		m.TaskDefaults = taskDefaultsFlagValue
 	}
 
 	return nil, retAdded
@@ -1453,15 +1473,18 @@ func retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth int, m *models.SwarmSpecT
 	if cmd.Flags().Changed(logDriverFlagName) {
 		// info: complex object LogDriver SwarmSpecTaskDefaultsLogDriver is retrieved outside this Changed() block
 	}
+	logDriverFlagValue := m.LogDriver
+	if swag.IsZero(logDriverFlagValue) {
+		logDriverFlagValue = &models.SwarmSpecTaskDefaultsLogDriver{}
+	}
 
-	logDriverFlagValue := models.SwarmSpecTaskDefaultsLogDriver{}
-	err, logDriverAdded := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, &logDriverFlagValue, logDriverFlagName, cmd)
+	err, logDriverAdded := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || logDriverAdded
 	if logDriverAdded {
-		m.LogDriver = &logDriverFlagValue
+		m.LogDriver = logDriverFlagValue
 	}
 
 	return nil, retAdded

@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -219,8 +221,11 @@ func retrievePluginConfigFlags(depth int, m *models.Plugin, cmdPrefix string, cm
 	if cmd.Flags().Changed(configFlagName) {
 		// info: complex object Config PluginConfig is retrieved outside this Changed() block
 	}
+	configFlagValue := m.Config
+	if swag.IsZero(configFlagValue) {
+		configFlagValue = models.PluginConfig{}
+	}
 
-	configFlagValue := models.PluginConfig{}
 	err, configAdded := retrieveModelPluginConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -355,8 +360,11 @@ func retrievePluginSettingsFlags(depth int, m *models.Plugin, cmdPrefix string, 
 	if cmd.Flags().Changed(settingsFlagName) {
 		// info: complex object Settings PluginSettings is retrieved outside this Changed() block
 	}
+	settingsFlagValue := m.Settings
+	if swag.IsZero(settingsFlagValue) {
+		settingsFlagValue = models.PluginSettings{}
+	}
 
-	settingsFlagValue := models.PluginSettings{}
 	err, settingsAdded := retrieveModelPluginSettingsFlags(depth+1, &settingsFlagValue, settingsFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -845,8 +853,11 @@ func retrievePluginConfigArgsFlags(depth int, m *models.PluginConfig, cmdPrefix 
 	if cmd.Flags().Changed(argsFlagName) {
 		// info: complex object Args PluginConfigArgs is retrieved outside this Changed() block
 	}
+	argsFlagValue := m.Args
+	if swag.IsZero(argsFlagValue) {
+		argsFlagValue = models.PluginConfigArgs{}
+	}
 
-	argsFlagValue := models.PluginConfigArgs{}
 	err, argsAdded := retrieveModelPluginConfigArgsFlags(depth+1, &argsFlagValue, argsFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -981,8 +992,11 @@ func retrievePluginConfigInterfaceFlags(depth int, m *models.PluginConfig, cmdPr
 	if cmd.Flags().Changed(interfaceFlagName) {
 		// info: complex object Interface PluginConfigInterface is retrieved outside this Changed() block
 	}
+	interfaceFlagValue := m.Interface
+	if swag.IsZero(interfaceFlagValue) {
+		interfaceFlagValue = models.PluginConfigInterface{}
+	}
 
-	interfaceFlagValue := models.PluginConfigInterface{}
 	err, interfaceAdded := retrieveModelPluginConfigInterfaceFlags(depth+1, &interfaceFlagValue, interfaceFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -1033,8 +1047,11 @@ func retrievePluginConfigLinuxFlags(depth int, m *models.PluginConfig, cmdPrefix
 	if cmd.Flags().Changed(linuxFlagName) {
 		// info: complex object Linux PluginConfigLinux is retrieved outside this Changed() block
 	}
+	linuxFlagValue := m.Linux
+	if swag.IsZero(linuxFlagValue) {
+		linuxFlagValue = models.PluginConfigLinux{}
+	}
 
-	linuxFlagValue := models.PluginConfigLinux{}
 	err, linuxAdded := retrieveModelPluginConfigLinuxFlags(depth+1, &linuxFlagValue, linuxFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -1071,8 +1088,11 @@ func retrievePluginConfigNetworkFlags(depth int, m *models.PluginConfig, cmdPref
 	if cmd.Flags().Changed(networkFlagName) {
 		// info: complex object Network PluginConfigNetwork is retrieved outside this Changed() block
 	}
+	networkFlagValue := m.Network
+	if swag.IsZero(networkFlagValue) {
+		networkFlagValue = models.PluginConfigNetwork{}
+	}
 
-	networkFlagValue := models.PluginConfigNetwork{}
 	err, networkAdded := retrieveModelPluginConfigNetworkFlags(depth+1, &networkFlagValue, networkFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -1151,8 +1171,11 @@ func retrievePluginConfigUserFlags(depth int, m *models.PluginConfig, cmdPrefix 
 	if cmd.Flags().Changed(userFlagName) {
 		// info: complex object User PluginConfigUser is retrieved outside this Changed() block
 	}
+	userFlagValue := m.User
+	if swag.IsZero(userFlagValue) {
+		userFlagValue = models.PluginConfigUser{}
+	}
 
-	userFlagValue := models.PluginConfigUser{}
 	err, userAdded := retrieveModelPluginConfigUserFlags(depth+1, &userFlagValue, userFlagName, cmd)
 	if err != nil {
 		return err, false
@@ -1203,15 +1226,18 @@ func retrievePluginConfigRootfsFlags(depth int, m *models.PluginConfig, cmdPrefi
 	if cmd.Flags().Changed(rootfsFlagName) {
 		// info: complex object rootfs PluginConfigRootfs is retrieved outside this Changed() block
 	}
+	rootfsFlagValue := m.Rootfs
+	if swag.IsZero(rootfsFlagValue) {
+		rootfsFlagValue = &models.PluginConfigRootfs{}
+	}
 
-	rootfsFlagValue := models.PluginConfigRootfs{}
-	err, rootfsAdded := retrieveModelPluginConfigRootfsFlags(depth+1, &rootfsFlagValue, rootfsFlagName, cmd)
+	err, rootfsAdded := retrieveModelPluginConfigRootfsFlags(depth+1, rootfsFlagValue, rootfsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || rootfsAdded
 	if rootfsAdded {
-		m.Rootfs = &rootfsFlagValue
+		m.Rootfs = rootfsFlagValue
 	}
 
 	return nil, retAdded

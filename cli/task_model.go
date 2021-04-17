@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -614,15 +616,18 @@ func retrieveTaskSpecFlags(depth int, m *models.Task, cmdPrefix string, cmd *cob
 	if cmd.Flags().Changed(specFlagName) {
 		// info: complex object Spec TaskSpec is retrieved outside this Changed() block
 	}
+	specFlagValue := m.Spec
+	if swag.IsZero(specFlagValue) {
+		specFlagValue = &models.TaskSpec{}
+	}
 
-	specFlagValue := models.TaskSpec{}
-	err, specAdded := retrieveModelTaskSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	err, specAdded := retrieveModelTaskSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || specAdded
 	if specAdded {
-		m.Spec = &specFlagValue
+		m.Spec = specFlagValue
 	}
 
 	return nil, retAdded
@@ -638,15 +643,18 @@ func retrieveTaskStatusFlags(depth int, m *models.Task, cmdPrefix string, cmd *c
 	if cmd.Flags().Changed(statusFlagName) {
 		// info: complex object Status TaskStatus is retrieved outside this Changed() block
 	}
+	statusFlagValue := m.Status
+	if swag.IsZero(statusFlagValue) {
+		statusFlagValue = &models.TaskStatus{}
+	}
 
-	statusFlagValue := models.TaskStatus{}
-	err, statusAdded := retrieveModelTaskStatusFlags(depth+1, &statusFlagValue, statusFlagName, cmd)
+	err, statusAdded := retrieveModelTaskStatusFlags(depth+1, statusFlagValue, statusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || statusAdded
 	if statusAdded {
-		m.Status = &statusFlagValue
+		m.Status = statusFlagValue
 	}
 
 	return nil, retAdded
@@ -690,15 +698,18 @@ func retrieveTaskVersionFlags(depth int, m *models.Task, cmdPrefix string, cmd *
 	if cmd.Flags().Changed(versionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
+	versionFlagValue := m.Version
+	if swag.IsZero(versionFlagValue) {
+		versionFlagValue = &models.ObjectVersion{}
+	}
 
-	versionFlagValue := models.ObjectVersion{}
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, &versionFlagValue, versionFlagName, cmd)
+	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || versionAdded
 	if versionAdded {
-		m.Version = &versionFlagValue
+		m.Version = versionFlagValue
 	}
 
 	return nil, retAdded
@@ -871,15 +882,18 @@ func retrieveTaskStatusContainerStatusFlags(depth int, m *models.TaskStatus, cmd
 	if cmd.Flags().Changed(containerStatusFlagName) {
 		// info: complex object ContainerStatus TaskStatusContainerStatus is retrieved outside this Changed() block
 	}
+	containerStatusFlagValue := m.ContainerStatus
+	if swag.IsZero(containerStatusFlagValue) {
+		containerStatusFlagValue = &models.TaskStatusContainerStatus{}
+	}
 
-	containerStatusFlagValue := models.TaskStatusContainerStatus{}
-	err, containerStatusAdded := retrieveModelTaskStatusContainerStatusFlags(depth+1, &containerStatusFlagValue, containerStatusFlagName, cmd)
+	err, containerStatusAdded := retrieveModelTaskStatusContainerStatusFlags(depth+1, containerStatusFlagValue, containerStatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || containerStatusAdded
 	if containerStatusAdded {
-		m.ContainerStatus = &containerStatusFlagValue
+		m.ContainerStatus = containerStatusFlagValue
 	}
 
 	return nil, retAdded

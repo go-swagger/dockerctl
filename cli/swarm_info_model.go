@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -294,15 +296,18 @@ func retrieveSwarmInfoClusterFlags(depth int, m *models.SwarmInfo, cmdPrefix str
 	if cmd.Flags().Changed(clusterFlagName) {
 		// info: complex object Cluster ClusterInfo is retrieved outside this Changed() block
 	}
+	clusterFlagValue := m.Cluster
+	if swag.IsZero(clusterFlagValue) {
+		clusterFlagValue = &models.ClusterInfo{}
+	}
 
-	clusterFlagValue := models.ClusterInfo{}
-	err, clusterAdded := retrieveModelClusterInfoFlags(depth+1, &clusterFlagValue, clusterFlagName, cmd)
+	err, clusterAdded := retrieveModelClusterInfoFlags(depth+1, clusterFlagValue, clusterFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || clusterAdded
 	if clusterAdded {
-		m.Cluster = &clusterFlagValue
+		m.Cluster = clusterFlagValue
 	}
 
 	return nil, retAdded

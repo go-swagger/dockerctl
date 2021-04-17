@@ -574,15 +574,18 @@ func retrieveSwarmInitBodySpecFlags(depth int, m *swarm.SwarmInitBody, cmdPrefix
 	if cmd.Flags().Changed(specFlagName) {
 		// info: complex object Spec models.SwarmSpec is retrieved outside this Changed() block
 	}
+	specFlagValue := m.Spec
+	if swag.IsZero(specFlagValue) {
+		specFlagValue = &models.SwarmSpec{}
+	}
 
-	specFlagValue := models.SwarmSpec{}
-	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, &specFlagValue, specFlagName, cmd)
+	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || specAdded
 	if specAdded {
-		m.Spec = &specFlagValue
+		m.Spec = specFlagValue
 	}
 
 	return nil, retAdded

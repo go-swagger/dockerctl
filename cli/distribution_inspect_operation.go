@@ -455,15 +455,18 @@ func retrieveDistributionInspectOKBodyDescriptorFlags(depth int, m *distribution
 	if cmd.Flags().Changed(descriptorFlagName) {
 		// info: complex object Descriptor DistributionInspectDistributionInspectOKBodyDescriptor is retrieved outside this Changed() block
 	}
+	descriptorFlagValue := m.Descriptor
+	if swag.IsZero(descriptorFlagValue) {
+		descriptorFlagValue = &distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
+	}
 
-	descriptorFlagValue := distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
-	err, descriptorAdded := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, &descriptorFlagValue, descriptorFlagName, cmd)
+	err, descriptorAdded := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, descriptorFlagValue, descriptorFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || descriptorAdded
 	if descriptorAdded {
-		m.Descriptor = &descriptorFlagValue
+		m.Descriptor = descriptorFlagValue
 	}
 
 	return nil, retAdded

@@ -1020,15 +1020,18 @@ func retrieveContainerInspectOKBodyConfigFlags(depth int, m *container.Container
 	if cmd.Flags().Changed(configFlagName) {
 		// info: complex object Config models.ContainerConfig is retrieved outside this Changed() block
 	}
+	configFlagValue := m.Config
+	if swag.IsZero(configFlagValue) {
+		configFlagValue = &models.ContainerConfig{}
+	}
 
-	configFlagValue := models.ContainerConfig{}
-	err, configAdded := retrieveModelContainerConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
+	err, configAdded := retrieveModelContainerConfigFlags(depth+1, configFlagValue, configFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || configAdded
 	if configAdded {
-		m.Config = &configFlagValue
+		m.Config = configFlagValue
 	}
 
 	return nil, retAdded
@@ -1114,15 +1117,18 @@ func retrieveContainerInspectOKBodyGraphDriverFlags(depth int, m *container.Cont
 	if cmd.Flags().Changed(graphDriverFlagName) {
 		// info: complex object GraphDriver models.GraphDriverData is retrieved outside this Changed() block
 	}
+	graphDriverFlagValue := m.GraphDriver
+	if swag.IsZero(graphDriverFlagValue) {
+		graphDriverFlagValue = &models.GraphDriverData{}
+	}
 
-	graphDriverFlagValue := models.GraphDriverData{}
-	err, graphDriverAdded := retrieveModelGraphDriverDataFlags(depth+1, &graphDriverFlagValue, graphDriverFlagName, cmd)
+	err, graphDriverAdded := retrieveModelGraphDriverDataFlags(depth+1, graphDriverFlagValue, graphDriverFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || graphDriverAdded
 	if graphDriverAdded {
-		m.GraphDriver = &graphDriverFlagValue
+		m.GraphDriver = graphDriverFlagValue
 	}
 
 	return nil, retAdded
@@ -1138,15 +1144,18 @@ func retrieveContainerInspectOKBodyHostConfigFlags(depth int, m *container.Conta
 	if cmd.Flags().Changed(hostConfigFlagName) {
 		// info: complex object HostConfig models.HostConfig is retrieved outside this Changed() block
 	}
+	hostConfigFlagValue := m.HostConfig
+	if swag.IsZero(hostConfigFlagValue) {
+		hostConfigFlagValue = &models.HostConfig{}
+	}
 
-	hostConfigFlagValue := models.HostConfig{}
-	err, hostConfigAdded := retrieveModelHostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
+	err, hostConfigAdded := retrieveModelHostConfigFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || hostConfigAdded
 	if hostConfigAdded {
-		m.HostConfig = &hostConfigFlagValue
+		m.HostConfig = hostConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -1372,15 +1381,18 @@ func retrieveContainerInspectOKBodyNetworkSettingsFlags(depth int, m *container.
 	if cmd.Flags().Changed(networkSettingsFlagName) {
 		// info: complex object NetworkSettings models.NetworkSettings is retrieved outside this Changed() block
 	}
+	networkSettingsFlagValue := m.NetworkSettings
+	if swag.IsZero(networkSettingsFlagValue) {
+		networkSettingsFlagValue = &models.NetworkSettings{}
+	}
 
-	networkSettingsFlagValue := models.NetworkSettings{}
-	err, networkSettingsAdded := retrieveModelNetworkSettingsFlags(depth+1, &networkSettingsFlagValue, networkSettingsFlagName, cmd)
+	err, networkSettingsAdded := retrieveModelNetworkSettingsFlags(depth+1, networkSettingsFlagValue, networkSettingsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || networkSettingsAdded
 	if networkSettingsAdded {
-		m.NetworkSettings = &networkSettingsFlagValue
+		m.NetworkSettings = networkSettingsFlagValue
 	}
 
 	return nil, retAdded
@@ -1606,15 +1618,18 @@ func retrieveContainerInspectOKBodyStateFlags(depth int, m *container.ContainerI
 	if cmd.Flags().Changed(stateFlagName) {
 		// info: complex object State ContainerInspectOKBodyState is retrieved outside this Changed() block
 	}
+	stateFlagValue := m.State
+	if swag.IsZero(stateFlagValue) {
+		stateFlagValue = &container.ContainerInspectOKBodyState{}
+	}
 
-	stateFlagValue := container.ContainerInspectOKBodyState{}
-	err, stateAdded := retrieveModelContainerInspectOKBodyStateFlags(depth+1, &stateFlagValue, stateFlagName, cmd)
+	err, stateAdded := retrieveModelContainerInspectOKBodyStateFlags(depth+1, stateFlagValue, stateFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || stateAdded
 	if stateAdded {
-		m.State = &stateFlagValue
+		m.State = stateFlagValue
 	}
 
 	return nil, retAdded

@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -514,15 +516,18 @@ func retrieveContainerSummaryItems0HostConfigFlags(depth int, m *models.Containe
 	if cmd.Flags().Changed(hostConfigFlagName) {
 		// info: complex object HostConfig ContainerSummaryItems0HostConfig is retrieved outside this Changed() block
 	}
+	hostConfigFlagValue := m.HostConfig
+	if swag.IsZero(hostConfigFlagValue) {
+		hostConfigFlagValue = &models.ContainerSummaryItems0HostConfig{}
+	}
 
-	hostConfigFlagValue := models.ContainerSummaryItems0HostConfig{}
-	err, hostConfigAdded := retrieveModelContainerSummaryItems0HostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
+	err, hostConfigAdded := retrieveModelContainerSummaryItems0HostConfigFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || hostConfigAdded
 	if hostConfigAdded {
-		m.HostConfig = &hostConfigFlagValue
+		m.HostConfig = hostConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -664,15 +669,18 @@ func retrieveContainerSummaryItems0NetworkSettingsFlags(depth int, m *models.Con
 	if cmd.Flags().Changed(networkSettingsFlagName) {
 		// info: complex object NetworkSettings ContainerSummaryItems0NetworkSettings is retrieved outside this Changed() block
 	}
+	networkSettingsFlagValue := m.NetworkSettings
+	if swag.IsZero(networkSettingsFlagValue) {
+		networkSettingsFlagValue = &models.ContainerSummaryItems0NetworkSettings{}
+	}
 
-	networkSettingsFlagValue := models.ContainerSummaryItems0NetworkSettings{}
-	err, networkSettingsAdded := retrieveModelContainerSummaryItems0NetworkSettingsFlags(depth+1, &networkSettingsFlagValue, networkSettingsFlagName, cmd)
+	err, networkSettingsAdded := retrieveModelContainerSummaryItems0NetworkSettingsFlags(depth+1, networkSettingsFlagValue, networkSettingsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || networkSettingsAdded
 	if networkSettingsAdded {
-		m.NetworkSettings = &networkSettingsFlagValue
+		m.NetworkSettings = networkSettingsFlagValue
 	}
 
 	return nil, retAdded

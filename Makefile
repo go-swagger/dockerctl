@@ -18,6 +18,10 @@ clean-generate:
 build:
 	CGO_ENABLED=0 go build -o cmd/dockerctl/dockerctl cmd/dockerctl/main.go
 
+install:
+	cp cmd/dockerctl/dockerctl /usr/local/bin/dockerctl
+	cp cmd/completion/dockerctl.bash-completion.sh /etc/bash_completion.d/dockerctl
+
 clean:
 	rm -f cmd/dockerctl/dockerctl
 

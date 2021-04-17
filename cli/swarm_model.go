@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -87,15 +89,18 @@ func retrieveSwarmAnonAO1JoinTokensFlags(depth int, m *models.Swarm, cmdPrefix s
 	if cmd.Flags().Changed(joinTokensFlagName) {
 		// info: complex object JoinTokens JoinTokens is retrieved outside this Changed() block
 	}
+	joinTokensFlagValue := m.JoinTokens
+	if swag.IsZero(joinTokensFlagValue) {
+		joinTokensFlagValue = &models.JoinTokens{}
+	}
 
-	joinTokensFlagValue := models.JoinTokens{}
-	err, joinTokensAdded := retrieveModelJoinTokensFlags(depth+1, &joinTokensFlagValue, joinTokensFlagName, cmd)
+	err, joinTokensAdded := retrieveModelJoinTokensFlags(depth+1, joinTokensFlagValue, joinTokensFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || joinTokensAdded
 	if joinTokensAdded {
-		m.JoinTokens = &joinTokensFlagValue
+		m.JoinTokens = joinTokensFlagValue
 	}
 
 	return nil, retAdded

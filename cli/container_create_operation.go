@@ -348,15 +348,18 @@ func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(
 	if cmd.Flags().Changed(hostConfigFlagName) {
 		// info: complex object HostConfig models.HostConfig is retrieved outside this Changed() block
 	}
+	hostConfigFlagValue := m.HostConfig
+	if swag.IsZero(hostConfigFlagValue) {
+		hostConfigFlagValue = &models.HostConfig{}
+	}
 
-	hostConfigFlagValue := models.HostConfig{}
-	err, hostConfigAdded := retrieveModelHostConfigFlags(depth+1, &hostConfigFlagValue, hostConfigFlagName, cmd)
+	err, hostConfigAdded := retrieveModelHostConfigFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || hostConfigAdded
 	if hostConfigAdded {
-		m.HostConfig = &hostConfigFlagValue
+		m.HostConfig = hostConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -372,15 +375,18 @@ func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig
 	if cmd.Flags().Changed(networkingConfigFlagName) {
 		// info: complex object NetworkingConfig ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig is retrieved outside this Changed() block
 	}
+	networkingConfigFlagValue := m.NetworkingConfig
+	if swag.IsZero(networkingConfigFlagValue) {
+		networkingConfigFlagValue = &container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
+	}
 
-	networkingConfigFlagValue := container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
-	err, networkingConfigAdded := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, &networkingConfigFlagValue, networkingConfigFlagName, cmd)
+	err, networkingConfigAdded := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, networkingConfigFlagValue, networkingConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || networkingConfigAdded
 	if networkingConfigAdded {
-		m.NetworkingConfig = &networkingConfigFlagValue
+		m.NetworkingConfig = networkingConfigFlagValue
 	}
 
 	return nil, retAdded

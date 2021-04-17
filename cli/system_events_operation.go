@@ -486,15 +486,18 @@ func retrieveSystemEventsOKBodyActorFlags(depth int, m *system.SystemEventsOKBod
 	if cmd.Flags().Changed(actorFlagName) {
 		// info: complex object Actor SystemEventsOKBodyActor is retrieved outside this Changed() block
 	}
+	actorFlagValue := m.Actor
+	if swag.IsZero(actorFlagValue) {
+		actorFlagValue = &system.SystemEventsOKBodyActor{}
+	}
 
-	actorFlagValue := system.SystemEventsOKBodyActor{}
-	err, actorAdded := retrieveModelSystemEventsOKBodyActorFlags(depth+1, &actorFlagValue, actorFlagName, cmd)
+	err, actorAdded := retrieveModelSystemEventsOKBodyActorFlags(depth+1, actorFlagValue, actorFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || actorAdded
 	if actorAdded {
-		m.Actor = &actorFlagValue
+		m.Actor = actorFlagValue
 	}
 
 	return nil, retAdded

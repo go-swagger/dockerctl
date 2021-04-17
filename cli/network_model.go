@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -531,15 +533,18 @@ func retrieveNetworkIPAMFlags(depth int, m *models.Network, cmdPrefix string, cm
 	if cmd.Flags().Changed(ipAMFlagName) {
 		// info: complex object IPAM IPAM is retrieved outside this Changed() block
 	}
+	ipAMFlagValue := m.IPAM
+	if swag.IsZero(ipAMFlagValue) {
+		ipAMFlagValue = &models.IPAM{}
+	}
 
-	ipAMFlagValue := models.IPAM{}
-	err, ipAMAdded := retrieveModelIPAMFlags(depth+1, &ipAMFlagValue, ipAMFlagName, cmd)
+	err, ipAMAdded := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || ipAMAdded
 	if ipAMAdded {
-		m.IPAM = &ipAMFlagValue
+		m.IPAM = ipAMFlagValue
 	}
 
 	return nil, retAdded

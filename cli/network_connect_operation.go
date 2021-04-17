@@ -329,15 +329,18 @@ func retrieveNetworkConnectBodyEndpointConfigFlags(depth int, m *network.Network
 	if cmd.Flags().Changed(endpointConfigFlagName) {
 		// info: complex object EndpointConfig models.EndpointSettings is retrieved outside this Changed() block
 	}
+	endpointConfigFlagValue := m.EndpointConfig
+	if swag.IsZero(endpointConfigFlagValue) {
+		endpointConfigFlagValue = &models.EndpointSettings{}
+	}
 
-	endpointConfigFlagValue := models.EndpointSettings{}
-	err, endpointConfigAdded := retrieveModelEndpointSettingsFlags(depth+1, &endpointConfigFlagValue, endpointConfigFlagName, cmd)
+	err, endpointConfigAdded := retrieveModelEndpointSettingsFlags(depth+1, endpointConfigFlagValue, endpointConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || endpointConfigAdded
 	if endpointConfigAdded {
-		m.EndpointConfig = &endpointConfigFlagValue
+		m.EndpointConfig = endpointConfigFlagValue
 	}
 
 	return nil, retAdded

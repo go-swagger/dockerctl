@@ -8,7 +8,9 @@ package cli
 import (
 	"fmt"
 
+	"github.com/go-openapi/swag"
 	"github.com/go-swagger/dockerctl/models"
+
 	"github.com/spf13/cobra"
 )
 
@@ -285,15 +287,18 @@ func retrieveMountBindOptionsFlags(depth int, m *models.Mount, cmdPrefix string,
 	if cmd.Flags().Changed(bindOptionsFlagName) {
 		// info: complex object BindOptions MountBindOptions is retrieved outside this Changed() block
 	}
+	bindOptionsFlagValue := m.BindOptions
+	if swag.IsZero(bindOptionsFlagValue) {
+		bindOptionsFlagValue = &models.MountBindOptions{}
+	}
 
-	bindOptionsFlagValue := models.MountBindOptions{}
-	err, bindOptionsAdded := retrieveModelMountBindOptionsFlags(depth+1, &bindOptionsFlagValue, bindOptionsFlagName, cmd)
+	err, bindOptionsAdded := retrieveModelMountBindOptionsFlags(depth+1, bindOptionsFlagValue, bindOptionsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || bindOptionsAdded
 	if bindOptionsAdded {
-		m.BindOptions = &bindOptionsFlagValue
+		m.BindOptions = bindOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -421,15 +426,18 @@ func retrieveMountTmpfsOptionsFlags(depth int, m *models.Mount, cmdPrefix string
 	if cmd.Flags().Changed(tmpfsOptionsFlagName) {
 		// info: complex object TmpfsOptions MountTmpfsOptions is retrieved outside this Changed() block
 	}
+	tmpfsOptionsFlagValue := m.TmpfsOptions
+	if swag.IsZero(tmpfsOptionsFlagValue) {
+		tmpfsOptionsFlagValue = &models.MountTmpfsOptions{}
+	}
 
-	tmpfsOptionsFlagValue := models.MountTmpfsOptions{}
-	err, tmpfsOptionsAdded := retrieveModelMountTmpfsOptionsFlags(depth+1, &tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
+	err, tmpfsOptionsAdded := retrieveModelMountTmpfsOptionsFlags(depth+1, tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || tmpfsOptionsAdded
 	if tmpfsOptionsAdded {
-		m.TmpfsOptions = &tmpfsOptionsFlagValue
+		m.TmpfsOptions = tmpfsOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -473,15 +481,18 @@ func retrieveMountVolumeOptionsFlags(depth int, m *models.Mount, cmdPrefix strin
 	if cmd.Flags().Changed(volumeOptionsFlagName) {
 		// info: complex object VolumeOptions MountVolumeOptions is retrieved outside this Changed() block
 	}
+	volumeOptionsFlagValue := m.VolumeOptions
+	if swag.IsZero(volumeOptionsFlagValue) {
+		volumeOptionsFlagValue = &models.MountVolumeOptions{}
+	}
 
-	volumeOptionsFlagValue := models.MountVolumeOptions{}
-	err, volumeOptionsAdded := retrieveModelMountVolumeOptionsFlags(depth+1, &volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
+	err, volumeOptionsAdded := retrieveModelMountVolumeOptionsFlags(depth+1, volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || volumeOptionsAdded
 	if volumeOptionsAdded {
-		m.VolumeOptions = &volumeOptionsFlagValue
+		m.VolumeOptions = volumeOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -858,15 +869,18 @@ func retrieveMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolum
 	if cmd.Flags().Changed(driverConfigFlagName) {
 		// info: complex object DriverConfig MountVolumeOptionsDriverConfig is retrieved outside this Changed() block
 	}
+	driverConfigFlagValue := m.DriverConfig
+	if swag.IsZero(driverConfigFlagValue) {
+		driverConfigFlagValue = &models.MountVolumeOptionsDriverConfig{}
+	}
 
-	driverConfigFlagValue := models.MountVolumeOptionsDriverConfig{}
-	err, driverConfigAdded := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, &driverConfigFlagValue, driverConfigFlagName, cmd)
+	err, driverConfigAdded := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, driverConfigFlagValue, driverConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
 	retAdded = retAdded || driverConfigAdded
 	if driverConfigAdded {
-		m.DriverConfig = &driverConfigFlagValue
+		m.DriverConfig = driverConfigFlagValue
 	}
 
 	return nil, retAdded

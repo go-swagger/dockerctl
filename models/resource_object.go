@@ -52,6 +52,8 @@ func (m *ResourceObject) validateGenericResources(formats strfmt.Registry) error
 	if err := m.GenericResources.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("GenericResources")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("GenericResources")
 		}
 		return err
 	}
@@ -78,6 +80,8 @@ func (m *ResourceObject) contextValidateGenericResources(ctx context.Context, fo
 	if err := m.GenericResources.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("GenericResources")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("GenericResources")
 		}
 		return err
 	}

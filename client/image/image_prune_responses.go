@@ -148,6 +148,8 @@ func (o *ImagePruneOKBody) validateImagesDeleted(formats strfmt.Registry) error 
 			if err := o.ImagesDeleted[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("imagePruneOK" + "." + "ImagesDeleted" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("imagePruneOK" + "." + "ImagesDeleted" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -180,6 +182,8 @@ func (o *ImagePruneOKBody) contextValidateImagesDeleted(ctx context.Context, for
 			if err := o.ImagesDeleted[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("imagePruneOK" + "." + "ImagesDeleted" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("imagePruneOK" + "." + "ImagesDeleted" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

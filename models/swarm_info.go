@@ -88,6 +88,8 @@ func (m *SwarmInfo) validateCluster(formats strfmt.Registry) error {
 		if err := m.Cluster.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Cluster")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Cluster")
 			}
 			return err
 		}
@@ -104,6 +106,8 @@ func (m *SwarmInfo) validateLocalNodeState(formats strfmt.Registry) error {
 	if err := m.LocalNodeState.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("LocalNodeState")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("LocalNodeState")
 		}
 		return err
 	}
@@ -125,6 +129,8 @@ func (m *SwarmInfo) validateRemoteManagers(formats strfmt.Registry) error {
 			if err := m.RemoteManagers[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RemoteManagers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RemoteManagers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -163,6 +169,8 @@ func (m *SwarmInfo) contextValidateCluster(ctx context.Context, formats strfmt.R
 		if err := m.Cluster.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Cluster")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Cluster")
 			}
 			return err
 		}
@@ -176,6 +184,8 @@ func (m *SwarmInfo) contextValidateLocalNodeState(ctx context.Context, formats s
 	if err := m.LocalNodeState.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("LocalNodeState")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("LocalNodeState")
 		}
 		return err
 	}
@@ -191,6 +201,8 @@ func (m *SwarmInfo) contextValidateRemoteManagers(ctx context.Context, formats s
 			if err := m.RemoteManagers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RemoteManagers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RemoteManagers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -54,6 +54,8 @@ func (m *NodeStatus) validateState(formats strfmt.Registry) error {
 	if err := m.State.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("State")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("State")
 		}
 		return err
 	}
@@ -80,6 +82,8 @@ func (m *NodeStatus) contextValidateState(ctx context.Context, formats strfmt.Re
 	if err := m.State.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("State")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("State")
 		}
 		return err
 	}

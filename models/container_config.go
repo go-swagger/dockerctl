@@ -169,6 +169,8 @@ func (m *ContainerConfig) validateHealthcheck(formats strfmt.Registry) error {
 		if err := m.Healthcheck.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Healthcheck")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Healthcheck")
 			}
 			return err
 		}
@@ -232,6 +234,8 @@ func (m *ContainerConfig) contextValidateHealthcheck(ctx context.Context, format
 		if err := m.Healthcheck.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Healthcheck")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Healthcheck")
 			}
 			return err
 		}

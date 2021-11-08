@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/models"
@@ -66,7 +67,7 @@ func registerEndpointPortConfigProtocol(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	protocolDescription := ``
+	protocolDescription := `Enum: ["tcp","udp","sctp"]. `
 
 	var protocolFlagName string
 	if cmdPrefix == "" {
@@ -79,6 +80,17 @@ func registerEndpointPortConfigProtocol(depth int, cmdPrefix string, cmd *cobra.
 
 	_ = cmd.PersistentFlags().String(protocolFlagName, protocolFlagDefault, protocolDescription)
 
+	if err := cmd.RegisterFlagCompletionFunc(protocolFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["tcp","udp","sctp"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -87,7 +99,7 @@ func registerEndpointPortConfigPublishMode(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	publishModeDescription := `The mode in which port is published.
+	publishModeDescription := `Enum: ["ingress","host"]. The mode in which port is published.
 
 <p><br /></p>
 
@@ -108,6 +120,17 @@ func registerEndpointPortConfigPublishMode(depth int, cmdPrefix string, cmd *cob
 	var publishModeFlagDefault string = "ingress"
 
 	_ = cmd.PersistentFlags().String(publishModeFlagName, publishModeFlagDefault, publishModeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(publishModeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["ingress","host"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

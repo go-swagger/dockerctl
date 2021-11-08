@@ -97,6 +97,8 @@ func (m *Task) validateAssignedGenericResources(formats strfmt.Registry) error {
 	if err := m.AssignedGenericResources.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("AssignedGenericResources")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("AssignedGenericResources")
 		}
 		return err
 	}
@@ -112,6 +114,8 @@ func (m *Task) validateDesiredState(formats strfmt.Registry) error {
 	if err := m.DesiredState.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("DesiredState")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("DesiredState")
 		}
 		return err
 	}
@@ -128,6 +132,8 @@ func (m *Task) validateSpec(formats strfmt.Registry) error {
 		if err := m.Spec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -145,6 +151,8 @@ func (m *Task) validateStatus(formats strfmt.Registry) error {
 		if err := m.Status.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Status")
 			}
 			return err
 		}
@@ -162,6 +170,8 @@ func (m *Task) validateVersion(formats strfmt.Registry) error {
 		if err := m.Version.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}
@@ -205,6 +215,8 @@ func (m *Task) contextValidateAssignedGenericResources(ctx context.Context, form
 	if err := m.AssignedGenericResources.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("AssignedGenericResources")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("AssignedGenericResources")
 		}
 		return err
 	}
@@ -217,6 +229,8 @@ func (m *Task) contextValidateDesiredState(ctx context.Context, formats strfmt.R
 	if err := m.DesiredState.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("DesiredState")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("DesiredState")
 		}
 		return err
 	}
@@ -230,6 +244,8 @@ func (m *Task) contextValidateSpec(ctx context.Context, formats strfmt.Registry)
 		if err := m.Spec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -244,6 +260,8 @@ func (m *Task) contextValidateStatus(ctx context.Context, formats strfmt.Registr
 		if err := m.Status.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Status")
 			}
 			return err
 		}
@@ -258,6 +276,8 @@ func (m *Task) contextValidateVersion(ctx context.Context, formats strfmt.Regist
 		if err := m.Version.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}
@@ -332,6 +352,8 @@ func (m *TaskStatus) validateContainerStatus(formats strfmt.Registry) error {
 		if err := m.ContainerStatus.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status" + "." + "ContainerStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Status" + "." + "ContainerStatus")
 			}
 			return err
 		}
@@ -348,6 +370,8 @@ func (m *TaskStatus) validateState(formats strfmt.Registry) error {
 	if err := m.State.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Status" + "." + "State")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Status" + "." + "State")
 		}
 		return err
 	}
@@ -379,6 +403,8 @@ func (m *TaskStatus) contextValidateContainerStatus(ctx context.Context, formats
 		if err := m.ContainerStatus.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status" + "." + "ContainerStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Status" + "." + "ContainerStatus")
 			}
 			return err
 		}
@@ -392,6 +418,8 @@ func (m *TaskStatus) contextValidateState(ctx context.Context, formats strfmt.Re
 	if err := m.State.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Status" + "." + "State")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Status" + "." + "State")
 		}
 		return err
 	}

@@ -116,7 +116,7 @@ func parseOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr 
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*volume.VolumePruneOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -128,7 +128,7 @@ func parseOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr 
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*volume.VolumePruneInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -140,7 +140,7 @@ func parseOperationVolumeVolumePruneResult(resp0 *volume.VolumePruneOK, respErr 
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

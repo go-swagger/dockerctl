@@ -91,6 +91,8 @@ func (m *SwarmSpec) validateCAConfig(formats strfmt.Registry) error {
 		if err := m.CAConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("CAConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CAConfig")
 			}
 			return err
 		}
@@ -108,6 +110,8 @@ func (m *SwarmSpec) validateDispatcher(formats strfmt.Registry) error {
 		if err := m.Dispatcher.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Dispatcher")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Dispatcher")
 			}
 			return err
 		}
@@ -125,6 +129,8 @@ func (m *SwarmSpec) validateEncryptionConfig(formats strfmt.Registry) error {
 		if err := m.EncryptionConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EncryptionConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("EncryptionConfig")
 			}
 			return err
 		}
@@ -142,6 +148,8 @@ func (m *SwarmSpec) validateOrchestration(formats strfmt.Registry) error {
 		if err := m.Orchestration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Orchestration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Orchestration")
 			}
 			return err
 		}
@@ -159,6 +167,8 @@ func (m *SwarmSpec) validateRaft(formats strfmt.Registry) error {
 		if err := m.Raft.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Raft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Raft")
 			}
 			return err
 		}
@@ -176,6 +186,8 @@ func (m *SwarmSpec) validateTaskDefaults(formats strfmt.Registry) error {
 		if err := m.TaskDefaults.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TaskDefaults")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TaskDefaults")
 			}
 			return err
 		}
@@ -224,6 +236,8 @@ func (m *SwarmSpec) contextValidateCAConfig(ctx context.Context, formats strfmt.
 		if err := m.CAConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("CAConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("CAConfig")
 			}
 			return err
 		}
@@ -238,6 +252,8 @@ func (m *SwarmSpec) contextValidateDispatcher(ctx context.Context, formats strfm
 		if err := m.Dispatcher.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Dispatcher")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Dispatcher")
 			}
 			return err
 		}
@@ -252,6 +268,8 @@ func (m *SwarmSpec) contextValidateEncryptionConfig(ctx context.Context, formats
 		if err := m.EncryptionConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EncryptionConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("EncryptionConfig")
 			}
 			return err
 		}
@@ -266,6 +284,8 @@ func (m *SwarmSpec) contextValidateOrchestration(ctx context.Context, formats st
 		if err := m.Orchestration.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Orchestration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Orchestration")
 			}
 			return err
 		}
@@ -280,6 +300,8 @@ func (m *SwarmSpec) contextValidateRaft(ctx context.Context, formats strfmt.Regi
 		if err := m.Raft.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Raft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Raft")
 			}
 			return err
 		}
@@ -294,6 +316,8 @@ func (m *SwarmSpec) contextValidateTaskDefaults(ctx context.Context, formats str
 		if err := m.TaskDefaults.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TaskDefaults")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TaskDefaults")
 			}
 			return err
 		}
@@ -370,6 +394,8 @@ func (m *SwarmSpecCAConfig) validateExternalCAs(formats strfmt.Registry) error {
 			if err := m.ExternalCAs[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("CAConfig" + "." + "ExternalCAs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("CAConfig" + "." + "ExternalCAs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -402,6 +428,8 @@ func (m *SwarmSpecCAConfig) contextValidateExternalCAs(ctx context.Context, form
 			if err := m.ExternalCAs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("CAConfig" + "." + "ExternalCAs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("CAConfig" + "." + "ExternalCAs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -730,6 +758,8 @@ func (m *SwarmSpecTaskDefaults) validateLogDriver(formats strfmt.Registry) error
 		if err := m.LogDriver.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TaskDefaults" + "." + "LogDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TaskDefaults" + "." + "LogDriver")
 			}
 			return err
 		}
@@ -758,6 +788,8 @@ func (m *SwarmSpecTaskDefaults) contextValidateLogDriver(ctx context.Context, fo
 		if err := m.LogDriver.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TaskDefaults" + "." + "LogDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TaskDefaults" + "." + "LogDriver")
 			}
 			return err
 		}

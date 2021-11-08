@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/models"
@@ -54,7 +55,7 @@ func registerRestartPolicyName(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	nameDescription := `- Empty string means not to restart
+	nameDescription := `Enum: ["","always","unless-stopped","on-failure"]. - Empty string means not to restart
 - ` + "`" + `always` + "`" + ` Always restart
 - ` + "`" + `unless-stopped` + "`" + ` Restart always except when the user has manually stopped the container
 - ` + "`" + `on-failure` + "`" + ` Restart only when the container exit code is non-zero
@@ -70,6 +71,17 @@ func registerRestartPolicyName(depth int, cmdPrefix string, cmd *cobra.Command) 
 	var nameFlagDefault string
 
 	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(nameFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["","always","unless-stopped","on-failure"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -112,7 +112,7 @@ func parseOperationPluginGetPluginPrivilegesResult(resp0 *plugin.GetPluginPrivil
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*plugin.GetPluginPrivilegesOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -124,7 +124,7 @@ func parseOperationPluginGetPluginPrivilegesResult(resp0 *plugin.GetPluginPrivil
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*plugin.GetPluginPrivilegesInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -136,7 +136,7 @@ func parseOperationPluginGetPluginPrivilegesResult(resp0 *plugin.GetPluginPrivil
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

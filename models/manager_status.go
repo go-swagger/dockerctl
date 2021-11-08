@@ -57,6 +57,8 @@ func (m *ManagerStatus) validateReachability(formats strfmt.Registry) error {
 	if err := m.Reachability.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Reachability")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Reachability")
 		}
 		return err
 	}
@@ -83,6 +85,8 @@ func (m *ManagerStatus) contextValidateReachability(ctx context.Context, formats
 	if err := m.Reachability.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Reachability")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Reachability")
 		}
 		return err
 	}

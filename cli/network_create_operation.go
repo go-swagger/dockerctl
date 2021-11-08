@@ -132,7 +132,7 @@ func parseOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*network.NetworkCreateCreated)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -144,7 +144,7 @@ func parseOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*network.NetworkCreateForbidden)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -156,7 +156,7 @@ func parseOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*network.NetworkCreateNotFound)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -168,7 +168,7 @@ func parseOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 		var iResp3 interface{} = respErr
 		resp3, ok := iResp3.(*network.NetworkCreateInternalServerError)
 		if ok {
-			if !swag.IsZero(resp3.Payload) {
+			if !swag.IsZero(resp3) && !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
 					return "", err
@@ -180,7 +180,7 @@ func parseOperationNetworkNetworkCreateResult(resp0 *network.NetworkCreateCreate
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

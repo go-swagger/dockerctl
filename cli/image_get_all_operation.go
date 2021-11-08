@@ -73,14 +73,40 @@ func registerOperationImageImageGetAllParamFlags(cmd *cobra.Command) error {
 }
 
 func registerOperationImageImageGetAllNamesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type []string is not supported by go-swagger cli yet.
+
+	namesDescription := `Image names to filter by`
+
+	var namesFlagName string
+	if cmdPrefix == "" {
+		namesFlagName = "names"
+	} else {
+		namesFlagName = fmt.Sprintf("%v.names", cmdPrefix)
+	}
+
+	var namesFlagDefault []string
+
+	_ = cmd.PersistentFlags().StringSlice(namesFlagName, namesFlagDefault, namesDescription)
+
 	return nil
 }
 
 func retrieveOperationImageImageGetAllNamesFlag(m *image.ImageGetAllParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("names") {
-		// warning: names array type []string is not supported by go-swagger cli yet
+
+		var namesFlagName string
+		if cmdPrefix == "" {
+			namesFlagName = "names"
+		} else {
+			namesFlagName = fmt.Sprintf("%v.names", cmdPrefix)
+		}
+
+		namesFlagValues, err := cmd.Flags().GetStringSlice(namesFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Names = namesFlagValues
+
 	}
 	return nil, retAdded
 }
@@ -92,7 +118,7 @@ func parseOperationImageImageGetAllResult(resp0 *image.ImageGetAllOK, respErr er
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*image.ImageGetAllOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -104,7 +130,7 @@ func parseOperationImageImageGetAllResult(resp0 *image.ImageGetAllOK, respErr er
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*image.ImageGetAllInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -116,7 +142,7 @@ func parseOperationImageImageGetAllResult(resp0 *image.ImageGetAllOK, respErr er
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
 		return string(msgStr), nil
 	}

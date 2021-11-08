@@ -188,6 +188,8 @@ func (o *ContainerWaitOKBody) validateError(formats strfmt.Registry) error {
 		if err := o.Error.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerWaitOK" + "." + "Error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerWaitOK" + "." + "Error")
 			}
 			return err
 		}
@@ -225,6 +227,8 @@ func (o *ContainerWaitOKBody) contextValidateError(ctx context.Context, formats 
 		if err := o.Error.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerWaitOK" + "." + "Error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerWaitOK" + "." + "Error")
 			}
 			return err
 		}

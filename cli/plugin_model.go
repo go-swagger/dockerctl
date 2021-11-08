@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -1469,7 +1470,7 @@ func registerPluginConfigInterfaceProtocolScheme(depth int, cmdPrefix string, cm
 		return nil
 	}
 
-	protocolSchemeDescription := `Protocol to use for clients connecting to the plugin.`
+	protocolSchemeDescription := `Enum: ["","moby.plugins.http/v1"]. Protocol to use for clients connecting to the plugin.`
 
 	var protocolSchemeFlagName string
 	if cmdPrefix == "" {
@@ -1481,6 +1482,17 @@ func registerPluginConfigInterfaceProtocolScheme(depth int, cmdPrefix string, cm
 	var protocolSchemeFlagDefault string
 
 	_ = cmd.PersistentFlags().String(protocolSchemeFlagName, protocolSchemeFlagDefault, protocolSchemeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(protocolSchemeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["","moby.plugins.http/v1"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -79,6 +79,8 @@ func (m *Plugin) validateConfig(formats strfmt.Registry) error {
 	if err := m.Config.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config")
 		}
 		return err
 	}
@@ -109,6 +111,8 @@ func (m *Plugin) validateSettings(formats strfmt.Registry) error {
 	if err := m.Settings.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Settings")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Settings")
 		}
 		return err
 	}
@@ -139,6 +143,8 @@ func (m *Plugin) contextValidateConfig(ctx context.Context, formats strfmt.Regis
 	if err := m.Config.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config")
 		}
 		return err
 	}
@@ -151,6 +157,8 @@ func (m *Plugin) contextValidateSettings(ctx context.Context, formats strfmt.Reg
 	if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Settings")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Settings")
 		}
 		return err
 	}
@@ -327,6 +335,8 @@ func (m *PluginConfig) validateArgs(formats strfmt.Registry) error {
 	if err := m.Args.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Args")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Args")
 		}
 		return err
 	}
@@ -372,6 +382,8 @@ func (m *PluginConfig) validateEnv(formats strfmt.Registry) error {
 		if err := m.Env[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Env" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Env" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -386,6 +398,8 @@ func (m *PluginConfig) validateInterface(formats strfmt.Registry) error {
 	if err := m.Interface.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Interface")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Interface")
 		}
 		return err
 	}
@@ -407,6 +421,8 @@ func (m *PluginConfig) validateLinux(formats strfmt.Registry) error {
 	if err := m.Linux.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Linux")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Linux")
 		}
 		return err
 	}
@@ -425,6 +441,8 @@ func (m *PluginConfig) validateMounts(formats strfmt.Registry) error {
 		if err := m.Mounts[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Mounts" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Mounts" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -439,6 +457,8 @@ func (m *PluginConfig) validateNetwork(formats strfmt.Registry) error {
 	if err := m.Network.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Network")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Network")
 		}
 		return err
 	}
@@ -472,6 +492,8 @@ func (m *PluginConfig) validateUser(formats strfmt.Registry) error {
 	if err := m.User.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "User")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "User")
 		}
 		return err
 	}
@@ -497,6 +519,8 @@ func (m *PluginConfig) validateRootfs(formats strfmt.Registry) error {
 		if err := m.Rootfs.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "rootfs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "rootfs")
 			}
 			return err
 		}
@@ -552,6 +576,8 @@ func (m *PluginConfig) contextValidateArgs(ctx context.Context, formats strfmt.R
 	if err := m.Args.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Args")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Args")
 		}
 		return err
 	}
@@ -566,6 +592,8 @@ func (m *PluginConfig) contextValidateEnv(ctx context.Context, formats strfmt.Re
 		if err := m.Env[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Env" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Env" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -580,6 +608,8 @@ func (m *PluginConfig) contextValidateInterface(ctx context.Context, formats str
 	if err := m.Interface.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Interface")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Interface")
 		}
 		return err
 	}
@@ -592,6 +622,8 @@ func (m *PluginConfig) contextValidateLinux(ctx context.Context, formats strfmt.
 	if err := m.Linux.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Linux")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Linux")
 		}
 		return err
 	}
@@ -606,6 +638,8 @@ func (m *PluginConfig) contextValidateMounts(ctx context.Context, formats strfmt
 		if err := m.Mounts[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Mounts" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Mounts" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -620,6 +654,8 @@ func (m *PluginConfig) contextValidateNetwork(ctx context.Context, formats strfm
 	if err := m.Network.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "Network")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "Network")
 		}
 		return err
 	}
@@ -632,6 +668,8 @@ func (m *PluginConfig) contextValidateUser(ctx context.Context, formats strfmt.R
 	if err := m.User.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Config" + "." + "User")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Config" + "." + "User")
 		}
 		return err
 	}
@@ -645,6 +683,8 @@ func (m *PluginConfig) contextValidateRootfs(ctx context.Context, formats strfmt
 		if err := m.Rootfs.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "rootfs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "rootfs")
 			}
 			return err
 		}
@@ -885,6 +925,8 @@ func (m *PluginConfigInterface) validateTypes(formats strfmt.Registry) error {
 		if err := m.Types[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Interface" + "." + "Types" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Interface" + "." + "Types" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -915,6 +957,8 @@ func (m *PluginConfigInterface) contextValidateTypes(ctx context.Context, format
 		if err := m.Types[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Interface" + "." + "Types" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Interface" + "." + "Types" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -1013,6 +1057,8 @@ func (m *PluginConfigLinux) validateDevices(formats strfmt.Registry) error {
 		if err := m.Devices[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Linux" + "." + "Devices" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Linux" + "." + "Devices" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -1043,6 +1089,8 @@ func (m *PluginConfigLinux) contextValidateDevices(ctx context.Context, formats 
 		if err := m.Devices[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config" + "." + "Linux" + "." + "Devices" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config" + "." + "Linux" + "." + "Devices" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -1280,6 +1328,8 @@ func (m *PluginSettings) validateDevices(formats strfmt.Registry) error {
 		if err := m.Devices[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Settings" + "." + "Devices" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Settings" + "." + "Devices" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -1309,6 +1359,8 @@ func (m *PluginSettings) validateMounts(formats strfmt.Registry) error {
 		if err := m.Mounts[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Settings" + "." + "Mounts" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Settings" + "." + "Mounts" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -1343,6 +1395,8 @@ func (m *PluginSettings) contextValidateDevices(ctx context.Context, formats str
 		if err := m.Devices[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Settings" + "." + "Devices" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Settings" + "." + "Devices" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -1359,6 +1413,8 @@ func (m *PluginSettings) contextValidateMounts(ctx context.Context, formats strf
 		if err := m.Mounts[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Settings" + "." + "Mounts" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Settings" + "." + "Mounts" + "." + strconv.Itoa(i))
 			}
 			return err
 		}

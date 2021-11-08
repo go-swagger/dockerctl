@@ -74,6 +74,8 @@ func (m *BuildInfo) validateAux(formats strfmt.Registry) error {
 		if err := m.Aux.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aux")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("aux")
 			}
 			return err
 		}
@@ -91,6 +93,8 @@ func (m *BuildInfo) validateErrorDetail(formats strfmt.Registry) error {
 		if err := m.ErrorDetail.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("errorDetail")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("errorDetail")
 			}
 			return err
 		}
@@ -108,6 +112,8 @@ func (m *BuildInfo) validateProgressDetail(formats strfmt.Registry) error {
 		if err := m.ProgressDetail.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("progressDetail")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("progressDetail")
 			}
 			return err
 		}
@@ -144,6 +150,8 @@ func (m *BuildInfo) contextValidateAux(ctx context.Context, formats strfmt.Regis
 		if err := m.Aux.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aux")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("aux")
 			}
 			return err
 		}
@@ -158,6 +166,8 @@ func (m *BuildInfo) contextValidateErrorDetail(ctx context.Context, formats strf
 		if err := m.ErrorDetail.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("errorDetail")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("errorDetail")
 			}
 			return err
 		}
@@ -172,6 +182,8 @@ func (m *BuildInfo) contextValidateProgressDetail(ctx context.Context, formats s
 		if err := m.ProgressDetail.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("progressDetail")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("progressDetail")
 			}
 			return err
 		}

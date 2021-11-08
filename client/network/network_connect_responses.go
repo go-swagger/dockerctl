@@ -208,6 +208,8 @@ func (o *NetworkConnectBody) validateEndpointConfig(formats strfmt.Registry) err
 		if err := o.EndpointConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("container" + "." + "EndpointConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("container" + "." + "EndpointConfig")
 			}
 			return err
 		}
@@ -236,6 +238,8 @@ func (o *NetworkConnectBody) contextValidateEndpointConfig(ctx context.Context, 
 		if err := o.EndpointConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("container" + "." + "EndpointConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("container" + "." + "EndpointConfig")
 			}
 			return err
 		}

@@ -205,7 +205,7 @@ func parseOperationImageImageListResult(resp0 *image.ImageListOK, respErr error)
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*image.ImageListOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -217,7 +217,7 @@ func parseOperationImageImageListResult(resp0 *image.ImageListOK, respErr error)
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*image.ImageListInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -229,7 +229,7 @@ func parseOperationImageImageListResult(resp0 *image.ImageListOK, respErr error)
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

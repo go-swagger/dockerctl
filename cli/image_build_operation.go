@@ -231,7 +231,7 @@ func registerOperationImageImageBuildParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageBuildContentTypeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	contentTypeDescription := ``
+	contentTypeDescription := `Enum: ["application/x-tar"]. `
 
 	var contentTypeFlagName string
 	if cmdPrefix == "" {
@@ -243,6 +243,17 @@ func registerOperationImageImageBuildContentTypeParamFlags(cmdPrefix string, cmd
 	var contentTypeFlagDefault string = "application/x-tar"
 
 	_ = cmd.PersistentFlags().String(contentTypeFlagName, contentTypeFlagDefault, contentTypeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(contentTypeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["application/x-tar"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1240,7 +1251,7 @@ func parseOperationImageImageBuildResult(resp0 *image.ImageBuildOK, respErr erro
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*image.ImageBuildBadRequest)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -1252,7 +1263,7 @@ func parseOperationImageImageBuildResult(resp0 *image.ImageBuildOK, respErr erro
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*image.ImageBuildInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err

@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -878,7 +879,7 @@ func registerTaskSpecContainerSpecIsolation(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	isolationDescription := `Isolation technology of the containers running the service. (Windows only)`
+	isolationDescription := `Enum: ["default","process","hyperv"]. Isolation technology of the containers running the service. (Windows only)`
 
 	var isolationFlagName string
 	if cmdPrefix == "" {
@@ -890,6 +891,17 @@ func registerTaskSpecContainerSpecIsolation(depth int, cmdPrefix string, cmd *co
 	var isolationFlagDefault string
 
 	_ = cmd.PersistentFlags().String(isolationFlagName, isolationFlagDefault, isolationDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(isolationFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["default","process","hyperv"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -4476,7 +4488,7 @@ func registerTaskSpecRestartPolicyCondition(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	conditionDescription := `Condition for restart.`
+	conditionDescription := `Enum: ["none","on-failure","any"]. Condition for restart.`
 
 	var conditionFlagName string
 	if cmdPrefix == "" {
@@ -4488,6 +4500,17 @@ func registerTaskSpecRestartPolicyCondition(depth int, cmdPrefix string, cmd *co
 	var conditionFlagDefault string
 
 	_ = cmd.PersistentFlags().String(conditionFlagName, conditionFlagDefault, conditionDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(conditionFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["none","on-failure","any"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

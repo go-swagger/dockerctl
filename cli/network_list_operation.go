@@ -128,7 +128,7 @@ func parseOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respEr
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*network.NetworkListOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -140,7 +140,7 @@ func parseOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respEr
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*network.NetworkListInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -152,7 +152,7 @@ func parseOperationNetworkNetworkListResult(resp0 *network.NetworkListOK, respEr
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

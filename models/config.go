@@ -61,6 +61,8 @@ func (m *Config) validateSpec(formats strfmt.Registry) error {
 		if err := m.Spec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -78,6 +80,8 @@ func (m *Config) validateVersion(formats strfmt.Registry) error {
 		if err := m.Version.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}
@@ -110,6 +114,8 @@ func (m *Config) contextValidateSpec(ctx context.Context, formats strfmt.Registr
 		if err := m.Spec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -124,6 +130,8 @@ func (m *Config) contextValidateVersion(ctx context.Context, formats strfmt.Regi
 		if err := m.Version.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}

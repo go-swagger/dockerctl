@@ -189,6 +189,8 @@ func (o *SystemEventsOKBody) validateActor(formats strfmt.Registry) error {
 		if err := o.Actor.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("systemEventsOK" + "." + "Actor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("systemEventsOK" + "." + "Actor")
 			}
 			return err
 		}
@@ -217,6 +219,8 @@ func (o *SystemEventsOKBody) contextValidateActor(ctx context.Context, formats s
 		if err := o.Actor.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("systemEventsOK" + "." + "Actor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("systemEventsOK" + "." + "Actor")
 			}
 			return err
 		}

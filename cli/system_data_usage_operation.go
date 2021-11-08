@@ -67,7 +67,7 @@ func parseOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, 
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*system.SystemDataUsageOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -79,7 +79,7 @@ func parseOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, 
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*system.SystemDataUsageInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -91,7 +91,7 @@ func parseOperationSystemSystemDataUsageResult(resp0 *system.SystemDataUsageOK, 
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

@@ -71,6 +71,8 @@ func (m *SecretSpec) validateDriver(formats strfmt.Registry) error {
 		if err := m.Driver.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Driver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Driver")
 			}
 			return err
 		}
@@ -88,6 +90,8 @@ func (m *SecretSpec) validateTemplating(formats strfmt.Registry) error {
 		if err := m.Templating.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Templating")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Templating")
 			}
 			return err
 		}
@@ -120,6 +124,8 @@ func (m *SecretSpec) contextValidateDriver(ctx context.Context, formats strfmt.R
 		if err := m.Driver.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Driver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Driver")
 			}
 			return err
 		}
@@ -134,6 +140,8 @@ func (m *SecretSpec) contextValidateTemplating(ctx context.Context, formats strf
 		if err := m.Templating.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Templating")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Templating")
 			}
 			return err
 		}

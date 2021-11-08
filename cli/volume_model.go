@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -167,7 +168,7 @@ func registerVolumeScope(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	scopeDescription := `Required. The level at which the volume exists. Either ` + "`" + `global` + "`" + ` for cluster-wide, or ` + "`" + `local` + "`" + ` for machine level.`
+	scopeDescription := `Enum: ["local","global"]. Required. The level at which the volume exists. Either ` + "`" + `global` + "`" + ` for cluster-wide, or ` + "`" + `local` + "`" + ` for machine level.`
 
 	var scopeFlagName string
 	if cmdPrefix == "" {
@@ -179,6 +180,17 @@ func registerVolumeScope(depth int, cmdPrefix string, cmd *cobra.Command) error 
 	var scopeFlagDefault string = "local"
 
 	_ = cmd.PersistentFlags().String(scopeFlagName, scopeFlagDefault, scopeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(scopeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["local","global"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

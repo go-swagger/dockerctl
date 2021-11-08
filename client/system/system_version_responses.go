@@ -259,6 +259,8 @@ func (o *SystemVersionOKBody) validateComponents(formats strfmt.Registry) error 
 			if err := o.Components[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemVersionOK" + "." + "Components" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemVersionOK" + "." + "Components" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -278,6 +280,8 @@ func (o *SystemVersionOKBody) validatePlatform(formats strfmt.Registry) error {
 		if err := o.Platform.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("systemVersionOK" + "." + "Platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("systemVersionOK" + "." + "Platform")
 			}
 			return err
 		}
@@ -312,6 +316,8 @@ func (o *SystemVersionOKBody) contextValidateComponents(ctx context.Context, for
 			if err := o.Components[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemVersionOK" + "." + "Components" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemVersionOK" + "." + "Components" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -328,6 +334,8 @@ func (o *SystemVersionOKBody) contextValidatePlatform(ctx context.Context, forma
 		if err := o.Platform.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("systemVersionOK" + "." + "Platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("systemVersionOK" + "." + "Platform")
 			}
 			return err
 		}

@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/models"
@@ -33,7 +34,7 @@ func registerEndpointSpecMode(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	modeDescription := `The mode of resolution to use for internal load balancing between tasks.
+	modeDescription := `Enum: ["vip","dnsrr"]. The mode of resolution to use for internal load balancing between tasks.
 `
 
 	var modeFlagName string
@@ -46,6 +47,17 @@ func registerEndpointSpecMode(depth int, cmdPrefix string, cmd *cobra.Command) e
 	var modeFlagDefault string = "vip"
 
 	_ = cmd.PersistentFlags().String(modeFlagName, modeFlagDefault, modeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(modeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["vip","dnsrr"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

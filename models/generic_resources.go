@@ -33,6 +33,8 @@ func (m GenericResources) Validate(formats strfmt.Registry) error {
 			if err := m[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName(strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName(strconv.Itoa(i))
 				}
 				return err
 			}
@@ -56,6 +58,8 @@ func (m GenericResources) ContextValidate(ctx context.Context, formats strfmt.Re
 			if err := m[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName(strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName(strconv.Itoa(i))
 				}
 				return err
 			}
@@ -108,6 +112,8 @@ func (m *GenericResourcesItems0) validateDiscreteResourceSpec(formats strfmt.Reg
 		if err := m.DiscreteResourceSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DiscreteResourceSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DiscreteResourceSpec")
 			}
 			return err
 		}
@@ -125,6 +131,8 @@ func (m *GenericResourcesItems0) validateNamedResourceSpec(formats strfmt.Regist
 		if err := m.NamedResourceSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NamedResourceSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NamedResourceSpec")
 			}
 			return err
 		}
@@ -157,6 +165,8 @@ func (m *GenericResourcesItems0) contextValidateDiscreteResourceSpec(ctx context
 		if err := m.DiscreteResourceSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DiscreteResourceSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DiscreteResourceSpec")
 			}
 			return err
 		}
@@ -171,6 +181,8 @@ func (m *GenericResourcesItems0) contextValidateNamedResourceSpec(ctx context.Co
 		if err := m.NamedResourceSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NamedResourceSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NamedResourceSpec")
 			}
 			return err
 		}

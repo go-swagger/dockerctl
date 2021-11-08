@@ -207,6 +207,8 @@ func (o *ExecInspectOKBody) validateProcessConfig(formats strfmt.Registry) error
 		if err := o.ProcessConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("execInspectOK" + "." + "ProcessConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("execInspectOK" + "." + "ProcessConfig")
 			}
 			return err
 		}
@@ -235,6 +237,8 @@ func (o *ExecInspectOKBody) contextValidateProcessConfig(ctx context.Context, fo
 		if err := o.ProcessConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("execInspectOK" + "." + "ProcessConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("execInspectOK" + "." + "ProcessConfig")
 			}
 			return err
 		}

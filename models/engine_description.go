@@ -60,6 +60,8 @@ func (m *EngineDescription) validatePlugins(formats strfmt.Registry) error {
 			if err := m.Plugins[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Plugins" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Plugins" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -92,6 +94,8 @@ func (m *EngineDescription) contextValidatePlugins(ctx context.Context, formats 
 			if err := m.Plugins[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Plugins" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Plugins" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

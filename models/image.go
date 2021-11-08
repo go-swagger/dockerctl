@@ -200,6 +200,8 @@ func (m *Image) validateConfig(formats strfmt.Registry) error {
 		if err := m.Config.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config")
 			}
 			return err
 		}
@@ -226,6 +228,8 @@ func (m *Image) validateContainerConfig(formats strfmt.Registry) error {
 		if err := m.ContainerConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerConfig")
 			}
 			return err
 		}
@@ -262,6 +266,8 @@ func (m *Image) validateGraphDriver(formats strfmt.Registry) error {
 		if err := m.GraphDriver.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("GraphDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("GraphDriver")
 			}
 			return err
 		}
@@ -288,6 +294,8 @@ func (m *Image) validateMetadata(formats strfmt.Registry) error {
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Metadata")
 			}
 			return err
 		}
@@ -324,6 +332,8 @@ func (m *Image) validateRootFS(formats strfmt.Registry) error {
 		if err := m.RootFS.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RootFS")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RootFS")
 			}
 			return err
 		}
@@ -386,6 +396,8 @@ func (m *Image) contextValidateConfig(ctx context.Context, formats strfmt.Regist
 		if err := m.Config.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config")
 			}
 			return err
 		}
@@ -400,6 +412,8 @@ func (m *Image) contextValidateContainerConfig(ctx context.Context, formats strf
 		if err := m.ContainerConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerConfig")
 			}
 			return err
 		}
@@ -414,6 +428,8 @@ func (m *Image) contextValidateGraphDriver(ctx context.Context, formats strfmt.R
 		if err := m.GraphDriver.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("GraphDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("GraphDriver")
 			}
 			return err
 		}
@@ -428,6 +444,8 @@ func (m *Image) contextValidateMetadata(ctx context.Context, formats strfmt.Regi
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Metadata")
 			}
 			return err
 		}
@@ -442,6 +460,8 @@ func (m *Image) contextValidateRootFS(ctx context.Context, formats strfmt.Regist
 		if err := m.RootFS.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RootFS")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RootFS")
 			}
 			return err
 		}

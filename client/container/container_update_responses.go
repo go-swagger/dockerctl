@@ -230,6 +230,8 @@ func (o *ContainerUpdateBody) validateRestartPolicy(formats strfmt.Registry) err
 		if err := o.RestartPolicy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("update" + "." + "RestartPolicy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("update" + "." + "RestartPolicy")
 			}
 			return err
 		}
@@ -263,6 +265,8 @@ func (o *ContainerUpdateBody) contextValidateRestartPolicy(ctx context.Context, 
 		if err := o.RestartPolicy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("update" + "." + "RestartPolicy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("update" + "." + "RestartPolicy")
 			}
 			return err
 		}

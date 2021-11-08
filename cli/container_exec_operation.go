@@ -174,7 +174,7 @@ func parseOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*exec.ContainerExecCreated)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -186,7 +186,7 @@ func parseOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*exec.ContainerExecNotFound)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -198,7 +198,7 @@ func parseOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*exec.ContainerExecConflict)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -210,7 +210,7 @@ func parseOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 		var iResp3 interface{} = respErr
 		resp3, ok := iResp3.(*exec.ContainerExecInternalServerError)
 		if ok {
-			if !swag.IsZero(resp3.Payload) {
+			if !swag.IsZero(resp3) && !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
 					return "", err
@@ -222,7 +222,7 @@ func parseOperationExecContainerExecResult(resp0 *exec.ContainerExecCreated, res
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

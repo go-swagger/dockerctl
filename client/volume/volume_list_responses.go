@@ -158,6 +158,8 @@ func (o *VolumeListOKBody) validateVolumes(formats strfmt.Registry) error {
 			if err := o.Volumes[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("volumeListOK" + "." + "Volumes" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("volumeListOK" + "." + "Volumes" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -199,6 +201,8 @@ func (o *VolumeListOKBody) contextValidateVolumes(ctx context.Context, formats s
 			if err := o.Volumes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("volumeListOK" + "." + "Volumes" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("volumeListOK" + "." + "Volumes" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

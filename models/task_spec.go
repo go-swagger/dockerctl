@@ -103,6 +103,8 @@ func (m *TaskSpec) validateContainerSpec(formats strfmt.Registry) error {
 		if err := m.ContainerSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec")
 			}
 			return err
 		}
@@ -120,6 +122,8 @@ func (m *TaskSpec) validateLogDriver(formats strfmt.Registry) error {
 		if err := m.LogDriver.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LogDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("LogDriver")
 			}
 			return err
 		}
@@ -137,6 +141,8 @@ func (m *TaskSpec) validateNetworkAttachmentSpec(formats strfmt.Registry) error 
 		if err := m.NetworkAttachmentSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NetworkAttachmentSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NetworkAttachmentSpec")
 			}
 			return err
 		}
@@ -159,6 +165,8 @@ func (m *TaskSpec) validateNetworks(formats strfmt.Registry) error {
 			if err := m.Networks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -178,6 +186,8 @@ func (m *TaskSpec) validatePlacement(formats strfmt.Registry) error {
 		if err := m.Placement.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Placement")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Placement")
 			}
 			return err
 		}
@@ -195,6 +205,8 @@ func (m *TaskSpec) validatePluginSpec(formats strfmt.Registry) error {
 		if err := m.PluginSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("PluginSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PluginSpec")
 			}
 			return err
 		}
@@ -212,6 +224,8 @@ func (m *TaskSpec) validateResources(formats strfmt.Registry) error {
 		if err := m.Resources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources")
 			}
 			return err
 		}
@@ -229,6 +243,8 @@ func (m *TaskSpec) validateRestartPolicy(formats strfmt.Registry) error {
 		if err := m.RestartPolicy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RestartPolicy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RestartPolicy")
 			}
 			return err
 		}
@@ -285,6 +301,8 @@ func (m *TaskSpec) contextValidateContainerSpec(ctx context.Context, formats str
 		if err := m.ContainerSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec")
 			}
 			return err
 		}
@@ -299,6 +317,8 @@ func (m *TaskSpec) contextValidateLogDriver(ctx context.Context, formats strfmt.
 		if err := m.LogDriver.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LogDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("LogDriver")
 			}
 			return err
 		}
@@ -313,6 +333,8 @@ func (m *TaskSpec) contextValidateNetworkAttachmentSpec(ctx context.Context, for
 		if err := m.NetworkAttachmentSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NetworkAttachmentSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NetworkAttachmentSpec")
 			}
 			return err
 		}
@@ -329,6 +351,8 @@ func (m *TaskSpec) contextValidateNetworks(ctx context.Context, formats strfmt.R
 			if err := m.Networks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -345,6 +369,8 @@ func (m *TaskSpec) contextValidatePlacement(ctx context.Context, formats strfmt.
 		if err := m.Placement.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Placement")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Placement")
 			}
 			return err
 		}
@@ -359,6 +385,8 @@ func (m *TaskSpec) contextValidatePluginSpec(ctx context.Context, formats strfmt
 		if err := m.PluginSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("PluginSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PluginSpec")
 			}
 			return err
 		}
@@ -373,6 +401,8 @@ func (m *TaskSpec) contextValidateResources(ctx context.Context, formats strfmt.
 		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources")
 			}
 			return err
 		}
@@ -387,6 +417,8 @@ func (m *TaskSpec) contextValidateRestartPolicy(ctx context.Context, formats str
 		if err := m.RestartPolicy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RestartPolicy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RestartPolicy")
 			}
 			return err
 		}
@@ -570,6 +602,8 @@ func (m *TaskSpecContainerSpec) validateConfigs(formats strfmt.Registry) error {
 			if err := m.Configs[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ContainerSpec" + "." + "Configs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ContainerSpec" + "." + "Configs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -589,6 +623,8 @@ func (m *TaskSpecContainerSpec) validateDNSConfig(formats strfmt.Registry) error
 		if err := m.DNSConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "DNSConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "DNSConfig")
 			}
 			return err
 		}
@@ -606,6 +642,8 @@ func (m *TaskSpecContainerSpec) validateHealthCheck(formats strfmt.Registry) err
 		if err := m.HealthCheck.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "HealthCheck")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "HealthCheck")
 			}
 			return err
 		}
@@ -673,6 +711,8 @@ func (m *TaskSpecContainerSpec) validateMounts(formats strfmt.Registry) error {
 			if err := m.Mounts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ContainerSpec" + "." + "Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ContainerSpec" + "." + "Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -692,6 +732,8 @@ func (m *TaskSpecContainerSpec) validatePrivileges(formats strfmt.Registry) erro
 		if err := m.Privileges.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "Privileges")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "Privileges")
 			}
 			return err
 		}
@@ -714,6 +756,8 @@ func (m *TaskSpecContainerSpec) validateSecrets(formats strfmt.Registry) error {
 			if err := m.Secrets[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ContainerSpec" + "." + "Secrets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ContainerSpec" + "." + "Secrets" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -766,6 +810,8 @@ func (m *TaskSpecContainerSpec) contextValidateConfigs(ctx context.Context, form
 			if err := m.Configs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ContainerSpec" + "." + "Configs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ContainerSpec" + "." + "Configs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -782,6 +828,8 @@ func (m *TaskSpecContainerSpec) contextValidateDNSConfig(ctx context.Context, fo
 		if err := m.DNSConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "DNSConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "DNSConfig")
 			}
 			return err
 		}
@@ -796,6 +844,8 @@ func (m *TaskSpecContainerSpec) contextValidateHealthCheck(ctx context.Context, 
 		if err := m.HealthCheck.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "HealthCheck")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "HealthCheck")
 			}
 			return err
 		}
@@ -812,6 +862,8 @@ func (m *TaskSpecContainerSpec) contextValidateMounts(ctx context.Context, forma
 			if err := m.Mounts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ContainerSpec" + "." + "Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ContainerSpec" + "." + "Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -828,6 +880,8 @@ func (m *TaskSpecContainerSpec) contextValidatePrivileges(ctx context.Context, f
 		if err := m.Privileges.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "Privileges")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "Privileges")
 			}
 			return err
 		}
@@ -844,6 +898,8 @@ func (m *TaskSpecContainerSpec) contextValidateSecrets(ctx context.Context, form
 			if err := m.Secrets[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ContainerSpec" + "." + "Secrets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ContainerSpec" + "." + "Secrets" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -920,6 +976,8 @@ func (m *TaskSpecContainerSpecConfigsItems0) validateFile(formats strfmt.Registr
 		if err := m.File.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("File")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("File")
 			}
 			return err
 		}
@@ -948,6 +1006,8 @@ func (m *TaskSpecContainerSpecConfigsItems0) contextValidateFile(ctx context.Con
 		if err := m.File.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("File")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("File")
 			}
 			return err
 		}
@@ -1107,6 +1167,8 @@ func (m *TaskSpecContainerSpecPrivileges) validateCredentialSpec(formats strfmt.
 		if err := m.CredentialSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "CredentialSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "CredentialSpec")
 			}
 			return err
 		}
@@ -1124,6 +1186,8 @@ func (m *TaskSpecContainerSpecPrivileges) validateSELinuxContext(formats strfmt.
 		if err := m.SELinuxContext.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "SELinuxContext")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "SELinuxContext")
 			}
 			return err
 		}
@@ -1156,6 +1220,8 @@ func (m *TaskSpecContainerSpecPrivileges) contextValidateCredentialSpec(ctx cont
 		if err := m.CredentialSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "CredentialSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "CredentialSpec")
 			}
 			return err
 		}
@@ -1170,6 +1236,8 @@ func (m *TaskSpecContainerSpecPrivileges) contextValidateSELinuxContext(ctx cont
 		if err := m.SELinuxContext.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "SELinuxContext")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerSpec" + "." + "Privileges" + "." + "SELinuxContext")
 			}
 			return err
 		}
@@ -1355,6 +1423,8 @@ func (m *TaskSpecContainerSpecSecretsItems0) validateFile(formats strfmt.Registr
 		if err := m.File.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("File")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("File")
 			}
 			return err
 		}
@@ -1383,6 +1453,8 @@ func (m *TaskSpecContainerSpecSecretsItems0) contextValidateFile(ctx context.Con
 		if err := m.File.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("File")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("File")
 			}
 			return err
 		}
@@ -1597,6 +1669,8 @@ func (m *TaskSpecPlacement) validatePlatforms(formats strfmt.Registry) error {
 			if err := m.Platforms[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Placement" + "." + "Platforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Placement" + "." + "Platforms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -1621,6 +1695,8 @@ func (m *TaskSpecPlacement) validatePreferences(formats strfmt.Registry) error {
 			if err := m.Preferences[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Placement" + "." + "Preferences" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Placement" + "." + "Preferences" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -1657,6 +1733,8 @@ func (m *TaskSpecPlacement) contextValidatePlatforms(ctx context.Context, format
 			if err := m.Platforms[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Placement" + "." + "Platforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Placement" + "." + "Platforms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -1675,6 +1753,8 @@ func (m *TaskSpecPlacement) contextValidatePreferences(ctx context.Context, form
 			if err := m.Preferences[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Placement" + "." + "Preferences" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Placement" + "." + "Preferences" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -1735,6 +1815,8 @@ func (m *TaskSpecPlacementPreferencesItems0) validateSpread(formats strfmt.Regis
 		if err := m.Spread.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spread")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spread")
 			}
 			return err
 		}
@@ -1763,6 +1845,8 @@ func (m *TaskSpecPlacementPreferencesItems0) contextValidateSpread(ctx context.C
 		if err := m.Spread.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spread")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spread")
 			}
 			return err
 		}
@@ -1880,6 +1964,8 @@ func (m *TaskSpecPluginSpec) validatePluginPrivilege(formats strfmt.Registry) er
 			if err := m.PluginPrivilege[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("PluginSpec" + "." + "PluginPrivilege" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("PluginSpec" + "." + "PluginPrivilege" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -1912,6 +1998,8 @@ func (m *TaskSpecPluginSpec) contextValidatePluginPrivilege(ctx context.Context,
 			if err := m.PluginPrivilege[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("PluginSpec" + "." + "PluginPrivilege" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("PluginSpec" + "." + "PluginPrivilege" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -2022,6 +2110,8 @@ func (m *TaskSpecResources) validateLimits(formats strfmt.Registry) error {
 		if err := m.Limits.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources" + "." + "Limits")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources" + "." + "Limits")
 			}
 			return err
 		}
@@ -2039,6 +2129,8 @@ func (m *TaskSpecResources) validateReservation(formats strfmt.Registry) error {
 		if err := m.Reservation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources" + "." + "Reservation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources" + "." + "Reservation")
 			}
 			return err
 		}
@@ -2071,6 +2163,8 @@ func (m *TaskSpecResources) contextValidateLimits(ctx context.Context, formats s
 		if err := m.Limits.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources" + "." + "Limits")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources" + "." + "Limits")
 			}
 			return err
 		}
@@ -2085,6 +2179,8 @@ func (m *TaskSpecResources) contextValidateReservation(ctx context.Context, form
 		if err := m.Reservation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources" + "." + "Reservation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources" + "." + "Reservation")
 			}
 			return err
 		}

@@ -692,6 +692,8 @@ func (m *HostConfig) validateLogConfig(formats strfmt.Registry) error {
 		if err := m.LogConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LogConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("LogConfig")
 			}
 			return err
 		}
@@ -715,6 +717,8 @@ func (m *HostConfig) validateMounts(formats strfmt.Registry) error {
 			if err := m.Mounts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -735,6 +739,8 @@ func (m *HostConfig) validatePortBindings(formats strfmt.Registry) error {
 		if err := m.PortBindings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("PortBindings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("PortBindings")
 			}
 			return err
 		}
@@ -753,6 +759,8 @@ func (m *HostConfig) validateRestartPolicy(formats strfmt.Registry) error {
 		if err := m.RestartPolicy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RestartPolicy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RestartPolicy")
 			}
 			return err
 		}
@@ -811,6 +819,8 @@ func (m *HostConfig) contextValidateLogConfig(ctx context.Context, formats strfm
 		if err := m.LogConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LogConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("LogConfig")
 			}
 			return err
 		}
@@ -827,6 +837,8 @@ func (m *HostConfig) contextValidateMounts(ctx context.Context, formats strfmt.R
 			if err := m.Mounts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -842,6 +854,8 @@ func (m *HostConfig) contextValidatePortBindings(ctx context.Context, formats st
 	if err := m.PortBindings.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("PortBindings")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("PortBindings")
 		}
 		return err
 	}
@@ -855,6 +869,8 @@ func (m *HostConfig) contextValidateRestartPolicy(ctx context.Context, formats s
 		if err := m.RestartPolicy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RestartPolicy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RestartPolicy")
 			}
 			return err
 		}

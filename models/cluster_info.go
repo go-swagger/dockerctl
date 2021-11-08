@@ -103,6 +103,8 @@ func (m *ClusterInfo) validateSpec(formats strfmt.Registry) error {
 		if err := m.Spec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -132,6 +134,8 @@ func (m *ClusterInfo) validateTLSInfo(formats strfmt.Registry) error {
 		if err := m.TLSInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TLSInfo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TLSInfo")
 			}
 			return err
 		}
@@ -149,6 +153,8 @@ func (m *ClusterInfo) validateVersion(formats strfmt.Registry) error {
 		if err := m.Version.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}
@@ -185,6 +191,8 @@ func (m *ClusterInfo) contextValidateSpec(ctx context.Context, formats strfmt.Re
 		if err := m.Spec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -199,6 +207,8 @@ func (m *ClusterInfo) contextValidateTLSInfo(ctx context.Context, formats strfmt
 		if err := m.TLSInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TLSInfo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TLSInfo")
 			}
 			return err
 		}
@@ -213,6 +223,8 @@ func (m *ClusterInfo) contextValidateVersion(ctx context.Context, formats strfmt
 		if err := m.Version.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}

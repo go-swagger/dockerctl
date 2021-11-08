@@ -72,6 +72,8 @@ func (m *NodeDescription) validateEngine(formats strfmt.Registry) error {
 		if err := m.Engine.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Engine")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Engine")
 			}
 			return err
 		}
@@ -89,6 +91,8 @@ func (m *NodeDescription) validatePlatform(formats strfmt.Registry) error {
 		if err := m.Platform.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Platform")
 			}
 			return err
 		}
@@ -106,6 +110,8 @@ func (m *NodeDescription) validateResources(formats strfmt.Registry) error {
 		if err := m.Resources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources")
 			}
 			return err
 		}
@@ -123,6 +129,8 @@ func (m *NodeDescription) validateTLSInfo(formats strfmt.Registry) error {
 		if err := m.TLSInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TLSInfo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TLSInfo")
 			}
 			return err
 		}
@@ -163,6 +171,8 @@ func (m *NodeDescription) contextValidateEngine(ctx context.Context, formats str
 		if err := m.Engine.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Engine")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Engine")
 			}
 			return err
 		}
@@ -177,6 +187,8 @@ func (m *NodeDescription) contextValidatePlatform(ctx context.Context, formats s
 		if err := m.Platform.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Platform")
 			}
 			return err
 		}
@@ -191,6 +203,8 @@ func (m *NodeDescription) contextValidateResources(ctx context.Context, formats 
 		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Resources")
 			}
 			return err
 		}
@@ -205,6 +219,8 @@ func (m *NodeDescription) contextValidateTLSInfo(ctx context.Context, formats st
 		if err := m.TLSInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TLSInfo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TLSInfo")
 			}
 			return err
 		}

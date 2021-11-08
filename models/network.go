@@ -108,6 +108,8 @@ func (m *Network) validateIPAM(formats strfmt.Registry) error {
 		if err := m.IPAM.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IPAM")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IPAM")
 			}
 			return err
 		}
@@ -155,6 +157,8 @@ func (m *Network) contextValidateIPAM(ctx context.Context, formats strfmt.Regist
 		if err := m.IPAM.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IPAM")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IPAM")
 			}
 			return err
 		}

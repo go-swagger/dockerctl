@@ -86,6 +86,8 @@ func (m *Service) validateEndpoint(formats strfmt.Registry) error {
 		if err := m.Endpoint.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Endpoint")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Endpoint")
 			}
 			return err
 		}
@@ -103,6 +105,8 @@ func (m *Service) validateServiceStatus(formats strfmt.Registry) error {
 		if err := m.ServiceStatus.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ServiceStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ServiceStatus")
 			}
 			return err
 		}
@@ -120,6 +124,8 @@ func (m *Service) validateSpec(formats strfmt.Registry) error {
 		if err := m.Spec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -137,6 +143,8 @@ func (m *Service) validateUpdateStatus(formats strfmt.Registry) error {
 		if err := m.UpdateStatus.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UpdateStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UpdateStatus")
 			}
 			return err
 		}
@@ -154,6 +162,8 @@ func (m *Service) validateVersion(formats strfmt.Registry) error {
 		if err := m.Version.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}
@@ -198,6 +208,8 @@ func (m *Service) contextValidateEndpoint(ctx context.Context, formats strfmt.Re
 		if err := m.Endpoint.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Endpoint")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Endpoint")
 			}
 			return err
 		}
@@ -212,6 +224,8 @@ func (m *Service) contextValidateServiceStatus(ctx context.Context, formats strf
 		if err := m.ServiceStatus.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ServiceStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ServiceStatus")
 			}
 			return err
 		}
@@ -226,6 +240,8 @@ func (m *Service) contextValidateSpec(ctx context.Context, formats strfmt.Regist
 		if err := m.Spec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Spec")
 			}
 			return err
 		}
@@ -240,6 +256,8 @@ func (m *Service) contextValidateUpdateStatus(ctx context.Context, formats strfm
 		if err := m.UpdateStatus.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UpdateStatus")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UpdateStatus")
 			}
 			return err
 		}
@@ -254,6 +272,8 @@ func (m *Service) contextValidateVersion(ctx context.Context, formats strfmt.Reg
 		if err := m.Version.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Version")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Version")
 			}
 			return err
 		}
@@ -331,6 +351,8 @@ func (m *ServiceEndpoint) validatePorts(formats strfmt.Registry) error {
 			if err := m.Ports[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Endpoint" + "." + "Ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Endpoint" + "." + "Ports" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -350,6 +372,8 @@ func (m *ServiceEndpoint) validateSpec(formats strfmt.Registry) error {
 		if err := m.Spec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Endpoint" + "." + "Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Endpoint" + "." + "Spec")
 			}
 			return err
 		}
@@ -372,6 +396,8 @@ func (m *ServiceEndpoint) validateVirtualIPs(formats strfmt.Registry) error {
 			if err := m.VirtualIPs[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Endpoint" + "." + "VirtualIPs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Endpoint" + "." + "VirtualIPs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -412,6 +438,8 @@ func (m *ServiceEndpoint) contextValidatePorts(ctx context.Context, formats strf
 			if err := m.Ports[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Endpoint" + "." + "Ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Endpoint" + "." + "Ports" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -428,6 +456,8 @@ func (m *ServiceEndpoint) contextValidateSpec(ctx context.Context, formats strfm
 		if err := m.Spec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Endpoint" + "." + "Spec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Endpoint" + "." + "Spec")
 			}
 			return err
 		}
@@ -444,6 +474,8 @@ func (m *ServiceEndpoint) contextValidateVirtualIPs(ctx context.Context, formats
 			if err := m.VirtualIPs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Endpoint" + "." + "VirtualIPs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Endpoint" + "." + "VirtualIPs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

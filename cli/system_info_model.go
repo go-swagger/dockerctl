@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -383,7 +384,7 @@ func registerSystemInfoCgroupDriver(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	cgroupDriverDescription := `The driver to use for managing cgroups.
+	cgroupDriverDescription := `Enum: ["cgroupfs","systemd","none"]. The driver to use for managing cgroups.
 `
 
 	var cgroupDriverFlagName string
@@ -396,6 +397,17 @@ func registerSystemInfoCgroupDriver(depth int, cmdPrefix string, cmd *cobra.Comm
 	var cgroupDriverFlagDefault string = "cgroupfs"
 
 	_ = cmd.PersistentFlags().String(cgroupDriverFlagName, cgroupDriverFlagDefault, cgroupDriverDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(cgroupDriverFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["cgroupfs","systemd","none"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -943,7 +955,7 @@ func registerSystemInfoIsolation(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	isolationDescription := `Represents the isolation technology to use as a default for containers.
+	isolationDescription := `Enum: ["default","hyperv","process"]. Represents the isolation technology to use as a default for containers.
 The supported values are platform-specific.
 
 If no isolation value is specified on daemon start, on Windows client,
@@ -962,6 +974,17 @@ This option is currently not used on other platforms.
 	var isolationFlagDefault string = "default"
 
 	_ = cmd.PersistentFlags().String(isolationFlagName, isolationFlagDefault, isolationDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(isolationFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["default","hyperv","process"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

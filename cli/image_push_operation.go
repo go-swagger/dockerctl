@@ -205,7 +205,7 @@ func parseOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error)
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*image.ImagePushNotFound)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -217,7 +217,7 @@ func parseOperationImageImagePushResult(resp0 *image.ImagePushOK, respErr error)
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*image.ImagePushInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err

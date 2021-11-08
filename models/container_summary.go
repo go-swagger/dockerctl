@@ -33,6 +33,8 @@ func (m ContainerSummary) Validate(formats strfmt.Registry) error {
 			if err := m[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName(strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName(strconv.Itoa(i))
 				}
 				return err
 			}
@@ -56,6 +58,8 @@ func (m ContainerSummary) ContextValidate(ctx context.Context, formats strfmt.Re
 			if err := m[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName(strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName(strconv.Itoa(i))
 				}
 				return err
 			}
@@ -155,6 +159,8 @@ func (m *ContainerSummaryItems0) validateHostConfig(formats strfmt.Registry) err
 		if err := m.HostConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("HostConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("HostConfig")
 			}
 			return err
 		}
@@ -177,6 +183,8 @@ func (m *ContainerSummaryItems0) validateMounts(formats strfmt.Registry) error {
 			if err := m.Mounts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -196,6 +204,8 @@ func (m *ContainerSummaryItems0) validateNetworkSettings(formats strfmt.Registry
 		if err := m.NetworkSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NetworkSettings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NetworkSettings")
 			}
 			return err
 		}
@@ -218,6 +228,8 @@ func (m *ContainerSummaryItems0) validatePorts(formats strfmt.Registry) error {
 			if err := m.Ports[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Ports" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -260,6 +272,8 @@ func (m *ContainerSummaryItems0) contextValidateHostConfig(ctx context.Context, 
 		if err := m.HostConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("HostConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("HostConfig")
 			}
 			return err
 		}
@@ -276,6 +290,8 @@ func (m *ContainerSummaryItems0) contextValidateMounts(ctx context.Context, form
 			if err := m.Mounts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -292,6 +308,8 @@ func (m *ContainerSummaryItems0) contextValidateNetworkSettings(ctx context.Cont
 		if err := m.NetworkSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NetworkSettings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NetworkSettings")
 			}
 			return err
 		}
@@ -308,6 +326,8 @@ func (m *ContainerSummaryItems0) contextValidatePorts(ctx context.Context, forma
 			if err := m.Ports[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Ports" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

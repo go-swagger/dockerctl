@@ -306,7 +306,7 @@ func parseOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*swarm.SwarmUpdateBadRequest)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -318,7 +318,7 @@ func parseOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*swarm.SwarmUpdateInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -330,7 +330,7 @@ func parseOperationSwarmSwarmUpdateResult(resp0 *swarm.SwarmUpdateOK, respErr er
 		var iResp3 interface{} = respErr
 		resp3, ok := iResp3.(*swarm.SwarmUpdateServiceUnavailable)
 		if ok {
-			if !swag.IsZero(resp3.Payload) {
+			if !swag.IsZero(resp3) && !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
 					return "", err

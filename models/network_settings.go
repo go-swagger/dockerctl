@@ -219,6 +219,8 @@ func (m *NetworkSettings) validatePorts(formats strfmt.Registry) error {
 		if err := m.Ports.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Ports")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Ports")
 			}
 			return err
 		}
@@ -241,6 +243,8 @@ func (m *NetworkSettings) validateSecondaryIPAddresses(formats strfmt.Registry) 
 			if err := m.SecondaryIPAddresses[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SecondaryIPAddresses" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("SecondaryIPAddresses" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -265,6 +269,8 @@ func (m *NetworkSettings) validateSecondaryIPV6Addresses(formats strfmt.Registry
 			if err := m.SecondaryIPV6Addresses[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SecondaryIPv6Addresses" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("SecondaryIPv6Addresses" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -321,6 +327,8 @@ func (m *NetworkSettings) contextValidatePorts(ctx context.Context, formats strf
 	if err := m.Ports.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Ports")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("Ports")
 		}
 		return err
 	}
@@ -336,6 +344,8 @@ func (m *NetworkSettings) contextValidateSecondaryIPAddresses(ctx context.Contex
 			if err := m.SecondaryIPAddresses[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SecondaryIPAddresses" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("SecondaryIPAddresses" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -354,6 +364,8 @@ func (m *NetworkSettings) contextValidateSecondaryIPV6Addresses(ctx context.Cont
 			if err := m.SecondaryIPV6Addresses[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SecondaryIPv6Addresses" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("SecondaryIPv6Addresses" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

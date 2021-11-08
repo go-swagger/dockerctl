@@ -174,7 +174,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*service.ServiceCreateCreated)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -186,7 +186,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*service.ServiceCreateBadRequest)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -198,7 +198,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*service.ServiceCreateForbidden)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -210,7 +210,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		var iResp3 interface{} = respErr
 		resp3, ok := iResp3.(*service.ServiceCreateConflict)
 		if ok {
-			if !swag.IsZero(resp3.Payload) {
+			if !swag.IsZero(resp3) && !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
 					return "", err
@@ -222,7 +222,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		var iResp4 interface{} = respErr
 		resp4, ok := iResp4.(*service.ServiceCreateInternalServerError)
 		if ok {
-			if !swag.IsZero(resp4.Payload) {
+			if !swag.IsZero(resp4) && !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
 					return "", err
@@ -234,7 +234,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		var iResp5 interface{} = respErr
 		resp5, ok := iResp5.(*service.ServiceCreateServiceUnavailable)
 		if ok {
-			if !swag.IsZero(resp5.Payload) {
+			if !swag.IsZero(resp5) && !swag.IsZero(resp5.Payload) {
 				msgStr, err := json.Marshal(resp5.Payload)
 				if err != nil {
 					return "", err
@@ -246,7 +246,7 @@ func parseOperationServiceServiceCreateResult(resp0 *service.ServiceCreateCreate
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

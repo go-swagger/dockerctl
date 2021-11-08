@@ -170,6 +170,8 @@ func (o *SystemDataUsageOKBody) validateBuildCache(formats strfmt.Registry) erro
 			if err := o.BuildCache[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemDataUsageOK" + "." + "BuildCache" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemDataUsageOK" + "." + "BuildCache" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -190,6 +192,8 @@ func (o *SystemDataUsageOKBody) validateContainers(formats strfmt.Registry) erro
 		if err := o.Containers[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("systemDataUsageOK" + "." + "Containers" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("systemDataUsageOK" + "." + "Containers" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -213,6 +217,8 @@ func (o *SystemDataUsageOKBody) validateImages(formats strfmt.Registry) error {
 			if err := o.Images[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemDataUsageOK" + "." + "Images" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemDataUsageOK" + "." + "Images" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -237,6 +243,8 @@ func (o *SystemDataUsageOKBody) validateVolumes(formats strfmt.Registry) error {
 			if err := o.Volumes[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemDataUsageOK" + "." + "Volumes" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemDataUsageOK" + "." + "Volumes" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -281,6 +289,8 @@ func (o *SystemDataUsageOKBody) contextValidateBuildCache(ctx context.Context, f
 			if err := o.BuildCache[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemDataUsageOK" + "." + "BuildCache" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemDataUsageOK" + "." + "BuildCache" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -298,6 +308,8 @@ func (o *SystemDataUsageOKBody) contextValidateContainers(ctx context.Context, f
 		if err := o.Containers[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("systemDataUsageOK" + "." + "Containers" + "." + strconv.Itoa(i))
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("systemDataUsageOK" + "." + "Containers" + "." + strconv.Itoa(i))
 			}
 			return err
 		}
@@ -315,6 +327,8 @@ func (o *SystemDataUsageOKBody) contextValidateImages(ctx context.Context, forma
 			if err := o.Images[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemDataUsageOK" + "." + "Images" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemDataUsageOK" + "." + "Images" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -333,6 +347,8 @@ func (o *SystemDataUsageOKBody) contextValidateVolumes(ctx context.Context, form
 			if err := o.Volumes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("systemDataUsageOK" + "." + "Volumes" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("systemDataUsageOK" + "." + "Volumes" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

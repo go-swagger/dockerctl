@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/models"
@@ -41,7 +42,7 @@ func registerNodeSpecAvailability(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	availabilityDescription := `Availability of the node.`
+	availabilityDescription := `Enum: ["active","pause","drain"]. Availability of the node.`
 
 	var availabilityFlagName string
 	if cmdPrefix == "" {
@@ -53,6 +54,17 @@ func registerNodeSpecAvailability(depth int, cmdPrefix string, cmd *cobra.Comman
 	var availabilityFlagDefault string
 
 	_ = cmd.PersistentFlags().String(availabilityFlagName, availabilityFlagDefault, availabilityDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(availabilityFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["active","pause","drain"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -93,7 +105,7 @@ func registerNodeSpecRole(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	roleDescription := `Role of the node.`
+	roleDescription := `Enum: ["worker","manager"]. Role of the node.`
 
 	var roleFlagName string
 	if cmdPrefix == "" {
@@ -105,6 +117,17 @@ func registerNodeSpecRole(depth int, cmdPrefix string, cmd *cobra.Command) error
 	var roleFlagDefault string
 
 	_ = cmd.PersistentFlags().String(roleFlagName, roleFlagDefault, roleDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(roleFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["worker","manager"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

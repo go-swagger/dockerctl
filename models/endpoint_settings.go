@@ -104,6 +104,8 @@ func (m *EndpointSettings) validateIPAMConfig(formats strfmt.Registry) error {
 		if err := m.IPAMConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IPAMConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IPAMConfig")
 			}
 			return err
 		}
@@ -132,6 +134,8 @@ func (m *EndpointSettings) contextValidateIPAMConfig(ctx context.Context, format
 		if err := m.IPAMConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IPAMConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IPAMConfig")
 			}
 			return err
 		}

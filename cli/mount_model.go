@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -181,7 +182,7 @@ func registerMountType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	typeDescription := `The mount type. Available types:
+	typeDescription := `Enum: ["bind","volume","tmpfs","npipe"]. The mount type. Available types:
 
 - ` + "`" + `bind` + "`" + ` Mounts a file or directory from the host into the container. Must exist prior to creating the container.
 - ` + "`" + `volume` + "`" + ` Creates a volume with the given name and options (or uses a pre-existing volume with the same name and options). These are **not** removed when the container is removed.
@@ -199,6 +200,17 @@ func registerMountType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 	var typeFlagDefault string
 
 	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(typeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["bind","volume","tmpfs","npipe"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -540,7 +552,7 @@ func registerMountBindOptionsPropagation(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	propagationDescription := `A propagation mode with the value ` + "`" + `[r]private` + "`" + `, ` + "`" + `[r]shared` + "`" + `, or ` + "`" + `[r]slave` + "`" + `.`
+	propagationDescription := `Enum: ["private","rprivate","shared","rshared","slave","rslave"]. A propagation mode with the value ` + "`" + `[r]private` + "`" + `, ` + "`" + `[r]shared` + "`" + `, or ` + "`" + `[r]slave` + "`" + `.`
 
 	var propagationFlagName string
 	if cmdPrefix == "" {
@@ -552,6 +564,17 @@ func registerMountBindOptionsPropagation(depth int, cmdPrefix string, cmd *cobra
 	var propagationFlagDefault string
 
 	_ = cmd.PersistentFlags().String(propagationFlagName, propagationFlagDefault, propagationDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(propagationFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["private","rprivate","shared","rshared","slave","rslave"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

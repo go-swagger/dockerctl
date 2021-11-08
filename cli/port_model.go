@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-swagger/dockerctl/models"
@@ -82,7 +83,7 @@ func registerPortType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	typeDescription := `Required. `
+	typeDescription := `Enum: ["tcp","udp","sctp"]. Required. `
 
 	var typeFlagName string
 	if cmdPrefix == "" {
@@ -94,6 +95,17 @@ func registerPortType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 	var typeFlagDefault string
 
 	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(typeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["tcp","udp","sctp"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

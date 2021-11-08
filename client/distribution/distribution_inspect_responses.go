@@ -235,6 +235,8 @@ func (o *DistributionInspectOKBody) validateDescriptor(formats strfmt.Registry) 
 		if err := o.Descriptor.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("distributionInspectOK" + "." + "Descriptor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("distributionInspectOK" + "." + "Descriptor")
 			}
 			return err
 		}
@@ -258,6 +260,8 @@ func (o *DistributionInspectOKBody) validatePlatforms(formats strfmt.Registry) e
 			if err := o.Platforms[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("distributionInspectOK" + "." + "Platforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("distributionInspectOK" + "." + "Platforms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -292,6 +296,8 @@ func (o *DistributionInspectOKBody) contextValidateDescriptor(ctx context.Contex
 		if err := o.Descriptor.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("distributionInspectOK" + "." + "Descriptor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("distributionInspectOK" + "." + "Descriptor")
 			}
 			return err
 		}
@@ -308,6 +314,8 @@ func (o *DistributionInspectOKBody) contextValidatePlatforms(ctx context.Context
 			if err := o.Platforms[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("distributionInspectOK" + "." + "Platforms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("distributionInspectOK" + "." + "Platforms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

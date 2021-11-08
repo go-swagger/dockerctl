@@ -136,7 +136,7 @@ func parseOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) (
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*image.ImageGetOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -148,7 +148,7 @@ func parseOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) (
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*image.ImageGetInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -160,7 +160,7 @@ func parseOperationImageImageGetResult(resp0 *image.ImageGetOK, respErr error) (
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr := fmt.Sprintf("%v", resp0.Payload)
 		return string(msgStr), nil
 	}

@@ -275,6 +275,8 @@ func (o *ContainerInspectOKBody) validateConfig(formats strfmt.Registry) error {
 		if err := o.Config.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "Config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "Config")
 			}
 			return err
 		}
@@ -292,6 +294,8 @@ func (o *ContainerInspectOKBody) validateGraphDriver(formats strfmt.Registry) er
 		if err := o.GraphDriver.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "GraphDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "GraphDriver")
 			}
 			return err
 		}
@@ -309,6 +313,8 @@ func (o *ContainerInspectOKBody) validateHostConfig(formats strfmt.Registry) err
 		if err := o.HostConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "HostConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "HostConfig")
 			}
 			return err
 		}
@@ -331,6 +337,8 @@ func (o *ContainerInspectOKBody) validateMounts(formats strfmt.Registry) error {
 			if err := o.Mounts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("containerInspectOK" + "." + "Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("containerInspectOK" + "." + "Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -350,6 +358,8 @@ func (o *ContainerInspectOKBody) validateNetworkSettings(formats strfmt.Registry
 		if err := o.NetworkSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "NetworkSettings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "NetworkSettings")
 			}
 			return err
 		}
@@ -367,6 +377,8 @@ func (o *ContainerInspectOKBody) validateState(formats strfmt.Registry) error {
 		if err := o.State.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "State")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "State")
 			}
 			return err
 		}
@@ -415,6 +427,8 @@ func (o *ContainerInspectOKBody) contextValidateConfig(ctx context.Context, form
 		if err := o.Config.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "Config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "Config")
 			}
 			return err
 		}
@@ -429,6 +443,8 @@ func (o *ContainerInspectOKBody) contextValidateGraphDriver(ctx context.Context,
 		if err := o.GraphDriver.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "GraphDriver")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "GraphDriver")
 			}
 			return err
 		}
@@ -443,6 +459,8 @@ func (o *ContainerInspectOKBody) contextValidateHostConfig(ctx context.Context, 
 		if err := o.HostConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "HostConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "HostConfig")
 			}
 			return err
 		}
@@ -459,6 +477,8 @@ func (o *ContainerInspectOKBody) contextValidateMounts(ctx context.Context, form
 			if err := o.Mounts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("containerInspectOK" + "." + "Mounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("containerInspectOK" + "." + "Mounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -475,6 +495,8 @@ func (o *ContainerInspectOKBody) contextValidateNetworkSettings(ctx context.Cont
 		if err := o.NetworkSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "NetworkSettings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "NetworkSettings")
 			}
 			return err
 		}
@@ -489,6 +511,8 @@ func (o *ContainerInspectOKBody) contextValidateState(ctx context.Context, forma
 		if err := o.State.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("containerInspectOK" + "." + "State")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("containerInspectOK" + "." + "State")
 			}
 			return err
 		}

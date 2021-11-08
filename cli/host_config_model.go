@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -275,7 +276,7 @@ func registerHostConfigAnonAO1CgroupnsMode(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	cgroupnsModeDescription := `cgroup namespace mode for the container. Possible values are:
+	cgroupnsModeDescription := `Enum: ["private","host"]. cgroup namespace mode for the container. Possible values are:
 
 - ` + "`" + `"private"` + "`" + `: the container runs in its own private cgroup namespace
 - ` + "`" + `"host"` + "`" + `: use the host system's cgroup namespace
@@ -294,6 +295,17 @@ or ` + "`" + `"host"` + "`" + `, depending on daemon version, kernel support and
 	var cgroupnsModeFlagDefault string
 
 	_ = cmd.PersistentFlags().String(cgroupnsModeFlagName, cgroupnsModeFlagDefault, cgroupnsModeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(cgroupnsModeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["private","host"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -415,7 +427,7 @@ func registerHostConfigAnonAO1Isolation(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	isolationDescription := `Isolation technology of the container. (Windows only)`
+	isolationDescription := `Enum: ["default","process","hyperv"]. Isolation technology of the container. (Windows only)`
 
 	var isolationFlagName string
 	if cmdPrefix == "" {
@@ -427,6 +439,17 @@ func registerHostConfigAnonAO1Isolation(depth int, cmdPrefix string, cmd *cobra.
 	var isolationFlagDefault string
 
 	_ = cmd.PersistentFlags().String(isolationFlagName, isolationFlagDefault, isolationDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(isolationFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["default","process","hyperv"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1905,7 +1928,7 @@ func registerHostConfigAO1LogConfigType(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	typeDescription := ``
+	typeDescription := `Enum: ["json-file","syslog","journald","gelf","fluentd","awslogs","splunk","etwlogs","none"]. `
 
 	var typeFlagName string
 	if cmdPrefix == "" {
@@ -1917,6 +1940,17 @@ func registerHostConfigAO1LogConfigType(depth int, cmdPrefix string, cmd *cobra.
 	var typeFlagDefault string
 
 	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(typeFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["json-file","syslog","journald","gelf","fluentd","awslogs","splunk","etwlogs","none"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

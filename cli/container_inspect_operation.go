@@ -156,7 +156,7 @@ func parseOperationContainerContainerInspectResult(resp0 *container.ContainerIns
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*container.ContainerInspectOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -168,7 +168,7 @@ func parseOperationContainerContainerInspectResult(resp0 *container.ContainerIns
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*container.ContainerInspectNotFound)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -180,7 +180,7 @@ func parseOperationContainerContainerInspectResult(resp0 *container.ContainerIns
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*container.ContainerInspectInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -192,7 +192,7 @@ func parseOperationContainerContainerInspectResult(resp0 *container.ContainerIns
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err
@@ -1910,7 +1910,7 @@ func registerContainerInspectOKBodyStateStatus(depth int, cmdPrefix string, cmd 
 		return nil
 	}
 
-	statusDescription := `The status of the container. For example, ` + "`" + `"running"` + "`" + ` or ` + "`" + `"exited"` + "`" + `.
+	statusDescription := `Enum: ["created","running","paused","restarting","removing","exited","dead"]. The status of the container. For example, ` + "`" + `"running"` + "`" + ` or ` + "`" + `"exited"` + "`" + `.
 `
 
 	var statusFlagName string
@@ -1923,6 +1923,17 @@ func registerContainerInspectOKBodyStateStatus(depth int, cmdPrefix string, cmd 
 	var statusFlagDefault string
 
 	_ = cmd.PersistentFlags().String(statusFlagName, statusFlagDefault, statusDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(statusFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["created","running","paused","restarting","removing","exited","dead"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

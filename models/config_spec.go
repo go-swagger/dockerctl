@@ -60,6 +60,8 @@ func (m *ConfigSpec) validateTemplating(formats strfmt.Registry) error {
 		if err := m.Templating.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Templating")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Templating")
 			}
 			return err
 		}
@@ -88,6 +90,8 @@ func (m *ConfigSpec) contextValidateTemplating(ctx context.Context, formats strf
 		if err := m.Templating.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Templating")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Templating")
 			}
 			return err
 		}

@@ -374,7 +374,7 @@ func parseOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*container.ContainerAttachWebsocketBadRequest)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -386,7 +386,7 @@ func parseOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 		var iResp3 interface{} = respErr
 		resp3, ok := iResp3.(*container.ContainerAttachWebsocketNotFound)
 		if ok {
-			if !swag.IsZero(resp3.Payload) {
+			if !swag.IsZero(resp3) && !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
 					return "", err
@@ -398,7 +398,7 @@ func parseOperationContainerContainerAttachWebsocketResult(resp0 *container.Cont
 		var iResp4 interface{} = respErr
 		resp4, ok := iResp4.(*container.ContainerAttachWebsocketInternalServerError)
 		if ok {
-			if !swag.IsZero(resp4.Payload) {
+			if !swag.IsZero(resp4) && !swag.IsZero(resp4.Payload) {
 				msgStr, err := json.Marshal(resp4.Payload)
 				if err != nil {
 					return "", err

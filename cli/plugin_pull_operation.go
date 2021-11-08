@@ -103,7 +103,9 @@ func registerOperationPluginPluginPullXRegistryAuthParamFlags(cmdPrefix string, 
 	return nil
 }
 func registerOperationPluginPluginPullBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type []*PluginPullParamsBodyItems0 is not supported by go-swagger cli yet.
+
+	// warning: array body []*PluginPullParamsBodyItems0 is not supported by go-swagger cli yet
+
 	return nil
 }
 func registerOperationPluginPluginPullNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
@@ -170,7 +172,9 @@ func retrieveOperationPluginPluginPullXRegistryAuthFlag(m *plugin.PluginPullPara
 func retrieveOperationPluginPluginPullBodyFlag(m *plugin.PluginPullParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
-		// warning: body array type []*PluginPullParamsBodyItems0 is not supported by go-swagger cli yet
+
+		// warning: array body []*PluginPullParamsBodyItems0 is not supported by go-swagger cli yet
+
 	}
 	return nil, retAdded
 }
@@ -224,7 +228,7 @@ func parseOperationPluginPluginPullResult(resp0 *plugin.PluginPullNoContent, res
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*plugin.PluginPullInternalServerError)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err

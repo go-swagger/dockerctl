@@ -89,6 +89,8 @@ func (m *ServiceSpec) validateEndpointSpec(formats strfmt.Registry) error {
 		if err := m.EndpointSpec.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EndpointSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("EndpointSpec")
 			}
 			return err
 		}
@@ -106,6 +108,8 @@ func (m *ServiceSpec) validateMode(formats strfmt.Registry) error {
 		if err := m.Mode.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mode")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Mode")
 			}
 			return err
 		}
@@ -128,6 +132,8 @@ func (m *ServiceSpec) validateNetworks(formats strfmt.Registry) error {
 			if err := m.Networks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -147,6 +153,8 @@ func (m *ServiceSpec) validateRollbackConfig(formats strfmt.Registry) error {
 		if err := m.RollbackConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RollbackConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RollbackConfig")
 			}
 			return err
 		}
@@ -164,6 +172,8 @@ func (m *ServiceSpec) validateTaskTemplate(formats strfmt.Registry) error {
 		if err := m.TaskTemplate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TaskTemplate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TaskTemplate")
 			}
 			return err
 		}
@@ -181,6 +191,8 @@ func (m *ServiceSpec) validateUpdateConfig(formats strfmt.Registry) error {
 		if err := m.UpdateConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UpdateConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UpdateConfig")
 			}
 			return err
 		}
@@ -229,6 +241,8 @@ func (m *ServiceSpec) contextValidateEndpointSpec(ctx context.Context, formats s
 		if err := m.EndpointSpec.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EndpointSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("EndpointSpec")
 			}
 			return err
 		}
@@ -243,6 +257,8 @@ func (m *ServiceSpec) contextValidateMode(ctx context.Context, formats strfmt.Re
 		if err := m.Mode.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mode")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Mode")
 			}
 			return err
 		}
@@ -259,6 +275,8 @@ func (m *ServiceSpec) contextValidateNetworks(ctx context.Context, formats strfm
 			if err := m.Networks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Networks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Networks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -275,6 +293,8 @@ func (m *ServiceSpec) contextValidateRollbackConfig(ctx context.Context, formats
 		if err := m.RollbackConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RollbackConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RollbackConfig")
 			}
 			return err
 		}
@@ -289,6 +309,8 @@ func (m *ServiceSpec) contextValidateTaskTemplate(ctx context.Context, formats s
 		if err := m.TaskTemplate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TaskTemplate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TaskTemplate")
 			}
 			return err
 		}
@@ -303,6 +325,8 @@ func (m *ServiceSpec) contextValidateUpdateConfig(ctx context.Context, formats s
 		if err := m.UpdateConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UpdateConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UpdateConfig")
 			}
 			return err
 		}
@@ -364,6 +388,8 @@ func (m *ServiceSpecMode) validateReplicated(formats strfmt.Registry) error {
 		if err := m.Replicated.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mode" + "." + "Replicated")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Mode" + "." + "Replicated")
 			}
 			return err
 		}
@@ -392,6 +418,8 @@ func (m *ServiceSpecMode) contextValidateReplicated(ctx context.Context, formats
 		if err := m.Replicated.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mode" + "." + "Replicated")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Mode" + "." + "Replicated")
 			}
 			return err
 		}

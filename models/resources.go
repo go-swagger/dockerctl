@@ -200,6 +200,8 @@ func (m *Resources) validateBlkioDeviceReadBps(formats strfmt.Registry) error {
 			if err := m.BlkioDeviceReadBps[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceReadBps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceReadBps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -224,6 +226,8 @@ func (m *Resources) validateBlkioDeviceReadIOps(formats strfmt.Registry) error {
 			if err := m.BlkioDeviceReadIOps[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceReadIOps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceReadIOps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -248,6 +252,8 @@ func (m *Resources) validateBlkioDeviceWriteBps(formats strfmt.Registry) error {
 			if err := m.BlkioDeviceWriteBps[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceWriteBps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceWriteBps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -272,6 +278,8 @@ func (m *Resources) validateBlkioDeviceWriteIOps(formats strfmt.Registry) error 
 			if err := m.BlkioDeviceWriteIOps[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceWriteIOps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceWriteIOps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -312,6 +320,8 @@ func (m *Resources) validateBlkioWeightDevice(formats strfmt.Registry) error {
 			if err := m.BlkioWeightDevice[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioWeightDevice" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioWeightDevice" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -336,6 +346,8 @@ func (m *Resources) validateDeviceRequests(formats strfmt.Registry) error {
 			if err := m.DeviceRequests[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("DeviceRequests" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("DeviceRequests" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -360,6 +372,8 @@ func (m *Resources) validateDevices(formats strfmt.Registry) error {
 			if err := m.Devices[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Devices" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Devices" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -400,6 +414,8 @@ func (m *Resources) validateUlimits(formats strfmt.Registry) error {
 			if err := m.Ulimits[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Ulimits" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Ulimits" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -460,6 +476,8 @@ func (m *Resources) contextValidateBlkioDeviceReadBps(ctx context.Context, forma
 			if err := m.BlkioDeviceReadBps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceReadBps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceReadBps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -478,6 +496,8 @@ func (m *Resources) contextValidateBlkioDeviceReadIOps(ctx context.Context, form
 			if err := m.BlkioDeviceReadIOps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceReadIOps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceReadIOps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -496,6 +516,8 @@ func (m *Resources) contextValidateBlkioDeviceWriteBps(ctx context.Context, form
 			if err := m.BlkioDeviceWriteBps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceWriteBps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceWriteBps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -514,6 +536,8 @@ func (m *Resources) contextValidateBlkioDeviceWriteIOps(ctx context.Context, for
 			if err := m.BlkioDeviceWriteIOps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioDeviceWriteIOps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioDeviceWriteIOps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -532,6 +556,8 @@ func (m *Resources) contextValidateBlkioWeightDevice(ctx context.Context, format
 			if err := m.BlkioWeightDevice[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("BlkioWeightDevice" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("BlkioWeightDevice" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -550,6 +576,8 @@ func (m *Resources) contextValidateDeviceRequests(ctx context.Context, formats s
 			if err := m.DeviceRequests[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("DeviceRequests" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("DeviceRequests" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -568,6 +596,8 @@ func (m *Resources) contextValidateDevices(ctx context.Context, formats strfmt.R
 			if err := m.Devices[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Devices" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Devices" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -586,6 +616,8 @@ func (m *Resources) contextValidateUlimits(ctx context.Context, formats strfmt.R
 			if err := m.Ulimits[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Ulimits" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Ulimits" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

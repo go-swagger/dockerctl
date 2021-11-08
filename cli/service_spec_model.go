@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -673,7 +674,7 @@ func registerServiceSpecRollbackConfigFailureAction(depth int, cmdPrefix string,
 		return nil
 	}
 
-	failureActionDescription := `Action to take if an rolled back task fails to run, or stops running during the rollback.`
+	failureActionDescription := `Enum: ["continue","pause"]. Action to take if an rolled back task fails to run, or stops running during the rollback.`
 
 	var failureActionFlagName string
 	if cmdPrefix == "" {
@@ -685,6 +686,17 @@ func registerServiceSpecRollbackConfigFailureAction(depth int, cmdPrefix string,
 	var failureActionFlagDefault string
 
 	_ = cmd.PersistentFlags().String(failureActionFlagName, failureActionFlagDefault, failureActionDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(failureActionFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["continue","pause"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -736,7 +748,7 @@ func registerServiceSpecRollbackConfigOrder(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	orderDescription := `The order of operations when rolling back a task. Either the old task is shut down before the new task is started, or the new task is started before the old task is shut down.`
+	orderDescription := `Enum: ["stop-first","start-first"]. The order of operations when rolling back a task. Either the old task is shut down before the new task is started, or the new task is started before the old task is shut down.`
 
 	var orderFlagName string
 	if cmdPrefix == "" {
@@ -748,6 +760,17 @@ func registerServiceSpecRollbackConfigOrder(depth int, cmdPrefix string, cmd *co
 	var orderFlagDefault string
 
 	_ = cmd.PersistentFlags().String(orderFlagName, orderFlagDefault, orderDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(orderFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["stop-first","start-first"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1042,7 +1065,7 @@ func registerServiceSpecUpdateConfigFailureAction(depth int, cmdPrefix string, c
 		return nil
 	}
 
-	failureActionDescription := `Action to take if an updated task fails to run, or stops running during the update.`
+	failureActionDescription := `Enum: ["continue","pause","rollback"]. Action to take if an updated task fails to run, or stops running during the update.`
 
 	var failureActionFlagName string
 	if cmdPrefix == "" {
@@ -1054,6 +1077,17 @@ func registerServiceSpecUpdateConfigFailureAction(depth int, cmdPrefix string, c
 	var failureActionFlagDefault string
 
 	_ = cmd.PersistentFlags().String(failureActionFlagName, failureActionFlagDefault, failureActionDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(failureActionFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["continue","pause","rollback"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1105,7 +1139,7 @@ func registerServiceSpecUpdateConfigOrder(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	orderDescription := `The order of operations when rolling out an updated task. Either the old task is shut down before the new task is started, or the new task is started before the old task is shut down.`
+	orderDescription := `Enum: ["stop-first","start-first"]. The order of operations when rolling out an updated task. Either the old task is shut down before the new task is started, or the new task is started before the old task is shut down.`
 
 	var orderFlagName string
 	if cmdPrefix == "" {
@@ -1117,6 +1151,17 @@ func registerServiceSpecUpdateConfigOrder(depth int, cmdPrefix string, cmd *cobr
 	var orderFlagDefault string
 
 	_ = cmd.PersistentFlags().String(orderFlagName, orderFlagDefault, orderDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(orderFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["stop-first","start-first"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

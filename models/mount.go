@@ -87,6 +87,8 @@ func (m *Mount) validateBindOptions(formats strfmt.Registry) error {
 		if err := m.BindOptions.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("BindOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("BindOptions")
 			}
 			return err
 		}
@@ -104,6 +106,8 @@ func (m *Mount) validateTmpfsOptions(formats strfmt.Registry) error {
 		if err := m.TmpfsOptions.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TmpfsOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TmpfsOptions")
 			}
 			return err
 		}
@@ -169,6 +173,8 @@ func (m *Mount) validateVolumeOptions(formats strfmt.Registry) error {
 		if err := m.VolumeOptions.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("VolumeOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("VolumeOptions")
 			}
 			return err
 		}
@@ -205,6 +211,8 @@ func (m *Mount) contextValidateBindOptions(ctx context.Context, formats strfmt.R
 		if err := m.BindOptions.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("BindOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("BindOptions")
 			}
 			return err
 		}
@@ -219,6 +227,8 @@ func (m *Mount) contextValidateTmpfsOptions(ctx context.Context, formats strfmt.
 		if err := m.TmpfsOptions.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TmpfsOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TmpfsOptions")
 			}
 			return err
 		}
@@ -233,6 +243,8 @@ func (m *Mount) contextValidateVolumeOptions(ctx context.Context, formats strfmt
 		if err := m.VolumeOptions.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("VolumeOptions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("VolumeOptions")
 			}
 			return err
 		}
@@ -441,6 +453,8 @@ func (m *MountVolumeOptions) validateDriverConfig(formats strfmt.Registry) error
 		if err := m.DriverConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("VolumeOptions" + "." + "DriverConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("VolumeOptions" + "." + "DriverConfig")
 			}
 			return err
 		}
@@ -469,6 +483,8 @@ func (m *MountVolumeOptions) contextValidateDriverConfig(ctx context.Context, fo
 		if err := m.DriverConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("VolumeOptions" + "." + "DriverConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("VolumeOptions" + "." + "DriverConfig")
 			}
 			return err
 		}

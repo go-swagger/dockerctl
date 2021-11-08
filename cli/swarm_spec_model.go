@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -781,7 +782,7 @@ func registerSwarmSpecCAConfigExternalCAsItems0Protocol(depth int, cmdPrefix str
 		return nil
 	}
 
-	protocolDescription := `Protocol for communication with the external CA (currently only ` + "`" + `cfssl` + "`" + ` is supported).`
+	protocolDescription := `Enum: ["cfssl"]. Protocol for communication with the external CA (currently only ` + "`" + `cfssl` + "`" + ` is supported).`
 
 	var protocolFlagName string
 	if cmdPrefix == "" {
@@ -793,6 +794,17 @@ func registerSwarmSpecCAConfigExternalCAsItems0Protocol(depth int, cmdPrefix str
 	var protocolFlagDefault string = "cfssl"
 
 	_ = cmd.PersistentFlags().String(protocolFlagName, protocolFlagDefault, protocolDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(protocolFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["cfssl"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

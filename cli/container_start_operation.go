@@ -159,7 +159,7 @@ func parseOperationContainerContainerStartResult(resp0 *container.ContainerStart
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*container.ContainerStartNotFound)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -171,7 +171,7 @@ func parseOperationContainerContainerStartResult(resp0 *container.ContainerStart
 		var iResp3 interface{} = respErr
 		resp3, ok := iResp3.(*container.ContainerStartInternalServerError)
 		if ok {
-			if !swag.IsZero(resp3.Payload) {
+			if !swag.IsZero(resp3) && !swag.IsZero(resp3.Payload) {
 				msgStr, err := json.Marshal(resp3.Payload)
 				if err != nil {
 					return "", err

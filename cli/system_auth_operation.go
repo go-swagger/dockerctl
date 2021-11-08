@@ -132,7 +132,7 @@ func parseOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *sys
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*system.SystemAuthOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -146,7 +146,7 @@ func parseOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *sys
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*system.SystemAuthInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -158,7 +158,7 @@ func parseOperationSystemSystemAuthResult(resp0 *system.SystemAuthOK, resp1 *sys
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

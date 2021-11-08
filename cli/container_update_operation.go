@@ -175,7 +175,7 @@ func parseOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 		var iResp0 interface{} = respErr
 		resp0, ok := iResp0.(*container.ContainerUpdateOK)
 		if ok {
-			if !swag.IsZero(resp0.Payload) {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 				msgStr, err := json.Marshal(resp0.Payload)
 				if err != nil {
 					return "", err
@@ -187,7 +187,7 @@ func parseOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*container.ContainerUpdateNotFound)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -199,7 +199,7 @@ func parseOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*container.ContainerUpdateInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err
@@ -211,7 +211,7 @@ func parseOperationContainerContainerUpdateResult(resp0 *container.ContainerUpda
 		return "", respErr
 	}
 
-	if !swag.IsZero(resp0.Payload) {
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
 		msgStr, err := json.Marshal(resp0.Payload)
 		if err != nil {
 			return "", err

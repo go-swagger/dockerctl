@@ -249,6 +249,8 @@ func (o *NetworkCreateBody) validateIPAM(formats strfmt.Registry) error {
 		if err := o.IPAM.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("networkConfig" + "." + "IPAM")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("networkConfig" + "." + "IPAM")
 			}
 			return err
 		}
@@ -286,6 +288,8 @@ func (o *NetworkCreateBody) contextValidateIPAM(ctx context.Context, formats str
 		if err := o.IPAM.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("networkConfig" + "." + "IPAM")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("networkConfig" + "." + "IPAM")
 			}
 			return err
 		}

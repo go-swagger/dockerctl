@@ -73,7 +73,20 @@ func registerOperationPluginPluginSetParamFlags(cmd *cobra.Command) error {
 }
 
 func registerOperationPluginPluginSetBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
-	// warning: go type []string is not supported by go-swagger cli yet.
+
+	bodyDescription := ``
+
+	var bodyFlagName string
+	if cmdPrefix == "" {
+		bodyFlagName = "body"
+	} else {
+		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+	}
+
+	var bodyFlagDefault []string
+
+	_ = cmd.PersistentFlags().StringSlice(bodyFlagName, bodyFlagDefault, bodyDescription)
+
 	return nil
 }
 func registerOperationPluginPluginSetNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
@@ -97,7 +110,20 @@ func registerOperationPluginPluginSetNameParamFlags(cmdPrefix string, cmd *cobra
 func retrieveOperationPluginPluginSetBodyFlag(m *plugin.PluginSetParams, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 	if cmd.Flags().Changed("body") {
-		// warning: body array type []string is not supported by go-swagger cli yet
+
+		var bodyFlagName string
+		if cmdPrefix == "" {
+			bodyFlagName = "body"
+		} else {
+			bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		}
+
+		bodyFlagValues, err := cmd.Flags().GetStringSlice(bodyFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.Body = bodyFlagValues
+
 	}
 	return nil, retAdded
 }
@@ -131,7 +157,7 @@ func parseOperationPluginPluginSetResult(resp0 *plugin.PluginSetNoContent, respE
 		var iResp1 interface{} = respErr
 		resp1, ok := iResp1.(*plugin.PluginSetNotFound)
 		if ok {
-			if !swag.IsZero(resp1.Payload) {
+			if !swag.IsZero(resp1) && !swag.IsZero(resp1.Payload) {
 				msgStr, err := json.Marshal(resp1.Payload)
 				if err != nil {
 					return "", err
@@ -143,7 +169,7 @@ func parseOperationPluginPluginSetResult(resp0 *plugin.PluginSetNoContent, respE
 		var iResp2 interface{} = respErr
 		resp2, ok := iResp2.(*plugin.PluginSetInternalServerError)
 		if ok {
-			if !swag.IsZero(resp2.Payload) {
+			if !swag.IsZero(resp2) && !swag.IsZero(resp2.Payload) {
 				msgStr, err := json.Marshal(resp2.Payload)
 				if err != nil {
 					return "", err

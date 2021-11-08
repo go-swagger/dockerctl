@@ -97,6 +97,8 @@ func (m *Swarm) validateJoinTokens(formats strfmt.Registry) error {
 		if err := m.JoinTokens.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("JoinTokens")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("JoinTokens")
 			}
 			return err
 		}
@@ -130,6 +132,8 @@ func (m *Swarm) contextValidateJoinTokens(ctx context.Context, formats strfmt.Re
 		if err := m.JoinTokens.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("JoinTokens")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("JoinTokens")
 			}
 			return err
 		}

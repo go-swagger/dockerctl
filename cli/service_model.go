@@ -6,6 +6,7 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/go-openapi/swag"
@@ -939,7 +940,7 @@ func registerServiceUpdateStatusState(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	stateDescription := ``
+	stateDescription := `Enum: ["updating","paused","completed"]. `
 
 	var stateFlagName string
 	if cmdPrefix == "" {
@@ -951,6 +952,17 @@ func registerServiceUpdateStatusState(depth int, cmdPrefix string, cmd *cobra.Co
 	var stateFlagDefault string
 
 	_ = cmd.PersistentFlags().String(stateFlagName, stateFlagDefault, stateDescription)
+
+	if err := cmd.RegisterFlagCompletionFunc(stateFlagName,
+		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+			var res []string
+			if err := json.Unmarshal([]byte(`["updating","paused","completed"]`), &res); err != nil {
+				panic(err)
+			}
+			return res, cobra.ShellCompDirectiveDefault
+		}); err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -536,6 +536,8 @@ func (m *SystemInfo) validateContainerdCommit(formats strfmt.Registry) error {
 		if err := m.ContainerdCommit.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerdCommit")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerdCommit")
 			}
 			return err
 		}
@@ -552,6 +554,8 @@ func (m *SystemInfo) validateGenericResources(formats strfmt.Registry) error {
 	if err := m.GenericResources.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("GenericResources")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("GenericResources")
 		}
 		return err
 	}
@@ -568,6 +572,8 @@ func (m *SystemInfo) validateInitCommit(formats strfmt.Registry) error {
 		if err := m.InitCommit.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("InitCommit")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("InitCommit")
 			}
 			return err
 		}
@@ -630,6 +636,8 @@ func (m *SystemInfo) validatePlugins(formats strfmt.Registry) error {
 		if err := m.Plugins.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Plugins")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Plugins")
 			}
 			return err
 		}
@@ -647,6 +655,8 @@ func (m *SystemInfo) validateRegistryConfig(formats strfmt.Registry) error {
 		if err := m.RegistryConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RegistryConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RegistryConfig")
 			}
 			return err
 		}
@@ -664,6 +674,8 @@ func (m *SystemInfo) validateRuncCommit(formats strfmt.Registry) error {
 		if err := m.RuncCommit.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RuncCommit")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RuncCommit")
 			}
 			return err
 		}
@@ -702,6 +714,8 @@ func (m *SystemInfo) validateSwarm(formats strfmt.Registry) error {
 		if err := m.Swarm.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Swarm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Swarm")
 			}
 			return err
 		}
@@ -758,6 +772,8 @@ func (m *SystemInfo) contextValidateContainerdCommit(ctx context.Context, format
 		if err := m.ContainerdCommit.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContainerdCommit")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContainerdCommit")
 			}
 			return err
 		}
@@ -771,6 +787,8 @@ func (m *SystemInfo) contextValidateGenericResources(ctx context.Context, format
 	if err := m.GenericResources.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("GenericResources")
+		} else if ce, ok := err.(*errors.CompositeError); ok {
+			return ce.ValidateName("GenericResources")
 		}
 		return err
 	}
@@ -784,6 +802,8 @@ func (m *SystemInfo) contextValidateInitCommit(ctx context.Context, formats strf
 		if err := m.InitCommit.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("InitCommit")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("InitCommit")
 			}
 			return err
 		}
@@ -798,6 +818,8 @@ func (m *SystemInfo) contextValidatePlugins(ctx context.Context, formats strfmt.
 		if err := m.Plugins.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Plugins")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Plugins")
 			}
 			return err
 		}
@@ -812,6 +834,8 @@ func (m *SystemInfo) contextValidateRegistryConfig(ctx context.Context, formats 
 		if err := m.RegistryConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RegistryConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RegistryConfig")
 			}
 			return err
 		}
@@ -826,6 +850,8 @@ func (m *SystemInfo) contextValidateRuncCommit(ctx context.Context, formats strf
 		if err := m.RuncCommit.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("RuncCommit")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("RuncCommit")
 			}
 			return err
 		}
@@ -855,6 +881,8 @@ func (m *SystemInfo) contextValidateSwarm(ctx context.Context, formats strfmt.Re
 		if err := m.Swarm.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Swarm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Swarm")
 			}
 			return err
 		}

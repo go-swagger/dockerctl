@@ -322,6 +322,8 @@ func (o *ContainerCreateBody) validateHostConfig(formats strfmt.Registry) error 
 		if err := o.HostConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "HostConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "HostConfig")
 			}
 			return err
 		}
@@ -340,6 +342,8 @@ func (o *ContainerCreateBody) validateNetworkingConfig(formats strfmt.Registry) 
 		if err := o.NetworkingConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "NetworkingConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "NetworkingConfig")
 			}
 			return err
 		}
@@ -377,6 +381,8 @@ func (o *ContainerCreateBody) contextValidateHostConfig(ctx context.Context, for
 		if err := o.HostConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "HostConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "HostConfig")
 			}
 			return err
 		}
@@ -391,6 +397,8 @@ func (o *ContainerCreateBody) contextValidateNetworkingConfig(ctx context.Contex
 		if err := o.NetworkingConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "NetworkingConfig")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "NetworkingConfig")
 			}
 			return err
 		}

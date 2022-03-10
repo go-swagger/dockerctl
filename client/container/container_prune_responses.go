@@ -55,9 +55,39 @@ type ContainerPruneOK struct {
 	Payload *ContainerPruneOKBody
 }
 
+// IsSuccess returns true when this container prune o k response has a 2xx status code
+func (o *ContainerPruneOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container prune o k response has a 3xx status code
+func (o *ContainerPruneOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container prune o k response has a 4xx status code
+func (o *ContainerPruneOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container prune o k response has a 5xx status code
+func (o *ContainerPruneOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container prune o k response a status code equal to that given
+func (o *ContainerPruneOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerPruneOK) Error() string {
 	return fmt.Sprintf("[POST /containers/prune][%d] containerPruneOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerPruneOK) String() string {
+	return fmt.Sprintf("[POST /containers/prune][%d] containerPruneOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerPruneOK) GetPayload() *ContainerPruneOKBody {
 	return o.Payload
 }
@@ -87,9 +117,39 @@ type ContainerPruneInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container prune internal server error response has a 2xx status code
+func (o *ContainerPruneInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container prune internal server error response has a 3xx status code
+func (o *ContainerPruneInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container prune internal server error response has a 4xx status code
+func (o *ContainerPruneInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container prune internal server error response has a 5xx status code
+func (o *ContainerPruneInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container prune internal server error response a status code equal to that given
+func (o *ContainerPruneInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerPruneInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/prune][%d] containerPruneInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerPruneInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/prune][%d] containerPruneInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerPruneInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

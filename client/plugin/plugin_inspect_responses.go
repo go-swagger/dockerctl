@@ -59,9 +59,39 @@ type PluginInspectOK struct {
 	Payload *models.Plugin
 }
 
+// IsSuccess returns true when this plugin inspect o k response has a 2xx status code
+func (o *PluginInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin inspect o k response has a 3xx status code
+func (o *PluginInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin inspect o k response has a 4xx status code
+func (o *PluginInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin inspect o k response has a 5xx status code
+func (o *PluginInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin inspect o k response a status code equal to that given
+func (o *PluginInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PluginInspectOK) Error() string {
 	return fmt.Sprintf("[GET /plugins/{name}/json][%d] pluginInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *PluginInspectOK) String() string {
+	return fmt.Sprintf("[GET /plugins/{name}/json][%d] pluginInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *PluginInspectOK) GetPayload() *models.Plugin {
 	return o.Payload
 }
@@ -91,9 +121,39 @@ type PluginInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin inspect not found response has a 2xx status code
+func (o *PluginInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin inspect not found response has a 3xx status code
+func (o *PluginInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin inspect not found response has a 4xx status code
+func (o *PluginInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this plugin inspect not found response has a 5xx status code
+func (o *PluginInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin inspect not found response a status code equal to that given
+func (o *PluginInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PluginInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /plugins/{name}/json][%d] pluginInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PluginInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /plugins/{name}/json][%d] pluginInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PluginInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -123,9 +183,39 @@ type PluginInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin inspect internal server error response has a 2xx status code
+func (o *PluginInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin inspect internal server error response has a 3xx status code
+func (o *PluginInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin inspect internal server error response has a 4xx status code
+func (o *PluginInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin inspect internal server error response has a 5xx status code
+func (o *PluginInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin inspect internal server error response a status code equal to that given
+func (o *PluginInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /plugins/{name}/json][%d] pluginInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /plugins/{name}/json][%d] pluginInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -65,9 +65,39 @@ type ServiceInspectOK struct {
 	Payload *models.Service
 }
 
+// IsSuccess returns true when this service inspect o k response has a 2xx status code
+func (o *ServiceInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this service inspect o k response has a 3xx status code
+func (o *ServiceInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service inspect o k response has a 4xx status code
+func (o *ServiceInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service inspect o k response has a 5xx status code
+func (o *ServiceInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service inspect o k response a status code equal to that given
+func (o *ServiceInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ServiceInspectOK) Error() string {
 	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *ServiceInspectOK) String() string {
+	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *ServiceInspectOK) GetPayload() *models.Service {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type ServiceInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service inspect not found response has a 2xx status code
+func (o *ServiceInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service inspect not found response has a 3xx status code
+func (o *ServiceInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service inspect not found response has a 4xx status code
+func (o *ServiceInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this service inspect not found response has a 5xx status code
+func (o *ServiceInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service inspect not found response a status code equal to that given
+func (o *ServiceInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ServiceInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ServiceInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ServiceInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type ServiceInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service inspect internal server error response has a 2xx status code
+func (o *ServiceInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service inspect internal server error response has a 3xx status code
+func (o *ServiceInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service inspect internal server error response has a 4xx status code
+func (o *ServiceInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service inspect internal server error response has a 5xx status code
+func (o *ServiceInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service inspect internal server error response a status code equal to that given
+func (o *ServiceInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ServiceInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ServiceInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ServiceInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -161,9 +251,39 @@ type ServiceInspectServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service inspect service unavailable response has a 2xx status code
+func (o *ServiceInspectServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service inspect service unavailable response has a 3xx status code
+func (o *ServiceInspectServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service inspect service unavailable response has a 4xx status code
+func (o *ServiceInspectServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service inspect service unavailable response has a 5xx status code
+func (o *ServiceInspectServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service inspect service unavailable response a status code equal to that given
+func (o *ServiceInspectServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ServiceInspectServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ServiceInspectServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /services/{id}][%d] serviceInspectServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ServiceInspectServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

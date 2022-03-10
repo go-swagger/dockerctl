@@ -68,9 +68,39 @@ type SwarmInitOK struct {
 	Payload string
 }
 
+// IsSuccess returns true when this swarm init o k response has a 2xx status code
+func (o *SwarmInitOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this swarm init o k response has a 3xx status code
+func (o *SwarmInitOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm init o k response has a 4xx status code
+func (o *SwarmInitOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm init o k response has a 5xx status code
+func (o *SwarmInitOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm init o k response a status code equal to that given
+func (o *SwarmInitOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SwarmInitOK) Error() string {
 	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitOK  %+v", 200, o.Payload)
 }
+
+func (o *SwarmInitOK) String() string {
+	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitOK  %+v", 200, o.Payload)
+}
+
 func (o *SwarmInitOK) GetPayload() string {
 	return o.Payload
 }
@@ -98,9 +128,39 @@ type SwarmInitBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm init bad request response has a 2xx status code
+func (o *SwarmInitBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm init bad request response has a 3xx status code
+func (o *SwarmInitBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm init bad request response has a 4xx status code
+func (o *SwarmInitBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this swarm init bad request response has a 5xx status code
+func (o *SwarmInitBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm init bad request response a status code equal to that given
+func (o *SwarmInitBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *SwarmInitBadRequest) Error() string {
 	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SwarmInitBadRequest) String() string {
+	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SwarmInitBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -130,9 +190,39 @@ type SwarmInitInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm init internal server error response has a 2xx status code
+func (o *SwarmInitInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm init internal server error response has a 3xx status code
+func (o *SwarmInitInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm init internal server error response has a 4xx status code
+func (o *SwarmInitInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm init internal server error response has a 5xx status code
+func (o *SwarmInitInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm init internal server error response a status code equal to that given
+func (o *SwarmInitInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SwarmInitInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SwarmInitInternalServerError) String() string {
+	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SwarmInitInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -162,9 +252,39 @@ type SwarmInitServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm init service unavailable response has a 2xx status code
+func (o *SwarmInitServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm init service unavailable response has a 3xx status code
+func (o *SwarmInitServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm init service unavailable response has a 4xx status code
+func (o *SwarmInitServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm init service unavailable response has a 5xx status code
+func (o *SwarmInitServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm init service unavailable response a status code equal to that given
+func (o *SwarmInitServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SwarmInitServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SwarmInitServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /swarm/init][%d] swarmInitServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SwarmInitServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

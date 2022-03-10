@@ -54,7 +54,36 @@ no error
 type PluginPullNoContent struct {
 }
 
+// IsSuccess returns true when this plugin pull no content response has a 2xx status code
+func (o *PluginPullNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin pull no content response has a 3xx status code
+func (o *PluginPullNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin pull no content response has a 4xx status code
+func (o *PluginPullNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin pull no content response has a 5xx status code
+func (o *PluginPullNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin pull no content response a status code equal to that given
+func (o *PluginPullNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *PluginPullNoContent) Error() string {
+	return fmt.Sprintf("[POST /plugins/pull][%d] pluginPullNoContent ", 204)
+}
+
+func (o *PluginPullNoContent) String() string {
 	return fmt.Sprintf("[POST /plugins/pull][%d] pluginPullNoContent ", 204)
 }
 
@@ -76,9 +105,39 @@ type PluginPullInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin pull internal server error response has a 2xx status code
+func (o *PluginPullInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin pull internal server error response has a 3xx status code
+func (o *PluginPullInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin pull internal server error response has a 4xx status code
+func (o *PluginPullInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin pull internal server error response has a 5xx status code
+func (o *PluginPullInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin pull internal server error response a status code equal to that given
+func (o *PluginPullInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginPullInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /plugins/pull][%d] pluginPullInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginPullInternalServerError) String() string {
+	return fmt.Sprintf("[POST /plugins/pull][%d] pluginPullInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginPullInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

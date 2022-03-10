@@ -59,9 +59,39 @@ type ConfigListOK struct {
 	Payload []*models.Config
 }
 
+// IsSuccess returns true when this config list o k response has a 2xx status code
+func (o *ConfigListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this config list o k response has a 3xx status code
+func (o *ConfigListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config list o k response has a 4xx status code
+func (o *ConfigListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config list o k response has a 5xx status code
+func (o *ConfigListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config list o k response a status code equal to that given
+func (o *ConfigListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ConfigListOK) Error() string {
 	return fmt.Sprintf("[GET /configs][%d] configListOK  %+v", 200, o.Payload)
 }
+
+func (o *ConfigListOK) String() string {
+	return fmt.Sprintf("[GET /configs][%d] configListOK  %+v", 200, o.Payload)
+}
+
 func (o *ConfigListOK) GetPayload() []*models.Config {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type ConfigListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config list internal server error response has a 2xx status code
+func (o *ConfigListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config list internal server error response has a 3xx status code
+func (o *ConfigListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config list internal server error response has a 4xx status code
+func (o *ConfigListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config list internal server error response has a 5xx status code
+func (o *ConfigListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config list internal server error response a status code equal to that given
+func (o *ConfigListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ConfigListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /configs][%d] configListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ConfigListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /configs][%d] configListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ConfigListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type ConfigListServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config list service unavailable response has a 2xx status code
+func (o *ConfigListServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config list service unavailable response has a 3xx status code
+func (o *ConfigListServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config list service unavailable response has a 4xx status code
+func (o *ConfigListServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config list service unavailable response has a 5xx status code
+func (o *ConfigListServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config list service unavailable response a status code equal to that given
+func (o *ConfigListServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ConfigListServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /configs][%d] configListServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ConfigListServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /configs][%d] configListServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ConfigListServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

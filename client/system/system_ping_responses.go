@@ -81,9 +81,39 @@ type SystemPingOK struct {
 	Payload string
 }
 
+// IsSuccess returns true when this system ping o k response has a 2xx status code
+func (o *SystemPingOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system ping o k response has a 3xx status code
+func (o *SystemPingOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system ping o k response has a 4xx status code
+func (o *SystemPingOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system ping o k response has a 5xx status code
+func (o *SystemPingOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system ping o k response a status code equal to that given
+func (o *SystemPingOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemPingOK) Error() string {
 	return fmt.Sprintf("[GET /_ping][%d] systemPingOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemPingOK) String() string {
+	return fmt.Sprintf("[GET /_ping][%d] systemPingOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemPingOK) GetPayload() string {
 	return o.Payload
 }
@@ -164,9 +194,39 @@ type SystemPingInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system ping internal server error response has a 2xx status code
+func (o *SystemPingInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system ping internal server error response has a 3xx status code
+func (o *SystemPingInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system ping internal server error response has a 4xx status code
+func (o *SystemPingInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system ping internal server error response has a 5xx status code
+func (o *SystemPingInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system ping internal server error response a status code equal to that given
+func (o *SystemPingInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemPingInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /_ping][%d] systemPingInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemPingInternalServerError) String() string {
+	return fmt.Sprintf("[GET /_ping][%d] systemPingInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemPingInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

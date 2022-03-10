@@ -59,9 +59,39 @@ type ServiceListOK struct {
 	Payload []*models.Service
 }
 
+// IsSuccess returns true when this service list o k response has a 2xx status code
+func (o *ServiceListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this service list o k response has a 3xx status code
+func (o *ServiceListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service list o k response has a 4xx status code
+func (o *ServiceListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service list o k response has a 5xx status code
+func (o *ServiceListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service list o k response a status code equal to that given
+func (o *ServiceListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ServiceListOK) Error() string {
 	return fmt.Sprintf("[GET /services][%d] serviceListOK  %+v", 200, o.Payload)
 }
+
+func (o *ServiceListOK) String() string {
+	return fmt.Sprintf("[GET /services][%d] serviceListOK  %+v", 200, o.Payload)
+}
+
 func (o *ServiceListOK) GetPayload() []*models.Service {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type ServiceListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service list internal server error response has a 2xx status code
+func (o *ServiceListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service list internal server error response has a 3xx status code
+func (o *ServiceListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service list internal server error response has a 4xx status code
+func (o *ServiceListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service list internal server error response has a 5xx status code
+func (o *ServiceListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service list internal server error response a status code equal to that given
+func (o *ServiceListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ServiceListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /services][%d] serviceListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ServiceListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /services][%d] serviceListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ServiceListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type ServiceListServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service list service unavailable response has a 2xx status code
+func (o *ServiceListServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service list service unavailable response has a 3xx status code
+func (o *ServiceListServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service list service unavailable response has a 4xx status code
+func (o *ServiceListServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service list service unavailable response has a 5xx status code
+func (o *ServiceListServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service list service unavailable response a status code equal to that given
+func (o *ServiceListServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ServiceListServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /services][%d] serviceListServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ServiceListServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /services][%d] serviceListServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ServiceListServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

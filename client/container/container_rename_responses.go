@@ -64,7 +64,36 @@ no error
 type ContainerRenameNoContent struct {
 }
 
+// IsSuccess returns true when this container rename no content response has a 2xx status code
+func (o *ContainerRenameNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container rename no content response has a 3xx status code
+func (o *ContainerRenameNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container rename no content response has a 4xx status code
+func (o *ContainerRenameNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container rename no content response has a 5xx status code
+func (o *ContainerRenameNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container rename no content response a status code equal to that given
+func (o *ContainerRenameNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerRenameNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameNoContent ", 204)
+}
+
+func (o *ContainerRenameNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameNoContent ", 204)
 }
 
@@ -86,9 +115,39 @@ type ContainerRenameNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container rename not found response has a 2xx status code
+func (o *ContainerRenameNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container rename not found response has a 3xx status code
+func (o *ContainerRenameNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container rename not found response has a 4xx status code
+func (o *ContainerRenameNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container rename not found response has a 5xx status code
+func (o *ContainerRenameNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container rename not found response a status code equal to that given
+func (o *ContainerRenameNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerRenameNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerRenameNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerRenameNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type ContainerRenameConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container rename conflict response has a 2xx status code
+func (o *ContainerRenameConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container rename conflict response has a 3xx status code
+func (o *ContainerRenameConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container rename conflict response has a 4xx status code
+func (o *ContainerRenameConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container rename conflict response has a 5xx status code
+func (o *ContainerRenameConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container rename conflict response a status code equal to that given
+func (o *ContainerRenameConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ContainerRenameConflict) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameConflict  %+v", 409, o.Payload)
 }
+
+func (o *ContainerRenameConflict) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameConflict  %+v", 409, o.Payload)
+}
+
 func (o *ContainerRenameConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type ContainerRenameInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container rename internal server error response has a 2xx status code
+func (o *ContainerRenameInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container rename internal server error response has a 3xx status code
+func (o *ContainerRenameInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container rename internal server error response has a 4xx status code
+func (o *ContainerRenameInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container rename internal server error response has a 5xx status code
+func (o *ContainerRenameInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container rename internal server error response a status code equal to that given
+func (o *ContainerRenameInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerRenameInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerRenameInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/rename][%d] containerRenameInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerRenameInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

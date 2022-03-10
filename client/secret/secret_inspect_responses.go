@@ -65,9 +65,39 @@ type SecretInspectOK struct {
 	Payload *models.Secret
 }
 
+// IsSuccess returns true when this secret inspect o k response has a 2xx status code
+func (o *SecretInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this secret inspect o k response has a 3xx status code
+func (o *SecretInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret inspect o k response has a 4xx status code
+func (o *SecretInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret inspect o k response has a 5xx status code
+func (o *SecretInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret inspect o k response a status code equal to that given
+func (o *SecretInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SecretInspectOK) Error() string {
 	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *SecretInspectOK) String() string {
+	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *SecretInspectOK) GetPayload() *models.Secret {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type SecretInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret inspect not found response has a 2xx status code
+func (o *SecretInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret inspect not found response has a 3xx status code
+func (o *SecretInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret inspect not found response has a 4xx status code
+func (o *SecretInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this secret inspect not found response has a 5xx status code
+func (o *SecretInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret inspect not found response a status code equal to that given
+func (o *SecretInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *SecretInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SecretInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SecretInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type SecretInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret inspect internal server error response has a 2xx status code
+func (o *SecretInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret inspect internal server error response has a 3xx status code
+func (o *SecretInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret inspect internal server error response has a 4xx status code
+func (o *SecretInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret inspect internal server error response has a 5xx status code
+func (o *SecretInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret inspect internal server error response a status code equal to that given
+func (o *SecretInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SecretInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SecretInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SecretInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -161,9 +251,39 @@ type SecretInspectServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret inspect service unavailable response has a 2xx status code
+func (o *SecretInspectServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret inspect service unavailable response has a 3xx status code
+func (o *SecretInspectServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret inspect service unavailable response has a 4xx status code
+func (o *SecretInspectServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret inspect service unavailable response has a 5xx status code
+func (o *SecretInspectServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret inspect service unavailable response a status code equal to that given
+func (o *SecretInspectServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SecretInspectServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SecretInspectServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /secrets/{id}][%d] secretInspectServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SecretInspectServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

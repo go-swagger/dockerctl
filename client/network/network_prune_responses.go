@@ -55,9 +55,39 @@ type NetworkPruneOK struct {
 	Payload *NetworkPruneOKBody
 }
 
+// IsSuccess returns true when this network prune o k response has a 2xx status code
+func (o *NetworkPruneOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network prune o k response has a 3xx status code
+func (o *NetworkPruneOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network prune o k response has a 4xx status code
+func (o *NetworkPruneOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network prune o k response has a 5xx status code
+func (o *NetworkPruneOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network prune o k response a status code equal to that given
+func (o *NetworkPruneOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NetworkPruneOK) Error() string {
 	return fmt.Sprintf("[POST /networks/prune][%d] networkPruneOK  %+v", 200, o.Payload)
 }
+
+func (o *NetworkPruneOK) String() string {
+	return fmt.Sprintf("[POST /networks/prune][%d] networkPruneOK  %+v", 200, o.Payload)
+}
+
 func (o *NetworkPruneOK) GetPayload() *NetworkPruneOKBody {
 	return o.Payload
 }
@@ -87,9 +117,39 @@ type NetworkPruneInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network prune internal server error response has a 2xx status code
+func (o *NetworkPruneInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network prune internal server error response has a 3xx status code
+func (o *NetworkPruneInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network prune internal server error response has a 4xx status code
+func (o *NetworkPruneInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network prune internal server error response has a 5xx status code
+func (o *NetworkPruneInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network prune internal server error response a status code equal to that given
+func (o *NetworkPruneInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkPruneInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /networks/prune][%d] networkPruneInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkPruneInternalServerError) String() string {
+	return fmt.Sprintf("[POST /networks/prune][%d] networkPruneInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkPruneInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

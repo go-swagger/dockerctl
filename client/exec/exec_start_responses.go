@@ -60,7 +60,36 @@ No error
 type ExecStartOK struct {
 }
 
+// IsSuccess returns true when this exec start o k response has a 2xx status code
+func (o *ExecStartOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this exec start o k response has a 3xx status code
+func (o *ExecStartOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec start o k response has a 4xx status code
+func (o *ExecStartOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this exec start o k response has a 5xx status code
+func (o *ExecStartOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec start o k response a status code equal to that given
+func (o *ExecStartOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ExecStartOK) Error() string {
+	return fmt.Sprintf("[POST /exec/{id}/start][%d] execStartOK ", 200)
+}
+
+func (o *ExecStartOK) String() string {
 	return fmt.Sprintf("[POST /exec/{id}/start][%d] execStartOK ", 200)
 }
 
@@ -82,9 +111,39 @@ type ExecStartNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this exec start not found response has a 2xx status code
+func (o *ExecStartNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this exec start not found response has a 3xx status code
+func (o *ExecStartNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec start not found response has a 4xx status code
+func (o *ExecStartNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this exec start not found response has a 5xx status code
+func (o *ExecStartNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec start not found response a status code equal to that given
+func (o *ExecStartNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ExecStartNotFound) Error() string {
 	return fmt.Sprintf("[POST /exec/{id}/start][%d] execStartNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ExecStartNotFound) String() string {
+	return fmt.Sprintf("[POST /exec/{id}/start][%d] execStartNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ExecStartNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -114,9 +173,39 @@ type ExecStartConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this exec start conflict response has a 2xx status code
+func (o *ExecStartConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this exec start conflict response has a 3xx status code
+func (o *ExecStartConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec start conflict response has a 4xx status code
+func (o *ExecStartConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this exec start conflict response has a 5xx status code
+func (o *ExecStartConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec start conflict response a status code equal to that given
+func (o *ExecStartConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ExecStartConflict) Error() string {
 	return fmt.Sprintf("[POST /exec/{id}/start][%d] execStartConflict  %+v", 409, o.Payload)
 }
+
+func (o *ExecStartConflict) String() string {
+	return fmt.Sprintf("[POST /exec/{id}/start][%d] execStartConflict  %+v", 409, o.Payload)
+}
+
 func (o *ExecStartConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

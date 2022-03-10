@@ -64,7 +64,36 @@ no error
 type ContainerStartNoContent struct {
 }
 
+// IsSuccess returns true when this container start no content response has a 2xx status code
+func (o *ContainerStartNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container start no content response has a 3xx status code
+func (o *ContainerStartNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container start no content response has a 4xx status code
+func (o *ContainerStartNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container start no content response has a 5xx status code
+func (o *ContainerStartNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container start no content response a status code equal to that given
+func (o *ContainerStartNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerStartNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartNoContent ", 204)
+}
+
+func (o *ContainerStartNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartNoContent ", 204)
 }
 
@@ -85,7 +114,36 @@ container already started
 type ContainerStartNotModified struct {
 }
 
+// IsSuccess returns true when this container start not modified response has a 2xx status code
+func (o *ContainerStartNotModified) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container start not modified response has a 3xx status code
+func (o *ContainerStartNotModified) IsRedirect() bool {
+	return true
+}
+
+// IsClientError returns true when this container start not modified response has a 4xx status code
+func (o *ContainerStartNotModified) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container start not modified response has a 5xx status code
+func (o *ContainerStartNotModified) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container start not modified response a status code equal to that given
+func (o *ContainerStartNotModified) IsCode(code int) bool {
+	return code == 304
+}
+
 func (o *ContainerStartNotModified) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartNotModified ", 304)
+}
+
+func (o *ContainerStartNotModified) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartNotModified ", 304)
 }
 
@@ -107,9 +165,39 @@ type ContainerStartNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container start not found response has a 2xx status code
+func (o *ContainerStartNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container start not found response has a 3xx status code
+func (o *ContainerStartNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container start not found response has a 4xx status code
+func (o *ContainerStartNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container start not found response has a 5xx status code
+func (o *ContainerStartNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container start not found response a status code equal to that given
+func (o *ContainerStartNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerStartNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerStartNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerStartNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -139,9 +227,39 @@ type ContainerStartInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container start internal server error response has a 2xx status code
+func (o *ContainerStartInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container start internal server error response has a 3xx status code
+func (o *ContainerStartInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container start internal server error response has a 4xx status code
+func (o *ContainerStartInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container start internal server error response has a 5xx status code
+func (o *ContainerStartInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container start internal server error response a status code equal to that given
+func (o *ContainerStartInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerStartInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerStartInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/start][%d] containerStartInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerStartInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

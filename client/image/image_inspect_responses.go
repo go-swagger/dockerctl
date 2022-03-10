@@ -59,9 +59,39 @@ type ImageInspectOK struct {
 	Payload *models.Image
 }
 
+// IsSuccess returns true when this image inspect o k response has a 2xx status code
+func (o *ImageInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image inspect o k response has a 3xx status code
+func (o *ImageInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image inspect o k response has a 4xx status code
+func (o *ImageInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image inspect o k response has a 5xx status code
+func (o *ImageInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image inspect o k response a status code equal to that given
+func (o *ImageInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageInspectOK) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/json][%d] imageInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *ImageInspectOK) String() string {
+	return fmt.Sprintf("[GET /images/{name}/json][%d] imageInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *ImageInspectOK) GetPayload() *models.Image {
 	return o.Payload
 }
@@ -91,9 +121,39 @@ type ImageInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image inspect not found response has a 2xx status code
+func (o *ImageInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image inspect not found response has a 3xx status code
+func (o *ImageInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image inspect not found response has a 4xx status code
+func (o *ImageInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image inspect not found response has a 5xx status code
+func (o *ImageInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image inspect not found response a status code equal to that given
+func (o *ImageInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImageInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/json][%d] imageInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImageInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /images/{name}/json][%d] imageInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImageInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -123,9 +183,39 @@ type ImageInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image inspect internal server error response has a 2xx status code
+func (o *ImageInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image inspect internal server error response has a 3xx status code
+func (o *ImageInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image inspect internal server error response has a 4xx status code
+func (o *ImageInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image inspect internal server error response has a 5xx status code
+func (o *ImageInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image inspect internal server error response a status code equal to that given
+func (o *ImageInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/json][%d] imageInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /images/{name}/json][%d] imageInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

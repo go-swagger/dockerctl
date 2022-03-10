@@ -68,9 +68,39 @@ type ConfigCreateCreated struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this config create created response has a 2xx status code
+func (o *ConfigCreateCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this config create created response has a 3xx status code
+func (o *ConfigCreateCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config create created response has a 4xx status code
+func (o *ConfigCreateCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config create created response has a 5xx status code
+func (o *ConfigCreateCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config create created response a status code equal to that given
+func (o *ConfigCreateCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ConfigCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /configs/create][%d] configCreateCreated  %+v", 201, o.Payload)
 }
+
+func (o *ConfigCreateCreated) String() string {
+	return fmt.Sprintf("[POST /configs/create][%d] configCreateCreated  %+v", 201, o.Payload)
+}
+
 func (o *ConfigCreateCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -100,9 +130,39 @@ type ConfigCreateConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config create conflict response has a 2xx status code
+func (o *ConfigCreateConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config create conflict response has a 3xx status code
+func (o *ConfigCreateConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config create conflict response has a 4xx status code
+func (o *ConfigCreateConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this config create conflict response has a 5xx status code
+func (o *ConfigCreateConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config create conflict response a status code equal to that given
+func (o *ConfigCreateConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ConfigCreateConflict) Error() string {
 	return fmt.Sprintf("[POST /configs/create][%d] configCreateConflict  %+v", 409, o.Payload)
 }
+
+func (o *ConfigCreateConflict) String() string {
+	return fmt.Sprintf("[POST /configs/create][%d] configCreateConflict  %+v", 409, o.Payload)
+}
+
 func (o *ConfigCreateConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -132,9 +192,39 @@ type ConfigCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config create internal server error response has a 2xx status code
+func (o *ConfigCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config create internal server error response has a 3xx status code
+func (o *ConfigCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config create internal server error response has a 4xx status code
+func (o *ConfigCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config create internal server error response has a 5xx status code
+func (o *ConfigCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config create internal server error response a status code equal to that given
+func (o *ConfigCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ConfigCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /configs/create][%d] configCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ConfigCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /configs/create][%d] configCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ConfigCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -164,9 +254,39 @@ type ConfigCreateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config create service unavailable response has a 2xx status code
+func (o *ConfigCreateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config create service unavailable response has a 3xx status code
+func (o *ConfigCreateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config create service unavailable response has a 4xx status code
+func (o *ConfigCreateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config create service unavailable response has a 5xx status code
+func (o *ConfigCreateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config create service unavailable response a status code equal to that given
+func (o *ConfigCreateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ConfigCreateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /configs/create][%d] configCreateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ConfigCreateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /configs/create][%d] configCreateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ConfigCreateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

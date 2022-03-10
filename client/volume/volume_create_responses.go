@@ -55,9 +55,39 @@ type VolumeCreateCreated struct {
 	Payload *models.Volume
 }
 
+// IsSuccess returns true when this volume create created response has a 2xx status code
+func (o *VolumeCreateCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this volume create created response has a 3xx status code
+func (o *VolumeCreateCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume create created response has a 4xx status code
+func (o *VolumeCreateCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume create created response has a 5xx status code
+func (o *VolumeCreateCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this volume create created response a status code equal to that given
+func (o *VolumeCreateCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *VolumeCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /volumes/create][%d] volumeCreateCreated  %+v", 201, o.Payload)
 }
+
+func (o *VolumeCreateCreated) String() string {
+	return fmt.Sprintf("[POST /volumes/create][%d] volumeCreateCreated  %+v", 201, o.Payload)
+}
+
 func (o *VolumeCreateCreated) GetPayload() *models.Volume {
 	return o.Payload
 }
@@ -87,9 +117,39 @@ type VolumeCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this volume create internal server error response has a 2xx status code
+func (o *VolumeCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this volume create internal server error response has a 3xx status code
+func (o *VolumeCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume create internal server error response has a 4xx status code
+func (o *VolumeCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume create internal server error response has a 5xx status code
+func (o *VolumeCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this volume create internal server error response a status code equal to that given
+func (o *VolumeCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *VolumeCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /volumes/create][%d] volumeCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *VolumeCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /volumes/create][%d] volumeCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *VolumeCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

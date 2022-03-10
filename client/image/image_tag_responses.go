@@ -70,7 +70,36 @@ No error
 type ImageTagCreated struct {
 }
 
+// IsSuccess returns true when this image tag created response has a 2xx status code
+func (o *ImageTagCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image tag created response has a 3xx status code
+func (o *ImageTagCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image tag created response has a 4xx status code
+func (o *ImageTagCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image tag created response has a 5xx status code
+func (o *ImageTagCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image tag created response a status code equal to that given
+func (o *ImageTagCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ImageTagCreated) Error() string {
+	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagCreated ", 201)
+}
+
+func (o *ImageTagCreated) String() string {
 	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagCreated ", 201)
 }
 
@@ -92,9 +121,39 @@ type ImageTagBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image tag bad request response has a 2xx status code
+func (o *ImageTagBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image tag bad request response has a 3xx status code
+func (o *ImageTagBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image tag bad request response has a 4xx status code
+func (o *ImageTagBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image tag bad request response has a 5xx status code
+func (o *ImageTagBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image tag bad request response a status code equal to that given
+func (o *ImageTagBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ImageTagBadRequest) Error() string {
 	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ImageTagBadRequest) String() string {
+	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ImageTagBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -124,9 +183,39 @@ type ImageTagNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image tag not found response has a 2xx status code
+func (o *ImageTagNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image tag not found response has a 3xx status code
+func (o *ImageTagNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image tag not found response has a 4xx status code
+func (o *ImageTagNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image tag not found response has a 5xx status code
+func (o *ImageTagNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image tag not found response a status code equal to that given
+func (o *ImageTagNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImageTagNotFound) Error() string {
 	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImageTagNotFound) String() string {
+	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImageTagNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -156,9 +245,39 @@ type ImageTagConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image tag conflict response has a 2xx status code
+func (o *ImageTagConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image tag conflict response has a 3xx status code
+func (o *ImageTagConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image tag conflict response has a 4xx status code
+func (o *ImageTagConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image tag conflict response has a 5xx status code
+func (o *ImageTagConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image tag conflict response a status code equal to that given
+func (o *ImageTagConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ImageTagConflict) Error() string {
 	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagConflict  %+v", 409, o.Payload)
 }
+
+func (o *ImageTagConflict) String() string {
+	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagConflict  %+v", 409, o.Payload)
+}
+
 func (o *ImageTagConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -188,9 +307,39 @@ type ImageTagInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image tag internal server error response has a 2xx status code
+func (o *ImageTagInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image tag internal server error response has a 3xx status code
+func (o *ImageTagInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image tag internal server error response has a 4xx status code
+func (o *ImageTagInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image tag internal server error response has a 5xx status code
+func (o *ImageTagInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image tag internal server error response a status code equal to that given
+func (o *ImageTagInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageTagInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageTagInternalServerError) String() string {
+	return fmt.Sprintf("[POST /images/{name}/tag][%d] imageTagInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageTagInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

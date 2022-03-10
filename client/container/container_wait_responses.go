@@ -63,9 +63,39 @@ type ContainerWaitOK struct {
 	Payload *ContainerWaitOKBody
 }
 
+// IsSuccess returns true when this container wait o k response has a 2xx status code
+func (o *ContainerWaitOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container wait o k response has a 3xx status code
+func (o *ContainerWaitOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container wait o k response has a 4xx status code
+func (o *ContainerWaitOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container wait o k response has a 5xx status code
+func (o *ContainerWaitOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container wait o k response a status code equal to that given
+func (o *ContainerWaitOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerWaitOK) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/wait][%d] containerWaitOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerWaitOK) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/wait][%d] containerWaitOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerWaitOK) GetPayload() *ContainerWaitOKBody {
 	return o.Payload
 }
@@ -95,9 +125,39 @@ type ContainerWaitNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container wait not found response has a 2xx status code
+func (o *ContainerWaitNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container wait not found response has a 3xx status code
+func (o *ContainerWaitNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container wait not found response has a 4xx status code
+func (o *ContainerWaitNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container wait not found response has a 5xx status code
+func (o *ContainerWaitNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container wait not found response a status code equal to that given
+func (o *ContainerWaitNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerWaitNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/wait][%d] containerWaitNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerWaitNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/wait][%d] containerWaitNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerWaitNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -127,9 +187,39 @@ type ContainerWaitInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container wait internal server error response has a 2xx status code
+func (o *ContainerWaitInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container wait internal server error response has a 3xx status code
+func (o *ContainerWaitInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container wait internal server error response has a 4xx status code
+func (o *ContainerWaitInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container wait internal server error response has a 5xx status code
+func (o *ContainerWaitInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container wait internal server error response a status code equal to that given
+func (o *ContainerWaitInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerWaitInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/wait][%d] containerWaitInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerWaitInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/wait][%d] containerWaitInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerWaitInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

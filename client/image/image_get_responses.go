@@ -57,9 +57,39 @@ type ImageGetOK struct {
 	Payload io.Writer
 }
 
+// IsSuccess returns true when this image get o k response has a 2xx status code
+func (o *ImageGetOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image get o k response has a 3xx status code
+func (o *ImageGetOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image get o k response has a 4xx status code
+func (o *ImageGetOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image get o k response has a 5xx status code
+func (o *ImageGetOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image get o k response a status code equal to that given
+func (o *ImageGetOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageGetOK) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/get][%d] imageGetOK  %+v", 200, o.Payload)
 }
+
+func (o *ImageGetOK) String() string {
+	return fmt.Sprintf("[GET /images/{name}/get][%d] imageGetOK  %+v", 200, o.Payload)
+}
+
 func (o *ImageGetOK) GetPayload() io.Writer {
 	return o.Payload
 }
@@ -87,9 +117,39 @@ type ImageGetInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image get internal server error response has a 2xx status code
+func (o *ImageGetInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image get internal server error response has a 3xx status code
+func (o *ImageGetInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image get internal server error response has a 4xx status code
+func (o *ImageGetInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image get internal server error response has a 5xx status code
+func (o *ImageGetInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image get internal server error response a status code equal to that given
+func (o *ImageGetInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageGetInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/get][%d] imageGetInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageGetInternalServerError) String() string {
+	return fmt.Sprintf("[GET /images/{name}/get][%d] imageGetInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageGetInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

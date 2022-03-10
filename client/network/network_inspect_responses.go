@@ -59,9 +59,39 @@ type NetworkInspectOK struct {
 	Payload *models.Network
 }
 
+// IsSuccess returns true when this network inspect o k response has a 2xx status code
+func (o *NetworkInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network inspect o k response has a 3xx status code
+func (o *NetworkInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network inspect o k response has a 4xx status code
+func (o *NetworkInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network inspect o k response has a 5xx status code
+func (o *NetworkInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network inspect o k response a status code equal to that given
+func (o *NetworkInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NetworkInspectOK) Error() string {
 	return fmt.Sprintf("[GET /networks/{id}][%d] networkInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *NetworkInspectOK) String() string {
+	return fmt.Sprintf("[GET /networks/{id}][%d] networkInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *NetworkInspectOK) GetPayload() *models.Network {
 	return o.Payload
 }
@@ -91,9 +121,39 @@ type NetworkInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network inspect not found response has a 2xx status code
+func (o *NetworkInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network inspect not found response has a 3xx status code
+func (o *NetworkInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network inspect not found response has a 4xx status code
+func (o *NetworkInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network inspect not found response has a 5xx status code
+func (o *NetworkInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network inspect not found response a status code equal to that given
+func (o *NetworkInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NetworkInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /networks/{id}][%d] networkInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NetworkInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /networks/{id}][%d] networkInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NetworkInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -123,9 +183,39 @@ type NetworkInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network inspect internal server error response has a 2xx status code
+func (o *NetworkInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network inspect internal server error response has a 3xx status code
+func (o *NetworkInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network inspect internal server error response has a 4xx status code
+func (o *NetworkInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network inspect internal server error response has a 5xx status code
+func (o *NetworkInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network inspect internal server error response a status code equal to that given
+func (o *NetworkInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /networks/{id}][%d] networkInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /networks/{id}][%d] networkInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

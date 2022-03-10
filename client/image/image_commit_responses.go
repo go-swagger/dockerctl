@@ -59,9 +59,39 @@ type ImageCommitCreated struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this image commit created response has a 2xx status code
+func (o *ImageCommitCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image commit created response has a 3xx status code
+func (o *ImageCommitCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image commit created response has a 4xx status code
+func (o *ImageCommitCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image commit created response has a 5xx status code
+func (o *ImageCommitCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image commit created response a status code equal to that given
+func (o *ImageCommitCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ImageCommitCreated) Error() string {
 	return fmt.Sprintf("[POST /commit][%d] imageCommitCreated  %+v", 201, o.Payload)
 }
+
+func (o *ImageCommitCreated) String() string {
+	return fmt.Sprintf("[POST /commit][%d] imageCommitCreated  %+v", 201, o.Payload)
+}
+
 func (o *ImageCommitCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -91,9 +121,39 @@ type ImageCommitNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image commit not found response has a 2xx status code
+func (o *ImageCommitNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image commit not found response has a 3xx status code
+func (o *ImageCommitNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image commit not found response has a 4xx status code
+func (o *ImageCommitNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image commit not found response has a 5xx status code
+func (o *ImageCommitNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image commit not found response a status code equal to that given
+func (o *ImageCommitNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImageCommitNotFound) Error() string {
 	return fmt.Sprintf("[POST /commit][%d] imageCommitNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImageCommitNotFound) String() string {
+	return fmt.Sprintf("[POST /commit][%d] imageCommitNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImageCommitNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -123,9 +183,39 @@ type ImageCommitInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image commit internal server error response has a 2xx status code
+func (o *ImageCommitInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image commit internal server error response has a 3xx status code
+func (o *ImageCommitInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image commit internal server error response has a 4xx status code
+func (o *ImageCommitInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image commit internal server error response has a 5xx status code
+func (o *ImageCommitInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image commit internal server error response a status code equal to that given
+func (o *ImageCommitInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageCommitInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /commit][%d] imageCommitInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageCommitInternalServerError) String() string {
+	return fmt.Sprintf("[POST /commit][%d] imageCommitInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageCommitInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

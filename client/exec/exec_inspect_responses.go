@@ -62,9 +62,39 @@ type ExecInspectOK struct {
 	Payload *ExecInspectOKBody
 }
 
+// IsSuccess returns true when this exec inspect o k response has a 2xx status code
+func (o *ExecInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this exec inspect o k response has a 3xx status code
+func (o *ExecInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec inspect o k response has a 4xx status code
+func (o *ExecInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this exec inspect o k response has a 5xx status code
+func (o *ExecInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec inspect o k response a status code equal to that given
+func (o *ExecInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ExecInspectOK) Error() string {
 	return fmt.Sprintf("[GET /exec/{id}/json][%d] execInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *ExecInspectOK) String() string {
+	return fmt.Sprintf("[GET /exec/{id}/json][%d] execInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *ExecInspectOK) GetPayload() *ExecInspectOKBody {
 	return o.Payload
 }
@@ -94,9 +124,39 @@ type ExecInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this exec inspect not found response has a 2xx status code
+func (o *ExecInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this exec inspect not found response has a 3xx status code
+func (o *ExecInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec inspect not found response has a 4xx status code
+func (o *ExecInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this exec inspect not found response has a 5xx status code
+func (o *ExecInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec inspect not found response a status code equal to that given
+func (o *ExecInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ExecInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /exec/{id}/json][%d] execInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ExecInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /exec/{id}/json][%d] execInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ExecInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -126,9 +186,39 @@ type ExecInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this exec inspect internal server error response has a 2xx status code
+func (o *ExecInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this exec inspect internal server error response has a 3xx status code
+func (o *ExecInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec inspect internal server error response has a 4xx status code
+func (o *ExecInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this exec inspect internal server error response has a 5xx status code
+func (o *ExecInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this exec inspect internal server error response a status code equal to that given
+func (o *ExecInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ExecInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /exec/{id}/json][%d] execInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ExecInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /exec/{id}/json][%d] execInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ExecInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

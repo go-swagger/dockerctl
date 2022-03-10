@@ -75,9 +75,39 @@ type ContainerCreateCreated struct {
 	Payload *ContainerCreateCreatedBody
 }
 
+// IsSuccess returns true when this container create created response has a 2xx status code
+func (o *ContainerCreateCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container create created response has a 3xx status code
+func (o *ContainerCreateCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container create created response has a 4xx status code
+func (o *ContainerCreateCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container create created response has a 5xx status code
+func (o *ContainerCreateCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container create created response a status code equal to that given
+func (o *ContainerCreateCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ContainerCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /containers/create][%d] containerCreateCreated  %+v", 201, o.Payload)
 }
+
+func (o *ContainerCreateCreated) String() string {
+	return fmt.Sprintf("[POST /containers/create][%d] containerCreateCreated  %+v", 201, o.Payload)
+}
+
 func (o *ContainerCreateCreated) GetPayload() *ContainerCreateCreatedBody {
 	return o.Payload
 }
@@ -107,9 +137,39 @@ type ContainerCreateBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container create bad request response has a 2xx status code
+func (o *ContainerCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container create bad request response has a 3xx status code
+func (o *ContainerCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container create bad request response has a 4xx status code
+func (o *ContainerCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container create bad request response has a 5xx status code
+func (o *ContainerCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container create bad request response a status code equal to that given
+func (o *ContainerCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ContainerCreateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /containers/create][%d] containerCreateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ContainerCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /containers/create][%d] containerCreateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ContainerCreateBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -139,9 +199,39 @@ type ContainerCreateNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container create not found response has a 2xx status code
+func (o *ContainerCreateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container create not found response has a 3xx status code
+func (o *ContainerCreateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container create not found response has a 4xx status code
+func (o *ContainerCreateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container create not found response has a 5xx status code
+func (o *ContainerCreateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container create not found response a status code equal to that given
+func (o *ContainerCreateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerCreateNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/create][%d] containerCreateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerCreateNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/create][%d] containerCreateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerCreateNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -171,9 +261,39 @@ type ContainerCreateConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container create conflict response has a 2xx status code
+func (o *ContainerCreateConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container create conflict response has a 3xx status code
+func (o *ContainerCreateConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container create conflict response has a 4xx status code
+func (o *ContainerCreateConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container create conflict response has a 5xx status code
+func (o *ContainerCreateConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container create conflict response a status code equal to that given
+func (o *ContainerCreateConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ContainerCreateConflict) Error() string {
 	return fmt.Sprintf("[POST /containers/create][%d] containerCreateConflict  %+v", 409, o.Payload)
 }
+
+func (o *ContainerCreateConflict) String() string {
+	return fmt.Sprintf("[POST /containers/create][%d] containerCreateConflict  %+v", 409, o.Payload)
+}
+
 func (o *ContainerCreateConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -203,9 +323,39 @@ type ContainerCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container create internal server error response has a 2xx status code
+func (o *ContainerCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container create internal server error response has a 3xx status code
+func (o *ContainerCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container create internal server error response has a 4xx status code
+func (o *ContainerCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container create internal server error response has a 5xx status code
+func (o *ContainerCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container create internal server error response a status code equal to that given
+func (o *ContainerCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/create][%d] containerCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/create][%d] containerCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -535,6 +685,11 @@ func (o *ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig) 
 		}
 		if val, ok := o.EndpointsConfig[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "NetworkingConfig" + "." + "EndpointsConfig" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "NetworkingConfig" + "." + "EndpointsConfig" + "." + k)
+				}
 				return err
 			}
 		}

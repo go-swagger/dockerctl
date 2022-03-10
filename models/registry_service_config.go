@@ -133,6 +133,11 @@ func (m *RegistryServiceConfig) validateIndexConfigs(formats strfmt.Registry) er
 		}
 		if val, ok := m.IndexConfigs[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("IndexConfigs" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("IndexConfigs" + "." + k)
+				}
 				return err
 			}
 		}

@@ -52,7 +52,36 @@ no error
 type PluginCreateNoContent struct {
 }
 
+// IsSuccess returns true when this plugin create no content response has a 2xx status code
+func (o *PluginCreateNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin create no content response has a 3xx status code
+func (o *PluginCreateNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin create no content response has a 4xx status code
+func (o *PluginCreateNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin create no content response has a 5xx status code
+func (o *PluginCreateNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin create no content response a status code equal to that given
+func (o *PluginCreateNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *PluginCreateNoContent) Error() string {
+	return fmt.Sprintf("[POST /plugins/create][%d] pluginCreateNoContent ", 204)
+}
+
+func (o *PluginCreateNoContent) String() string {
 	return fmt.Sprintf("[POST /plugins/create][%d] pluginCreateNoContent ", 204)
 }
 
@@ -74,9 +103,39 @@ type PluginCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin create internal server error response has a 2xx status code
+func (o *PluginCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin create internal server error response has a 3xx status code
+func (o *PluginCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin create internal server error response has a 4xx status code
+func (o *PluginCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin create internal server error response has a 5xx status code
+func (o *PluginCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin create internal server error response a status code equal to that given
+func (o *PluginCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /plugins/create][%d] pluginCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /plugins/create][%d] pluginCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

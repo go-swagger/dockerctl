@@ -62,9 +62,39 @@ type SystemEventsOK struct {
 	Payload *SystemEventsOKBody
 }
 
+// IsSuccess returns true when this system events o k response has a 2xx status code
+func (o *SystemEventsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system events o k response has a 3xx status code
+func (o *SystemEventsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system events o k response has a 4xx status code
+func (o *SystemEventsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system events o k response has a 5xx status code
+func (o *SystemEventsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system events o k response a status code equal to that given
+func (o *SystemEventsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemEventsOK) Error() string {
 	return fmt.Sprintf("[GET /events][%d] systemEventsOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemEventsOK) String() string {
+	return fmt.Sprintf("[GET /events][%d] systemEventsOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemEventsOK) GetPayload() *SystemEventsOKBody {
 	return o.Payload
 }
@@ -94,9 +124,39 @@ type SystemEventsBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system events bad request response has a 2xx status code
+func (o *SystemEventsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system events bad request response has a 3xx status code
+func (o *SystemEventsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system events bad request response has a 4xx status code
+func (o *SystemEventsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this system events bad request response has a 5xx status code
+func (o *SystemEventsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system events bad request response a status code equal to that given
+func (o *SystemEventsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *SystemEventsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /events][%d] systemEventsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SystemEventsBadRequest) String() string {
+	return fmt.Sprintf("[GET /events][%d] systemEventsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SystemEventsBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -126,9 +186,39 @@ type SystemEventsInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system events internal server error response has a 2xx status code
+func (o *SystemEventsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system events internal server error response has a 3xx status code
+func (o *SystemEventsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system events internal server error response has a 4xx status code
+func (o *SystemEventsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system events internal server error response has a 5xx status code
+func (o *SystemEventsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system events internal server error response a status code equal to that given
+func (o *SystemEventsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemEventsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /events][%d] systemEventsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemEventsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /events][%d] systemEventsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemEventsInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

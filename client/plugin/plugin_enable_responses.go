@@ -58,7 +58,36 @@ no error
 type PluginEnableOK struct {
 }
 
+// IsSuccess returns true when this plugin enable o k response has a 2xx status code
+func (o *PluginEnableOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin enable o k response has a 3xx status code
+func (o *PluginEnableOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin enable o k response has a 4xx status code
+func (o *PluginEnableOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin enable o k response has a 5xx status code
+func (o *PluginEnableOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin enable o k response a status code equal to that given
+func (o *PluginEnableOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PluginEnableOK) Error() string {
+	return fmt.Sprintf("[POST /plugins/{name}/enable][%d] pluginEnableOK ", 200)
+}
+
+func (o *PluginEnableOK) String() string {
 	return fmt.Sprintf("[POST /plugins/{name}/enable][%d] pluginEnableOK ", 200)
 }
 
@@ -80,9 +109,39 @@ type PluginEnableNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin enable not found response has a 2xx status code
+func (o *PluginEnableNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin enable not found response has a 3xx status code
+func (o *PluginEnableNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin enable not found response has a 4xx status code
+func (o *PluginEnableNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this plugin enable not found response has a 5xx status code
+func (o *PluginEnableNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin enable not found response a status code equal to that given
+func (o *PluginEnableNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PluginEnableNotFound) Error() string {
 	return fmt.Sprintf("[POST /plugins/{name}/enable][%d] pluginEnableNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PluginEnableNotFound) String() string {
+	return fmt.Sprintf("[POST /plugins/{name}/enable][%d] pluginEnableNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PluginEnableNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type PluginEnableInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin enable internal server error response has a 2xx status code
+func (o *PluginEnableInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin enable internal server error response has a 3xx status code
+func (o *PluginEnableInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin enable internal server error response has a 4xx status code
+func (o *PluginEnableInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin enable internal server error response has a 5xx status code
+func (o *PluginEnableInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin enable internal server error response a status code equal to that given
+func (o *PluginEnableInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginEnableInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /plugins/{name}/enable][%d] pluginEnableInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginEnableInternalServerError) String() string {
+	return fmt.Sprintf("[POST /plugins/{name}/enable][%d] pluginEnableInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginEnableInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

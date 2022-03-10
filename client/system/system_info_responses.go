@@ -53,9 +53,39 @@ type SystemInfoOK struct {
 	Payload *models.SystemInfo
 }
 
+// IsSuccess returns true when this system info o k response has a 2xx status code
+func (o *SystemInfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system info o k response has a 3xx status code
+func (o *SystemInfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system info o k response has a 4xx status code
+func (o *SystemInfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system info o k response has a 5xx status code
+func (o *SystemInfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system info o k response a status code equal to that given
+func (o *SystemInfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemInfoOK) Error() string {
 	return fmt.Sprintf("[GET /info][%d] systemInfoOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemInfoOK) String() string {
+	return fmt.Sprintf("[GET /info][%d] systemInfoOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemInfoOK) GetPayload() *models.SystemInfo {
 	return o.Payload
 }
@@ -85,9 +115,39 @@ type SystemInfoInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system info internal server error response has a 2xx status code
+func (o *SystemInfoInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system info internal server error response has a 3xx status code
+func (o *SystemInfoInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system info internal server error response has a 4xx status code
+func (o *SystemInfoInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system info internal server error response has a 5xx status code
+func (o *SystemInfoInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system info internal server error response a status code equal to that given
+func (o *SystemInfoInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /info][%d] systemInfoInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemInfoInternalServerError) String() string {
+	return fmt.Sprintf("[GET /info][%d] systemInfoInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemInfoInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

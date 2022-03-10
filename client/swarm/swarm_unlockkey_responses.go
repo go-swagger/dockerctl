@@ -61,9 +61,39 @@ type SwarmUnlockkeyOK struct {
 	Payload *SwarmUnlockkeyOKBody
 }
 
+// IsSuccess returns true when this swarm unlockkey o k response has a 2xx status code
+func (o *SwarmUnlockkeyOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this swarm unlockkey o k response has a 3xx status code
+func (o *SwarmUnlockkeyOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm unlockkey o k response has a 4xx status code
+func (o *SwarmUnlockkeyOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm unlockkey o k response has a 5xx status code
+func (o *SwarmUnlockkeyOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm unlockkey o k response a status code equal to that given
+func (o *SwarmUnlockkeyOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SwarmUnlockkeyOK) Error() string {
 	return fmt.Sprintf("[GET /swarm/unlockkey][%d] swarmUnlockkeyOK  %+v", 200, o.Payload)
 }
+
+func (o *SwarmUnlockkeyOK) String() string {
+	return fmt.Sprintf("[GET /swarm/unlockkey][%d] swarmUnlockkeyOK  %+v", 200, o.Payload)
+}
+
 func (o *SwarmUnlockkeyOK) GetPayload() *SwarmUnlockkeyOKBody {
 	return o.Payload
 }
@@ -93,9 +123,39 @@ type SwarmUnlockkeyInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm unlockkey internal server error response has a 2xx status code
+func (o *SwarmUnlockkeyInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm unlockkey internal server error response has a 3xx status code
+func (o *SwarmUnlockkeyInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm unlockkey internal server error response has a 4xx status code
+func (o *SwarmUnlockkeyInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm unlockkey internal server error response has a 5xx status code
+func (o *SwarmUnlockkeyInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm unlockkey internal server error response a status code equal to that given
+func (o *SwarmUnlockkeyInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SwarmUnlockkeyInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /swarm/unlockkey][%d] swarmUnlockkeyInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SwarmUnlockkeyInternalServerError) String() string {
+	return fmt.Sprintf("[GET /swarm/unlockkey][%d] swarmUnlockkeyInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SwarmUnlockkeyInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -125,9 +185,39 @@ type SwarmUnlockkeyServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm unlockkey service unavailable response has a 2xx status code
+func (o *SwarmUnlockkeyServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm unlockkey service unavailable response has a 3xx status code
+func (o *SwarmUnlockkeyServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm unlockkey service unavailable response has a 4xx status code
+func (o *SwarmUnlockkeyServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm unlockkey service unavailable response has a 5xx status code
+func (o *SwarmUnlockkeyServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm unlockkey service unavailable response a status code equal to that given
+func (o *SwarmUnlockkeyServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SwarmUnlockkeyServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /swarm/unlockkey][%d] swarmUnlockkeyServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SwarmUnlockkeyServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /swarm/unlockkey][%d] swarmUnlockkeyServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SwarmUnlockkeyServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

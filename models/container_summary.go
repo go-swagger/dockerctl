@@ -428,6 +428,11 @@ func (m *ContainerSummaryItems0NetworkSettings) validateNetworks(formats strfmt.
 		}
 		if val, ok := m.Networks[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("NetworkSettings" + "." + "Networks" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("NetworkSettings" + "." + "Networks" + "." + k)
+				}
 				return err
 			}
 		}

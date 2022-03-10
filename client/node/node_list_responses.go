@@ -59,9 +59,39 @@ type NodeListOK struct {
 	Payload []*models.Node
 }
 
+// IsSuccess returns true when this node list o k response has a 2xx status code
+func (o *NodeListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this node list o k response has a 3xx status code
+func (o *NodeListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node list o k response has a 4xx status code
+func (o *NodeListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node list o k response has a 5xx status code
+func (o *NodeListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this node list o k response a status code equal to that given
+func (o *NodeListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NodeListOK) Error() string {
 	return fmt.Sprintf("[GET /nodes][%d] nodeListOK  %+v", 200, o.Payload)
 }
+
+func (o *NodeListOK) String() string {
+	return fmt.Sprintf("[GET /nodes][%d] nodeListOK  %+v", 200, o.Payload)
+}
+
 func (o *NodeListOK) GetPayload() []*models.Node {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type NodeListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node list internal server error response has a 2xx status code
+func (o *NodeListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node list internal server error response has a 3xx status code
+func (o *NodeListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node list internal server error response has a 4xx status code
+func (o *NodeListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node list internal server error response has a 5xx status code
+func (o *NodeListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this node list internal server error response a status code equal to that given
+func (o *NodeListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NodeListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /nodes][%d] nodeListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NodeListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /nodes][%d] nodeListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NodeListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type NodeListServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node list service unavailable response has a 2xx status code
+func (o *NodeListServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node list service unavailable response has a 3xx status code
+func (o *NodeListServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node list service unavailable response has a 4xx status code
+func (o *NodeListServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node list service unavailable response has a 5xx status code
+func (o *NodeListServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this node list service unavailable response a status code equal to that given
+func (o *NodeListServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *NodeListServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /nodes][%d] nodeListServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *NodeListServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /nodes][%d] nodeListServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *NodeListServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -59,9 +59,39 @@ type TaskListOK struct {
 	Payload []*models.Task
 }
 
+// IsSuccess returns true when this task list o k response has a 2xx status code
+func (o *TaskListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this task list o k response has a 3xx status code
+func (o *TaskListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task list o k response has a 4xx status code
+func (o *TaskListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task list o k response has a 5xx status code
+func (o *TaskListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this task list o k response a status code equal to that given
+func (o *TaskListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *TaskListOK) Error() string {
 	return fmt.Sprintf("[GET /tasks][%d] taskListOK  %+v", 200, o.Payload)
 }
+
+func (o *TaskListOK) String() string {
+	return fmt.Sprintf("[GET /tasks][%d] taskListOK  %+v", 200, o.Payload)
+}
+
 func (o *TaskListOK) GetPayload() []*models.Task {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type TaskListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task list internal server error response has a 2xx status code
+func (o *TaskListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task list internal server error response has a 3xx status code
+func (o *TaskListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task list internal server error response has a 4xx status code
+func (o *TaskListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task list internal server error response has a 5xx status code
+func (o *TaskListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this task list internal server error response a status code equal to that given
+func (o *TaskListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *TaskListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /tasks][%d] taskListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *TaskListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /tasks][%d] taskListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *TaskListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type TaskListServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task list service unavailable response has a 2xx status code
+func (o *TaskListServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task list service unavailable response has a 3xx status code
+func (o *TaskListServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task list service unavailable response has a 4xx status code
+func (o *TaskListServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task list service unavailable response has a 5xx status code
+func (o *TaskListServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this task list service unavailable response a status code equal to that given
+func (o *TaskListServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *TaskListServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /tasks][%d] taskListServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *TaskListServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /tasks][%d] taskListServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *TaskListServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

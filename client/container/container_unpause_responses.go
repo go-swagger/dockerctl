@@ -58,7 +58,36 @@ no error
 type ContainerUnpauseNoContent struct {
 }
 
+// IsSuccess returns true when this container unpause no content response has a 2xx status code
+func (o *ContainerUnpauseNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container unpause no content response has a 3xx status code
+func (o *ContainerUnpauseNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container unpause no content response has a 4xx status code
+func (o *ContainerUnpauseNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container unpause no content response has a 5xx status code
+func (o *ContainerUnpauseNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container unpause no content response a status code equal to that given
+func (o *ContainerUnpauseNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerUnpauseNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/unpause][%d] containerUnpauseNoContent ", 204)
+}
+
+func (o *ContainerUnpauseNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/unpause][%d] containerUnpauseNoContent ", 204)
 }
 
@@ -80,9 +109,39 @@ type ContainerUnpauseNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container unpause not found response has a 2xx status code
+func (o *ContainerUnpauseNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container unpause not found response has a 3xx status code
+func (o *ContainerUnpauseNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container unpause not found response has a 4xx status code
+func (o *ContainerUnpauseNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container unpause not found response has a 5xx status code
+func (o *ContainerUnpauseNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container unpause not found response a status code equal to that given
+func (o *ContainerUnpauseNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerUnpauseNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/unpause][%d] containerUnpauseNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerUnpauseNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/unpause][%d] containerUnpauseNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerUnpauseNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ContainerUnpauseInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container unpause internal server error response has a 2xx status code
+func (o *ContainerUnpauseInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container unpause internal server error response has a 3xx status code
+func (o *ContainerUnpauseInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container unpause internal server error response has a 4xx status code
+func (o *ContainerUnpauseInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container unpause internal server error response has a 5xx status code
+func (o *ContainerUnpauseInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container unpause internal server error response a status code equal to that given
+func (o *ContainerUnpauseInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerUnpauseInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/unpause][%d] containerUnpauseInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerUnpauseInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/unpause][%d] containerUnpauseInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerUnpauseInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

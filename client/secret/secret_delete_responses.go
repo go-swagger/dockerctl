@@ -64,7 +64,36 @@ no error
 type SecretDeleteNoContent struct {
 }
 
+// IsSuccess returns true when this secret delete no content response has a 2xx status code
+func (o *SecretDeleteNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this secret delete no content response has a 3xx status code
+func (o *SecretDeleteNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret delete no content response has a 4xx status code
+func (o *SecretDeleteNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret delete no content response has a 5xx status code
+func (o *SecretDeleteNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret delete no content response a status code equal to that given
+func (o *SecretDeleteNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *SecretDeleteNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteNoContent ", 204)
+}
+
+func (o *SecretDeleteNoContent) String() string {
 	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteNoContent ", 204)
 }
 
@@ -86,9 +115,39 @@ type SecretDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret delete not found response has a 2xx status code
+func (o *SecretDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret delete not found response has a 3xx status code
+func (o *SecretDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret delete not found response has a 4xx status code
+func (o *SecretDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this secret delete not found response has a 5xx status code
+func (o *SecretDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret delete not found response a status code equal to that given
+func (o *SecretDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *SecretDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SecretDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SecretDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type SecretDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret delete internal server error response has a 2xx status code
+func (o *SecretDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret delete internal server error response has a 3xx status code
+func (o *SecretDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret delete internal server error response has a 4xx status code
+func (o *SecretDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret delete internal server error response has a 5xx status code
+func (o *SecretDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret delete internal server error response a status code equal to that given
+func (o *SecretDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SecretDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SecretDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SecretDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type SecretDeleteServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret delete service unavailable response has a 2xx status code
+func (o *SecretDeleteServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret delete service unavailable response has a 3xx status code
+func (o *SecretDeleteServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret delete service unavailable response has a 4xx status code
+func (o *SecretDeleteServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret delete service unavailable response has a 5xx status code
+func (o *SecretDeleteServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret delete service unavailable response a status code equal to that given
+func (o *SecretDeleteServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SecretDeleteServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SecretDeleteServiceUnavailable) String() string {
+	return fmt.Sprintf("[DELETE /secrets/{id}][%d] secretDeleteServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SecretDeleteServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -52,7 +52,36 @@ No error
 type ExecResizeCreated struct {
 }
 
+// IsSuccess returns true when this exec resize created response has a 2xx status code
+func (o *ExecResizeCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this exec resize created response has a 3xx status code
+func (o *ExecResizeCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec resize created response has a 4xx status code
+func (o *ExecResizeCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this exec resize created response has a 5xx status code
+func (o *ExecResizeCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec resize created response a status code equal to that given
+func (o *ExecResizeCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ExecResizeCreated) Error() string {
+	return fmt.Sprintf("[POST /exec/{id}/resize][%d] execResizeCreated ", 201)
+}
+
+func (o *ExecResizeCreated) String() string {
 	return fmt.Sprintf("[POST /exec/{id}/resize][%d] execResizeCreated ", 201)
 }
 
@@ -74,9 +103,39 @@ type ExecResizeNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this exec resize not found response has a 2xx status code
+func (o *ExecResizeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this exec resize not found response has a 3xx status code
+func (o *ExecResizeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this exec resize not found response has a 4xx status code
+func (o *ExecResizeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this exec resize not found response has a 5xx status code
+func (o *ExecResizeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this exec resize not found response a status code equal to that given
+func (o *ExecResizeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ExecResizeNotFound) Error() string {
 	return fmt.Sprintf("[POST /exec/{id}/resize][%d] execResizeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ExecResizeNotFound) String() string {
+	return fmt.Sprintf("[POST /exec/{id}/resize][%d] execResizeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ExecResizeNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

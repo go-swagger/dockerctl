@@ -70,7 +70,36 @@ no error
 type NodeUpdateOK struct {
 }
 
+// IsSuccess returns true when this node update o k response has a 2xx status code
+func (o *NodeUpdateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this node update o k response has a 3xx status code
+func (o *NodeUpdateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node update o k response has a 4xx status code
+func (o *NodeUpdateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node update o k response has a 5xx status code
+func (o *NodeUpdateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this node update o k response a status code equal to that given
+func (o *NodeUpdateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NodeUpdateOK) Error() string {
+	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateOK ", 200)
+}
+
+func (o *NodeUpdateOK) String() string {
 	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateOK ", 200)
 }
 
@@ -92,9 +121,39 @@ type NodeUpdateBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node update bad request response has a 2xx status code
+func (o *NodeUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node update bad request response has a 3xx status code
+func (o *NodeUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node update bad request response has a 4xx status code
+func (o *NodeUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this node update bad request response has a 5xx status code
+func (o *NodeUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this node update bad request response a status code equal to that given
+func (o *NodeUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *NodeUpdateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *NodeUpdateBadRequest) String() string {
+	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *NodeUpdateBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -124,9 +183,39 @@ type NodeUpdateNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node update not found response has a 2xx status code
+func (o *NodeUpdateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node update not found response has a 3xx status code
+func (o *NodeUpdateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node update not found response has a 4xx status code
+func (o *NodeUpdateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this node update not found response has a 5xx status code
+func (o *NodeUpdateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this node update not found response a status code equal to that given
+func (o *NodeUpdateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NodeUpdateNotFound) Error() string {
 	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NodeUpdateNotFound) String() string {
+	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NodeUpdateNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -156,9 +245,39 @@ type NodeUpdateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node update internal server error response has a 2xx status code
+func (o *NodeUpdateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node update internal server error response has a 3xx status code
+func (o *NodeUpdateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node update internal server error response has a 4xx status code
+func (o *NodeUpdateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node update internal server error response has a 5xx status code
+func (o *NodeUpdateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this node update internal server error response a status code equal to that given
+func (o *NodeUpdateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NodeUpdateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NodeUpdateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NodeUpdateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -188,9 +307,39 @@ type NodeUpdateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node update service unavailable response has a 2xx status code
+func (o *NodeUpdateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node update service unavailable response has a 3xx status code
+func (o *NodeUpdateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node update service unavailable response has a 4xx status code
+func (o *NodeUpdateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node update service unavailable response has a 5xx status code
+func (o *NodeUpdateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this node update service unavailable response a status code equal to that given
+func (o *NodeUpdateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *NodeUpdateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *NodeUpdateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /nodes/{id}/update][%d] nodeUpdateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *NodeUpdateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

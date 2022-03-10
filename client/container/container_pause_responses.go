@@ -58,7 +58,36 @@ no error
 type ContainerPauseNoContent struct {
 }
 
+// IsSuccess returns true when this container pause no content response has a 2xx status code
+func (o *ContainerPauseNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container pause no content response has a 3xx status code
+func (o *ContainerPauseNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container pause no content response has a 4xx status code
+func (o *ContainerPauseNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container pause no content response has a 5xx status code
+func (o *ContainerPauseNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container pause no content response a status code equal to that given
+func (o *ContainerPauseNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerPauseNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/pause][%d] containerPauseNoContent ", 204)
+}
+
+func (o *ContainerPauseNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/pause][%d] containerPauseNoContent ", 204)
 }
 
@@ -80,9 +109,39 @@ type ContainerPauseNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container pause not found response has a 2xx status code
+func (o *ContainerPauseNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container pause not found response has a 3xx status code
+func (o *ContainerPauseNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container pause not found response has a 4xx status code
+func (o *ContainerPauseNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container pause not found response has a 5xx status code
+func (o *ContainerPauseNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container pause not found response a status code equal to that given
+func (o *ContainerPauseNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerPauseNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/pause][%d] containerPauseNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerPauseNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/pause][%d] containerPauseNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerPauseNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ContainerPauseInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container pause internal server error response has a 2xx status code
+func (o *ContainerPauseInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container pause internal server error response has a 3xx status code
+func (o *ContainerPauseInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container pause internal server error response has a 4xx status code
+func (o *ContainerPauseInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container pause internal server error response has a 5xx status code
+func (o *ContainerPauseInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container pause internal server error response a status code equal to that given
+func (o *ContainerPauseInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerPauseInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/pause][%d] containerPauseInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerPauseInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/pause][%d] containerPauseInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerPauseInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

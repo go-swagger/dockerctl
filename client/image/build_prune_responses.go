@@ -55,9 +55,39 @@ type BuildPruneOK struct {
 	Payload *BuildPruneOKBody
 }
 
+// IsSuccess returns true when this build prune o k response has a 2xx status code
+func (o *BuildPruneOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this build prune o k response has a 3xx status code
+func (o *BuildPruneOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this build prune o k response has a 4xx status code
+func (o *BuildPruneOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this build prune o k response has a 5xx status code
+func (o *BuildPruneOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this build prune o k response a status code equal to that given
+func (o *BuildPruneOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *BuildPruneOK) Error() string {
 	return fmt.Sprintf("[POST /build/prune][%d] buildPruneOK  %+v", 200, o.Payload)
 }
+
+func (o *BuildPruneOK) String() string {
+	return fmt.Sprintf("[POST /build/prune][%d] buildPruneOK  %+v", 200, o.Payload)
+}
+
 func (o *BuildPruneOK) GetPayload() *BuildPruneOKBody {
 	return o.Payload
 }
@@ -87,9 +117,39 @@ type BuildPruneInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this build prune internal server error response has a 2xx status code
+func (o *BuildPruneInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this build prune internal server error response has a 3xx status code
+func (o *BuildPruneInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this build prune internal server error response has a 4xx status code
+func (o *BuildPruneInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this build prune internal server error response has a 5xx status code
+func (o *BuildPruneInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this build prune internal server error response a status code equal to that given
+func (o *BuildPruneInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *BuildPruneInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /build/prune][%d] buildPruneInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *BuildPruneInternalServerError) String() string {
+	return fmt.Sprintf("[POST /build/prune][%d] buildPruneInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *BuildPruneInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -68,9 +68,39 @@ type SecretCreateCreated struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this secret create created response has a 2xx status code
+func (o *SecretCreateCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this secret create created response has a 3xx status code
+func (o *SecretCreateCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret create created response has a 4xx status code
+func (o *SecretCreateCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret create created response has a 5xx status code
+func (o *SecretCreateCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret create created response a status code equal to that given
+func (o *SecretCreateCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *SecretCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateCreated  %+v", 201, o.Payload)
 }
+
+func (o *SecretCreateCreated) String() string {
+	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateCreated  %+v", 201, o.Payload)
+}
+
 func (o *SecretCreateCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -100,9 +130,39 @@ type SecretCreateConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret create conflict response has a 2xx status code
+func (o *SecretCreateConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret create conflict response has a 3xx status code
+func (o *SecretCreateConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret create conflict response has a 4xx status code
+func (o *SecretCreateConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this secret create conflict response has a 5xx status code
+func (o *SecretCreateConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret create conflict response a status code equal to that given
+func (o *SecretCreateConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *SecretCreateConflict) Error() string {
 	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateConflict  %+v", 409, o.Payload)
 }
+
+func (o *SecretCreateConflict) String() string {
+	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateConflict  %+v", 409, o.Payload)
+}
+
 func (o *SecretCreateConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -132,9 +192,39 @@ type SecretCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret create internal server error response has a 2xx status code
+func (o *SecretCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret create internal server error response has a 3xx status code
+func (o *SecretCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret create internal server error response has a 4xx status code
+func (o *SecretCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret create internal server error response has a 5xx status code
+func (o *SecretCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret create internal server error response a status code equal to that given
+func (o *SecretCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SecretCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SecretCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SecretCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -164,9 +254,39 @@ type SecretCreateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret create service unavailable response has a 2xx status code
+func (o *SecretCreateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret create service unavailable response has a 3xx status code
+func (o *SecretCreateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret create service unavailable response has a 4xx status code
+func (o *SecretCreateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret create service unavailable response has a 5xx status code
+func (o *SecretCreateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret create service unavailable response a status code equal to that given
+func (o *SecretCreateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SecretCreateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SecretCreateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /secrets/create][%d] secretCreateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SecretCreateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -57,9 +57,39 @@ type ImagePruneOK struct {
 	Payload *ImagePruneOKBody
 }
 
+// IsSuccess returns true when this image prune o k response has a 2xx status code
+func (o *ImagePruneOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image prune o k response has a 3xx status code
+func (o *ImagePruneOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image prune o k response has a 4xx status code
+func (o *ImagePruneOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image prune o k response has a 5xx status code
+func (o *ImagePruneOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image prune o k response a status code equal to that given
+func (o *ImagePruneOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImagePruneOK) Error() string {
 	return fmt.Sprintf("[POST /images/prune][%d] imagePruneOK  %+v", 200, o.Payload)
 }
+
+func (o *ImagePruneOK) String() string {
+	return fmt.Sprintf("[POST /images/prune][%d] imagePruneOK  %+v", 200, o.Payload)
+}
+
 func (o *ImagePruneOK) GetPayload() *ImagePruneOKBody {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type ImagePruneInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image prune internal server error response has a 2xx status code
+func (o *ImagePruneInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image prune internal server error response has a 3xx status code
+func (o *ImagePruneInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image prune internal server error response has a 4xx status code
+func (o *ImagePruneInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image prune internal server error response has a 5xx status code
+func (o *ImagePruneInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image prune internal server error response a status code equal to that given
+func (o *ImagePruneInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImagePruneInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /images/prune][%d] imagePruneInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImagePruneInternalServerError) String() string {
+	return fmt.Sprintf("[POST /images/prune][%d] imagePruneInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImagePruneInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

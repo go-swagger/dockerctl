@@ -56,3 +56,7 @@ Using config file, the `docker image ls` command becomes:
 ```sh
 dockerctl image ImageList
 ```
+
+# Dev MISC
+
+go-swagger commit used: `45b969382a41474fda96a24dde7bc768023a5b83`

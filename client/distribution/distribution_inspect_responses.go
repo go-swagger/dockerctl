@@ -64,9 +64,39 @@ type DistributionInspectOK struct {
 	Payload *DistributionInspectOKBody
 }
 
+// IsSuccess returns true when this distribution inspect o k response has a 2xx status code
+func (o *DistributionInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this distribution inspect o k response has a 3xx status code
+func (o *DistributionInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this distribution inspect o k response has a 4xx status code
+func (o *DistributionInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this distribution inspect o k response has a 5xx status code
+func (o *DistributionInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this distribution inspect o k response a status code equal to that given
+func (o *DistributionInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DistributionInspectOK) Error() string {
 	return fmt.Sprintf("[GET /distribution/{name}/json][%d] distributionInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *DistributionInspectOK) String() string {
+	return fmt.Sprintf("[GET /distribution/{name}/json][%d] distributionInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *DistributionInspectOK) GetPayload() *DistributionInspectOKBody {
 	return o.Payload
 }
@@ -96,9 +126,39 @@ type DistributionInspectUnauthorized struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this distribution inspect unauthorized response has a 2xx status code
+func (o *DistributionInspectUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this distribution inspect unauthorized response has a 3xx status code
+func (o *DistributionInspectUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this distribution inspect unauthorized response has a 4xx status code
+func (o *DistributionInspectUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this distribution inspect unauthorized response has a 5xx status code
+func (o *DistributionInspectUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this distribution inspect unauthorized response a status code equal to that given
+func (o *DistributionInspectUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *DistributionInspectUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /distribution/{name}/json][%d] distributionInspectUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *DistributionInspectUnauthorized) String() string {
+	return fmt.Sprintf("[GET /distribution/{name}/json][%d] distributionInspectUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *DistributionInspectUnauthorized) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -128,9 +188,39 @@ type DistributionInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this distribution inspect internal server error response has a 2xx status code
+func (o *DistributionInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this distribution inspect internal server error response has a 3xx status code
+func (o *DistributionInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this distribution inspect internal server error response has a 4xx status code
+func (o *DistributionInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this distribution inspect internal server error response has a 5xx status code
+func (o *DistributionInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this distribution inspect internal server error response a status code equal to that given
+func (o *DistributionInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *DistributionInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /distribution/{name}/json][%d] distributionInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DistributionInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /distribution/{name}/json][%d] distributionInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DistributionInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

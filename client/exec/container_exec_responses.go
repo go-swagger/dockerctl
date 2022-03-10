@@ -67,9 +67,39 @@ type ContainerExecCreated struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this container exec created response has a 2xx status code
+func (o *ContainerExecCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container exec created response has a 3xx status code
+func (o *ContainerExecCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container exec created response has a 4xx status code
+func (o *ContainerExecCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container exec created response has a 5xx status code
+func (o *ContainerExecCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container exec created response a status code equal to that given
+func (o *ContainerExecCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ContainerExecCreated) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecCreated  %+v", 201, o.Payload)
 }
+
+func (o *ContainerExecCreated) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecCreated  %+v", 201, o.Payload)
+}
+
 func (o *ContainerExecCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -99,9 +129,39 @@ type ContainerExecNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container exec not found response has a 2xx status code
+func (o *ContainerExecNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container exec not found response has a 3xx status code
+func (o *ContainerExecNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container exec not found response has a 4xx status code
+func (o *ContainerExecNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container exec not found response has a 5xx status code
+func (o *ContainerExecNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container exec not found response a status code equal to that given
+func (o *ContainerExecNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerExecNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerExecNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerExecNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -131,9 +191,39 @@ type ContainerExecConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container exec conflict response has a 2xx status code
+func (o *ContainerExecConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container exec conflict response has a 3xx status code
+func (o *ContainerExecConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container exec conflict response has a 4xx status code
+func (o *ContainerExecConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container exec conflict response has a 5xx status code
+func (o *ContainerExecConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container exec conflict response a status code equal to that given
+func (o *ContainerExecConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ContainerExecConflict) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecConflict  %+v", 409, o.Payload)
 }
+
+func (o *ContainerExecConflict) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecConflict  %+v", 409, o.Payload)
+}
+
 func (o *ContainerExecConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -163,9 +253,39 @@ type ContainerExecInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container exec internal server error response has a 2xx status code
+func (o *ContainerExecInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container exec internal server error response has a 3xx status code
+func (o *ContainerExecInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container exec internal server error response has a 4xx status code
+func (o *ContainerExecInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container exec internal server error response has a 5xx status code
+func (o *ContainerExecInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container exec internal server error response a status code equal to that given
+func (o *ContainerExecInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerExecInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerExecInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/exec][%d] containerExecInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerExecInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

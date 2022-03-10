@@ -55,9 +55,39 @@ type VolumePruneOK struct {
 	Payload *VolumePruneOKBody
 }
 
+// IsSuccess returns true when this volume prune o k response has a 2xx status code
+func (o *VolumePruneOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this volume prune o k response has a 3xx status code
+func (o *VolumePruneOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume prune o k response has a 4xx status code
+func (o *VolumePruneOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume prune o k response has a 5xx status code
+func (o *VolumePruneOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this volume prune o k response a status code equal to that given
+func (o *VolumePruneOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *VolumePruneOK) Error() string {
 	return fmt.Sprintf("[POST /volumes/prune][%d] volumePruneOK  %+v", 200, o.Payload)
 }
+
+func (o *VolumePruneOK) String() string {
+	return fmt.Sprintf("[POST /volumes/prune][%d] volumePruneOK  %+v", 200, o.Payload)
+}
+
 func (o *VolumePruneOK) GetPayload() *VolumePruneOKBody {
 	return o.Payload
 }
@@ -87,9 +117,39 @@ type VolumePruneInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this volume prune internal server error response has a 2xx status code
+func (o *VolumePruneInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this volume prune internal server error response has a 3xx status code
+func (o *VolumePruneInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume prune internal server error response has a 4xx status code
+func (o *VolumePruneInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume prune internal server error response has a 5xx status code
+func (o *VolumePruneInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this volume prune internal server error response a status code equal to that given
+func (o *VolumePruneInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *VolumePruneInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /volumes/prune][%d] volumePruneInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *VolumePruneInternalServerError) String() string {
+	return fmt.Sprintf("[POST /volumes/prune][%d] volumePruneInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *VolumePruneInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

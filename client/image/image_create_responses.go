@@ -58,7 +58,36 @@ no error
 type ImageCreateOK struct {
 }
 
+// IsSuccess returns true when this image create o k response has a 2xx status code
+func (o *ImageCreateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image create o k response has a 3xx status code
+func (o *ImageCreateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image create o k response has a 4xx status code
+func (o *ImageCreateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image create o k response has a 5xx status code
+func (o *ImageCreateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image create o k response a status code equal to that given
+func (o *ImageCreateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageCreateOK) Error() string {
+	return fmt.Sprintf("[POST /images/create][%d] imageCreateOK ", 200)
+}
+
+func (o *ImageCreateOK) String() string {
 	return fmt.Sprintf("[POST /images/create][%d] imageCreateOK ", 200)
 }
 
@@ -80,9 +109,39 @@ type ImageCreateNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image create not found response has a 2xx status code
+func (o *ImageCreateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image create not found response has a 3xx status code
+func (o *ImageCreateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image create not found response has a 4xx status code
+func (o *ImageCreateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image create not found response has a 5xx status code
+func (o *ImageCreateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image create not found response a status code equal to that given
+func (o *ImageCreateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImageCreateNotFound) Error() string {
 	return fmt.Sprintf("[POST /images/create][%d] imageCreateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImageCreateNotFound) String() string {
+	return fmt.Sprintf("[POST /images/create][%d] imageCreateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImageCreateNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ImageCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image create internal server error response has a 2xx status code
+func (o *ImageCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image create internal server error response has a 3xx status code
+func (o *ImageCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image create internal server error response has a 4xx status code
+func (o *ImageCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image create internal server error response has a 5xx status code
+func (o *ImageCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image create internal server error response a status code equal to that given
+func (o *ImageCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /images/create][%d] imageCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /images/create][%d] imageCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

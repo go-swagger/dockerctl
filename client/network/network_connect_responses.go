@@ -67,7 +67,36 @@ No error
 type NetworkConnectOK struct {
 }
 
+// IsSuccess returns true when this network connect o k response has a 2xx status code
+func (o *NetworkConnectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network connect o k response has a 3xx status code
+func (o *NetworkConnectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network connect o k response has a 4xx status code
+func (o *NetworkConnectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network connect o k response has a 5xx status code
+func (o *NetworkConnectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network connect o k response a status code equal to that given
+func (o *NetworkConnectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NetworkConnectOK) Error() string {
+	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectOK ", 200)
+}
+
+func (o *NetworkConnectOK) String() string {
 	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectOK ", 200)
 }
 
@@ -89,9 +118,39 @@ type NetworkConnectForbidden struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network connect forbidden response has a 2xx status code
+func (o *NetworkConnectForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network connect forbidden response has a 3xx status code
+func (o *NetworkConnectForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network connect forbidden response has a 4xx status code
+func (o *NetworkConnectForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network connect forbidden response has a 5xx status code
+func (o *NetworkConnectForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network connect forbidden response a status code equal to that given
+func (o *NetworkConnectForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *NetworkConnectForbidden) Error() string {
 	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectForbidden  %+v", 403, o.Payload)
 }
+
+func (o *NetworkConnectForbidden) String() string {
+	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectForbidden  %+v", 403, o.Payload)
+}
+
 func (o *NetworkConnectForbidden) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +180,39 @@ type NetworkConnectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network connect not found response has a 2xx status code
+func (o *NetworkConnectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network connect not found response has a 3xx status code
+func (o *NetworkConnectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network connect not found response has a 4xx status code
+func (o *NetworkConnectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network connect not found response has a 5xx status code
+func (o *NetworkConnectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network connect not found response a status code equal to that given
+func (o *NetworkConnectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NetworkConnectNotFound) Error() string {
 	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NetworkConnectNotFound) String() string {
+	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NetworkConnectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -153,9 +242,39 @@ type NetworkConnectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network connect internal server error response has a 2xx status code
+func (o *NetworkConnectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network connect internal server error response has a 3xx status code
+func (o *NetworkConnectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network connect internal server error response has a 4xx status code
+func (o *NetworkConnectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network connect internal server error response has a 5xx status code
+func (o *NetworkConnectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network connect internal server error response a status code equal to that given
+func (o *NetworkConnectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkConnectInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkConnectInternalServerError) String() string {
+	return fmt.Sprintf("[POST /networks/{id}/connect][%d] networkConnectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkConnectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

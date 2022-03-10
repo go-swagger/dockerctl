@@ -53,9 +53,39 @@ type NetworkListOK struct {
 	Payload []*models.Network
 }
 
+// IsSuccess returns true when this network list o k response has a 2xx status code
+func (o *NetworkListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network list o k response has a 3xx status code
+func (o *NetworkListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network list o k response has a 4xx status code
+func (o *NetworkListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network list o k response has a 5xx status code
+func (o *NetworkListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network list o k response a status code equal to that given
+func (o *NetworkListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NetworkListOK) Error() string {
 	return fmt.Sprintf("[GET /networks][%d] networkListOK  %+v", 200, o.Payload)
 }
+
+func (o *NetworkListOK) String() string {
+	return fmt.Sprintf("[GET /networks][%d] networkListOK  %+v", 200, o.Payload)
+}
+
 func (o *NetworkListOK) GetPayload() []*models.Network {
 	return o.Payload
 }
@@ -83,9 +113,39 @@ type NetworkListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network list internal server error response has a 2xx status code
+func (o *NetworkListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network list internal server error response has a 3xx status code
+func (o *NetworkListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network list internal server error response has a 4xx status code
+func (o *NetworkListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network list internal server error response has a 5xx status code
+func (o *NetworkListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network list internal server error response a status code equal to that given
+func (o *NetworkListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /networks][%d] networkListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /networks][%d] networkListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

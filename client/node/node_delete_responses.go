@@ -64,7 +64,36 @@ no error
 type NodeDeleteOK struct {
 }
 
+// IsSuccess returns true when this node delete o k response has a 2xx status code
+func (o *NodeDeleteOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this node delete o k response has a 3xx status code
+func (o *NodeDeleteOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node delete o k response has a 4xx status code
+func (o *NodeDeleteOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node delete o k response has a 5xx status code
+func (o *NodeDeleteOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this node delete o k response a status code equal to that given
+func (o *NodeDeleteOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NodeDeleteOK) Error() string {
+	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteOK ", 200)
+}
+
+func (o *NodeDeleteOK) String() string {
 	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteOK ", 200)
 }
 
@@ -86,9 +115,39 @@ type NodeDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node delete not found response has a 2xx status code
+func (o *NodeDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node delete not found response has a 3xx status code
+func (o *NodeDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node delete not found response has a 4xx status code
+func (o *NodeDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this node delete not found response has a 5xx status code
+func (o *NodeDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this node delete not found response a status code equal to that given
+func (o *NodeDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NodeDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NodeDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NodeDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type NodeDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node delete internal server error response has a 2xx status code
+func (o *NodeDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node delete internal server error response has a 3xx status code
+func (o *NodeDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node delete internal server error response has a 4xx status code
+func (o *NodeDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node delete internal server error response has a 5xx status code
+func (o *NodeDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this node delete internal server error response a status code equal to that given
+func (o *NodeDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NodeDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NodeDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NodeDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type NodeDeleteServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this node delete service unavailable response has a 2xx status code
+func (o *NodeDeleteServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this node delete service unavailable response has a 3xx status code
+func (o *NodeDeleteServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this node delete service unavailable response has a 4xx status code
+func (o *NodeDeleteServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this node delete service unavailable response has a 5xx status code
+func (o *NodeDeleteServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this node delete service unavailable response a status code equal to that given
+func (o *NodeDeleteServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *NodeDeleteServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *NodeDeleteServiceUnavailable) String() string {
+	return fmt.Sprintf("[DELETE /nodes/{id}][%d] nodeDeleteServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *NodeDeleteServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

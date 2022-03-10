@@ -48,9 +48,11 @@ var maxDepth int = 5
 // makeClient constructs a client object
 func makeClient(cmd *cobra.Command, args []string) (*client.DockerEngineAPI, error) {
 	hostname := viper.GetString("hostname")
+	viper.SetDefault("base_path", client.DefaultBasePath)
+	basePath := viper.GetString("base_path")
 	scheme := viper.GetString("scheme")
 
-	r := httptransport.New(hostname, client.DefaultBasePath, []string{scheme})
+	r := httptransport.New(hostname, basePath, []string{scheme})
 	r.SetDebug(debug)
 	// set custom producer and consumer to use the default ones
 
@@ -90,6 +92,8 @@ func MakeRootCmd() (*cobra.Command, error) {
 	viper.BindPFlag("hostname", rootCmd.PersistentFlags().Lookup("hostname"))
 	rootCmd.PersistentFlags().String("scheme", client.DefaultSchemes[0], fmt.Sprintf("Choose from: %v", client.DefaultSchemes))
 	viper.BindPFlag("scheme", rootCmd.PersistentFlags().Lookup("scheme"))
+	rootCmd.PersistentFlags().String("base-path", client.DefaultBasePath, fmt.Sprintf("For example: %v", client.DefaultBasePath))
+	viper.BindPFlag("base_path", rootCmd.PersistentFlags().Lookup("base-path"))
 
 	// configure debug flag
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "output debug logs")

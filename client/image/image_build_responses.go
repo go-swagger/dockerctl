@@ -58,7 +58,36 @@ no error
 type ImageBuildOK struct {
 }
 
+// IsSuccess returns true when this image build o k response has a 2xx status code
+func (o *ImageBuildOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image build o k response has a 3xx status code
+func (o *ImageBuildOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image build o k response has a 4xx status code
+func (o *ImageBuildOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image build o k response has a 5xx status code
+func (o *ImageBuildOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image build o k response a status code equal to that given
+func (o *ImageBuildOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageBuildOK) Error() string {
+	return fmt.Sprintf("[POST /build][%d] imageBuildOK ", 200)
+}
+
+func (o *ImageBuildOK) String() string {
 	return fmt.Sprintf("[POST /build][%d] imageBuildOK ", 200)
 }
 
@@ -80,9 +109,39 @@ type ImageBuildBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image build bad request response has a 2xx status code
+func (o *ImageBuildBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image build bad request response has a 3xx status code
+func (o *ImageBuildBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image build bad request response has a 4xx status code
+func (o *ImageBuildBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image build bad request response has a 5xx status code
+func (o *ImageBuildBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image build bad request response a status code equal to that given
+func (o *ImageBuildBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ImageBuildBadRequest) Error() string {
 	return fmt.Sprintf("[POST /build][%d] imageBuildBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ImageBuildBadRequest) String() string {
+	return fmt.Sprintf("[POST /build][%d] imageBuildBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ImageBuildBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ImageBuildInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image build internal server error response has a 2xx status code
+func (o *ImageBuildInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image build internal server error response has a 3xx status code
+func (o *ImageBuildInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image build internal server error response has a 4xx status code
+func (o *ImageBuildInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image build internal server error response has a 5xx status code
+func (o *ImageBuildInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image build internal server error response a status code equal to that given
+func (o *ImageBuildInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageBuildInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /build][%d] imageBuildInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageBuildInternalServerError) String() string {
+	return fmt.Sprintf("[POST /build][%d] imageBuildInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageBuildInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

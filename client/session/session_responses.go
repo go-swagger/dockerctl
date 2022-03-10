@@ -58,7 +58,36 @@ no error, hijacking successful
 type SessionSwitchingProtocols struct {
 }
 
+// IsSuccess returns true when this session switching protocols response has a 2xx status code
+func (o *SessionSwitchingProtocols) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this session switching protocols response has a 3xx status code
+func (o *SessionSwitchingProtocols) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this session switching protocols response has a 4xx status code
+func (o *SessionSwitchingProtocols) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this session switching protocols response has a 5xx status code
+func (o *SessionSwitchingProtocols) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this session switching protocols response a status code equal to that given
+func (o *SessionSwitchingProtocols) IsCode(code int) bool {
+	return code == 101
+}
+
 func (o *SessionSwitchingProtocols) Error() string {
+	return fmt.Sprintf("[POST /session][%d] sessionSwitchingProtocols ", 101)
+}
+
+func (o *SessionSwitchingProtocols) String() string {
 	return fmt.Sprintf("[POST /session][%d] sessionSwitchingProtocols ", 101)
 }
 
@@ -80,9 +109,39 @@ type SessionBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this session bad request response has a 2xx status code
+func (o *SessionBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this session bad request response has a 3xx status code
+func (o *SessionBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this session bad request response has a 4xx status code
+func (o *SessionBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this session bad request response has a 5xx status code
+func (o *SessionBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this session bad request response a status code equal to that given
+func (o *SessionBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *SessionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /session][%d] sessionBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SessionBadRequest) String() string {
+	return fmt.Sprintf("[POST /session][%d] sessionBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SessionBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type SessionInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this session internal server error response has a 2xx status code
+func (o *SessionInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this session internal server error response has a 3xx status code
+func (o *SessionInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this session internal server error response has a 4xx status code
+func (o *SessionInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this session internal server error response has a 5xx status code
+func (o *SessionInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this session internal server error response a status code equal to that given
+func (o *SessionInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SessionInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /session][%d] sessionInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SessionInternalServerError) String() string {
+	return fmt.Sprintf("[POST /session][%d] sessionInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SessionInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

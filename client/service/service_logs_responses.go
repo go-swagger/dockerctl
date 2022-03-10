@@ -69,9 +69,39 @@ type ServiceLogsOK struct {
 	Payload io.Writer
 }
 
+// IsSuccess returns true when this service logs o k response has a 2xx status code
+func (o *ServiceLogsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this service logs o k response has a 3xx status code
+func (o *ServiceLogsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service logs o k response has a 4xx status code
+func (o *ServiceLogsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service logs o k response has a 5xx status code
+func (o *ServiceLogsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service logs o k response a status code equal to that given
+func (o *ServiceLogsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ServiceLogsOK) Error() string {
 	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsOK  %+v", 200, o.Payload)
 }
+
+func (o *ServiceLogsOK) String() string {
+	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsOK  %+v", 200, o.Payload)
+}
+
 func (o *ServiceLogsOK) GetPayload() io.Writer {
 	return o.Payload
 }
@@ -99,9 +129,39 @@ type ServiceLogsNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service logs not found response has a 2xx status code
+func (o *ServiceLogsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service logs not found response has a 3xx status code
+func (o *ServiceLogsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service logs not found response has a 4xx status code
+func (o *ServiceLogsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this service logs not found response has a 5xx status code
+func (o *ServiceLogsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service logs not found response a status code equal to that given
+func (o *ServiceLogsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ServiceLogsNotFound) Error() string {
 	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ServiceLogsNotFound) String() string {
+	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ServiceLogsNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -131,9 +191,39 @@ type ServiceLogsInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service logs internal server error response has a 2xx status code
+func (o *ServiceLogsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service logs internal server error response has a 3xx status code
+func (o *ServiceLogsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service logs internal server error response has a 4xx status code
+func (o *ServiceLogsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service logs internal server error response has a 5xx status code
+func (o *ServiceLogsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service logs internal server error response a status code equal to that given
+func (o *ServiceLogsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ServiceLogsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ServiceLogsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ServiceLogsInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -163,9 +253,39 @@ type ServiceLogsServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service logs service unavailable response has a 2xx status code
+func (o *ServiceLogsServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service logs service unavailable response has a 3xx status code
+func (o *ServiceLogsServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service logs service unavailable response has a 4xx status code
+func (o *ServiceLogsServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service logs service unavailable response has a 5xx status code
+func (o *ServiceLogsServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service logs service unavailable response a status code equal to that given
+func (o *ServiceLogsServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ServiceLogsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ServiceLogsServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /services/{id}/logs][%d] serviceLogsServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ServiceLogsServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

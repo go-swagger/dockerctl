@@ -64,7 +64,36 @@ no error
 type ContainerStopNoContent struct {
 }
 
+// IsSuccess returns true when this container stop no content response has a 2xx status code
+func (o *ContainerStopNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container stop no content response has a 3xx status code
+func (o *ContainerStopNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container stop no content response has a 4xx status code
+func (o *ContainerStopNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container stop no content response has a 5xx status code
+func (o *ContainerStopNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container stop no content response a status code equal to that given
+func (o *ContainerStopNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerStopNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopNoContent ", 204)
+}
+
+func (o *ContainerStopNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopNoContent ", 204)
 }
 
@@ -85,7 +114,36 @@ container already stopped
 type ContainerStopNotModified struct {
 }
 
+// IsSuccess returns true when this container stop not modified response has a 2xx status code
+func (o *ContainerStopNotModified) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container stop not modified response has a 3xx status code
+func (o *ContainerStopNotModified) IsRedirect() bool {
+	return true
+}
+
+// IsClientError returns true when this container stop not modified response has a 4xx status code
+func (o *ContainerStopNotModified) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container stop not modified response has a 5xx status code
+func (o *ContainerStopNotModified) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container stop not modified response a status code equal to that given
+func (o *ContainerStopNotModified) IsCode(code int) bool {
+	return code == 304
+}
+
 func (o *ContainerStopNotModified) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopNotModified ", 304)
+}
+
+func (o *ContainerStopNotModified) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopNotModified ", 304)
 }
 
@@ -107,9 +165,39 @@ type ContainerStopNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container stop not found response has a 2xx status code
+func (o *ContainerStopNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container stop not found response has a 3xx status code
+func (o *ContainerStopNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container stop not found response has a 4xx status code
+func (o *ContainerStopNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container stop not found response has a 5xx status code
+func (o *ContainerStopNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container stop not found response a status code equal to that given
+func (o *ContainerStopNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerStopNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerStopNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerStopNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -139,9 +227,39 @@ type ContainerStopInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container stop internal server error response has a 2xx status code
+func (o *ContainerStopInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container stop internal server error response has a 3xx status code
+func (o *ContainerStopInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container stop internal server error response has a 4xx status code
+func (o *ContainerStopInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container stop internal server error response has a 5xx status code
+func (o *ContainerStopInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container stop internal server error response a status code equal to that given
+func (o *ContainerStopInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerStopInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerStopInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/stop][%d] containerStopInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerStopInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -53,9 +53,39 @@ type PluginListOK struct {
 	Payload []*models.Plugin
 }
 
+// IsSuccess returns true when this plugin list o k response has a 2xx status code
+func (o *PluginListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin list o k response has a 3xx status code
+func (o *PluginListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin list o k response has a 4xx status code
+func (o *PluginListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin list o k response has a 5xx status code
+func (o *PluginListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin list o k response a status code equal to that given
+func (o *PluginListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PluginListOK) Error() string {
 	return fmt.Sprintf("[GET /plugins][%d] pluginListOK  %+v", 200, o.Payload)
 }
+
+func (o *PluginListOK) String() string {
+	return fmt.Sprintf("[GET /plugins][%d] pluginListOK  %+v", 200, o.Payload)
+}
+
 func (o *PluginListOK) GetPayload() []*models.Plugin {
 	return o.Payload
 }
@@ -83,9 +113,39 @@ type PluginListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin list internal server error response has a 2xx status code
+func (o *PluginListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin list internal server error response has a 3xx status code
+func (o *PluginListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin list internal server error response has a 4xx status code
+func (o *PluginListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin list internal server error response has a 5xx status code
+func (o *PluginListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin list internal server error response a status code equal to that given
+func (o *PluginListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /plugins][%d] pluginListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /plugins][%d] pluginListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

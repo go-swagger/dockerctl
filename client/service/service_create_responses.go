@@ -80,9 +80,39 @@ type ServiceCreateCreated struct {
 	Payload *ServiceCreateCreatedBody
 }
 
+// IsSuccess returns true when this service create created response has a 2xx status code
+func (o *ServiceCreateCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this service create created response has a 3xx status code
+func (o *ServiceCreateCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service create created response has a 4xx status code
+func (o *ServiceCreateCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service create created response has a 5xx status code
+func (o *ServiceCreateCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service create created response a status code equal to that given
+func (o *ServiceCreateCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *ServiceCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /services/create][%d] serviceCreateCreated  %+v", 201, o.Payload)
 }
+
+func (o *ServiceCreateCreated) String() string {
+	return fmt.Sprintf("[POST /services/create][%d] serviceCreateCreated  %+v", 201, o.Payload)
+}
+
 func (o *ServiceCreateCreated) GetPayload() *ServiceCreateCreatedBody {
 	return o.Payload
 }
@@ -112,9 +142,39 @@ type ServiceCreateBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service create bad request response has a 2xx status code
+func (o *ServiceCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service create bad request response has a 3xx status code
+func (o *ServiceCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service create bad request response has a 4xx status code
+func (o *ServiceCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this service create bad request response has a 5xx status code
+func (o *ServiceCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service create bad request response a status code equal to that given
+func (o *ServiceCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ServiceCreateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /services/create][%d] serviceCreateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ServiceCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /services/create][%d] serviceCreateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ServiceCreateBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -144,9 +204,39 @@ type ServiceCreateForbidden struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service create forbidden response has a 2xx status code
+func (o *ServiceCreateForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service create forbidden response has a 3xx status code
+func (o *ServiceCreateForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service create forbidden response has a 4xx status code
+func (o *ServiceCreateForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this service create forbidden response has a 5xx status code
+func (o *ServiceCreateForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service create forbidden response a status code equal to that given
+func (o *ServiceCreateForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ServiceCreateForbidden) Error() string {
 	return fmt.Sprintf("[POST /services/create][%d] serviceCreateForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ServiceCreateForbidden) String() string {
+	return fmt.Sprintf("[POST /services/create][%d] serviceCreateForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ServiceCreateForbidden) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -176,9 +266,39 @@ type ServiceCreateConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service create conflict response has a 2xx status code
+func (o *ServiceCreateConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service create conflict response has a 3xx status code
+func (o *ServiceCreateConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service create conflict response has a 4xx status code
+func (o *ServiceCreateConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this service create conflict response has a 5xx status code
+func (o *ServiceCreateConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this service create conflict response a status code equal to that given
+func (o *ServiceCreateConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ServiceCreateConflict) Error() string {
 	return fmt.Sprintf("[POST /services/create][%d] serviceCreateConflict  %+v", 409, o.Payload)
 }
+
+func (o *ServiceCreateConflict) String() string {
+	return fmt.Sprintf("[POST /services/create][%d] serviceCreateConflict  %+v", 409, o.Payload)
+}
+
 func (o *ServiceCreateConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -208,9 +328,39 @@ type ServiceCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service create internal server error response has a 2xx status code
+func (o *ServiceCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service create internal server error response has a 3xx status code
+func (o *ServiceCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service create internal server error response has a 4xx status code
+func (o *ServiceCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service create internal server error response has a 5xx status code
+func (o *ServiceCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service create internal server error response a status code equal to that given
+func (o *ServiceCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ServiceCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /services/create][%d] serviceCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ServiceCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /services/create][%d] serviceCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ServiceCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -240,9 +390,39 @@ type ServiceCreateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this service create service unavailable response has a 2xx status code
+func (o *ServiceCreateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this service create service unavailable response has a 3xx status code
+func (o *ServiceCreateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this service create service unavailable response has a 4xx status code
+func (o *ServiceCreateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this service create service unavailable response has a 5xx status code
+func (o *ServiceCreateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this service create service unavailable response a status code equal to that given
+func (o *ServiceCreateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ServiceCreateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /services/create][%d] serviceCreateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ServiceCreateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /services/create][%d] serviceCreateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ServiceCreateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

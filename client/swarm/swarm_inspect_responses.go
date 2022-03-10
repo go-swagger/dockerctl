@@ -65,9 +65,39 @@ type SwarmInspectOK struct {
 	Payload *models.Swarm
 }
 
+// IsSuccess returns true when this swarm inspect o k response has a 2xx status code
+func (o *SwarmInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this swarm inspect o k response has a 3xx status code
+func (o *SwarmInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm inspect o k response has a 4xx status code
+func (o *SwarmInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm inspect o k response has a 5xx status code
+func (o *SwarmInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm inspect o k response a status code equal to that given
+func (o *SwarmInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SwarmInspectOK) Error() string {
 	return fmt.Sprintf("[GET /swarm][%d] swarmInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *SwarmInspectOK) String() string {
+	return fmt.Sprintf("[GET /swarm][%d] swarmInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *SwarmInspectOK) GetPayload() *models.Swarm {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type SwarmInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm inspect not found response has a 2xx status code
+func (o *SwarmInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm inspect not found response has a 3xx status code
+func (o *SwarmInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm inspect not found response has a 4xx status code
+func (o *SwarmInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this swarm inspect not found response has a 5xx status code
+func (o *SwarmInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm inspect not found response a status code equal to that given
+func (o *SwarmInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *SwarmInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /swarm][%d] swarmInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SwarmInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /swarm][%d] swarmInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SwarmInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type SwarmInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm inspect internal server error response has a 2xx status code
+func (o *SwarmInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm inspect internal server error response has a 3xx status code
+func (o *SwarmInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm inspect internal server error response has a 4xx status code
+func (o *SwarmInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm inspect internal server error response has a 5xx status code
+func (o *SwarmInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm inspect internal server error response a status code equal to that given
+func (o *SwarmInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SwarmInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /swarm][%d] swarmInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SwarmInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /swarm][%d] swarmInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SwarmInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -161,9 +251,39 @@ type SwarmInspectServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm inspect service unavailable response has a 2xx status code
+func (o *SwarmInspectServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm inspect service unavailable response has a 3xx status code
+func (o *SwarmInspectServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm inspect service unavailable response has a 4xx status code
+func (o *SwarmInspectServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm inspect service unavailable response has a 5xx status code
+func (o *SwarmInspectServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm inspect service unavailable response a status code equal to that given
+func (o *SwarmInspectServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SwarmInspectServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /swarm][%d] swarmInspectServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SwarmInspectServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /swarm][%d] swarmInspectServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SwarmInspectServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

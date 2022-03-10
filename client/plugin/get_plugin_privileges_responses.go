@@ -55,9 +55,39 @@ type GetPluginPrivilegesOK struct {
 	Payload []*GetPluginPrivilegesOKBodyItems0
 }
 
+// IsSuccess returns true when this get plugin privileges o k response has a 2xx status code
+func (o *GetPluginPrivilegesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get plugin privileges o k response has a 3xx status code
+func (o *GetPluginPrivilegesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get plugin privileges o k response has a 4xx status code
+func (o *GetPluginPrivilegesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get plugin privileges o k response has a 5xx status code
+func (o *GetPluginPrivilegesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get plugin privileges o k response a status code equal to that given
+func (o *GetPluginPrivilegesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *GetPluginPrivilegesOK) Error() string {
 	return fmt.Sprintf("[GET /plugins/privileges][%d] getPluginPrivilegesOK  %+v", 200, o.Payload)
 }
+
+func (o *GetPluginPrivilegesOK) String() string {
+	return fmt.Sprintf("[GET /plugins/privileges][%d] getPluginPrivilegesOK  %+v", 200, o.Payload)
+}
+
 func (o *GetPluginPrivilegesOK) GetPayload() []*GetPluginPrivilegesOKBodyItems0 {
 	return o.Payload
 }
@@ -85,9 +115,39 @@ type GetPluginPrivilegesInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this get plugin privileges internal server error response has a 2xx status code
+func (o *GetPluginPrivilegesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get plugin privileges internal server error response has a 3xx status code
+func (o *GetPluginPrivilegesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get plugin privileges internal server error response has a 4xx status code
+func (o *GetPluginPrivilegesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get plugin privileges internal server error response has a 5xx status code
+func (o *GetPluginPrivilegesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get plugin privileges internal server error response a status code equal to that given
+func (o *GetPluginPrivilegesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *GetPluginPrivilegesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /plugins/privileges][%d] getPluginPrivilegesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetPluginPrivilegesInternalServerError) String() string {
+	return fmt.Sprintf("[GET /plugins/privileges][%d] getPluginPrivilegesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetPluginPrivilegesInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

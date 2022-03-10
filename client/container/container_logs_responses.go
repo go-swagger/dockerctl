@@ -67,9 +67,39 @@ type ContainerLogsOK struct {
 	Payload io.Writer
 }
 
+// IsSuccess returns true when this container logs o k response has a 2xx status code
+func (o *ContainerLogsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container logs o k response has a 3xx status code
+func (o *ContainerLogsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container logs o k response has a 4xx status code
+func (o *ContainerLogsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container logs o k response has a 5xx status code
+func (o *ContainerLogsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container logs o k response a status code equal to that given
+func (o *ContainerLogsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerLogsOK) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/logs][%d] containerLogsOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerLogsOK) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/logs][%d] containerLogsOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerLogsOK) GetPayload() io.Writer {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type ContainerLogsNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container logs not found response has a 2xx status code
+func (o *ContainerLogsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container logs not found response has a 3xx status code
+func (o *ContainerLogsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container logs not found response has a 4xx status code
+func (o *ContainerLogsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container logs not found response has a 5xx status code
+func (o *ContainerLogsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container logs not found response a status code equal to that given
+func (o *ContainerLogsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerLogsNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/logs][%d] containerLogsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerLogsNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/logs][%d] containerLogsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerLogsNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type ContainerLogsInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container logs internal server error response has a 2xx status code
+func (o *ContainerLogsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container logs internal server error response has a 3xx status code
+func (o *ContainerLogsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container logs internal server error response has a 4xx status code
+func (o *ContainerLogsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container logs internal server error response has a 5xx status code
+func (o *ContainerLogsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container logs internal server error response a status code equal to that given
+func (o *ContainerLogsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerLogsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/logs][%d] containerLogsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerLogsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/logs][%d] containerLogsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerLogsInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

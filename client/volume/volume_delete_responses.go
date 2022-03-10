@@ -64,7 +64,36 @@ The volume was removed
 type VolumeDeleteNoContent struct {
 }
 
+// IsSuccess returns true when this volume delete no content response has a 2xx status code
+func (o *VolumeDeleteNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this volume delete no content response has a 3xx status code
+func (o *VolumeDeleteNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume delete no content response has a 4xx status code
+func (o *VolumeDeleteNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume delete no content response has a 5xx status code
+func (o *VolumeDeleteNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this volume delete no content response a status code equal to that given
+func (o *VolumeDeleteNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *VolumeDeleteNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteNoContent ", 204)
+}
+
+func (o *VolumeDeleteNoContent) String() string {
 	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteNoContent ", 204)
 }
 
@@ -86,9 +115,39 @@ type VolumeDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this volume delete not found response has a 2xx status code
+func (o *VolumeDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this volume delete not found response has a 3xx status code
+func (o *VolumeDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume delete not found response has a 4xx status code
+func (o *VolumeDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this volume delete not found response has a 5xx status code
+func (o *VolumeDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this volume delete not found response a status code equal to that given
+func (o *VolumeDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *VolumeDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *VolumeDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *VolumeDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type VolumeDeleteConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this volume delete conflict response has a 2xx status code
+func (o *VolumeDeleteConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this volume delete conflict response has a 3xx status code
+func (o *VolumeDeleteConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume delete conflict response has a 4xx status code
+func (o *VolumeDeleteConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this volume delete conflict response has a 5xx status code
+func (o *VolumeDeleteConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this volume delete conflict response a status code equal to that given
+func (o *VolumeDeleteConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *VolumeDeleteConflict) Error() string {
 	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteConflict  %+v", 409, o.Payload)
 }
+
+func (o *VolumeDeleteConflict) String() string {
+	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteConflict  %+v", 409, o.Payload)
+}
+
 func (o *VolumeDeleteConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type VolumeDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this volume delete internal server error response has a 2xx status code
+func (o *VolumeDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this volume delete internal server error response has a 3xx status code
+func (o *VolumeDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume delete internal server error response has a 4xx status code
+func (o *VolumeDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume delete internal server error response has a 5xx status code
+func (o *VolumeDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this volume delete internal server error response a status code equal to that given
+func (o *VolumeDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *VolumeDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *VolumeDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /volumes/{name}][%d] volumeDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *VolumeDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

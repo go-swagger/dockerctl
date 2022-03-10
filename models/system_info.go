@@ -696,6 +696,11 @@ func (m *SystemInfo) validateRuntimes(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Runtimes[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Runtimes" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Runtimes" + "." + k)
+				}
 				return err
 			}
 		}

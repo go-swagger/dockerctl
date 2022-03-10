@@ -61,9 +61,39 @@ type ContainerTopOK struct {
 	Payload *ContainerTopOKBody
 }
 
+// IsSuccess returns true when this container top o k response has a 2xx status code
+func (o *ContainerTopOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container top o k response has a 3xx status code
+func (o *ContainerTopOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container top o k response has a 4xx status code
+func (o *ContainerTopOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container top o k response has a 5xx status code
+func (o *ContainerTopOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container top o k response a status code equal to that given
+func (o *ContainerTopOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerTopOK) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/top][%d] containerTopOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerTopOK) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/top][%d] containerTopOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerTopOK) GetPayload() *ContainerTopOKBody {
 	return o.Payload
 }
@@ -93,9 +123,39 @@ type ContainerTopNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container top not found response has a 2xx status code
+func (o *ContainerTopNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container top not found response has a 3xx status code
+func (o *ContainerTopNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container top not found response has a 4xx status code
+func (o *ContainerTopNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container top not found response has a 5xx status code
+func (o *ContainerTopNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container top not found response a status code equal to that given
+func (o *ContainerTopNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerTopNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/top][%d] containerTopNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerTopNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/top][%d] containerTopNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerTopNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -125,9 +185,39 @@ type ContainerTopInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container top internal server error response has a 2xx status code
+func (o *ContainerTopInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container top internal server error response has a 3xx status code
+func (o *ContainerTopInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container top internal server error response has a 4xx status code
+func (o *ContainerTopInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container top internal server error response has a 5xx status code
+func (o *ContainerTopInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container top internal server error response a status code equal to that given
+func (o *ContainerTopInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerTopInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/top][%d] containerTopInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerTopInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/top][%d] containerTopInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerTopInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

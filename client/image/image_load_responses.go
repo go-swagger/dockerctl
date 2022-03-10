@@ -52,7 +52,36 @@ no error
 type ImageLoadOK struct {
 }
 
+// IsSuccess returns true when this image load o k response has a 2xx status code
+func (o *ImageLoadOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image load o k response has a 3xx status code
+func (o *ImageLoadOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image load o k response has a 4xx status code
+func (o *ImageLoadOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image load o k response has a 5xx status code
+func (o *ImageLoadOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image load o k response a status code equal to that given
+func (o *ImageLoadOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageLoadOK) Error() string {
+	return fmt.Sprintf("[POST /images/load][%d] imageLoadOK ", 200)
+}
+
+func (o *ImageLoadOK) String() string {
 	return fmt.Sprintf("[POST /images/load][%d] imageLoadOK ", 200)
 }
 
@@ -74,9 +103,39 @@ type ImageLoadInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image load internal server error response has a 2xx status code
+func (o *ImageLoadInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image load internal server error response has a 3xx status code
+func (o *ImageLoadInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image load internal server error response has a 4xx status code
+func (o *ImageLoadInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image load internal server error response has a 5xx status code
+func (o *ImageLoadInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image load internal server error response a status code equal to that given
+func (o *ImageLoadInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageLoadInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /images/load][%d] imageLoadInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageLoadInternalServerError) String() string {
+	return fmt.Sprintf("[POST /images/load][%d] imageLoadInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageLoadInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

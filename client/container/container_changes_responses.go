@@ -64,9 +64,39 @@ type ContainerChangesOK struct {
 	Payload []*ContainerChangeResponseItem
 }
 
+// IsSuccess returns true when this container changes o k response has a 2xx status code
+func (o *ContainerChangesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container changes o k response has a 3xx status code
+func (o *ContainerChangesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container changes o k response has a 4xx status code
+func (o *ContainerChangesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container changes o k response has a 5xx status code
+func (o *ContainerChangesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container changes o k response a status code equal to that given
+func (o *ContainerChangesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerChangesOK) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/changes][%d] containerChangesOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerChangesOK) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/changes][%d] containerChangesOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerChangesOK) GetPayload() []*ContainerChangeResponseItem {
 	return o.Payload
 }
@@ -94,9 +124,39 @@ type ContainerChangesNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container changes not found response has a 2xx status code
+func (o *ContainerChangesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container changes not found response has a 3xx status code
+func (o *ContainerChangesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container changes not found response has a 4xx status code
+func (o *ContainerChangesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container changes not found response has a 5xx status code
+func (o *ContainerChangesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container changes not found response a status code equal to that given
+func (o *ContainerChangesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerChangesNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/changes][%d] containerChangesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerChangesNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/changes][%d] containerChangesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerChangesNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -126,9 +186,39 @@ type ContainerChangesInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container changes internal server error response has a 2xx status code
+func (o *ContainerChangesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container changes internal server error response has a 3xx status code
+func (o *ContainerChangesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container changes internal server error response has a 4xx status code
+func (o *ContainerChangesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container changes internal server error response has a 5xx status code
+func (o *ContainerChangesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container changes internal server error response a status code equal to that given
+func (o *ContainerChangesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerChangesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/changes][%d] containerChangesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerChangesInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/changes][%d] containerChangesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerChangesInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

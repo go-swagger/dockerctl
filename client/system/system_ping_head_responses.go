@@ -81,9 +81,39 @@ type SystemPingHeadOK struct {
 	Payload string
 }
 
+// IsSuccess returns true when this system ping head o k response has a 2xx status code
+func (o *SystemPingHeadOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system ping head o k response has a 3xx status code
+func (o *SystemPingHeadOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system ping head o k response has a 4xx status code
+func (o *SystemPingHeadOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system ping head o k response has a 5xx status code
+func (o *SystemPingHeadOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system ping head o k response a status code equal to that given
+func (o *SystemPingHeadOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemPingHeadOK) Error() string {
 	return fmt.Sprintf("[HEAD /_ping][%d] systemPingHeadOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemPingHeadOK) String() string {
+	return fmt.Sprintf("[HEAD /_ping][%d] systemPingHeadOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemPingHeadOK) GetPayload() string {
 	return o.Payload
 }
@@ -150,9 +180,39 @@ type SystemPingHeadInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system ping head internal server error response has a 2xx status code
+func (o *SystemPingHeadInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system ping head internal server error response has a 3xx status code
+func (o *SystemPingHeadInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system ping head internal server error response has a 4xx status code
+func (o *SystemPingHeadInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system ping head internal server error response has a 5xx status code
+func (o *SystemPingHeadInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system ping head internal server error response a status code equal to that given
+func (o *SystemPingHeadInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemPingHeadInternalServerError) Error() string {
 	return fmt.Sprintf("[HEAD /_ping][%d] systemPingHeadInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemPingHeadInternalServerError) String() string {
+	return fmt.Sprintf("[HEAD /_ping][%d] systemPingHeadInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemPingHeadInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

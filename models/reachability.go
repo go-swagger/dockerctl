@@ -21,8 +21,12 @@ import (
 type Reachability string
 
 func NewReachability(value Reachability) *Reachability {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated Reachability.
+func (m Reachability) Pointer() *Reachability {
+	return &m
 }
 
 const (

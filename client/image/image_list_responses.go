@@ -53,9 +53,39 @@ type ImageListOK struct {
 	Payload []*models.ImageSummary
 }
 
+// IsSuccess returns true when this image list o k response has a 2xx status code
+func (o *ImageListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image list o k response has a 3xx status code
+func (o *ImageListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image list o k response has a 4xx status code
+func (o *ImageListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image list o k response has a 5xx status code
+func (o *ImageListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image list o k response a status code equal to that given
+func (o *ImageListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageListOK) Error() string {
 	return fmt.Sprintf("[GET /images/json][%d] imageListOK  %+v", 200, o.Payload)
 }
+
+func (o *ImageListOK) String() string {
+	return fmt.Sprintf("[GET /images/json][%d] imageListOK  %+v", 200, o.Payload)
+}
+
 func (o *ImageListOK) GetPayload() []*models.ImageSummary {
 	return o.Payload
 }
@@ -83,9 +113,39 @@ type ImageListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image list internal server error response has a 2xx status code
+func (o *ImageListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image list internal server error response has a 3xx status code
+func (o *ImageListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image list internal server error response has a 4xx status code
+func (o *ImageListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image list internal server error response has a 5xx status code
+func (o *ImageListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image list internal server error response a status code equal to that given
+func (o *ImageListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /images/json][%d] imageListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /images/json][%d] imageListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

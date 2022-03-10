@@ -60,7 +60,36 @@ no error
 type PluginUpgradeNoContent struct {
 }
 
+// IsSuccess returns true when this plugin upgrade no content response has a 2xx status code
+func (o *PluginUpgradeNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin upgrade no content response has a 3xx status code
+func (o *PluginUpgradeNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin upgrade no content response has a 4xx status code
+func (o *PluginUpgradeNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin upgrade no content response has a 5xx status code
+func (o *PluginUpgradeNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin upgrade no content response a status code equal to that given
+func (o *PluginUpgradeNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *PluginUpgradeNoContent) Error() string {
+	return fmt.Sprintf("[POST /plugins/{name}/upgrade][%d] pluginUpgradeNoContent ", 204)
+}
+
+func (o *PluginUpgradeNoContent) String() string {
 	return fmt.Sprintf("[POST /plugins/{name}/upgrade][%d] pluginUpgradeNoContent ", 204)
 }
 
@@ -82,9 +111,39 @@ type PluginUpgradeNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin upgrade not found response has a 2xx status code
+func (o *PluginUpgradeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin upgrade not found response has a 3xx status code
+func (o *PluginUpgradeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin upgrade not found response has a 4xx status code
+func (o *PluginUpgradeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this plugin upgrade not found response has a 5xx status code
+func (o *PluginUpgradeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin upgrade not found response a status code equal to that given
+func (o *PluginUpgradeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PluginUpgradeNotFound) Error() string {
 	return fmt.Sprintf("[POST /plugins/{name}/upgrade][%d] pluginUpgradeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PluginUpgradeNotFound) String() string {
+	return fmt.Sprintf("[POST /plugins/{name}/upgrade][%d] pluginUpgradeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PluginUpgradeNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -114,9 +173,39 @@ type PluginUpgradeInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin upgrade internal server error response has a 2xx status code
+func (o *PluginUpgradeInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin upgrade internal server error response has a 3xx status code
+func (o *PluginUpgradeInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin upgrade internal server error response has a 4xx status code
+func (o *PluginUpgradeInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin upgrade internal server error response has a 5xx status code
+func (o *PluginUpgradeInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin upgrade internal server error response a status code equal to that given
+func (o *PluginUpgradeInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginUpgradeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /plugins/{name}/upgrade][%d] pluginUpgradeInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginUpgradeInternalServerError) String() string {
+	return fmt.Sprintf("[POST /plugins/{name}/upgrade][%d] pluginUpgradeInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginUpgradeInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

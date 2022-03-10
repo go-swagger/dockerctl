@@ -64,7 +64,36 @@ no error
 type SwarmUpdateOK struct {
 }
 
+// IsSuccess returns true when this swarm update o k response has a 2xx status code
+func (o *SwarmUpdateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this swarm update o k response has a 3xx status code
+func (o *SwarmUpdateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm update o k response has a 4xx status code
+func (o *SwarmUpdateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm update o k response has a 5xx status code
+func (o *SwarmUpdateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm update o k response a status code equal to that given
+func (o *SwarmUpdateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SwarmUpdateOK) Error() string {
+	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateOK ", 200)
+}
+
+func (o *SwarmUpdateOK) String() string {
 	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateOK ", 200)
 }
 
@@ -86,9 +115,39 @@ type SwarmUpdateBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm update bad request response has a 2xx status code
+func (o *SwarmUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm update bad request response has a 3xx status code
+func (o *SwarmUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm update bad request response has a 4xx status code
+func (o *SwarmUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this swarm update bad request response has a 5xx status code
+func (o *SwarmUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm update bad request response a status code equal to that given
+func (o *SwarmUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *SwarmUpdateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SwarmUpdateBadRequest) String() string {
+	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SwarmUpdateBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type SwarmUpdateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm update internal server error response has a 2xx status code
+func (o *SwarmUpdateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm update internal server error response has a 3xx status code
+func (o *SwarmUpdateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm update internal server error response has a 4xx status code
+func (o *SwarmUpdateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm update internal server error response has a 5xx status code
+func (o *SwarmUpdateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm update internal server error response a status code equal to that given
+func (o *SwarmUpdateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SwarmUpdateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SwarmUpdateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SwarmUpdateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type SwarmUpdateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm update service unavailable response has a 2xx status code
+func (o *SwarmUpdateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm update service unavailable response has a 3xx status code
+func (o *SwarmUpdateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm update service unavailable response has a 4xx status code
+func (o *SwarmUpdateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm update service unavailable response has a 5xx status code
+func (o *SwarmUpdateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm update service unavailable response a status code equal to that given
+func (o *SwarmUpdateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SwarmUpdateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SwarmUpdateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /swarm/update][%d] swarmUpdateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SwarmUpdateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

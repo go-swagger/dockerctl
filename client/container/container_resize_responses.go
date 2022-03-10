@@ -58,7 +58,36 @@ no error
 type ContainerResizeOK struct {
 }
 
+// IsSuccess returns true when this container resize o k response has a 2xx status code
+func (o *ContainerResizeOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container resize o k response has a 3xx status code
+func (o *ContainerResizeOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container resize o k response has a 4xx status code
+func (o *ContainerResizeOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container resize o k response has a 5xx status code
+func (o *ContainerResizeOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container resize o k response a status code equal to that given
+func (o *ContainerResizeOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerResizeOK) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/resize][%d] containerResizeOK ", 200)
+}
+
+func (o *ContainerResizeOK) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/resize][%d] containerResizeOK ", 200)
 }
 
@@ -80,9 +109,39 @@ type ContainerResizeNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container resize not found response has a 2xx status code
+func (o *ContainerResizeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container resize not found response has a 3xx status code
+func (o *ContainerResizeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container resize not found response has a 4xx status code
+func (o *ContainerResizeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container resize not found response has a 5xx status code
+func (o *ContainerResizeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container resize not found response a status code equal to that given
+func (o *ContainerResizeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerResizeNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/resize][%d] containerResizeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerResizeNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/resize][%d] containerResizeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerResizeNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ContainerResizeInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container resize internal server error response has a 2xx status code
+func (o *ContainerResizeInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container resize internal server error response has a 3xx status code
+func (o *ContainerResizeInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container resize internal server error response has a 4xx status code
+func (o *ContainerResizeInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container resize internal server error response has a 5xx status code
+func (o *ContainerResizeInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container resize internal server error response a status code equal to that given
+func (o *ContainerResizeInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerResizeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/resize][%d] containerResizeInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerResizeInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/resize][%d] containerResizeInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerResizeInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

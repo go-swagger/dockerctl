@@ -65,9 +65,39 @@ type ContainerInspectOK struct {
 	Payload *ContainerInspectOKBody
 }
 
+// IsSuccess returns true when this container inspect o k response has a 2xx status code
+func (o *ContainerInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container inspect o k response has a 3xx status code
+func (o *ContainerInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container inspect o k response has a 4xx status code
+func (o *ContainerInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container inspect o k response has a 5xx status code
+func (o *ContainerInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container inspect o k response a status code equal to that given
+func (o *ContainerInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerInspectOK) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/json][%d] containerInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerInspectOK) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/json][%d] containerInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerInspectOK) GetPayload() *ContainerInspectOKBody {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type ContainerInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container inspect not found response has a 2xx status code
+func (o *ContainerInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container inspect not found response has a 3xx status code
+func (o *ContainerInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container inspect not found response has a 4xx status code
+func (o *ContainerInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container inspect not found response has a 5xx status code
+func (o *ContainerInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container inspect not found response a status code equal to that given
+func (o *ContainerInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/json][%d] containerInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/json][%d] containerInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type ContainerInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container inspect internal server error response has a 2xx status code
+func (o *ContainerInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container inspect internal server error response has a 3xx status code
+func (o *ContainerInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container inspect internal server error response has a 4xx status code
+func (o *ContainerInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container inspect internal server error response has a 5xx status code
+func (o *ContainerInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container inspect internal server error response a status code equal to that given
+func (o *ContainerInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/json][%d] containerInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/json][%d] containerInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

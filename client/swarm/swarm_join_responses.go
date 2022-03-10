@@ -66,7 +66,36 @@ no error
 type SwarmJoinOK struct {
 }
 
+// IsSuccess returns true when this swarm join o k response has a 2xx status code
+func (o *SwarmJoinOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this swarm join o k response has a 3xx status code
+func (o *SwarmJoinOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm join o k response has a 4xx status code
+func (o *SwarmJoinOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm join o k response has a 5xx status code
+func (o *SwarmJoinOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm join o k response a status code equal to that given
+func (o *SwarmJoinOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SwarmJoinOK) Error() string {
+	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinOK ", 200)
+}
+
+func (o *SwarmJoinOK) String() string {
 	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinOK ", 200)
 }
 
@@ -88,9 +117,39 @@ type SwarmJoinBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm join bad request response has a 2xx status code
+func (o *SwarmJoinBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm join bad request response has a 3xx status code
+func (o *SwarmJoinBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm join bad request response has a 4xx status code
+func (o *SwarmJoinBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this swarm join bad request response has a 5xx status code
+func (o *SwarmJoinBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm join bad request response a status code equal to that given
+func (o *SwarmJoinBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *SwarmJoinBadRequest) Error() string {
 	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SwarmJoinBadRequest) String() string {
+	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SwarmJoinBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -120,9 +179,39 @@ type SwarmJoinInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm join internal server error response has a 2xx status code
+func (o *SwarmJoinInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm join internal server error response has a 3xx status code
+func (o *SwarmJoinInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm join internal server error response has a 4xx status code
+func (o *SwarmJoinInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm join internal server error response has a 5xx status code
+func (o *SwarmJoinInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm join internal server error response a status code equal to that given
+func (o *SwarmJoinInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SwarmJoinInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SwarmJoinInternalServerError) String() string {
+	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SwarmJoinInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -152,9 +241,39 @@ type SwarmJoinServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm join service unavailable response has a 2xx status code
+func (o *SwarmJoinServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm join service unavailable response has a 3xx status code
+func (o *SwarmJoinServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm join service unavailable response has a 4xx status code
+func (o *SwarmJoinServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm join service unavailable response has a 5xx status code
+func (o *SwarmJoinServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm join service unavailable response a status code equal to that given
+func (o *SwarmJoinServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SwarmJoinServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SwarmJoinServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /swarm/join][%d] swarmJoinServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SwarmJoinServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

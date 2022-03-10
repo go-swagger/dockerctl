@@ -69,9 +69,39 @@ type TaskLogsOK struct {
 	Payload io.Writer
 }
 
+// IsSuccess returns true when this task logs o k response has a 2xx status code
+func (o *TaskLogsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this task logs o k response has a 3xx status code
+func (o *TaskLogsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task logs o k response has a 4xx status code
+func (o *TaskLogsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task logs o k response has a 5xx status code
+func (o *TaskLogsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this task logs o k response a status code equal to that given
+func (o *TaskLogsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *TaskLogsOK) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsOK  %+v", 200, o.Payload)
 }
+
+func (o *TaskLogsOK) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsOK  %+v", 200, o.Payload)
+}
+
 func (o *TaskLogsOK) GetPayload() io.Writer {
 	return o.Payload
 }
@@ -99,9 +129,39 @@ type TaskLogsNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task logs not found response has a 2xx status code
+func (o *TaskLogsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task logs not found response has a 3xx status code
+func (o *TaskLogsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task logs not found response has a 4xx status code
+func (o *TaskLogsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this task logs not found response has a 5xx status code
+func (o *TaskLogsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this task logs not found response a status code equal to that given
+func (o *TaskLogsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *TaskLogsNotFound) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *TaskLogsNotFound) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *TaskLogsNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -131,9 +191,39 @@ type TaskLogsInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task logs internal server error response has a 2xx status code
+func (o *TaskLogsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task logs internal server error response has a 3xx status code
+func (o *TaskLogsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task logs internal server error response has a 4xx status code
+func (o *TaskLogsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task logs internal server error response has a 5xx status code
+func (o *TaskLogsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this task logs internal server error response a status code equal to that given
+func (o *TaskLogsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *TaskLogsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *TaskLogsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *TaskLogsInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -163,9 +253,39 @@ type TaskLogsServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task logs service unavailable response has a 2xx status code
+func (o *TaskLogsServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task logs service unavailable response has a 3xx status code
+func (o *TaskLogsServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task logs service unavailable response has a 4xx status code
+func (o *TaskLogsServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task logs service unavailable response has a 5xx status code
+func (o *TaskLogsServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this task logs service unavailable response a status code equal to that given
+func (o *TaskLogsServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *TaskLogsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *TaskLogsServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}/logs][%d] taskLogsServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *TaskLogsServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

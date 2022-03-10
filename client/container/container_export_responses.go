@@ -58,7 +58,36 @@ no error
 type ContainerExportOK struct {
 }
 
+// IsSuccess returns true when this container export o k response has a 2xx status code
+func (o *ContainerExportOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container export o k response has a 3xx status code
+func (o *ContainerExportOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container export o k response has a 4xx status code
+func (o *ContainerExportOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container export o k response has a 5xx status code
+func (o *ContainerExportOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container export o k response a status code equal to that given
+func (o *ContainerExportOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerExportOK) Error() string {
+	return fmt.Sprintf("[GET /containers/{id}/export][%d] containerExportOK ", 200)
+}
+
+func (o *ContainerExportOK) String() string {
 	return fmt.Sprintf("[GET /containers/{id}/export][%d] containerExportOK ", 200)
 }
 
@@ -80,9 +109,39 @@ type ContainerExportNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container export not found response has a 2xx status code
+func (o *ContainerExportNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container export not found response has a 3xx status code
+func (o *ContainerExportNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container export not found response has a 4xx status code
+func (o *ContainerExportNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container export not found response has a 5xx status code
+func (o *ContainerExportNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container export not found response a status code equal to that given
+func (o *ContainerExportNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerExportNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/export][%d] containerExportNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerExportNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/export][%d] containerExportNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerExportNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ContainerExportInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container export internal server error response has a 2xx status code
+func (o *ContainerExportInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container export internal server error response has a 3xx status code
+func (o *ContainerExportInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container export internal server error response has a 4xx status code
+func (o *ContainerExportInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container export internal server error response has a 5xx status code
+func (o *ContainerExportInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container export internal server error response a status code equal to that given
+func (o *ContainerExportInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerExportInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/export][%d] containerExportInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerExportInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/export][%d] containerExportInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerExportInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

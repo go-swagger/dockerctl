@@ -65,9 +65,39 @@ type ConfigInspectOK struct {
 	Payload *models.Config
 }
 
+// IsSuccess returns true when this config inspect o k response has a 2xx status code
+func (o *ConfigInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this config inspect o k response has a 3xx status code
+func (o *ConfigInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config inspect o k response has a 4xx status code
+func (o *ConfigInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config inspect o k response has a 5xx status code
+func (o *ConfigInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config inspect o k response a status code equal to that given
+func (o *ConfigInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ConfigInspectOK) Error() string {
 	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *ConfigInspectOK) String() string {
+	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *ConfigInspectOK) GetPayload() *models.Config {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type ConfigInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config inspect not found response has a 2xx status code
+func (o *ConfigInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config inspect not found response has a 3xx status code
+func (o *ConfigInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config inspect not found response has a 4xx status code
+func (o *ConfigInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this config inspect not found response has a 5xx status code
+func (o *ConfigInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config inspect not found response a status code equal to that given
+func (o *ConfigInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ConfigInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ConfigInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ConfigInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type ConfigInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config inspect internal server error response has a 2xx status code
+func (o *ConfigInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config inspect internal server error response has a 3xx status code
+func (o *ConfigInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config inspect internal server error response has a 4xx status code
+func (o *ConfigInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config inspect internal server error response has a 5xx status code
+func (o *ConfigInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config inspect internal server error response a status code equal to that given
+func (o *ConfigInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ConfigInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ConfigInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ConfigInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -161,9 +251,39 @@ type ConfigInspectServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config inspect service unavailable response has a 2xx status code
+func (o *ConfigInspectServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config inspect service unavailable response has a 3xx status code
+func (o *ConfigInspectServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config inspect service unavailable response has a 4xx status code
+func (o *ConfigInspectServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config inspect service unavailable response has a 5xx status code
+func (o *ConfigInspectServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config inspect service unavailable response a status code equal to that given
+func (o *ConfigInspectServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ConfigInspectServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ConfigInspectServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /configs/{id}][%d] configInspectServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ConfigInspectServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

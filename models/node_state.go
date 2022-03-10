@@ -21,8 +21,12 @@ import (
 type NodeState string
 
 func NewNodeState(value NodeState) *NodeState {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated NodeState.
+func (m NodeState) Pointer() *NodeState {
+	return &m
 }
 
 const (

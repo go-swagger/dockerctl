@@ -58,7 +58,36 @@ No error
 type ImagePushOK struct {
 }
 
+// IsSuccess returns true when this image push o k response has a 2xx status code
+func (o *ImagePushOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image push o k response has a 3xx status code
+func (o *ImagePushOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image push o k response has a 4xx status code
+func (o *ImagePushOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image push o k response has a 5xx status code
+func (o *ImagePushOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image push o k response a status code equal to that given
+func (o *ImagePushOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImagePushOK) Error() string {
+	return fmt.Sprintf("[POST /images/{name}/push][%d] imagePushOK ", 200)
+}
+
+func (o *ImagePushOK) String() string {
 	return fmt.Sprintf("[POST /images/{name}/push][%d] imagePushOK ", 200)
 }
 
@@ -80,9 +109,39 @@ type ImagePushNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image push not found response has a 2xx status code
+func (o *ImagePushNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image push not found response has a 3xx status code
+func (o *ImagePushNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image push not found response has a 4xx status code
+func (o *ImagePushNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image push not found response has a 5xx status code
+func (o *ImagePushNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image push not found response a status code equal to that given
+func (o *ImagePushNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImagePushNotFound) Error() string {
 	return fmt.Sprintf("[POST /images/{name}/push][%d] imagePushNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImagePushNotFound) String() string {
+	return fmt.Sprintf("[POST /images/{name}/push][%d] imagePushNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImagePushNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ImagePushInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image push internal server error response has a 2xx status code
+func (o *ImagePushInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image push internal server error response has a 3xx status code
+func (o *ImagePushInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image push internal server error response has a 4xx status code
+func (o *ImagePushInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image push internal server error response has a 5xx status code
+func (o *ImagePushInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image push internal server error response a status code equal to that given
+func (o *ImagePushInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImagePushInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /images/{name}/push][%d] imagePushInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImagePushInternalServerError) String() string {
+	return fmt.Sprintf("[POST /images/{name}/push][%d] imagePushInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImagePushInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

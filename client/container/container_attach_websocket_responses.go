@@ -70,7 +70,36 @@ no error, hints proxy about hijacking
 type ContainerAttachWebsocketSwitchingProtocols struct {
 }
 
+// IsSuccess returns true when this container attach websocket switching protocols response has a 2xx status code
+func (o *ContainerAttachWebsocketSwitchingProtocols) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container attach websocket switching protocols response has a 3xx status code
+func (o *ContainerAttachWebsocketSwitchingProtocols) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container attach websocket switching protocols response has a 4xx status code
+func (o *ContainerAttachWebsocketSwitchingProtocols) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container attach websocket switching protocols response has a 5xx status code
+func (o *ContainerAttachWebsocketSwitchingProtocols) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container attach websocket switching protocols response a status code equal to that given
+func (o *ContainerAttachWebsocketSwitchingProtocols) IsCode(code int) bool {
+	return code == 101
+}
+
 func (o *ContainerAttachWebsocketSwitchingProtocols) Error() string {
+	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketSwitchingProtocols ", 101)
+}
+
+func (o *ContainerAttachWebsocketSwitchingProtocols) String() string {
 	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketSwitchingProtocols ", 101)
 }
 
@@ -91,7 +120,36 @@ no error, no upgrade header found
 type ContainerAttachWebsocketOK struct {
 }
 
+// IsSuccess returns true when this container attach websocket o k response has a 2xx status code
+func (o *ContainerAttachWebsocketOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container attach websocket o k response has a 3xx status code
+func (o *ContainerAttachWebsocketOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container attach websocket o k response has a 4xx status code
+func (o *ContainerAttachWebsocketOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container attach websocket o k response has a 5xx status code
+func (o *ContainerAttachWebsocketOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container attach websocket o k response a status code equal to that given
+func (o *ContainerAttachWebsocketOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerAttachWebsocketOK) Error() string {
+	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketOK ", 200)
+}
+
+func (o *ContainerAttachWebsocketOK) String() string {
 	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketOK ", 200)
 }
 
@@ -113,9 +171,39 @@ type ContainerAttachWebsocketBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container attach websocket bad request response has a 2xx status code
+func (o *ContainerAttachWebsocketBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container attach websocket bad request response has a 3xx status code
+func (o *ContainerAttachWebsocketBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container attach websocket bad request response has a 4xx status code
+func (o *ContainerAttachWebsocketBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container attach websocket bad request response has a 5xx status code
+func (o *ContainerAttachWebsocketBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container attach websocket bad request response a status code equal to that given
+func (o *ContainerAttachWebsocketBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ContainerAttachWebsocketBadRequest) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ContainerAttachWebsocketBadRequest) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ContainerAttachWebsocketBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -145,9 +233,39 @@ type ContainerAttachWebsocketNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container attach websocket not found response has a 2xx status code
+func (o *ContainerAttachWebsocketNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container attach websocket not found response has a 3xx status code
+func (o *ContainerAttachWebsocketNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container attach websocket not found response has a 4xx status code
+func (o *ContainerAttachWebsocketNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container attach websocket not found response has a 5xx status code
+func (o *ContainerAttachWebsocketNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container attach websocket not found response a status code equal to that given
+func (o *ContainerAttachWebsocketNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerAttachWebsocketNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerAttachWebsocketNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerAttachWebsocketNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -177,9 +295,39 @@ type ContainerAttachWebsocketInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container attach websocket internal server error response has a 2xx status code
+func (o *ContainerAttachWebsocketInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container attach websocket internal server error response has a 3xx status code
+func (o *ContainerAttachWebsocketInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container attach websocket internal server error response has a 4xx status code
+func (o *ContainerAttachWebsocketInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container attach websocket internal server error response has a 5xx status code
+func (o *ContainerAttachWebsocketInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container attach websocket internal server error response a status code equal to that given
+func (o *ContainerAttachWebsocketInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerAttachWebsocketInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerAttachWebsocketInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/attach/ws][%d] containerAttachWebsocketInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerAttachWebsocketInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

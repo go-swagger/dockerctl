@@ -57,9 +57,39 @@ type SystemDataUsageOK struct {
 	Payload *SystemDataUsageOKBody
 }
 
+// IsSuccess returns true when this system data usage o k response has a 2xx status code
+func (o *SystemDataUsageOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system data usage o k response has a 3xx status code
+func (o *SystemDataUsageOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system data usage o k response has a 4xx status code
+func (o *SystemDataUsageOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system data usage o k response has a 5xx status code
+func (o *SystemDataUsageOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system data usage o k response a status code equal to that given
+func (o *SystemDataUsageOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemDataUsageOK) Error() string {
 	return fmt.Sprintf("[GET /system/df][%d] systemDataUsageOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemDataUsageOK) String() string {
+	return fmt.Sprintf("[GET /system/df][%d] systemDataUsageOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemDataUsageOK) GetPayload() *SystemDataUsageOKBody {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type SystemDataUsageInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system data usage internal server error response has a 2xx status code
+func (o *SystemDataUsageInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system data usage internal server error response has a 3xx status code
+func (o *SystemDataUsageInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system data usage internal server error response has a 4xx status code
+func (o *SystemDataUsageInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system data usage internal server error response has a 5xx status code
+func (o *SystemDataUsageInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system data usage internal server error response a status code equal to that given
+func (o *SystemDataUsageInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemDataUsageInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /system/df][%d] systemDataUsageInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemDataUsageInternalServerError) String() string {
+	return fmt.Sprintf("[GET /system/df][%d] systemDataUsageInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemDataUsageInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

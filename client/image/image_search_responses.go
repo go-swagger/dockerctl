@@ -55,9 +55,39 @@ type ImageSearchOK struct {
 	Payload []*ImageSearchOKBodyItems0
 }
 
+// IsSuccess returns true when this image search o k response has a 2xx status code
+func (o *ImageSearchOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image search o k response has a 3xx status code
+func (o *ImageSearchOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image search o k response has a 4xx status code
+func (o *ImageSearchOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image search o k response has a 5xx status code
+func (o *ImageSearchOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image search o k response a status code equal to that given
+func (o *ImageSearchOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageSearchOK) Error() string {
 	return fmt.Sprintf("[GET /images/search][%d] imageSearchOK  %+v", 200, o.Payload)
 }
+
+func (o *ImageSearchOK) String() string {
+	return fmt.Sprintf("[GET /images/search][%d] imageSearchOK  %+v", 200, o.Payload)
+}
+
 func (o *ImageSearchOK) GetPayload() []*ImageSearchOKBodyItems0 {
 	return o.Payload
 }
@@ -85,9 +115,39 @@ type ImageSearchInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image search internal server error response has a 2xx status code
+func (o *ImageSearchInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image search internal server error response has a 3xx status code
+func (o *ImageSearchInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image search internal server error response has a 4xx status code
+func (o *ImageSearchInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image search internal server error response has a 5xx status code
+func (o *ImageSearchInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image search internal server error response a status code equal to that given
+func (o *ImageSearchInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageSearchInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /images/search][%d] imageSearchInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageSearchInternalServerError) String() string {
+	return fmt.Sprintf("[GET /images/search][%d] imageSearchInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageSearchInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

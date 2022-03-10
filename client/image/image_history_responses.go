@@ -63,9 +63,39 @@ type ImageHistoryOK struct {
 	Payload []*HistoryResponseItem
 }
 
+// IsSuccess returns true when this image history o k response has a 2xx status code
+func (o *ImageHistoryOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image history o k response has a 3xx status code
+func (o *ImageHistoryOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image history o k response has a 4xx status code
+func (o *ImageHistoryOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image history o k response has a 5xx status code
+func (o *ImageHistoryOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image history o k response a status code equal to that given
+func (o *ImageHistoryOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageHistoryOK) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/history][%d] imageHistoryOK  %+v", 200, o.Payload)
 }
+
+func (o *ImageHistoryOK) String() string {
+	return fmt.Sprintf("[GET /images/{name}/history][%d] imageHistoryOK  %+v", 200, o.Payload)
+}
+
 func (o *ImageHistoryOK) GetPayload() []*HistoryResponseItem {
 	return o.Payload
 }
@@ -93,9 +123,39 @@ type ImageHistoryNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image history not found response has a 2xx status code
+func (o *ImageHistoryNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image history not found response has a 3xx status code
+func (o *ImageHistoryNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image history not found response has a 4xx status code
+func (o *ImageHistoryNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image history not found response has a 5xx status code
+func (o *ImageHistoryNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image history not found response a status code equal to that given
+func (o *ImageHistoryNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImageHistoryNotFound) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/history][%d] imageHistoryNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImageHistoryNotFound) String() string {
+	return fmt.Sprintf("[GET /images/{name}/history][%d] imageHistoryNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImageHistoryNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -125,9 +185,39 @@ type ImageHistoryInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image history internal server error response has a 2xx status code
+func (o *ImageHistoryInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image history internal server error response has a 3xx status code
+func (o *ImageHistoryInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image history internal server error response has a 4xx status code
+func (o *ImageHistoryInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image history internal server error response has a 5xx status code
+func (o *ImageHistoryInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image history internal server error response a status code equal to that given
+func (o *ImageHistoryInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageHistoryInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /images/{name}/history][%d] imageHistoryInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageHistoryInternalServerError) String() string {
+	return fmt.Sprintf("[GET /images/{name}/history][%d] imageHistoryInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageHistoryInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

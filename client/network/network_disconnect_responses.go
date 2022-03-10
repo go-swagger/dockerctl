@@ -66,7 +66,36 @@ No error
 type NetworkDisconnectOK struct {
 }
 
+// IsSuccess returns true when this network disconnect o k response has a 2xx status code
+func (o *NetworkDisconnectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network disconnect o k response has a 3xx status code
+func (o *NetworkDisconnectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network disconnect o k response has a 4xx status code
+func (o *NetworkDisconnectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network disconnect o k response has a 5xx status code
+func (o *NetworkDisconnectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network disconnect o k response a status code equal to that given
+func (o *NetworkDisconnectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *NetworkDisconnectOK) Error() string {
+	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectOK ", 200)
+}
+
+func (o *NetworkDisconnectOK) String() string {
 	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectOK ", 200)
 }
 
@@ -88,9 +117,39 @@ type NetworkDisconnectForbidden struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network disconnect forbidden response has a 2xx status code
+func (o *NetworkDisconnectForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network disconnect forbidden response has a 3xx status code
+func (o *NetworkDisconnectForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network disconnect forbidden response has a 4xx status code
+func (o *NetworkDisconnectForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network disconnect forbidden response has a 5xx status code
+func (o *NetworkDisconnectForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network disconnect forbidden response a status code equal to that given
+func (o *NetworkDisconnectForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *NetworkDisconnectForbidden) Error() string {
 	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectForbidden  %+v", 403, o.Payload)
 }
+
+func (o *NetworkDisconnectForbidden) String() string {
+	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectForbidden  %+v", 403, o.Payload)
+}
+
 func (o *NetworkDisconnectForbidden) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -120,9 +179,39 @@ type NetworkDisconnectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network disconnect not found response has a 2xx status code
+func (o *NetworkDisconnectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network disconnect not found response has a 3xx status code
+func (o *NetworkDisconnectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network disconnect not found response has a 4xx status code
+func (o *NetworkDisconnectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network disconnect not found response has a 5xx status code
+func (o *NetworkDisconnectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network disconnect not found response a status code equal to that given
+func (o *NetworkDisconnectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NetworkDisconnectNotFound) Error() string {
 	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NetworkDisconnectNotFound) String() string {
+	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NetworkDisconnectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -152,9 +241,39 @@ type NetworkDisconnectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network disconnect internal server error response has a 2xx status code
+func (o *NetworkDisconnectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network disconnect internal server error response has a 3xx status code
+func (o *NetworkDisconnectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network disconnect internal server error response has a 4xx status code
+func (o *NetworkDisconnectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network disconnect internal server error response has a 5xx status code
+func (o *NetworkDisconnectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network disconnect internal server error response a status code equal to that given
+func (o *NetworkDisconnectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkDisconnectInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkDisconnectInternalServerError) String() string {
+	return fmt.Sprintf("[POST /networks/{id}/disconnect][%d] networkDisconnectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkDisconnectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -65,9 +65,39 @@ type ImageDeleteOK struct {
 	Payload []*models.ImageDeleteResponseItem
 }
 
+// IsSuccess returns true when this image delete o k response has a 2xx status code
+func (o *ImageDeleteOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this image delete o k response has a 3xx status code
+func (o *ImageDeleteOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image delete o k response has a 4xx status code
+func (o *ImageDeleteOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image delete o k response has a 5xx status code
+func (o *ImageDeleteOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image delete o k response a status code equal to that given
+func (o *ImageDeleteOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ImageDeleteOK) Error() string {
 	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteOK  %+v", 200, o.Payload)
 }
+
+func (o *ImageDeleteOK) String() string {
+	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteOK  %+v", 200, o.Payload)
+}
+
 func (o *ImageDeleteOK) GetPayload() []*models.ImageDeleteResponseItem {
 	return o.Payload
 }
@@ -95,9 +125,39 @@ type ImageDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image delete not found response has a 2xx status code
+func (o *ImageDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image delete not found response has a 3xx status code
+func (o *ImageDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image delete not found response has a 4xx status code
+func (o *ImageDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image delete not found response has a 5xx status code
+func (o *ImageDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image delete not found response a status code equal to that given
+func (o *ImageDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ImageDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ImageDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ImageDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -127,9 +187,39 @@ type ImageDeleteConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image delete conflict response has a 2xx status code
+func (o *ImageDeleteConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image delete conflict response has a 3xx status code
+func (o *ImageDeleteConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image delete conflict response has a 4xx status code
+func (o *ImageDeleteConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this image delete conflict response has a 5xx status code
+func (o *ImageDeleteConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this image delete conflict response a status code equal to that given
+func (o *ImageDeleteConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ImageDeleteConflict) Error() string {
 	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteConflict  %+v", 409, o.Payload)
 }
+
+func (o *ImageDeleteConflict) String() string {
+	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteConflict  %+v", 409, o.Payload)
+}
+
 func (o *ImageDeleteConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -159,9 +249,39 @@ type ImageDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this image delete internal server error response has a 2xx status code
+func (o *ImageDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this image delete internal server error response has a 3xx status code
+func (o *ImageDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this image delete internal server error response has a 4xx status code
+func (o *ImageDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this image delete internal server error response has a 5xx status code
+func (o *ImageDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this image delete internal server error response a status code equal to that given
+func (o *ImageDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ImageDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ImageDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /images/{name}][%d] imageDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ImageDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

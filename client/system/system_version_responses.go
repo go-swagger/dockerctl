@@ -58,9 +58,39 @@ type SystemVersionOK struct {
 	Payload *SystemVersionOKBody
 }
 
+// IsSuccess returns true when this system version o k response has a 2xx status code
+func (o *SystemVersionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system version o k response has a 3xx status code
+func (o *SystemVersionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system version o k response has a 4xx status code
+func (o *SystemVersionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system version o k response has a 5xx status code
+func (o *SystemVersionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system version o k response a status code equal to that given
+func (o *SystemVersionOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemVersionOK) Error() string {
 	return fmt.Sprintf("[GET /version][%d] systemVersionOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemVersionOK) String() string {
+	return fmt.Sprintf("[GET /version][%d] systemVersionOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemVersionOK) GetPayload() *SystemVersionOKBody {
 	return o.Payload
 }
@@ -90,9 +120,39 @@ type SystemVersionInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system version internal server error response has a 2xx status code
+func (o *SystemVersionInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system version internal server error response has a 3xx status code
+func (o *SystemVersionInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system version internal server error response has a 4xx status code
+func (o *SystemVersionInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system version internal server error response has a 5xx status code
+func (o *SystemVersionInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system version internal server error response a status code equal to that given
+func (o *SystemVersionInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemVersionInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /version][%d] systemVersionInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemVersionInternalServerError) String() string {
+	return fmt.Sprintf("[GET /version][%d] systemVersionInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemVersionInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

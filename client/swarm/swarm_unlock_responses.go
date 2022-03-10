@@ -60,7 +60,36 @@ no error
 type SwarmUnlockOK struct {
 }
 
+// IsSuccess returns true when this swarm unlock o k response has a 2xx status code
+func (o *SwarmUnlockOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this swarm unlock o k response has a 3xx status code
+func (o *SwarmUnlockOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm unlock o k response has a 4xx status code
+func (o *SwarmUnlockOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm unlock o k response has a 5xx status code
+func (o *SwarmUnlockOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this swarm unlock o k response a status code equal to that given
+func (o *SwarmUnlockOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SwarmUnlockOK) Error() string {
+	return fmt.Sprintf("[POST /swarm/unlock][%d] swarmUnlockOK ", 200)
+}
+
+func (o *SwarmUnlockOK) String() string {
 	return fmt.Sprintf("[POST /swarm/unlock][%d] swarmUnlockOK ", 200)
 }
 
@@ -82,9 +111,39 @@ type SwarmUnlockInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm unlock internal server error response has a 2xx status code
+func (o *SwarmUnlockInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm unlock internal server error response has a 3xx status code
+func (o *SwarmUnlockInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm unlock internal server error response has a 4xx status code
+func (o *SwarmUnlockInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm unlock internal server error response has a 5xx status code
+func (o *SwarmUnlockInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm unlock internal server error response a status code equal to that given
+func (o *SwarmUnlockInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SwarmUnlockInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /swarm/unlock][%d] swarmUnlockInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SwarmUnlockInternalServerError) String() string {
+	return fmt.Sprintf("[POST /swarm/unlock][%d] swarmUnlockInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SwarmUnlockInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -114,9 +173,39 @@ type SwarmUnlockServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this swarm unlock service unavailable response has a 2xx status code
+func (o *SwarmUnlockServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this swarm unlock service unavailable response has a 3xx status code
+func (o *SwarmUnlockServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this swarm unlock service unavailable response has a 4xx status code
+func (o *SwarmUnlockServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this swarm unlock service unavailable response has a 5xx status code
+func (o *SwarmUnlockServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this swarm unlock service unavailable response a status code equal to that given
+func (o *SwarmUnlockServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SwarmUnlockServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /swarm/unlock][%d] swarmUnlockServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SwarmUnlockServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /swarm/unlock][%d] swarmUnlockServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SwarmUnlockServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

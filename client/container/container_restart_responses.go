@@ -58,7 +58,36 @@ no error
 type ContainerRestartNoContent struct {
 }
 
+// IsSuccess returns true when this container restart no content response has a 2xx status code
+func (o *ContainerRestartNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container restart no content response has a 3xx status code
+func (o *ContainerRestartNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container restart no content response has a 4xx status code
+func (o *ContainerRestartNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container restart no content response has a 5xx status code
+func (o *ContainerRestartNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container restart no content response a status code equal to that given
+func (o *ContainerRestartNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerRestartNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/restart][%d] containerRestartNoContent ", 204)
+}
+
+func (o *ContainerRestartNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/restart][%d] containerRestartNoContent ", 204)
 }
 
@@ -80,9 +109,39 @@ type ContainerRestartNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container restart not found response has a 2xx status code
+func (o *ContainerRestartNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container restart not found response has a 3xx status code
+func (o *ContainerRestartNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container restart not found response has a 4xx status code
+func (o *ContainerRestartNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container restart not found response has a 5xx status code
+func (o *ContainerRestartNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container restart not found response a status code equal to that given
+func (o *ContainerRestartNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerRestartNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/restart][%d] containerRestartNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerRestartNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/restart][%d] containerRestartNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerRestartNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type ContainerRestartInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container restart internal server error response has a 2xx status code
+func (o *ContainerRestartInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container restart internal server error response has a 3xx status code
+func (o *ContainerRestartInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container restart internal server error response has a 4xx status code
+func (o *ContainerRestartInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container restart internal server error response has a 5xx status code
+func (o *ContainerRestartInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container restart internal server error response a status code equal to that given
+func (o *ContainerRestartInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerRestartInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/restart][%d] containerRestartInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerRestartInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/restart][%d] containerRestartInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerRestartInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

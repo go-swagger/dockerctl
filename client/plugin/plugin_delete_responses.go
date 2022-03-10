@@ -59,9 +59,39 @@ type PluginDeleteOK struct {
 	Payload *models.Plugin
 }
 
+// IsSuccess returns true when this plugin delete o k response has a 2xx status code
+func (o *PluginDeleteOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin delete o k response has a 3xx status code
+func (o *PluginDeleteOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin delete o k response has a 4xx status code
+func (o *PluginDeleteOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin delete o k response has a 5xx status code
+func (o *PluginDeleteOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin delete o k response a status code equal to that given
+func (o *PluginDeleteOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PluginDeleteOK) Error() string {
 	return fmt.Sprintf("[DELETE /plugins/{name}][%d] pluginDeleteOK  %+v", 200, o.Payload)
 }
+
+func (o *PluginDeleteOK) String() string {
+	return fmt.Sprintf("[DELETE /plugins/{name}][%d] pluginDeleteOK  %+v", 200, o.Payload)
+}
+
 func (o *PluginDeleteOK) GetPayload() *models.Plugin {
 	return o.Payload
 }
@@ -91,9 +121,39 @@ type PluginDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin delete not found response has a 2xx status code
+func (o *PluginDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin delete not found response has a 3xx status code
+func (o *PluginDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin delete not found response has a 4xx status code
+func (o *PluginDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this plugin delete not found response has a 5xx status code
+func (o *PluginDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin delete not found response a status code equal to that given
+func (o *PluginDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PluginDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /plugins/{name}][%d] pluginDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PluginDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /plugins/{name}][%d] pluginDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PluginDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -123,9 +183,39 @@ type PluginDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin delete internal server error response has a 2xx status code
+func (o *PluginDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin delete internal server error response has a 3xx status code
+func (o *PluginDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin delete internal server error response has a 4xx status code
+func (o *PluginDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin delete internal server error response has a 5xx status code
+func (o *PluginDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin delete internal server error response a status code equal to that given
+func (o *PluginDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /plugins/{name}][%d] pluginDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /plugins/{name}][%d] pluginDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

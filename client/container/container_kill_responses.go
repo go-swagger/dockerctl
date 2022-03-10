@@ -64,7 +64,36 @@ no error
 type ContainerKillNoContent struct {
 }
 
+// IsSuccess returns true when this container kill no content response has a 2xx status code
+func (o *ContainerKillNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container kill no content response has a 3xx status code
+func (o *ContainerKillNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container kill no content response has a 4xx status code
+func (o *ContainerKillNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container kill no content response has a 5xx status code
+func (o *ContainerKillNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container kill no content response a status code equal to that given
+func (o *ContainerKillNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ContainerKillNoContent) Error() string {
+	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillNoContent ", 204)
+}
+
+func (o *ContainerKillNoContent) String() string {
 	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillNoContent ", 204)
 }
 
@@ -86,9 +115,39 @@ type ContainerKillNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container kill not found response has a 2xx status code
+func (o *ContainerKillNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container kill not found response has a 3xx status code
+func (o *ContainerKillNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container kill not found response has a 4xx status code
+func (o *ContainerKillNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container kill not found response has a 5xx status code
+func (o *ContainerKillNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container kill not found response a status code equal to that given
+func (o *ContainerKillNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerKillNotFound) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerKillNotFound) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerKillNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type ContainerKillConflict struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container kill conflict response has a 2xx status code
+func (o *ContainerKillConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container kill conflict response has a 3xx status code
+func (o *ContainerKillConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container kill conflict response has a 4xx status code
+func (o *ContainerKillConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container kill conflict response has a 5xx status code
+func (o *ContainerKillConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container kill conflict response a status code equal to that given
+func (o *ContainerKillConflict) IsCode(code int) bool {
+	return code == 409
+}
+
 func (o *ContainerKillConflict) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillConflict  %+v", 409, o.Payload)
 }
+
+func (o *ContainerKillConflict) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillConflict  %+v", 409, o.Payload)
+}
+
 func (o *ContainerKillConflict) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type ContainerKillInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container kill internal server error response has a 2xx status code
+func (o *ContainerKillInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container kill internal server error response has a 3xx status code
+func (o *ContainerKillInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container kill internal server error response has a 4xx status code
+func (o *ContainerKillInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container kill internal server error response has a 5xx status code
+func (o *ContainerKillInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container kill internal server error response a status code equal to that given
+func (o *ContainerKillInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerKillInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerKillInternalServerError) String() string {
+	return fmt.Sprintf("[POST /containers/{id}/kill][%d] containerKillInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerKillInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -59,9 +59,39 @@ type ContainerListOK struct {
 	Payload models.ContainerSummary
 }
 
+// IsSuccess returns true when this container list o k response has a 2xx status code
+func (o *ContainerListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container list o k response has a 3xx status code
+func (o *ContainerListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container list o k response has a 4xx status code
+func (o *ContainerListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container list o k response has a 5xx status code
+func (o *ContainerListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container list o k response a status code equal to that given
+func (o *ContainerListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerListOK) Error() string {
 	return fmt.Sprintf("[GET /containers/json][%d] containerListOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerListOK) String() string {
+	return fmt.Sprintf("[GET /containers/json][%d] containerListOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerListOK) GetPayload() models.ContainerSummary {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type ContainerListBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container list bad request response has a 2xx status code
+func (o *ContainerListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container list bad request response has a 3xx status code
+func (o *ContainerListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container list bad request response has a 4xx status code
+func (o *ContainerListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container list bad request response has a 5xx status code
+func (o *ContainerListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container list bad request response a status code equal to that given
+func (o *ContainerListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ContainerListBadRequest) Error() string {
 	return fmt.Sprintf("[GET /containers/json][%d] containerListBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ContainerListBadRequest) String() string {
+	return fmt.Sprintf("[GET /containers/json][%d] containerListBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ContainerListBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type ContainerListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container list internal server error response has a 2xx status code
+func (o *ContainerListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container list internal server error response has a 3xx status code
+func (o *ContainerListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container list internal server error response has a 4xx status code
+func (o *ContainerListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container list internal server error response has a 5xx status code
+func (o *ContainerListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container list internal server error response a status code equal to that given
+func (o *ContainerListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/json][%d] containerListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/json][%d] containerListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

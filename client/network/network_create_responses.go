@@ -69,9 +69,39 @@ type NetworkCreateCreated struct {
 	Payload *NetworkCreateCreatedBody
 }
 
+// IsSuccess returns true when this network create created response has a 2xx status code
+func (o *NetworkCreateCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network create created response has a 3xx status code
+func (o *NetworkCreateCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network create created response has a 4xx status code
+func (o *NetworkCreateCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network create created response has a 5xx status code
+func (o *NetworkCreateCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network create created response a status code equal to that given
+func (o *NetworkCreateCreated) IsCode(code int) bool {
+	return code == 201
+}
+
 func (o *NetworkCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /networks/create][%d] networkCreateCreated  %+v", 201, o.Payload)
 }
+
+func (o *NetworkCreateCreated) String() string {
+	return fmt.Sprintf("[POST /networks/create][%d] networkCreateCreated  %+v", 201, o.Payload)
+}
+
 func (o *NetworkCreateCreated) GetPayload() *NetworkCreateCreatedBody {
 	return o.Payload
 }
@@ -101,9 +131,39 @@ type NetworkCreateForbidden struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network create forbidden response has a 2xx status code
+func (o *NetworkCreateForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network create forbidden response has a 3xx status code
+func (o *NetworkCreateForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network create forbidden response has a 4xx status code
+func (o *NetworkCreateForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network create forbidden response has a 5xx status code
+func (o *NetworkCreateForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network create forbidden response a status code equal to that given
+func (o *NetworkCreateForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *NetworkCreateForbidden) Error() string {
 	return fmt.Sprintf("[POST /networks/create][%d] networkCreateForbidden  %+v", 403, o.Payload)
 }
+
+func (o *NetworkCreateForbidden) String() string {
+	return fmt.Sprintf("[POST /networks/create][%d] networkCreateForbidden  %+v", 403, o.Payload)
+}
+
 func (o *NetworkCreateForbidden) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -133,9 +193,39 @@ type NetworkCreateNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network create not found response has a 2xx status code
+func (o *NetworkCreateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network create not found response has a 3xx status code
+func (o *NetworkCreateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network create not found response has a 4xx status code
+func (o *NetworkCreateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network create not found response has a 5xx status code
+func (o *NetworkCreateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network create not found response a status code equal to that given
+func (o *NetworkCreateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NetworkCreateNotFound) Error() string {
 	return fmt.Sprintf("[POST /networks/create][%d] networkCreateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NetworkCreateNotFound) String() string {
+	return fmt.Sprintf("[POST /networks/create][%d] networkCreateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NetworkCreateNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -165,9 +255,39 @@ type NetworkCreateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network create internal server error response has a 2xx status code
+func (o *NetworkCreateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network create internal server error response has a 3xx status code
+func (o *NetworkCreateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network create internal server error response has a 4xx status code
+func (o *NetworkCreateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network create internal server error response has a 5xx status code
+func (o *NetworkCreateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network create internal server error response a status code equal to that given
+func (o *NetworkCreateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkCreateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /networks/create][%d] networkCreateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkCreateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /networks/create][%d] networkCreateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkCreateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

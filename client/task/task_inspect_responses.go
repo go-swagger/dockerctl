@@ -65,9 +65,39 @@ type TaskInspectOK struct {
 	Payload *models.Task
 }
 
+// IsSuccess returns true when this task inspect o k response has a 2xx status code
+func (o *TaskInspectOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this task inspect o k response has a 3xx status code
+func (o *TaskInspectOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task inspect o k response has a 4xx status code
+func (o *TaskInspectOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task inspect o k response has a 5xx status code
+func (o *TaskInspectOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this task inspect o k response a status code equal to that given
+func (o *TaskInspectOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *TaskInspectOK) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectOK  %+v", 200, o.Payload)
 }
+
+func (o *TaskInspectOK) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectOK  %+v", 200, o.Payload)
+}
+
 func (o *TaskInspectOK) GetPayload() *models.Task {
 	return o.Payload
 }
@@ -97,9 +127,39 @@ type TaskInspectNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task inspect not found response has a 2xx status code
+func (o *TaskInspectNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task inspect not found response has a 3xx status code
+func (o *TaskInspectNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task inspect not found response has a 4xx status code
+func (o *TaskInspectNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this task inspect not found response has a 5xx status code
+func (o *TaskInspectNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this task inspect not found response a status code equal to that given
+func (o *TaskInspectNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *TaskInspectNotFound) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectNotFound  %+v", 404, o.Payload)
 }
+
+func (o *TaskInspectNotFound) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectNotFound  %+v", 404, o.Payload)
+}
+
 func (o *TaskInspectNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -129,9 +189,39 @@ type TaskInspectInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task inspect internal server error response has a 2xx status code
+func (o *TaskInspectInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task inspect internal server error response has a 3xx status code
+func (o *TaskInspectInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task inspect internal server error response has a 4xx status code
+func (o *TaskInspectInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task inspect internal server error response has a 5xx status code
+func (o *TaskInspectInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this task inspect internal server error response a status code equal to that given
+func (o *TaskInspectInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *TaskInspectInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *TaskInspectInternalServerError) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *TaskInspectInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -161,9 +251,39 @@ type TaskInspectServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this task inspect service unavailable response has a 2xx status code
+func (o *TaskInspectServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this task inspect service unavailable response has a 3xx status code
+func (o *TaskInspectServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this task inspect service unavailable response has a 4xx status code
+func (o *TaskInspectServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this task inspect service unavailable response has a 5xx status code
+func (o *TaskInspectServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this task inspect service unavailable response a status code equal to that given
+func (o *TaskInspectServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *TaskInspectServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *TaskInspectServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /tasks/{id}][%d] taskInspectServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *TaskInspectServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

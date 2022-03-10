@@ -64,7 +64,36 @@ no error
 type ConfigDeleteNoContent struct {
 }
 
+// IsSuccess returns true when this config delete no content response has a 2xx status code
+func (o *ConfigDeleteNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this config delete no content response has a 3xx status code
+func (o *ConfigDeleteNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config delete no content response has a 4xx status code
+func (o *ConfigDeleteNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config delete no content response has a 5xx status code
+func (o *ConfigDeleteNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config delete no content response a status code equal to that given
+func (o *ConfigDeleteNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *ConfigDeleteNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteNoContent ", 204)
+}
+
+func (o *ConfigDeleteNoContent) String() string {
 	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteNoContent ", 204)
 }
 
@@ -86,9 +115,39 @@ type ConfigDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config delete not found response has a 2xx status code
+func (o *ConfigDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config delete not found response has a 3xx status code
+func (o *ConfigDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config delete not found response has a 4xx status code
+func (o *ConfigDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this config delete not found response has a 5xx status code
+func (o *ConfigDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config delete not found response a status code equal to that given
+func (o *ConfigDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ConfigDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ConfigDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ConfigDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type ConfigDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config delete internal server error response has a 2xx status code
+func (o *ConfigDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config delete internal server error response has a 3xx status code
+func (o *ConfigDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config delete internal server error response has a 4xx status code
+func (o *ConfigDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config delete internal server error response has a 5xx status code
+func (o *ConfigDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config delete internal server error response a status code equal to that given
+func (o *ConfigDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ConfigDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ConfigDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ConfigDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type ConfigDeleteServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config delete service unavailable response has a 2xx status code
+func (o *ConfigDeleteServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config delete service unavailable response has a 3xx status code
+func (o *ConfigDeleteServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config delete service unavailable response has a 4xx status code
+func (o *ConfigDeleteServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config delete service unavailable response has a 5xx status code
+func (o *ConfigDeleteServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config delete service unavailable response a status code equal to that given
+func (o *ConfigDeleteServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ConfigDeleteServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ConfigDeleteServiceUnavailable) String() string {
+	return fmt.Sprintf("[DELETE /configs/{id}][%d] configDeleteServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ConfigDeleteServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

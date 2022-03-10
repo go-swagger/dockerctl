@@ -58,9 +58,39 @@ type VolumeListOK struct {
 	Payload *VolumeListOKBody
 }
 
+// IsSuccess returns true when this volume list o k response has a 2xx status code
+func (o *VolumeListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this volume list o k response has a 3xx status code
+func (o *VolumeListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume list o k response has a 4xx status code
+func (o *VolumeListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume list o k response has a 5xx status code
+func (o *VolumeListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this volume list o k response a status code equal to that given
+func (o *VolumeListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *VolumeListOK) Error() string {
 	return fmt.Sprintf("[GET /volumes][%d] volumeListOK  %+v", 200, o.Payload)
 }
+
+func (o *VolumeListOK) String() string {
+	return fmt.Sprintf("[GET /volumes][%d] volumeListOK  %+v", 200, o.Payload)
+}
+
 func (o *VolumeListOK) GetPayload() *VolumeListOKBody {
 	return o.Payload
 }
@@ -90,9 +120,39 @@ type VolumeListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this volume list internal server error response has a 2xx status code
+func (o *VolumeListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this volume list internal server error response has a 3xx status code
+func (o *VolumeListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this volume list internal server error response has a 4xx status code
+func (o *VolumeListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this volume list internal server error response has a 5xx status code
+func (o *VolumeListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this volume list internal server error response a status code equal to that given
+func (o *VolumeListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *VolumeListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /volumes][%d] volumeListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *VolumeListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /volumes][%d] volumeListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *VolumeListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

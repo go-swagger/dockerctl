@@ -59,9 +59,39 @@ type SecretListOK struct {
 	Payload []*models.Secret
 }
 
+// IsSuccess returns true when this secret list o k response has a 2xx status code
+func (o *SecretListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this secret list o k response has a 3xx status code
+func (o *SecretListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret list o k response has a 4xx status code
+func (o *SecretListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret list o k response has a 5xx status code
+func (o *SecretListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret list o k response a status code equal to that given
+func (o *SecretListOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SecretListOK) Error() string {
 	return fmt.Sprintf("[GET /secrets][%d] secretListOK  %+v", 200, o.Payload)
 }
+
+func (o *SecretListOK) String() string {
+	return fmt.Sprintf("[GET /secrets][%d] secretListOK  %+v", 200, o.Payload)
+}
+
 func (o *SecretListOK) GetPayload() []*models.Secret {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type SecretListInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret list internal server error response has a 2xx status code
+func (o *SecretListInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret list internal server error response has a 3xx status code
+func (o *SecretListInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret list internal server error response has a 4xx status code
+func (o *SecretListInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret list internal server error response has a 5xx status code
+func (o *SecretListInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret list internal server error response a status code equal to that given
+func (o *SecretListInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SecretListInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /secrets][%d] secretListInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SecretListInternalServerError) String() string {
+	return fmt.Sprintf("[GET /secrets][%d] secretListInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SecretListInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type SecretListServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret list service unavailable response has a 2xx status code
+func (o *SecretListServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret list service unavailable response has a 3xx status code
+func (o *SecretListServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret list service unavailable response has a 4xx status code
+func (o *SecretListServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret list service unavailable response has a 5xx status code
+func (o *SecretListServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret list service unavailable response a status code equal to that given
+func (o *SecretListServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SecretListServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /secrets][%d] secretListServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SecretListServiceUnavailable) String() string {
+	return fmt.Sprintf("[GET /secrets][%d] secretListServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SecretListServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

@@ -70,7 +70,36 @@ no error
 type SecretUpdateOK struct {
 }
 
+// IsSuccess returns true when this secret update o k response has a 2xx status code
+func (o *SecretUpdateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this secret update o k response has a 3xx status code
+func (o *SecretUpdateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret update o k response has a 4xx status code
+func (o *SecretUpdateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret update o k response has a 5xx status code
+func (o *SecretUpdateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret update o k response a status code equal to that given
+func (o *SecretUpdateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SecretUpdateOK) Error() string {
+	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateOK ", 200)
+}
+
+func (o *SecretUpdateOK) String() string {
 	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateOK ", 200)
 }
 
@@ -92,9 +121,39 @@ type SecretUpdateBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret update bad request response has a 2xx status code
+func (o *SecretUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret update bad request response has a 3xx status code
+func (o *SecretUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret update bad request response has a 4xx status code
+func (o *SecretUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this secret update bad request response has a 5xx status code
+func (o *SecretUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret update bad request response a status code equal to that given
+func (o *SecretUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *SecretUpdateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SecretUpdateBadRequest) String() string {
+	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SecretUpdateBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -124,9 +183,39 @@ type SecretUpdateNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret update not found response has a 2xx status code
+func (o *SecretUpdateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret update not found response has a 3xx status code
+func (o *SecretUpdateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret update not found response has a 4xx status code
+func (o *SecretUpdateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this secret update not found response has a 5xx status code
+func (o *SecretUpdateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this secret update not found response a status code equal to that given
+func (o *SecretUpdateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *SecretUpdateNotFound) Error() string {
 	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SecretUpdateNotFound) String() string {
+	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SecretUpdateNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -156,9 +245,39 @@ type SecretUpdateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret update internal server error response has a 2xx status code
+func (o *SecretUpdateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret update internal server error response has a 3xx status code
+func (o *SecretUpdateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret update internal server error response has a 4xx status code
+func (o *SecretUpdateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret update internal server error response has a 5xx status code
+func (o *SecretUpdateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret update internal server error response a status code equal to that given
+func (o *SecretUpdateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SecretUpdateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SecretUpdateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SecretUpdateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -188,9 +307,39 @@ type SecretUpdateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this secret update service unavailable response has a 2xx status code
+func (o *SecretUpdateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this secret update service unavailable response has a 3xx status code
+func (o *SecretUpdateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this secret update service unavailable response has a 4xx status code
+func (o *SecretUpdateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this secret update service unavailable response has a 5xx status code
+func (o *SecretUpdateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this secret update service unavailable response a status code equal to that given
+func (o *SecretUpdateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *SecretUpdateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *SecretUpdateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /secrets/{id}/update][%d] secretUpdateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *SecretUpdateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

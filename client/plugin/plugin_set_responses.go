@@ -58,7 +58,36 @@ No error
 type PluginSetNoContent struct {
 }
 
+// IsSuccess returns true when this plugin set no content response has a 2xx status code
+func (o *PluginSetNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this plugin set no content response has a 3xx status code
+func (o *PluginSetNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin set no content response has a 4xx status code
+func (o *PluginSetNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin set no content response has a 5xx status code
+func (o *PluginSetNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin set no content response a status code equal to that given
+func (o *PluginSetNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *PluginSetNoContent) Error() string {
+	return fmt.Sprintf("[POST /plugins/{name}/set][%d] pluginSetNoContent ", 204)
+}
+
+func (o *PluginSetNoContent) String() string {
 	return fmt.Sprintf("[POST /plugins/{name}/set][%d] pluginSetNoContent ", 204)
 }
 
@@ -80,9 +109,39 @@ type PluginSetNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin set not found response has a 2xx status code
+func (o *PluginSetNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin set not found response has a 3xx status code
+func (o *PluginSetNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin set not found response has a 4xx status code
+func (o *PluginSetNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this plugin set not found response has a 5xx status code
+func (o *PluginSetNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this plugin set not found response a status code equal to that given
+func (o *PluginSetNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PluginSetNotFound) Error() string {
 	return fmt.Sprintf("[POST /plugins/{name}/set][%d] pluginSetNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PluginSetNotFound) String() string {
+	return fmt.Sprintf("[POST /plugins/{name}/set][%d] pluginSetNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PluginSetNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -112,9 +171,39 @@ type PluginSetInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this plugin set internal server error response has a 2xx status code
+func (o *PluginSetInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this plugin set internal server error response has a 3xx status code
+func (o *PluginSetInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this plugin set internal server error response has a 4xx status code
+func (o *PluginSetInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this plugin set internal server error response has a 5xx status code
+func (o *PluginSetInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this plugin set internal server error response a status code equal to that given
+func (o *PluginSetInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PluginSetInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /plugins/{name}/set][%d] pluginSetInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PluginSetInternalServerError) String() string {
+	return fmt.Sprintf("[POST /plugins/{name}/set][%d] pluginSetInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PluginSetInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

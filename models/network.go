@@ -90,6 +90,11 @@ func (m *Network) validateContainers(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Containers[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Containers" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Containers" + "." + k)
+				}
 				return err
 			}
 		}

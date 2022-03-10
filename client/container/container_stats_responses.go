@@ -59,9 +59,39 @@ type ContainerStatsOK struct {
 	Payload interface{}
 }
 
+// IsSuccess returns true when this container stats o k response has a 2xx status code
+func (o *ContainerStatsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this container stats o k response has a 3xx status code
+func (o *ContainerStatsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container stats o k response has a 4xx status code
+func (o *ContainerStatsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container stats o k response has a 5xx status code
+func (o *ContainerStatsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container stats o k response a status code equal to that given
+func (o *ContainerStatsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ContainerStatsOK) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/stats][%d] containerStatsOK  %+v", 200, o.Payload)
 }
+
+func (o *ContainerStatsOK) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/stats][%d] containerStatsOK  %+v", 200, o.Payload)
+}
+
 func (o *ContainerStatsOK) GetPayload() interface{} {
 	return o.Payload
 }
@@ -89,9 +119,39 @@ type ContainerStatsNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container stats not found response has a 2xx status code
+func (o *ContainerStatsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container stats not found response has a 3xx status code
+func (o *ContainerStatsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container stats not found response has a 4xx status code
+func (o *ContainerStatsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this container stats not found response has a 5xx status code
+func (o *ContainerStatsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this container stats not found response a status code equal to that given
+func (o *ContainerStatsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ContainerStatsNotFound) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/stats][%d] containerStatsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ContainerStatsNotFound) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/stats][%d] containerStatsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ContainerStatsNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -121,9 +181,39 @@ type ContainerStatsInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this container stats internal server error response has a 2xx status code
+func (o *ContainerStatsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this container stats internal server error response has a 3xx status code
+func (o *ContainerStatsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this container stats internal server error response has a 4xx status code
+func (o *ContainerStatsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this container stats internal server error response has a 5xx status code
+func (o *ContainerStatsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this container stats internal server error response a status code equal to that given
+func (o *ContainerStatsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ContainerStatsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /containers/{id}/stats][%d] containerStatsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ContainerStatsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /containers/{id}/stats][%d] containerStatsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ContainerStatsInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

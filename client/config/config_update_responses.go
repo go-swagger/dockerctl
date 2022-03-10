@@ -70,7 +70,36 @@ no error
 type ConfigUpdateOK struct {
 }
 
+// IsSuccess returns true when this config update o k response has a 2xx status code
+func (o *ConfigUpdateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this config update o k response has a 3xx status code
+func (o *ConfigUpdateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config update o k response has a 4xx status code
+func (o *ConfigUpdateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config update o k response has a 5xx status code
+func (o *ConfigUpdateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config update o k response a status code equal to that given
+func (o *ConfigUpdateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ConfigUpdateOK) Error() string {
+	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateOK ", 200)
+}
+
+func (o *ConfigUpdateOK) String() string {
 	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateOK ", 200)
 }
 
@@ -92,9 +121,39 @@ type ConfigUpdateBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config update bad request response has a 2xx status code
+func (o *ConfigUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config update bad request response has a 3xx status code
+func (o *ConfigUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config update bad request response has a 4xx status code
+func (o *ConfigUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this config update bad request response has a 5xx status code
+func (o *ConfigUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config update bad request response a status code equal to that given
+func (o *ConfigUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *ConfigUpdateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ConfigUpdateBadRequest) String() string {
+	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ConfigUpdateBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -124,9 +183,39 @@ type ConfigUpdateNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config update not found response has a 2xx status code
+func (o *ConfigUpdateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config update not found response has a 3xx status code
+func (o *ConfigUpdateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config update not found response has a 4xx status code
+func (o *ConfigUpdateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this config update not found response has a 5xx status code
+func (o *ConfigUpdateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this config update not found response a status code equal to that given
+func (o *ConfigUpdateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ConfigUpdateNotFound) Error() string {
 	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ConfigUpdateNotFound) String() string {
+	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ConfigUpdateNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -156,9 +245,39 @@ type ConfigUpdateInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config update internal server error response has a 2xx status code
+func (o *ConfigUpdateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config update internal server error response has a 3xx status code
+func (o *ConfigUpdateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config update internal server error response has a 4xx status code
+func (o *ConfigUpdateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config update internal server error response has a 5xx status code
+func (o *ConfigUpdateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config update internal server error response a status code equal to that given
+func (o *ConfigUpdateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ConfigUpdateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ConfigUpdateInternalServerError) String() string {
+	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ConfigUpdateInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -188,9 +307,39 @@ type ConfigUpdateServiceUnavailable struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this config update service unavailable response has a 2xx status code
+func (o *ConfigUpdateServiceUnavailable) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this config update service unavailable response has a 3xx status code
+func (o *ConfigUpdateServiceUnavailable) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this config update service unavailable response has a 4xx status code
+func (o *ConfigUpdateServiceUnavailable) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this config update service unavailable response has a 5xx status code
+func (o *ConfigUpdateServiceUnavailable) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this config update service unavailable response a status code equal to that given
+func (o *ConfigUpdateServiceUnavailable) IsCode(code int) bool {
+	return code == 503
+}
+
 func (o *ConfigUpdateServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateServiceUnavailable  %+v", 503, o.Payload)
 }
+
+func (o *ConfigUpdateServiceUnavailable) String() string {
+	return fmt.Sprintf("[POST /configs/{id}/update][%d] configUpdateServiceUnavailable  %+v", 503, o.Payload)
+}
+
 func (o *ConfigUpdateServiceUnavailable) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

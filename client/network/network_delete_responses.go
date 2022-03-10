@@ -64,7 +64,36 @@ No error
 type NetworkDeleteNoContent struct {
 }
 
+// IsSuccess returns true when this network delete no content response has a 2xx status code
+func (o *NetworkDeleteNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this network delete no content response has a 3xx status code
+func (o *NetworkDeleteNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network delete no content response has a 4xx status code
+func (o *NetworkDeleteNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network delete no content response has a 5xx status code
+func (o *NetworkDeleteNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network delete no content response a status code equal to that given
+func (o *NetworkDeleteNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *NetworkDeleteNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteNoContent ", 204)
+}
+
+func (o *NetworkDeleteNoContent) String() string {
 	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteNoContent ", 204)
 }
 
@@ -86,9 +115,39 @@ type NetworkDeleteForbidden struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network delete forbidden response has a 2xx status code
+func (o *NetworkDeleteForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network delete forbidden response has a 3xx status code
+func (o *NetworkDeleteForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network delete forbidden response has a 4xx status code
+func (o *NetworkDeleteForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network delete forbidden response has a 5xx status code
+func (o *NetworkDeleteForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network delete forbidden response a status code equal to that given
+func (o *NetworkDeleteForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *NetworkDeleteForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteForbidden  %+v", 403, o.Payload)
 }
+
+func (o *NetworkDeleteForbidden) String() string {
+	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteForbidden  %+v", 403, o.Payload)
+}
+
 func (o *NetworkDeleteForbidden) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -118,9 +177,39 @@ type NetworkDeleteNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network delete not found response has a 2xx status code
+func (o *NetworkDeleteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network delete not found response has a 3xx status code
+func (o *NetworkDeleteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network delete not found response has a 4xx status code
+func (o *NetworkDeleteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this network delete not found response has a 5xx status code
+func (o *NetworkDeleteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this network delete not found response a status code equal to that given
+func (o *NetworkDeleteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *NetworkDeleteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *NetworkDeleteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *NetworkDeleteNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -150,9 +239,39 @@ type NetworkDeleteInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this network delete internal server error response has a 2xx status code
+func (o *NetworkDeleteInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this network delete internal server error response has a 3xx status code
+func (o *NetworkDeleteInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this network delete internal server error response has a 4xx status code
+func (o *NetworkDeleteInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this network delete internal server error response has a 5xx status code
+func (o *NetworkDeleteInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this network delete internal server error response a status code equal to that given
+func (o *NetworkDeleteInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *NetworkDeleteInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *NetworkDeleteInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /networks/{id}][%d] networkDeleteInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *NetworkDeleteInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

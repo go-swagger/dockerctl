@@ -201,6 +201,11 @@ func (m *NetworkSettings) validateNetworks(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Networks[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Networks" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Networks" + "." + k)
+				}
 				return err
 			}
 		}

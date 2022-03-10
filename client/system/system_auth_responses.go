@@ -63,9 +63,39 @@ type SystemAuthOK struct {
 	Payload *SystemAuthOKBody
 }
 
+// IsSuccess returns true when this system auth o k response has a 2xx status code
+func (o *SystemAuthOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system auth o k response has a 3xx status code
+func (o *SystemAuthOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system auth o k response has a 4xx status code
+func (o *SystemAuthOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system auth o k response has a 5xx status code
+func (o *SystemAuthOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system auth o k response a status code equal to that given
+func (o *SystemAuthOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SystemAuthOK) Error() string {
 	return fmt.Sprintf("[POST /auth][%d] systemAuthOK  %+v", 200, o.Payload)
 }
+
+func (o *SystemAuthOK) String() string {
+	return fmt.Sprintf("[POST /auth][%d] systemAuthOK  %+v", 200, o.Payload)
+}
+
 func (o *SystemAuthOK) GetPayload() *SystemAuthOKBody {
 	return o.Payload
 }
@@ -94,7 +124,36 @@ No error
 type SystemAuthNoContent struct {
 }
 
+// IsSuccess returns true when this system auth no content response has a 2xx status code
+func (o *SystemAuthNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this system auth no content response has a 3xx status code
+func (o *SystemAuthNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system auth no content response has a 4xx status code
+func (o *SystemAuthNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system auth no content response has a 5xx status code
+func (o *SystemAuthNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this system auth no content response a status code equal to that given
+func (o *SystemAuthNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
 func (o *SystemAuthNoContent) Error() string {
+	return fmt.Sprintf("[POST /auth][%d] systemAuthNoContent ", 204)
+}
+
+func (o *SystemAuthNoContent) String() string {
 	return fmt.Sprintf("[POST /auth][%d] systemAuthNoContent ", 204)
 }
 
@@ -116,9 +175,39 @@ type SystemAuthInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this system auth internal server error response has a 2xx status code
+func (o *SystemAuthInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this system auth internal server error response has a 3xx status code
+func (o *SystemAuthInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this system auth internal server error response has a 4xx status code
+func (o *SystemAuthInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this system auth internal server error response has a 5xx status code
+func (o *SystemAuthInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this system auth internal server error response a status code equal to that given
+func (o *SystemAuthInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SystemAuthInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /auth][%d] systemAuthInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SystemAuthInternalServerError) String() string {
+	return fmt.Sprintf("[POST /auth][%d] systemAuthInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SystemAuthInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

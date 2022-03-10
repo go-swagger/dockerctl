@@ -70,7 +70,36 @@ The content was extracted successfully
 type PutContainerArchiveOK struct {
 }
 
+// IsSuccess returns true when this put container archive o k response has a 2xx status code
+func (o *PutContainerArchiveOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put container archive o k response has a 3xx status code
+func (o *PutContainerArchiveOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put container archive o k response has a 4xx status code
+func (o *PutContainerArchiveOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put container archive o k response has a 5xx status code
+func (o *PutContainerArchiveOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put container archive o k response a status code equal to that given
+func (o *PutContainerArchiveOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PutContainerArchiveOK) Error() string {
+	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveOK ", 200)
+}
+
+func (o *PutContainerArchiveOK) String() string {
 	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveOK ", 200)
 }
 
@@ -92,9 +121,39 @@ type PutContainerArchiveBadRequest struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this put container archive bad request response has a 2xx status code
+func (o *PutContainerArchiveBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put container archive bad request response has a 3xx status code
+func (o *PutContainerArchiveBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put container archive bad request response has a 4xx status code
+func (o *PutContainerArchiveBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put container archive bad request response has a 5xx status code
+func (o *PutContainerArchiveBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put container archive bad request response a status code equal to that given
+func (o *PutContainerArchiveBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
 func (o *PutContainerArchiveBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *PutContainerArchiveBadRequest) String() string {
+	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *PutContainerArchiveBadRequest) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -124,9 +183,39 @@ type PutContainerArchiveForbidden struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this put container archive forbidden response has a 2xx status code
+func (o *PutContainerArchiveForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put container archive forbidden response has a 3xx status code
+func (o *PutContainerArchiveForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put container archive forbidden response has a 4xx status code
+func (o *PutContainerArchiveForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put container archive forbidden response has a 5xx status code
+func (o *PutContainerArchiveForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put container archive forbidden response a status code equal to that given
+func (o *PutContainerArchiveForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *PutContainerArchiveForbidden) Error() string {
 	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveForbidden  %+v", 403, o.Payload)
 }
+
+func (o *PutContainerArchiveForbidden) String() string {
+	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveForbidden  %+v", 403, o.Payload)
+}
+
 func (o *PutContainerArchiveForbidden) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -156,9 +245,39 @@ type PutContainerArchiveNotFound struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this put container archive not found response has a 2xx status code
+func (o *PutContainerArchiveNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put container archive not found response has a 3xx status code
+func (o *PutContainerArchiveNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put container archive not found response has a 4xx status code
+func (o *PutContainerArchiveNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put container archive not found response has a 5xx status code
+func (o *PutContainerArchiveNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put container archive not found response a status code equal to that given
+func (o *PutContainerArchiveNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PutContainerArchiveNotFound) Error() string {
 	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutContainerArchiveNotFound) String() string {
+	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutContainerArchiveNotFound) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }
@@ -188,9 +307,39 @@ type PutContainerArchiveInternalServerError struct {
 	Payload *models.ErrorResponse
 }
 
+// IsSuccess returns true when this put container archive internal server error response has a 2xx status code
+func (o *PutContainerArchiveInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put container archive internal server error response has a 3xx status code
+func (o *PutContainerArchiveInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put container archive internal server error response has a 4xx status code
+func (o *PutContainerArchiveInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put container archive internal server error response has a 5xx status code
+func (o *PutContainerArchiveInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this put container archive internal server error response a status code equal to that given
+func (o *PutContainerArchiveInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PutContainerArchiveInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PutContainerArchiveInternalServerError) String() string {
+	return fmt.Sprintf("[PUT /containers/{id}/archive][%d] putContainerArchiveInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PutContainerArchiveInternalServerError) GetPayload() *models.ErrorResponse {
 	return o.Payload
 }

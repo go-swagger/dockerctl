@@ -84,35 +84,35 @@ func registerOperationContainerContainerStatsParamFlags(cmd *cobra.Command) erro
 
 func registerOperationContainerContainerStatsIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerStatsStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	streamDescription := `Stream the output. If false, the stats will be output once and then it will disconnect.`
+	StreamDescription := `Stream the output. If false, the stats will be output once and then it will disconnect.`
 
-	var streamFlagName string
+	var StreamFlagName string
 	if cmdPrefix == "" {
-		streamFlagName = "stream"
+		StreamFlagName = "stream"
 	} else {
-		streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
+		StreamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
 	}
 
-	var streamFlagDefault bool = true
+	var StreamFlagDefault bool = true
 
-	_ = cmd.PersistentFlags().Bool(streamFlagName, streamFlagDefault, streamDescription)
+	_ = cmd.PersistentFlags().Bool(StreamFlagName, StreamFlagDefault, StreamDescription)
 
 	return nil
 }
@@ -121,18 +121,18 @@ func retrieveOperationContainerContainerStatsIDFlag(m *container.ContainerStatsP
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -141,18 +141,18 @@ func retrieveOperationContainerContainerStatsStreamFlag(m *container.ContainerSt
 	retAdded := false
 	if cmd.Flags().Changed("stream") {
 
-		var streamFlagName string
+		var StreamFlagName string
 		if cmdPrefix == "" {
-			streamFlagName = "stream"
+			StreamFlagName = "stream"
 		} else {
-			streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
+			StreamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
 		}
 
-		streamFlagValue, err := cmd.Flags().GetBool(streamFlagName)
+		StreamFlagValue, err := cmd.Flags().GetBool(StreamFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stream = &streamFlagValue
+		m.Stream = &StreamFlagValue
 
 	}
 	return nil, retAdded

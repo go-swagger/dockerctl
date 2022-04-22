@@ -74,35 +74,35 @@ func registerOperationContainerContainerKillParamFlags(cmd *cobra.Command) error
 
 func registerOperationContainerContainerKillIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerKillSignalParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	signalDescription := `Signal to send to the container as an integer or string (e.g. ` + "`" + `SIGINT` + "`" + `)`
+	SignalDescription := `Signal to send to the container as an integer or string (e.g. ` + "`" + `SIGINT` + "`" + `)`
 
-	var signalFlagName string
+	var SignalFlagName string
 	if cmdPrefix == "" {
-		signalFlagName = "signal"
+		SignalFlagName = "signal"
 	} else {
-		signalFlagName = fmt.Sprintf("%v.signal", cmdPrefix)
+		SignalFlagName = fmt.Sprintf("%v.signal", cmdPrefix)
 	}
 
-	var signalFlagDefault string = "SIGKILL"
+	var SignalFlagDefault string = "SIGKILL"
 
-	_ = cmd.PersistentFlags().String(signalFlagName, signalFlagDefault, signalDescription)
+	_ = cmd.PersistentFlags().String(SignalFlagName, SignalFlagDefault, SignalDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationContainerContainerKillIDFlag(m *container.ContainerKillPar
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationContainerContainerKillSignalFlag(m *container.ContainerKil
 	retAdded := false
 	if cmd.Flags().Changed("signal") {
 
-		var signalFlagName string
+		var SignalFlagName string
 		if cmdPrefix == "" {
-			signalFlagName = "signal"
+			SignalFlagName = "signal"
 		} else {
-			signalFlagName = fmt.Sprintf("%v.signal", cmdPrefix)
+			SignalFlagName = fmt.Sprintf("%v.signal", cmdPrefix)
 		}
 
-		signalFlagValue, err := cmd.Flags().GetString(signalFlagName)
+		SignalFlagValue, err := cmd.Flags().GetString(SignalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Signal = &signalFlagValue
+		m.Signal = &SignalFlagValue
 
 	}
 	return nil, retAdded

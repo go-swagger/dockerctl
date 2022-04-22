@@ -33,18 +33,18 @@ func registerImageDeleteResponseItemDeleted(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	deletedDescription := `The image ID of an image that was deleted`
+	DeletedDescription := `The image ID of an image that was deleted`
 
-	var deletedFlagName string
+	var DeletedFlagName string
 	if cmdPrefix == "" {
-		deletedFlagName = "Deleted"
+		DeletedFlagName = "Deleted"
 	} else {
-		deletedFlagName = fmt.Sprintf("%v.Deleted", cmdPrefix)
+		DeletedFlagName = fmt.Sprintf("%v.Deleted", cmdPrefix)
 	}
 
-	var deletedFlagDefault string
+	var DeletedFlagDefault string
 
-	_ = cmd.PersistentFlags().String(deletedFlagName, deletedFlagDefault, deletedDescription)
+	_ = cmd.PersistentFlags().String(DeletedFlagName, DeletedFlagDefault, DeletedDescription)
 
 	return nil
 }
@@ -54,18 +54,18 @@ func registerImageDeleteResponseItemUntagged(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	untaggedDescription := `The image ID of an image that was untagged`
+	UntaggedDescription := `The image ID of an image that was untagged`
 
-	var untaggedFlagName string
+	var UntaggedFlagName string
 	if cmdPrefix == "" {
-		untaggedFlagName = "Untagged"
+		UntaggedFlagName = "Untagged"
 	} else {
-		untaggedFlagName = fmt.Sprintf("%v.Untagged", cmdPrefix)
+		UntaggedFlagName = fmt.Sprintf("%v.Untagged", cmdPrefix)
 	}
 
-	var untaggedFlagDefault string
+	var UntaggedFlagDefault string
 
-	_ = cmd.PersistentFlags().String(untaggedFlagName, untaggedFlagDefault, untaggedDescription)
+	_ = cmd.PersistentFlags().String(UntaggedFlagName, UntaggedFlagDefault, UntaggedDescription)
 
 	return nil
 }
@@ -74,17 +74,17 @@ func registerImageDeleteResponseItemUntagged(depth int, cmdPrefix string, cmd *c
 func retrieveModelImageDeleteResponseItemFlags(depth int, m *models.ImageDeleteResponseItem, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, deletedAdded := retrieveImageDeleteResponseItemDeletedFlags(depth, m, cmdPrefix, cmd)
+	err, DeletedAdded := retrieveImageDeleteResponseItemDeletedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || deletedAdded
+	retAdded = retAdded || DeletedAdded
 
-	err, untaggedAdded := retrieveImageDeleteResponseItemUntaggedFlags(depth, m, cmdPrefix, cmd)
+	err, UntaggedAdded := retrieveImageDeleteResponseItemUntaggedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || untaggedAdded
+	retAdded = retAdded || UntaggedAdded
 
 	return nil, retAdded
 }
@@ -95,21 +95,21 @@ func retrieveImageDeleteResponseItemDeletedFlags(depth int, m *models.ImageDelet
 	}
 	retAdded := false
 
-	deletedFlagName := fmt.Sprintf("%v.Deleted", cmdPrefix)
-	if cmd.Flags().Changed(deletedFlagName) {
+	DeletedFlagName := fmt.Sprintf("%v.Deleted", cmdPrefix)
+	if cmd.Flags().Changed(DeletedFlagName) {
 
-		var deletedFlagName string
+		var DeletedFlagName string
 		if cmdPrefix == "" {
-			deletedFlagName = "Deleted"
+			DeletedFlagName = "Deleted"
 		} else {
-			deletedFlagName = fmt.Sprintf("%v.Deleted", cmdPrefix)
+			DeletedFlagName = fmt.Sprintf("%v.Deleted", cmdPrefix)
 		}
 
-		deletedFlagValue, err := cmd.Flags().GetString(deletedFlagName)
+		DeletedFlagValue, err := cmd.Flags().GetString(DeletedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Deleted = deletedFlagValue
+		m.Deleted = DeletedFlagValue
 
 		retAdded = true
 	}
@@ -123,21 +123,21 @@ func retrieveImageDeleteResponseItemUntaggedFlags(depth int, m *models.ImageDele
 	}
 	retAdded := false
 
-	untaggedFlagName := fmt.Sprintf("%v.Untagged", cmdPrefix)
-	if cmd.Flags().Changed(untaggedFlagName) {
+	UntaggedFlagName := fmt.Sprintf("%v.Untagged", cmdPrefix)
+	if cmd.Flags().Changed(UntaggedFlagName) {
 
-		var untaggedFlagName string
+		var UntaggedFlagName string
 		if cmdPrefix == "" {
-			untaggedFlagName = "Untagged"
+			UntaggedFlagName = "Untagged"
 		} else {
-			untaggedFlagName = fmt.Sprintf("%v.Untagged", cmdPrefix)
+			UntaggedFlagName = fmt.Sprintf("%v.Untagged", cmdPrefix)
 		}
 
-		untaggedFlagValue, err := cmd.Flags().GetString(untaggedFlagName)
+		UntaggedFlagValue, err := cmd.Flags().GetString(UntaggedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Untagged = untaggedFlagValue
+		m.Untagged = UntaggedFlagValue
 
 		retAdded = true
 	}

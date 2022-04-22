@@ -80,29 +80,29 @@ func registerPluginsInfoVolume(depth int, cmdPrefix string, cmd *cobra.Command) 
 func retrieveModelPluginsInfoFlags(depth int, m *models.PluginsInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, authorizationAdded := retrievePluginsInfoAuthorizationFlags(depth, m, cmdPrefix, cmd)
+	err, AuthorizationAdded := retrievePluginsInfoAuthorizationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || authorizationAdded
+	retAdded = retAdded || AuthorizationAdded
 
-	err, logAdded := retrievePluginsInfoLogFlags(depth, m, cmdPrefix, cmd)
+	err, LogAdded := retrievePluginsInfoLogFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || logAdded
+	retAdded = retAdded || LogAdded
 
-	err, networkAdded := retrievePluginsInfoNetworkFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkAdded := retrievePluginsInfoNetworkFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkAdded
+	retAdded = retAdded || NetworkAdded
 
-	err, volumeAdded := retrievePluginsInfoVolumeFlags(depth, m, cmdPrefix, cmd)
+	err, VolumeAdded := retrievePluginsInfoVolumeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumeAdded
+	retAdded = retAdded || VolumeAdded
 
 	return nil, retAdded
 }
@@ -113,8 +113,8 @@ func retrievePluginsInfoAuthorizationFlags(depth int, m *models.PluginsInfo, cmd
 	}
 	retAdded := false
 
-	authorizationFlagName := fmt.Sprintf("%v.Authorization", cmdPrefix)
-	if cmd.Flags().Changed(authorizationFlagName) {
+	AuthorizationFlagName := fmt.Sprintf("%v.Authorization", cmdPrefix)
+	if cmd.Flags().Changed(AuthorizationFlagName) {
 		// warning: Authorization array type []string is not supported by go-swagger cli yet
 	}
 
@@ -127,8 +127,8 @@ func retrievePluginsInfoLogFlags(depth int, m *models.PluginsInfo, cmdPrefix str
 	}
 	retAdded := false
 
-	logFlagName := fmt.Sprintf("%v.Log", cmdPrefix)
-	if cmd.Flags().Changed(logFlagName) {
+	LogFlagName := fmt.Sprintf("%v.Log", cmdPrefix)
+	if cmd.Flags().Changed(LogFlagName) {
 		// warning: Log array type []string is not supported by go-swagger cli yet
 	}
 
@@ -141,8 +141,8 @@ func retrievePluginsInfoNetworkFlags(depth int, m *models.PluginsInfo, cmdPrefix
 	}
 	retAdded := false
 
-	networkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
-	if cmd.Flags().Changed(networkFlagName) {
+	NetworkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
+	if cmd.Flags().Changed(NetworkFlagName) {
 		// warning: Network array type []string is not supported by go-swagger cli yet
 	}
 
@@ -155,8 +155,8 @@ func retrievePluginsInfoVolumeFlags(depth int, m *models.PluginsInfo, cmdPrefix 
 	}
 	retAdded := false
 
-	volumeFlagName := fmt.Sprintf("%v.Volume", cmdPrefix)
-	if cmd.Flags().Changed(volumeFlagName) {
+	VolumeFlagName := fmt.Sprintf("%v.Volume", cmdPrefix)
+	if cmd.Flags().Changed(VolumeFlagName) {
 		// warning: Volume array type []string is not supported by go-swagger cli yet
 	}
 

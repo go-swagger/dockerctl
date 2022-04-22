@@ -33,18 +33,18 @@ func registerProgressDetailCurrent(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	currentDescription := ``
+	CurrentDescription := ``
 
-	var currentFlagName string
+	var CurrentFlagName string
 	if cmdPrefix == "" {
-		currentFlagName = "current"
+		CurrentFlagName = "current"
 	} else {
-		currentFlagName = fmt.Sprintf("%v.current", cmdPrefix)
+		CurrentFlagName = fmt.Sprintf("%v.current", cmdPrefix)
 	}
 
-	var currentFlagDefault int64
+	var CurrentFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(currentFlagName, currentFlagDefault, currentDescription)
+	_ = cmd.PersistentFlags().Int64(CurrentFlagName, CurrentFlagDefault, CurrentDescription)
 
 	return nil
 }
@@ -54,18 +54,18 @@ func registerProgressDetailTotal(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	totalDescription := ``
+	TotalDescription := ``
 
-	var totalFlagName string
+	var TotalFlagName string
 	if cmdPrefix == "" {
-		totalFlagName = "total"
+		TotalFlagName = "total"
 	} else {
-		totalFlagName = fmt.Sprintf("%v.total", cmdPrefix)
+		TotalFlagName = fmt.Sprintf("%v.total", cmdPrefix)
 	}
 
-	var totalFlagDefault int64
+	var TotalFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(totalFlagName, totalFlagDefault, totalDescription)
+	_ = cmd.PersistentFlags().Int64(TotalFlagName, TotalFlagDefault, TotalDescription)
 
 	return nil
 }
@@ -74,17 +74,17 @@ func registerProgressDetailTotal(depth int, cmdPrefix string, cmd *cobra.Command
 func retrieveModelProgressDetailFlags(depth int, m *models.ProgressDetail, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, currentAdded := retrieveProgressDetailCurrentFlags(depth, m, cmdPrefix, cmd)
+	err, CurrentAdded := retrieveProgressDetailCurrentFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || currentAdded
+	retAdded = retAdded || CurrentAdded
 
-	err, totalAdded := retrieveProgressDetailTotalFlags(depth, m, cmdPrefix, cmd)
+	err, TotalAdded := retrieveProgressDetailTotalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || totalAdded
+	retAdded = retAdded || TotalAdded
 
 	return nil, retAdded
 }
@@ -95,21 +95,21 @@ func retrieveProgressDetailCurrentFlags(depth int, m *models.ProgressDetail, cmd
 	}
 	retAdded := false
 
-	currentFlagName := fmt.Sprintf("%v.current", cmdPrefix)
-	if cmd.Flags().Changed(currentFlagName) {
+	CurrentFlagName := fmt.Sprintf("%v.current", cmdPrefix)
+	if cmd.Flags().Changed(CurrentFlagName) {
 
-		var currentFlagName string
+		var CurrentFlagName string
 		if cmdPrefix == "" {
-			currentFlagName = "current"
+			CurrentFlagName = "current"
 		} else {
-			currentFlagName = fmt.Sprintf("%v.current", cmdPrefix)
+			CurrentFlagName = fmt.Sprintf("%v.current", cmdPrefix)
 		}
 
-		currentFlagValue, err := cmd.Flags().GetInt64(currentFlagName)
+		CurrentFlagValue, err := cmd.Flags().GetInt64(CurrentFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Current = currentFlagValue
+		m.Current = CurrentFlagValue
 
 		retAdded = true
 	}
@@ -123,21 +123,21 @@ func retrieveProgressDetailTotalFlags(depth int, m *models.ProgressDetail, cmdPr
 	}
 	retAdded := false
 
-	totalFlagName := fmt.Sprintf("%v.total", cmdPrefix)
-	if cmd.Flags().Changed(totalFlagName) {
+	TotalFlagName := fmt.Sprintf("%v.total", cmdPrefix)
+	if cmd.Flags().Changed(TotalFlagName) {
 
-		var totalFlagName string
+		var TotalFlagName string
 		if cmdPrefix == "" {
-			totalFlagName = "total"
+			TotalFlagName = "total"
 		} else {
-			totalFlagName = fmt.Sprintf("%v.total", cmdPrefix)
+			TotalFlagName = fmt.Sprintf("%v.total", cmdPrefix)
 		}
 
-		totalFlagValue, err := cmd.Flags().GetInt64(totalFlagName)
+		TotalFlagValue, err := cmd.Flags().GetInt64(TotalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Total = totalFlagValue
+		m.Total = TotalFlagValue
 
 		retAdded = true
 	}

@@ -74,35 +74,35 @@ func registerOperationContainerContainerArchiveInfoParamFlags(cmd *cobra.Command
 
 func registerOperationContainerContainerArchiveInfoIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerArchiveInfoPathParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	pathDescription := `Required. Resource in the container’s filesystem to archive.`
+	PathDescription := `Required. Resource in the container’s filesystem to archive.`
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "path"
+		PathFlagName = "path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationContainerContainerArchiveInfoIDFlag(m *container.Container
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationContainerContainerArchiveInfoPathFlag(m *container.Contain
 	retAdded := false
 	if cmd.Flags().Changed("path") {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "path"
+			PathFlagName = "path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = pathFlagValue
+		m.Path = PathFlagValue
 
 	}
 	return nil, retAdded
@@ -223,18 +223,18 @@ func registerContainerArchiveInfoBadRequestBodyAnonContainerArchiveInfoBadReques
 		return nil
 	}
 
-	messageDescription := `The error message. Either "must specify path parameter" (path cannot be empty) or "not a directory" (path was asserted to be a directory but exists as a file).`
+	MessageDescription := `The error message. Either "must specify path parameter" (path cannot be empty) or "not a directory" (path was asserted to be a directory but exists as a file).`
 
-	var messageFlagName string
+	var MessageFlagName string
 	if cmdPrefix == "" {
-		messageFlagName = "message"
+		MessageFlagName = "message"
 	} else {
-		messageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
+		MessageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
 	}
 
-	var messageFlagDefault string
+	var MessageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+	_ = cmd.PersistentFlags().String(MessageFlagName, MessageFlagDefault, MessageDescription)
 
 	return nil
 }
@@ -244,19 +244,19 @@ func retrieveModelContainerArchiveInfoBadRequestBodyFlags(depth int, m *containe
 	retAdded := false
 
 	// retrieve model models.ErrorResponse
-	err, containerArchiveInfoBadRequestBodyAO0Added := retrieveModelErrorResponseFlags(depth, &m.ErrorResponse, cmdPrefix, cmd)
+	err, ContainerArchiveInfoBadRequestBodyAO0Added := retrieveModelErrorResponseFlags(depth, &m.ErrorResponse, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerArchiveInfoBadRequestBodyAO0Added
+	retAdded = retAdded || ContainerArchiveInfoBadRequestBodyAO0Added
 
 	// retrieve allOf containerArchiveInfoBadRequestBodyAO1 fields
 
-	err, messageAdded := retrieveContainerArchiveInfoBadRequestBodyAnonContainerArchiveInfoBadRequestBodyAO1MessageFlags(depth, m, cmdPrefix, cmd)
+	err, MessageAdded := retrieveContainerArchiveInfoBadRequestBodyAnonContainerArchiveInfoBadRequestBodyAO1MessageFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || messageAdded
+	retAdded = retAdded || MessageAdded
 
 	return nil, retAdded
 }
@@ -269,21 +269,21 @@ func retrieveContainerArchiveInfoBadRequestBodyAnonContainerArchiveInfoBadReques
 	}
 	retAdded := false
 
-	messageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
-	if cmd.Flags().Changed(messageFlagName) {
+	MessageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
+	if cmd.Flags().Changed(MessageFlagName) {
 
-		var messageFlagName string
+		var MessageFlagName string
 		if cmdPrefix == "" {
-			messageFlagName = "message"
+			MessageFlagName = "message"
 		} else {
-			messageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
+			MessageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
 		}
 
-		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		MessageFlagValue, err := cmd.Flags().GetString(MessageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Message = messageFlagValue
+		m.Message = MessageFlagValue
 
 		retAdded = true
 	}

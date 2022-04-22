@@ -163,18 +163,18 @@ func registerSystemDataUsageOKBodyLayersSize(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	layersSizeDescription := ``
+	LayersSizeDescription := ``
 
-	var layersSizeFlagName string
+	var LayersSizeFlagName string
 	if cmdPrefix == "" {
-		layersSizeFlagName = "LayersSize"
+		LayersSizeFlagName = "LayersSize"
 	} else {
-		layersSizeFlagName = fmt.Sprintf("%v.LayersSize", cmdPrefix)
+		LayersSizeFlagName = fmt.Sprintf("%v.LayersSize", cmdPrefix)
 	}
 
-	var layersSizeFlagDefault int64
+	var LayersSizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(layersSizeFlagName, layersSizeFlagDefault, layersSizeDescription)
+	_ = cmd.PersistentFlags().Int64(LayersSizeFlagName, LayersSizeFlagDefault, LayersSizeDescription)
 
 	return nil
 }
@@ -193,35 +193,35 @@ func registerSystemDataUsageOKBodyVolumes(depth int, cmdPrefix string, cmd *cobr
 func retrieveModelSystemDataUsageOKBodyFlags(depth int, m *system.SystemDataUsageOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, buildCacheAdded := retrieveSystemDataUsageOKBodyBuildCacheFlags(depth, m, cmdPrefix, cmd)
+	err, BuildCacheAdded := retrieveSystemDataUsageOKBodyBuildCacheFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || buildCacheAdded
+	retAdded = retAdded || BuildCacheAdded
 
-	err, containersAdded := retrieveSystemDataUsageOKBodyContainersFlags(depth, m, cmdPrefix, cmd)
+	err, ContainersAdded := retrieveSystemDataUsageOKBodyContainersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containersAdded
+	retAdded = retAdded || ContainersAdded
 
-	err, imagesAdded := retrieveSystemDataUsageOKBodyImagesFlags(depth, m, cmdPrefix, cmd)
+	err, ImagesAdded := retrieveSystemDataUsageOKBodyImagesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || imagesAdded
+	retAdded = retAdded || ImagesAdded
 
-	err, layersSizeAdded := retrieveSystemDataUsageOKBodyLayersSizeFlags(depth, m, cmdPrefix, cmd)
+	err, LayersSizeAdded := retrieveSystemDataUsageOKBodyLayersSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || layersSizeAdded
+	retAdded = retAdded || LayersSizeAdded
 
-	err, volumesAdded := retrieveSystemDataUsageOKBodyVolumesFlags(depth, m, cmdPrefix, cmd)
+	err, VolumesAdded := retrieveSystemDataUsageOKBodyVolumesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumesAdded
+	retAdded = retAdded || VolumesAdded
 
 	return nil, retAdded
 }
@@ -232,8 +232,8 @@ func retrieveSystemDataUsageOKBodyBuildCacheFlags(depth int, m *system.SystemDat
 	}
 	retAdded := false
 
-	buildCacheFlagName := fmt.Sprintf("%v.BuildCache", cmdPrefix)
-	if cmd.Flags().Changed(buildCacheFlagName) {
+	BuildCacheFlagName := fmt.Sprintf("%v.BuildCache", cmdPrefix)
+	if cmd.Flags().Changed(BuildCacheFlagName) {
 		// warning: BuildCache array type []*models.BuildCache is not supported by go-swagger cli yet
 	}
 
@@ -246,8 +246,8 @@ func retrieveSystemDataUsageOKBodyContainersFlags(depth int, m *system.SystemDat
 	}
 	retAdded := false
 
-	containersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
-	if cmd.Flags().Changed(containersFlagName) {
+	ContainersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
+	if cmd.Flags().Changed(ContainersFlagName) {
 		// warning: Containers array type []models.ContainerSummary is not supported by go-swagger cli yet
 	}
 
@@ -260,8 +260,8 @@ func retrieveSystemDataUsageOKBodyImagesFlags(depth int, m *system.SystemDataUsa
 	}
 	retAdded := false
 
-	imagesFlagName := fmt.Sprintf("%v.Images", cmdPrefix)
-	if cmd.Flags().Changed(imagesFlagName) {
+	ImagesFlagName := fmt.Sprintf("%v.Images", cmdPrefix)
+	if cmd.Flags().Changed(ImagesFlagName) {
 		// warning: Images array type []*models.ImageSummary is not supported by go-swagger cli yet
 	}
 
@@ -274,21 +274,21 @@ func retrieveSystemDataUsageOKBodyLayersSizeFlags(depth int, m *system.SystemDat
 	}
 	retAdded := false
 
-	layersSizeFlagName := fmt.Sprintf("%v.LayersSize", cmdPrefix)
-	if cmd.Flags().Changed(layersSizeFlagName) {
+	LayersSizeFlagName := fmt.Sprintf("%v.LayersSize", cmdPrefix)
+	if cmd.Flags().Changed(LayersSizeFlagName) {
 
-		var layersSizeFlagName string
+		var LayersSizeFlagName string
 		if cmdPrefix == "" {
-			layersSizeFlagName = "LayersSize"
+			LayersSizeFlagName = "LayersSize"
 		} else {
-			layersSizeFlagName = fmt.Sprintf("%v.LayersSize", cmdPrefix)
+			LayersSizeFlagName = fmt.Sprintf("%v.LayersSize", cmdPrefix)
 		}
 
-		layersSizeFlagValue, err := cmd.Flags().GetInt64(layersSizeFlagName)
+		LayersSizeFlagValue, err := cmd.Flags().GetInt64(LayersSizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.LayersSize = layersSizeFlagValue
+		m.LayersSize = LayersSizeFlagValue
 
 		retAdded = true
 	}
@@ -302,8 +302,8 @@ func retrieveSystemDataUsageOKBodyVolumesFlags(depth int, m *system.SystemDataUs
 	}
 	retAdded := false
 
-	volumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
-	if cmd.Flags().Changed(volumesFlagName) {
+	VolumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
+	if cmd.Flags().Changed(VolumesFlagName) {
 		// warning: Volumes array type []*models.Volume is not supported by go-swagger cli yet
 	}
 

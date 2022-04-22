@@ -42,18 +42,18 @@ func registerPortIP(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	ipDescription := `Host IP address that the container's port is mapped to`
+	IPDescription := `Host IP address that the container's port is mapped to`
 
-	var ipFlagName string
+	var IPFlagName string
 	if cmdPrefix == "" {
-		ipFlagName = "IP"
+		IPFlagName = "IP"
 	} else {
-		ipFlagName = fmt.Sprintf("%v.IP", cmdPrefix)
+		IPFlagName = fmt.Sprintf("%v.IP", cmdPrefix)
 	}
 
-	var ipFlagDefault string
+	var IPFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipFlagName, ipFlagDefault, ipDescription)
+	_ = cmd.PersistentFlags().String(IPFlagName, IPFlagDefault, IPDescription)
 
 	return nil
 }
@@ -83,20 +83,20 @@ func registerPortType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	typeDescription := `Enum: ["tcp","udp","sctp"]. Required. `
+	TypeDescription := `Enum: ["tcp","udp","sctp"]. Required. `
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(typeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(TypeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["tcp","udp","sctp"]`), &res); err != nil {
@@ -114,29 +114,29 @@ func registerPortType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 func retrieveModelPortFlags(depth int, m *models.Port, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, ipAdded := retrievePortIPFlags(depth, m, cmdPrefix, cmd)
+	err, IPAdded := retrievePortIPFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAdded
+	retAdded = retAdded || IPAdded
 
-	err, privatePortAdded := retrievePortPrivatePortFlags(depth, m, cmdPrefix, cmd)
+	err, PrivatePortAdded := retrievePortPrivatePortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || privatePortAdded
+	retAdded = retAdded || PrivatePortAdded
 
-	err, publicPortAdded := retrievePortPublicPortFlags(depth, m, cmdPrefix, cmd)
+	err, PublicPortAdded := retrievePortPublicPortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || publicPortAdded
+	retAdded = retAdded || PublicPortAdded
 
-	err, typeAdded := retrievePortTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrievePortTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
 	return nil, retAdded
 }
@@ -147,21 +147,21 @@ func retrievePortIPFlags(depth int, m *models.Port, cmdPrefix string, cmd *cobra
 	}
 	retAdded := false
 
-	ipFlagName := fmt.Sprintf("%v.IP", cmdPrefix)
-	if cmd.Flags().Changed(ipFlagName) {
+	IPFlagName := fmt.Sprintf("%v.IP", cmdPrefix)
+	if cmd.Flags().Changed(IPFlagName) {
 
-		var ipFlagName string
+		var IPFlagName string
 		if cmdPrefix == "" {
-			ipFlagName = "IP"
+			IPFlagName = "IP"
 		} else {
-			ipFlagName = fmt.Sprintf("%v.IP", cmdPrefix)
+			IPFlagName = fmt.Sprintf("%v.IP", cmdPrefix)
 		}
 
-		ipFlagValue, err := cmd.Flags().GetString(ipFlagName)
+		IPFlagValue, err := cmd.Flags().GetString(IPFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IP = ipFlagValue
+		m.IP = IPFlagValue
 
 		retAdded = true
 	}
@@ -175,8 +175,8 @@ func retrievePortPrivatePortFlags(depth int, m *models.Port, cmdPrefix string, c
 	}
 	retAdded := false
 
-	privatePortFlagName := fmt.Sprintf("%v.PrivatePort", cmdPrefix)
-	if cmd.Flags().Changed(privatePortFlagName) {
+	PrivatePortFlagName := fmt.Sprintf("%v.PrivatePort", cmdPrefix)
+	if cmd.Flags().Changed(PrivatePortFlagName) {
 
 		// warning: primitive PrivatePort uint16 is not supported by go-swagger cli yet
 
@@ -192,8 +192,8 @@ func retrievePortPublicPortFlags(depth int, m *models.Port, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	publicPortFlagName := fmt.Sprintf("%v.PublicPort", cmdPrefix)
-	if cmd.Flags().Changed(publicPortFlagName) {
+	PublicPortFlagName := fmt.Sprintf("%v.PublicPort", cmdPrefix)
+	if cmd.Flags().Changed(PublicPortFlagName) {
 
 		// warning: primitive PublicPort uint16 is not supported by go-swagger cli yet
 
@@ -209,21 +209,21 @@ func retrievePortTypeFlags(depth int, m *models.Port, cmdPrefix string, cmd *cob
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}

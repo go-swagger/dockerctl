@@ -60,14 +60,14 @@ func registerMountBindOptions(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	var bindOptionsFlagName string
+	var BindOptionsFlagName string
 	if cmdPrefix == "" {
-		bindOptionsFlagName = "BindOptions"
+		BindOptionsFlagName = "BindOptions"
 	} else {
-		bindOptionsFlagName = fmt.Sprintf("%v.BindOptions", cmdPrefix)
+		BindOptionsFlagName = fmt.Sprintf("%v.BindOptions", cmdPrefix)
 	}
 
-	if err := registerModelMountBindOptionsFlags(depth+1, bindOptionsFlagName, cmd); err != nil {
+	if err := registerModelMountBindOptionsFlags(depth+1, BindOptionsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -79,18 +79,18 @@ func registerMountConsistency(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	consistencyDescription := `The consistency requirement for the mount: ` + "`" + `default` + "`" + `, ` + "`" + `consistent` + "`" + `, ` + "`" + `cached` + "`" + `, or ` + "`" + `delegated` + "`" + `.`
+	ConsistencyDescription := `The consistency requirement for the mount: ` + "`" + `default` + "`" + `, ` + "`" + `consistent` + "`" + `, ` + "`" + `cached` + "`" + `, or ` + "`" + `delegated` + "`" + `.`
 
-	var consistencyFlagName string
+	var ConsistencyFlagName string
 	if cmdPrefix == "" {
-		consistencyFlagName = "Consistency"
+		ConsistencyFlagName = "Consistency"
 	} else {
-		consistencyFlagName = fmt.Sprintf("%v.Consistency", cmdPrefix)
+		ConsistencyFlagName = fmt.Sprintf("%v.Consistency", cmdPrefix)
 	}
 
-	var consistencyFlagDefault string
+	var ConsistencyFlagDefault string
 
-	_ = cmd.PersistentFlags().String(consistencyFlagName, consistencyFlagDefault, consistencyDescription)
+	_ = cmd.PersistentFlags().String(ConsistencyFlagName, ConsistencyFlagDefault, ConsistencyDescription)
 
 	return nil
 }
@@ -100,18 +100,18 @@ func registerMountReadOnly(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	readOnlyDescription := `Whether the mount should be read-only.`
+	ReadOnlyDescription := `Whether the mount should be read-only.`
 
-	var readOnlyFlagName string
+	var ReadOnlyFlagName string
 	if cmdPrefix == "" {
-		readOnlyFlagName = "ReadOnly"
+		ReadOnlyFlagName = "ReadOnly"
 	} else {
-		readOnlyFlagName = fmt.Sprintf("%v.ReadOnly", cmdPrefix)
+		ReadOnlyFlagName = fmt.Sprintf("%v.ReadOnly", cmdPrefix)
 	}
 
-	var readOnlyFlagDefault bool
+	var ReadOnlyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(readOnlyFlagName, readOnlyFlagDefault, readOnlyDescription)
+	_ = cmd.PersistentFlags().Bool(ReadOnlyFlagName, ReadOnlyFlagDefault, ReadOnlyDescription)
 
 	return nil
 }
@@ -121,18 +121,18 @@ func registerMountSource(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	sourceDescription := `Mount source (e.g. a volume name, a host path).`
+	SourceDescription := `Mount source (e.g. a volume name, a host path).`
 
-	var sourceFlagName string
+	var SourceFlagName string
 	if cmdPrefix == "" {
-		sourceFlagName = "Source"
+		SourceFlagName = "Source"
 	} else {
-		sourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
+		SourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
 	}
 
-	var sourceFlagDefault string
+	var SourceFlagDefault string
 
-	_ = cmd.PersistentFlags().String(sourceFlagName, sourceFlagDefault, sourceDescription)
+	_ = cmd.PersistentFlags().String(SourceFlagName, SourceFlagDefault, SourceDescription)
 
 	return nil
 }
@@ -142,18 +142,18 @@ func registerMountTarget(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	targetDescription := `Container path.`
+	TargetDescription := `Container path.`
 
-	var targetFlagName string
+	var TargetFlagName string
 	if cmdPrefix == "" {
-		targetFlagName = "Target"
+		TargetFlagName = "Target"
 	} else {
-		targetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
+		TargetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
 	}
 
-	var targetFlagDefault string
+	var TargetFlagDefault string
 
-	_ = cmd.PersistentFlags().String(targetFlagName, targetFlagDefault, targetDescription)
+	_ = cmd.PersistentFlags().String(TargetFlagName, TargetFlagDefault, TargetDescription)
 
 	return nil
 }
@@ -163,14 +163,14 @@ func registerMountTmpfsOptions(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	var tmpfsOptionsFlagName string
+	var TmpfsOptionsFlagName string
 	if cmdPrefix == "" {
-		tmpfsOptionsFlagName = "TmpfsOptions"
+		TmpfsOptionsFlagName = "TmpfsOptions"
 	} else {
-		tmpfsOptionsFlagName = fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
+		TmpfsOptionsFlagName = fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
 	}
 
-	if err := registerModelMountTmpfsOptionsFlags(depth+1, tmpfsOptionsFlagName, cmd); err != nil {
+	if err := registerModelMountTmpfsOptionsFlags(depth+1, TmpfsOptionsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -182,7 +182,7 @@ func registerMountType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	typeDescription := `Enum: ["bind","volume","tmpfs","npipe"]. The mount type. Available types:
+	TypeDescription := `Enum: ["bind","volume","tmpfs","npipe"]. The mount type. Available types:
 
 - ` + "`" + `bind` + "`" + ` Mounts a file or directory from the host into the container. Must exist prior to creating the container.
 - ` + "`" + `volume` + "`" + ` Creates a volume with the given name and options (or uses a pre-existing volume with the same name and options). These are **not** removed when the container is removed.
@@ -190,18 +190,18 @@ func registerMountType(depth int, cmdPrefix string, cmd *cobra.Command) error {
 - ` + "`" + `npipe` + "`" + ` Mounts a named pipe from the host into the container. Must exist prior to creating the container.
 `
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(typeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(TypeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["bind","volume","tmpfs","npipe"]`), &res); err != nil {
@@ -220,14 +220,14 @@ func registerMountVolumeOptions(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	var volumeOptionsFlagName string
+	var VolumeOptionsFlagName string
 	if cmdPrefix == "" {
-		volumeOptionsFlagName = "VolumeOptions"
+		VolumeOptionsFlagName = "VolumeOptions"
 	} else {
-		volumeOptionsFlagName = fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
+		VolumeOptionsFlagName = fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
 	}
 
-	if err := registerModelMountVolumeOptionsFlags(depth+1, volumeOptionsFlagName, cmd); err != nil {
+	if err := registerModelMountVolumeOptionsFlags(depth+1, VolumeOptionsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -238,53 +238,53 @@ func registerMountVolumeOptions(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelMountFlags(depth int, m *models.Mount, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, bindOptionsAdded := retrieveMountBindOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, BindOptionsAdded := retrieveMountBindOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || bindOptionsAdded
+	retAdded = retAdded || BindOptionsAdded
 
-	err, consistencyAdded := retrieveMountConsistencyFlags(depth, m, cmdPrefix, cmd)
+	err, ConsistencyAdded := retrieveMountConsistencyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || consistencyAdded
+	retAdded = retAdded || ConsistencyAdded
 
-	err, readOnlyAdded := retrieveMountReadOnlyFlags(depth, m, cmdPrefix, cmd)
+	err, ReadOnlyAdded := retrieveMountReadOnlyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || readOnlyAdded
+	retAdded = retAdded || ReadOnlyAdded
 
-	err, sourceAdded := retrieveMountSourceFlags(depth, m, cmdPrefix, cmd)
+	err, SourceAdded := retrieveMountSourceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sourceAdded
+	retAdded = retAdded || SourceAdded
 
-	err, targetAdded := retrieveMountTargetFlags(depth, m, cmdPrefix, cmd)
+	err, TargetAdded := retrieveMountTargetFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || targetAdded
+	retAdded = retAdded || TargetAdded
 
-	err, tmpfsOptionsAdded := retrieveMountTmpfsOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, TmpfsOptionsAdded := retrieveMountTmpfsOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tmpfsOptionsAdded
+	retAdded = retAdded || TmpfsOptionsAdded
 
-	err, typeAdded := retrieveMountTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrieveMountTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
-	err, volumeOptionsAdded := retrieveMountVolumeOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, VolumeOptionsAdded := retrieveMountVolumeOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumeOptionsAdded
+	retAdded = retAdded || VolumeOptionsAdded
 
 	return nil, retAdded
 }
@@ -295,22 +295,22 @@ func retrieveMountBindOptionsFlags(depth int, m *models.Mount, cmdPrefix string,
 	}
 	retAdded := false
 
-	bindOptionsFlagName := fmt.Sprintf("%v.BindOptions", cmdPrefix)
-	if cmd.Flags().Changed(bindOptionsFlagName) {
+	BindOptionsFlagName := fmt.Sprintf("%v.BindOptions", cmdPrefix)
+	if cmd.Flags().Changed(BindOptionsFlagName) {
 		// info: complex object BindOptions MountBindOptions is retrieved outside this Changed() block
 	}
-	bindOptionsFlagValue := m.BindOptions
-	if swag.IsZero(bindOptionsFlagValue) {
-		bindOptionsFlagValue = &models.MountBindOptions{}
+	BindOptionsFlagValue := m.BindOptions
+	if swag.IsZero(BindOptionsFlagValue) {
+		BindOptionsFlagValue = &models.MountBindOptions{}
 	}
 
-	err, bindOptionsAdded := retrieveModelMountBindOptionsFlags(depth+1, bindOptionsFlagValue, bindOptionsFlagName, cmd)
+	err, BindOptionsAdded := retrieveModelMountBindOptionsFlags(depth+1, BindOptionsFlagValue, BindOptionsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || bindOptionsAdded
-	if bindOptionsAdded {
-		m.BindOptions = bindOptionsFlagValue
+	retAdded = retAdded || BindOptionsAdded
+	if BindOptionsAdded {
+		m.BindOptions = BindOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -322,21 +322,21 @@ func retrieveMountConsistencyFlags(depth int, m *models.Mount, cmdPrefix string,
 	}
 	retAdded := false
 
-	consistencyFlagName := fmt.Sprintf("%v.Consistency", cmdPrefix)
-	if cmd.Flags().Changed(consistencyFlagName) {
+	ConsistencyFlagName := fmt.Sprintf("%v.Consistency", cmdPrefix)
+	if cmd.Flags().Changed(ConsistencyFlagName) {
 
-		var consistencyFlagName string
+		var ConsistencyFlagName string
 		if cmdPrefix == "" {
-			consistencyFlagName = "Consistency"
+			ConsistencyFlagName = "Consistency"
 		} else {
-			consistencyFlagName = fmt.Sprintf("%v.Consistency", cmdPrefix)
+			ConsistencyFlagName = fmt.Sprintf("%v.Consistency", cmdPrefix)
 		}
 
-		consistencyFlagValue, err := cmd.Flags().GetString(consistencyFlagName)
+		ConsistencyFlagValue, err := cmd.Flags().GetString(ConsistencyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Consistency = consistencyFlagValue
+		m.Consistency = ConsistencyFlagValue
 
 		retAdded = true
 	}
@@ -350,21 +350,21 @@ func retrieveMountReadOnlyFlags(depth int, m *models.Mount, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	readOnlyFlagName := fmt.Sprintf("%v.ReadOnly", cmdPrefix)
-	if cmd.Flags().Changed(readOnlyFlagName) {
+	ReadOnlyFlagName := fmt.Sprintf("%v.ReadOnly", cmdPrefix)
+	if cmd.Flags().Changed(ReadOnlyFlagName) {
 
-		var readOnlyFlagName string
+		var ReadOnlyFlagName string
 		if cmdPrefix == "" {
-			readOnlyFlagName = "ReadOnly"
+			ReadOnlyFlagName = "ReadOnly"
 		} else {
-			readOnlyFlagName = fmt.Sprintf("%v.ReadOnly", cmdPrefix)
+			ReadOnlyFlagName = fmt.Sprintf("%v.ReadOnly", cmdPrefix)
 		}
 
-		readOnlyFlagValue, err := cmd.Flags().GetBool(readOnlyFlagName)
+		ReadOnlyFlagValue, err := cmd.Flags().GetBool(ReadOnlyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ReadOnly = readOnlyFlagValue
+		m.ReadOnly = ReadOnlyFlagValue
 
 		retAdded = true
 	}
@@ -378,21 +378,21 @@ func retrieveMountSourceFlags(depth int, m *models.Mount, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	sourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
-	if cmd.Flags().Changed(sourceFlagName) {
+	SourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
+	if cmd.Flags().Changed(SourceFlagName) {
 
-		var sourceFlagName string
+		var SourceFlagName string
 		if cmdPrefix == "" {
-			sourceFlagName = "Source"
+			SourceFlagName = "Source"
 		} else {
-			sourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
+			SourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
 		}
 
-		sourceFlagValue, err := cmd.Flags().GetString(sourceFlagName)
+		SourceFlagValue, err := cmd.Flags().GetString(SourceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Source = sourceFlagValue
+		m.Source = SourceFlagValue
 
 		retAdded = true
 	}
@@ -406,21 +406,21 @@ func retrieveMountTargetFlags(depth int, m *models.Mount, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	targetFlagName := fmt.Sprintf("%v.Target", cmdPrefix)
-	if cmd.Flags().Changed(targetFlagName) {
+	TargetFlagName := fmt.Sprintf("%v.Target", cmdPrefix)
+	if cmd.Flags().Changed(TargetFlagName) {
 
-		var targetFlagName string
+		var TargetFlagName string
 		if cmdPrefix == "" {
-			targetFlagName = "Target"
+			TargetFlagName = "Target"
 		} else {
-			targetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
+			TargetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
 		}
 
-		targetFlagValue, err := cmd.Flags().GetString(targetFlagName)
+		TargetFlagValue, err := cmd.Flags().GetString(TargetFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Target = targetFlagValue
+		m.Target = TargetFlagValue
 
 		retAdded = true
 	}
@@ -434,22 +434,22 @@ func retrieveMountTmpfsOptionsFlags(depth int, m *models.Mount, cmdPrefix string
 	}
 	retAdded := false
 
-	tmpfsOptionsFlagName := fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
-	if cmd.Flags().Changed(tmpfsOptionsFlagName) {
+	TmpfsOptionsFlagName := fmt.Sprintf("%v.TmpfsOptions", cmdPrefix)
+	if cmd.Flags().Changed(TmpfsOptionsFlagName) {
 		// info: complex object TmpfsOptions MountTmpfsOptions is retrieved outside this Changed() block
 	}
-	tmpfsOptionsFlagValue := m.TmpfsOptions
-	if swag.IsZero(tmpfsOptionsFlagValue) {
-		tmpfsOptionsFlagValue = &models.MountTmpfsOptions{}
+	TmpfsOptionsFlagValue := m.TmpfsOptions
+	if swag.IsZero(TmpfsOptionsFlagValue) {
+		TmpfsOptionsFlagValue = &models.MountTmpfsOptions{}
 	}
 
-	err, tmpfsOptionsAdded := retrieveModelMountTmpfsOptionsFlags(depth+1, tmpfsOptionsFlagValue, tmpfsOptionsFlagName, cmd)
+	err, TmpfsOptionsAdded := retrieveModelMountTmpfsOptionsFlags(depth+1, TmpfsOptionsFlagValue, TmpfsOptionsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tmpfsOptionsAdded
-	if tmpfsOptionsAdded {
-		m.TmpfsOptions = tmpfsOptionsFlagValue
+	retAdded = retAdded || TmpfsOptionsAdded
+	if TmpfsOptionsAdded {
+		m.TmpfsOptions = TmpfsOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -461,21 +461,21 @@ func retrieveMountTypeFlags(depth int, m *models.Mount, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}
@@ -489,22 +489,22 @@ func retrieveMountVolumeOptionsFlags(depth int, m *models.Mount, cmdPrefix strin
 	}
 	retAdded := false
 
-	volumeOptionsFlagName := fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
-	if cmd.Flags().Changed(volumeOptionsFlagName) {
+	VolumeOptionsFlagName := fmt.Sprintf("%v.VolumeOptions", cmdPrefix)
+	if cmd.Flags().Changed(VolumeOptionsFlagName) {
 		// info: complex object VolumeOptions MountVolumeOptions is retrieved outside this Changed() block
 	}
-	volumeOptionsFlagValue := m.VolumeOptions
-	if swag.IsZero(volumeOptionsFlagValue) {
-		volumeOptionsFlagValue = &models.MountVolumeOptions{}
+	VolumeOptionsFlagValue := m.VolumeOptions
+	if swag.IsZero(VolumeOptionsFlagValue) {
+		VolumeOptionsFlagValue = &models.MountVolumeOptions{}
 	}
 
-	err, volumeOptionsAdded := retrieveModelMountVolumeOptionsFlags(depth+1, volumeOptionsFlagValue, volumeOptionsFlagName, cmd)
+	err, VolumeOptionsAdded := retrieveModelMountVolumeOptionsFlags(depth+1, VolumeOptionsFlagValue, VolumeOptionsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumeOptionsAdded
-	if volumeOptionsAdded {
-		m.VolumeOptions = volumeOptionsFlagValue
+	retAdded = retAdded || VolumeOptionsAdded
+	if VolumeOptionsAdded {
+		m.VolumeOptions = VolumeOptionsFlagValue
 	}
 
 	return nil, retAdded
@@ -531,18 +531,18 @@ func registerMountBindOptionsNonRecursive(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	nonRecursiveDescription := `Disable recursive bind mount.`
+	NonRecursiveDescription := `Disable recursive bind mount.`
 
-	var nonRecursiveFlagName string
+	var NonRecursiveFlagName string
 	if cmdPrefix == "" {
-		nonRecursiveFlagName = "NonRecursive"
+		NonRecursiveFlagName = "NonRecursive"
 	} else {
-		nonRecursiveFlagName = fmt.Sprintf("%v.NonRecursive", cmdPrefix)
+		NonRecursiveFlagName = fmt.Sprintf("%v.NonRecursive", cmdPrefix)
 	}
 
-	var nonRecursiveFlagDefault bool
+	var NonRecursiveFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(nonRecursiveFlagName, nonRecursiveFlagDefault, nonRecursiveDescription)
+	_ = cmd.PersistentFlags().Bool(NonRecursiveFlagName, NonRecursiveFlagDefault, NonRecursiveDescription)
 
 	return nil
 }
@@ -552,20 +552,20 @@ func registerMountBindOptionsPropagation(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	propagationDescription := `Enum: ["private","rprivate","shared","rshared","slave","rslave"]. A propagation mode with the value ` + "`" + `[r]private` + "`" + `, ` + "`" + `[r]shared` + "`" + `, or ` + "`" + `[r]slave` + "`" + `.`
+	PropagationDescription := `Enum: ["private","rprivate","shared","rshared","slave","rslave"]. A propagation mode with the value ` + "`" + `[r]private` + "`" + `, ` + "`" + `[r]shared` + "`" + `, or ` + "`" + `[r]slave` + "`" + `.`
 
-	var propagationFlagName string
+	var PropagationFlagName string
 	if cmdPrefix == "" {
-		propagationFlagName = "Propagation"
+		PropagationFlagName = "Propagation"
 	} else {
-		propagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
+		PropagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
 	}
 
-	var propagationFlagDefault string
+	var PropagationFlagDefault string
 
-	_ = cmd.PersistentFlags().String(propagationFlagName, propagationFlagDefault, propagationDescription)
+	_ = cmd.PersistentFlags().String(PropagationFlagName, PropagationFlagDefault, PropagationDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(propagationFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(PropagationFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["private","rprivate","shared","rshared","slave","rslave"]`), &res); err != nil {
@@ -583,17 +583,17 @@ func registerMountBindOptionsPropagation(depth int, cmdPrefix string, cmd *cobra
 func retrieveModelMountBindOptionsFlags(depth int, m *models.MountBindOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nonRecursiveAdded := retrieveMountBindOptionsNonRecursiveFlags(depth, m, cmdPrefix, cmd)
+	err, NonRecursiveAdded := retrieveMountBindOptionsNonRecursiveFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nonRecursiveAdded
+	retAdded = retAdded || NonRecursiveAdded
 
-	err, propagationAdded := retrieveMountBindOptionsPropagationFlags(depth, m, cmdPrefix, cmd)
+	err, PropagationAdded := retrieveMountBindOptionsPropagationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || propagationAdded
+	retAdded = retAdded || PropagationAdded
 
 	return nil, retAdded
 }
@@ -604,21 +604,21 @@ func retrieveMountBindOptionsNonRecursiveFlags(depth int, m *models.MountBindOpt
 	}
 	retAdded := false
 
-	nonRecursiveFlagName := fmt.Sprintf("%v.NonRecursive", cmdPrefix)
-	if cmd.Flags().Changed(nonRecursiveFlagName) {
+	NonRecursiveFlagName := fmt.Sprintf("%v.NonRecursive", cmdPrefix)
+	if cmd.Flags().Changed(NonRecursiveFlagName) {
 
-		var nonRecursiveFlagName string
+		var NonRecursiveFlagName string
 		if cmdPrefix == "" {
-			nonRecursiveFlagName = "NonRecursive"
+			NonRecursiveFlagName = "NonRecursive"
 		} else {
-			nonRecursiveFlagName = fmt.Sprintf("%v.NonRecursive", cmdPrefix)
+			NonRecursiveFlagName = fmt.Sprintf("%v.NonRecursive", cmdPrefix)
 		}
 
-		nonRecursiveFlagValue, err := cmd.Flags().GetBool(nonRecursiveFlagName)
+		NonRecursiveFlagValue, err := cmd.Flags().GetBool(NonRecursiveFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NonRecursive = &nonRecursiveFlagValue
+		m.NonRecursive = &NonRecursiveFlagValue
 
 		retAdded = true
 	}
@@ -632,21 +632,21 @@ func retrieveMountBindOptionsPropagationFlags(depth int, m *models.MountBindOpti
 	}
 	retAdded := false
 
-	propagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
-	if cmd.Flags().Changed(propagationFlagName) {
+	PropagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
+	if cmd.Flags().Changed(PropagationFlagName) {
 
-		var propagationFlagName string
+		var PropagationFlagName string
 		if cmdPrefix == "" {
-			propagationFlagName = "Propagation"
+			PropagationFlagName = "Propagation"
 		} else {
-			propagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
+			PropagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
 		}
 
-		propagationFlagValue, err := cmd.Flags().GetString(propagationFlagName)
+		PropagationFlagValue, err := cmd.Flags().GetString(PropagationFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Propagation = propagationFlagValue
+		m.Propagation = PropagationFlagValue
 
 		retAdded = true
 	}
@@ -675,18 +675,18 @@ func registerMountTmpfsOptionsMode(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	modeDescription := `The permission mode for the tmpfs mount in an integer.`
+	ModeDescription := `The permission mode for the tmpfs mount in an integer.`
 
-	var modeFlagName string
+	var ModeFlagName string
 	if cmdPrefix == "" {
-		modeFlagName = "Mode"
+		ModeFlagName = "Mode"
 	} else {
-		modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+		ModeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 	}
 
-	var modeFlagDefault int64
+	var ModeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(modeFlagName, modeFlagDefault, modeDescription)
+	_ = cmd.PersistentFlags().Int64(ModeFlagName, ModeFlagDefault, ModeDescription)
 
 	return nil
 }
@@ -696,18 +696,18 @@ func registerMountTmpfsOptionsSizeBytes(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	sizeBytesDescription := `The size for the tmpfs mount in bytes.`
+	SizeBytesDescription := `The size for the tmpfs mount in bytes.`
 
-	var sizeBytesFlagName string
+	var SizeBytesFlagName string
 	if cmdPrefix == "" {
-		sizeBytesFlagName = "SizeBytes"
+		SizeBytesFlagName = "SizeBytes"
 	} else {
-		sizeBytesFlagName = fmt.Sprintf("%v.SizeBytes", cmdPrefix)
+		SizeBytesFlagName = fmt.Sprintf("%v.SizeBytes", cmdPrefix)
 	}
 
-	var sizeBytesFlagDefault int64
+	var SizeBytesFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sizeBytesFlagName, sizeBytesFlagDefault, sizeBytesDescription)
+	_ = cmd.PersistentFlags().Int64(SizeBytesFlagName, SizeBytesFlagDefault, SizeBytesDescription)
 
 	return nil
 }
@@ -716,17 +716,17 @@ func registerMountTmpfsOptionsSizeBytes(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelMountTmpfsOptionsFlags(depth int, m *models.MountTmpfsOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, modeAdded := retrieveMountTmpfsOptionsModeFlags(depth, m, cmdPrefix, cmd)
+	err, ModeAdded := retrieveMountTmpfsOptionsModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || modeAdded
+	retAdded = retAdded || ModeAdded
 
-	err, sizeBytesAdded := retrieveMountTmpfsOptionsSizeBytesFlags(depth, m, cmdPrefix, cmd)
+	err, SizeBytesAdded := retrieveMountTmpfsOptionsSizeBytesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sizeBytesAdded
+	retAdded = retAdded || SizeBytesAdded
 
 	return nil, retAdded
 }
@@ -737,21 +737,21 @@ func retrieveMountTmpfsOptionsModeFlags(depth int, m *models.MountTmpfsOptions, 
 	}
 	retAdded := false
 
-	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
-	if cmd.Flags().Changed(modeFlagName) {
+	ModeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
+	if cmd.Flags().Changed(ModeFlagName) {
 
-		var modeFlagName string
+		var ModeFlagName string
 		if cmdPrefix == "" {
-			modeFlagName = "Mode"
+			ModeFlagName = "Mode"
 		} else {
-			modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+			ModeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 		}
 
-		modeFlagValue, err := cmd.Flags().GetInt64(modeFlagName)
+		ModeFlagValue, err := cmd.Flags().GetInt64(ModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Mode = modeFlagValue
+		m.Mode = ModeFlagValue
 
 		retAdded = true
 	}
@@ -765,21 +765,21 @@ func retrieveMountTmpfsOptionsSizeBytesFlags(depth int, m *models.MountTmpfsOpti
 	}
 	retAdded := false
 
-	sizeBytesFlagName := fmt.Sprintf("%v.SizeBytes", cmdPrefix)
-	if cmd.Flags().Changed(sizeBytesFlagName) {
+	SizeBytesFlagName := fmt.Sprintf("%v.SizeBytes", cmdPrefix)
+	if cmd.Flags().Changed(SizeBytesFlagName) {
 
-		var sizeBytesFlagName string
+		var SizeBytesFlagName string
 		if cmdPrefix == "" {
-			sizeBytesFlagName = "SizeBytes"
+			SizeBytesFlagName = "SizeBytes"
 		} else {
-			sizeBytesFlagName = fmt.Sprintf("%v.SizeBytes", cmdPrefix)
+			SizeBytesFlagName = fmt.Sprintf("%v.SizeBytes", cmdPrefix)
 		}
 
-		sizeBytesFlagValue, err := cmd.Flags().GetInt64(sizeBytesFlagName)
+		SizeBytesFlagValue, err := cmd.Flags().GetInt64(SizeBytesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SizeBytes = sizeBytesFlagValue
+		m.SizeBytes = SizeBytesFlagValue
 
 		retAdded = true
 	}
@@ -812,14 +812,14 @@ func registerMountVolumeOptionsDriverConfig(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	var driverConfigFlagName string
+	var DriverConfigFlagName string
 	if cmdPrefix == "" {
-		driverConfigFlagName = "DriverConfig"
+		DriverConfigFlagName = "DriverConfig"
 	} else {
-		driverConfigFlagName = fmt.Sprintf("%v.DriverConfig", cmdPrefix)
+		DriverConfigFlagName = fmt.Sprintf("%v.DriverConfig", cmdPrefix)
 	}
 
-	if err := registerModelMountVolumeOptionsDriverConfigFlags(depth+1, driverConfigFlagName, cmd); err != nil {
+	if err := registerModelMountVolumeOptionsDriverConfigFlags(depth+1, DriverConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -841,18 +841,18 @@ func registerMountVolumeOptionsNoCopy(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	noCopyDescription := `Populate volume with data from the target.`
+	NoCopyDescription := `Populate volume with data from the target.`
 
-	var noCopyFlagName string
+	var NoCopyFlagName string
 	if cmdPrefix == "" {
-		noCopyFlagName = "NoCopy"
+		NoCopyFlagName = "NoCopy"
 	} else {
-		noCopyFlagName = fmt.Sprintf("%v.NoCopy", cmdPrefix)
+		NoCopyFlagName = fmt.Sprintf("%v.NoCopy", cmdPrefix)
 	}
 
-	var noCopyFlagDefault bool
+	var NoCopyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(noCopyFlagName, noCopyFlagDefault, noCopyDescription)
+	_ = cmd.PersistentFlags().Bool(NoCopyFlagName, NoCopyFlagDefault, NoCopyDescription)
 
 	return nil
 }
@@ -861,23 +861,23 @@ func registerMountVolumeOptionsNoCopy(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelMountVolumeOptionsFlags(depth int, m *models.MountVolumeOptions, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, driverConfigAdded := retrieveMountVolumeOptionsDriverConfigFlags(depth, m, cmdPrefix, cmd)
+	err, DriverConfigAdded := retrieveMountVolumeOptionsDriverConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverConfigAdded
+	retAdded = retAdded || DriverConfigAdded
 
-	err, labelsAdded := retrieveMountVolumeOptionsLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveMountVolumeOptionsLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, noCopyAdded := retrieveMountVolumeOptionsNoCopyFlags(depth, m, cmdPrefix, cmd)
+	err, NoCopyAdded := retrieveMountVolumeOptionsNoCopyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || noCopyAdded
+	retAdded = retAdded || NoCopyAdded
 
 	return nil, retAdded
 }
@@ -888,22 +888,22 @@ func retrieveMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolum
 	}
 	retAdded := false
 
-	driverConfigFlagName := fmt.Sprintf("%v.DriverConfig", cmdPrefix)
-	if cmd.Flags().Changed(driverConfigFlagName) {
+	DriverConfigFlagName := fmt.Sprintf("%v.DriverConfig", cmdPrefix)
+	if cmd.Flags().Changed(DriverConfigFlagName) {
 		// info: complex object DriverConfig MountVolumeOptionsDriverConfig is retrieved outside this Changed() block
 	}
-	driverConfigFlagValue := m.DriverConfig
-	if swag.IsZero(driverConfigFlagValue) {
-		driverConfigFlagValue = &models.MountVolumeOptionsDriverConfig{}
+	DriverConfigFlagValue := m.DriverConfig
+	if swag.IsZero(DriverConfigFlagValue) {
+		DriverConfigFlagValue = &models.MountVolumeOptionsDriverConfig{}
 	}
 
-	err, driverConfigAdded := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, driverConfigFlagValue, driverConfigFlagName, cmd)
+	err, DriverConfigAdded := retrieveModelMountVolumeOptionsDriverConfigFlags(depth+1, DriverConfigFlagValue, DriverConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverConfigAdded
-	if driverConfigAdded {
-		m.DriverConfig = driverConfigFlagValue
+	retAdded = retAdded || DriverConfigAdded
+	if DriverConfigAdded {
+		m.DriverConfig = DriverConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -915,8 +915,8 @@ func retrieveMountVolumeOptionsLabelsFlags(depth int, m *models.MountVolumeOptio
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -929,21 +929,21 @@ func retrieveMountVolumeOptionsNoCopyFlags(depth int, m *models.MountVolumeOptio
 	}
 	retAdded := false
 
-	noCopyFlagName := fmt.Sprintf("%v.NoCopy", cmdPrefix)
-	if cmd.Flags().Changed(noCopyFlagName) {
+	NoCopyFlagName := fmt.Sprintf("%v.NoCopy", cmdPrefix)
+	if cmd.Flags().Changed(NoCopyFlagName) {
 
-		var noCopyFlagName string
+		var NoCopyFlagName string
 		if cmdPrefix == "" {
-			noCopyFlagName = "NoCopy"
+			NoCopyFlagName = "NoCopy"
 		} else {
-			noCopyFlagName = fmt.Sprintf("%v.NoCopy", cmdPrefix)
+			NoCopyFlagName = fmt.Sprintf("%v.NoCopy", cmdPrefix)
 		}
 
-		noCopyFlagValue, err := cmd.Flags().GetBool(noCopyFlagName)
+		NoCopyFlagValue, err := cmd.Flags().GetBool(NoCopyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NoCopy = &noCopyFlagValue
+		m.NoCopy = &NoCopyFlagValue
 
 		retAdded = true
 	}
@@ -972,18 +972,18 @@ func registerMountVolumeOptionsDriverConfigName(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	nameDescription := `Name of the driver to use to create the volume.`
+	NameDescription := `Name of the driver to use to create the volume.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -1002,17 +1002,17 @@ func registerMountVolumeOptionsDriverConfigOptions(depth int, cmdPrefix string, 
 func retrieveModelMountVolumeOptionsDriverConfigFlags(depth int, m *models.MountVolumeOptionsDriverConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nameAdded := retrieveMountVolumeOptionsDriverConfigNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveMountVolumeOptionsDriverConfigNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, optionsAdded := retrieveMountVolumeOptionsDriverConfigOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveMountVolumeOptionsDriverConfigOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
 	return nil, retAdded
 }
@@ -1023,21 +1023,21 @@ func retrieveMountVolumeOptionsDriverConfigNameFlags(depth int, m *models.MountV
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -1051,8 +1051,8 @@ func retrieveMountVolumeOptionsDriverConfigOptionsFlags(depth int, m *models.Mou
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 

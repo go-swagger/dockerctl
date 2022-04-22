@@ -81,18 +81,18 @@ func registerOperationImageImageLoadImagesTarballParamFlags(cmdPrefix string, cm
 }
 func registerOperationImageImageLoadQuietParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	quietDescription := `Suppress progress details during load.`
+	QuietDescription := `Suppress progress details during load.`
 
-	var quietFlagName string
+	var QuietFlagName string
 	if cmdPrefix == "" {
-		quietFlagName = "quiet"
+		QuietFlagName = "quiet"
 	} else {
-		quietFlagName = fmt.Sprintf("%v.quiet", cmdPrefix)
+		QuietFlagName = fmt.Sprintf("%v.quiet", cmdPrefix)
 	}
 
-	var quietFlagDefault bool
+	var QuietFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(quietFlagName, quietFlagDefault, quietDescription)
+	_ = cmd.PersistentFlags().Bool(QuietFlagName, QuietFlagDefault, QuietDescription)
 
 	return nil
 }
@@ -108,18 +108,18 @@ func retrieveOperationImageImageLoadQuietFlag(m *image.ImageLoadParams, cmdPrefi
 	retAdded := false
 	if cmd.Flags().Changed("quiet") {
 
-		var quietFlagName string
+		var QuietFlagName string
 		if cmdPrefix == "" {
-			quietFlagName = "quiet"
+			QuietFlagName = "quiet"
 		} else {
-			quietFlagName = fmt.Sprintf("%v.quiet", cmdPrefix)
+			QuietFlagName = fmt.Sprintf("%v.quiet", cmdPrefix)
 		}
 
-		quietFlagValue, err := cmd.Flags().GetBool(quietFlagName)
+		QuietFlagValue, err := cmd.Flags().GetBool(QuietFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Quiet = &quietFlagValue
+		m.Quiet = &QuietFlagValue
 
 	}
 	return nil, retAdded

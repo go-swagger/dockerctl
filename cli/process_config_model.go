@@ -55,18 +55,18 @@ func registerProcessConfigEntrypoint(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	entrypointDescription := ``
+	EntrypointDescription := ``
 
-	var entrypointFlagName string
+	var EntrypointFlagName string
 	if cmdPrefix == "" {
-		entrypointFlagName = "entrypoint"
+		EntrypointFlagName = "entrypoint"
 	} else {
-		entrypointFlagName = fmt.Sprintf("%v.entrypoint", cmdPrefix)
+		EntrypointFlagName = fmt.Sprintf("%v.entrypoint", cmdPrefix)
 	}
 
-	var entrypointFlagDefault string
+	var EntrypointFlagDefault string
 
-	_ = cmd.PersistentFlags().String(entrypointFlagName, entrypointFlagDefault, entrypointDescription)
+	_ = cmd.PersistentFlags().String(EntrypointFlagName, EntrypointFlagDefault, EntrypointDescription)
 
 	return nil
 }
@@ -76,18 +76,18 @@ func registerProcessConfigPrivileged(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	privilegedDescription := ``
+	PrivilegedDescription := ``
 
-	var privilegedFlagName string
+	var PrivilegedFlagName string
 	if cmdPrefix == "" {
-		privilegedFlagName = "privileged"
+		PrivilegedFlagName = "privileged"
 	} else {
-		privilegedFlagName = fmt.Sprintf("%v.privileged", cmdPrefix)
+		PrivilegedFlagName = fmt.Sprintf("%v.privileged", cmdPrefix)
 	}
 
-	var privilegedFlagDefault bool
+	var PrivilegedFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(privilegedFlagName, privilegedFlagDefault, privilegedDescription)
+	_ = cmd.PersistentFlags().Bool(PrivilegedFlagName, PrivilegedFlagDefault, PrivilegedDescription)
 
 	return nil
 }
@@ -97,18 +97,18 @@ func registerProcessConfigTty(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	ttyDescription := ``
+	TtyDescription := ``
 
-	var ttyFlagName string
+	var TtyFlagName string
 	if cmdPrefix == "" {
-		ttyFlagName = "tty"
+		TtyFlagName = "tty"
 	} else {
-		ttyFlagName = fmt.Sprintf("%v.tty", cmdPrefix)
+		TtyFlagName = fmt.Sprintf("%v.tty", cmdPrefix)
 	}
 
-	var ttyFlagDefault bool
+	var TtyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ttyFlagName, ttyFlagDefault, ttyDescription)
+	_ = cmd.PersistentFlags().Bool(TtyFlagName, TtyFlagDefault, TtyDescription)
 
 	return nil
 }
@@ -118,18 +118,18 @@ func registerProcessConfigUser(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	userDescription := ``
+	UserDescription := ``
 
-	var userFlagName string
+	var UserFlagName string
 	if cmdPrefix == "" {
-		userFlagName = "user"
+		UserFlagName = "user"
 	} else {
-		userFlagName = fmt.Sprintf("%v.user", cmdPrefix)
+		UserFlagName = fmt.Sprintf("%v.user", cmdPrefix)
 	}
 
-	var userFlagDefault string
+	var UserFlagDefault string
 
-	_ = cmd.PersistentFlags().String(userFlagName, userFlagDefault, userDescription)
+	_ = cmd.PersistentFlags().String(UserFlagName, UserFlagDefault, UserDescription)
 
 	return nil
 }
@@ -138,35 +138,35 @@ func registerProcessConfigUser(depth int, cmdPrefix string, cmd *cobra.Command) 
 func retrieveModelProcessConfigFlags(depth int, m *models.ProcessConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, argumentsAdded := retrieveProcessConfigArgumentsFlags(depth, m, cmdPrefix, cmd)
+	err, ArgumentsAdded := retrieveProcessConfigArgumentsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || argumentsAdded
+	retAdded = retAdded || ArgumentsAdded
 
-	err, entrypointAdded := retrieveProcessConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
+	err, EntrypointAdded := retrieveProcessConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || entrypointAdded
+	retAdded = retAdded || EntrypointAdded
 
-	err, privilegedAdded := retrieveProcessConfigPrivilegedFlags(depth, m, cmdPrefix, cmd)
+	err, PrivilegedAdded := retrieveProcessConfigPrivilegedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || privilegedAdded
+	retAdded = retAdded || PrivilegedAdded
 
-	err, ttyAdded := retrieveProcessConfigTtyFlags(depth, m, cmdPrefix, cmd)
+	err, TtyAdded := retrieveProcessConfigTtyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ttyAdded
+	retAdded = retAdded || TtyAdded
 
-	err, userAdded := retrieveProcessConfigUserFlags(depth, m, cmdPrefix, cmd)
+	err, UserAdded := retrieveProcessConfigUserFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || userAdded
+	retAdded = retAdded || UserAdded
 
 	return nil, retAdded
 }
@@ -177,8 +177,8 @@ func retrieveProcessConfigArgumentsFlags(depth int, m *models.ProcessConfig, cmd
 	}
 	retAdded := false
 
-	argumentsFlagName := fmt.Sprintf("%v.arguments", cmdPrefix)
-	if cmd.Flags().Changed(argumentsFlagName) {
+	ArgumentsFlagName := fmt.Sprintf("%v.arguments", cmdPrefix)
+	if cmd.Flags().Changed(ArgumentsFlagName) {
 		// warning: arguments array type []string is not supported by go-swagger cli yet
 	}
 
@@ -191,21 +191,21 @@ func retrieveProcessConfigEntrypointFlags(depth int, m *models.ProcessConfig, cm
 	}
 	retAdded := false
 
-	entrypointFlagName := fmt.Sprintf("%v.entrypoint", cmdPrefix)
-	if cmd.Flags().Changed(entrypointFlagName) {
+	EntrypointFlagName := fmt.Sprintf("%v.entrypoint", cmdPrefix)
+	if cmd.Flags().Changed(EntrypointFlagName) {
 
-		var entrypointFlagName string
+		var EntrypointFlagName string
 		if cmdPrefix == "" {
-			entrypointFlagName = "entrypoint"
+			EntrypointFlagName = "entrypoint"
 		} else {
-			entrypointFlagName = fmt.Sprintf("%v.entrypoint", cmdPrefix)
+			EntrypointFlagName = fmt.Sprintf("%v.entrypoint", cmdPrefix)
 		}
 
-		entrypointFlagValue, err := cmd.Flags().GetString(entrypointFlagName)
+		EntrypointFlagValue, err := cmd.Flags().GetString(EntrypointFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Entrypoint = entrypointFlagValue
+		m.Entrypoint = EntrypointFlagValue
 
 		retAdded = true
 	}
@@ -219,21 +219,21 @@ func retrieveProcessConfigPrivilegedFlags(depth int, m *models.ProcessConfig, cm
 	}
 	retAdded := false
 
-	privilegedFlagName := fmt.Sprintf("%v.privileged", cmdPrefix)
-	if cmd.Flags().Changed(privilegedFlagName) {
+	PrivilegedFlagName := fmt.Sprintf("%v.privileged", cmdPrefix)
+	if cmd.Flags().Changed(PrivilegedFlagName) {
 
-		var privilegedFlagName string
+		var PrivilegedFlagName string
 		if cmdPrefix == "" {
-			privilegedFlagName = "privileged"
+			PrivilegedFlagName = "privileged"
 		} else {
-			privilegedFlagName = fmt.Sprintf("%v.privileged", cmdPrefix)
+			PrivilegedFlagName = fmt.Sprintf("%v.privileged", cmdPrefix)
 		}
 
-		privilegedFlagValue, err := cmd.Flags().GetBool(privilegedFlagName)
+		PrivilegedFlagValue, err := cmd.Flags().GetBool(PrivilegedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Privileged = privilegedFlagValue
+		m.Privileged = PrivilegedFlagValue
 
 		retAdded = true
 	}
@@ -247,21 +247,21 @@ func retrieveProcessConfigTtyFlags(depth int, m *models.ProcessConfig, cmdPrefix
 	}
 	retAdded := false
 
-	ttyFlagName := fmt.Sprintf("%v.tty", cmdPrefix)
-	if cmd.Flags().Changed(ttyFlagName) {
+	TtyFlagName := fmt.Sprintf("%v.tty", cmdPrefix)
+	if cmd.Flags().Changed(TtyFlagName) {
 
-		var ttyFlagName string
+		var TtyFlagName string
 		if cmdPrefix == "" {
-			ttyFlagName = "tty"
+			TtyFlagName = "tty"
 		} else {
-			ttyFlagName = fmt.Sprintf("%v.tty", cmdPrefix)
+			TtyFlagName = fmt.Sprintf("%v.tty", cmdPrefix)
 		}
 
-		ttyFlagValue, err := cmd.Flags().GetBool(ttyFlagName)
+		TtyFlagValue, err := cmd.Flags().GetBool(TtyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tty = ttyFlagValue
+		m.Tty = TtyFlagValue
 
 		retAdded = true
 	}
@@ -275,21 +275,21 @@ func retrieveProcessConfigUserFlags(depth int, m *models.ProcessConfig, cmdPrefi
 	}
 	retAdded := false
 
-	userFlagName := fmt.Sprintf("%v.user", cmdPrefix)
-	if cmd.Flags().Changed(userFlagName) {
+	UserFlagName := fmt.Sprintf("%v.user", cmdPrefix)
+	if cmd.Flags().Changed(UserFlagName) {
 
-		var userFlagName string
+		var UserFlagName string
 		if cmdPrefix == "" {
-			userFlagName = "user"
+			UserFlagName = "user"
 		} else {
-			userFlagName = fmt.Sprintf("%v.user", cmdPrefix)
+			UserFlagName = fmt.Sprintf("%v.user", cmdPrefix)
 		}
 
-		userFlagValue, err := cmd.Flags().GetString(userFlagName)
+		UserFlagValue, err := cmd.Flags().GetString(UserFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.User = userFlagValue
+		m.User = UserFlagValue
 
 		retAdded = true
 	}

@@ -38,11 +38,11 @@ func registerServiceUpdateResponseWarnings(depth int, cmdPrefix string, cmd *cob
 func retrieveModelServiceUpdateResponseFlags(depth int, m *models.ServiceUpdateResponse, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, warningsAdded := retrieveServiceUpdateResponseWarningsFlags(depth, m, cmdPrefix, cmd)
+	err, WarningsAdded := retrieveServiceUpdateResponseWarningsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || warningsAdded
+	retAdded = retAdded || WarningsAdded
 
 	return nil, retAdded
 }
@@ -53,8 +53,8 @@ func retrieveServiceUpdateResponseWarningsFlags(depth int, m *models.ServiceUpda
 	}
 	retAdded := false
 
-	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
-	if cmd.Flags().Changed(warningsFlagName) {
+	WarningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
+	if cmd.Flags().Changed(WarningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
 

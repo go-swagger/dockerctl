@@ -47,14 +47,14 @@ func registerNodeDescriptionEngine(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	var engineFlagName string
+	var EngineFlagName string
 	if cmdPrefix == "" {
-		engineFlagName = "Engine"
+		EngineFlagName = "Engine"
 	} else {
-		engineFlagName = fmt.Sprintf("%v.Engine", cmdPrefix)
+		EngineFlagName = fmt.Sprintf("%v.Engine", cmdPrefix)
 	}
 
-	if err := registerModelEngineDescriptionFlags(depth+1, engineFlagName, cmd); err != nil {
+	if err := registerModelEngineDescriptionFlags(depth+1, EngineFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -66,18 +66,18 @@ func registerNodeDescriptionHostname(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	hostnameDescription := ``
+	HostnameDescription := ``
 
-	var hostnameFlagName string
+	var HostnameFlagName string
 	if cmdPrefix == "" {
-		hostnameFlagName = "Hostname"
+		HostnameFlagName = "Hostname"
 	} else {
-		hostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
+		HostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
 	}
 
-	var hostnameFlagDefault string
+	var HostnameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(hostnameFlagName, hostnameFlagDefault, hostnameDescription)
+	_ = cmd.PersistentFlags().String(HostnameFlagName, HostnameFlagDefault, HostnameDescription)
 
 	return nil
 }
@@ -87,14 +87,14 @@ func registerNodeDescriptionPlatform(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	var platformFlagName string
+	var PlatformFlagName string
 	if cmdPrefix == "" {
-		platformFlagName = "Platform"
+		PlatformFlagName = "Platform"
 	} else {
-		platformFlagName = fmt.Sprintf("%v.Platform", cmdPrefix)
+		PlatformFlagName = fmt.Sprintf("%v.Platform", cmdPrefix)
 	}
 
-	if err := registerModelPlatformFlags(depth+1, platformFlagName, cmd); err != nil {
+	if err := registerModelPlatformFlags(depth+1, PlatformFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -106,14 +106,14 @@ func registerNodeDescriptionResources(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	var resourcesFlagName string
+	var ResourcesFlagName string
 	if cmdPrefix == "" {
-		resourcesFlagName = "Resources"
+		ResourcesFlagName = "Resources"
 	} else {
-		resourcesFlagName = fmt.Sprintf("%v.Resources", cmdPrefix)
+		ResourcesFlagName = fmt.Sprintf("%v.Resources", cmdPrefix)
 	}
 
-	if err := registerModelResourceObjectFlags(depth+1, resourcesFlagName, cmd); err != nil {
+	if err := registerModelResourceObjectFlags(depth+1, ResourcesFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -125,14 +125,14 @@ func registerNodeDescriptionTLSInfo(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	var tlsInfoFlagName string
+	var TLSInfoFlagName string
 	if cmdPrefix == "" {
-		tlsInfoFlagName = "TLSInfo"
+		TLSInfoFlagName = "TLSInfo"
 	} else {
-		tlsInfoFlagName = fmt.Sprintf("%v.TLSInfo", cmdPrefix)
+		TLSInfoFlagName = fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	}
 
-	if err := registerModelTLSInfoFlags(depth+1, tlsInfoFlagName, cmd); err != nil {
+	if err := registerModelTLSInfoFlags(depth+1, TLSInfoFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -143,35 +143,35 @@ func registerNodeDescriptionTLSInfo(depth int, cmdPrefix string, cmd *cobra.Comm
 func retrieveModelNodeDescriptionFlags(depth int, m *models.NodeDescription, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, engineAdded := retrieveNodeDescriptionEngineFlags(depth, m, cmdPrefix, cmd)
+	err, EngineAdded := retrieveNodeDescriptionEngineFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || engineAdded
+	retAdded = retAdded || EngineAdded
 
-	err, hostnameAdded := retrieveNodeDescriptionHostnameFlags(depth, m, cmdPrefix, cmd)
+	err, HostnameAdded := retrieveNodeDescriptionHostnameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hostnameAdded
+	retAdded = retAdded || HostnameAdded
 
-	err, platformAdded := retrieveNodeDescriptionPlatformFlags(depth, m, cmdPrefix, cmd)
+	err, PlatformAdded := retrieveNodeDescriptionPlatformFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || platformAdded
+	retAdded = retAdded || PlatformAdded
 
-	err, resourcesAdded := retrieveNodeDescriptionResourcesFlags(depth, m, cmdPrefix, cmd)
+	err, ResourcesAdded := retrieveNodeDescriptionResourcesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || resourcesAdded
+	retAdded = retAdded || ResourcesAdded
 
-	err, tlsInfoAdded := retrieveNodeDescriptionTLSInfoFlags(depth, m, cmdPrefix, cmd)
+	err, TLSInfoAdded := retrieveNodeDescriptionTLSInfoFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tlsInfoAdded
+	retAdded = retAdded || TLSInfoAdded
 
 	return nil, retAdded
 }
@@ -182,22 +182,22 @@ func retrieveNodeDescriptionEngineFlags(depth int, m *models.NodeDescription, cm
 	}
 	retAdded := false
 
-	engineFlagName := fmt.Sprintf("%v.Engine", cmdPrefix)
-	if cmd.Flags().Changed(engineFlagName) {
+	EngineFlagName := fmt.Sprintf("%v.Engine", cmdPrefix)
+	if cmd.Flags().Changed(EngineFlagName) {
 		// info: complex object Engine EngineDescription is retrieved outside this Changed() block
 	}
-	engineFlagValue := m.Engine
-	if swag.IsZero(engineFlagValue) {
-		engineFlagValue = &models.EngineDescription{}
+	EngineFlagValue := m.Engine
+	if swag.IsZero(EngineFlagValue) {
+		EngineFlagValue = &models.EngineDescription{}
 	}
 
-	err, engineAdded := retrieveModelEngineDescriptionFlags(depth+1, engineFlagValue, engineFlagName, cmd)
+	err, EngineAdded := retrieveModelEngineDescriptionFlags(depth+1, EngineFlagValue, EngineFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || engineAdded
-	if engineAdded {
-		m.Engine = engineFlagValue
+	retAdded = retAdded || EngineAdded
+	if EngineAdded {
+		m.Engine = EngineFlagValue
 	}
 
 	return nil, retAdded
@@ -209,21 +209,21 @@ func retrieveNodeDescriptionHostnameFlags(depth int, m *models.NodeDescription, 
 	}
 	retAdded := false
 
-	hostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
-	if cmd.Flags().Changed(hostnameFlagName) {
+	HostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
+	if cmd.Flags().Changed(HostnameFlagName) {
 
-		var hostnameFlagName string
+		var HostnameFlagName string
 		if cmdPrefix == "" {
-			hostnameFlagName = "Hostname"
+			HostnameFlagName = "Hostname"
 		} else {
-			hostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
+			HostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
 		}
 
-		hostnameFlagValue, err := cmd.Flags().GetString(hostnameFlagName)
+		HostnameFlagValue, err := cmd.Flags().GetString(HostnameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Hostname = hostnameFlagValue
+		m.Hostname = HostnameFlagValue
 
 		retAdded = true
 	}
@@ -237,22 +237,22 @@ func retrieveNodeDescriptionPlatformFlags(depth int, m *models.NodeDescription, 
 	}
 	retAdded := false
 
-	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
-	if cmd.Flags().Changed(platformFlagName) {
+	PlatformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
+	if cmd.Flags().Changed(PlatformFlagName) {
 		// info: complex object Platform Platform is retrieved outside this Changed() block
 	}
-	platformFlagValue := m.Platform
-	if swag.IsZero(platformFlagValue) {
-		platformFlagValue = &models.Platform{}
+	PlatformFlagValue := m.Platform
+	if swag.IsZero(PlatformFlagValue) {
+		PlatformFlagValue = &models.Platform{}
 	}
 
-	err, platformAdded := retrieveModelPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
+	err, PlatformAdded := retrieveModelPlatformFlags(depth+1, PlatformFlagValue, PlatformFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || platformAdded
-	if platformAdded {
-		m.Platform = platformFlagValue
+	retAdded = retAdded || PlatformAdded
+	if PlatformAdded {
+		m.Platform = PlatformFlagValue
 	}
 
 	return nil, retAdded
@@ -264,22 +264,22 @@ func retrieveNodeDescriptionResourcesFlags(depth int, m *models.NodeDescription,
 	}
 	retAdded := false
 
-	resourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
-	if cmd.Flags().Changed(resourcesFlagName) {
+	ResourcesFlagName := fmt.Sprintf("%v.Resources", cmdPrefix)
+	if cmd.Flags().Changed(ResourcesFlagName) {
 		// info: complex object Resources ResourceObject is retrieved outside this Changed() block
 	}
-	resourcesFlagValue := m.Resources
-	if swag.IsZero(resourcesFlagValue) {
-		resourcesFlagValue = &models.ResourceObject{}
+	ResourcesFlagValue := m.Resources
+	if swag.IsZero(ResourcesFlagValue) {
+		ResourcesFlagValue = &models.ResourceObject{}
 	}
 
-	err, resourcesAdded := retrieveModelResourceObjectFlags(depth+1, resourcesFlagValue, resourcesFlagName, cmd)
+	err, ResourcesAdded := retrieveModelResourceObjectFlags(depth+1, ResourcesFlagValue, ResourcesFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || resourcesAdded
-	if resourcesAdded {
-		m.Resources = resourcesFlagValue
+	retAdded = retAdded || ResourcesAdded
+	if ResourcesAdded {
+		m.Resources = ResourcesFlagValue
 	}
 
 	return nil, retAdded
@@ -291,22 +291,22 @@ func retrieveNodeDescriptionTLSInfoFlags(depth int, m *models.NodeDescription, c
 	}
 	retAdded := false
 
-	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
-	if cmd.Flags().Changed(tlsInfoFlagName) {
+	TLSInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
+	if cmd.Flags().Changed(TLSInfoFlagName) {
 		// info: complex object TLSInfo TLSInfo is retrieved outside this Changed() block
 	}
-	tlsInfoFlagValue := m.TLSInfo
-	if swag.IsZero(tlsInfoFlagValue) {
-		tlsInfoFlagValue = &models.TLSInfo{}
+	TLSInfoFlagValue := m.TLSInfo
+	if swag.IsZero(TLSInfoFlagValue) {
+		TLSInfoFlagValue = &models.TLSInfo{}
 	}
 
-	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
+	err, TLSInfoAdded := retrieveModelTLSInfoFlags(depth+1, TLSInfoFlagValue, TLSInfoFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tlsInfoAdded
-	if tlsInfoAdded {
-		m.TLSInfo = tlsInfoFlagValue
+	retAdded = retAdded || TLSInfoAdded
+	if TLSInfoAdded {
+		m.TLSInfo = TLSInfoFlagValue
 	}
 
 	return nil, retAdded

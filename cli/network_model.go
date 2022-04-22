@@ -79,18 +79,18 @@ func registerNetworkAttachable(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	attachableDescription := ``
+	AttachableDescription := ``
 
-	var attachableFlagName string
+	var AttachableFlagName string
 	if cmdPrefix == "" {
-		attachableFlagName = "Attachable"
+		AttachableFlagName = "Attachable"
 	} else {
-		attachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
+		AttachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
 	}
 
-	var attachableFlagDefault bool
+	var AttachableFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(attachableFlagName, attachableFlagDefault, attachableDescription)
+	_ = cmd.PersistentFlags().Bool(AttachableFlagName, AttachableFlagDefault, AttachableDescription)
 
 	return nil
 }
@@ -110,18 +110,18 @@ func registerNetworkCreated(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	createdDescription := ``
+	CreatedDescription := ``
 
-	var createdFlagName string
+	var CreatedFlagName string
 	if cmdPrefix == "" {
-		createdFlagName = "Created"
+		CreatedFlagName = "Created"
 	} else {
-		createdFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
+		CreatedFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
 	}
 
-	var createdFlagDefault string
+	var CreatedFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdFlagName, createdFlagDefault, createdDescription)
+	_ = cmd.PersistentFlags().String(CreatedFlagName, CreatedFlagDefault, CreatedDescription)
 
 	return nil
 }
@@ -131,18 +131,18 @@ func registerNetworkDriver(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	driverDescription := ``
+	DriverDescription := ``
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string
+	var DriverFlagDefault string
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -152,18 +152,18 @@ func registerNetworkEnableIPV6(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	enableIpv6Description := ``
+	EnableIPV6Description := ``
 
-	var enableIpv6FlagName string
+	var EnableIPV6FlagName string
 	if cmdPrefix == "" {
-		enableIpv6FlagName = "EnableIPv6"
+		EnableIPV6FlagName = "EnableIPv6"
 	} else {
-		enableIpv6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
+		EnableIPV6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
 	}
 
-	var enableIpv6FlagDefault bool
+	var EnableIPV6FlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(enableIpv6FlagName, enableIpv6FlagDefault, enableIpv6Description)
+	_ = cmd.PersistentFlags().Bool(EnableIPV6FlagName, EnableIPV6FlagDefault, EnableIPV6Description)
 
 	return nil
 }
@@ -173,14 +173,14 @@ func registerNetworkIPAM(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	var ipAMFlagName string
+	var IPAMFlagName string
 	if cmdPrefix == "" {
-		ipAMFlagName = "IPAM"
+		IPAMFlagName = "IPAM"
 	} else {
-		ipAMFlagName = fmt.Sprintf("%v.IPAM", cmdPrefix)
+		IPAMFlagName = fmt.Sprintf("%v.IPAM", cmdPrefix)
 	}
 
-	if err := registerModelIPAMFlags(depth+1, ipAMFlagName, cmd); err != nil {
+	if err := registerModelIPAMFlags(depth+1, IPAMFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -192,18 +192,18 @@ func registerNetworkID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -213,18 +213,18 @@ func registerNetworkIngress(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	ingressDescription := ``
+	IngressDescription := ``
 
-	var ingressFlagName string
+	var IngressFlagName string
 	if cmdPrefix == "" {
-		ingressFlagName = "Ingress"
+		IngressFlagName = "Ingress"
 	} else {
-		ingressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
+		IngressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
 	}
 
-	var ingressFlagDefault bool
+	var IngressFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ingressFlagName, ingressFlagDefault, ingressDescription)
+	_ = cmd.PersistentFlags().Bool(IngressFlagName, IngressFlagDefault, IngressDescription)
 
 	return nil
 }
@@ -234,18 +234,18 @@ func registerNetworkInternal(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	internalDescription := ``
+	InternalDescription := ``
 
-	var internalFlagName string
+	var InternalFlagName string
 	if cmdPrefix == "" {
-		internalFlagName = "Internal"
+		InternalFlagName = "Internal"
 	} else {
-		internalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
+		InternalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
 	}
 
-	var internalFlagDefault bool
+	var InternalFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(internalFlagName, internalFlagDefault, internalDescription)
+	_ = cmd.PersistentFlags().Bool(InternalFlagName, InternalFlagDefault, InternalDescription)
 
 	return nil
 }
@@ -265,18 +265,18 @@ func registerNetworkName(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -296,18 +296,18 @@ func registerNetworkScope(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	scopeDescription := ``
+	ScopeDescription := ``
 
-	var scopeFlagName string
+	var ScopeFlagName string
 	if cmdPrefix == "" {
-		scopeFlagName = "Scope"
+		ScopeFlagName = "Scope"
 	} else {
-		scopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
+		ScopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
 	}
 
-	var scopeFlagDefault string
+	var ScopeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(scopeFlagName, scopeFlagDefault, scopeDescription)
+	_ = cmd.PersistentFlags().String(ScopeFlagName, ScopeFlagDefault, ScopeDescription)
 
 	return nil
 }
@@ -316,83 +316,83 @@ func registerNetworkScope(depth int, cmdPrefix string, cmd *cobra.Command) error
 func retrieveModelNetworkFlags(depth int, m *models.Network, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, attachableAdded := retrieveNetworkAttachableFlags(depth, m, cmdPrefix, cmd)
+	err, AttachableAdded := retrieveNetworkAttachableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachableAdded
+	retAdded = retAdded || AttachableAdded
 
-	err, containersAdded := retrieveNetworkContainersFlags(depth, m, cmdPrefix, cmd)
+	err, ContainersAdded := retrieveNetworkContainersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containersAdded
+	retAdded = retAdded || ContainersAdded
 
-	err, createdAdded := retrieveNetworkCreatedFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAdded := retrieveNetworkCreatedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAdded
+	retAdded = retAdded || CreatedAdded
 
-	err, driverAdded := retrieveNetworkDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveNetworkDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, enableIpv6Added := retrieveNetworkEnableIPV6Flags(depth, m, cmdPrefix, cmd)
+	err, EnableIPV6Added := retrieveNetworkEnableIPV6Flags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || enableIpv6Added
+	retAdded = retAdded || EnableIPV6Added
 
-	err, ipAMAdded := retrieveNetworkIPAMFlags(depth, m, cmdPrefix, cmd)
+	err, IPAMAdded := retrieveNetworkIPAMFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAMAdded
+	retAdded = retAdded || IPAMAdded
 
-	err, idAdded := retrieveNetworkIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveNetworkIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, ingressAdded := retrieveNetworkIngressFlags(depth, m, cmdPrefix, cmd)
+	err, IngressAdded := retrieveNetworkIngressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ingressAdded
+	retAdded = retAdded || IngressAdded
 
-	err, internalAdded := retrieveNetworkInternalFlags(depth, m, cmdPrefix, cmd)
+	err, InternalAdded := retrieveNetworkInternalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || internalAdded
+	retAdded = retAdded || InternalAdded
 
-	err, labelsAdded := retrieveNetworkLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveNetworkLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, nameAdded := retrieveNetworkNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveNetworkNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, optionsAdded := retrieveNetworkOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveNetworkOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
-	err, scopeAdded := retrieveNetworkScopeFlags(depth, m, cmdPrefix, cmd)
+	err, ScopeAdded := retrieveNetworkScopeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || scopeAdded
+	retAdded = retAdded || ScopeAdded
 
 	return nil, retAdded
 }
@@ -403,21 +403,21 @@ func retrieveNetworkAttachableFlags(depth int, m *models.Network, cmdPrefix stri
 	}
 	retAdded := false
 
-	attachableFlagName := fmt.Sprintf("%v.Attachable", cmdPrefix)
-	if cmd.Flags().Changed(attachableFlagName) {
+	AttachableFlagName := fmt.Sprintf("%v.Attachable", cmdPrefix)
+	if cmd.Flags().Changed(AttachableFlagName) {
 
-		var attachableFlagName string
+		var AttachableFlagName string
 		if cmdPrefix == "" {
-			attachableFlagName = "Attachable"
+			AttachableFlagName = "Attachable"
 		} else {
-			attachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
+			AttachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
 		}
 
-		attachableFlagValue, err := cmd.Flags().GetBool(attachableFlagName)
+		AttachableFlagValue, err := cmd.Flags().GetBool(AttachableFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Attachable = attachableFlagValue
+		m.Attachable = AttachableFlagValue
 
 		retAdded = true
 	}
@@ -431,8 +431,8 @@ func retrieveNetworkContainersFlags(depth int, m *models.Network, cmdPrefix stri
 	}
 	retAdded := false
 
-	containersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
-	if cmd.Flags().Changed(containersFlagName) {
+	ContainersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
+	if cmd.Flags().Changed(ContainersFlagName) {
 		// warning: Containers map type map[string]NetworkContainer is not supported by go-swagger cli yet
 	}
 
@@ -445,21 +445,21 @@ func retrieveNetworkCreatedFlags(depth int, m *models.Network, cmdPrefix string,
 	}
 	retAdded := false
 
-	createdFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
-	if cmd.Flags().Changed(createdFlagName) {
+	CreatedFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
+	if cmd.Flags().Changed(CreatedFlagName) {
 
-		var createdFlagName string
+		var CreatedFlagName string
 		if cmdPrefix == "" {
-			createdFlagName = "Created"
+			CreatedFlagName = "Created"
 		} else {
-			createdFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
+			CreatedFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
 		}
 
-		createdFlagValue, err := cmd.Flags().GetString(createdFlagName)
+		CreatedFlagValue, err := cmd.Flags().GetString(CreatedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Created = createdFlagValue
+		m.Created = CreatedFlagValue
 
 		retAdded = true
 	}
@@ -473,21 +473,21 @@ func retrieveNetworkDriverFlags(depth int, m *models.Network, cmdPrefix string, 
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = driverFlagValue
+		m.Driver = DriverFlagValue
 
 		retAdded = true
 	}
@@ -501,21 +501,21 @@ func retrieveNetworkEnableIPV6Flags(depth int, m *models.Network, cmdPrefix stri
 	}
 	retAdded := false
 
-	enableIpv6FlagName := fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
-	if cmd.Flags().Changed(enableIpv6FlagName) {
+	EnableIPV6FlagName := fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
+	if cmd.Flags().Changed(EnableIPV6FlagName) {
 
-		var enableIpv6FlagName string
+		var EnableIPV6FlagName string
 		if cmdPrefix == "" {
-			enableIpv6FlagName = "EnableIPv6"
+			EnableIPV6FlagName = "EnableIPv6"
 		} else {
-			enableIpv6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
+			EnableIPV6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
 		}
 
-		enableIpv6FlagValue, err := cmd.Flags().GetBool(enableIpv6FlagName)
+		EnableIPV6FlagValue, err := cmd.Flags().GetBool(EnableIPV6FlagName)
 		if err != nil {
 			return err, false
 		}
-		m.EnableIPV6 = enableIpv6FlagValue
+		m.EnableIPV6 = EnableIPV6FlagValue
 
 		retAdded = true
 	}
@@ -529,22 +529,22 @@ func retrieveNetworkIPAMFlags(depth int, m *models.Network, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
-	if cmd.Flags().Changed(ipAMFlagName) {
+	IPAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
+	if cmd.Flags().Changed(IPAMFlagName) {
 		// info: complex object IPAM IPAM is retrieved outside this Changed() block
 	}
-	ipAMFlagValue := m.IPAM
-	if swag.IsZero(ipAMFlagValue) {
-		ipAMFlagValue = &models.IPAM{}
+	IPAMFlagValue := m.IPAM
+	if swag.IsZero(IPAMFlagValue) {
+		IPAMFlagValue = &models.IPAM{}
 	}
 
-	err, ipAMAdded := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
+	err, IPAMAdded := retrieveModelIPAMFlags(depth+1, IPAMFlagValue, IPAMFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAMAdded
-	if ipAMAdded {
-		m.IPAM = ipAMFlagValue
+	retAdded = retAdded || IPAMAdded
+	if IPAMAdded {
+		m.IPAM = IPAMFlagValue
 	}
 
 	return nil, retAdded
@@ -556,21 +556,21 @@ func retrieveNetworkIDFlags(depth int, m *models.Network, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -584,21 +584,21 @@ func retrieveNetworkIngressFlags(depth int, m *models.Network, cmdPrefix string,
 	}
 	retAdded := false
 
-	ingressFlagName := fmt.Sprintf("%v.Ingress", cmdPrefix)
-	if cmd.Flags().Changed(ingressFlagName) {
+	IngressFlagName := fmt.Sprintf("%v.Ingress", cmdPrefix)
+	if cmd.Flags().Changed(IngressFlagName) {
 
-		var ingressFlagName string
+		var IngressFlagName string
 		if cmdPrefix == "" {
-			ingressFlagName = "Ingress"
+			IngressFlagName = "Ingress"
 		} else {
-			ingressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
+			IngressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
 		}
 
-		ingressFlagValue, err := cmd.Flags().GetBool(ingressFlagName)
+		IngressFlagValue, err := cmd.Flags().GetBool(IngressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Ingress = ingressFlagValue
+		m.Ingress = IngressFlagValue
 
 		retAdded = true
 	}
@@ -612,21 +612,21 @@ func retrieveNetworkInternalFlags(depth int, m *models.Network, cmdPrefix string
 	}
 	retAdded := false
 
-	internalFlagName := fmt.Sprintf("%v.Internal", cmdPrefix)
-	if cmd.Flags().Changed(internalFlagName) {
+	InternalFlagName := fmt.Sprintf("%v.Internal", cmdPrefix)
+	if cmd.Flags().Changed(InternalFlagName) {
 
-		var internalFlagName string
+		var InternalFlagName string
 		if cmdPrefix == "" {
-			internalFlagName = "Internal"
+			InternalFlagName = "Internal"
 		} else {
-			internalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
+			InternalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
 		}
 
-		internalFlagValue, err := cmd.Flags().GetBool(internalFlagName)
+		InternalFlagValue, err := cmd.Flags().GetBool(InternalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Internal = internalFlagValue
+		m.Internal = InternalFlagValue
 
 		retAdded = true
 	}
@@ -640,8 +640,8 @@ func retrieveNetworkLabelsFlags(depth int, m *models.Network, cmdPrefix string, 
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -654,21 +654,21 @@ func retrieveNetworkNameFlags(depth int, m *models.Network, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -682,8 +682,8 @@ func retrieveNetworkOptionsFlags(depth int, m *models.Network, cmdPrefix string,
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -696,21 +696,21 @@ func retrieveNetworkScopeFlags(depth int, m *models.Network, cmdPrefix string, c
 	}
 	retAdded := false
 
-	scopeFlagName := fmt.Sprintf("%v.Scope", cmdPrefix)
-	if cmd.Flags().Changed(scopeFlagName) {
+	ScopeFlagName := fmt.Sprintf("%v.Scope", cmdPrefix)
+	if cmd.Flags().Changed(ScopeFlagName) {
 
-		var scopeFlagName string
+		var ScopeFlagName string
 		if cmdPrefix == "" {
-			scopeFlagName = "Scope"
+			ScopeFlagName = "Scope"
 		} else {
-			scopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
+			ScopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
 		}
 
-		scopeFlagValue, err := cmd.Flags().GetString(scopeFlagName)
+		ScopeFlagValue, err := cmd.Flags().GetString(ScopeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Scope = scopeFlagValue
+		m.Scope = ScopeFlagValue
 
 		retAdded = true
 	}

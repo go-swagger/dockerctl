@@ -92,35 +92,35 @@ func registerOperationContainerPutContainerArchiveParamFlags(cmd *cobra.Command)
 
 func registerOperationContainerPutContainerArchiveCopyUIDGIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	copyUidGIdDescription := `If “1”, “true”, then it will copy UID/GID maps to the dest file or dir`
+	CopyUIDGIDDescription := `If “1”, “true”, then it will copy UID/GID maps to the dest file or dir`
 
-	var copyUidGIdFlagName string
+	var CopyUIDGIDFlagName string
 	if cmdPrefix == "" {
-		copyUidGIdFlagName = "copyUIDGID"
+		CopyUIDGIDFlagName = "copyUIDGID"
 	} else {
-		copyUidGIdFlagName = fmt.Sprintf("%v.copyUIDGID", cmdPrefix)
+		CopyUIDGIDFlagName = fmt.Sprintf("%v.copyUIDGID", cmdPrefix)
 	}
 
-	var copyUidGIdFlagDefault string
+	var CopyUIDGIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(copyUidGIdFlagName, copyUidGIdFlagDefault, copyUidGIdDescription)
+	_ = cmd.PersistentFlags().String(CopyUIDGIDFlagName, CopyUIDGIDFlagDefault, CopyUIDGIDDescription)
 
 	return nil
 }
 func registerOperationContainerPutContainerArchiveIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -130,35 +130,35 @@ func registerOperationContainerPutContainerArchiveInputStreamParamFlags(cmdPrefi
 }
 func registerOperationContainerPutContainerArchiveNoOverwriteDirNonDirParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	noOverwriteDirNonDirDescription := `If “1”, “true”, or “True” then it will be an error if unpacking the given content would cause an existing directory to be replaced with a non-directory and vice versa.`
+	NoOverwriteDirNonDirDescription := `If “1”, “true”, or “True” then it will be an error if unpacking the given content would cause an existing directory to be replaced with a non-directory and vice versa.`
 
-	var noOverwriteDirNonDirFlagName string
+	var NoOverwriteDirNonDirFlagName string
 	if cmdPrefix == "" {
-		noOverwriteDirNonDirFlagName = "noOverwriteDirNonDir"
+		NoOverwriteDirNonDirFlagName = "noOverwriteDirNonDir"
 	} else {
-		noOverwriteDirNonDirFlagName = fmt.Sprintf("%v.noOverwriteDirNonDir", cmdPrefix)
+		NoOverwriteDirNonDirFlagName = fmt.Sprintf("%v.noOverwriteDirNonDir", cmdPrefix)
 	}
 
-	var noOverwriteDirNonDirFlagDefault string
+	var NoOverwriteDirNonDirFlagDefault string
 
-	_ = cmd.PersistentFlags().String(noOverwriteDirNonDirFlagName, noOverwriteDirNonDirFlagDefault, noOverwriteDirNonDirDescription)
+	_ = cmd.PersistentFlags().String(NoOverwriteDirNonDirFlagName, NoOverwriteDirNonDirFlagDefault, NoOverwriteDirNonDirDescription)
 
 	return nil
 }
 func registerOperationContainerPutContainerArchivePathParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	pathDescription := `Required. Path to a directory in the container to extract the archive’s contents into. `
+	PathDescription := `Required. Path to a directory in the container to extract the archive’s contents into. `
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "path"
+		PathFlagName = "path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -167,18 +167,18 @@ func retrieveOperationContainerPutContainerArchiveCopyUIDGIDFlag(m *container.Pu
 	retAdded := false
 	if cmd.Flags().Changed("copyUIDGID") {
 
-		var copyUidGIdFlagName string
+		var CopyUIDGIDFlagName string
 		if cmdPrefix == "" {
-			copyUidGIdFlagName = "copyUIDGID"
+			CopyUIDGIDFlagName = "copyUIDGID"
 		} else {
-			copyUidGIdFlagName = fmt.Sprintf("%v.copyUIDGID", cmdPrefix)
+			CopyUIDGIDFlagName = fmt.Sprintf("%v.copyUIDGID", cmdPrefix)
 		}
 
-		copyUidGIdFlagValue, err := cmd.Flags().GetString(copyUidGIdFlagName)
+		CopyUIDGIDFlagValue, err := cmd.Flags().GetString(CopyUIDGIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CopyUIDGID = &copyUidGIdFlagValue
+		m.CopyUIDGID = &CopyUIDGIDFlagValue
 
 	}
 	return nil, retAdded
@@ -187,18 +187,18 @@ func retrieveOperationContainerPutContainerArchiveIDFlag(m *container.PutContain
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -214,18 +214,18 @@ func retrieveOperationContainerPutContainerArchiveNoOverwriteDirNonDirFlag(m *co
 	retAdded := false
 	if cmd.Flags().Changed("noOverwriteDirNonDir") {
 
-		var noOverwriteDirNonDirFlagName string
+		var NoOverwriteDirNonDirFlagName string
 		if cmdPrefix == "" {
-			noOverwriteDirNonDirFlagName = "noOverwriteDirNonDir"
+			NoOverwriteDirNonDirFlagName = "noOverwriteDirNonDir"
 		} else {
-			noOverwriteDirNonDirFlagName = fmt.Sprintf("%v.noOverwriteDirNonDir", cmdPrefix)
+			NoOverwriteDirNonDirFlagName = fmt.Sprintf("%v.noOverwriteDirNonDir", cmdPrefix)
 		}
 
-		noOverwriteDirNonDirFlagValue, err := cmd.Flags().GetString(noOverwriteDirNonDirFlagName)
+		NoOverwriteDirNonDirFlagValue, err := cmd.Flags().GetString(NoOverwriteDirNonDirFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NoOverwriteDirNonDir = &noOverwriteDirNonDirFlagValue
+		m.NoOverwriteDirNonDir = &NoOverwriteDirNonDirFlagValue
 
 	}
 	return nil, retAdded
@@ -234,18 +234,18 @@ func retrieveOperationContainerPutContainerArchivePathFlag(m *container.PutConta
 	retAdded := false
 	if cmd.Flags().Changed("path") {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "path"
+			PathFlagName = "path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = pathFlagValue
+		m.Path = PathFlagValue
 
 	}
 	return nil, retAdded

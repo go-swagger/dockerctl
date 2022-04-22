@@ -68,7 +68,7 @@ func registerOperationImageImagePruneParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImagePruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `). Available filters:
+	FiltersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `). Available filters:
 
 - ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), prune only
    unused *and* untagged images. When set to ` + "`" + `false` + "`" + `
@@ -77,16 +77,16 @@ func registerOperationImageImagePruneFiltersParamFlags(cmdPrefix string, cmd *co
 - ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune images with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -95,18 +95,18 @@ func retrieveOperationImageImagePruneFiltersFlag(m *image.ImagePruneParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -183,18 +183,18 @@ func registerImagePruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	spaceReclaimedDescription := `Disk space reclaimed in bytes`
+	SpaceReclaimedDescription := `Disk space reclaimed in bytes`
 
-	var spaceReclaimedFlagName string
+	var SpaceReclaimedFlagName string
 	if cmdPrefix == "" {
-		spaceReclaimedFlagName = "SpaceReclaimed"
+		SpaceReclaimedFlagName = "SpaceReclaimed"
 	} else {
-		spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+		SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	}
 
-	var spaceReclaimedFlagDefault int64
+	var SpaceReclaimedFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(spaceReclaimedFlagName, spaceReclaimedFlagDefault, spaceReclaimedDescription)
+	_ = cmd.PersistentFlags().Int64(SpaceReclaimedFlagName, SpaceReclaimedFlagDefault, SpaceReclaimedDescription)
 
 	return nil
 }
@@ -203,17 +203,17 @@ func registerImagePruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd *co
 func retrieveModelImagePruneOKBodyFlags(depth int, m *image.ImagePruneOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, imagesDeletedAdded := retrieveImagePruneOKBodyImagesDeletedFlags(depth, m, cmdPrefix, cmd)
+	err, ImagesDeletedAdded := retrieveImagePruneOKBodyImagesDeletedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || imagesDeletedAdded
+	retAdded = retAdded || ImagesDeletedAdded
 
-	err, spaceReclaimedAdded := retrieveImagePruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
+	err, SpaceReclaimedAdded := retrieveImagePruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || spaceReclaimedAdded
+	retAdded = retAdded || SpaceReclaimedAdded
 
 	return nil, retAdded
 }
@@ -224,8 +224,8 @@ func retrieveImagePruneOKBodyImagesDeletedFlags(depth int, m *image.ImagePruneOK
 	}
 	retAdded := false
 
-	imagesDeletedFlagName := fmt.Sprintf("%v.ImagesDeleted", cmdPrefix)
-	if cmd.Flags().Changed(imagesDeletedFlagName) {
+	ImagesDeletedFlagName := fmt.Sprintf("%v.ImagesDeleted", cmdPrefix)
+	if cmd.Flags().Changed(ImagesDeletedFlagName) {
 		// warning: ImagesDeleted array type []*models.ImageDeleteResponseItem is not supported by go-swagger cli yet
 	}
 
@@ -238,21 +238,21 @@ func retrieveImagePruneOKBodySpaceReclaimedFlags(depth int, m *image.ImagePruneO
 	}
 	retAdded := false
 
-	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
-	if cmd.Flags().Changed(spaceReclaimedFlagName) {
+	SpaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+	if cmd.Flags().Changed(SpaceReclaimedFlagName) {
 
-		var spaceReclaimedFlagName string
+		var SpaceReclaimedFlagName string
 		if cmdPrefix == "" {
-			spaceReclaimedFlagName = "SpaceReclaimed"
+			SpaceReclaimedFlagName = "SpaceReclaimed"
 		} else {
-			spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+			SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 		}
 
-		spaceReclaimedFlagValue, err := cmd.Flags().GetInt64(spaceReclaimedFlagName)
+		SpaceReclaimedFlagValue, err := cmd.Flags().GetInt64(SpaceReclaimedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SpaceReclaimed = spaceReclaimedFlagValue
+		m.SpaceReclaimed = SpaceReclaimedFlagValue
 
 		retAdded = true
 	}

@@ -68,18 +68,18 @@ func registerOperationSwarmSwarmLeaveParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSwarmSwarmLeaveForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	forceDescription := `Force leave swarm, even if this is the last manager or that it will break the cluster.`
+	ForceDescription := `Force leave swarm, even if this is the last manager or that it will break the cluster.`
 
-	var forceFlagName string
+	var ForceFlagName string
 	if cmdPrefix == "" {
-		forceFlagName = "force"
+		ForceFlagName = "force"
 	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+		ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 	}
 
-	var forceFlagDefault bool
+	var ForceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+	_ = cmd.PersistentFlags().Bool(ForceFlagName, ForceFlagDefault, ForceDescription)
 
 	return nil
 }
@@ -88,18 +88,18 @@ func retrieveOperationSwarmSwarmLeaveForceFlag(m *swarm.SwarmLeaveParams, cmdPre
 	retAdded := false
 	if cmd.Flags().Changed("force") {
 
-		var forceFlagName string
+		var ForceFlagName string
 		if cmdPrefix == "" {
-			forceFlagName = "force"
+			ForceFlagName = "force"
 		} else {
-			forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+			ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 		}
 
-		forceFlagValue, err := cmd.Flags().GetBool(forceFlagName)
+		ForceFlagValue, err := cmd.Flags().GetBool(ForceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Force = &forceFlagValue
+		m.Force = &ForceFlagValue
 
 	}
 	return nil, retAdded

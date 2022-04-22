@@ -43,18 +43,18 @@ func registerGraphDriverDataName(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -63,17 +63,17 @@ func registerGraphDriverDataName(depth int, cmdPrefix string, cmd *cobra.Command
 func retrieveModelGraphDriverDataFlags(depth int, m *models.GraphDriverData, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, dataAdded := retrieveGraphDriverDataDataFlags(depth, m, cmdPrefix, cmd)
+	err, DataAdded := retrieveGraphDriverDataDataFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dataAdded
+	retAdded = retAdded || DataAdded
 
-	err, nameAdded := retrieveGraphDriverDataNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveGraphDriverDataNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
 	return nil, retAdded
 }
@@ -84,8 +84,8 @@ func retrieveGraphDriverDataDataFlags(depth int, m *models.GraphDriverData, cmdP
 	}
 	retAdded := false
 
-	dataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
-	if cmd.Flags().Changed(dataFlagName) {
+	DataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
+	if cmd.Flags().Changed(DataFlagName) {
 		// warning: Data map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -98,21 +98,21 @@ func retrieveGraphDriverDataNameFlags(depth int, m *models.GraphDriverData, cmdP
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}

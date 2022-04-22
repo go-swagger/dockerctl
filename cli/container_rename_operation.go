@@ -74,35 +74,35 @@ func registerOperationContainerContainerRenameParamFlags(cmd *cobra.Command) err
 
 func registerOperationContainerContainerRenameIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerRenameNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. New name for the container`
+	NameDescription := `Required. New name for the container`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationContainerContainerRenameIDFlag(m *container.ContainerRenam
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationContainerContainerRenameNameFlag(m *container.ContainerRen
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded

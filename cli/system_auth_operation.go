@@ -69,14 +69,14 @@ func registerOperationSystemSystemAuthParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSystemSystemAuthAuthConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var authConfigFlagName string
+	var AuthConfigFlagName string
 	if cmdPrefix == "" {
-		authConfigFlagName = "authConfig"
+		AuthConfigFlagName = "authConfig"
 	} else {
-		authConfigFlagName = fmt.Sprintf("%v.authConfig", cmdPrefix)
+		AuthConfigFlagName = fmt.Sprintf("%v.authConfig", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(authConfigFlagName, "", "Optional json string for [authConfig]. Authentication to check")
+	_ = cmd.PersistentFlags().String(AuthConfigFlagName, "", "Optional json string for [authConfig]. Authentication to check")
 
 	// add flags for body
 	if err := registerModelAuthConfigFlags(0, "authConfig", cmd); err != nil {
@@ -190,18 +190,18 @@ func registerSystemAuthOKBodyIdentityToken(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	identityTokenDescription := `An opaque token used to authenticate a user after a successful login`
+	IdentityTokenDescription := `An opaque token used to authenticate a user after a successful login`
 
-	var identityTokenFlagName string
+	var IdentityTokenFlagName string
 	if cmdPrefix == "" {
-		identityTokenFlagName = "IdentityToken"
+		IdentityTokenFlagName = "IdentityToken"
 	} else {
-		identityTokenFlagName = fmt.Sprintf("%v.IdentityToken", cmdPrefix)
+		IdentityTokenFlagName = fmt.Sprintf("%v.IdentityToken", cmdPrefix)
 	}
 
-	var identityTokenFlagDefault string
+	var IdentityTokenFlagDefault string
 
-	_ = cmd.PersistentFlags().String(identityTokenFlagName, identityTokenFlagDefault, identityTokenDescription)
+	_ = cmd.PersistentFlags().String(IdentityTokenFlagName, IdentityTokenFlagDefault, IdentityTokenDescription)
 
 	return nil
 }
@@ -211,18 +211,18 @@ func registerSystemAuthOKBodyStatus(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	statusDescription := `Required. The status of the authentication`
+	StatusDescription := `Required. The status of the authentication`
 
-	var statusFlagName string
+	var StatusFlagName string
 	if cmdPrefix == "" {
-		statusFlagName = "Status"
+		StatusFlagName = "Status"
 	} else {
-		statusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
+		StatusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
 	}
 
-	var statusFlagDefault string
+	var StatusFlagDefault string
 
-	_ = cmd.PersistentFlags().String(statusFlagName, statusFlagDefault, statusDescription)
+	_ = cmd.PersistentFlags().String(StatusFlagName, StatusFlagDefault, StatusDescription)
 
 	return nil
 }
@@ -231,17 +231,17 @@ func registerSystemAuthOKBodyStatus(depth int, cmdPrefix string, cmd *cobra.Comm
 func retrieveModelSystemAuthOKBodyFlags(depth int, m *system.SystemAuthOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, identityTokenAdded := retrieveSystemAuthOKBodyIdentityTokenFlags(depth, m, cmdPrefix, cmd)
+	err, IdentityTokenAdded := retrieveSystemAuthOKBodyIdentityTokenFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || identityTokenAdded
+	retAdded = retAdded || IdentityTokenAdded
 
-	err, statusAdded := retrieveSystemAuthOKBodyStatusFlags(depth, m, cmdPrefix, cmd)
+	err, StatusAdded := retrieveSystemAuthOKBodyStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusAdded
+	retAdded = retAdded || StatusAdded
 
 	return nil, retAdded
 }
@@ -252,21 +252,21 @@ func retrieveSystemAuthOKBodyIdentityTokenFlags(depth int, m *system.SystemAuthO
 	}
 	retAdded := false
 
-	identityTokenFlagName := fmt.Sprintf("%v.IdentityToken", cmdPrefix)
-	if cmd.Flags().Changed(identityTokenFlagName) {
+	IdentityTokenFlagName := fmt.Sprintf("%v.IdentityToken", cmdPrefix)
+	if cmd.Flags().Changed(IdentityTokenFlagName) {
 
-		var identityTokenFlagName string
+		var IdentityTokenFlagName string
 		if cmdPrefix == "" {
-			identityTokenFlagName = "IdentityToken"
+			IdentityTokenFlagName = "IdentityToken"
 		} else {
-			identityTokenFlagName = fmt.Sprintf("%v.IdentityToken", cmdPrefix)
+			IdentityTokenFlagName = fmt.Sprintf("%v.IdentityToken", cmdPrefix)
 		}
 
-		identityTokenFlagValue, err := cmd.Flags().GetString(identityTokenFlagName)
+		IdentityTokenFlagValue, err := cmd.Flags().GetString(IdentityTokenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IdentityToken = identityTokenFlagValue
+		m.IdentityToken = IdentityTokenFlagValue
 
 		retAdded = true
 	}
@@ -280,21 +280,21 @@ func retrieveSystemAuthOKBodyStatusFlags(depth int, m *system.SystemAuthOKBody, 
 	}
 	retAdded := false
 
-	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
-	if cmd.Flags().Changed(statusFlagName) {
+	StatusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
+	if cmd.Flags().Changed(StatusFlagName) {
 
-		var statusFlagName string
+		var StatusFlagName string
 		if cmdPrefix == "" {
-			statusFlagName = "Status"
+			StatusFlagName = "Status"
 		} else {
-			statusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
+			StatusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
 		}
 
-		statusFlagValue, err := cmd.Flags().GetString(statusFlagName)
+		StatusFlagValue, err := cmd.Flags().GetString(StatusFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Status = statusFlagValue
+		m.Status = StatusFlagValue
 
 		retAdded = true
 	}

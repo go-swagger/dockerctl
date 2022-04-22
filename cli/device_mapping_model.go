@@ -37,18 +37,18 @@ func registerDeviceMappingCgroupPermissions(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	cgroupPermissionsDescription := ``
+	CgroupPermissionsDescription := ``
 
-	var cgroupPermissionsFlagName string
+	var CgroupPermissionsFlagName string
 	if cmdPrefix == "" {
-		cgroupPermissionsFlagName = "CgroupPermissions"
+		CgroupPermissionsFlagName = "CgroupPermissions"
 	} else {
-		cgroupPermissionsFlagName = fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
+		CgroupPermissionsFlagName = fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
 	}
 
-	var cgroupPermissionsFlagDefault string
+	var CgroupPermissionsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cgroupPermissionsFlagName, cgroupPermissionsFlagDefault, cgroupPermissionsDescription)
+	_ = cmd.PersistentFlags().String(CgroupPermissionsFlagName, CgroupPermissionsFlagDefault, CgroupPermissionsDescription)
 
 	return nil
 }
@@ -58,18 +58,18 @@ func registerDeviceMappingPathInContainer(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	pathInContainerDescription := ``
+	PathInContainerDescription := ``
 
-	var pathInContainerFlagName string
+	var PathInContainerFlagName string
 	if cmdPrefix == "" {
-		pathInContainerFlagName = "PathInContainer"
+		PathInContainerFlagName = "PathInContainer"
 	} else {
-		pathInContainerFlagName = fmt.Sprintf("%v.PathInContainer", cmdPrefix)
+		PathInContainerFlagName = fmt.Sprintf("%v.PathInContainer", cmdPrefix)
 	}
 
-	var pathInContainerFlagDefault string
+	var PathInContainerFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathInContainerFlagName, pathInContainerFlagDefault, pathInContainerDescription)
+	_ = cmd.PersistentFlags().String(PathInContainerFlagName, PathInContainerFlagDefault, PathInContainerDescription)
 
 	return nil
 }
@@ -79,18 +79,18 @@ func registerDeviceMappingPathOnHost(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	pathOnHostDescription := ``
+	PathOnHostDescription := ``
 
-	var pathOnHostFlagName string
+	var PathOnHostFlagName string
 	if cmdPrefix == "" {
-		pathOnHostFlagName = "PathOnHost"
+		PathOnHostFlagName = "PathOnHost"
 	} else {
-		pathOnHostFlagName = fmt.Sprintf("%v.PathOnHost", cmdPrefix)
+		PathOnHostFlagName = fmt.Sprintf("%v.PathOnHost", cmdPrefix)
 	}
 
-	var pathOnHostFlagDefault string
+	var PathOnHostFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathOnHostFlagName, pathOnHostFlagDefault, pathOnHostDescription)
+	_ = cmd.PersistentFlags().String(PathOnHostFlagName, PathOnHostFlagDefault, PathOnHostDescription)
 
 	return nil
 }
@@ -99,23 +99,23 @@ func registerDeviceMappingPathOnHost(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelDeviceMappingFlags(depth int, m *models.DeviceMapping, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, cgroupPermissionsAdded := retrieveDeviceMappingCgroupPermissionsFlags(depth, m, cmdPrefix, cmd)
+	err, CgroupPermissionsAdded := retrieveDeviceMappingCgroupPermissionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cgroupPermissionsAdded
+	retAdded = retAdded || CgroupPermissionsAdded
 
-	err, pathInContainerAdded := retrieveDeviceMappingPathInContainerFlags(depth, m, cmdPrefix, cmd)
+	err, PathInContainerAdded := retrieveDeviceMappingPathInContainerFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathInContainerAdded
+	retAdded = retAdded || PathInContainerAdded
 
-	err, pathOnHostAdded := retrieveDeviceMappingPathOnHostFlags(depth, m, cmdPrefix, cmd)
+	err, PathOnHostAdded := retrieveDeviceMappingPathOnHostFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathOnHostAdded
+	retAdded = retAdded || PathOnHostAdded
 
 	return nil, retAdded
 }
@@ -126,21 +126,21 @@ func retrieveDeviceMappingCgroupPermissionsFlags(depth int, m *models.DeviceMapp
 	}
 	retAdded := false
 
-	cgroupPermissionsFlagName := fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
-	if cmd.Flags().Changed(cgroupPermissionsFlagName) {
+	CgroupPermissionsFlagName := fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
+	if cmd.Flags().Changed(CgroupPermissionsFlagName) {
 
-		var cgroupPermissionsFlagName string
+		var CgroupPermissionsFlagName string
 		if cmdPrefix == "" {
-			cgroupPermissionsFlagName = "CgroupPermissions"
+			CgroupPermissionsFlagName = "CgroupPermissions"
 		} else {
-			cgroupPermissionsFlagName = fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
+			CgroupPermissionsFlagName = fmt.Sprintf("%v.CgroupPermissions", cmdPrefix)
 		}
 
-		cgroupPermissionsFlagValue, err := cmd.Flags().GetString(cgroupPermissionsFlagName)
+		CgroupPermissionsFlagValue, err := cmd.Flags().GetString(CgroupPermissionsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CgroupPermissions = cgroupPermissionsFlagValue
+		m.CgroupPermissions = CgroupPermissionsFlagValue
 
 		retAdded = true
 	}
@@ -154,21 +154,21 @@ func retrieveDeviceMappingPathInContainerFlags(depth int, m *models.DeviceMappin
 	}
 	retAdded := false
 
-	pathInContainerFlagName := fmt.Sprintf("%v.PathInContainer", cmdPrefix)
-	if cmd.Flags().Changed(pathInContainerFlagName) {
+	PathInContainerFlagName := fmt.Sprintf("%v.PathInContainer", cmdPrefix)
+	if cmd.Flags().Changed(PathInContainerFlagName) {
 
-		var pathInContainerFlagName string
+		var PathInContainerFlagName string
 		if cmdPrefix == "" {
-			pathInContainerFlagName = "PathInContainer"
+			PathInContainerFlagName = "PathInContainer"
 		} else {
-			pathInContainerFlagName = fmt.Sprintf("%v.PathInContainer", cmdPrefix)
+			PathInContainerFlagName = fmt.Sprintf("%v.PathInContainer", cmdPrefix)
 		}
 
-		pathInContainerFlagValue, err := cmd.Flags().GetString(pathInContainerFlagName)
+		PathInContainerFlagValue, err := cmd.Flags().GetString(PathInContainerFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PathInContainer = pathInContainerFlagValue
+		m.PathInContainer = PathInContainerFlagValue
 
 		retAdded = true
 	}
@@ -182,21 +182,21 @@ func retrieveDeviceMappingPathOnHostFlags(depth int, m *models.DeviceMapping, cm
 	}
 	retAdded := false
 
-	pathOnHostFlagName := fmt.Sprintf("%v.PathOnHost", cmdPrefix)
-	if cmd.Flags().Changed(pathOnHostFlagName) {
+	PathOnHostFlagName := fmt.Sprintf("%v.PathOnHost", cmdPrefix)
+	if cmd.Flags().Changed(PathOnHostFlagName) {
 
-		var pathOnHostFlagName string
+		var PathOnHostFlagName string
 		if cmdPrefix == "" {
-			pathOnHostFlagName = "PathOnHost"
+			PathOnHostFlagName = "PathOnHost"
 		} else {
-			pathOnHostFlagName = fmt.Sprintf("%v.PathOnHost", cmdPrefix)
+			PathOnHostFlagName = fmt.Sprintf("%v.PathOnHost", cmdPrefix)
 		}
 
-		pathOnHostFlagValue, err := cmd.Flags().GetString(pathOnHostFlagName)
+		PathOnHostFlagValue, err := cmd.Flags().GetString(PathOnHostFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PathOnHost = pathOnHostFlagValue
+		m.PathOnHost = PathOnHostFlagValue
 
 		retAdded = true
 	}

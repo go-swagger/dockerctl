@@ -86,18 +86,18 @@ func registerOperationPluginPluginUpgradeParamFlags(cmd *cobra.Command) error {
 
 func registerOperationPluginPluginUpgradeXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	xRegistryAuthDescription := `A base64-encoded auth configuration to use when pulling a plugin from a registry. [See the authentication section for details.](#section/Authentication)`
+	XRegistryAuthDescription := `A base64-encoded auth configuration to use when pulling a plugin from a registry. [See the authentication section for details.](#section/Authentication)`
 
-	var xRegistryAuthFlagName string
+	var XRegistryAuthFlagName string
 	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
+		XRegistryAuthFlagName = "X-Registry-Auth"
 	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+		XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 	}
 
-	var xRegistryAuthFlagDefault string
+	var XRegistryAuthFlagDefault string
 
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+	_ = cmd.PersistentFlags().String(XRegistryAuthFlagName, XRegistryAuthFlagDefault, XRegistryAuthDescription)
 
 	return nil
 }
@@ -109,38 +109,38 @@ func registerOperationPluginPluginUpgradeBodyParamFlags(cmdPrefix string, cmd *c
 }
 func registerOperationPluginPluginUpgradeNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+	NameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
 func registerOperationPluginPluginUpgradeRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	remoteDescription := `Required. Remote reference to upgrade to.
+	RemoteDescription := `Required. Remote reference to upgrade to.
 
 The ` + "`" + `:latest` + "`" + ` tag is optional, and is used as the default if omitted.
 `
 
-	var remoteFlagName string
+	var RemoteFlagName string
 	if cmdPrefix == "" {
-		remoteFlagName = "remote"
+		RemoteFlagName = "remote"
 	} else {
-		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+		RemoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
 	}
 
-	var remoteFlagDefault string
+	var RemoteFlagDefault string
 
-	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
+	_ = cmd.PersistentFlags().String(RemoteFlagName, RemoteFlagDefault, RemoteDescription)
 
 	return nil
 }
@@ -149,18 +149,18 @@ func retrieveOperationPluginPluginUpgradeXRegistryAuthFlag(m *plugin.PluginUpgra
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
 
-		var xRegistryAuthFlagName string
+		var XRegistryAuthFlagName string
 		if cmdPrefix == "" {
-			xRegistryAuthFlagName = "X-Registry-Auth"
+			XRegistryAuthFlagName = "X-Registry-Auth"
 		} else {
-			xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+			XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 		}
 
-		xRegistryAuthFlagValue, err := cmd.Flags().GetString(xRegistryAuthFlagName)
+		XRegistryAuthFlagValue, err := cmd.Flags().GetString(XRegistryAuthFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.XRegistryAuth = &xRegistryAuthFlagValue
+		m.XRegistryAuth = &XRegistryAuthFlagValue
 
 	}
 	return nil, retAdded
@@ -178,18 +178,18 @@ func retrieveOperationPluginPluginUpgradeNameFlag(m *plugin.PluginUpgradeParams,
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -198,18 +198,18 @@ func retrieveOperationPluginPluginUpgradeRemoteFlag(m *plugin.PluginUpgradeParam
 	retAdded := false
 	if cmd.Flags().Changed("remote") {
 
-		var remoteFlagName string
+		var RemoteFlagName string
 		if cmdPrefix == "" {
-			remoteFlagName = "remote"
+			RemoteFlagName = "remote"
 		} else {
-			remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+			RemoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
 		}
 
-		remoteFlagValue, err := cmd.Flags().GetString(remoteFlagName)
+		RemoteFlagValue, err := cmd.Flags().GetString(RemoteFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Remote = remoteFlagValue
+		m.Remote = RemoteFlagValue
 
 	}
 	return nil, retAdded
@@ -276,18 +276,18 @@ func registerPluginUpgradeParamsBodyItems0Description(depth int, cmdPrefix strin
 		return nil
 	}
 
-	descriptionDescription := ``
+	DescriptionDescription := ``
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -297,18 +297,18 @@ func registerPluginUpgradeParamsBodyItems0Name(depth int, cmdPrefix string, cmd 
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -327,23 +327,23 @@ func registerPluginUpgradeParamsBodyItems0Value(depth int, cmdPrefix string, cmd
 func retrieveModelPluginUpgradeParamsBodyItems0Flags(depth int, m *plugin.PluginUpgradeParamsBodyItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, descriptionAdded := retrievePluginUpgradeParamsBodyItems0DescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrievePluginUpgradeParamsBodyItems0DescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, nameAdded := retrievePluginUpgradeParamsBodyItems0NameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrievePluginUpgradeParamsBodyItems0NameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, valueAdded := retrievePluginUpgradeParamsBodyItems0ValueFlags(depth, m, cmdPrefix, cmd)
+	err, ValueAdded := retrievePluginUpgradeParamsBodyItems0ValueFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || valueAdded
+	retAdded = retAdded || ValueAdded
 
 	return nil, retAdded
 }
@@ -354,21 +354,21 @@ func retrievePluginUpgradeParamsBodyItems0DescriptionFlags(depth int, m *plugin.
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "Description"
+			DescriptionFlagName = "Description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -382,21 +382,21 @@ func retrievePluginUpgradeParamsBodyItems0NameFlags(depth int, m *plugin.PluginU
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -410,8 +410,8 @@ func retrievePluginUpgradeParamsBodyItems0ValueFlags(depth int, m *plugin.Plugin
 	}
 	retAdded := false
 
-	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
-	if cmd.Flags().Changed(valueFlagName) {
+	ValueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(ValueFlagName) {
 		// warning: Value array type []string is not supported by go-swagger cli yet
 	}
 

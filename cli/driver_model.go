@@ -33,18 +33,18 @@ func registerDriverName(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	nameDescription := `Required. Name of the driver.`
+	NameDescription := `Required. Name of the driver.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -63,17 +63,17 @@ func registerDriverOptions(depth int, cmdPrefix string, cmd *cobra.Command) erro
 func retrieveModelDriverFlags(depth int, m *models.Driver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nameAdded := retrieveDriverNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveDriverNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, optionsAdded := retrieveDriverOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveDriverOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
 	return nil, retAdded
 }
@@ -84,21 +84,21 @@ func retrieveDriverNameFlags(depth int, m *models.Driver, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -112,8 +112,8 @@ func retrieveDriverOptionsFlags(depth int, m *models.Driver, cmdPrefix string, c
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 

@@ -74,35 +74,35 @@ func registerOperationNodeNodeDeleteParamFlags(cmd *cobra.Command) error {
 
 func registerOperationNodeNodeDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	forceDescription := `Force remove a node from the swarm`
+	ForceDescription := `Force remove a node from the swarm`
 
-	var forceFlagName string
+	var ForceFlagName string
 	if cmdPrefix == "" {
-		forceFlagName = "force"
+		ForceFlagName = "force"
 	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+		ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 	}
 
-	var forceFlagDefault bool
+	var ForceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+	_ = cmd.PersistentFlags().Bool(ForceFlagName, ForceFlagDefault, ForceDescription)
 
 	return nil
 }
 func registerOperationNodeNodeDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. The ID or name of the node`
+	IDDescription := `Required. The ID or name of the node`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationNodeNodeDeleteForceFlag(m *node.NodeDeleteParams, cmdPrefi
 	retAdded := false
 	if cmd.Flags().Changed("force") {
 
-		var forceFlagName string
+		var ForceFlagName string
 		if cmdPrefix == "" {
-			forceFlagName = "force"
+			ForceFlagName = "force"
 		} else {
-			forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+			ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 		}
 
-		forceFlagValue, err := cmd.Flags().GetBool(forceFlagName)
+		ForceFlagValue, err := cmd.Flags().GetBool(ForceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Force = &forceFlagValue
+		m.Force = &ForceFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationNodeNodeDeleteIDFlag(m *node.NodeDeleteParams, cmdPrefix s
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded

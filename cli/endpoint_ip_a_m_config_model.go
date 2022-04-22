@@ -37,18 +37,18 @@ func registerEndpointIPAMConfigIPV4Address(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	ipv4AddressDescription := ``
+	IPV4AddressDescription := ``
 
-	var ipv4AddressFlagName string
+	var IPV4AddressFlagName string
 	if cmdPrefix == "" {
-		ipv4AddressFlagName = "IPv4Address"
+		IPV4AddressFlagName = "IPv4Address"
 	} else {
-		ipv4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
+		IPV4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
 	}
 
-	var ipv4AddressFlagDefault string
+	var IPV4AddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipv4AddressFlagName, ipv4AddressFlagDefault, ipv4AddressDescription)
+	_ = cmd.PersistentFlags().String(IPV4AddressFlagName, IPV4AddressFlagDefault, IPV4AddressDescription)
 
 	return nil
 }
@@ -58,18 +58,18 @@ func registerEndpointIPAMConfigIPV6Address(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	ipv6AddressDescription := ``
+	IPV6AddressDescription := ``
 
-	var ipv6AddressFlagName string
+	var IPV6AddressFlagName string
 	if cmdPrefix == "" {
-		ipv6AddressFlagName = "IPv6Address"
+		IPV6AddressFlagName = "IPv6Address"
 	} else {
-		ipv6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
+		IPV6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
 	}
 
-	var ipv6AddressFlagDefault string
+	var IPV6AddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipv6AddressFlagName, ipv6AddressFlagDefault, ipv6AddressDescription)
+	_ = cmd.PersistentFlags().String(IPV6AddressFlagName, IPV6AddressFlagDefault, IPV6AddressDescription)
 
 	return nil
 }
@@ -88,23 +88,23 @@ func registerEndpointIPAMConfigLinkLocalIPs(depth int, cmdPrefix string, cmd *co
 func retrieveModelEndpointIPAMConfigFlags(depth int, m *models.EndpointIPAMConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, ipv4AddressAdded := retrieveEndpointIPAMConfigIPV4AddressFlags(depth, m, cmdPrefix, cmd)
+	err, IPV4AddressAdded := retrieveEndpointIPAMConfigIPV4AddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipv4AddressAdded
+	retAdded = retAdded || IPV4AddressAdded
 
-	err, ipv6AddressAdded := retrieveEndpointIPAMConfigIPV6AddressFlags(depth, m, cmdPrefix, cmd)
+	err, IPV6AddressAdded := retrieveEndpointIPAMConfigIPV6AddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipv6AddressAdded
+	retAdded = retAdded || IPV6AddressAdded
 
-	err, linkLocalIPsAdded := retrieveEndpointIPAMConfigLinkLocalIPsFlags(depth, m, cmdPrefix, cmd)
+	err, LinkLocalIPsAdded := retrieveEndpointIPAMConfigLinkLocalIPsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || linkLocalIPsAdded
+	retAdded = retAdded || LinkLocalIPsAdded
 
 	return nil, retAdded
 }
@@ -115,21 +115,21 @@ func retrieveEndpointIPAMConfigIPV4AddressFlags(depth int, m *models.EndpointIPA
 	}
 	retAdded := false
 
-	ipv4AddressFlagName := fmt.Sprintf("%v.IPv4Address", cmdPrefix)
-	if cmd.Flags().Changed(ipv4AddressFlagName) {
+	IPV4AddressFlagName := fmt.Sprintf("%v.IPv4Address", cmdPrefix)
+	if cmd.Flags().Changed(IPV4AddressFlagName) {
 
-		var ipv4AddressFlagName string
+		var IPV4AddressFlagName string
 		if cmdPrefix == "" {
-			ipv4AddressFlagName = "IPv4Address"
+			IPV4AddressFlagName = "IPv4Address"
 		} else {
-			ipv4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
+			IPV4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
 		}
 
-		ipv4AddressFlagValue, err := cmd.Flags().GetString(ipv4AddressFlagName)
+		IPV4AddressFlagValue, err := cmd.Flags().GetString(IPV4AddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPV4Address = ipv4AddressFlagValue
+		m.IPV4Address = IPV4AddressFlagValue
 
 		retAdded = true
 	}
@@ -143,21 +143,21 @@ func retrieveEndpointIPAMConfigIPV6AddressFlags(depth int, m *models.EndpointIPA
 	}
 	retAdded := false
 
-	ipv6AddressFlagName := fmt.Sprintf("%v.IPv6Address", cmdPrefix)
-	if cmd.Flags().Changed(ipv6AddressFlagName) {
+	IPV6AddressFlagName := fmt.Sprintf("%v.IPv6Address", cmdPrefix)
+	if cmd.Flags().Changed(IPV6AddressFlagName) {
 
-		var ipv6AddressFlagName string
+		var IPV6AddressFlagName string
 		if cmdPrefix == "" {
-			ipv6AddressFlagName = "IPv6Address"
+			IPV6AddressFlagName = "IPv6Address"
 		} else {
-			ipv6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
+			IPV6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
 		}
 
-		ipv6AddressFlagValue, err := cmd.Flags().GetString(ipv6AddressFlagName)
+		IPV6AddressFlagValue, err := cmd.Flags().GetString(IPV6AddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPV6Address = ipv6AddressFlagValue
+		m.IPV6Address = IPV6AddressFlagValue
 
 		retAdded = true
 	}
@@ -171,8 +171,8 @@ func retrieveEndpointIPAMConfigLinkLocalIPsFlags(depth int, m *models.EndpointIP
 	}
 	retAdded := false
 
-	linkLocalIPsFlagName := fmt.Sprintf("%v.LinkLocalIPs", cmdPrefix)
-	if cmd.Flags().Changed(linkLocalIPsFlagName) {
+	LinkLocalIPsFlagName := fmt.Sprintf("%v.LinkLocalIPs", cmdPrefix)
+	if cmd.Flags().Changed(LinkLocalIPsFlagName) {
 		// warning: LinkLocalIPs array type []string is not supported by go-swagger cli yet
 	}
 

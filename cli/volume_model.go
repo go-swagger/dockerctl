@@ -64,18 +64,18 @@ func registerVolumeCreatedAt(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	createdAtDescription := `Date/Time the volume was created.`
+	CreatedAtDescription := `Date/Time the volume was created.`
 
-	var createdAtFlagName string
+	var CreatedAtFlagName string
 	if cmdPrefix == "" {
-		createdAtFlagName = "CreatedAt"
+		CreatedAtFlagName = "CreatedAt"
 	} else {
-		createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+		CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	}
 
-	var createdAtFlagDefault string
+	var CreatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdAtFlagName, createdAtFlagDefault, createdAtDescription)
+	_ = cmd.PersistentFlags().String(CreatedAtFlagName, CreatedAtFlagDefault, CreatedAtDescription)
 
 	return nil
 }
@@ -85,18 +85,18 @@ func registerVolumeDriver(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	driverDescription := `Required. Name of the volume driver used by the volume.`
+	DriverDescription := `Required. Name of the volume driver used by the volume.`
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string
+	var DriverFlagDefault string
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -116,18 +116,18 @@ func registerVolumeMountpoint(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	mountpointDescription := `Required. Mount path of the volume on the host.`
+	MountpointDescription := `Required. Mount path of the volume on the host.`
 
-	var mountpointFlagName string
+	var MountpointFlagName string
 	if cmdPrefix == "" {
-		mountpointFlagName = "Mountpoint"
+		MountpointFlagName = "Mountpoint"
 	} else {
-		mountpointFlagName = fmt.Sprintf("%v.Mountpoint", cmdPrefix)
+		MountpointFlagName = fmt.Sprintf("%v.Mountpoint", cmdPrefix)
 	}
 
-	var mountpointFlagDefault string
+	var MountpointFlagDefault string
 
-	_ = cmd.PersistentFlags().String(mountpointFlagName, mountpointFlagDefault, mountpointDescription)
+	_ = cmd.PersistentFlags().String(MountpointFlagName, MountpointFlagDefault, MountpointDescription)
 
 	return nil
 }
@@ -137,18 +137,18 @@ func registerVolumeName(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	nameDescription := `Required. Name of the volume.`
+	NameDescription := `Required. Name of the volume.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -168,20 +168,20 @@ func registerVolumeScope(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	scopeDescription := `Enum: ["local","global"]. Required. The level at which the volume exists. Either ` + "`" + `global` + "`" + ` for cluster-wide, or ` + "`" + `local` + "`" + ` for machine level.`
+	ScopeDescription := `Enum: ["local","global"]. Required. The level at which the volume exists. Either ` + "`" + `global` + "`" + ` for cluster-wide, or ` + "`" + `local` + "`" + ` for machine level.`
 
-	var scopeFlagName string
+	var ScopeFlagName string
 	if cmdPrefix == "" {
-		scopeFlagName = "Scope"
+		ScopeFlagName = "Scope"
 	} else {
-		scopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
+		ScopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
 	}
 
-	var scopeFlagDefault string = "local"
+	var ScopeFlagDefault string = "local"
 
-	_ = cmd.PersistentFlags().String(scopeFlagName, scopeFlagDefault, scopeDescription)
+	_ = cmd.PersistentFlags().String(ScopeFlagName, ScopeFlagDefault, ScopeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(scopeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(ScopeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["local","global"]`), &res); err != nil {
@@ -210,14 +210,14 @@ func registerVolumeUsageData(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	var usageDataFlagName string
+	var UsageDataFlagName string
 	if cmdPrefix == "" {
-		usageDataFlagName = "UsageData"
+		UsageDataFlagName = "UsageData"
 	} else {
-		usageDataFlagName = fmt.Sprintf("%v.UsageData", cmdPrefix)
+		UsageDataFlagName = fmt.Sprintf("%v.UsageData", cmdPrefix)
 	}
 
-	if err := registerModelVolumeUsageDataFlags(depth+1, usageDataFlagName, cmd); err != nil {
+	if err := registerModelVolumeUsageDataFlags(depth+1, UsageDataFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -228,59 +228,59 @@ func registerVolumeUsageData(depth int, cmdPrefix string, cmd *cobra.Command) er
 func retrieveModelVolumeFlags(depth int, m *models.Volume, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, createdAtAdded := retrieveVolumeCreatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAtAdded := retrieveVolumeCreatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAtAdded
+	retAdded = retAdded || CreatedAtAdded
 
-	err, driverAdded := retrieveVolumeDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveVolumeDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, labelsAdded := retrieveVolumeLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveVolumeLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, mountpointAdded := retrieveVolumeMountpointFlags(depth, m, cmdPrefix, cmd)
+	err, MountpointAdded := retrieveVolumeMountpointFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mountpointAdded
+	retAdded = retAdded || MountpointAdded
 
-	err, nameAdded := retrieveVolumeNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveVolumeNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, optionsAdded := retrieveVolumeOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveVolumeOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
-	err, scopeAdded := retrieveVolumeScopeFlags(depth, m, cmdPrefix, cmd)
+	err, ScopeAdded := retrieveVolumeScopeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || scopeAdded
+	retAdded = retAdded || ScopeAdded
 
-	err, statusAdded := retrieveVolumeStatusFlags(depth, m, cmdPrefix, cmd)
+	err, StatusAdded := retrieveVolumeStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusAdded
+	retAdded = retAdded || StatusAdded
 
-	err, usageDataAdded := retrieveVolumeUsageDataFlags(depth, m, cmdPrefix, cmd)
+	err, UsageDataAdded := retrieveVolumeUsageDataFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || usageDataAdded
+	retAdded = retAdded || UsageDataAdded
 
 	return nil, retAdded
 }
@@ -291,21 +291,21 @@ func retrieveVolumeCreatedAtFlags(depth int, m *models.Volume, cmdPrefix string,
 	}
 	retAdded := false
 
-	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
-	if cmd.Flags().Changed(createdAtFlagName) {
+	CreatedAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+	if cmd.Flags().Changed(CreatedAtFlagName) {
 
-		var createdAtFlagName string
+		var CreatedAtFlagName string
 		if cmdPrefix == "" {
-			createdAtFlagName = "CreatedAt"
+			CreatedAtFlagName = "CreatedAt"
 		} else {
-			createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+			CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 		}
 
-		createdAtFlagValue, err := cmd.Flags().GetString(createdAtFlagName)
+		CreatedAtFlagValue, err := cmd.Flags().GetString(CreatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedAt = createdAtFlagValue
+		m.CreatedAt = CreatedAtFlagValue
 
 		retAdded = true
 	}
@@ -319,21 +319,21 @@ func retrieveVolumeDriverFlags(depth int, m *models.Volume, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = driverFlagValue
+		m.Driver = DriverFlagValue
 
 		retAdded = true
 	}
@@ -347,8 +347,8 @@ func retrieveVolumeLabelsFlags(depth int, m *models.Volume, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -361,21 +361,21 @@ func retrieveVolumeMountpointFlags(depth int, m *models.Volume, cmdPrefix string
 	}
 	retAdded := false
 
-	mountpointFlagName := fmt.Sprintf("%v.Mountpoint", cmdPrefix)
-	if cmd.Flags().Changed(mountpointFlagName) {
+	MountpointFlagName := fmt.Sprintf("%v.Mountpoint", cmdPrefix)
+	if cmd.Flags().Changed(MountpointFlagName) {
 
-		var mountpointFlagName string
+		var MountpointFlagName string
 		if cmdPrefix == "" {
-			mountpointFlagName = "Mountpoint"
+			MountpointFlagName = "Mountpoint"
 		} else {
-			mountpointFlagName = fmt.Sprintf("%v.Mountpoint", cmdPrefix)
+			MountpointFlagName = fmt.Sprintf("%v.Mountpoint", cmdPrefix)
 		}
 
-		mountpointFlagValue, err := cmd.Flags().GetString(mountpointFlagName)
+		MountpointFlagValue, err := cmd.Flags().GetString(MountpointFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Mountpoint = mountpointFlagValue
+		m.Mountpoint = MountpointFlagValue
 
 		retAdded = true
 	}
@@ -389,21 +389,21 @@ func retrieveVolumeNameFlags(depth int, m *models.Volume, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -417,8 +417,8 @@ func retrieveVolumeOptionsFlags(depth int, m *models.Volume, cmdPrefix string, c
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -431,21 +431,21 @@ func retrieveVolumeScopeFlags(depth int, m *models.Volume, cmdPrefix string, cmd
 	}
 	retAdded := false
 
-	scopeFlagName := fmt.Sprintf("%v.Scope", cmdPrefix)
-	if cmd.Flags().Changed(scopeFlagName) {
+	ScopeFlagName := fmt.Sprintf("%v.Scope", cmdPrefix)
+	if cmd.Flags().Changed(ScopeFlagName) {
 
-		var scopeFlagName string
+		var ScopeFlagName string
 		if cmdPrefix == "" {
-			scopeFlagName = "Scope"
+			ScopeFlagName = "Scope"
 		} else {
-			scopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
+			ScopeFlagName = fmt.Sprintf("%v.Scope", cmdPrefix)
 		}
 
-		scopeFlagValue, err := cmd.Flags().GetString(scopeFlagName)
+		ScopeFlagValue, err := cmd.Flags().GetString(ScopeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Scope = scopeFlagValue
+		m.Scope = ScopeFlagValue
 
 		retAdded = true
 	}
@@ -459,8 +459,8 @@ func retrieveVolumeStatusFlags(depth int, m *models.Volume, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
-	if cmd.Flags().Changed(statusFlagName) {
+	StatusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
+	if cmd.Flags().Changed(StatusFlagName) {
 		// warning: Status map type map[string]interface{} is not supported by go-swagger cli yet
 	}
 
@@ -473,22 +473,22 @@ func retrieveVolumeUsageDataFlags(depth int, m *models.Volume, cmdPrefix string,
 	}
 	retAdded := false
 
-	usageDataFlagName := fmt.Sprintf("%v.UsageData", cmdPrefix)
-	if cmd.Flags().Changed(usageDataFlagName) {
+	UsageDataFlagName := fmt.Sprintf("%v.UsageData", cmdPrefix)
+	if cmd.Flags().Changed(UsageDataFlagName) {
 		// info: complex object UsageData VolumeUsageData is retrieved outside this Changed() block
 	}
-	usageDataFlagValue := m.UsageData
-	if swag.IsZero(usageDataFlagValue) {
-		usageDataFlagValue = &models.VolumeUsageData{}
+	UsageDataFlagValue := m.UsageData
+	if swag.IsZero(UsageDataFlagValue) {
+		UsageDataFlagValue = &models.VolumeUsageData{}
 	}
 
-	err, usageDataAdded := retrieveModelVolumeUsageDataFlags(depth+1, usageDataFlagValue, usageDataFlagName, cmd)
+	err, UsageDataAdded := retrieveModelVolumeUsageDataFlags(depth+1, UsageDataFlagValue, UsageDataFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || usageDataAdded
-	if usageDataAdded {
-		m.UsageData = usageDataFlagValue
+	retAdded = retAdded || UsageDataAdded
+	if UsageDataAdded {
+		m.UsageData = UsageDataFlagValue
 	}
 
 	return nil, retAdded
@@ -515,20 +515,20 @@ func registerVolumeUsageDataRefCount(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	refCountDescription := `Required. The number of containers referencing this volume. This field
+	RefCountDescription := `Required. The number of containers referencing this volume. This field
 is set to ` + "`" + `-1` + "`" + ` if the reference-count is not available.
 `
 
-	var refCountFlagName string
+	var RefCountFlagName string
 	if cmdPrefix == "" {
-		refCountFlagName = "RefCount"
+		RefCountFlagName = "RefCount"
 	} else {
-		refCountFlagName = fmt.Sprintf("%v.RefCount", cmdPrefix)
+		RefCountFlagName = fmt.Sprintf("%v.RefCount", cmdPrefix)
 	}
 
-	var refCountFlagDefault int64 = -1
+	var RefCountFlagDefault int64 = -1
 
-	_ = cmd.PersistentFlags().Int64(refCountFlagName, refCountFlagDefault, refCountDescription)
+	_ = cmd.PersistentFlags().Int64(RefCountFlagName, RefCountFlagDefault, RefCountDescription)
 
 	return nil
 }
@@ -538,22 +538,22 @@ func registerVolumeUsageDataSize(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	sizeDescription := `Required. Amount of disk space used by the volume (in bytes). This information
+	SizeDescription := `Required. Amount of disk space used by the volume (in bytes). This information
 is only available for volumes created with the ` + "`" + `"local"` + "`" + ` volume
 driver. For volumes created with other volume drivers, this field
 is set to ` + "`" + `-1` + "`" + ` ("not available")
 `
 
-	var sizeFlagName string
+	var SizeFlagName string
 	if cmdPrefix == "" {
-		sizeFlagName = "Size"
+		SizeFlagName = "Size"
 	} else {
-		sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+		SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 	}
 
-	var sizeFlagDefault int64 = -1
+	var SizeFlagDefault int64 = -1
 
-	_ = cmd.PersistentFlags().Int64(sizeFlagName, sizeFlagDefault, sizeDescription)
+	_ = cmd.PersistentFlags().Int64(SizeFlagName, SizeFlagDefault, SizeDescription)
 
 	return nil
 }
@@ -562,17 +562,17 @@ is set to ` + "`" + `-1` + "`" + ` ("not available")
 func retrieveModelVolumeUsageDataFlags(depth int, m *models.VolumeUsageData, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, refCountAdded := retrieveVolumeUsageDataRefCountFlags(depth, m, cmdPrefix, cmd)
+	err, RefCountAdded := retrieveVolumeUsageDataRefCountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || refCountAdded
+	retAdded = retAdded || RefCountAdded
 
-	err, sizeAdded := retrieveVolumeUsageDataSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SizeAdded := retrieveVolumeUsageDataSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sizeAdded
+	retAdded = retAdded || SizeAdded
 
 	return nil, retAdded
 }
@@ -583,21 +583,21 @@ func retrieveVolumeUsageDataRefCountFlags(depth int, m *models.VolumeUsageData, 
 	}
 	retAdded := false
 
-	refCountFlagName := fmt.Sprintf("%v.RefCount", cmdPrefix)
-	if cmd.Flags().Changed(refCountFlagName) {
+	RefCountFlagName := fmt.Sprintf("%v.RefCount", cmdPrefix)
+	if cmd.Flags().Changed(RefCountFlagName) {
 
-		var refCountFlagName string
+		var RefCountFlagName string
 		if cmdPrefix == "" {
-			refCountFlagName = "RefCount"
+			RefCountFlagName = "RefCount"
 		} else {
-			refCountFlagName = fmt.Sprintf("%v.RefCount", cmdPrefix)
+			RefCountFlagName = fmt.Sprintf("%v.RefCount", cmdPrefix)
 		}
 
-		refCountFlagValue, err := cmd.Flags().GetInt64(refCountFlagName)
+		RefCountFlagValue, err := cmd.Flags().GetInt64(RefCountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.RefCount = refCountFlagValue
+		m.RefCount = RefCountFlagValue
 
 		retAdded = true
 	}
@@ -611,21 +611,21 @@ func retrieveVolumeUsageDataSizeFlags(depth int, m *models.VolumeUsageData, cmdP
 	}
 	retAdded := false
 
-	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
-	if cmd.Flags().Changed(sizeFlagName) {
+	SizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
+	if cmd.Flags().Changed(SizeFlagName) {
 
-		var sizeFlagName string
+		var SizeFlagName string
 		if cmdPrefix == "" {
-			sizeFlagName = "Size"
+			SizeFlagName = "Size"
 		} else {
-			sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+			SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 		}
 
-		sizeFlagValue, err := cmd.Flags().GetInt64(sizeFlagName)
+		SizeFlagValue, err := cmd.Flags().GetInt64(SizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Size = sizeFlagValue
+		m.Size = SizeFlagValue
 
 		retAdded = true
 	}

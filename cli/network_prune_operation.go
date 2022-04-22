@@ -68,23 +68,23 @@ func registerOperationNetworkNetworkPruneParamFlags(cmd *cobra.Command) error {
 
 func registerOperationNetworkNetworkPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+	FiltersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
 
 Available filters:
 - ` + "`" + `until=<timestamp>` + "`" + ` Prune networks created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
 - ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune networks with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -93,18 +93,18 @@ func retrieveOperationNetworkNetworkPruneFiltersFlag(m *network.NetworkPrunePara
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -176,11 +176,11 @@ func registerNetworkPruneOKBodyNetworksDeleted(depth int, cmdPrefix string, cmd 
 func retrieveModelNetworkPruneOKBodyFlags(depth int, m *network.NetworkPruneOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, networksDeletedAdded := retrieveNetworkPruneOKBodyNetworksDeletedFlags(depth, m, cmdPrefix, cmd)
+	err, NetworksDeletedAdded := retrieveNetworkPruneOKBodyNetworksDeletedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networksDeletedAdded
+	retAdded = retAdded || NetworksDeletedAdded
 
 	return nil, retAdded
 }
@@ -191,8 +191,8 @@ func retrieveNetworkPruneOKBodyNetworksDeletedFlags(depth int, m *network.Networ
 	}
 	retAdded := false
 
-	networksDeletedFlagName := fmt.Sprintf("%v.NetworksDeleted", cmdPrefix)
-	if cmd.Flags().Changed(networksDeletedFlagName) {
+	NetworksDeletedFlagName := fmt.Sprintf("%v.NetworksDeleted", cmdPrefix)
+	if cmd.Flags().Changed(NetworksDeletedFlagName) {
 		// warning: NetworksDeleted array type []string is not supported by go-swagger cli yet
 	}
 

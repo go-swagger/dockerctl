@@ -68,7 +68,7 @@ func registerOperationConfigConfigListParamFlags(cmd *cobra.Command) error {
 
 func registerOperationConfigConfigListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the configs list. Available filters:
+	FiltersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the configs list. Available filters:
 
 - ` + "`" + `id=<config id>` + "`" + `
 - ` + "`" + `label=<key> or label=<key>=value` + "`" + `
@@ -76,16 +76,16 @@ func registerOperationConfigConfigListFiltersParamFlags(cmdPrefix string, cmd *c
 - ` + "`" + `names=<config name>` + "`" + `
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -94,18 +94,18 @@ func retrieveOperationConfigConfigListFiltersFlag(m *config.ConfigListParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded

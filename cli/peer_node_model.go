@@ -33,19 +33,19 @@ func registerPeerNodeAddr(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	addrDescription := `IP address and ports at which this node can be reached.
+	AddrDescription := `IP address and ports at which this node can be reached.
 `
 
-	var addrFlagName string
+	var AddrFlagName string
 	if cmdPrefix == "" {
-		addrFlagName = "Addr"
+		AddrFlagName = "Addr"
 	} else {
-		addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+		AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 	}
 
-	var addrFlagDefault string
+	var AddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(addrFlagName, addrFlagDefault, addrDescription)
+	_ = cmd.PersistentFlags().String(AddrFlagName, AddrFlagDefault, AddrDescription)
 
 	return nil
 }
@@ -55,18 +55,18 @@ func registerPeerNodeNodeID(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	nodeIdDescription := `Unique identifier of for this node in the swarm.`
+	NodeIDDescription := `Unique identifier of for this node in the swarm.`
 
-	var nodeIdFlagName string
+	var NodeIDFlagName string
 	if cmdPrefix == "" {
-		nodeIdFlagName = "NodeID"
+		NodeIDFlagName = "NodeID"
 	} else {
-		nodeIdFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
+		NodeIDFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
 	}
 
-	var nodeIdFlagDefault string
+	var NodeIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nodeIdFlagName, nodeIdFlagDefault, nodeIdDescription)
+	_ = cmd.PersistentFlags().String(NodeIDFlagName, NodeIDFlagDefault, NodeIDDescription)
 
 	return nil
 }
@@ -75,17 +75,17 @@ func registerPeerNodeNodeID(depth int, cmdPrefix string, cmd *cobra.Command) err
 func retrieveModelPeerNodeFlags(depth int, m *models.PeerNode, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, addrAdded := retrievePeerNodeAddrFlags(depth, m, cmdPrefix, cmd)
+	err, AddrAdded := retrievePeerNodeAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || addrAdded
+	retAdded = retAdded || AddrAdded
 
-	err, nodeIdAdded := retrievePeerNodeNodeIDFlags(depth, m, cmdPrefix, cmd)
+	err, NodeIDAdded := retrievePeerNodeNodeIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nodeIdAdded
+	retAdded = retAdded || NodeIDAdded
 
 	return nil, retAdded
 }
@@ -96,21 +96,21 @@ func retrievePeerNodeAddrFlags(depth int, m *models.PeerNode, cmdPrefix string, 
 	}
 	retAdded := false
 
-	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
-	if cmd.Flags().Changed(addrFlagName) {
+	AddrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
+	if cmd.Flags().Changed(AddrFlagName) {
 
-		var addrFlagName string
+		var AddrFlagName string
 		if cmdPrefix == "" {
-			addrFlagName = "Addr"
+			AddrFlagName = "Addr"
 		} else {
-			addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+			AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 		}
 
-		addrFlagValue, err := cmd.Flags().GetString(addrFlagName)
+		AddrFlagValue, err := cmd.Flags().GetString(AddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Addr = addrFlagValue
+		m.Addr = AddrFlagValue
 
 		retAdded = true
 	}
@@ -124,21 +124,21 @@ func retrievePeerNodeNodeIDFlags(depth int, m *models.PeerNode, cmdPrefix string
 	}
 	retAdded := false
 
-	nodeIdFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
-	if cmd.Flags().Changed(nodeIdFlagName) {
+	NodeIDFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
+	if cmd.Flags().Changed(NodeIDFlagName) {
 
-		var nodeIdFlagName string
+		var NodeIDFlagName string
 		if cmdPrefix == "" {
-			nodeIdFlagName = "NodeID"
+			NodeIDFlagName = "NodeID"
 		} else {
-			nodeIdFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
+			NodeIDFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
 		}
 
-		nodeIdFlagValue, err := cmd.Flags().GetString(nodeIdFlagName)
+		NodeIDFlagValue, err := cmd.Flags().GetString(NodeIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NodeID = nodeIdFlagValue
+		m.NodeID = NodeIDFlagValue
 
 		retAdded = true
 	}

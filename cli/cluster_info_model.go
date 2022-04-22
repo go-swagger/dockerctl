@@ -67,20 +67,20 @@ func registerClusterInfoCreatedAt(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	createdAtDescription := `Date and time at which the swarm was initialised in
+	CreatedAtDescription := `Date and time at which the swarm was initialised in
 [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
 `
 
-	var createdAtFlagName string
+	var CreatedAtFlagName string
 	if cmdPrefix == "" {
-		createdAtFlagName = "CreatedAt"
+		CreatedAtFlagName = "CreatedAt"
 	} else {
-		createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+		CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	}
 
-	var createdAtFlagDefault string
+	var CreatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdAtFlagName, createdAtFlagDefault, createdAtDescription)
+	_ = cmd.PersistentFlags().String(CreatedAtFlagName, CreatedAtFlagDefault, CreatedAtDescription)
 
 	return nil
 }
@@ -110,18 +110,18 @@ func registerClusterInfoID(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	idDescription := `The ID of the swarm.`
+	IDDescription := `The ID of the swarm.`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -131,18 +131,18 @@ func registerClusterInfoRootRotationInProgress(depth int, cmdPrefix string, cmd 
 		return nil
 	}
 
-	rootRotationInProgressDescription := `Whether there is currently a root CA rotation in progress for the swarm`
+	RootRotationInProgressDescription := `Whether there is currently a root CA rotation in progress for the swarm`
 
-	var rootRotationInProgressFlagName string
+	var RootRotationInProgressFlagName string
 	if cmdPrefix == "" {
-		rootRotationInProgressFlagName = "RootRotationInProgress"
+		RootRotationInProgressFlagName = "RootRotationInProgress"
 	} else {
-		rootRotationInProgressFlagName = fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
+		RootRotationInProgressFlagName = fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
 	}
 
-	var rootRotationInProgressFlagDefault bool
+	var RootRotationInProgressFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(rootRotationInProgressFlagName, rootRotationInProgressFlagDefault, rootRotationInProgressDescription)
+	_ = cmd.PersistentFlags().Bool(RootRotationInProgressFlagName, RootRotationInProgressFlagDefault, RootRotationInProgressDescription)
 
 	return nil
 }
@@ -152,14 +152,14 @@ func registerClusterInfoSpec(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	var specFlagName string
+	var SpecFlagName string
 	if cmdPrefix == "" {
-		specFlagName = "Spec"
+		SpecFlagName = "Spec"
 	} else {
-		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+		SpecFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecFlags(depth+1, specFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecFlags(depth+1, SpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -181,14 +181,14 @@ func registerClusterInfoTLSInfo(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	var tlsInfoFlagName string
+	var TLSInfoFlagName string
 	if cmdPrefix == "" {
-		tlsInfoFlagName = "TLSInfo"
+		TLSInfoFlagName = "TLSInfo"
 	} else {
-		tlsInfoFlagName = fmt.Sprintf("%v.TLSInfo", cmdPrefix)
+		TLSInfoFlagName = fmt.Sprintf("%v.TLSInfo", cmdPrefix)
 	}
 
-	if err := registerModelTLSInfoFlags(depth+1, tlsInfoFlagName, cmd); err != nil {
+	if err := registerModelTLSInfoFlags(depth+1, TLSInfoFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -200,20 +200,20 @@ func registerClusterInfoUpdatedAt(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	updatedAtDescription := `Date and time at which the swarm was last updated in
+	UpdatedAtDescription := `Date and time at which the swarm was last updated in
 [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
 `
 
-	var updatedAtFlagName string
+	var UpdatedAtFlagName string
 	if cmdPrefix == "" {
-		updatedAtFlagName = "UpdatedAt"
+		UpdatedAtFlagName = "UpdatedAt"
 	} else {
-		updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+		UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	}
 
-	var updatedAtFlagDefault string
+	var UpdatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(updatedAtFlagName, updatedAtFlagDefault, updatedAtDescription)
+	_ = cmd.PersistentFlags().String(UpdatedAtFlagName, UpdatedAtFlagDefault, UpdatedAtDescription)
 
 	return nil
 }
@@ -223,14 +223,14 @@ func registerClusterInfoVersion(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+	if err := registerModelObjectVersionFlags(depth+1, VersionFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -241,65 +241,65 @@ func registerClusterInfoVersion(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelClusterInfoFlags(depth int, m *models.ClusterInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, createdAtAdded := retrieveClusterInfoCreatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAtAdded := retrieveClusterInfoCreatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAtAdded
+	retAdded = retAdded || CreatedAtAdded
 
-	err, dataPathPortAdded := retrieveClusterInfoDataPathPortFlags(depth, m, cmdPrefix, cmd)
+	err, DataPathPortAdded := retrieveClusterInfoDataPathPortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dataPathPortAdded
+	retAdded = retAdded || DataPathPortAdded
 
-	err, defaultAddrPoolAdded := retrieveClusterInfoDefaultAddrPoolFlags(depth, m, cmdPrefix, cmd)
+	err, DefaultAddrPoolAdded := retrieveClusterInfoDefaultAddrPoolFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || defaultAddrPoolAdded
+	retAdded = retAdded || DefaultAddrPoolAdded
 
-	err, idAdded := retrieveClusterInfoIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveClusterInfoIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, rootRotationInProgressAdded := retrieveClusterInfoRootRotationInProgressFlags(depth, m, cmdPrefix, cmd)
+	err, RootRotationInProgressAdded := retrieveClusterInfoRootRotationInProgressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || rootRotationInProgressAdded
+	retAdded = retAdded || RootRotationInProgressAdded
 
-	err, specAdded := retrieveClusterInfoSpecFlags(depth, m, cmdPrefix, cmd)
+	err, SpecAdded := retrieveClusterInfoSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
+	retAdded = retAdded || SpecAdded
 
-	err, subnetSizeAdded := retrieveClusterInfoSubnetSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SubnetSizeAdded := retrieveClusterInfoSubnetSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || subnetSizeAdded
+	retAdded = retAdded || SubnetSizeAdded
 
-	err, tlsInfoAdded := retrieveClusterInfoTLSInfoFlags(depth, m, cmdPrefix, cmd)
+	err, TLSInfoAdded := retrieveClusterInfoTLSInfoFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tlsInfoAdded
+	retAdded = retAdded || TLSInfoAdded
 
-	err, updatedAtAdded := retrieveClusterInfoUpdatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, UpdatedAtAdded := retrieveClusterInfoUpdatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || updatedAtAdded
+	retAdded = retAdded || UpdatedAtAdded
 
-	err, versionAdded := retrieveClusterInfoVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrieveClusterInfoVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -310,21 +310,21 @@ func retrieveClusterInfoCreatedAtFlags(depth int, m *models.ClusterInfo, cmdPref
 	}
 	retAdded := false
 
-	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
-	if cmd.Flags().Changed(createdAtFlagName) {
+	CreatedAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+	if cmd.Flags().Changed(CreatedAtFlagName) {
 
-		var createdAtFlagName string
+		var CreatedAtFlagName string
 		if cmdPrefix == "" {
-			createdAtFlagName = "CreatedAt"
+			CreatedAtFlagName = "CreatedAt"
 		} else {
-			createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+			CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 		}
 
-		createdAtFlagValue, err := cmd.Flags().GetString(createdAtFlagName)
+		CreatedAtFlagValue, err := cmd.Flags().GetString(CreatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedAt = createdAtFlagValue
+		m.CreatedAt = CreatedAtFlagValue
 
 		retAdded = true
 	}
@@ -338,8 +338,8 @@ func retrieveClusterInfoDataPathPortFlags(depth int, m *models.ClusterInfo, cmdP
 	}
 	retAdded := false
 
-	dataPathPortFlagName := fmt.Sprintf("%v.DataPathPort", cmdPrefix)
-	if cmd.Flags().Changed(dataPathPortFlagName) {
+	DataPathPortFlagName := fmt.Sprintf("%v.DataPathPort", cmdPrefix)
+	if cmd.Flags().Changed(DataPathPortFlagName) {
 
 		// warning: primitive DataPathPort uint32 is not supported by go-swagger cli yet
 
@@ -355,8 +355,8 @@ func retrieveClusterInfoDefaultAddrPoolFlags(depth int, m *models.ClusterInfo, c
 	}
 	retAdded := false
 
-	defaultAddrPoolFlagName := fmt.Sprintf("%v.DefaultAddrPool", cmdPrefix)
-	if cmd.Flags().Changed(defaultAddrPoolFlagName) {
+	DefaultAddrPoolFlagName := fmt.Sprintf("%v.DefaultAddrPool", cmdPrefix)
+	if cmd.Flags().Changed(DefaultAddrPoolFlagName) {
 		// warning: DefaultAddrPool array type []string is not supported by go-swagger cli yet
 	}
 
@@ -369,21 +369,21 @@ func retrieveClusterInfoIDFlags(depth int, m *models.ClusterInfo, cmdPrefix stri
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -397,21 +397,21 @@ func retrieveClusterInfoRootRotationInProgressFlags(depth int, m *models.Cluster
 	}
 	retAdded := false
 
-	rootRotationInProgressFlagName := fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
-	if cmd.Flags().Changed(rootRotationInProgressFlagName) {
+	RootRotationInProgressFlagName := fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
+	if cmd.Flags().Changed(RootRotationInProgressFlagName) {
 
-		var rootRotationInProgressFlagName string
+		var RootRotationInProgressFlagName string
 		if cmdPrefix == "" {
-			rootRotationInProgressFlagName = "RootRotationInProgress"
+			RootRotationInProgressFlagName = "RootRotationInProgress"
 		} else {
-			rootRotationInProgressFlagName = fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
+			RootRotationInProgressFlagName = fmt.Sprintf("%v.RootRotationInProgress", cmdPrefix)
 		}
 
-		rootRotationInProgressFlagValue, err := cmd.Flags().GetBool(rootRotationInProgressFlagName)
+		RootRotationInProgressFlagValue, err := cmd.Flags().GetBool(RootRotationInProgressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.RootRotationInProgress = rootRotationInProgressFlagValue
+		m.RootRotationInProgress = RootRotationInProgressFlagValue
 
 		retAdded = true
 	}
@@ -425,22 +425,22 @@ func retrieveClusterInfoSpecFlags(depth int, m *models.ClusterInfo, cmdPrefix st
 	}
 	retAdded := false
 
-	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
-	if cmd.Flags().Changed(specFlagName) {
+	SpecFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(SpecFlagName) {
 		// info: complex object Spec SwarmSpec is retrieved outside this Changed() block
 	}
-	specFlagValue := m.Spec
-	if swag.IsZero(specFlagValue) {
-		specFlagValue = &models.SwarmSpec{}
+	SpecFlagValue := m.Spec
+	if swag.IsZero(SpecFlagValue) {
+		SpecFlagValue = &models.SwarmSpec{}
 	}
 
-	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+	err, SpecAdded := retrieveModelSwarmSpecFlags(depth+1, SpecFlagValue, SpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
-	if specAdded {
-		m.Spec = specFlagValue
+	retAdded = retAdded || SpecAdded
+	if SpecAdded {
+		m.Spec = SpecFlagValue
 	}
 
 	return nil, retAdded
@@ -452,8 +452,8 @@ func retrieveClusterInfoSubnetSizeFlags(depth int, m *models.ClusterInfo, cmdPre
 	}
 	retAdded := false
 
-	subnetSizeFlagName := fmt.Sprintf("%v.SubnetSize", cmdPrefix)
-	if cmd.Flags().Changed(subnetSizeFlagName) {
+	SubnetSizeFlagName := fmt.Sprintf("%v.SubnetSize", cmdPrefix)
+	if cmd.Flags().Changed(SubnetSizeFlagName) {
 
 		// warning: primitive SubnetSize uint32 is not supported by go-swagger cli yet
 
@@ -469,22 +469,22 @@ func retrieveClusterInfoTLSInfoFlags(depth int, m *models.ClusterInfo, cmdPrefix
 	}
 	retAdded := false
 
-	tlsInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
-	if cmd.Flags().Changed(tlsInfoFlagName) {
+	TLSInfoFlagName := fmt.Sprintf("%v.TLSInfo", cmdPrefix)
+	if cmd.Flags().Changed(TLSInfoFlagName) {
 		// info: complex object TLSInfo TLSInfo is retrieved outside this Changed() block
 	}
-	tlsInfoFlagValue := m.TLSInfo
-	if swag.IsZero(tlsInfoFlagValue) {
-		tlsInfoFlagValue = &models.TLSInfo{}
+	TLSInfoFlagValue := m.TLSInfo
+	if swag.IsZero(TLSInfoFlagValue) {
+		TLSInfoFlagValue = &models.TLSInfo{}
 	}
 
-	err, tlsInfoAdded := retrieveModelTLSInfoFlags(depth+1, tlsInfoFlagValue, tlsInfoFlagName, cmd)
+	err, TLSInfoAdded := retrieveModelTLSInfoFlags(depth+1, TLSInfoFlagValue, TLSInfoFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tlsInfoAdded
-	if tlsInfoAdded {
-		m.TLSInfo = tlsInfoFlagValue
+	retAdded = retAdded || TLSInfoAdded
+	if TLSInfoAdded {
+		m.TLSInfo = TLSInfoFlagValue
 	}
 
 	return nil, retAdded
@@ -496,21 +496,21 @@ func retrieveClusterInfoUpdatedAtFlags(depth int, m *models.ClusterInfo, cmdPref
 	}
 	retAdded := false
 
-	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
-	if cmd.Flags().Changed(updatedAtFlagName) {
+	UpdatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+	if cmd.Flags().Changed(UpdatedAtFlagName) {
 
-		var updatedAtFlagName string
+		var UpdatedAtFlagName string
 		if cmdPrefix == "" {
-			updatedAtFlagName = "UpdatedAt"
+			UpdatedAtFlagName = "UpdatedAt"
 		} else {
-			updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+			UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 		}
 
-		updatedAtFlagValue, err := cmd.Flags().GetString(updatedAtFlagName)
+		UpdatedAtFlagValue, err := cmd.Flags().GetString(UpdatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UpdatedAt = updatedAtFlagValue
+		m.UpdatedAt = UpdatedAtFlagValue
 
 		retAdded = true
 	}
@@ -524,22 +524,22 @@ func retrieveClusterInfoVersionFlags(depth int, m *models.ClusterInfo, cmdPrefix
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
-	versionFlagValue := m.Version
-	if swag.IsZero(versionFlagValue) {
-		versionFlagValue = &models.ObjectVersion{}
+	VersionFlagValue := m.Version
+	if swag.IsZero(VersionFlagValue) {
+		VersionFlagValue = &models.ObjectVersion{}
 	}
 
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+	err, VersionAdded := retrieveModelObjectVersionFlags(depth+1, VersionFlagValue, VersionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
-	if versionAdded {
-		m.Version = versionFlagValue
+	retAdded = retAdded || VersionAdded
+	if VersionAdded {
+		m.Version = VersionFlagValue
 	}
 
 	return nil, retAdded

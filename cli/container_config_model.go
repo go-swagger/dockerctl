@@ -127,18 +127,18 @@ func registerContainerConfigArgsEscaped(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	argsEscapedDescription := `Command is already escaped (Windows only)`
+	ArgsEscapedDescription := `Command is already escaped (Windows only)`
 
-	var argsEscapedFlagName string
+	var ArgsEscapedFlagName string
 	if cmdPrefix == "" {
-		argsEscapedFlagName = "ArgsEscaped"
+		ArgsEscapedFlagName = "ArgsEscaped"
 	} else {
-		argsEscapedFlagName = fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
+		ArgsEscapedFlagName = fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
 	}
 
-	var argsEscapedFlagDefault bool
+	var ArgsEscapedFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(argsEscapedFlagName, argsEscapedFlagDefault, argsEscapedDescription)
+	_ = cmd.PersistentFlags().Bool(ArgsEscapedFlagName, ArgsEscapedFlagDefault, ArgsEscapedDescription)
 
 	return nil
 }
@@ -148,18 +148,18 @@ func registerContainerConfigAttachStderr(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	attachStderrDescription := `Whether to attach to ` + "`" + `stderr` + "`" + `.`
+	AttachStderrDescription := `Whether to attach to ` + "`" + `stderr` + "`" + `.`
 
-	var attachStderrFlagName string
+	var AttachStderrFlagName string
 	if cmdPrefix == "" {
-		attachStderrFlagName = "AttachStderr"
+		AttachStderrFlagName = "AttachStderr"
 	} else {
-		attachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
+		AttachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
 	}
 
-	var attachStderrFlagDefault bool = true
+	var AttachStderrFlagDefault bool = true
 
-	_ = cmd.PersistentFlags().Bool(attachStderrFlagName, attachStderrFlagDefault, attachStderrDescription)
+	_ = cmd.PersistentFlags().Bool(AttachStderrFlagName, AttachStderrFlagDefault, AttachStderrDescription)
 
 	return nil
 }
@@ -169,18 +169,18 @@ func registerContainerConfigAttachStdin(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	attachStdinDescription := `Whether to attach to ` + "`" + `stdin` + "`" + `.`
+	AttachStdinDescription := `Whether to attach to ` + "`" + `stdin` + "`" + `.`
 
-	var attachStdinFlagName string
+	var AttachStdinFlagName string
 	if cmdPrefix == "" {
-		attachStdinFlagName = "AttachStdin"
+		AttachStdinFlagName = "AttachStdin"
 	} else {
-		attachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
+		AttachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
 	}
 
-	var attachStdinFlagDefault bool
+	var AttachStdinFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(attachStdinFlagName, attachStdinFlagDefault, attachStdinDescription)
+	_ = cmd.PersistentFlags().Bool(AttachStdinFlagName, AttachStdinFlagDefault, AttachStdinDescription)
 
 	return nil
 }
@@ -190,18 +190,18 @@ func registerContainerConfigAttachStdout(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	attachStdoutDescription := `Whether to attach to ` + "`" + `stdout` + "`" + `.`
+	AttachStdoutDescription := `Whether to attach to ` + "`" + `stdout` + "`" + `.`
 
-	var attachStdoutFlagName string
+	var AttachStdoutFlagName string
 	if cmdPrefix == "" {
-		attachStdoutFlagName = "AttachStdout"
+		AttachStdoutFlagName = "AttachStdout"
 	} else {
-		attachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
+		AttachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
 	}
 
-	var attachStdoutFlagDefault bool = true
+	var AttachStdoutFlagDefault bool = true
 
-	_ = cmd.PersistentFlags().Bool(attachStdoutFlagName, attachStdoutFlagDefault, attachStdoutDescription)
+	_ = cmd.PersistentFlags().Bool(AttachStdoutFlagName, AttachStdoutFlagDefault, AttachStdoutDescription)
 
 	return nil
 }
@@ -221,18 +221,18 @@ func registerContainerConfigDomainname(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	domainnameDescription := `The domain name to use for the container.`
+	DomainnameDescription := `The domain name to use for the container.`
 
-	var domainnameFlagName string
+	var DomainnameFlagName string
 	if cmdPrefix == "" {
-		domainnameFlagName = "Domainname"
+		DomainnameFlagName = "Domainname"
 	} else {
-		domainnameFlagName = fmt.Sprintf("%v.Domainname", cmdPrefix)
+		DomainnameFlagName = fmt.Sprintf("%v.Domainname", cmdPrefix)
 	}
 
-	var domainnameFlagDefault string
+	var DomainnameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(domainnameFlagName, domainnameFlagDefault, domainnameDescription)
+	_ = cmd.PersistentFlags().String(DomainnameFlagName, DomainnameFlagDefault, DomainnameDescription)
 
 	return nil
 }
@@ -272,14 +272,14 @@ func registerContainerConfigHealthcheck(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	var healthcheckFlagName string
+	var HealthcheckFlagName string
 	if cmdPrefix == "" {
-		healthcheckFlagName = "Healthcheck"
+		HealthcheckFlagName = "Healthcheck"
 	} else {
-		healthcheckFlagName = fmt.Sprintf("%v.Healthcheck", cmdPrefix)
+		HealthcheckFlagName = fmt.Sprintf("%v.Healthcheck", cmdPrefix)
 	}
 
-	if err := registerModelHealthConfigFlags(depth+1, healthcheckFlagName, cmd); err != nil {
+	if err := registerModelHealthConfigFlags(depth+1, HealthcheckFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -291,18 +291,18 @@ func registerContainerConfigHostname(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	hostnameDescription := `The hostname to use for the container, as a valid RFC 1123 hostname.`
+	HostnameDescription := `The hostname to use for the container, as a valid RFC 1123 hostname.`
 
-	var hostnameFlagName string
+	var HostnameFlagName string
 	if cmdPrefix == "" {
-		hostnameFlagName = "Hostname"
+		HostnameFlagName = "Hostname"
 	} else {
-		hostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
+		HostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
 	}
 
-	var hostnameFlagDefault string
+	var HostnameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(hostnameFlagName, hostnameFlagDefault, hostnameDescription)
+	_ = cmd.PersistentFlags().String(HostnameFlagName, HostnameFlagDefault, HostnameDescription)
 
 	return nil
 }
@@ -312,18 +312,18 @@ func registerContainerConfigImage(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	imageDescription := `The name of the image to use when creating the container`
+	ImageDescription := `The name of the image to use when creating the container`
 
-	var imageFlagName string
+	var ImageFlagName string
 	if cmdPrefix == "" {
-		imageFlagName = "Image"
+		ImageFlagName = "Image"
 	} else {
-		imageFlagName = fmt.Sprintf("%v.Image", cmdPrefix)
+		ImageFlagName = fmt.Sprintf("%v.Image", cmdPrefix)
 	}
 
-	var imageFlagDefault string
+	var ImageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(imageFlagName, imageFlagDefault, imageDescription)
+	_ = cmd.PersistentFlags().String(ImageFlagName, ImageFlagDefault, ImageDescription)
 
 	return nil
 }
@@ -343,18 +343,18 @@ func registerContainerConfigMacAddress(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	macAddressDescription := `MAC address of the container.`
+	MacAddressDescription := `MAC address of the container.`
 
-	var macAddressFlagName string
+	var MacAddressFlagName string
 	if cmdPrefix == "" {
-		macAddressFlagName = "MacAddress"
+		MacAddressFlagName = "MacAddress"
 	} else {
-		macAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
+		MacAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	}
 
-	var macAddressFlagDefault string
+	var MacAddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(macAddressFlagName, macAddressFlagDefault, macAddressDescription)
+	_ = cmd.PersistentFlags().String(MacAddressFlagName, MacAddressFlagDefault, MacAddressDescription)
 
 	return nil
 }
@@ -364,18 +364,18 @@ func registerContainerConfigNetworkDisabled(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	networkDisabledDescription := `Disable networking for the container.`
+	NetworkDisabledDescription := `Disable networking for the container.`
 
-	var networkDisabledFlagName string
+	var NetworkDisabledFlagName string
 	if cmdPrefix == "" {
-		networkDisabledFlagName = "NetworkDisabled"
+		NetworkDisabledFlagName = "NetworkDisabled"
 	} else {
-		networkDisabledFlagName = fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
+		NetworkDisabledFlagName = fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
 	}
 
-	var networkDisabledFlagDefault bool
+	var NetworkDisabledFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(networkDisabledFlagName, networkDisabledFlagDefault, networkDisabledDescription)
+	_ = cmd.PersistentFlags().Bool(NetworkDisabledFlagName, NetworkDisabledFlagDefault, NetworkDisabledDescription)
 
 	return nil
 }
@@ -395,18 +395,18 @@ func registerContainerConfigOpenStdin(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	openStdinDescription := `Open ` + "`" + `stdin` + "`" + ``
+	OpenStdinDescription := `Open ` + "`" + `stdin` + "`" + ``
 
-	var openStdinFlagName string
+	var OpenStdinFlagName string
 	if cmdPrefix == "" {
-		openStdinFlagName = "OpenStdin"
+		OpenStdinFlagName = "OpenStdin"
 	} else {
-		openStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+		OpenStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 	}
 
-	var openStdinFlagDefault bool
+	var OpenStdinFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(openStdinFlagName, openStdinFlagDefault, openStdinDescription)
+	_ = cmd.PersistentFlags().Bool(OpenStdinFlagName, OpenStdinFlagDefault, OpenStdinDescription)
 
 	return nil
 }
@@ -426,18 +426,18 @@ func registerContainerConfigStdinOnce(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	stdinOnceDescription := `Close ` + "`" + `stdin` + "`" + ` after one attached client disconnects`
+	StdinOnceDescription := `Close ` + "`" + `stdin` + "`" + ` after one attached client disconnects`
 
-	var stdinOnceFlagName string
+	var StdinOnceFlagName string
 	if cmdPrefix == "" {
-		stdinOnceFlagName = "StdinOnce"
+		StdinOnceFlagName = "StdinOnce"
 	} else {
-		stdinOnceFlagName = fmt.Sprintf("%v.StdinOnce", cmdPrefix)
+		StdinOnceFlagName = fmt.Sprintf("%v.StdinOnce", cmdPrefix)
 	}
 
-	var stdinOnceFlagDefault bool
+	var StdinOnceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(stdinOnceFlagName, stdinOnceFlagDefault, stdinOnceDescription)
+	_ = cmd.PersistentFlags().Bool(StdinOnceFlagName, StdinOnceFlagDefault, StdinOnceDescription)
 
 	return nil
 }
@@ -447,18 +447,18 @@ func registerContainerConfigStopSignal(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	stopSignalDescription := `Signal to stop a container as a string or unsigned integer.`
+	StopSignalDescription := `Signal to stop a container as a string or unsigned integer.`
 
-	var stopSignalFlagName string
+	var StopSignalFlagName string
 	if cmdPrefix == "" {
-		stopSignalFlagName = "StopSignal"
+		StopSignalFlagName = "StopSignal"
 	} else {
-		stopSignalFlagName = fmt.Sprintf("%v.StopSignal", cmdPrefix)
+		StopSignalFlagName = fmt.Sprintf("%v.StopSignal", cmdPrefix)
 	}
 
-	var stopSignalFlagDefault string = "SIGTERM"
+	var StopSignalFlagDefault string = "SIGTERM"
 
-	_ = cmd.PersistentFlags().String(stopSignalFlagName, stopSignalFlagDefault, stopSignalDescription)
+	_ = cmd.PersistentFlags().String(StopSignalFlagName, StopSignalFlagDefault, StopSignalDescription)
 
 	return nil
 }
@@ -468,18 +468,18 @@ func registerContainerConfigStopTimeout(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	stopTimeoutDescription := `Timeout to stop a container in seconds.`
+	StopTimeoutDescription := `Timeout to stop a container in seconds.`
 
-	var stopTimeoutFlagName string
+	var StopTimeoutFlagName string
 	if cmdPrefix == "" {
-		stopTimeoutFlagName = "StopTimeout"
+		StopTimeoutFlagName = "StopTimeout"
 	} else {
-		stopTimeoutFlagName = fmt.Sprintf("%v.StopTimeout", cmdPrefix)
+		StopTimeoutFlagName = fmt.Sprintf("%v.StopTimeout", cmdPrefix)
 	}
 
-	var stopTimeoutFlagDefault int64 = 10
+	var StopTimeoutFlagDefault int64 = 10
 
-	_ = cmd.PersistentFlags().Int64(stopTimeoutFlagName, stopTimeoutFlagDefault, stopTimeoutDescription)
+	_ = cmd.PersistentFlags().Int64(StopTimeoutFlagName, StopTimeoutFlagDefault, StopTimeoutDescription)
 
 	return nil
 }
@@ -489,18 +489,18 @@ func registerContainerConfigTty(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	ttyDescription := `Attach standard streams to a TTY, including ` + "`" + `stdin` + "`" + ` if it is not closed.`
+	TtyDescription := `Attach standard streams to a TTY, including ` + "`" + `stdin` + "`" + ` if it is not closed.`
 
-	var ttyFlagName string
+	var TtyFlagName string
 	if cmdPrefix == "" {
-		ttyFlagName = "Tty"
+		TtyFlagName = "Tty"
 	} else {
-		ttyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
+		TtyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
 	}
 
-	var ttyFlagDefault bool
+	var TtyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ttyFlagName, ttyFlagDefault, ttyDescription)
+	_ = cmd.PersistentFlags().Bool(TtyFlagName, TtyFlagDefault, TtyDescription)
 
 	return nil
 }
@@ -510,18 +510,18 @@ func registerContainerConfigUser(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	userDescription := `The user that commands are run as inside the container.`
+	UserDescription := `The user that commands are run as inside the container.`
 
-	var userFlagName string
+	var UserFlagName string
 	if cmdPrefix == "" {
-		userFlagName = "User"
+		UserFlagName = "User"
 	} else {
-		userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+		UserFlagName = fmt.Sprintf("%v.User", cmdPrefix)
 	}
 
-	var userFlagDefault string
+	var UserFlagDefault string
 
-	_ = cmd.PersistentFlags().String(userFlagName, userFlagDefault, userDescription)
+	_ = cmd.PersistentFlags().String(UserFlagName, UserFlagDefault, UserDescription)
 
 	return nil
 }
@@ -541,18 +541,18 @@ func registerContainerConfigWorkingDir(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	workingDirDescription := `The working directory for commands to run in.`
+	WorkingDirDescription := `The working directory for commands to run in.`
 
-	var workingDirFlagName string
+	var WorkingDirFlagName string
 	if cmdPrefix == "" {
-		workingDirFlagName = "WorkingDir"
+		WorkingDirFlagName = "WorkingDir"
 	} else {
-		workingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
+		WorkingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
 	}
 
-	var workingDirFlagDefault string
+	var WorkingDirFlagDefault string
 
-	_ = cmd.PersistentFlags().String(workingDirFlagName, workingDirFlagDefault, workingDirDescription)
+	_ = cmd.PersistentFlags().String(WorkingDirFlagName, WorkingDirFlagDefault, WorkingDirDescription)
 
 	return nil
 }
@@ -561,155 +561,155 @@ func registerContainerConfigWorkingDir(depth int, cmdPrefix string, cmd *cobra.C
 func retrieveModelContainerConfigFlags(depth int, m *models.ContainerConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, argsEscapedAdded := retrieveContainerConfigArgsEscapedFlags(depth, m, cmdPrefix, cmd)
+	err, ArgsEscapedAdded := retrieveContainerConfigArgsEscapedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || argsEscapedAdded
+	retAdded = retAdded || ArgsEscapedAdded
 
-	err, attachStderrAdded := retrieveContainerConfigAttachStderrFlags(depth, m, cmdPrefix, cmd)
+	err, AttachStderrAdded := retrieveContainerConfigAttachStderrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachStderrAdded
+	retAdded = retAdded || AttachStderrAdded
 
-	err, attachStdinAdded := retrieveContainerConfigAttachStdinFlags(depth, m, cmdPrefix, cmd)
+	err, AttachStdinAdded := retrieveContainerConfigAttachStdinFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachStdinAdded
+	retAdded = retAdded || AttachStdinAdded
 
-	err, attachStdoutAdded := retrieveContainerConfigAttachStdoutFlags(depth, m, cmdPrefix, cmd)
+	err, AttachStdoutAdded := retrieveContainerConfigAttachStdoutFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachStdoutAdded
+	retAdded = retAdded || AttachStdoutAdded
 
-	err, cmdAdded := retrieveContainerConfigCmdFlags(depth, m, cmdPrefix, cmd)
+	err, CmdAdded := retrieveContainerConfigCmdFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cmdAdded
+	retAdded = retAdded || CmdAdded
 
-	err, domainnameAdded := retrieveContainerConfigDomainnameFlags(depth, m, cmdPrefix, cmd)
+	err, DomainnameAdded := retrieveContainerConfigDomainnameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || domainnameAdded
+	retAdded = retAdded || DomainnameAdded
 
-	err, entrypointAdded := retrieveContainerConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
+	err, EntrypointAdded := retrieveContainerConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || entrypointAdded
+	retAdded = retAdded || EntrypointAdded
 
-	err, envAdded := retrieveContainerConfigEnvFlags(depth, m, cmdPrefix, cmd)
+	err, EnvAdded := retrieveContainerConfigEnvFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || envAdded
+	retAdded = retAdded || EnvAdded
 
-	err, exposedPortsAdded := retrieveContainerConfigExposedPortsFlags(depth, m, cmdPrefix, cmd)
+	err, ExposedPortsAdded := retrieveContainerConfigExposedPortsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || exposedPortsAdded
+	retAdded = retAdded || ExposedPortsAdded
 
-	err, healthcheckAdded := retrieveContainerConfigHealthcheckFlags(depth, m, cmdPrefix, cmd)
+	err, HealthcheckAdded := retrieveContainerConfigHealthcheckFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || healthcheckAdded
+	retAdded = retAdded || HealthcheckAdded
 
-	err, hostnameAdded := retrieveContainerConfigHostnameFlags(depth, m, cmdPrefix, cmd)
+	err, HostnameAdded := retrieveContainerConfigHostnameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hostnameAdded
+	retAdded = retAdded || HostnameAdded
 
-	err, imageAdded := retrieveContainerConfigImageFlags(depth, m, cmdPrefix, cmd)
+	err, ImageAdded := retrieveContainerConfigImageFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || imageAdded
+	retAdded = retAdded || ImageAdded
 
-	err, labelsAdded := retrieveContainerConfigLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveContainerConfigLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, macAddressAdded := retrieveContainerConfigMacAddressFlags(depth, m, cmdPrefix, cmd)
+	err, MacAddressAdded := retrieveContainerConfigMacAddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || macAddressAdded
+	retAdded = retAdded || MacAddressAdded
 
-	err, networkDisabledAdded := retrieveContainerConfigNetworkDisabledFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkDisabledAdded := retrieveContainerConfigNetworkDisabledFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkDisabledAdded
+	retAdded = retAdded || NetworkDisabledAdded
 
-	err, onBuildAdded := retrieveContainerConfigOnBuildFlags(depth, m, cmdPrefix, cmd)
+	err, OnBuildAdded := retrieveContainerConfigOnBuildFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || onBuildAdded
+	retAdded = retAdded || OnBuildAdded
 
-	err, openStdinAdded := retrieveContainerConfigOpenStdinFlags(depth, m, cmdPrefix, cmd)
+	err, OpenStdinAdded := retrieveContainerConfigOpenStdinFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || openStdinAdded
+	retAdded = retAdded || OpenStdinAdded
 
-	err, shellAdded := retrieveContainerConfigShellFlags(depth, m, cmdPrefix, cmd)
+	err, ShellAdded := retrieveContainerConfigShellFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || shellAdded
+	retAdded = retAdded || ShellAdded
 
-	err, stdinOnceAdded := retrieveContainerConfigStdinOnceFlags(depth, m, cmdPrefix, cmd)
+	err, StdinOnceAdded := retrieveContainerConfigStdinOnceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || stdinOnceAdded
+	retAdded = retAdded || StdinOnceAdded
 
-	err, stopSignalAdded := retrieveContainerConfigStopSignalFlags(depth, m, cmdPrefix, cmd)
+	err, StopSignalAdded := retrieveContainerConfigStopSignalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || stopSignalAdded
+	retAdded = retAdded || StopSignalAdded
 
-	err, stopTimeoutAdded := retrieveContainerConfigStopTimeoutFlags(depth, m, cmdPrefix, cmd)
+	err, StopTimeoutAdded := retrieveContainerConfigStopTimeoutFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || stopTimeoutAdded
+	retAdded = retAdded || StopTimeoutAdded
 
-	err, ttyAdded := retrieveContainerConfigTtyFlags(depth, m, cmdPrefix, cmd)
+	err, TtyAdded := retrieveContainerConfigTtyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ttyAdded
+	retAdded = retAdded || TtyAdded
 
-	err, userAdded := retrieveContainerConfigUserFlags(depth, m, cmdPrefix, cmd)
+	err, UserAdded := retrieveContainerConfigUserFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || userAdded
+	retAdded = retAdded || UserAdded
 
-	err, volumesAdded := retrieveContainerConfigVolumesFlags(depth, m, cmdPrefix, cmd)
+	err, VolumesAdded := retrieveContainerConfigVolumesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumesAdded
+	retAdded = retAdded || VolumesAdded
 
-	err, workingDirAdded := retrieveContainerConfigWorkingDirFlags(depth, m, cmdPrefix, cmd)
+	err, WorkingDirAdded := retrieveContainerConfigWorkingDirFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || workingDirAdded
+	retAdded = retAdded || WorkingDirAdded
 
 	return nil, retAdded
 }
@@ -720,21 +720,21 @@ func retrieveContainerConfigArgsEscapedFlags(depth int, m *models.ContainerConfi
 	}
 	retAdded := false
 
-	argsEscapedFlagName := fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
-	if cmd.Flags().Changed(argsEscapedFlagName) {
+	ArgsEscapedFlagName := fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
+	if cmd.Flags().Changed(ArgsEscapedFlagName) {
 
-		var argsEscapedFlagName string
+		var ArgsEscapedFlagName string
 		if cmdPrefix == "" {
-			argsEscapedFlagName = "ArgsEscaped"
+			ArgsEscapedFlagName = "ArgsEscaped"
 		} else {
-			argsEscapedFlagName = fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
+			ArgsEscapedFlagName = fmt.Sprintf("%v.ArgsEscaped", cmdPrefix)
 		}
 
-		argsEscapedFlagValue, err := cmd.Flags().GetBool(argsEscapedFlagName)
+		ArgsEscapedFlagValue, err := cmd.Flags().GetBool(ArgsEscapedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ArgsEscaped = argsEscapedFlagValue
+		m.ArgsEscaped = ArgsEscapedFlagValue
 
 		retAdded = true
 	}
@@ -748,21 +748,21 @@ func retrieveContainerConfigAttachStderrFlags(depth int, m *models.ContainerConf
 	}
 	retAdded := false
 
-	attachStderrFlagName := fmt.Sprintf("%v.AttachStderr", cmdPrefix)
-	if cmd.Flags().Changed(attachStderrFlagName) {
+	AttachStderrFlagName := fmt.Sprintf("%v.AttachStderr", cmdPrefix)
+	if cmd.Flags().Changed(AttachStderrFlagName) {
 
-		var attachStderrFlagName string
+		var AttachStderrFlagName string
 		if cmdPrefix == "" {
-			attachStderrFlagName = "AttachStderr"
+			AttachStderrFlagName = "AttachStderr"
 		} else {
-			attachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
+			AttachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
 		}
 
-		attachStderrFlagValue, err := cmd.Flags().GetBool(attachStderrFlagName)
+		AttachStderrFlagValue, err := cmd.Flags().GetBool(AttachStderrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AttachStderr = &attachStderrFlagValue
+		m.AttachStderr = &AttachStderrFlagValue
 
 		retAdded = true
 	}
@@ -776,21 +776,21 @@ func retrieveContainerConfigAttachStdinFlags(depth int, m *models.ContainerConfi
 	}
 	retAdded := false
 
-	attachStdinFlagName := fmt.Sprintf("%v.AttachStdin", cmdPrefix)
-	if cmd.Flags().Changed(attachStdinFlagName) {
+	AttachStdinFlagName := fmt.Sprintf("%v.AttachStdin", cmdPrefix)
+	if cmd.Flags().Changed(AttachStdinFlagName) {
 
-		var attachStdinFlagName string
+		var AttachStdinFlagName string
 		if cmdPrefix == "" {
-			attachStdinFlagName = "AttachStdin"
+			AttachStdinFlagName = "AttachStdin"
 		} else {
-			attachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
+			AttachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
 		}
 
-		attachStdinFlagValue, err := cmd.Flags().GetBool(attachStdinFlagName)
+		AttachStdinFlagValue, err := cmd.Flags().GetBool(AttachStdinFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AttachStdin = &attachStdinFlagValue
+		m.AttachStdin = &AttachStdinFlagValue
 
 		retAdded = true
 	}
@@ -804,21 +804,21 @@ func retrieveContainerConfigAttachStdoutFlags(depth int, m *models.ContainerConf
 	}
 	retAdded := false
 
-	attachStdoutFlagName := fmt.Sprintf("%v.AttachStdout", cmdPrefix)
-	if cmd.Flags().Changed(attachStdoutFlagName) {
+	AttachStdoutFlagName := fmt.Sprintf("%v.AttachStdout", cmdPrefix)
+	if cmd.Flags().Changed(AttachStdoutFlagName) {
 
-		var attachStdoutFlagName string
+		var AttachStdoutFlagName string
 		if cmdPrefix == "" {
-			attachStdoutFlagName = "AttachStdout"
+			AttachStdoutFlagName = "AttachStdout"
 		} else {
-			attachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
+			AttachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
 		}
 
-		attachStdoutFlagValue, err := cmd.Flags().GetBool(attachStdoutFlagName)
+		AttachStdoutFlagValue, err := cmd.Flags().GetBool(AttachStdoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AttachStdout = &attachStdoutFlagValue
+		m.AttachStdout = &AttachStdoutFlagValue
 
 		retAdded = true
 	}
@@ -832,8 +832,8 @@ func retrieveContainerConfigCmdFlags(depth int, m *models.ContainerConfig, cmdPr
 	}
 	retAdded := false
 
-	cmdFlagName := fmt.Sprintf("%v.Cmd", cmdPrefix)
-	if cmd.Flags().Changed(cmdFlagName) {
+	CmdFlagName := fmt.Sprintf("%v.Cmd", cmdPrefix)
+	if cmd.Flags().Changed(CmdFlagName) {
 		// warning: Cmd array type []string is not supported by go-swagger cli yet
 	}
 
@@ -846,21 +846,21 @@ func retrieveContainerConfigDomainnameFlags(depth int, m *models.ContainerConfig
 	}
 	retAdded := false
 
-	domainnameFlagName := fmt.Sprintf("%v.Domainname", cmdPrefix)
-	if cmd.Flags().Changed(domainnameFlagName) {
+	DomainnameFlagName := fmt.Sprintf("%v.Domainname", cmdPrefix)
+	if cmd.Flags().Changed(DomainnameFlagName) {
 
-		var domainnameFlagName string
+		var DomainnameFlagName string
 		if cmdPrefix == "" {
-			domainnameFlagName = "Domainname"
+			DomainnameFlagName = "Domainname"
 		} else {
-			domainnameFlagName = fmt.Sprintf("%v.Domainname", cmdPrefix)
+			DomainnameFlagName = fmt.Sprintf("%v.Domainname", cmdPrefix)
 		}
 
-		domainnameFlagValue, err := cmd.Flags().GetString(domainnameFlagName)
+		DomainnameFlagValue, err := cmd.Flags().GetString(DomainnameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Domainname = domainnameFlagValue
+		m.Domainname = DomainnameFlagValue
 
 		retAdded = true
 	}
@@ -874,8 +874,8 @@ func retrieveContainerConfigEntrypointFlags(depth int, m *models.ContainerConfig
 	}
 	retAdded := false
 
-	entrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
-	if cmd.Flags().Changed(entrypointFlagName) {
+	EntrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
+	if cmd.Flags().Changed(EntrypointFlagName) {
 		// warning: Entrypoint array type []string is not supported by go-swagger cli yet
 	}
 
@@ -888,8 +888,8 @@ func retrieveContainerConfigEnvFlags(depth int, m *models.ContainerConfig, cmdPr
 	}
 	retAdded := false
 
-	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
-	if cmd.Flags().Changed(envFlagName) {
+	EnvFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(EnvFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
 
@@ -902,8 +902,8 @@ func retrieveContainerConfigExposedPortsFlags(depth int, m *models.ContainerConf
 	}
 	retAdded := false
 
-	exposedPortsFlagName := fmt.Sprintf("%v.ExposedPorts", cmdPrefix)
-	if cmd.Flags().Changed(exposedPortsFlagName) {
+	ExposedPortsFlagName := fmt.Sprintf("%v.ExposedPorts", cmdPrefix)
+	if cmd.Flags().Changed(ExposedPortsFlagName) {
 		// warning: ExposedPorts map type map[string]interface{} is not supported by go-swagger cli yet
 	}
 
@@ -916,22 +916,22 @@ func retrieveContainerConfigHealthcheckFlags(depth int, m *models.ContainerConfi
 	}
 	retAdded := false
 
-	healthcheckFlagName := fmt.Sprintf("%v.Healthcheck", cmdPrefix)
-	if cmd.Flags().Changed(healthcheckFlagName) {
+	HealthcheckFlagName := fmt.Sprintf("%v.Healthcheck", cmdPrefix)
+	if cmd.Flags().Changed(HealthcheckFlagName) {
 		// info: complex object Healthcheck HealthConfig is retrieved outside this Changed() block
 	}
-	healthcheckFlagValue := m.Healthcheck
-	if swag.IsZero(healthcheckFlagValue) {
-		healthcheckFlagValue = &models.HealthConfig{}
+	HealthcheckFlagValue := m.Healthcheck
+	if swag.IsZero(HealthcheckFlagValue) {
+		HealthcheckFlagValue = &models.HealthConfig{}
 	}
 
-	err, healthcheckAdded := retrieveModelHealthConfigFlags(depth+1, healthcheckFlagValue, healthcheckFlagName, cmd)
+	err, HealthcheckAdded := retrieveModelHealthConfigFlags(depth+1, HealthcheckFlagValue, HealthcheckFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || healthcheckAdded
-	if healthcheckAdded {
-		m.Healthcheck = healthcheckFlagValue
+	retAdded = retAdded || HealthcheckAdded
+	if HealthcheckAdded {
+		m.Healthcheck = HealthcheckFlagValue
 	}
 
 	return nil, retAdded
@@ -943,21 +943,21 @@ func retrieveContainerConfigHostnameFlags(depth int, m *models.ContainerConfig, 
 	}
 	retAdded := false
 
-	hostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
-	if cmd.Flags().Changed(hostnameFlagName) {
+	HostnameFlagName := fmt.Sprintf("%v.Hostname", cmdPrefix)
+	if cmd.Flags().Changed(HostnameFlagName) {
 
-		var hostnameFlagName string
+		var HostnameFlagName string
 		if cmdPrefix == "" {
-			hostnameFlagName = "Hostname"
+			HostnameFlagName = "Hostname"
 		} else {
-			hostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
+			HostnameFlagName = fmt.Sprintf("%v.Hostname", cmdPrefix)
 		}
 
-		hostnameFlagValue, err := cmd.Flags().GetString(hostnameFlagName)
+		HostnameFlagValue, err := cmd.Flags().GetString(HostnameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Hostname = hostnameFlagValue
+		m.Hostname = HostnameFlagValue
 
 		retAdded = true
 	}
@@ -971,21 +971,21 @@ func retrieveContainerConfigImageFlags(depth int, m *models.ContainerConfig, cmd
 	}
 	retAdded := false
 
-	imageFlagName := fmt.Sprintf("%v.Image", cmdPrefix)
-	if cmd.Flags().Changed(imageFlagName) {
+	ImageFlagName := fmt.Sprintf("%v.Image", cmdPrefix)
+	if cmd.Flags().Changed(ImageFlagName) {
 
-		var imageFlagName string
+		var ImageFlagName string
 		if cmdPrefix == "" {
-			imageFlagName = "Image"
+			ImageFlagName = "Image"
 		} else {
-			imageFlagName = fmt.Sprintf("%v.Image", cmdPrefix)
+			ImageFlagName = fmt.Sprintf("%v.Image", cmdPrefix)
 		}
 
-		imageFlagValue, err := cmd.Flags().GetString(imageFlagName)
+		ImageFlagValue, err := cmd.Flags().GetString(ImageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Image = imageFlagValue
+		m.Image = ImageFlagValue
 
 		retAdded = true
 	}
@@ -999,8 +999,8 @@ func retrieveContainerConfigLabelsFlags(depth int, m *models.ContainerConfig, cm
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -1013,21 +1013,21 @@ func retrieveContainerConfigMacAddressFlags(depth int, m *models.ContainerConfig
 	}
 	retAdded := false
 
-	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
-	if cmd.Flags().Changed(macAddressFlagName) {
+	MacAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
+	if cmd.Flags().Changed(MacAddressFlagName) {
 
-		var macAddressFlagName string
+		var MacAddressFlagName string
 		if cmdPrefix == "" {
-			macAddressFlagName = "MacAddress"
+			MacAddressFlagName = "MacAddress"
 		} else {
-			macAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
+			MacAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
 		}
 
-		macAddressFlagValue, err := cmd.Flags().GetString(macAddressFlagName)
+		MacAddressFlagValue, err := cmd.Flags().GetString(MacAddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MacAddress = macAddressFlagValue
+		m.MacAddress = MacAddressFlagValue
 
 		retAdded = true
 	}
@@ -1041,21 +1041,21 @@ func retrieveContainerConfigNetworkDisabledFlags(depth int, m *models.ContainerC
 	}
 	retAdded := false
 
-	networkDisabledFlagName := fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
-	if cmd.Flags().Changed(networkDisabledFlagName) {
+	NetworkDisabledFlagName := fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
+	if cmd.Flags().Changed(NetworkDisabledFlagName) {
 
-		var networkDisabledFlagName string
+		var NetworkDisabledFlagName string
 		if cmdPrefix == "" {
-			networkDisabledFlagName = "NetworkDisabled"
+			NetworkDisabledFlagName = "NetworkDisabled"
 		} else {
-			networkDisabledFlagName = fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
+			NetworkDisabledFlagName = fmt.Sprintf("%v.NetworkDisabled", cmdPrefix)
 		}
 
-		networkDisabledFlagValue, err := cmd.Flags().GetBool(networkDisabledFlagName)
+		NetworkDisabledFlagValue, err := cmd.Flags().GetBool(NetworkDisabledFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NetworkDisabled = networkDisabledFlagValue
+		m.NetworkDisabled = NetworkDisabledFlagValue
 
 		retAdded = true
 	}
@@ -1069,8 +1069,8 @@ func retrieveContainerConfigOnBuildFlags(depth int, m *models.ContainerConfig, c
 	}
 	retAdded := false
 
-	onBuildFlagName := fmt.Sprintf("%v.OnBuild", cmdPrefix)
-	if cmd.Flags().Changed(onBuildFlagName) {
+	OnBuildFlagName := fmt.Sprintf("%v.OnBuild", cmdPrefix)
+	if cmd.Flags().Changed(OnBuildFlagName) {
 		// warning: OnBuild array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1083,21 +1083,21 @@ func retrieveContainerConfigOpenStdinFlags(depth int, m *models.ContainerConfig,
 	}
 	retAdded := false
 
-	openStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
-	if cmd.Flags().Changed(openStdinFlagName) {
+	OpenStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+	if cmd.Flags().Changed(OpenStdinFlagName) {
 
-		var openStdinFlagName string
+		var OpenStdinFlagName string
 		if cmdPrefix == "" {
-			openStdinFlagName = "OpenStdin"
+			OpenStdinFlagName = "OpenStdin"
 		} else {
-			openStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+			OpenStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 		}
 
-		openStdinFlagValue, err := cmd.Flags().GetBool(openStdinFlagName)
+		OpenStdinFlagValue, err := cmd.Flags().GetBool(OpenStdinFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OpenStdin = &openStdinFlagValue
+		m.OpenStdin = &OpenStdinFlagValue
 
 		retAdded = true
 	}
@@ -1111,8 +1111,8 @@ func retrieveContainerConfigShellFlags(depth int, m *models.ContainerConfig, cmd
 	}
 	retAdded := false
 
-	shellFlagName := fmt.Sprintf("%v.Shell", cmdPrefix)
-	if cmd.Flags().Changed(shellFlagName) {
+	ShellFlagName := fmt.Sprintf("%v.Shell", cmdPrefix)
+	if cmd.Flags().Changed(ShellFlagName) {
 		// warning: Shell array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1125,21 +1125,21 @@ func retrieveContainerConfigStdinOnceFlags(depth int, m *models.ContainerConfig,
 	}
 	retAdded := false
 
-	stdinOnceFlagName := fmt.Sprintf("%v.StdinOnce", cmdPrefix)
-	if cmd.Flags().Changed(stdinOnceFlagName) {
+	StdinOnceFlagName := fmt.Sprintf("%v.StdinOnce", cmdPrefix)
+	if cmd.Flags().Changed(StdinOnceFlagName) {
 
-		var stdinOnceFlagName string
+		var StdinOnceFlagName string
 		if cmdPrefix == "" {
-			stdinOnceFlagName = "StdinOnce"
+			StdinOnceFlagName = "StdinOnce"
 		} else {
-			stdinOnceFlagName = fmt.Sprintf("%v.StdinOnce", cmdPrefix)
+			StdinOnceFlagName = fmt.Sprintf("%v.StdinOnce", cmdPrefix)
 		}
 
-		stdinOnceFlagValue, err := cmd.Flags().GetBool(stdinOnceFlagName)
+		StdinOnceFlagValue, err := cmd.Flags().GetBool(StdinOnceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StdinOnce = &stdinOnceFlagValue
+		m.StdinOnce = &StdinOnceFlagValue
 
 		retAdded = true
 	}
@@ -1153,21 +1153,21 @@ func retrieveContainerConfigStopSignalFlags(depth int, m *models.ContainerConfig
 	}
 	retAdded := false
 
-	stopSignalFlagName := fmt.Sprintf("%v.StopSignal", cmdPrefix)
-	if cmd.Flags().Changed(stopSignalFlagName) {
+	StopSignalFlagName := fmt.Sprintf("%v.StopSignal", cmdPrefix)
+	if cmd.Flags().Changed(StopSignalFlagName) {
 
-		var stopSignalFlagName string
+		var StopSignalFlagName string
 		if cmdPrefix == "" {
-			stopSignalFlagName = "StopSignal"
+			StopSignalFlagName = "StopSignal"
 		} else {
-			stopSignalFlagName = fmt.Sprintf("%v.StopSignal", cmdPrefix)
+			StopSignalFlagName = fmt.Sprintf("%v.StopSignal", cmdPrefix)
 		}
 
-		stopSignalFlagValue, err := cmd.Flags().GetString(stopSignalFlagName)
+		StopSignalFlagValue, err := cmd.Flags().GetString(StopSignalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StopSignal = &stopSignalFlagValue
+		m.StopSignal = &StopSignalFlagValue
 
 		retAdded = true
 	}
@@ -1181,21 +1181,21 @@ func retrieveContainerConfigStopTimeoutFlags(depth int, m *models.ContainerConfi
 	}
 	retAdded := false
 
-	stopTimeoutFlagName := fmt.Sprintf("%v.StopTimeout", cmdPrefix)
-	if cmd.Flags().Changed(stopTimeoutFlagName) {
+	StopTimeoutFlagName := fmt.Sprintf("%v.StopTimeout", cmdPrefix)
+	if cmd.Flags().Changed(StopTimeoutFlagName) {
 
-		var stopTimeoutFlagName string
+		var StopTimeoutFlagName string
 		if cmdPrefix == "" {
-			stopTimeoutFlagName = "StopTimeout"
+			StopTimeoutFlagName = "StopTimeout"
 		} else {
-			stopTimeoutFlagName = fmt.Sprintf("%v.StopTimeout", cmdPrefix)
+			StopTimeoutFlagName = fmt.Sprintf("%v.StopTimeout", cmdPrefix)
 		}
 
-		stopTimeoutFlagValue, err := cmd.Flags().GetInt64(stopTimeoutFlagName)
+		StopTimeoutFlagValue, err := cmd.Flags().GetInt64(StopTimeoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StopTimeout = &stopTimeoutFlagValue
+		m.StopTimeout = &StopTimeoutFlagValue
 
 		retAdded = true
 	}
@@ -1209,21 +1209,21 @@ func retrieveContainerConfigTtyFlags(depth int, m *models.ContainerConfig, cmdPr
 	}
 	retAdded := false
 
-	ttyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
-	if cmd.Flags().Changed(ttyFlagName) {
+	TtyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
+	if cmd.Flags().Changed(TtyFlagName) {
 
-		var ttyFlagName string
+		var TtyFlagName string
 		if cmdPrefix == "" {
-			ttyFlagName = "Tty"
+			TtyFlagName = "Tty"
 		} else {
-			ttyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
+			TtyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
 		}
 
-		ttyFlagValue, err := cmd.Flags().GetBool(ttyFlagName)
+		TtyFlagValue, err := cmd.Flags().GetBool(TtyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tty = &ttyFlagValue
+		m.Tty = &TtyFlagValue
 
 		retAdded = true
 	}
@@ -1237,21 +1237,21 @@ func retrieveContainerConfigUserFlags(depth int, m *models.ContainerConfig, cmdP
 	}
 	retAdded := false
 
-	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
-	if cmd.Flags().Changed(userFlagName) {
+	UserFlagName := fmt.Sprintf("%v.User", cmdPrefix)
+	if cmd.Flags().Changed(UserFlagName) {
 
-		var userFlagName string
+		var UserFlagName string
 		if cmdPrefix == "" {
-			userFlagName = "User"
+			UserFlagName = "User"
 		} else {
-			userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+			UserFlagName = fmt.Sprintf("%v.User", cmdPrefix)
 		}
 
-		userFlagValue, err := cmd.Flags().GetString(userFlagName)
+		UserFlagValue, err := cmd.Flags().GetString(UserFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.User = userFlagValue
+		m.User = UserFlagValue
 
 		retAdded = true
 	}
@@ -1265,8 +1265,8 @@ func retrieveContainerConfigVolumesFlags(depth int, m *models.ContainerConfig, c
 	}
 	retAdded := false
 
-	volumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
-	if cmd.Flags().Changed(volumesFlagName) {
+	VolumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
+	if cmd.Flags().Changed(VolumesFlagName) {
 		// warning: Volumes map type map[string]interface{} is not supported by go-swagger cli yet
 	}
 
@@ -1279,21 +1279,21 @@ func retrieveContainerConfigWorkingDirFlags(depth int, m *models.ContainerConfig
 	}
 	retAdded := false
 
-	workingDirFlagName := fmt.Sprintf("%v.WorkingDir", cmdPrefix)
-	if cmd.Flags().Changed(workingDirFlagName) {
+	WorkingDirFlagName := fmt.Sprintf("%v.WorkingDir", cmdPrefix)
+	if cmd.Flags().Changed(WorkingDirFlagName) {
 
-		var workingDirFlagName string
+		var WorkingDirFlagName string
 		if cmdPrefix == "" {
-			workingDirFlagName = "WorkingDir"
+			WorkingDirFlagName = "WorkingDir"
 		} else {
-			workingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
+			WorkingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
 		}
 
-		workingDirFlagValue, err := cmd.Flags().GetString(workingDirFlagName)
+		WorkingDirFlagValue, err := cmd.Flags().GetString(WorkingDirFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.WorkingDir = workingDirFlagValue
+		m.WorkingDir = WorkingDirFlagValue
 
 		retAdded = true
 	}

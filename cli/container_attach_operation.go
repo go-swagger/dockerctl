@@ -179,125 +179,125 @@ func registerOperationContainerContainerAttachParamFlags(cmd *cobra.Command) err
 
 func registerOperationContainerContainerAttachDetachKeysParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	detachKeysDescription := `Override the key sequence for detaching a container.Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
+	DetachKeysDescription := `Override the key sequence for detaching a container.Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
 
-	var detachKeysFlagName string
+	var DetachKeysFlagName string
 	if cmdPrefix == "" {
-		detachKeysFlagName = "detachKeys"
+		DetachKeysFlagName = "detachKeys"
 	} else {
-		detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
+		DetachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
 	}
 
-	var detachKeysFlagDefault string
+	var DetachKeysFlagDefault string
 
-	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
+	_ = cmd.PersistentFlags().String(DetachKeysFlagName, DetachKeysFlagDefault, DetachKeysDescription)
 
 	return nil
 }
 func registerOperationContainerContainerAttachIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerAttachLogsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	logsDescription := `Replay previous logs from the container.
+	LogsDescription := `Replay previous logs from the container.
 
 This is useful for attaching to a container that has started and you want to output everything since the container started.
 
 If ` + "`" + `stream` + "`" + ` is also enabled, once all the previous output has been returned, it will seamlessly transition into streaming current output.
 `
 
-	var logsFlagName string
+	var LogsFlagName string
 	if cmdPrefix == "" {
-		logsFlagName = "logs"
+		LogsFlagName = "logs"
 	} else {
-		logsFlagName = fmt.Sprintf("%v.logs", cmdPrefix)
+		LogsFlagName = fmt.Sprintf("%v.logs", cmdPrefix)
 	}
 
-	var logsFlagDefault bool
+	var LogsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(logsFlagName, logsFlagDefault, logsDescription)
+	_ = cmd.PersistentFlags().Bool(LogsFlagName, LogsFlagDefault, LogsDescription)
 
 	return nil
 }
 func registerOperationContainerContainerAttachStderrParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	stderrDescription := `Attach to ` + "`" + `stderr` + "`" + ``
+	StderrDescription := `Attach to ` + "`" + `stderr` + "`" + ``
 
-	var stderrFlagName string
+	var StderrFlagName string
 	if cmdPrefix == "" {
-		stderrFlagName = "stderr"
+		StderrFlagName = "stderr"
 	} else {
-		stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
+		StderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
 	}
 
-	var stderrFlagDefault bool
+	var StderrFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(stderrFlagName, stderrFlagDefault, stderrDescription)
+	_ = cmd.PersistentFlags().Bool(StderrFlagName, StderrFlagDefault, StderrDescription)
 
 	return nil
 }
 func registerOperationContainerContainerAttachStdinParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	stdinDescription := `Attach to ` + "`" + `stdin` + "`" + ``
+	StdinDescription := `Attach to ` + "`" + `stdin` + "`" + ``
 
-	var stdinFlagName string
+	var StdinFlagName string
 	if cmdPrefix == "" {
-		stdinFlagName = "stdin"
+		StdinFlagName = "stdin"
 	} else {
-		stdinFlagName = fmt.Sprintf("%v.stdin", cmdPrefix)
+		StdinFlagName = fmt.Sprintf("%v.stdin", cmdPrefix)
 	}
 
-	var stdinFlagDefault bool
+	var StdinFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(stdinFlagName, stdinFlagDefault, stdinDescription)
+	_ = cmd.PersistentFlags().Bool(StdinFlagName, StdinFlagDefault, StdinDescription)
 
 	return nil
 }
 func registerOperationContainerContainerAttachStdoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	stdoutDescription := `Attach to ` + "`" + `stdout` + "`" + ``
+	StdoutDescription := `Attach to ` + "`" + `stdout` + "`" + ``
 
-	var stdoutFlagName string
+	var StdoutFlagName string
 	if cmdPrefix == "" {
-		stdoutFlagName = "stdout"
+		StdoutFlagName = "stdout"
 	} else {
-		stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
+		StdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
 	}
 
-	var stdoutFlagDefault bool
+	var StdoutFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(stdoutFlagName, stdoutFlagDefault, stdoutDescription)
+	_ = cmd.PersistentFlags().Bool(StdoutFlagName, StdoutFlagDefault, StdoutDescription)
 
 	return nil
 }
 func registerOperationContainerContainerAttachStreamParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	streamDescription := `Stream attached streams from the time the request was made onwards`
+	StreamDescription := `Stream attached streams from the time the request was made onwards`
 
-	var streamFlagName string
+	var StreamFlagName string
 	if cmdPrefix == "" {
-		streamFlagName = "stream"
+		StreamFlagName = "stream"
 	} else {
-		streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
+		StreamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
 	}
 
-	var streamFlagDefault bool
+	var StreamFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(streamFlagName, streamFlagDefault, streamDescription)
+	_ = cmd.PersistentFlags().Bool(StreamFlagName, StreamFlagDefault, StreamDescription)
 
 	return nil
 }
@@ -306,18 +306,18 @@ func retrieveOperationContainerContainerAttachDetachKeysFlag(m *container.Contai
 	retAdded := false
 	if cmd.Flags().Changed("detachKeys") {
 
-		var detachKeysFlagName string
+		var DetachKeysFlagName string
 		if cmdPrefix == "" {
-			detachKeysFlagName = "detachKeys"
+			DetachKeysFlagName = "detachKeys"
 		} else {
-			detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
+			DetachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
 		}
 
-		detachKeysFlagValue, err := cmd.Flags().GetString(detachKeysFlagName)
+		DetachKeysFlagValue, err := cmd.Flags().GetString(DetachKeysFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DetachKeys = &detachKeysFlagValue
+		m.DetachKeys = &DetachKeysFlagValue
 
 	}
 	return nil, retAdded
@@ -326,18 +326,18 @@ func retrieveOperationContainerContainerAttachIDFlag(m *container.ContainerAttac
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -346,18 +346,18 @@ func retrieveOperationContainerContainerAttachLogsFlag(m *container.ContainerAtt
 	retAdded := false
 	if cmd.Flags().Changed("logs") {
 
-		var logsFlagName string
+		var LogsFlagName string
 		if cmdPrefix == "" {
-			logsFlagName = "logs"
+			LogsFlagName = "logs"
 		} else {
-			logsFlagName = fmt.Sprintf("%v.logs", cmdPrefix)
+			LogsFlagName = fmt.Sprintf("%v.logs", cmdPrefix)
 		}
 
-		logsFlagValue, err := cmd.Flags().GetBool(logsFlagName)
+		LogsFlagValue, err := cmd.Flags().GetBool(LogsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Logs = &logsFlagValue
+		m.Logs = &LogsFlagValue
 
 	}
 	return nil, retAdded
@@ -366,18 +366,18 @@ func retrieveOperationContainerContainerAttachStderrFlag(m *container.ContainerA
 	retAdded := false
 	if cmd.Flags().Changed("stderr") {
 
-		var stderrFlagName string
+		var StderrFlagName string
 		if cmdPrefix == "" {
-			stderrFlagName = "stderr"
+			StderrFlagName = "stderr"
 		} else {
-			stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
+			StderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
 		}
 
-		stderrFlagValue, err := cmd.Flags().GetBool(stderrFlagName)
+		StderrFlagValue, err := cmd.Flags().GetBool(StderrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stderr = &stderrFlagValue
+		m.Stderr = &StderrFlagValue
 
 	}
 	return nil, retAdded
@@ -386,18 +386,18 @@ func retrieveOperationContainerContainerAttachStdinFlag(m *container.ContainerAt
 	retAdded := false
 	if cmd.Flags().Changed("stdin") {
 
-		var stdinFlagName string
+		var StdinFlagName string
 		if cmdPrefix == "" {
-			stdinFlagName = "stdin"
+			StdinFlagName = "stdin"
 		} else {
-			stdinFlagName = fmt.Sprintf("%v.stdin", cmdPrefix)
+			StdinFlagName = fmt.Sprintf("%v.stdin", cmdPrefix)
 		}
 
-		stdinFlagValue, err := cmd.Flags().GetBool(stdinFlagName)
+		StdinFlagValue, err := cmd.Flags().GetBool(StdinFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stdin = &stdinFlagValue
+		m.Stdin = &StdinFlagValue
 
 	}
 	return nil, retAdded
@@ -406,18 +406,18 @@ func retrieveOperationContainerContainerAttachStdoutFlag(m *container.ContainerA
 	retAdded := false
 	if cmd.Flags().Changed("stdout") {
 
-		var stdoutFlagName string
+		var StdoutFlagName string
 		if cmdPrefix == "" {
-			stdoutFlagName = "stdout"
+			StdoutFlagName = "stdout"
 		} else {
-			stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
+			StdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
 		}
 
-		stdoutFlagValue, err := cmd.Flags().GetBool(stdoutFlagName)
+		StdoutFlagValue, err := cmd.Flags().GetBool(StdoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stdout = &stdoutFlagValue
+		m.Stdout = &StdoutFlagValue
 
 	}
 	return nil, retAdded
@@ -426,18 +426,18 @@ func retrieveOperationContainerContainerAttachStreamFlag(m *container.ContainerA
 	retAdded := false
 	if cmd.Flags().Changed("stream") {
 
-		var streamFlagName string
+		var StreamFlagName string
 		if cmdPrefix == "" {
-			streamFlagName = "stream"
+			StreamFlagName = "stream"
 		} else {
-			streamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
+			StreamFlagName = fmt.Sprintf("%v.stream", cmdPrefix)
 		}
 
-		streamFlagValue, err := cmd.Flags().GetBool(streamFlagName)
+		StreamFlagValue, err := cmd.Flags().GetBool(StreamFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stream = &streamFlagValue
+		m.Stream = &StreamFlagValue
 
 	}
 	return nil, retAdded

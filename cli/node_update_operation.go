@@ -81,14 +81,14 @@ func registerOperationNodeNodeUpdateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationNodeNodeUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelNodeSpecFlags(0, "nodeSpec", cmd); err != nil {
@@ -99,35 +99,35 @@ func registerOperationNodeNodeUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.
 }
 func registerOperationNodeNodeUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. The ID of the node`
+	IDDescription := `Required. The ID of the node`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationNodeNodeUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	versionDescription := `Required. The version number of the node object being updated. This is required to avoid conflicting writes.`
+	VersionDescription := `Required. The version number of the node object being updated. This is required to avoid conflicting writes.`
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "version"
+		VersionFlagName = "version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
 	}
 
-	var versionFlagDefault int64
+	var VersionFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+	_ = cmd.PersistentFlags().Int64(VersionFlagName, VersionFlagDefault, VersionDescription)
 
 	return nil
 }
@@ -174,18 +174,18 @@ func retrieveOperationNodeNodeUpdateIDFlag(m *node.NodeUpdateParams, cmdPrefix s
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -194,18 +194,18 @@ func retrieveOperationNodeNodeUpdateVersionFlag(m *node.NodeUpdateParams, cmdPre
 	retAdded := false
 	if cmd.Flags().Changed("version") {
 
-		var versionFlagName string
+		var VersionFlagName string
 		if cmdPrefix == "" {
-			versionFlagName = "version"
+			VersionFlagName = "version"
 		} else {
-			versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+			VersionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
 		}
 
-		versionFlagValue, err := cmd.Flags().GetInt64(versionFlagName)
+		VersionFlagValue, err := cmd.Flags().GetInt64(VersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Version = versionFlagValue
+		m.Version = VersionFlagValue
 
 	}
 	return nil, retAdded

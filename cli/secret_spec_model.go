@@ -47,23 +47,23 @@ func registerSecretSpecData(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	dataDescription := `Base64-url-safe-encoded ([RFC 4648](https://tools.ietf.org/html/rfc4648#section-3.2))
+	DataDescription := `Base64-url-safe-encoded ([RFC 4648](https://tools.ietf.org/html/rfc4648#section-3.2))
 data to store as secret.
 
 This field is only used to _create_ a secret, and is not returned by
 other endpoints.
 `
 
-	var dataFlagName string
+	var DataFlagName string
 	if cmdPrefix == "" {
-		dataFlagName = "Data"
+		DataFlagName = "Data"
 	} else {
-		dataFlagName = fmt.Sprintf("%v.Data", cmdPrefix)
+		DataFlagName = fmt.Sprintf("%v.Data", cmdPrefix)
 	}
 
-	var dataFlagDefault string
+	var DataFlagDefault string
 
-	_ = cmd.PersistentFlags().String(dataFlagName, dataFlagDefault, dataDescription)
+	_ = cmd.PersistentFlags().String(DataFlagName, DataFlagDefault, DataDescription)
 
 	return nil
 }
@@ -73,14 +73,14 @@ func registerSecretSpecDriver(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	if err := registerModelDriverFlags(depth+1, driverFlagName, cmd); err != nil {
+	if err := registerModelDriverFlags(depth+1, DriverFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -102,18 +102,18 @@ func registerSecretSpecName(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	nameDescription := `User-defined name of the secret.`
+	NameDescription := `User-defined name of the secret.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -123,14 +123,14 @@ func registerSecretSpecTemplating(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	var templatingFlagName string
+	var TemplatingFlagName string
 	if cmdPrefix == "" {
-		templatingFlagName = "Templating"
+		TemplatingFlagName = "Templating"
 	} else {
-		templatingFlagName = fmt.Sprintf("%v.Templating", cmdPrefix)
+		TemplatingFlagName = fmt.Sprintf("%v.Templating", cmdPrefix)
 	}
 
-	if err := registerModelDriverFlags(depth+1, templatingFlagName, cmd); err != nil {
+	if err := registerModelDriverFlags(depth+1, TemplatingFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -141,35 +141,35 @@ func registerSecretSpecTemplating(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelSecretSpecFlags(depth int, m *models.SecretSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, dataAdded := retrieveSecretSpecDataFlags(depth, m, cmdPrefix, cmd)
+	err, DataAdded := retrieveSecretSpecDataFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dataAdded
+	retAdded = retAdded || DataAdded
 
-	err, driverAdded := retrieveSecretSpecDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveSecretSpecDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, labelsAdded := retrieveSecretSpecLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveSecretSpecLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, nameAdded := retrieveSecretSpecNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveSecretSpecNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, templatingAdded := retrieveSecretSpecTemplatingFlags(depth, m, cmdPrefix, cmd)
+	err, TemplatingAdded := retrieveSecretSpecTemplatingFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || templatingAdded
+	retAdded = retAdded || TemplatingAdded
 
 	return nil, retAdded
 }
@@ -180,21 +180,21 @@ func retrieveSecretSpecDataFlags(depth int, m *models.SecretSpec, cmdPrefix stri
 	}
 	retAdded := false
 
-	dataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
-	if cmd.Flags().Changed(dataFlagName) {
+	DataFlagName := fmt.Sprintf("%v.Data", cmdPrefix)
+	if cmd.Flags().Changed(DataFlagName) {
 
-		var dataFlagName string
+		var DataFlagName string
 		if cmdPrefix == "" {
-			dataFlagName = "Data"
+			DataFlagName = "Data"
 		} else {
-			dataFlagName = fmt.Sprintf("%v.Data", cmdPrefix)
+			DataFlagName = fmt.Sprintf("%v.Data", cmdPrefix)
 		}
 
-		dataFlagValue, err := cmd.Flags().GetString(dataFlagName)
+		DataFlagValue, err := cmd.Flags().GetString(DataFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Data = dataFlagValue
+		m.Data = DataFlagValue
 
 		retAdded = true
 	}
@@ -208,22 +208,22 @@ func retrieveSecretSpecDriverFlags(depth int, m *models.SecretSpec, cmdPrefix st
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 		// info: complex object Driver Driver is retrieved outside this Changed() block
 	}
-	driverFlagValue := m.Driver
-	if swag.IsZero(driverFlagValue) {
-		driverFlagValue = &models.Driver{}
+	DriverFlagValue := m.Driver
+	if swag.IsZero(DriverFlagValue) {
+		DriverFlagValue = &models.Driver{}
 	}
 
-	err, driverAdded := retrieveModelDriverFlags(depth+1, driverFlagValue, driverFlagName, cmd)
+	err, DriverAdded := retrieveModelDriverFlags(depth+1, DriverFlagValue, DriverFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
-	if driverAdded {
-		m.Driver = driverFlagValue
+	retAdded = retAdded || DriverAdded
+	if DriverAdded {
+		m.Driver = DriverFlagValue
 	}
 
 	return nil, retAdded
@@ -235,8 +235,8 @@ func retrieveSecretSpecLabelsFlags(depth int, m *models.SecretSpec, cmdPrefix st
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -249,21 +249,21 @@ func retrieveSecretSpecNameFlags(depth int, m *models.SecretSpec, cmdPrefix stri
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -277,22 +277,22 @@ func retrieveSecretSpecTemplatingFlags(depth int, m *models.SecretSpec, cmdPrefi
 	}
 	retAdded := false
 
-	templatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
-	if cmd.Flags().Changed(templatingFlagName) {
+	TemplatingFlagName := fmt.Sprintf("%v.Templating", cmdPrefix)
+	if cmd.Flags().Changed(TemplatingFlagName) {
 		// info: complex object Templating Driver is retrieved outside this Changed() block
 	}
-	templatingFlagValue := m.Templating
-	if swag.IsZero(templatingFlagValue) {
-		templatingFlagValue = &models.Driver{}
+	TemplatingFlagValue := m.Templating
+	if swag.IsZero(TemplatingFlagValue) {
+		TemplatingFlagValue = &models.Driver{}
 	}
 
-	err, templatingAdded := retrieveModelDriverFlags(depth+1, templatingFlagValue, templatingFlagName, cmd)
+	err, TemplatingAdded := retrieveModelDriverFlags(depth+1, TemplatingFlagValue, TemplatingFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || templatingAdded
-	if templatingAdded {
-		m.Templating = templatingFlagValue
+	retAdded = retAdded || TemplatingAdded
+	if TemplatingAdded {
+		m.Templating = TemplatingFlagValue
 	}
 
 	return nil, retAdded

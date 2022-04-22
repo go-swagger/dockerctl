@@ -68,7 +68,7 @@ func registerOperationVolumeVolumeListParamFlags(cmd *cobra.Command) error {
 
 func registerOperationVolumeVolumeListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to
+	FiltersDescription := `JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to
 process on the volumes list. Available filters:
 
 - ` + "`" + `dangling=<boolean>` + "`" + ` When set to ` + "`" + `true` + "`" + ` (or ` + "`" + `1` + "`" + `), returns all
@@ -81,16 +81,16 @@ process on the volumes list. Available filters:
 - ` + "`" + `name=<volume-name>` + "`" + ` Matches all or part of a volume name.
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -99,18 +99,18 @@ func retrieveOperationVolumeVolumeListFiltersFlag(m *volume.VolumeListParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -196,17 +196,17 @@ func registerVolumeListOKBodyWarnings(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelVolumeListOKBodyFlags(depth int, m *volume.VolumeListOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, volumesAdded := retrieveVolumeListOKBodyVolumesFlags(depth, m, cmdPrefix, cmd)
+	err, VolumesAdded := retrieveVolumeListOKBodyVolumesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumesAdded
+	retAdded = retAdded || VolumesAdded
 
-	err, warningsAdded := retrieveVolumeListOKBodyWarningsFlags(depth, m, cmdPrefix, cmd)
+	err, WarningsAdded := retrieveVolumeListOKBodyWarningsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || warningsAdded
+	retAdded = retAdded || WarningsAdded
 
 	return nil, retAdded
 }
@@ -217,8 +217,8 @@ func retrieveVolumeListOKBodyVolumesFlags(depth int, m *volume.VolumeListOKBody,
 	}
 	retAdded := false
 
-	volumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
-	if cmd.Flags().Changed(volumesFlagName) {
+	VolumesFlagName := fmt.Sprintf("%v.Volumes", cmdPrefix)
+	if cmd.Flags().Changed(VolumesFlagName) {
 		// warning: Volumes array type []*models.Volume is not supported by go-swagger cli yet
 	}
 
@@ -231,8 +231,8 @@ func retrieveVolumeListOKBodyWarningsFlags(depth int, m *volume.VolumeListOKBody
 	}
 	retAdded := false
 
-	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
-	if cmd.Flags().Changed(warningsFlagName) {
+	WarningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
+	if cmd.Flags().Changed(WarningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
 

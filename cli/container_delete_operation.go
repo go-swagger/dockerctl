@@ -86,69 +86,69 @@ func registerOperationContainerContainerDeleteParamFlags(cmd *cobra.Command) err
 
 func registerOperationContainerContainerDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	forceDescription := `If the container is running, kill it before removing it.`
+	ForceDescription := `If the container is running, kill it before removing it.`
 
-	var forceFlagName string
+	var ForceFlagName string
 	if cmdPrefix == "" {
-		forceFlagName = "force"
+		ForceFlagName = "force"
 	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+		ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 	}
 
-	var forceFlagDefault bool
+	var ForceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+	_ = cmd.PersistentFlags().Bool(ForceFlagName, ForceFlagDefault, ForceDescription)
 
 	return nil
 }
 func registerOperationContainerContainerDeleteIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerDeleteLinkParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	linkDescription := `Remove the specified link associated with the container.`
+	LinkDescription := `Remove the specified link associated with the container.`
 
-	var linkFlagName string
+	var LinkFlagName string
 	if cmdPrefix == "" {
-		linkFlagName = "link"
+		LinkFlagName = "link"
 	} else {
-		linkFlagName = fmt.Sprintf("%v.link", cmdPrefix)
+		LinkFlagName = fmt.Sprintf("%v.link", cmdPrefix)
 	}
 
-	var linkFlagDefault bool
+	var LinkFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(linkFlagName, linkFlagDefault, linkDescription)
+	_ = cmd.PersistentFlags().Bool(LinkFlagName, LinkFlagDefault, LinkDescription)
 
 	return nil
 }
 func registerOperationContainerContainerDeleteVParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	vDescription := `Remove the volumes associated with the container.`
+	VDescription := `Remove the volumes associated with the container.`
 
-	var vFlagName string
+	var VFlagName string
 	if cmdPrefix == "" {
-		vFlagName = "v"
+		VFlagName = "v"
 	} else {
-		vFlagName = fmt.Sprintf("%v.v", cmdPrefix)
+		VFlagName = fmt.Sprintf("%v.v", cmdPrefix)
 	}
 
-	var vFlagDefault bool
+	var VFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(vFlagName, vFlagDefault, vDescription)
+	_ = cmd.PersistentFlags().Bool(VFlagName, VFlagDefault, VDescription)
 
 	return nil
 }
@@ -157,18 +157,18 @@ func retrieveOperationContainerContainerDeleteForceFlag(m *container.ContainerDe
 	retAdded := false
 	if cmd.Flags().Changed("force") {
 
-		var forceFlagName string
+		var ForceFlagName string
 		if cmdPrefix == "" {
-			forceFlagName = "force"
+			ForceFlagName = "force"
 		} else {
-			forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+			ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 		}
 
-		forceFlagValue, err := cmd.Flags().GetBool(forceFlagName)
+		ForceFlagValue, err := cmd.Flags().GetBool(ForceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Force = &forceFlagValue
+		m.Force = &ForceFlagValue
 
 	}
 	return nil, retAdded
@@ -177,18 +177,18 @@ func retrieveOperationContainerContainerDeleteIDFlag(m *container.ContainerDelet
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -197,18 +197,18 @@ func retrieveOperationContainerContainerDeleteLinkFlag(m *container.ContainerDel
 	retAdded := false
 	if cmd.Flags().Changed("link") {
 
-		var linkFlagName string
+		var LinkFlagName string
 		if cmdPrefix == "" {
-			linkFlagName = "link"
+			LinkFlagName = "link"
 		} else {
-			linkFlagName = fmt.Sprintf("%v.link", cmdPrefix)
+			LinkFlagName = fmt.Sprintf("%v.link", cmdPrefix)
 		}
 
-		linkFlagValue, err := cmd.Flags().GetBool(linkFlagName)
+		LinkFlagValue, err := cmd.Flags().GetBool(LinkFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Link = &linkFlagValue
+		m.Link = &LinkFlagValue
 
 	}
 	return nil, retAdded
@@ -217,18 +217,18 @@ func retrieveOperationContainerContainerDeleteVFlag(m *container.ContainerDelete
 	retAdded := false
 	if cmd.Flags().Changed("v") {
 
-		var vFlagName string
+		var VFlagName string
 		if cmdPrefix == "" {
-			vFlagName = "v"
+			VFlagName = "v"
 		} else {
-			vFlagName = fmt.Sprintf("%v.v", cmdPrefix)
+			VFlagName = fmt.Sprintf("%v.v", cmdPrefix)
 		}
 
-		vFlagValue, err := cmd.Flags().GetBool(vFlagName)
+		VFlagValue, err := cmd.Flags().GetBool(VFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.V = &vFlagValue
+		m.V = &VFlagValue
 
 	}
 	return nil, retAdded

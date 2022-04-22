@@ -194,18 +194,18 @@ func registerHostConfigAnonAO1AutoRemove(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	autoRemoveDescription := `Automatically remove the container when the container's process exits. This has no effect if ` + "`" + `RestartPolicy` + "`" + ` is set.`
+	AutoRemoveDescription := `Automatically remove the container when the container's process exits. This has no effect if ` + "`" + `RestartPolicy` + "`" + ` is set.`
 
-	var autoRemoveFlagName string
+	var AutoRemoveFlagName string
 	if cmdPrefix == "" {
-		autoRemoveFlagName = "AutoRemove"
+		AutoRemoveFlagName = "AutoRemove"
 	} else {
-		autoRemoveFlagName = fmt.Sprintf("%v.AutoRemove", cmdPrefix)
+		AutoRemoveFlagName = fmt.Sprintf("%v.AutoRemove", cmdPrefix)
 	}
 
-	var autoRemoveFlagDefault bool
+	var AutoRemoveFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(autoRemoveFlagName, autoRemoveFlagDefault, autoRemoveDescription)
+	_ = cmd.PersistentFlags().Bool(AutoRemoveFlagName, AutoRemoveFlagDefault, AutoRemoveDescription)
 
 	return nil
 }
@@ -255,18 +255,18 @@ func registerHostConfigAnonAO1Cgroup(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	cgroupDescription := `Cgroup to use for the container.`
+	CgroupDescription := `Cgroup to use for the container.`
 
-	var cgroupFlagName string
+	var CgroupFlagName string
 	if cmdPrefix == "" {
-		cgroupFlagName = "Cgroup"
+		CgroupFlagName = "Cgroup"
 	} else {
-		cgroupFlagName = fmt.Sprintf("%v.Cgroup", cmdPrefix)
+		CgroupFlagName = fmt.Sprintf("%v.Cgroup", cmdPrefix)
 	}
 
-	var cgroupFlagDefault string
+	var CgroupFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cgroupFlagName, cgroupFlagDefault, cgroupDescription)
+	_ = cmd.PersistentFlags().String(CgroupFlagName, CgroupFlagDefault, CgroupDescription)
 
 	return nil
 }
@@ -276,7 +276,7 @@ func registerHostConfigAnonAO1CgroupnsMode(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	cgroupnsModeDescription := `Enum: ["private","host"]. cgroup namespace mode for the container. Possible values are:
+	CgroupnsModeDescription := `Enum: ["private","host"]. cgroup namespace mode for the container. Possible values are:
 
 - ` + "`" + `"private"` + "`" + `: the container runs in its own private cgroup namespace
 - ` + "`" + `"host"` + "`" + `: use the host system's cgroup namespace
@@ -285,18 +285,18 @@ If not specified, the daemon default is used, which can either be ` + "`" + `"pr
 or ` + "`" + `"host"` + "`" + `, depending on daemon version, kernel support and configuration.
 `
 
-	var cgroupnsModeFlagName string
+	var CgroupnsModeFlagName string
 	if cmdPrefix == "" {
-		cgroupnsModeFlagName = "CgroupnsMode"
+		CgroupnsModeFlagName = "CgroupnsMode"
 	} else {
-		cgroupnsModeFlagName = fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
+		CgroupnsModeFlagName = fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
 	}
 
-	var cgroupnsModeFlagDefault string
+	var CgroupnsModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cgroupnsModeFlagName, cgroupnsModeFlagDefault, cgroupnsModeDescription)
+	_ = cmd.PersistentFlags().String(CgroupnsModeFlagName, CgroupnsModeFlagDefault, CgroupnsModeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(cgroupnsModeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(CgroupnsModeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["private","host"]`), &res); err != nil {
@@ -325,18 +325,18 @@ func registerHostConfigAnonAO1ContainerIDFile(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	containerIdFileDescription := `Path to a file where the container ID is written`
+	ContainerIDFileDescription := `Path to a file where the container ID is written`
 
-	var containerIdFileFlagName string
+	var ContainerIDFileFlagName string
 	if cmdPrefix == "" {
-		containerIdFileFlagName = "ContainerIDFile"
+		ContainerIDFileFlagName = "ContainerIDFile"
 	} else {
-		containerIdFileFlagName = fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
+		ContainerIDFileFlagName = fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
 	}
 
-	var containerIdFileFlagDefault string
+	var ContainerIDFileFlagDefault string
 
-	_ = cmd.PersistentFlags().String(containerIdFileFlagName, containerIdFileFlagDefault, containerIdFileDescription)
+	_ = cmd.PersistentFlags().String(ContainerIDFileFlagName, ContainerIDFileFlagDefault, ContainerIDFileDescription)
 
 	return nil
 }
@@ -396,7 +396,7 @@ func registerHostConfigAnonAO1IpcMode(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	ipcModeDescription := `IPC sharing mode for the container. Possible values are:
+	IpcModeDescription := `IPC sharing mode for the container. Possible values are:
 
 - ` + "`" + `"none"` + "`" + `: own private IPC namespace, with /dev/shm not mounted
 - ` + "`" + `"private"` + "`" + `: own private IPC namespace
@@ -408,16 +408,16 @@ If not specified, daemon default is used, which can either be ` + "`" + `"privat
 or ` + "`" + `"shareable"` + "`" + `, depending on daemon version and configuration.
 `
 
-	var ipcModeFlagName string
+	var IpcModeFlagName string
 	if cmdPrefix == "" {
-		ipcModeFlagName = "IpcMode"
+		IpcModeFlagName = "IpcMode"
 	} else {
-		ipcModeFlagName = fmt.Sprintf("%v.IpcMode", cmdPrefix)
+		IpcModeFlagName = fmt.Sprintf("%v.IpcMode", cmdPrefix)
 	}
 
-	var ipcModeFlagDefault string
+	var IpcModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipcModeFlagName, ipcModeFlagDefault, ipcModeDescription)
+	_ = cmd.PersistentFlags().String(IpcModeFlagName, IpcModeFlagDefault, IpcModeDescription)
 
 	return nil
 }
@@ -427,20 +427,20 @@ func registerHostConfigAnonAO1Isolation(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	isolationDescription := `Enum: ["default","process","hyperv"]. Isolation technology of the container. (Windows only)`
+	IsolationDescription := `Enum: ["default","process","hyperv"]. Isolation technology of the container. (Windows only)`
 
-	var isolationFlagName string
+	var IsolationFlagName string
 	if cmdPrefix == "" {
-		isolationFlagName = "Isolation"
+		IsolationFlagName = "Isolation"
 	} else {
-		isolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
+		IsolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
 	}
 
-	var isolationFlagDefault string
+	var IsolationFlagDefault string
 
-	_ = cmd.PersistentFlags().String(isolationFlagName, isolationFlagDefault, isolationDescription)
+	_ = cmd.PersistentFlags().String(IsolationFlagName, IsolationFlagDefault, IsolationDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(isolationFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(IsolationFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["default","process","hyperv"]`), &res); err != nil {
@@ -469,14 +469,14 @@ func registerHostConfigAnonAO1LogConfig(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	var logConfigFlagName string
+	var LogConfigFlagName string
 	if cmdPrefix == "" {
-		logConfigFlagName = "LogConfig"
+		LogConfigFlagName = "LogConfig"
 	} else {
-		logConfigFlagName = fmt.Sprintf("%v.LogConfig", cmdPrefix)
+		LogConfigFlagName = fmt.Sprintf("%v.LogConfig", cmdPrefix)
 	}
 
-	if err := registerModelHostConfigAO1LogConfigFlags(depth+1, logConfigFlagName, cmd); err != nil {
+	if err := registerModelHostConfigAO1LogConfigFlags(depth+1, LogConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -508,18 +508,18 @@ func registerHostConfigAnonAO1NetworkMode(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	networkModeDescription := `Network mode to use for this container. Supported standard values are: ` + "`" + `bridge` + "`" + `, ` + "`" + `host` + "`" + `, ` + "`" + `none` + "`" + `, and ` + "`" + `container:<name|id>` + "`" + `. Any other value is taken as a custom network's name to which this container should connect to.`
+	NetworkModeDescription := `Network mode to use for this container. Supported standard values are: ` + "`" + `bridge` + "`" + `, ` + "`" + `host` + "`" + `, ` + "`" + `none` + "`" + `, and ` + "`" + `container:<name|id>` + "`" + `. Any other value is taken as a custom network's name to which this container should connect to.`
 
-	var networkModeFlagName string
+	var NetworkModeFlagName string
 	if cmdPrefix == "" {
-		networkModeFlagName = "NetworkMode"
+		NetworkModeFlagName = "NetworkMode"
 	} else {
-		networkModeFlagName = fmt.Sprintf("%v.NetworkMode", cmdPrefix)
+		NetworkModeFlagName = fmt.Sprintf("%v.NetworkMode", cmdPrefix)
 	}
 
-	var networkModeFlagDefault string
+	var NetworkModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(networkModeFlagName, networkModeFlagDefault, networkModeDescription)
+	_ = cmd.PersistentFlags().String(NetworkModeFlagName, NetworkModeFlagDefault, NetworkModeDescription)
 
 	return nil
 }
@@ -529,18 +529,18 @@ func registerHostConfigAnonAO1OomScoreAdj(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	oomScoreAdjDescription := `An integer value containing the score given to the container in order to tune OOM killer preferences.`
+	OomScoreAdjDescription := `An integer value containing the score given to the container in order to tune OOM killer preferences.`
 
-	var oomScoreAdjFlagName string
+	var OomScoreAdjFlagName string
 	if cmdPrefix == "" {
-		oomScoreAdjFlagName = "OomScoreAdj"
+		OomScoreAdjFlagName = "OomScoreAdj"
 	} else {
-		oomScoreAdjFlagName = fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
+		OomScoreAdjFlagName = fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
 	}
 
-	var oomScoreAdjFlagDefault int64
+	var OomScoreAdjFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(oomScoreAdjFlagName, oomScoreAdjFlagDefault, oomScoreAdjDescription)
+	_ = cmd.PersistentFlags().Int64(OomScoreAdjFlagName, OomScoreAdjFlagDefault, OomScoreAdjDescription)
 
 	return nil
 }
@@ -550,22 +550,22 @@ func registerHostConfigAnonAO1PidMode(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	pidModeDescription := `Set the PID (Process) Namespace mode for the container. It can be either:
+	PidModeDescription := `Set the PID (Process) Namespace mode for the container. It can be either:
 
 - ` + "`" + `"container:<name|id>"` + "`" + `: joins another container's PID namespace
 - ` + "`" + `"host"` + "`" + `: use the host's PID namespace inside the container
 `
 
-	var pidModeFlagName string
+	var PidModeFlagName string
 	if cmdPrefix == "" {
-		pidModeFlagName = "PidMode"
+		PidModeFlagName = "PidMode"
 	} else {
-		pidModeFlagName = fmt.Sprintf("%v.PidMode", cmdPrefix)
+		PidModeFlagName = fmt.Sprintf("%v.PidMode", cmdPrefix)
 	}
 
-	var pidModeFlagDefault string
+	var PidModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pidModeFlagName, pidModeFlagDefault, pidModeDescription)
+	_ = cmd.PersistentFlags().String(PidModeFlagName, PidModeFlagDefault, PidModeDescription)
 
 	return nil
 }
@@ -585,18 +585,18 @@ func registerHostConfigAnonAO1Privileged(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	privilegedDescription := `Gives the container full access to the host.`
+	PrivilegedDescription := `Gives the container full access to the host.`
 
-	var privilegedFlagName string
+	var PrivilegedFlagName string
 	if cmdPrefix == "" {
-		privilegedFlagName = "Privileged"
+		PrivilegedFlagName = "Privileged"
 	} else {
-		privilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
+		PrivilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
 	}
 
-	var privilegedFlagDefault bool
+	var PrivilegedFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(privilegedFlagName, privilegedFlagDefault, privilegedDescription)
+	_ = cmd.PersistentFlags().Bool(PrivilegedFlagName, PrivilegedFlagDefault, PrivilegedDescription)
 
 	return nil
 }
@@ -606,7 +606,7 @@ func registerHostConfigAnonAO1PublishAllPorts(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	publishAllPortsDescription := `Allocates an ephemeral host port for all of a container's
+	PublishAllPortsDescription := `Allocates an ephemeral host port for all of a container's
 exposed ports.
 
 Ports are de-allocated when the container stops and allocated when the container starts.
@@ -616,16 +616,16 @@ The port is selected from the ephemeral port range that depends on the kernel.
 For example, on Linux the range is defined by ` + "`" + `/proc/sys/net/ipv4/ip_local_port_range` + "`" + `.
 `
 
-	var publishAllPortsFlagName string
+	var PublishAllPortsFlagName string
 	if cmdPrefix == "" {
-		publishAllPortsFlagName = "PublishAllPorts"
+		PublishAllPortsFlagName = "PublishAllPorts"
 	} else {
-		publishAllPortsFlagName = fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
+		PublishAllPortsFlagName = fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
 	}
 
-	var publishAllPortsFlagDefault bool
+	var PublishAllPortsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(publishAllPortsFlagName, publishAllPortsFlagDefault, publishAllPortsDescription)
+	_ = cmd.PersistentFlags().Bool(PublishAllPortsFlagName, PublishAllPortsFlagDefault, PublishAllPortsDescription)
 
 	return nil
 }
@@ -645,18 +645,18 @@ func registerHostConfigAnonAO1ReadonlyRootfs(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	readonlyRootfsDescription := `Mount the container's root filesystem as read only.`
+	ReadonlyRootfsDescription := `Mount the container's root filesystem as read only.`
 
-	var readonlyRootfsFlagName string
+	var ReadonlyRootfsFlagName string
 	if cmdPrefix == "" {
-		readonlyRootfsFlagName = "ReadonlyRootfs"
+		ReadonlyRootfsFlagName = "ReadonlyRootfs"
 	} else {
-		readonlyRootfsFlagName = fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
+		ReadonlyRootfsFlagName = fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
 	}
 
-	var readonlyRootfsFlagDefault bool
+	var ReadonlyRootfsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(readonlyRootfsFlagName, readonlyRootfsFlagDefault, readonlyRootfsDescription)
+	_ = cmd.PersistentFlags().Bool(ReadonlyRootfsFlagName, ReadonlyRootfsFlagDefault, ReadonlyRootfsDescription)
 
 	return nil
 }
@@ -666,14 +666,14 @@ func registerHostConfigAnonAO1RestartPolicy(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	var restartPolicyFlagName string
+	var RestartPolicyFlagName string
 	if cmdPrefix == "" {
-		restartPolicyFlagName = "RestartPolicy"
+		RestartPolicyFlagName = "RestartPolicy"
 	} else {
-		restartPolicyFlagName = fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
+		RestartPolicyFlagName = fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	}
 
-	if err := registerModelRestartPolicyFlags(depth+1, restartPolicyFlagName, cmd); err != nil {
+	if err := registerModelRestartPolicyFlags(depth+1, RestartPolicyFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -685,18 +685,18 @@ func registerHostConfigAnonAO1Runtime(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	runtimeDescription := `Runtime to use with this container.`
+	RuntimeDescription := `Runtime to use with this container.`
 
-	var runtimeFlagName string
+	var RuntimeFlagName string
 	if cmdPrefix == "" {
-		runtimeFlagName = "Runtime"
+		RuntimeFlagName = "Runtime"
 	} else {
-		runtimeFlagName = fmt.Sprintf("%v.Runtime", cmdPrefix)
+		RuntimeFlagName = fmt.Sprintf("%v.Runtime", cmdPrefix)
 	}
 
-	var runtimeFlagDefault string
+	var RuntimeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(runtimeFlagName, runtimeFlagDefault, runtimeDescription)
+	_ = cmd.PersistentFlags().String(RuntimeFlagName, RuntimeFlagDefault, RuntimeDescription)
 
 	return nil
 }
@@ -716,18 +716,18 @@ func registerHostConfigAnonAO1ShmSize(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	shmSizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. If omitted, the system uses 64MB.`
+	ShmSizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. If omitted, the system uses 64MB.`
 
-	var shmSizeFlagName string
+	var ShmSizeFlagName string
 	if cmdPrefix == "" {
-		shmSizeFlagName = "ShmSize"
+		ShmSizeFlagName = "ShmSize"
 	} else {
-		shmSizeFlagName = fmt.Sprintf("%v.ShmSize", cmdPrefix)
+		ShmSizeFlagName = fmt.Sprintf("%v.ShmSize", cmdPrefix)
 	}
 
-	var shmSizeFlagDefault int64
+	var ShmSizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(shmSizeFlagName, shmSizeFlagDefault, shmSizeDescription)
+	_ = cmd.PersistentFlags().Int64(ShmSizeFlagName, ShmSizeFlagDefault, ShmSizeDescription)
 
 	return nil
 }
@@ -767,18 +767,18 @@ func registerHostConfigAnonAO1UTSMode(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	uTSModeDescription := `UTS namespace to use for the container.`
+	UTSModeDescription := `UTS namespace to use for the container.`
 
-	var uTSModeFlagName string
+	var UTSModeFlagName string
 	if cmdPrefix == "" {
-		uTSModeFlagName = "UTSMode"
+		UTSModeFlagName = "UTSMode"
 	} else {
-		uTSModeFlagName = fmt.Sprintf("%v.UTSMode", cmdPrefix)
+		UTSModeFlagName = fmt.Sprintf("%v.UTSMode", cmdPrefix)
 	}
 
-	var uTSModeFlagDefault string
+	var UTSModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(uTSModeFlagName, uTSModeFlagDefault, uTSModeDescription)
+	_ = cmd.PersistentFlags().String(UTSModeFlagName, UTSModeFlagDefault, UTSModeDescription)
 
 	return nil
 }
@@ -788,18 +788,18 @@ func registerHostConfigAnonAO1UsernsMode(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	usernsModeDescription := `Sets the usernamespace mode for the container when usernamespace remapping option is enabled.`
+	UsernsModeDescription := `Sets the usernamespace mode for the container when usernamespace remapping option is enabled.`
 
-	var usernsModeFlagName string
+	var UsernsModeFlagName string
 	if cmdPrefix == "" {
-		usernsModeFlagName = "UsernsMode"
+		UsernsModeFlagName = "UsernsMode"
 	} else {
-		usernsModeFlagName = fmt.Sprintf("%v.UsernsMode", cmdPrefix)
+		UsernsModeFlagName = fmt.Sprintf("%v.UsernsMode", cmdPrefix)
 	}
 
-	var usernsModeFlagDefault string
+	var UsernsModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(usernsModeFlagName, usernsModeFlagDefault, usernsModeDescription)
+	_ = cmd.PersistentFlags().String(UsernsModeFlagName, UsernsModeFlagDefault, UsernsModeDescription)
 
 	return nil
 }
@@ -809,18 +809,18 @@ func registerHostConfigAnonAO1VolumeDriver(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	volumeDriverDescription := `Driver that this container uses to mount volumes.`
+	VolumeDriverDescription := `Driver that this container uses to mount volumes.`
 
-	var volumeDriverFlagName string
+	var VolumeDriverFlagName string
 	if cmdPrefix == "" {
-		volumeDriverFlagName = "VolumeDriver"
+		VolumeDriverFlagName = "VolumeDriver"
 	} else {
-		volumeDriverFlagName = fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
+		VolumeDriverFlagName = fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
 	}
 
-	var volumeDriverFlagDefault string
+	var VolumeDriverFlagDefault string
 
-	_ = cmd.PersistentFlags().String(volumeDriverFlagName, volumeDriverFlagDefault, volumeDriverDescription)
+	_ = cmd.PersistentFlags().String(VolumeDriverFlagName, VolumeDriverFlagDefault, VolumeDriverDescription)
 
 	return nil
 }
@@ -840,247 +840,247 @@ func retrieveModelHostConfigFlags(depth int, m *models.HostConfig, cmdPrefix str
 	retAdded := false
 
 	// retrieve model Resources
-	err, aO0Added := retrieveModelResourcesFlags(depth, &m.Resources, cmdPrefix, cmd)
+	err, AO0Added := retrieveModelResourcesFlags(depth, &m.Resources, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || aO0Added
+	retAdded = retAdded || AO0Added
 
 	// retrieve allOf AO1 fields
 
-	err, autoRemoveAdded := retrieveHostConfigAnonAO1AutoRemoveFlags(depth, m, cmdPrefix, cmd)
+	err, AutoRemoveAdded := retrieveHostConfigAnonAO1AutoRemoveFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || autoRemoveAdded
+	retAdded = retAdded || AutoRemoveAdded
 
-	err, bindsAdded := retrieveHostConfigAnonAO1BindsFlags(depth, m, cmdPrefix, cmd)
+	err, BindsAdded := retrieveHostConfigAnonAO1BindsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || bindsAdded
+	retAdded = retAdded || BindsAdded
 
-	err, capAddAdded := retrieveHostConfigAnonAO1CapAddFlags(depth, m, cmdPrefix, cmd)
+	err, CapAddAdded := retrieveHostConfigAnonAO1CapAddFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || capAddAdded
+	retAdded = retAdded || CapAddAdded
 
-	err, capDropAdded := retrieveHostConfigAnonAO1CapDropFlags(depth, m, cmdPrefix, cmd)
+	err, CapDropAdded := retrieveHostConfigAnonAO1CapDropFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || capDropAdded
+	retAdded = retAdded || CapDropAdded
 
-	err, capabilitiesAdded := retrieveHostConfigAnonAO1CapabilitiesFlags(depth, m, cmdPrefix, cmd)
+	err, CapabilitiesAdded := retrieveHostConfigAnonAO1CapabilitiesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || capabilitiesAdded
+	retAdded = retAdded || CapabilitiesAdded
 
-	err, cgroupAdded := retrieveHostConfigAnonAO1CgroupFlags(depth, m, cmdPrefix, cmd)
+	err, CgroupAdded := retrieveHostConfigAnonAO1CgroupFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cgroupAdded
+	retAdded = retAdded || CgroupAdded
 
-	err, cgroupnsModeAdded := retrieveHostConfigAnonAO1CgroupnsModeFlags(depth, m, cmdPrefix, cmd)
+	err, CgroupnsModeAdded := retrieveHostConfigAnonAO1CgroupnsModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cgroupnsModeAdded
+	retAdded = retAdded || CgroupnsModeAdded
 
-	err, consoleSizeAdded := retrieveHostConfigAnonAO1ConsoleSizeFlags(depth, m, cmdPrefix, cmd)
+	err, ConsoleSizeAdded := retrieveHostConfigAnonAO1ConsoleSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || consoleSizeAdded
+	retAdded = retAdded || ConsoleSizeAdded
 
-	err, containerIdFileAdded := retrieveHostConfigAnonAO1ContainerIDFileFlags(depth, m, cmdPrefix, cmd)
+	err, ContainerIDFileAdded := retrieveHostConfigAnonAO1ContainerIDFileFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerIdFileAdded
+	retAdded = retAdded || ContainerIDFileAdded
 
-	err, dnsAdded := retrieveHostConfigAnonAO1DNSFlags(depth, m, cmdPrefix, cmd)
+	err, DNSAdded := retrieveHostConfigAnonAO1DNSFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dnsAdded
+	retAdded = retAdded || DNSAdded
 
-	err, dnsOptionsAdded := retrieveHostConfigAnonAO1DNSOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, DNSOptionsAdded := retrieveHostConfigAnonAO1DNSOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dnsOptionsAdded
+	retAdded = retAdded || DNSOptionsAdded
 
-	err, dnsSearchAdded := retrieveHostConfigAnonAO1DNSSearchFlags(depth, m, cmdPrefix, cmd)
+	err, DNSSearchAdded := retrieveHostConfigAnonAO1DNSSearchFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dnsSearchAdded
+	retAdded = retAdded || DNSSearchAdded
 
-	err, extraHostsAdded := retrieveHostConfigAnonAO1ExtraHostsFlags(depth, m, cmdPrefix, cmd)
+	err, ExtraHostsAdded := retrieveHostConfigAnonAO1ExtraHostsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || extraHostsAdded
+	retAdded = retAdded || ExtraHostsAdded
 
-	err, groupAddAdded := retrieveHostConfigAnonAO1GroupAddFlags(depth, m, cmdPrefix, cmd)
+	err, GroupAddAdded := retrieveHostConfigAnonAO1GroupAddFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || groupAddAdded
+	retAdded = retAdded || GroupAddAdded
 
-	err, ipcModeAdded := retrieveHostConfigAnonAO1IpcModeFlags(depth, m, cmdPrefix, cmd)
+	err, IpcModeAdded := retrieveHostConfigAnonAO1IpcModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipcModeAdded
+	retAdded = retAdded || IpcModeAdded
 
-	err, isolationAdded := retrieveHostConfigAnonAO1IsolationFlags(depth, m, cmdPrefix, cmd)
+	err, IsolationAdded := retrieveHostConfigAnonAO1IsolationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || isolationAdded
+	retAdded = retAdded || IsolationAdded
 
-	err, linksAdded := retrieveHostConfigAnonAO1LinksFlags(depth, m, cmdPrefix, cmd)
+	err, LinksAdded := retrieveHostConfigAnonAO1LinksFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || linksAdded
+	retAdded = retAdded || LinksAdded
 
-	err, logConfigAdded := retrieveHostConfigAnonAO1LogConfigFlags(depth, m, cmdPrefix, cmd)
+	err, LogConfigAdded := retrieveHostConfigAnonAO1LogConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || logConfigAdded
+	retAdded = retAdded || LogConfigAdded
 
-	err, maskedPathsAdded := retrieveHostConfigAnonAO1MaskedPathsFlags(depth, m, cmdPrefix, cmd)
+	err, MaskedPathsAdded := retrieveHostConfigAnonAO1MaskedPathsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || maskedPathsAdded
+	retAdded = retAdded || MaskedPathsAdded
 
-	err, mountsAdded := retrieveHostConfigAnonAO1MountsFlags(depth, m, cmdPrefix, cmd)
+	err, MountsAdded := retrieveHostConfigAnonAO1MountsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mountsAdded
+	retAdded = retAdded || MountsAdded
 
-	err, networkModeAdded := retrieveHostConfigAnonAO1NetworkModeFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkModeAdded := retrieveHostConfigAnonAO1NetworkModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkModeAdded
+	retAdded = retAdded || NetworkModeAdded
 
-	err, oomScoreAdjAdded := retrieveHostConfigAnonAO1OomScoreAdjFlags(depth, m, cmdPrefix, cmd)
+	err, OomScoreAdjAdded := retrieveHostConfigAnonAO1OomScoreAdjFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || oomScoreAdjAdded
+	retAdded = retAdded || OomScoreAdjAdded
 
-	err, pidModeAdded := retrieveHostConfigAnonAO1PidModeFlags(depth, m, cmdPrefix, cmd)
+	err, PidModeAdded := retrieveHostConfigAnonAO1PidModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pidModeAdded
+	retAdded = retAdded || PidModeAdded
 
-	err, portBindingsAdded := retrieveHostConfigAnonAO1PortBindingsFlags(depth, m, cmdPrefix, cmd)
+	err, PortBindingsAdded := retrieveHostConfigAnonAO1PortBindingsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || portBindingsAdded
+	retAdded = retAdded || PortBindingsAdded
 
-	err, privilegedAdded := retrieveHostConfigAnonAO1PrivilegedFlags(depth, m, cmdPrefix, cmd)
+	err, PrivilegedAdded := retrieveHostConfigAnonAO1PrivilegedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || privilegedAdded
+	retAdded = retAdded || PrivilegedAdded
 
-	err, publishAllPortsAdded := retrieveHostConfigAnonAO1PublishAllPortsFlags(depth, m, cmdPrefix, cmd)
+	err, PublishAllPortsAdded := retrieveHostConfigAnonAO1PublishAllPortsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || publishAllPortsAdded
+	retAdded = retAdded || PublishAllPortsAdded
 
-	err, readonlyPathsAdded := retrieveHostConfigAnonAO1ReadonlyPathsFlags(depth, m, cmdPrefix, cmd)
+	err, ReadonlyPathsAdded := retrieveHostConfigAnonAO1ReadonlyPathsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || readonlyPathsAdded
+	retAdded = retAdded || ReadonlyPathsAdded
 
-	err, readonlyRootfsAdded := retrieveHostConfigAnonAO1ReadonlyRootfsFlags(depth, m, cmdPrefix, cmd)
+	err, ReadonlyRootfsAdded := retrieveHostConfigAnonAO1ReadonlyRootfsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || readonlyRootfsAdded
+	retAdded = retAdded || ReadonlyRootfsAdded
 
-	err, restartPolicyAdded := retrieveHostConfigAnonAO1RestartPolicyFlags(depth, m, cmdPrefix, cmd)
+	err, RestartPolicyAdded := retrieveHostConfigAnonAO1RestartPolicyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || restartPolicyAdded
+	retAdded = retAdded || RestartPolicyAdded
 
-	err, runtimeAdded := retrieveHostConfigAnonAO1RuntimeFlags(depth, m, cmdPrefix, cmd)
+	err, RuntimeAdded := retrieveHostConfigAnonAO1RuntimeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || runtimeAdded
+	retAdded = retAdded || RuntimeAdded
 
-	err, securityOptAdded := retrieveHostConfigAnonAO1SecurityOptFlags(depth, m, cmdPrefix, cmd)
+	err, SecurityOptAdded := retrieveHostConfigAnonAO1SecurityOptFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || securityOptAdded
+	retAdded = retAdded || SecurityOptAdded
 
-	err, shmSizeAdded := retrieveHostConfigAnonAO1ShmSizeFlags(depth, m, cmdPrefix, cmd)
+	err, ShmSizeAdded := retrieveHostConfigAnonAO1ShmSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || shmSizeAdded
+	retAdded = retAdded || ShmSizeAdded
 
-	err, storageOptAdded := retrieveHostConfigAnonAO1StorageOptFlags(depth, m, cmdPrefix, cmd)
+	err, StorageOptAdded := retrieveHostConfigAnonAO1StorageOptFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || storageOptAdded
+	retAdded = retAdded || StorageOptAdded
 
-	err, sysctlsAdded := retrieveHostConfigAnonAO1SysctlsFlags(depth, m, cmdPrefix, cmd)
+	err, SysctlsAdded := retrieveHostConfigAnonAO1SysctlsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sysctlsAdded
+	retAdded = retAdded || SysctlsAdded
 
-	err, tmpfsAdded := retrieveHostConfigAnonAO1TmpfsFlags(depth, m, cmdPrefix, cmd)
+	err, TmpfsAdded := retrieveHostConfigAnonAO1TmpfsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tmpfsAdded
+	retAdded = retAdded || TmpfsAdded
 
-	err, uTSModeAdded := retrieveHostConfigAnonAO1UTSModeFlags(depth, m, cmdPrefix, cmd)
+	err, UTSModeAdded := retrieveHostConfigAnonAO1UTSModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || uTSModeAdded
+	retAdded = retAdded || UTSModeAdded
 
-	err, usernsModeAdded := retrieveHostConfigAnonAO1UsernsModeFlags(depth, m, cmdPrefix, cmd)
+	err, UsernsModeAdded := retrieveHostConfigAnonAO1UsernsModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || usernsModeAdded
+	retAdded = retAdded || UsernsModeAdded
 
-	err, volumeDriverAdded := retrieveHostConfigAnonAO1VolumeDriverFlags(depth, m, cmdPrefix, cmd)
+	err, VolumeDriverAdded := retrieveHostConfigAnonAO1VolumeDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumeDriverAdded
+	retAdded = retAdded || VolumeDriverAdded
 
-	err, volumesFromAdded := retrieveHostConfigAnonAO1VolumesFromFlags(depth, m, cmdPrefix, cmd)
+	err, VolumesFromAdded := retrieveHostConfigAnonAO1VolumesFromFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumesFromAdded
+	retAdded = retAdded || VolumesFromAdded
 
 	return nil, retAdded
 }
@@ -1093,21 +1093,21 @@ func retrieveHostConfigAnonAO1AutoRemoveFlags(depth int, m *models.HostConfig, c
 	}
 	retAdded := false
 
-	autoRemoveFlagName := fmt.Sprintf("%v.AutoRemove", cmdPrefix)
-	if cmd.Flags().Changed(autoRemoveFlagName) {
+	AutoRemoveFlagName := fmt.Sprintf("%v.AutoRemove", cmdPrefix)
+	if cmd.Flags().Changed(AutoRemoveFlagName) {
 
-		var autoRemoveFlagName string
+		var AutoRemoveFlagName string
 		if cmdPrefix == "" {
-			autoRemoveFlagName = "AutoRemove"
+			AutoRemoveFlagName = "AutoRemove"
 		} else {
-			autoRemoveFlagName = fmt.Sprintf("%v.AutoRemove", cmdPrefix)
+			AutoRemoveFlagName = fmt.Sprintf("%v.AutoRemove", cmdPrefix)
 		}
 
-		autoRemoveFlagValue, err := cmd.Flags().GetBool(autoRemoveFlagName)
+		AutoRemoveFlagValue, err := cmd.Flags().GetBool(AutoRemoveFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AutoRemove = autoRemoveFlagValue
+		m.AutoRemove = AutoRemoveFlagValue
 
 		retAdded = true
 	}
@@ -1121,8 +1121,8 @@ func retrieveHostConfigAnonAO1BindsFlags(depth int, m *models.HostConfig, cmdPre
 	}
 	retAdded := false
 
-	bindsFlagName := fmt.Sprintf("%v.Binds", cmdPrefix)
-	if cmd.Flags().Changed(bindsFlagName) {
+	BindsFlagName := fmt.Sprintf("%v.Binds", cmdPrefix)
+	if cmd.Flags().Changed(BindsFlagName) {
 		// warning: Binds array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1135,8 +1135,8 @@ func retrieveHostConfigAnonAO1CapAddFlags(depth int, m *models.HostConfig, cmdPr
 	}
 	retAdded := false
 
-	capAddFlagName := fmt.Sprintf("%v.CapAdd", cmdPrefix)
-	if cmd.Flags().Changed(capAddFlagName) {
+	CapAddFlagName := fmt.Sprintf("%v.CapAdd", cmdPrefix)
+	if cmd.Flags().Changed(CapAddFlagName) {
 		// warning: CapAdd array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1149,8 +1149,8 @@ func retrieveHostConfigAnonAO1CapDropFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	capDropFlagName := fmt.Sprintf("%v.CapDrop", cmdPrefix)
-	if cmd.Flags().Changed(capDropFlagName) {
+	CapDropFlagName := fmt.Sprintf("%v.CapDrop", cmdPrefix)
+	if cmd.Flags().Changed(CapDropFlagName) {
 		// warning: CapDrop array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1163,8 +1163,8 @@ func retrieveHostConfigAnonAO1CapabilitiesFlags(depth int, m *models.HostConfig,
 	}
 	retAdded := false
 
-	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
-	if cmd.Flags().Changed(capabilitiesFlagName) {
+	CapabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
+	if cmd.Flags().Changed(CapabilitiesFlagName) {
 		// warning: Capabilities array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1177,21 +1177,21 @@ func retrieveHostConfigAnonAO1CgroupFlags(depth int, m *models.HostConfig, cmdPr
 	}
 	retAdded := false
 
-	cgroupFlagName := fmt.Sprintf("%v.Cgroup", cmdPrefix)
-	if cmd.Flags().Changed(cgroupFlagName) {
+	CgroupFlagName := fmt.Sprintf("%v.Cgroup", cmdPrefix)
+	if cmd.Flags().Changed(CgroupFlagName) {
 
-		var cgroupFlagName string
+		var CgroupFlagName string
 		if cmdPrefix == "" {
-			cgroupFlagName = "Cgroup"
+			CgroupFlagName = "Cgroup"
 		} else {
-			cgroupFlagName = fmt.Sprintf("%v.Cgroup", cmdPrefix)
+			CgroupFlagName = fmt.Sprintf("%v.Cgroup", cmdPrefix)
 		}
 
-		cgroupFlagValue, err := cmd.Flags().GetString(cgroupFlagName)
+		CgroupFlagValue, err := cmd.Flags().GetString(CgroupFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Cgroup = cgroupFlagValue
+		m.Cgroup = CgroupFlagValue
 
 		retAdded = true
 	}
@@ -1205,21 +1205,21 @@ func retrieveHostConfigAnonAO1CgroupnsModeFlags(depth int, m *models.HostConfig,
 	}
 	retAdded := false
 
-	cgroupnsModeFlagName := fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
-	if cmd.Flags().Changed(cgroupnsModeFlagName) {
+	CgroupnsModeFlagName := fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
+	if cmd.Flags().Changed(CgroupnsModeFlagName) {
 
-		var cgroupnsModeFlagName string
+		var CgroupnsModeFlagName string
 		if cmdPrefix == "" {
-			cgroupnsModeFlagName = "CgroupnsMode"
+			CgroupnsModeFlagName = "CgroupnsMode"
 		} else {
-			cgroupnsModeFlagName = fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
+			CgroupnsModeFlagName = fmt.Sprintf("%v.CgroupnsMode", cmdPrefix)
 		}
 
-		cgroupnsModeFlagValue, err := cmd.Flags().GetString(cgroupnsModeFlagName)
+		CgroupnsModeFlagValue, err := cmd.Flags().GetString(CgroupnsModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CgroupnsMode = cgroupnsModeFlagValue
+		m.CgroupnsMode = CgroupnsModeFlagValue
 
 		retAdded = true
 	}
@@ -1233,8 +1233,8 @@ func retrieveHostConfigAnonAO1ConsoleSizeFlags(depth int, m *models.HostConfig, 
 	}
 	retAdded := false
 
-	consoleSizeFlagName := fmt.Sprintf("%v.ConsoleSize", cmdPrefix)
-	if cmd.Flags().Changed(consoleSizeFlagName) {
+	ConsoleSizeFlagName := fmt.Sprintf("%v.ConsoleSize", cmdPrefix)
+	if cmd.Flags().Changed(ConsoleSizeFlagName) {
 		// warning: ConsoleSize array type []*int64 is not supported by go-swagger cli yet
 	}
 
@@ -1247,21 +1247,21 @@ func retrieveHostConfigAnonAO1ContainerIDFileFlags(depth int, m *models.HostConf
 	}
 	retAdded := false
 
-	containerIdFileFlagName := fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
-	if cmd.Flags().Changed(containerIdFileFlagName) {
+	ContainerIDFileFlagName := fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
+	if cmd.Flags().Changed(ContainerIDFileFlagName) {
 
-		var containerIdFileFlagName string
+		var ContainerIDFileFlagName string
 		if cmdPrefix == "" {
-			containerIdFileFlagName = "ContainerIDFile"
+			ContainerIDFileFlagName = "ContainerIDFile"
 		} else {
-			containerIdFileFlagName = fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
+			ContainerIDFileFlagName = fmt.Sprintf("%v.ContainerIDFile", cmdPrefix)
 		}
 
-		containerIdFileFlagValue, err := cmd.Flags().GetString(containerIdFileFlagName)
+		ContainerIDFileFlagValue, err := cmd.Flags().GetString(ContainerIDFileFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ContainerIDFile = containerIdFileFlagValue
+		m.ContainerIDFile = ContainerIDFileFlagValue
 
 		retAdded = true
 	}
@@ -1275,8 +1275,8 @@ func retrieveHostConfigAnonAO1DNSFlags(depth int, m *models.HostConfig, cmdPrefi
 	}
 	retAdded := false
 
-	dnsFlagName := fmt.Sprintf("%v.Dns", cmdPrefix)
-	if cmd.Flags().Changed(dnsFlagName) {
+	DNSFlagName := fmt.Sprintf("%v.Dns", cmdPrefix)
+	if cmd.Flags().Changed(DNSFlagName) {
 		// warning: Dns array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1289,8 +1289,8 @@ func retrieveHostConfigAnonAO1DNSOptionsFlags(depth int, m *models.HostConfig, c
 	}
 	retAdded := false
 
-	dnsOptionsFlagName := fmt.Sprintf("%v.DnsOptions", cmdPrefix)
-	if cmd.Flags().Changed(dnsOptionsFlagName) {
+	DNSOptionsFlagName := fmt.Sprintf("%v.DnsOptions", cmdPrefix)
+	if cmd.Flags().Changed(DNSOptionsFlagName) {
 		// warning: DnsOptions array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1303,8 +1303,8 @@ func retrieveHostConfigAnonAO1DNSSearchFlags(depth int, m *models.HostConfig, cm
 	}
 	retAdded := false
 
-	dnsSearchFlagName := fmt.Sprintf("%v.DnsSearch", cmdPrefix)
-	if cmd.Flags().Changed(dnsSearchFlagName) {
+	DNSSearchFlagName := fmt.Sprintf("%v.DnsSearch", cmdPrefix)
+	if cmd.Flags().Changed(DNSSearchFlagName) {
 		// warning: DnsSearch array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1317,8 +1317,8 @@ func retrieveHostConfigAnonAO1ExtraHostsFlags(depth int, m *models.HostConfig, c
 	}
 	retAdded := false
 
-	extraHostsFlagName := fmt.Sprintf("%v.ExtraHosts", cmdPrefix)
-	if cmd.Flags().Changed(extraHostsFlagName) {
+	ExtraHostsFlagName := fmt.Sprintf("%v.ExtraHosts", cmdPrefix)
+	if cmd.Flags().Changed(ExtraHostsFlagName) {
 		// warning: ExtraHosts array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1331,8 +1331,8 @@ func retrieveHostConfigAnonAO1GroupAddFlags(depth int, m *models.HostConfig, cmd
 	}
 	retAdded := false
 
-	groupAddFlagName := fmt.Sprintf("%v.GroupAdd", cmdPrefix)
-	if cmd.Flags().Changed(groupAddFlagName) {
+	GroupAddFlagName := fmt.Sprintf("%v.GroupAdd", cmdPrefix)
+	if cmd.Flags().Changed(GroupAddFlagName) {
 		// warning: GroupAdd array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1345,21 +1345,21 @@ func retrieveHostConfigAnonAO1IpcModeFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	ipcModeFlagName := fmt.Sprintf("%v.IpcMode", cmdPrefix)
-	if cmd.Flags().Changed(ipcModeFlagName) {
+	IpcModeFlagName := fmt.Sprintf("%v.IpcMode", cmdPrefix)
+	if cmd.Flags().Changed(IpcModeFlagName) {
 
-		var ipcModeFlagName string
+		var IpcModeFlagName string
 		if cmdPrefix == "" {
-			ipcModeFlagName = "IpcMode"
+			IpcModeFlagName = "IpcMode"
 		} else {
-			ipcModeFlagName = fmt.Sprintf("%v.IpcMode", cmdPrefix)
+			IpcModeFlagName = fmt.Sprintf("%v.IpcMode", cmdPrefix)
 		}
 
-		ipcModeFlagValue, err := cmd.Flags().GetString(ipcModeFlagName)
+		IpcModeFlagValue, err := cmd.Flags().GetString(IpcModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IpcMode = ipcModeFlagValue
+		m.IpcMode = IpcModeFlagValue
 
 		retAdded = true
 	}
@@ -1373,21 +1373,21 @@ func retrieveHostConfigAnonAO1IsolationFlags(depth int, m *models.HostConfig, cm
 	}
 	retAdded := false
 
-	isolationFlagName := fmt.Sprintf("%v.Isolation", cmdPrefix)
-	if cmd.Flags().Changed(isolationFlagName) {
+	IsolationFlagName := fmt.Sprintf("%v.Isolation", cmdPrefix)
+	if cmd.Flags().Changed(IsolationFlagName) {
 
-		var isolationFlagName string
+		var IsolationFlagName string
 		if cmdPrefix == "" {
-			isolationFlagName = "Isolation"
+			IsolationFlagName = "Isolation"
 		} else {
-			isolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
+			IsolationFlagName = fmt.Sprintf("%v.Isolation", cmdPrefix)
 		}
 
-		isolationFlagValue, err := cmd.Flags().GetString(isolationFlagName)
+		IsolationFlagValue, err := cmd.Flags().GetString(IsolationFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Isolation = isolationFlagValue
+		m.Isolation = IsolationFlagValue
 
 		retAdded = true
 	}
@@ -1401,8 +1401,8 @@ func retrieveHostConfigAnonAO1LinksFlags(depth int, m *models.HostConfig, cmdPre
 	}
 	retAdded := false
 
-	linksFlagName := fmt.Sprintf("%v.Links", cmdPrefix)
-	if cmd.Flags().Changed(linksFlagName) {
+	LinksFlagName := fmt.Sprintf("%v.Links", cmdPrefix)
+	if cmd.Flags().Changed(LinksFlagName) {
 		// warning: Links array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1415,22 +1415,22 @@ func retrieveHostConfigAnonAO1LogConfigFlags(depth int, m *models.HostConfig, cm
 	}
 	retAdded := false
 
-	logConfigFlagName := fmt.Sprintf("%v.LogConfig", cmdPrefix)
-	if cmd.Flags().Changed(logConfigFlagName) {
+	LogConfigFlagName := fmt.Sprintf("%v.LogConfig", cmdPrefix)
+	if cmd.Flags().Changed(LogConfigFlagName) {
 		// info: complex object LogConfig HostConfigAO1LogConfig is retrieved outside this Changed() block
 	}
-	logConfigFlagValue := m.LogConfig
-	if swag.IsZero(logConfigFlagValue) {
-		logConfigFlagValue = &models.HostConfigAO1LogConfig{}
+	LogConfigFlagValue := m.LogConfig
+	if swag.IsZero(LogConfigFlagValue) {
+		LogConfigFlagValue = &models.HostConfigAO1LogConfig{}
 	}
 
-	err, logConfigAdded := retrieveModelHostConfigAO1LogConfigFlags(depth+1, logConfigFlagValue, logConfigFlagName, cmd)
+	err, LogConfigAdded := retrieveModelHostConfigAO1LogConfigFlags(depth+1, LogConfigFlagValue, LogConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || logConfigAdded
-	if logConfigAdded {
-		m.LogConfig = logConfigFlagValue
+	retAdded = retAdded || LogConfigAdded
+	if LogConfigAdded {
+		m.LogConfig = LogConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -1442,8 +1442,8 @@ func retrieveHostConfigAnonAO1MaskedPathsFlags(depth int, m *models.HostConfig, 
 	}
 	retAdded := false
 
-	maskedPathsFlagName := fmt.Sprintf("%v.MaskedPaths", cmdPrefix)
-	if cmd.Flags().Changed(maskedPathsFlagName) {
+	MaskedPathsFlagName := fmt.Sprintf("%v.MaskedPaths", cmdPrefix)
+	if cmd.Flags().Changed(MaskedPathsFlagName) {
 		// warning: MaskedPaths array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1456,8 +1456,8 @@ func retrieveHostConfigAnonAO1MountsFlags(depth int, m *models.HostConfig, cmdPr
 	}
 	retAdded := false
 
-	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
-	if cmd.Flags().Changed(mountsFlagName) {
+	MountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
+	if cmd.Flags().Changed(MountsFlagName) {
 		// warning: Mounts array type []*Mount is not supported by go-swagger cli yet
 	}
 
@@ -1470,21 +1470,21 @@ func retrieveHostConfigAnonAO1NetworkModeFlags(depth int, m *models.HostConfig, 
 	}
 	retAdded := false
 
-	networkModeFlagName := fmt.Sprintf("%v.NetworkMode", cmdPrefix)
-	if cmd.Flags().Changed(networkModeFlagName) {
+	NetworkModeFlagName := fmt.Sprintf("%v.NetworkMode", cmdPrefix)
+	if cmd.Flags().Changed(NetworkModeFlagName) {
 
-		var networkModeFlagName string
+		var NetworkModeFlagName string
 		if cmdPrefix == "" {
-			networkModeFlagName = "NetworkMode"
+			NetworkModeFlagName = "NetworkMode"
 		} else {
-			networkModeFlagName = fmt.Sprintf("%v.NetworkMode", cmdPrefix)
+			NetworkModeFlagName = fmt.Sprintf("%v.NetworkMode", cmdPrefix)
 		}
 
-		networkModeFlagValue, err := cmd.Flags().GetString(networkModeFlagName)
+		NetworkModeFlagValue, err := cmd.Flags().GetString(NetworkModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NetworkMode = networkModeFlagValue
+		m.NetworkMode = NetworkModeFlagValue
 
 		retAdded = true
 	}
@@ -1498,21 +1498,21 @@ func retrieveHostConfigAnonAO1OomScoreAdjFlags(depth int, m *models.HostConfig, 
 	}
 	retAdded := false
 
-	oomScoreAdjFlagName := fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
-	if cmd.Flags().Changed(oomScoreAdjFlagName) {
+	OomScoreAdjFlagName := fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
+	if cmd.Flags().Changed(OomScoreAdjFlagName) {
 
-		var oomScoreAdjFlagName string
+		var OomScoreAdjFlagName string
 		if cmdPrefix == "" {
-			oomScoreAdjFlagName = "OomScoreAdj"
+			OomScoreAdjFlagName = "OomScoreAdj"
 		} else {
-			oomScoreAdjFlagName = fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
+			OomScoreAdjFlagName = fmt.Sprintf("%v.OomScoreAdj", cmdPrefix)
 		}
 
-		oomScoreAdjFlagValue, err := cmd.Flags().GetInt64(oomScoreAdjFlagName)
+		OomScoreAdjFlagValue, err := cmd.Flags().GetInt64(OomScoreAdjFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OomScoreAdj = oomScoreAdjFlagValue
+		m.OomScoreAdj = OomScoreAdjFlagValue
 
 		retAdded = true
 	}
@@ -1526,21 +1526,21 @@ func retrieveHostConfigAnonAO1PidModeFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	pidModeFlagName := fmt.Sprintf("%v.PidMode", cmdPrefix)
-	if cmd.Flags().Changed(pidModeFlagName) {
+	PidModeFlagName := fmt.Sprintf("%v.PidMode", cmdPrefix)
+	if cmd.Flags().Changed(PidModeFlagName) {
 
-		var pidModeFlagName string
+		var PidModeFlagName string
 		if cmdPrefix == "" {
-			pidModeFlagName = "PidMode"
+			PidModeFlagName = "PidMode"
 		} else {
-			pidModeFlagName = fmt.Sprintf("%v.PidMode", cmdPrefix)
+			PidModeFlagName = fmt.Sprintf("%v.PidMode", cmdPrefix)
 		}
 
-		pidModeFlagValue, err := cmd.Flags().GetString(pidModeFlagName)
+		PidModeFlagValue, err := cmd.Flags().GetString(PidModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PidMode = pidModeFlagValue
+		m.PidMode = PidModeFlagValue
 
 		retAdded = true
 	}
@@ -1554,8 +1554,8 @@ func retrieveHostConfigAnonAO1PortBindingsFlags(depth int, m *models.HostConfig,
 	}
 	retAdded := false
 
-	portBindingsFlagName := fmt.Sprintf("%v.PortBindings", cmdPrefix)
-	if cmd.Flags().Changed(portBindingsFlagName) {
+	PortBindingsFlagName := fmt.Sprintf("%v.PortBindings", cmdPrefix)
+	if cmd.Flags().Changed(PortBindingsFlagName) {
 		// warning: PortBindings map type PortMap is not supported by go-swagger cli yet
 	}
 
@@ -1568,21 +1568,21 @@ func retrieveHostConfigAnonAO1PrivilegedFlags(depth int, m *models.HostConfig, c
 	}
 	retAdded := false
 
-	privilegedFlagName := fmt.Sprintf("%v.Privileged", cmdPrefix)
-	if cmd.Flags().Changed(privilegedFlagName) {
+	PrivilegedFlagName := fmt.Sprintf("%v.Privileged", cmdPrefix)
+	if cmd.Flags().Changed(PrivilegedFlagName) {
 
-		var privilegedFlagName string
+		var PrivilegedFlagName string
 		if cmdPrefix == "" {
-			privilegedFlagName = "Privileged"
+			PrivilegedFlagName = "Privileged"
 		} else {
-			privilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
+			PrivilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
 		}
 
-		privilegedFlagValue, err := cmd.Flags().GetBool(privilegedFlagName)
+		PrivilegedFlagValue, err := cmd.Flags().GetBool(PrivilegedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Privileged = privilegedFlagValue
+		m.Privileged = PrivilegedFlagValue
 
 		retAdded = true
 	}
@@ -1596,21 +1596,21 @@ func retrieveHostConfigAnonAO1PublishAllPortsFlags(depth int, m *models.HostConf
 	}
 	retAdded := false
 
-	publishAllPortsFlagName := fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
-	if cmd.Flags().Changed(publishAllPortsFlagName) {
+	PublishAllPortsFlagName := fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
+	if cmd.Flags().Changed(PublishAllPortsFlagName) {
 
-		var publishAllPortsFlagName string
+		var PublishAllPortsFlagName string
 		if cmdPrefix == "" {
-			publishAllPortsFlagName = "PublishAllPorts"
+			PublishAllPortsFlagName = "PublishAllPorts"
 		} else {
-			publishAllPortsFlagName = fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
+			PublishAllPortsFlagName = fmt.Sprintf("%v.PublishAllPorts", cmdPrefix)
 		}
 
-		publishAllPortsFlagValue, err := cmd.Flags().GetBool(publishAllPortsFlagName)
+		PublishAllPortsFlagValue, err := cmd.Flags().GetBool(PublishAllPortsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PublishAllPorts = publishAllPortsFlagValue
+		m.PublishAllPorts = PublishAllPortsFlagValue
 
 		retAdded = true
 	}
@@ -1624,8 +1624,8 @@ func retrieveHostConfigAnonAO1ReadonlyPathsFlags(depth int, m *models.HostConfig
 	}
 	retAdded := false
 
-	readonlyPathsFlagName := fmt.Sprintf("%v.ReadonlyPaths", cmdPrefix)
-	if cmd.Flags().Changed(readonlyPathsFlagName) {
+	ReadonlyPathsFlagName := fmt.Sprintf("%v.ReadonlyPaths", cmdPrefix)
+	if cmd.Flags().Changed(ReadonlyPathsFlagName) {
 		// warning: ReadonlyPaths array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1638,21 +1638,21 @@ func retrieveHostConfigAnonAO1ReadonlyRootfsFlags(depth int, m *models.HostConfi
 	}
 	retAdded := false
 
-	readonlyRootfsFlagName := fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
-	if cmd.Flags().Changed(readonlyRootfsFlagName) {
+	ReadonlyRootfsFlagName := fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
+	if cmd.Flags().Changed(ReadonlyRootfsFlagName) {
 
-		var readonlyRootfsFlagName string
+		var ReadonlyRootfsFlagName string
 		if cmdPrefix == "" {
-			readonlyRootfsFlagName = "ReadonlyRootfs"
+			ReadonlyRootfsFlagName = "ReadonlyRootfs"
 		} else {
-			readonlyRootfsFlagName = fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
+			ReadonlyRootfsFlagName = fmt.Sprintf("%v.ReadonlyRootfs", cmdPrefix)
 		}
 
-		readonlyRootfsFlagValue, err := cmd.Flags().GetBool(readonlyRootfsFlagName)
+		ReadonlyRootfsFlagValue, err := cmd.Flags().GetBool(ReadonlyRootfsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ReadonlyRootfs = readonlyRootfsFlagValue
+		m.ReadonlyRootfs = ReadonlyRootfsFlagValue
 
 		retAdded = true
 	}
@@ -1666,22 +1666,22 @@ func retrieveHostConfigAnonAO1RestartPolicyFlags(depth int, m *models.HostConfig
 	}
 	retAdded := false
 
-	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
-	if cmd.Flags().Changed(restartPolicyFlagName) {
+	RestartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
+	if cmd.Flags().Changed(RestartPolicyFlagName) {
 		// info: complex object RestartPolicy RestartPolicy is retrieved outside this Changed() block
 	}
-	restartPolicyFlagValue := m.RestartPolicy
-	if swag.IsZero(restartPolicyFlagValue) {
-		restartPolicyFlagValue = &models.RestartPolicy{}
+	RestartPolicyFlagValue := m.RestartPolicy
+	if swag.IsZero(RestartPolicyFlagValue) {
+		RestartPolicyFlagValue = &models.RestartPolicy{}
 	}
 
-	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	err, RestartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, RestartPolicyFlagValue, RestartPolicyFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || restartPolicyAdded
-	if restartPolicyAdded {
-		m.RestartPolicy = restartPolicyFlagValue
+	retAdded = retAdded || RestartPolicyAdded
+	if RestartPolicyAdded {
+		m.RestartPolicy = RestartPolicyFlagValue
 	}
 
 	return nil, retAdded
@@ -1693,21 +1693,21 @@ func retrieveHostConfigAnonAO1RuntimeFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	runtimeFlagName := fmt.Sprintf("%v.Runtime", cmdPrefix)
-	if cmd.Flags().Changed(runtimeFlagName) {
+	RuntimeFlagName := fmt.Sprintf("%v.Runtime", cmdPrefix)
+	if cmd.Flags().Changed(RuntimeFlagName) {
 
-		var runtimeFlagName string
+		var RuntimeFlagName string
 		if cmdPrefix == "" {
-			runtimeFlagName = "Runtime"
+			RuntimeFlagName = "Runtime"
 		} else {
-			runtimeFlagName = fmt.Sprintf("%v.Runtime", cmdPrefix)
+			RuntimeFlagName = fmt.Sprintf("%v.Runtime", cmdPrefix)
 		}
 
-		runtimeFlagValue, err := cmd.Flags().GetString(runtimeFlagName)
+		RuntimeFlagValue, err := cmd.Flags().GetString(RuntimeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Runtime = runtimeFlagValue
+		m.Runtime = RuntimeFlagValue
 
 		retAdded = true
 	}
@@ -1721,8 +1721,8 @@ func retrieveHostConfigAnonAO1SecurityOptFlags(depth int, m *models.HostConfig, 
 	}
 	retAdded := false
 
-	securityOptFlagName := fmt.Sprintf("%v.SecurityOpt", cmdPrefix)
-	if cmd.Flags().Changed(securityOptFlagName) {
+	SecurityOptFlagName := fmt.Sprintf("%v.SecurityOpt", cmdPrefix)
+	if cmd.Flags().Changed(SecurityOptFlagName) {
 		// warning: SecurityOpt array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1735,21 +1735,21 @@ func retrieveHostConfigAnonAO1ShmSizeFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	shmSizeFlagName := fmt.Sprintf("%v.ShmSize", cmdPrefix)
-	if cmd.Flags().Changed(shmSizeFlagName) {
+	ShmSizeFlagName := fmt.Sprintf("%v.ShmSize", cmdPrefix)
+	if cmd.Flags().Changed(ShmSizeFlagName) {
 
-		var shmSizeFlagName string
+		var ShmSizeFlagName string
 		if cmdPrefix == "" {
-			shmSizeFlagName = "ShmSize"
+			ShmSizeFlagName = "ShmSize"
 		} else {
-			shmSizeFlagName = fmt.Sprintf("%v.ShmSize", cmdPrefix)
+			ShmSizeFlagName = fmt.Sprintf("%v.ShmSize", cmdPrefix)
 		}
 
-		shmSizeFlagValue, err := cmd.Flags().GetInt64(shmSizeFlagName)
+		ShmSizeFlagValue, err := cmd.Flags().GetInt64(ShmSizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ShmSize = &shmSizeFlagValue
+		m.ShmSize = &ShmSizeFlagValue
 
 		retAdded = true
 	}
@@ -1763,8 +1763,8 @@ func retrieveHostConfigAnonAO1StorageOptFlags(depth int, m *models.HostConfig, c
 	}
 	retAdded := false
 
-	storageOptFlagName := fmt.Sprintf("%v.StorageOpt", cmdPrefix)
-	if cmd.Flags().Changed(storageOptFlagName) {
+	StorageOptFlagName := fmt.Sprintf("%v.StorageOpt", cmdPrefix)
+	if cmd.Flags().Changed(StorageOptFlagName) {
 		// warning: StorageOpt map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -1777,8 +1777,8 @@ func retrieveHostConfigAnonAO1SysctlsFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	sysctlsFlagName := fmt.Sprintf("%v.Sysctls", cmdPrefix)
-	if cmd.Flags().Changed(sysctlsFlagName) {
+	SysctlsFlagName := fmt.Sprintf("%v.Sysctls", cmdPrefix)
+	if cmd.Flags().Changed(SysctlsFlagName) {
 		// warning: Sysctls map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -1791,8 +1791,8 @@ func retrieveHostConfigAnonAO1TmpfsFlags(depth int, m *models.HostConfig, cmdPre
 	}
 	retAdded := false
 
-	tmpfsFlagName := fmt.Sprintf("%v.Tmpfs", cmdPrefix)
-	if cmd.Flags().Changed(tmpfsFlagName) {
+	TmpfsFlagName := fmt.Sprintf("%v.Tmpfs", cmdPrefix)
+	if cmd.Flags().Changed(TmpfsFlagName) {
 		// warning: Tmpfs map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -1805,21 +1805,21 @@ func retrieveHostConfigAnonAO1UTSModeFlags(depth int, m *models.HostConfig, cmdP
 	}
 	retAdded := false
 
-	uTSModeFlagName := fmt.Sprintf("%v.UTSMode", cmdPrefix)
-	if cmd.Flags().Changed(uTSModeFlagName) {
+	UTSModeFlagName := fmt.Sprintf("%v.UTSMode", cmdPrefix)
+	if cmd.Flags().Changed(UTSModeFlagName) {
 
-		var uTSModeFlagName string
+		var UTSModeFlagName string
 		if cmdPrefix == "" {
-			uTSModeFlagName = "UTSMode"
+			UTSModeFlagName = "UTSMode"
 		} else {
-			uTSModeFlagName = fmt.Sprintf("%v.UTSMode", cmdPrefix)
+			UTSModeFlagName = fmt.Sprintf("%v.UTSMode", cmdPrefix)
 		}
 
-		uTSModeFlagValue, err := cmd.Flags().GetString(uTSModeFlagName)
+		UTSModeFlagValue, err := cmd.Flags().GetString(UTSModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UTSMode = uTSModeFlagValue
+		m.UTSMode = UTSModeFlagValue
 
 		retAdded = true
 	}
@@ -1833,21 +1833,21 @@ func retrieveHostConfigAnonAO1UsernsModeFlags(depth int, m *models.HostConfig, c
 	}
 	retAdded := false
 
-	usernsModeFlagName := fmt.Sprintf("%v.UsernsMode", cmdPrefix)
-	if cmd.Flags().Changed(usernsModeFlagName) {
+	UsernsModeFlagName := fmt.Sprintf("%v.UsernsMode", cmdPrefix)
+	if cmd.Flags().Changed(UsernsModeFlagName) {
 
-		var usernsModeFlagName string
+		var UsernsModeFlagName string
 		if cmdPrefix == "" {
-			usernsModeFlagName = "UsernsMode"
+			UsernsModeFlagName = "UsernsMode"
 		} else {
-			usernsModeFlagName = fmt.Sprintf("%v.UsernsMode", cmdPrefix)
+			UsernsModeFlagName = fmt.Sprintf("%v.UsernsMode", cmdPrefix)
 		}
 
-		usernsModeFlagValue, err := cmd.Flags().GetString(usernsModeFlagName)
+		UsernsModeFlagValue, err := cmd.Flags().GetString(UsernsModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UsernsMode = usernsModeFlagValue
+		m.UsernsMode = UsernsModeFlagValue
 
 		retAdded = true
 	}
@@ -1861,21 +1861,21 @@ func retrieveHostConfigAnonAO1VolumeDriverFlags(depth int, m *models.HostConfig,
 	}
 	retAdded := false
 
-	volumeDriverFlagName := fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
-	if cmd.Flags().Changed(volumeDriverFlagName) {
+	VolumeDriverFlagName := fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
+	if cmd.Flags().Changed(VolumeDriverFlagName) {
 
-		var volumeDriverFlagName string
+		var VolumeDriverFlagName string
 		if cmdPrefix == "" {
-			volumeDriverFlagName = "VolumeDriver"
+			VolumeDriverFlagName = "VolumeDriver"
 		} else {
-			volumeDriverFlagName = fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
+			VolumeDriverFlagName = fmt.Sprintf("%v.VolumeDriver", cmdPrefix)
 		}
 
-		volumeDriverFlagValue, err := cmd.Flags().GetString(volumeDriverFlagName)
+		VolumeDriverFlagValue, err := cmd.Flags().GetString(VolumeDriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.VolumeDriver = volumeDriverFlagValue
+		m.VolumeDriver = VolumeDriverFlagValue
 
 		retAdded = true
 	}
@@ -1889,8 +1889,8 @@ func retrieveHostConfigAnonAO1VolumesFromFlags(depth int, m *models.HostConfig, 
 	}
 	retAdded := false
 
-	volumesFromFlagName := fmt.Sprintf("%v.VolumesFrom", cmdPrefix)
-	if cmd.Flags().Changed(volumesFromFlagName) {
+	VolumesFromFlagName := fmt.Sprintf("%v.VolumesFrom", cmdPrefix)
+	if cmd.Flags().Changed(VolumesFromFlagName) {
 		// warning: VolumesFrom array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1928,20 +1928,20 @@ func registerHostConfigAO1LogConfigType(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	typeDescription := `Enum: ["json-file","syslog","journald","gelf","fluentd","awslogs","splunk","etwlogs","none"]. `
+	TypeDescription := `Enum: ["json-file","syslog","journald","gelf","fluentd","awslogs","splunk","etwlogs","none"]. `
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(typeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(TypeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["json-file","syslog","journald","gelf","fluentd","awslogs","splunk","etwlogs","none"]`), &res); err != nil {
@@ -1959,17 +1959,17 @@ func registerHostConfigAO1LogConfigType(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelHostConfigAO1LogConfigFlags(depth int, m *models.HostConfigAO1LogConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, configAdded := retrieveHostConfigAO1LogConfigConfigFlags(depth, m, cmdPrefix, cmd)
+	err, ConfigAdded := retrieveHostConfigAO1LogConfigConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || configAdded
+	retAdded = retAdded || ConfigAdded
 
-	err, typeAdded := retrieveHostConfigAO1LogConfigTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrieveHostConfigAO1LogConfigTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
 	return nil, retAdded
 }
@@ -1980,8 +1980,8 @@ func retrieveHostConfigAO1LogConfigConfigFlags(depth int, m *models.HostConfigAO
 	}
 	retAdded := false
 
-	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
-	if cmd.Flags().Changed(configFlagName) {
+	ConfigFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
+	if cmd.Flags().Changed(ConfigFlagName) {
 		// warning: Config map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -1994,21 +1994,21 @@ func retrieveHostConfigAO1LogConfigTypeFlags(depth int, m *models.HostConfigAO1L
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}

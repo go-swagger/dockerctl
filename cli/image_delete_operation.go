@@ -85,52 +85,52 @@ func registerOperationImageImageDeleteParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	forceDescription := `Remove the image even if it is being used by stopped containers or has other tags`
+	ForceDescription := `Remove the image even if it is being used by stopped containers or has other tags`
 
-	var forceFlagName string
+	var ForceFlagName string
 	if cmdPrefix == "" {
-		forceFlagName = "force"
+		ForceFlagName = "force"
 	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+		ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 	}
 
-	var forceFlagDefault bool
+	var ForceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+	_ = cmd.PersistentFlags().Bool(ForceFlagName, ForceFlagDefault, ForceDescription)
 
 	return nil
 }
 func registerOperationImageImageDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. Image name or ID`
+	NameDescription := `Required. Image name or ID`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
 func registerOperationImageImageDeleteNopruneParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nopruneDescription := `Do not delete untagged parent images`
+	NopruneDescription := `Do not delete untagged parent images`
 
-	var nopruneFlagName string
+	var NopruneFlagName string
 	if cmdPrefix == "" {
-		nopruneFlagName = "noprune"
+		NopruneFlagName = "noprune"
 	} else {
-		nopruneFlagName = fmt.Sprintf("%v.noprune", cmdPrefix)
+		NopruneFlagName = fmt.Sprintf("%v.noprune", cmdPrefix)
 	}
 
-	var nopruneFlagDefault bool
+	var NopruneFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(nopruneFlagName, nopruneFlagDefault, nopruneDescription)
+	_ = cmd.PersistentFlags().Bool(NopruneFlagName, NopruneFlagDefault, NopruneDescription)
 
 	return nil
 }
@@ -139,18 +139,18 @@ func retrieveOperationImageImageDeleteForceFlag(m *image.ImageDeleteParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("force") {
 
-		var forceFlagName string
+		var ForceFlagName string
 		if cmdPrefix == "" {
-			forceFlagName = "force"
+			ForceFlagName = "force"
 		} else {
-			forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+			ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 		}
 
-		forceFlagValue, err := cmd.Flags().GetBool(forceFlagName)
+		ForceFlagValue, err := cmd.Flags().GetBool(ForceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Force = &forceFlagValue
+		m.Force = &ForceFlagValue
 
 	}
 	return nil, retAdded
@@ -159,18 +159,18 @@ func retrieveOperationImageImageDeleteNameFlag(m *image.ImageDeleteParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -179,18 +179,18 @@ func retrieveOperationImageImageDeleteNopruneFlag(m *image.ImageDeleteParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("noprune") {
 
-		var nopruneFlagName string
+		var NopruneFlagName string
 		if cmdPrefix == "" {
-			nopruneFlagName = "noprune"
+			NopruneFlagName = "noprune"
 		} else {
-			nopruneFlagName = fmt.Sprintf("%v.noprune", cmdPrefix)
+			NopruneFlagName = fmt.Sprintf("%v.noprune", cmdPrefix)
 		}
 
-		nopruneFlagValue, err := cmd.Flags().GetBool(nopruneFlagName)
+		NopruneFlagValue, err := cmd.Flags().GetBool(NopruneFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Noprune = &nopruneFlagValue
+		m.Noprune = &NopruneFlagValue
 
 	}
 	return nil, retAdded

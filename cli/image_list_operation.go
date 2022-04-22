@@ -80,41 +80,41 @@ func registerOperationImageImageListParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageListAllParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	allDescription := `Show all images. Only images from a final layer (no children) are shown by default.`
+	AllDescription := `Show all images. Only images from a final layer (no children) are shown by default.`
 
-	var allFlagName string
+	var AllFlagName string
 	if cmdPrefix == "" {
-		allFlagName = "all"
+		AllFlagName = "all"
 	} else {
-		allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+		AllFlagName = fmt.Sprintf("%v.all", cmdPrefix)
 	}
 
-	var allFlagDefault bool
+	var AllFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(allFlagName, allFlagDefault, allDescription)
+	_ = cmd.PersistentFlags().Bool(AllFlagName, AllFlagDefault, AllDescription)
 
 	return nil
 }
 func registerOperationImageImageListDigestsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	digestsDescription := `Show digest information as a ` + "`" + `RepoDigests` + "`" + ` field on each image.`
+	DigestsDescription := `Show digest information as a ` + "`" + `RepoDigests` + "`" + ` field on each image.`
 
-	var digestsFlagName string
+	var DigestsFlagName string
 	if cmdPrefix == "" {
-		digestsFlagName = "digests"
+		DigestsFlagName = "digests"
 	} else {
-		digestsFlagName = fmt.Sprintf("%v.digests", cmdPrefix)
+		DigestsFlagName = fmt.Sprintf("%v.digests", cmdPrefix)
 	}
 
-	var digestsFlagDefault bool
+	var DigestsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(digestsFlagName, digestsFlagDefault, digestsDescription)
+	_ = cmd.PersistentFlags().Bool(DigestsFlagName, DigestsFlagDefault, DigestsDescription)
 
 	return nil
 }
 func registerOperationImageImageListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
+	FiltersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
 
 - ` + "`" + `before` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `,  ` + "`" + `<image id>` + "`" + ` or ` + "`" + `<image@digest>` + "`" + `)
 - ` + "`" + `dangling=true` + "`" + `
@@ -123,16 +123,16 @@ func registerOperationImageImageListFiltersParamFlags(cmdPrefix string, cmd *cob
 - ` + "`" + `since` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `,  ` + "`" + `<image id>` + "`" + ` or ` + "`" + `<image@digest>` + "`" + `)
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -141,18 +141,18 @@ func retrieveOperationImageImageListAllFlag(m *image.ImageListParams, cmdPrefix 
 	retAdded := false
 	if cmd.Flags().Changed("all") {
 
-		var allFlagName string
+		var AllFlagName string
 		if cmdPrefix == "" {
-			allFlagName = "all"
+			AllFlagName = "all"
 		} else {
-			allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+			AllFlagName = fmt.Sprintf("%v.all", cmdPrefix)
 		}
 
-		allFlagValue, err := cmd.Flags().GetBool(allFlagName)
+		AllFlagValue, err := cmd.Flags().GetBool(AllFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.All = &allFlagValue
+		m.All = &AllFlagValue
 
 	}
 	return nil, retAdded
@@ -161,18 +161,18 @@ func retrieveOperationImageImageListDigestsFlag(m *image.ImageListParams, cmdPre
 	retAdded := false
 	if cmd.Flags().Changed("digests") {
 
-		var digestsFlagName string
+		var DigestsFlagName string
 		if cmdPrefix == "" {
-			digestsFlagName = "digests"
+			DigestsFlagName = "digests"
 		} else {
-			digestsFlagName = fmt.Sprintf("%v.digests", cmdPrefix)
+			DigestsFlagName = fmt.Sprintf("%v.digests", cmdPrefix)
 		}
 
-		digestsFlagValue, err := cmd.Flags().GetBool(digestsFlagName)
+		DigestsFlagValue, err := cmd.Flags().GetBool(DigestsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Digests = &digestsFlagValue
+		m.Digests = &DigestsFlagValue
 
 	}
 	return nil, retAdded
@@ -181,18 +181,18 @@ func retrieveOperationImageImageListFiltersFlag(m *image.ImageListParams, cmdPre
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded

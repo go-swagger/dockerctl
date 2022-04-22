@@ -69,18 +69,18 @@ func registerOperationExecExecInspectParamFlags(cmd *cobra.Command) error {
 
 func registerOperationExecExecInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. Exec instance ID`
+	IDDescription := `Required. Exec instance ID`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -89,18 +89,18 @@ func retrieveOperationExecExecInspectIDFlag(m *exec.ExecInspectParams, cmdPrefix
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -215,18 +215,18 @@ func registerExecInspectOKBodyCanRemove(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	canRemoveDescription := ``
+	CanRemoveDescription := ``
 
-	var canRemoveFlagName string
+	var CanRemoveFlagName string
 	if cmdPrefix == "" {
-		canRemoveFlagName = "CanRemove"
+		CanRemoveFlagName = "CanRemove"
 	} else {
-		canRemoveFlagName = fmt.Sprintf("%v.CanRemove", cmdPrefix)
+		CanRemoveFlagName = fmt.Sprintf("%v.CanRemove", cmdPrefix)
 	}
 
-	var canRemoveFlagDefault bool
+	var CanRemoveFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(canRemoveFlagName, canRemoveFlagDefault, canRemoveDescription)
+	_ = cmd.PersistentFlags().Bool(CanRemoveFlagName, CanRemoveFlagDefault, CanRemoveDescription)
 
 	return nil
 }
@@ -236,18 +236,18 @@ func registerExecInspectOKBodyContainerID(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	containerIdDescription := ``
+	ContainerIDDescription := ``
 
-	var containerIdFlagName string
+	var ContainerIDFlagName string
 	if cmdPrefix == "" {
-		containerIdFlagName = "ContainerID"
+		ContainerIDFlagName = "ContainerID"
 	} else {
-		containerIdFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
+		ContainerIDFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
 	}
 
-	var containerIdFlagDefault string
+	var ContainerIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(containerIdFlagName, containerIdFlagDefault, containerIdDescription)
+	_ = cmd.PersistentFlags().String(ContainerIDFlagName, ContainerIDFlagDefault, ContainerIDDescription)
 
 	return nil
 }
@@ -257,18 +257,18 @@ func registerExecInspectOKBodyDetachKeys(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	detachKeysDescription := ``
+	DetachKeysDescription := ``
 
-	var detachKeysFlagName string
+	var DetachKeysFlagName string
 	if cmdPrefix == "" {
-		detachKeysFlagName = "DetachKeys"
+		DetachKeysFlagName = "DetachKeys"
 	} else {
-		detachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
+		DetachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
 	}
 
-	var detachKeysFlagDefault string
+	var DetachKeysFlagDefault string
 
-	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
+	_ = cmd.PersistentFlags().String(DetachKeysFlagName, DetachKeysFlagDefault, DetachKeysDescription)
 
 	return nil
 }
@@ -278,18 +278,18 @@ func registerExecInspectOKBodyExitCode(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	exitCodeDescription := ``
+	ExitCodeDescription := ``
 
-	var exitCodeFlagName string
+	var ExitCodeFlagName string
 	if cmdPrefix == "" {
-		exitCodeFlagName = "ExitCode"
+		ExitCodeFlagName = "ExitCode"
 	} else {
-		exitCodeFlagName = fmt.Sprintf("%v.ExitCode", cmdPrefix)
+		ExitCodeFlagName = fmt.Sprintf("%v.ExitCode", cmdPrefix)
 	}
 
-	var exitCodeFlagDefault int64
+	var ExitCodeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(exitCodeFlagName, exitCodeFlagDefault, exitCodeDescription)
+	_ = cmd.PersistentFlags().Int64(ExitCodeFlagName, ExitCodeFlagDefault, ExitCodeDescription)
 
 	return nil
 }
@@ -299,18 +299,18 @@ func registerExecInspectOKBodyID(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -320,18 +320,18 @@ func registerExecInspectOKBodyOpenStderr(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	openStderrDescription := ``
+	OpenStderrDescription := ``
 
-	var openStderrFlagName string
+	var OpenStderrFlagName string
 	if cmdPrefix == "" {
-		openStderrFlagName = "OpenStderr"
+		OpenStderrFlagName = "OpenStderr"
 	} else {
-		openStderrFlagName = fmt.Sprintf("%v.OpenStderr", cmdPrefix)
+		OpenStderrFlagName = fmt.Sprintf("%v.OpenStderr", cmdPrefix)
 	}
 
-	var openStderrFlagDefault bool
+	var OpenStderrFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(openStderrFlagName, openStderrFlagDefault, openStderrDescription)
+	_ = cmd.PersistentFlags().Bool(OpenStderrFlagName, OpenStderrFlagDefault, OpenStderrDescription)
 
 	return nil
 }
@@ -341,18 +341,18 @@ func registerExecInspectOKBodyOpenStdin(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	openStdinDescription := ``
+	OpenStdinDescription := ``
 
-	var openStdinFlagName string
+	var OpenStdinFlagName string
 	if cmdPrefix == "" {
-		openStdinFlagName = "OpenStdin"
+		OpenStdinFlagName = "OpenStdin"
 	} else {
-		openStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+		OpenStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 	}
 
-	var openStdinFlagDefault bool
+	var OpenStdinFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(openStdinFlagName, openStdinFlagDefault, openStdinDescription)
+	_ = cmd.PersistentFlags().Bool(OpenStdinFlagName, OpenStdinFlagDefault, OpenStdinDescription)
 
 	return nil
 }
@@ -362,18 +362,18 @@ func registerExecInspectOKBodyOpenStdout(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	openStdoutDescription := ``
+	OpenStdoutDescription := ``
 
-	var openStdoutFlagName string
+	var OpenStdoutFlagName string
 	if cmdPrefix == "" {
-		openStdoutFlagName = "OpenStdout"
+		OpenStdoutFlagName = "OpenStdout"
 	} else {
-		openStdoutFlagName = fmt.Sprintf("%v.OpenStdout", cmdPrefix)
+		OpenStdoutFlagName = fmt.Sprintf("%v.OpenStdout", cmdPrefix)
 	}
 
-	var openStdoutFlagDefault bool
+	var OpenStdoutFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(openStdoutFlagName, openStdoutFlagDefault, openStdoutDescription)
+	_ = cmd.PersistentFlags().Bool(OpenStdoutFlagName, OpenStdoutFlagDefault, OpenStdoutDescription)
 
 	return nil
 }
@@ -383,18 +383,18 @@ func registerExecInspectOKBodyPid(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	pidDescription := `The system process ID for the exec process.`
+	PidDescription := `The system process ID for the exec process.`
 
-	var pidFlagName string
+	var PidFlagName string
 	if cmdPrefix == "" {
-		pidFlagName = "Pid"
+		PidFlagName = "Pid"
 	} else {
-		pidFlagName = fmt.Sprintf("%v.Pid", cmdPrefix)
+		PidFlagName = fmt.Sprintf("%v.Pid", cmdPrefix)
 	}
 
-	var pidFlagDefault int64
+	var PidFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(pidFlagName, pidFlagDefault, pidDescription)
+	_ = cmd.PersistentFlags().Int64(PidFlagName, PidFlagDefault, PidDescription)
 
 	return nil
 }
@@ -404,14 +404,14 @@ func registerExecInspectOKBodyProcessConfig(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	var processConfigFlagName string
+	var ProcessConfigFlagName string
 	if cmdPrefix == "" {
-		processConfigFlagName = "ProcessConfig"
+		ProcessConfigFlagName = "ProcessConfig"
 	} else {
-		processConfigFlagName = fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
+		ProcessConfigFlagName = fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
 	}
 
-	if err := registerModelProcessConfigFlags(depth+1, processConfigFlagName, cmd); err != nil {
+	if err := registerModelProcessConfigFlags(depth+1, ProcessConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -423,18 +423,18 @@ func registerExecInspectOKBodyRunning(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	runningDescription := ``
+	RunningDescription := ``
 
-	var runningFlagName string
+	var RunningFlagName string
 	if cmdPrefix == "" {
-		runningFlagName = "Running"
+		RunningFlagName = "Running"
 	} else {
-		runningFlagName = fmt.Sprintf("%v.Running", cmdPrefix)
+		RunningFlagName = fmt.Sprintf("%v.Running", cmdPrefix)
 	}
 
-	var runningFlagDefault bool
+	var RunningFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(runningFlagName, runningFlagDefault, runningDescription)
+	_ = cmd.PersistentFlags().Bool(RunningFlagName, RunningFlagDefault, RunningDescription)
 
 	return nil
 }
@@ -443,71 +443,71 @@ func registerExecInspectOKBodyRunning(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelExecInspectOKBodyFlags(depth int, m *exec.ExecInspectOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, canRemoveAdded := retrieveExecInspectOKBodyCanRemoveFlags(depth, m, cmdPrefix, cmd)
+	err, CanRemoveAdded := retrieveExecInspectOKBodyCanRemoveFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || canRemoveAdded
+	retAdded = retAdded || CanRemoveAdded
 
-	err, containerIdAdded := retrieveExecInspectOKBodyContainerIDFlags(depth, m, cmdPrefix, cmd)
+	err, ContainerIDAdded := retrieveExecInspectOKBodyContainerIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerIdAdded
+	retAdded = retAdded || ContainerIDAdded
 
-	err, detachKeysAdded := retrieveExecInspectOKBodyDetachKeysFlags(depth, m, cmdPrefix, cmd)
+	err, DetachKeysAdded := retrieveExecInspectOKBodyDetachKeysFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || detachKeysAdded
+	retAdded = retAdded || DetachKeysAdded
 
-	err, exitCodeAdded := retrieveExecInspectOKBodyExitCodeFlags(depth, m, cmdPrefix, cmd)
+	err, ExitCodeAdded := retrieveExecInspectOKBodyExitCodeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || exitCodeAdded
+	retAdded = retAdded || ExitCodeAdded
 
-	err, idAdded := retrieveExecInspectOKBodyIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveExecInspectOKBodyIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, openStderrAdded := retrieveExecInspectOKBodyOpenStderrFlags(depth, m, cmdPrefix, cmd)
+	err, OpenStderrAdded := retrieveExecInspectOKBodyOpenStderrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || openStderrAdded
+	retAdded = retAdded || OpenStderrAdded
 
-	err, openStdinAdded := retrieveExecInspectOKBodyOpenStdinFlags(depth, m, cmdPrefix, cmd)
+	err, OpenStdinAdded := retrieveExecInspectOKBodyOpenStdinFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || openStdinAdded
+	retAdded = retAdded || OpenStdinAdded
 
-	err, openStdoutAdded := retrieveExecInspectOKBodyOpenStdoutFlags(depth, m, cmdPrefix, cmd)
+	err, OpenStdoutAdded := retrieveExecInspectOKBodyOpenStdoutFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || openStdoutAdded
+	retAdded = retAdded || OpenStdoutAdded
 
-	err, pidAdded := retrieveExecInspectOKBodyPidFlags(depth, m, cmdPrefix, cmd)
+	err, PidAdded := retrieveExecInspectOKBodyPidFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pidAdded
+	retAdded = retAdded || PidAdded
 
-	err, processConfigAdded := retrieveExecInspectOKBodyProcessConfigFlags(depth, m, cmdPrefix, cmd)
+	err, ProcessConfigAdded := retrieveExecInspectOKBodyProcessConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || processConfigAdded
+	retAdded = retAdded || ProcessConfigAdded
 
-	err, runningAdded := retrieveExecInspectOKBodyRunningFlags(depth, m, cmdPrefix, cmd)
+	err, RunningAdded := retrieveExecInspectOKBodyRunningFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || runningAdded
+	retAdded = retAdded || RunningAdded
 
 	return nil, retAdded
 }
@@ -518,21 +518,21 @@ func retrieveExecInspectOKBodyCanRemoveFlags(depth int, m *exec.ExecInspectOKBod
 	}
 	retAdded := false
 
-	canRemoveFlagName := fmt.Sprintf("%v.CanRemove", cmdPrefix)
-	if cmd.Flags().Changed(canRemoveFlagName) {
+	CanRemoveFlagName := fmt.Sprintf("%v.CanRemove", cmdPrefix)
+	if cmd.Flags().Changed(CanRemoveFlagName) {
 
-		var canRemoveFlagName string
+		var CanRemoveFlagName string
 		if cmdPrefix == "" {
-			canRemoveFlagName = "CanRemove"
+			CanRemoveFlagName = "CanRemove"
 		} else {
-			canRemoveFlagName = fmt.Sprintf("%v.CanRemove", cmdPrefix)
+			CanRemoveFlagName = fmt.Sprintf("%v.CanRemove", cmdPrefix)
 		}
 
-		canRemoveFlagValue, err := cmd.Flags().GetBool(canRemoveFlagName)
+		CanRemoveFlagValue, err := cmd.Flags().GetBool(CanRemoveFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CanRemove = canRemoveFlagValue
+		m.CanRemove = CanRemoveFlagValue
 
 		retAdded = true
 	}
@@ -546,21 +546,21 @@ func retrieveExecInspectOKBodyContainerIDFlags(depth int, m *exec.ExecInspectOKB
 	}
 	retAdded := false
 
-	containerIdFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
-	if cmd.Flags().Changed(containerIdFlagName) {
+	ContainerIDFlagName := fmt.Sprintf("%v.ContainerID", cmdPrefix)
+	if cmd.Flags().Changed(ContainerIDFlagName) {
 
-		var containerIdFlagName string
+		var ContainerIDFlagName string
 		if cmdPrefix == "" {
-			containerIdFlagName = "ContainerID"
+			ContainerIDFlagName = "ContainerID"
 		} else {
-			containerIdFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
+			ContainerIDFlagName = fmt.Sprintf("%v.ContainerID", cmdPrefix)
 		}
 
-		containerIdFlagValue, err := cmd.Flags().GetString(containerIdFlagName)
+		ContainerIDFlagValue, err := cmd.Flags().GetString(ContainerIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ContainerID = containerIdFlagValue
+		m.ContainerID = ContainerIDFlagValue
 
 		retAdded = true
 	}
@@ -574,21 +574,21 @@ func retrieveExecInspectOKBodyDetachKeysFlags(depth int, m *exec.ExecInspectOKBo
 	}
 	retAdded := false
 
-	detachKeysFlagName := fmt.Sprintf("%v.DetachKeys", cmdPrefix)
-	if cmd.Flags().Changed(detachKeysFlagName) {
+	DetachKeysFlagName := fmt.Sprintf("%v.DetachKeys", cmdPrefix)
+	if cmd.Flags().Changed(DetachKeysFlagName) {
 
-		var detachKeysFlagName string
+		var DetachKeysFlagName string
 		if cmdPrefix == "" {
-			detachKeysFlagName = "DetachKeys"
+			DetachKeysFlagName = "DetachKeys"
 		} else {
-			detachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
+			DetachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
 		}
 
-		detachKeysFlagValue, err := cmd.Flags().GetString(detachKeysFlagName)
+		DetachKeysFlagValue, err := cmd.Flags().GetString(DetachKeysFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DetachKeys = detachKeysFlagValue
+		m.DetachKeys = DetachKeysFlagValue
 
 		retAdded = true
 	}
@@ -602,21 +602,21 @@ func retrieveExecInspectOKBodyExitCodeFlags(depth int, m *exec.ExecInspectOKBody
 	}
 	retAdded := false
 
-	exitCodeFlagName := fmt.Sprintf("%v.ExitCode", cmdPrefix)
-	if cmd.Flags().Changed(exitCodeFlagName) {
+	ExitCodeFlagName := fmt.Sprintf("%v.ExitCode", cmdPrefix)
+	if cmd.Flags().Changed(ExitCodeFlagName) {
 
-		var exitCodeFlagName string
+		var ExitCodeFlagName string
 		if cmdPrefix == "" {
-			exitCodeFlagName = "ExitCode"
+			ExitCodeFlagName = "ExitCode"
 		} else {
-			exitCodeFlagName = fmt.Sprintf("%v.ExitCode", cmdPrefix)
+			ExitCodeFlagName = fmt.Sprintf("%v.ExitCode", cmdPrefix)
 		}
 
-		exitCodeFlagValue, err := cmd.Flags().GetInt64(exitCodeFlagName)
+		ExitCodeFlagValue, err := cmd.Flags().GetInt64(ExitCodeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ExitCode = exitCodeFlagValue
+		m.ExitCode = ExitCodeFlagValue
 
 		retAdded = true
 	}
@@ -630,21 +630,21 @@ func retrieveExecInspectOKBodyIDFlags(depth int, m *exec.ExecInspectOKBody, cmdP
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -658,21 +658,21 @@ func retrieveExecInspectOKBodyOpenStderrFlags(depth int, m *exec.ExecInspectOKBo
 	}
 	retAdded := false
 
-	openStderrFlagName := fmt.Sprintf("%v.OpenStderr", cmdPrefix)
-	if cmd.Flags().Changed(openStderrFlagName) {
+	OpenStderrFlagName := fmt.Sprintf("%v.OpenStderr", cmdPrefix)
+	if cmd.Flags().Changed(OpenStderrFlagName) {
 
-		var openStderrFlagName string
+		var OpenStderrFlagName string
 		if cmdPrefix == "" {
-			openStderrFlagName = "OpenStderr"
+			OpenStderrFlagName = "OpenStderr"
 		} else {
-			openStderrFlagName = fmt.Sprintf("%v.OpenStderr", cmdPrefix)
+			OpenStderrFlagName = fmt.Sprintf("%v.OpenStderr", cmdPrefix)
 		}
 
-		openStderrFlagValue, err := cmd.Flags().GetBool(openStderrFlagName)
+		OpenStderrFlagValue, err := cmd.Flags().GetBool(OpenStderrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OpenStderr = openStderrFlagValue
+		m.OpenStderr = OpenStderrFlagValue
 
 		retAdded = true
 	}
@@ -686,21 +686,21 @@ func retrieveExecInspectOKBodyOpenStdinFlags(depth int, m *exec.ExecInspectOKBod
 	}
 	retAdded := false
 
-	openStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
-	if cmd.Flags().Changed(openStdinFlagName) {
+	OpenStdinFlagName := fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+	if cmd.Flags().Changed(OpenStdinFlagName) {
 
-		var openStdinFlagName string
+		var OpenStdinFlagName string
 		if cmdPrefix == "" {
-			openStdinFlagName = "OpenStdin"
+			OpenStdinFlagName = "OpenStdin"
 		} else {
-			openStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
+			OpenStdinFlagName = fmt.Sprintf("%v.OpenStdin", cmdPrefix)
 		}
 
-		openStdinFlagValue, err := cmd.Flags().GetBool(openStdinFlagName)
+		OpenStdinFlagValue, err := cmd.Flags().GetBool(OpenStdinFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OpenStdin = openStdinFlagValue
+		m.OpenStdin = OpenStdinFlagValue
 
 		retAdded = true
 	}
@@ -714,21 +714,21 @@ func retrieveExecInspectOKBodyOpenStdoutFlags(depth int, m *exec.ExecInspectOKBo
 	}
 	retAdded := false
 
-	openStdoutFlagName := fmt.Sprintf("%v.OpenStdout", cmdPrefix)
-	if cmd.Flags().Changed(openStdoutFlagName) {
+	OpenStdoutFlagName := fmt.Sprintf("%v.OpenStdout", cmdPrefix)
+	if cmd.Flags().Changed(OpenStdoutFlagName) {
 
-		var openStdoutFlagName string
+		var OpenStdoutFlagName string
 		if cmdPrefix == "" {
-			openStdoutFlagName = "OpenStdout"
+			OpenStdoutFlagName = "OpenStdout"
 		} else {
-			openStdoutFlagName = fmt.Sprintf("%v.OpenStdout", cmdPrefix)
+			OpenStdoutFlagName = fmt.Sprintf("%v.OpenStdout", cmdPrefix)
 		}
 
-		openStdoutFlagValue, err := cmd.Flags().GetBool(openStdoutFlagName)
+		OpenStdoutFlagValue, err := cmd.Flags().GetBool(OpenStdoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OpenStdout = openStdoutFlagValue
+		m.OpenStdout = OpenStdoutFlagValue
 
 		retAdded = true
 	}
@@ -742,21 +742,21 @@ func retrieveExecInspectOKBodyPidFlags(depth int, m *exec.ExecInspectOKBody, cmd
 	}
 	retAdded := false
 
-	pidFlagName := fmt.Sprintf("%v.Pid", cmdPrefix)
-	if cmd.Flags().Changed(pidFlagName) {
+	PidFlagName := fmt.Sprintf("%v.Pid", cmdPrefix)
+	if cmd.Flags().Changed(PidFlagName) {
 
-		var pidFlagName string
+		var PidFlagName string
 		if cmdPrefix == "" {
-			pidFlagName = "Pid"
+			PidFlagName = "Pid"
 		} else {
-			pidFlagName = fmt.Sprintf("%v.Pid", cmdPrefix)
+			PidFlagName = fmt.Sprintf("%v.Pid", cmdPrefix)
 		}
 
-		pidFlagValue, err := cmd.Flags().GetInt64(pidFlagName)
+		PidFlagValue, err := cmd.Flags().GetInt64(PidFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Pid = pidFlagValue
+		m.Pid = PidFlagValue
 
 		retAdded = true
 	}
@@ -770,22 +770,22 @@ func retrieveExecInspectOKBodyProcessConfigFlags(depth int, m *exec.ExecInspectO
 	}
 	retAdded := false
 
-	processConfigFlagName := fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
-	if cmd.Flags().Changed(processConfigFlagName) {
+	ProcessConfigFlagName := fmt.Sprintf("%v.ProcessConfig", cmdPrefix)
+	if cmd.Flags().Changed(ProcessConfigFlagName) {
 		// info: complex object ProcessConfig models.ProcessConfig is retrieved outside this Changed() block
 	}
-	processConfigFlagValue := m.ProcessConfig
-	if swag.IsZero(processConfigFlagValue) {
-		processConfigFlagValue = &models.ProcessConfig{}
+	ProcessConfigFlagValue := m.ProcessConfig
+	if swag.IsZero(ProcessConfigFlagValue) {
+		ProcessConfigFlagValue = &models.ProcessConfig{}
 	}
 
-	err, processConfigAdded := retrieveModelProcessConfigFlags(depth+1, processConfigFlagValue, processConfigFlagName, cmd)
+	err, ProcessConfigAdded := retrieveModelProcessConfigFlags(depth+1, ProcessConfigFlagValue, ProcessConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || processConfigAdded
-	if processConfigAdded {
-		m.ProcessConfig = processConfigFlagValue
+	retAdded = retAdded || ProcessConfigAdded
+	if ProcessConfigAdded {
+		m.ProcessConfig = ProcessConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -797,21 +797,21 @@ func retrieveExecInspectOKBodyRunningFlags(depth int, m *exec.ExecInspectOKBody,
 	}
 	retAdded := false
 
-	runningFlagName := fmt.Sprintf("%v.Running", cmdPrefix)
-	if cmd.Flags().Changed(runningFlagName) {
+	RunningFlagName := fmt.Sprintf("%v.Running", cmdPrefix)
+	if cmd.Flags().Changed(RunningFlagName) {
 
-		var runningFlagName string
+		var RunningFlagName string
 		if cmdPrefix == "" {
-			runningFlagName = "Running"
+			RunningFlagName = "Running"
 		} else {
-			runningFlagName = fmt.Sprintf("%v.Running", cmdPrefix)
+			RunningFlagName = fmt.Sprintf("%v.Running", cmdPrefix)
 		}
 
-		runningFlagValue, err := cmd.Flags().GetBool(runningFlagName)
+		RunningFlagValue, err := cmd.Flags().GetBool(RunningFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Running = runningFlagValue
+		m.Running = RunningFlagValue
 
 		retAdded = true
 	}

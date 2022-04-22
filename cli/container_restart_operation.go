@@ -74,35 +74,35 @@ func registerOperationContainerContainerRestartParamFlags(cmd *cobra.Command) er
 
 func registerOperationContainerContainerRestartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerRestartTParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tDescription := `Number of seconds to wait before killing the container`
+	TDescription := `Number of seconds to wait before killing the container`
 
-	var tFlagName string
+	var TFlagName string
 	if cmdPrefix == "" {
-		tFlagName = "t"
+		TFlagName = "t"
 	} else {
-		tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
+		TFlagName = fmt.Sprintf("%v.t", cmdPrefix)
 	}
 
-	var tFlagDefault int64
+	var TFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(tFlagName, tFlagDefault, tDescription)
+	_ = cmd.PersistentFlags().Int64(TFlagName, TFlagDefault, TDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationContainerContainerRestartIDFlag(m *container.ContainerRest
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationContainerContainerRestartTFlag(m *container.ContainerResta
 	retAdded := false
 	if cmd.Flags().Changed("t") {
 
-		var tFlagName string
+		var TFlagName string
 		if cmdPrefix == "" {
-			tFlagName = "t"
+			TFlagName = "t"
 		} else {
-			tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
+			TFlagName = fmt.Sprintf("%v.t", cmdPrefix)
 		}
 
-		tFlagValue, err := cmd.Flags().GetInt64(tFlagName)
+		TFlagValue, err := cmd.Flags().GetInt64(TFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.T = &tFlagValue
+		m.T = &TFlagValue
 
 	}
 	return nil, retAdded

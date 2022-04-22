@@ -74,35 +74,35 @@ func registerOperationPluginPluginSetParamFlags(cmd *cobra.Command) error {
 
 func registerOperationPluginPluginSetBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	bodyDescription := ``
+	BodyDescription := ``
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	var bodyFlagDefault []string
+	var BodyFlagDefault []string
 
-	_ = cmd.PersistentFlags().StringSlice(bodyFlagName, bodyFlagDefault, bodyDescription)
+	_ = cmd.PersistentFlags().StringSlice(BodyFlagName, BodyFlagDefault, BodyDescription)
 
 	return nil
 }
 func registerOperationPluginPluginSetNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+	NameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationPluginPluginSetBodyFlag(m *plugin.PluginSetParams, cmdPref
 	retAdded := false
 	if cmd.Flags().Changed("body") {
 
-		var bodyFlagName string
+		var BodyFlagName string
 		if cmdPrefix == "" {
-			bodyFlagName = "body"
+			BodyFlagName = "body"
 		} else {
-			bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+			BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 		}
 
-		bodyFlagValues, err := cmd.Flags().GetStringSlice(bodyFlagName)
+		BodyFlagValues, err := cmd.Flags().GetStringSlice(BodyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Body = bodyFlagValues
+		m.Body = BodyFlagValues
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationPluginPluginSetNameFlag(m *plugin.PluginSetParams, cmdPref
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded

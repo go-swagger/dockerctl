@@ -75,14 +75,14 @@ func registerOperationContainerContainerCreateParamFlags(cmd *cobra.Command) err
 
 func registerOperationContainerContainerCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. Container to create")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. Container to create")
 
 	// add flags for body
 	if err := registerModelContainerCreateBodyFlags(0, "containerCreateBody", cmd); err != nil {
@@ -93,18 +93,18 @@ func registerOperationContainerContainerCreateBodyParamFlags(cmdPrefix string, c
 }
 func registerOperationContainerContainerCreateNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Assign the specified name to the container. Must match ` + "`" + `/?[a-zA-Z0-9][a-zA-Z0-9_.-]+` + "`" + `.`
+	NameDescription := `Assign the specified name to the container. Must match ` + "`" + `/?[a-zA-Z0-9][a-zA-Z0-9_.-]+` + "`" + `.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -151,18 +151,18 @@ func retrieveOperationContainerContainerCreateNameFlag(m *container.ContainerCre
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = &nameFlagValue
+		m.Name = &NameFlagValue
 
 	}
 	return nil, retAdded
@@ -275,14 +275,14 @@ func registerContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfig(depth
 		return nil
 	}
 
-	var hostConfigFlagName string
+	var HostConfigFlagName string
 	if cmdPrefix == "" {
-		hostConfigFlagName = "HostConfig"
+		HostConfigFlagName = "HostConfig"
 	} else {
-		hostConfigFlagName = fmt.Sprintf("%v.HostConfig", cmdPrefix)
+		HostConfigFlagName = fmt.Sprintf("%v.HostConfig", cmdPrefix)
 	}
 
-	if err := registerModelHostConfigFlags(depth+1, hostConfigFlagName, cmd); err != nil {
+	if err := registerModelHostConfigFlags(depth+1, HostConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -294,14 +294,14 @@ func registerContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig
 		return nil
 	}
 
-	var networkingConfigFlagName string
+	var NetworkingConfigFlagName string
 	if cmdPrefix == "" {
-		networkingConfigFlagName = "NetworkingConfig"
+		NetworkingConfigFlagName = "NetworkingConfig"
 	} else {
-		networkingConfigFlagName = fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
+		NetworkingConfigFlagName = fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
 	}
 
-	if err := registerModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, networkingConfigFlagName, cmd); err != nil {
+	if err := registerModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, NetworkingConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -313,25 +313,25 @@ func retrieveModelContainerCreateBodyFlags(depth int, m *container.ContainerCrea
 	retAdded := false
 
 	// retrieve model models.ContainerConfig
-	err, containerCreateParamsBodyAO0Added := retrieveModelContainerConfigFlags(depth, &m.ContainerConfig, cmdPrefix, cmd)
+	err, ContainerCreateParamsBodyAO0Added := retrieveModelContainerConfigFlags(depth, &m.ContainerConfig, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerCreateParamsBodyAO0Added
+	retAdded = retAdded || ContainerCreateParamsBodyAO0Added
 
 	// retrieve allOf ContainerCreateParamsBodyAO1 fields
 
-	err, hostConfigAdded := retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(depth, m, cmdPrefix, cmd)
+	err, HostConfigAdded := retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hostConfigAdded
+	retAdded = retAdded || HostConfigAdded
 
-	err, networkingConfigAdded := retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfigFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkingConfigAdded := retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkingConfigAdded
+	retAdded = retAdded || NetworkingConfigAdded
 
 	return nil, retAdded
 }
@@ -344,22 +344,22 @@ func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1HostConfigFlags(
 	}
 	retAdded := false
 
-	hostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
-	if cmd.Flags().Changed(hostConfigFlagName) {
+	HostConfigFlagName := fmt.Sprintf("%v.HostConfig", cmdPrefix)
+	if cmd.Flags().Changed(HostConfigFlagName) {
 		// info: complex object HostConfig models.HostConfig is retrieved outside this Changed() block
 	}
-	hostConfigFlagValue := m.HostConfig
-	if swag.IsZero(hostConfigFlagValue) {
-		hostConfigFlagValue = &models.HostConfig{}
+	HostConfigFlagValue := m.HostConfig
+	if swag.IsZero(HostConfigFlagValue) {
+		HostConfigFlagValue = &models.HostConfig{}
 	}
 
-	err, hostConfigAdded := retrieveModelHostConfigFlags(depth+1, hostConfigFlagValue, hostConfigFlagName, cmd)
+	err, HostConfigAdded := retrieveModelHostConfigFlags(depth+1, HostConfigFlagValue, HostConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hostConfigAdded
-	if hostConfigAdded {
-		m.HostConfig = hostConfigFlagValue
+	retAdded = retAdded || HostConfigAdded
+	if HostConfigAdded {
+		m.HostConfig = HostConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -371,22 +371,22 @@ func retrieveContainerCreateBodyAnonContainerCreateParamsBodyAO1NetworkingConfig
 	}
 	retAdded := false
 
-	networkingConfigFlagName := fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
-	if cmd.Flags().Changed(networkingConfigFlagName) {
+	NetworkingConfigFlagName := fmt.Sprintf("%v.NetworkingConfig", cmdPrefix)
+	if cmd.Flags().Changed(NetworkingConfigFlagName) {
 		// info: complex object NetworkingConfig ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig is retrieved outside this Changed() block
 	}
-	networkingConfigFlagValue := m.NetworkingConfig
-	if swag.IsZero(networkingConfigFlagValue) {
-		networkingConfigFlagValue = &container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
+	NetworkingConfigFlagValue := m.NetworkingConfig
+	if swag.IsZero(NetworkingConfigFlagValue) {
+		NetworkingConfigFlagValue = &container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig{}
 	}
 
-	err, networkingConfigAdded := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, networkingConfigFlagValue, networkingConfigFlagName, cmd)
+	err, NetworkingConfigAdded := retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth+1, NetworkingConfigFlagValue, NetworkingConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkingConfigAdded
-	if networkingConfigAdded {
-		m.NetworkingConfig = networkingConfigFlagValue
+	retAdded = retAdded || NetworkingConfigAdded
+	if NetworkingConfigAdded {
+		m.NetworkingConfig = NetworkingConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -411,18 +411,18 @@ func registerContainerCreateCreatedBodyID(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	idDescription := `Required. The ID of the created container`
+	IDDescription := `Required. The ID of the created container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -441,17 +441,17 @@ func registerContainerCreateCreatedBodyWarnings(depth int, cmdPrefix string, cmd
 func retrieveModelContainerCreateCreatedBodyFlags(depth int, m *container.ContainerCreateCreatedBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, idAdded := retrieveContainerCreateCreatedBodyIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveContainerCreateCreatedBodyIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, warningsAdded := retrieveContainerCreateCreatedBodyWarningsFlags(depth, m, cmdPrefix, cmd)
+	err, WarningsAdded := retrieveContainerCreateCreatedBodyWarningsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || warningsAdded
+	retAdded = retAdded || WarningsAdded
 
 	return nil, retAdded
 }
@@ -462,21 +462,21 @@ func retrieveContainerCreateCreatedBodyIDFlags(depth int, m *container.Container
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -490,8 +490,8 @@ func retrieveContainerCreateCreatedBodyWarningsFlags(depth int, m *container.Con
 	}
 	retAdded := false
 
-	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
-	if cmd.Flags().Changed(warningsFlagName) {
+	WarningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
+	if cmd.Flags().Changed(WarningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
 
@@ -522,11 +522,11 @@ func registerContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConf
 func retrieveModelContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigFlags(depth int, m *container.ContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, endpointsConfigAdded := retrieveContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigEndpointsConfigFlags(depth, m, cmdPrefix, cmd)
+	err, EndpointsConfigAdded := retrieveContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConfigEndpointsConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointsConfigAdded
+	retAdded = retAdded || EndpointsConfigAdded
 
 	return nil, retAdded
 }
@@ -537,8 +537,8 @@ func retrieveContainerCreateParamsBodyContainerCreateParamsBodyAO1NetworkingConf
 	}
 	retAdded := false
 
-	endpointsConfigFlagName := fmt.Sprintf("%v.EndpointsConfig", cmdPrefix)
-	if cmd.Flags().Changed(endpointsConfigFlagName) {
+	EndpointsConfigFlagName := fmt.Sprintf("%v.EndpointsConfig", cmdPrefix)
+	if cmd.Flags().Changed(EndpointsConfigFlagName) {
 		// warning: EndpointsConfig map type map[string]models.EndpointSettings is not supported by go-swagger cli yet
 	}
 

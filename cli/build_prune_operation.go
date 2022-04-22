@@ -80,24 +80,24 @@ func registerOperationImageBuildPruneParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageBuildPruneAllParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	allDescription := `Remove all types of build cache`
+	AllDescription := `Remove all types of build cache`
 
-	var allFlagName string
+	var AllFlagName string
 	if cmdPrefix == "" {
-		allFlagName = "all"
+		AllFlagName = "all"
 	} else {
-		allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+		AllFlagName = fmt.Sprintf("%v.all", cmdPrefix)
 	}
 
-	var allFlagDefault bool
+	var AllFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(allFlagName, allFlagDefault, allDescription)
+	_ = cmd.PersistentFlags().Bool(AllFlagName, AllFlagDefault, AllDescription)
 
 	return nil
 }
 func registerOperationImageBuildPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the list of build cache objects. Available filters:
+	FiltersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the list of build cache objects. Available filters:
 - ` + "`" + `until=<duration>` + "`" + `: duration relative to daemon's time, during which build cache was not used, in Go's duration format (e.g., '24h')
 - ` + "`" + `id=<id>` + "`" + `
 - ` + "`" + `parent=<id>` + "`" + `
@@ -108,33 +108,33 @@ func registerOperationImageBuildPruneFiltersParamFlags(cmdPrefix string, cmd *co
 - ` + "`" + `private` + "`" + `
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
 func registerOperationImageBuildPruneKeepStorageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	keepStorageDescription := `Amount of disk space in bytes to keep for cache`
+	KeepStorageDescription := `Amount of disk space in bytes to keep for cache`
 
-	var keepStorageFlagName string
+	var KeepStorageFlagName string
 	if cmdPrefix == "" {
-		keepStorageFlagName = "keep-storage"
+		KeepStorageFlagName = "keep-storage"
 	} else {
-		keepStorageFlagName = fmt.Sprintf("%v.keep-storage", cmdPrefix)
+		KeepStorageFlagName = fmt.Sprintf("%v.keep-storage", cmdPrefix)
 	}
 
-	var keepStorageFlagDefault int64
+	var KeepStorageFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(keepStorageFlagName, keepStorageFlagDefault, keepStorageDescription)
+	_ = cmd.PersistentFlags().Int64(KeepStorageFlagName, KeepStorageFlagDefault, KeepStorageDescription)
 
 	return nil
 }
@@ -143,18 +143,18 @@ func retrieveOperationImageBuildPruneAllFlag(m *image.BuildPruneParams, cmdPrefi
 	retAdded := false
 	if cmd.Flags().Changed("all") {
 
-		var allFlagName string
+		var AllFlagName string
 		if cmdPrefix == "" {
-			allFlagName = "all"
+			AllFlagName = "all"
 		} else {
-			allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+			AllFlagName = fmt.Sprintf("%v.all", cmdPrefix)
 		}
 
-		allFlagValue, err := cmd.Flags().GetBool(allFlagName)
+		AllFlagValue, err := cmd.Flags().GetBool(AllFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.All = &allFlagValue
+		m.All = &AllFlagValue
 
 	}
 	return nil, retAdded
@@ -163,18 +163,18 @@ func retrieveOperationImageBuildPruneFiltersFlag(m *image.BuildPruneParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -183,18 +183,18 @@ func retrieveOperationImageBuildPruneKeepStorageFlag(m *image.BuildPruneParams, 
 	retAdded := false
 	if cmd.Flags().Changed("keep-storage") {
 
-		var keepStorageFlagName string
+		var KeepStorageFlagName string
 		if cmdPrefix == "" {
-			keepStorageFlagName = "keep-storage"
+			KeepStorageFlagName = "keep-storage"
 		} else {
-			keepStorageFlagName = fmt.Sprintf("%v.keep-storage", cmdPrefix)
+			KeepStorageFlagName = fmt.Sprintf("%v.keep-storage", cmdPrefix)
 		}
 
-		keepStorageFlagValue, err := cmd.Flags().GetInt64(keepStorageFlagName)
+		KeepStorageFlagValue, err := cmd.Flags().GetInt64(KeepStorageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.KeepStorage = &keepStorageFlagValue
+		m.KeepStorage = &KeepStorageFlagValue
 
 	}
 	return nil, retAdded
@@ -271,18 +271,18 @@ func registerBuildPruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	spaceReclaimedDescription := `Disk space reclaimed in bytes`
+	SpaceReclaimedDescription := `Disk space reclaimed in bytes`
 
-	var spaceReclaimedFlagName string
+	var SpaceReclaimedFlagName string
 	if cmdPrefix == "" {
-		spaceReclaimedFlagName = "SpaceReclaimed"
+		SpaceReclaimedFlagName = "SpaceReclaimed"
 	} else {
-		spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+		SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	}
 
-	var spaceReclaimedFlagDefault int64
+	var SpaceReclaimedFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(spaceReclaimedFlagName, spaceReclaimedFlagDefault, spaceReclaimedDescription)
+	_ = cmd.PersistentFlags().Int64(SpaceReclaimedFlagName, SpaceReclaimedFlagDefault, SpaceReclaimedDescription)
 
 	return nil
 }
@@ -291,17 +291,17 @@ func registerBuildPruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd *co
 func retrieveModelBuildPruneOKBodyFlags(depth int, m *image.BuildPruneOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, cachesDeletedAdded := retrieveBuildPruneOKBodyCachesDeletedFlags(depth, m, cmdPrefix, cmd)
+	err, CachesDeletedAdded := retrieveBuildPruneOKBodyCachesDeletedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cachesDeletedAdded
+	retAdded = retAdded || CachesDeletedAdded
 
-	err, spaceReclaimedAdded := retrieveBuildPruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
+	err, SpaceReclaimedAdded := retrieveBuildPruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || spaceReclaimedAdded
+	retAdded = retAdded || SpaceReclaimedAdded
 
 	return nil, retAdded
 }
@@ -312,8 +312,8 @@ func retrieveBuildPruneOKBodyCachesDeletedFlags(depth int, m *image.BuildPruneOK
 	}
 	retAdded := false
 
-	cachesDeletedFlagName := fmt.Sprintf("%v.CachesDeleted", cmdPrefix)
-	if cmd.Flags().Changed(cachesDeletedFlagName) {
+	CachesDeletedFlagName := fmt.Sprintf("%v.CachesDeleted", cmdPrefix)
+	if cmd.Flags().Changed(CachesDeletedFlagName) {
 		// warning: CachesDeleted array type []string is not supported by go-swagger cli yet
 	}
 
@@ -326,21 +326,21 @@ func retrieveBuildPruneOKBodySpaceReclaimedFlags(depth int, m *image.BuildPruneO
 	}
 	retAdded := false
 
-	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
-	if cmd.Flags().Changed(spaceReclaimedFlagName) {
+	SpaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+	if cmd.Flags().Changed(SpaceReclaimedFlagName) {
 
-		var spaceReclaimedFlagName string
+		var SpaceReclaimedFlagName string
 		if cmdPrefix == "" {
-			spaceReclaimedFlagName = "SpaceReclaimed"
+			SpaceReclaimedFlagName = "SpaceReclaimed"
 		} else {
-			spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+			SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 		}
 
-		spaceReclaimedFlagValue, err := cmd.Flags().GetInt64(spaceReclaimedFlagName)
+		SpaceReclaimedFlagValue, err := cmd.Flags().GetInt64(SpaceReclaimedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SpaceReclaimed = spaceReclaimedFlagValue
+		m.SpaceReclaimed = SpaceReclaimedFlagValue
 
 		retAdded = true
 	}

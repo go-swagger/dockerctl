@@ -74,35 +74,35 @@ func registerOperationPluginPluginEnableParamFlags(cmd *cobra.Command) error {
 
 func registerOperationPluginPluginEnableNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+	NameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
 func registerOperationPluginPluginEnableTimeoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	timeoutDescription := `Set the HTTP client timeout (in seconds)`
+	TimeoutDescription := `Set the HTTP client timeout (in seconds)`
 
-	var timeoutFlagName string
+	var TimeoutFlagName string
 	if cmdPrefix == "" {
-		timeoutFlagName = "timeout"
+		TimeoutFlagName = "timeout"
 	} else {
-		timeoutFlagName = fmt.Sprintf("%v.timeout", cmdPrefix)
+		TimeoutFlagName = fmt.Sprintf("%v.timeout", cmdPrefix)
 	}
 
-	var timeoutFlagDefault int64
+	var TimeoutFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(timeoutFlagName, timeoutFlagDefault, timeoutDescription)
+	_ = cmd.PersistentFlags().Int64(TimeoutFlagName, TimeoutFlagDefault, TimeoutDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationPluginPluginEnableNameFlag(m *plugin.PluginEnableParams, c
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationPluginPluginEnableTimeoutFlag(m *plugin.PluginEnableParams
 	retAdded := false
 	if cmd.Flags().Changed("timeout") {
 
-		var timeoutFlagName string
+		var TimeoutFlagName string
 		if cmdPrefix == "" {
-			timeoutFlagName = "timeout"
+			TimeoutFlagName = "timeout"
 		} else {
-			timeoutFlagName = fmt.Sprintf("%v.timeout", cmdPrefix)
+			TimeoutFlagName = fmt.Sprintf("%v.timeout", cmdPrefix)
 		}
 
-		timeoutFlagValue, err := cmd.Flags().GetInt64(timeoutFlagName)
+		TimeoutFlagValue, err := cmd.Flags().GetInt64(TimeoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Timeout = &timeoutFlagValue
+		m.Timeout = &TimeoutFlagValue
 
 	}
 	return nil, retAdded

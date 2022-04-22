@@ -231,20 +231,20 @@ func registerOperationImageImageBuildParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageBuildContentTypeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	contentTypeDescription := `Enum: ["application/x-tar"]. `
+	ContentTypeDescription := `Enum: ["application/x-tar"]. `
 
-	var contentTypeFlagName string
+	var ContentTypeFlagName string
 	if cmdPrefix == "" {
-		contentTypeFlagName = "Content-type"
+		ContentTypeFlagName = "Content-type"
 	} else {
-		contentTypeFlagName = fmt.Sprintf("%v.Content-type", cmdPrefix)
+		ContentTypeFlagName = fmt.Sprintf("%v.Content-type", cmdPrefix)
 	}
 
-	var contentTypeFlagDefault string = "application/x-tar"
+	var ContentTypeFlagDefault string = "application/x-tar"
 
-	_ = cmd.PersistentFlags().String(contentTypeFlagName, contentTypeFlagDefault, contentTypeDescription)
+	_ = cmd.PersistentFlags().String(ContentTypeFlagName, ContentTypeFlagDefault, ContentTypeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(contentTypeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(ContentTypeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["application/x-tar"]`), &res); err != nil {
@@ -259,7 +259,7 @@ func registerOperationImageImageBuildContentTypeParamFlags(cmdPrefix string, cmd
 }
 func registerOperationImageImageBuildXRegistryConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	xRegistryConfigDescription := `This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
+	XRegistryConfigDescription := `This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
 
 The key is a registry URL, and the value is an auth configuration object, [as described in the authentication section](#section/Authentication). For example:
 
@@ -279,174 +279,174 @@ The key is a registry URL, and the value is an auth configuration object, [as de
 Only the registry domain name (and port if not the default 443) are required. However, for legacy reasons, the Docker Hub registry must be specified with both a ` + "`" + `https://` + "`" + ` prefix and a ` + "`" + `/v1/` + "`" + ` suffix even though Docker will prefer to use the v2 registry API.
 `
 
-	var xRegistryConfigFlagName string
+	var XRegistryConfigFlagName string
 	if cmdPrefix == "" {
-		xRegistryConfigFlagName = "X-Registry-Config"
+		XRegistryConfigFlagName = "X-Registry-Config"
 	} else {
-		xRegistryConfigFlagName = fmt.Sprintf("%v.X-Registry-Config", cmdPrefix)
+		XRegistryConfigFlagName = fmt.Sprintf("%v.X-Registry-Config", cmdPrefix)
 	}
 
-	var xRegistryConfigFlagDefault string
+	var XRegistryConfigFlagDefault string
 
-	_ = cmd.PersistentFlags().String(xRegistryConfigFlagName, xRegistryConfigFlagDefault, xRegistryConfigDescription)
+	_ = cmd.PersistentFlags().String(XRegistryConfigFlagName, XRegistryConfigFlagDefault, XRegistryConfigDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildBuildargsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	buildargsDescription := `JSON map of string pairs for build-time variables. Users pass these values at build-time. Docker uses the buildargs as the environment context for commands run via the ` + "`" + `Dockerfile` + "`" + ` RUN instruction, or for variable expansion in other ` + "`" + `Dockerfile` + "`" + ` instructions. This is not meant for passing secret values.
+	BuildargsDescription := `JSON map of string pairs for build-time variables. Users pass these values at build-time. Docker uses the buildargs as the environment context for commands run via the ` + "`" + `Dockerfile` + "`" + ` RUN instruction, or for variable expansion in other ` + "`" + `Dockerfile` + "`" + ` instructions. This is not meant for passing secret values.
 
 For example, the build arg ` + "`" + `FOO=bar` + "`" + ` would become ` + "`" + `{"FOO":"bar"}` + "`" + ` in JSON. This would result in the the query parameter ` + "`" + `buildargs={"FOO":"bar"}` + "`" + `. Note that ` + "`" + `{"FOO":"bar"}` + "`" + ` should be URI component encoded.
 
 [Read more about the buildargs instruction.](https://docs.docker.com/engine/reference/builder/#arg)
 `
 
-	var buildargsFlagName string
+	var BuildargsFlagName string
 	if cmdPrefix == "" {
-		buildargsFlagName = "buildargs"
+		BuildargsFlagName = "buildargs"
 	} else {
-		buildargsFlagName = fmt.Sprintf("%v.buildargs", cmdPrefix)
+		BuildargsFlagName = fmt.Sprintf("%v.buildargs", cmdPrefix)
 	}
 
-	var buildargsFlagDefault string
+	var BuildargsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(buildargsFlagName, buildargsFlagDefault, buildargsDescription)
+	_ = cmd.PersistentFlags().String(BuildargsFlagName, BuildargsFlagDefault, BuildargsDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildCachefromParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	cachefromDescription := `JSON array of images used for build cache resolution.`
+	CachefromDescription := `JSON array of images used for build cache resolution.`
 
-	var cachefromFlagName string
+	var CachefromFlagName string
 	if cmdPrefix == "" {
-		cachefromFlagName = "cachefrom"
+		CachefromFlagName = "cachefrom"
 	} else {
-		cachefromFlagName = fmt.Sprintf("%v.cachefrom", cmdPrefix)
+		CachefromFlagName = fmt.Sprintf("%v.cachefrom", cmdPrefix)
 	}
 
-	var cachefromFlagDefault string
+	var CachefromFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cachefromFlagName, cachefromFlagDefault, cachefromDescription)
+	_ = cmd.PersistentFlags().String(CachefromFlagName, CachefromFlagDefault, CachefromDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildCpuperiodParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	cpuperiodDescription := `The length of a CPU period in microseconds.`
+	CpuperiodDescription := `The length of a CPU period in microseconds.`
 
-	var cpuperiodFlagName string
+	var CpuperiodFlagName string
 	if cmdPrefix == "" {
-		cpuperiodFlagName = "cpuperiod"
+		CpuperiodFlagName = "cpuperiod"
 	} else {
-		cpuperiodFlagName = fmt.Sprintf("%v.cpuperiod", cmdPrefix)
+		CpuperiodFlagName = fmt.Sprintf("%v.cpuperiod", cmdPrefix)
 	}
 
-	var cpuperiodFlagDefault int64
+	var CpuperiodFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuperiodFlagName, cpuperiodFlagDefault, cpuperiodDescription)
+	_ = cmd.PersistentFlags().Int64(CpuperiodFlagName, CpuperiodFlagDefault, CpuperiodDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildCpuquotaParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	cpuquotaDescription := `Microseconds of CPU time that the container can get in a CPU period.`
+	CpuquotaDescription := `Microseconds of CPU time that the container can get in a CPU period.`
 
-	var cpuquotaFlagName string
+	var CpuquotaFlagName string
 	if cmdPrefix == "" {
-		cpuquotaFlagName = "cpuquota"
+		CpuquotaFlagName = "cpuquota"
 	} else {
-		cpuquotaFlagName = fmt.Sprintf("%v.cpuquota", cmdPrefix)
+		CpuquotaFlagName = fmt.Sprintf("%v.cpuquota", cmdPrefix)
 	}
 
-	var cpuquotaFlagDefault int64
+	var CpuquotaFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuquotaFlagName, cpuquotaFlagDefault, cpuquotaDescription)
+	_ = cmd.PersistentFlags().Int64(CpuquotaFlagName, CpuquotaFlagDefault, CpuquotaDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildCpusetcpusParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	cpusetcpusDescription := `CPUs in which to allow execution (e.g., ` + "`" + `0-3` + "`" + `, ` + "`" + `0,1` + "`" + `).`
+	CpusetcpusDescription := `CPUs in which to allow execution (e.g., ` + "`" + `0-3` + "`" + `, ` + "`" + `0,1` + "`" + `).`
 
-	var cpusetcpusFlagName string
+	var CpusetcpusFlagName string
 	if cmdPrefix == "" {
-		cpusetcpusFlagName = "cpusetcpus"
+		CpusetcpusFlagName = "cpusetcpus"
 	} else {
-		cpusetcpusFlagName = fmt.Sprintf("%v.cpusetcpus", cmdPrefix)
+		CpusetcpusFlagName = fmt.Sprintf("%v.cpusetcpus", cmdPrefix)
 	}
 
-	var cpusetcpusFlagDefault string
+	var CpusetcpusFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cpusetcpusFlagName, cpusetcpusFlagDefault, cpusetcpusDescription)
+	_ = cmd.PersistentFlags().String(CpusetcpusFlagName, CpusetcpusFlagDefault, CpusetcpusDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildCpusharesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	cpusharesDescription := `CPU shares (relative weight).`
+	CpusharesDescription := `CPU shares (relative weight).`
 
-	var cpusharesFlagName string
+	var CpusharesFlagName string
 	if cmdPrefix == "" {
-		cpusharesFlagName = "cpushares"
+		CpusharesFlagName = "cpushares"
 	} else {
-		cpusharesFlagName = fmt.Sprintf("%v.cpushares", cmdPrefix)
+		CpusharesFlagName = fmt.Sprintf("%v.cpushares", cmdPrefix)
 	}
 
-	var cpusharesFlagDefault int64
+	var CpusharesFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpusharesFlagName, cpusharesFlagDefault, cpusharesDescription)
+	_ = cmd.PersistentFlags().Int64(CpusharesFlagName, CpusharesFlagDefault, CpusharesDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildDockerfileParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	dockerfileDescription := `Path within the build context to the ` + "`" + `Dockerfile` + "`" + `. This is ignored if ` + "`" + `remote` + "`" + ` is specified and points to an external ` + "`" + `Dockerfile` + "`" + `.`
+	DockerfileDescription := `Path within the build context to the ` + "`" + `Dockerfile` + "`" + `. This is ignored if ` + "`" + `remote` + "`" + ` is specified and points to an external ` + "`" + `Dockerfile` + "`" + `.`
 
-	var dockerfileFlagName string
+	var DockerfileFlagName string
 	if cmdPrefix == "" {
-		dockerfileFlagName = "dockerfile"
+		DockerfileFlagName = "dockerfile"
 	} else {
-		dockerfileFlagName = fmt.Sprintf("%v.dockerfile", cmdPrefix)
+		DockerfileFlagName = fmt.Sprintf("%v.dockerfile", cmdPrefix)
 	}
 
-	var dockerfileFlagDefault string = "Dockerfile"
+	var DockerfileFlagDefault string = "Dockerfile"
 
-	_ = cmd.PersistentFlags().String(dockerfileFlagName, dockerfileFlagDefault, dockerfileDescription)
+	_ = cmd.PersistentFlags().String(DockerfileFlagName, DockerfileFlagDefault, DockerfileDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildExtrahostsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	extrahostsDescription := `Extra hosts to add to /etc/hosts`
+	ExtrahostsDescription := `Extra hosts to add to /etc/hosts`
 
-	var extrahostsFlagName string
+	var ExtrahostsFlagName string
 	if cmdPrefix == "" {
-		extrahostsFlagName = "extrahosts"
+		ExtrahostsFlagName = "extrahosts"
 	} else {
-		extrahostsFlagName = fmt.Sprintf("%v.extrahosts", cmdPrefix)
+		ExtrahostsFlagName = fmt.Sprintf("%v.extrahosts", cmdPrefix)
 	}
 
-	var extrahostsFlagDefault string
+	var ExtrahostsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(extrahostsFlagName, extrahostsFlagDefault, extrahostsDescription)
+	_ = cmd.PersistentFlags().String(ExtrahostsFlagName, ExtrahostsFlagDefault, ExtrahostsDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildForcermParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	forcermDescription := `Always remove intermediate containers, even upon failure.`
+	ForcermDescription := `Always remove intermediate containers, even upon failure.`
 
-	var forcermFlagName string
+	var ForcermFlagName string
 	if cmdPrefix == "" {
-		forcermFlagName = "forcerm"
+		ForcermFlagName = "forcerm"
 	} else {
-		forcermFlagName = fmt.Sprintf("%v.forcerm", cmdPrefix)
+		ForcermFlagName = fmt.Sprintf("%v.forcerm", cmdPrefix)
 	}
 
-	var forcermFlagDefault bool
+	var ForcermFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forcermFlagName, forcermFlagDefault, forcermDescription)
+	_ = cmd.PersistentFlags().Bool(ForcermFlagName, ForcermFlagDefault, ForcermDescription)
 
 	return nil
 }
@@ -456,260 +456,260 @@ func registerOperationImageImageBuildInputStreamParamFlags(cmdPrefix string, cmd
 }
 func registerOperationImageImageBuildLabelsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	labelsDescription := `Arbitrary key/value labels to set on the image, as a JSON map of string pairs.`
+	LabelsDescription := `Arbitrary key/value labels to set on the image, as a JSON map of string pairs.`
 
-	var labelsFlagName string
+	var LabelsFlagName string
 	if cmdPrefix == "" {
-		labelsFlagName = "labels"
+		LabelsFlagName = "labels"
 	} else {
-		labelsFlagName = fmt.Sprintf("%v.labels", cmdPrefix)
+		LabelsFlagName = fmt.Sprintf("%v.labels", cmdPrefix)
 	}
 
-	var labelsFlagDefault string
+	var LabelsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(labelsFlagName, labelsFlagDefault, labelsDescription)
+	_ = cmd.PersistentFlags().String(LabelsFlagName, LabelsFlagDefault, LabelsDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildMemoryParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	memoryDescription := `Set memory limit for build.`
+	MemoryDescription := `Set memory limit for build.`
 
-	var memoryFlagName string
+	var MemoryFlagName string
 	if cmdPrefix == "" {
-		memoryFlagName = "memory"
+		MemoryFlagName = "memory"
 	} else {
-		memoryFlagName = fmt.Sprintf("%v.memory", cmdPrefix)
+		MemoryFlagName = fmt.Sprintf("%v.memory", cmdPrefix)
 	}
 
-	var memoryFlagDefault int64
+	var MemoryFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memoryFlagName, memoryFlagDefault, memoryDescription)
+	_ = cmd.PersistentFlags().Int64(MemoryFlagName, MemoryFlagDefault, MemoryDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildMemswapParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	memswapDescription := `Total memory (memory + swap). Set as ` + "`" + `-1` + "`" + ` to disable swap.`
+	MemswapDescription := `Total memory (memory + swap). Set as ` + "`" + `-1` + "`" + ` to disable swap.`
 
-	var memswapFlagName string
+	var MemswapFlagName string
 	if cmdPrefix == "" {
-		memswapFlagName = "memswap"
+		MemswapFlagName = "memswap"
 	} else {
-		memswapFlagName = fmt.Sprintf("%v.memswap", cmdPrefix)
+		MemswapFlagName = fmt.Sprintf("%v.memswap", cmdPrefix)
 	}
 
-	var memswapFlagDefault int64
+	var MemswapFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memswapFlagName, memswapFlagDefault, memswapDescription)
+	_ = cmd.PersistentFlags().Int64(MemswapFlagName, MemswapFlagDefault, MemswapDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildNetworkmodeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	networkmodeDescription := `Sets the networking mode for the run commands during build. Supported
+	NetworkmodeDescription := `Sets the networking mode for the run commands during build. Supported
 standard values are: ` + "`" + `bridge` + "`" + `, ` + "`" + `host` + "`" + `, ` + "`" + `none` + "`" + `, and ` + "`" + `container:<name|id>` + "`" + `.
 Any other value is taken as a custom network's name or ID to which this
 container should connect to.
 `
 
-	var networkmodeFlagName string
+	var NetworkmodeFlagName string
 	if cmdPrefix == "" {
-		networkmodeFlagName = "networkmode"
+		NetworkmodeFlagName = "networkmode"
 	} else {
-		networkmodeFlagName = fmt.Sprintf("%v.networkmode", cmdPrefix)
+		NetworkmodeFlagName = fmt.Sprintf("%v.networkmode", cmdPrefix)
 	}
 
-	var networkmodeFlagDefault string
+	var NetworkmodeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(networkmodeFlagName, networkmodeFlagDefault, networkmodeDescription)
+	_ = cmd.PersistentFlags().String(NetworkmodeFlagName, NetworkmodeFlagDefault, NetworkmodeDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildNocacheParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nocacheDescription := `Do not use the cache when building the image.`
+	NocacheDescription := `Do not use the cache when building the image.`
 
-	var nocacheFlagName string
+	var NocacheFlagName string
 	if cmdPrefix == "" {
-		nocacheFlagName = "nocache"
+		NocacheFlagName = "nocache"
 	} else {
-		nocacheFlagName = fmt.Sprintf("%v.nocache", cmdPrefix)
+		NocacheFlagName = fmt.Sprintf("%v.nocache", cmdPrefix)
 	}
 
-	var nocacheFlagDefault bool
+	var NocacheFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(nocacheFlagName, nocacheFlagDefault, nocacheDescription)
+	_ = cmd.PersistentFlags().Bool(NocacheFlagName, NocacheFlagDefault, NocacheDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildOutputsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	outputsDescription := `BuildKit output configuration`
+	OutputsDescription := `BuildKit output configuration`
 
-	var outputsFlagName string
+	var OutputsFlagName string
 	if cmdPrefix == "" {
-		outputsFlagName = "outputs"
+		OutputsFlagName = "outputs"
 	} else {
-		outputsFlagName = fmt.Sprintf("%v.outputs", cmdPrefix)
+		OutputsFlagName = fmt.Sprintf("%v.outputs", cmdPrefix)
 	}
 
-	var outputsFlagDefault string
+	var OutputsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(outputsFlagName, outputsFlagDefault, outputsDescription)
+	_ = cmd.PersistentFlags().String(OutputsFlagName, OutputsFlagDefault, OutputsDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildPlatformParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	platformDescription := `Platform in the format os[/arch[/variant]]`
+	PlatformDescription := `Platform in the format os[/arch[/variant]]`
 
-	var platformFlagName string
+	var PlatformFlagName string
 	if cmdPrefix == "" {
-		platformFlagName = "platform"
+		PlatformFlagName = "platform"
 	} else {
-		platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
+		PlatformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
 	}
 
-	var platformFlagDefault string
+	var PlatformFlagDefault string
 
-	_ = cmd.PersistentFlags().String(platformFlagName, platformFlagDefault, platformDescription)
+	_ = cmd.PersistentFlags().String(PlatformFlagName, PlatformFlagDefault, PlatformDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildPullParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	pullDescription := `Attempt to pull the image even if an older image exists locally.`
+	PullDescription := `Attempt to pull the image even if an older image exists locally.`
 
-	var pullFlagName string
+	var PullFlagName string
 	if cmdPrefix == "" {
-		pullFlagName = "pull"
+		PullFlagName = "pull"
 	} else {
-		pullFlagName = fmt.Sprintf("%v.pull", cmdPrefix)
+		PullFlagName = fmt.Sprintf("%v.pull", cmdPrefix)
 	}
 
-	var pullFlagDefault string
+	var PullFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pullFlagName, pullFlagDefault, pullDescription)
+	_ = cmd.PersistentFlags().String(PullFlagName, PullFlagDefault, PullDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildQParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	qDescription := `Suppress verbose build output.`
+	QDescription := `Suppress verbose build output.`
 
-	var qFlagName string
+	var QFlagName string
 	if cmdPrefix == "" {
-		qFlagName = "q"
+		QFlagName = "q"
 	} else {
-		qFlagName = fmt.Sprintf("%v.q", cmdPrefix)
+		QFlagName = fmt.Sprintf("%v.q", cmdPrefix)
 	}
 
-	var qFlagDefault bool
+	var QFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(qFlagName, qFlagDefault, qDescription)
+	_ = cmd.PersistentFlags().Bool(QFlagName, QFlagDefault, QDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildRemoteParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	remoteDescription := `A Git repository URI or HTTP/HTTPS context URI. If the URI points to a single text file, the file’s contents are placed into a file called ` + "`" + `Dockerfile` + "`" + ` and the image is built from that file. If the URI points to a tarball, the file is downloaded by the daemon and the contents therein used as the context for the build. If the URI points to a tarball and the ` + "`" + `dockerfile` + "`" + ` parameter is also specified, there must be a file with the corresponding path inside the tarball.`
+	RemoteDescription := `A Git repository URI or HTTP/HTTPS context URI. If the URI points to a single text file, the file’s contents are placed into a file called ` + "`" + `Dockerfile` + "`" + ` and the image is built from that file. If the URI points to a tarball, the file is downloaded by the daemon and the contents therein used as the context for the build. If the URI points to a tarball and the ` + "`" + `dockerfile` + "`" + ` parameter is also specified, there must be a file with the corresponding path inside the tarball.`
 
-	var remoteFlagName string
+	var RemoteFlagName string
 	if cmdPrefix == "" {
-		remoteFlagName = "remote"
+		RemoteFlagName = "remote"
 	} else {
-		remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+		RemoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
 	}
 
-	var remoteFlagDefault string
+	var RemoteFlagDefault string
 
-	_ = cmd.PersistentFlags().String(remoteFlagName, remoteFlagDefault, remoteDescription)
+	_ = cmd.PersistentFlags().String(RemoteFlagName, RemoteFlagDefault, RemoteDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildRmParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	rmDescription := `Remove intermediate containers after a successful build.`
+	RmDescription := `Remove intermediate containers after a successful build.`
 
-	var rmFlagName string
+	var RmFlagName string
 	if cmdPrefix == "" {
-		rmFlagName = "rm"
+		RmFlagName = "rm"
 	} else {
-		rmFlagName = fmt.Sprintf("%v.rm", cmdPrefix)
+		RmFlagName = fmt.Sprintf("%v.rm", cmdPrefix)
 	}
 
-	var rmFlagDefault bool = true
+	var RmFlagDefault bool = true
 
-	_ = cmd.PersistentFlags().Bool(rmFlagName, rmFlagDefault, rmDescription)
+	_ = cmd.PersistentFlags().Bool(RmFlagName, RmFlagDefault, RmDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildShmsizeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	shmsizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. The size must be greater than 0. If omitted the system uses 64MB.`
+	ShmsizeDescription := `Size of ` + "`" + `/dev/shm` + "`" + ` in bytes. The size must be greater than 0. If omitted the system uses 64MB.`
 
-	var shmsizeFlagName string
+	var ShmsizeFlagName string
 	if cmdPrefix == "" {
-		shmsizeFlagName = "shmsize"
+		ShmsizeFlagName = "shmsize"
 	} else {
-		shmsizeFlagName = fmt.Sprintf("%v.shmsize", cmdPrefix)
+		ShmsizeFlagName = fmt.Sprintf("%v.shmsize", cmdPrefix)
 	}
 
-	var shmsizeFlagDefault int64
+	var ShmsizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(shmsizeFlagName, shmsizeFlagDefault, shmsizeDescription)
+	_ = cmd.PersistentFlags().Int64(ShmsizeFlagName, ShmsizeFlagDefault, ShmsizeDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildSquashParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	squashDescription := `Squash the resulting images layers into a single layer. *(Experimental release only.)*`
+	SquashDescription := `Squash the resulting images layers into a single layer. *(Experimental release only.)*`
 
-	var squashFlagName string
+	var SquashFlagName string
 	if cmdPrefix == "" {
-		squashFlagName = "squash"
+		SquashFlagName = "squash"
 	} else {
-		squashFlagName = fmt.Sprintf("%v.squash", cmdPrefix)
+		SquashFlagName = fmt.Sprintf("%v.squash", cmdPrefix)
 	}
 
-	var squashFlagDefault bool
+	var SquashFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(squashFlagName, squashFlagDefault, squashDescription)
+	_ = cmd.PersistentFlags().Bool(SquashFlagName, SquashFlagDefault, SquashDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildTParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tDescription := `A name and optional tag to apply to the image in the ` + "`" + `name:tag` + "`" + ` format. If you omit the tag the default ` + "`" + `latest` + "`" + ` value is assumed. You can provide several ` + "`" + `t` + "`" + ` parameters.`
+	TDescription := `A name and optional tag to apply to the image in the ` + "`" + `name:tag` + "`" + ` format. If you omit the tag the default ` + "`" + `latest` + "`" + ` value is assumed. You can provide several ` + "`" + `t` + "`" + ` parameters.`
 
-	var tFlagName string
+	var TFlagName string
 	if cmdPrefix == "" {
-		tFlagName = "t"
+		TFlagName = "t"
 	} else {
-		tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
+		TFlagName = fmt.Sprintf("%v.t", cmdPrefix)
 	}
 
-	var tFlagDefault string
+	var TFlagDefault string
 
-	_ = cmd.PersistentFlags().String(tFlagName, tFlagDefault, tDescription)
+	_ = cmd.PersistentFlags().String(TFlagName, TFlagDefault, TDescription)
 
 	return nil
 }
 func registerOperationImageImageBuildTargetParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	targetDescription := `Target build stage`
+	TargetDescription := `Target build stage`
 
-	var targetFlagName string
+	var TargetFlagName string
 	if cmdPrefix == "" {
-		targetFlagName = "target"
+		TargetFlagName = "target"
 	} else {
-		targetFlagName = fmt.Sprintf("%v.target", cmdPrefix)
+		TargetFlagName = fmt.Sprintf("%v.target", cmdPrefix)
 	}
 
-	var targetFlagDefault string
+	var TargetFlagDefault string
 
-	_ = cmd.PersistentFlags().String(targetFlagName, targetFlagDefault, targetDescription)
+	_ = cmd.PersistentFlags().String(TargetFlagName, TargetFlagDefault, TargetDescription)
 
 	return nil
 }
@@ -718,18 +718,18 @@ func retrieveOperationImageImageBuildContentTypeFlag(m *image.ImageBuildParams, 
 	retAdded := false
 	if cmd.Flags().Changed("Content-type") {
 
-		var contentTypeFlagName string
+		var ContentTypeFlagName string
 		if cmdPrefix == "" {
-			contentTypeFlagName = "Content-type"
+			ContentTypeFlagName = "Content-type"
 		} else {
-			contentTypeFlagName = fmt.Sprintf("%v.Content-type", cmdPrefix)
+			ContentTypeFlagName = fmt.Sprintf("%v.Content-type", cmdPrefix)
 		}
 
-		contentTypeFlagValue, err := cmd.Flags().GetString(contentTypeFlagName)
+		ContentTypeFlagValue, err := cmd.Flags().GetString(ContentTypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ContentType = &contentTypeFlagValue
+		m.ContentType = &ContentTypeFlagValue
 
 	}
 	return nil, retAdded
@@ -738,18 +738,18 @@ func retrieveOperationImageImageBuildXRegistryConfigFlag(m *image.ImageBuildPara
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Config") {
 
-		var xRegistryConfigFlagName string
+		var XRegistryConfigFlagName string
 		if cmdPrefix == "" {
-			xRegistryConfigFlagName = "X-Registry-Config"
+			XRegistryConfigFlagName = "X-Registry-Config"
 		} else {
-			xRegistryConfigFlagName = fmt.Sprintf("%v.X-Registry-Config", cmdPrefix)
+			XRegistryConfigFlagName = fmt.Sprintf("%v.X-Registry-Config", cmdPrefix)
 		}
 
-		xRegistryConfigFlagValue, err := cmd.Flags().GetString(xRegistryConfigFlagName)
+		XRegistryConfigFlagValue, err := cmd.Flags().GetString(XRegistryConfigFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.XRegistryConfig = &xRegistryConfigFlagValue
+		m.XRegistryConfig = &XRegistryConfigFlagValue
 
 	}
 	return nil, retAdded
@@ -758,18 +758,18 @@ func retrieveOperationImageImageBuildBuildargsFlag(m *image.ImageBuildParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("buildargs") {
 
-		var buildargsFlagName string
+		var BuildargsFlagName string
 		if cmdPrefix == "" {
-			buildargsFlagName = "buildargs"
+			BuildargsFlagName = "buildargs"
 		} else {
-			buildargsFlagName = fmt.Sprintf("%v.buildargs", cmdPrefix)
+			BuildargsFlagName = fmt.Sprintf("%v.buildargs", cmdPrefix)
 		}
 
-		buildargsFlagValue, err := cmd.Flags().GetString(buildargsFlagName)
+		BuildargsFlagValue, err := cmd.Flags().GetString(BuildargsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Buildargs = &buildargsFlagValue
+		m.Buildargs = &BuildargsFlagValue
 
 	}
 	return nil, retAdded
@@ -778,18 +778,18 @@ func retrieveOperationImageImageBuildCachefromFlag(m *image.ImageBuildParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("cachefrom") {
 
-		var cachefromFlagName string
+		var CachefromFlagName string
 		if cmdPrefix == "" {
-			cachefromFlagName = "cachefrom"
+			CachefromFlagName = "cachefrom"
 		} else {
-			cachefromFlagName = fmt.Sprintf("%v.cachefrom", cmdPrefix)
+			CachefromFlagName = fmt.Sprintf("%v.cachefrom", cmdPrefix)
 		}
 
-		cachefromFlagValue, err := cmd.Flags().GetString(cachefromFlagName)
+		CachefromFlagValue, err := cmd.Flags().GetString(CachefromFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Cachefrom = &cachefromFlagValue
+		m.Cachefrom = &CachefromFlagValue
 
 	}
 	return nil, retAdded
@@ -798,18 +798,18 @@ func retrieveOperationImageImageBuildCpuperiodFlag(m *image.ImageBuildParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("cpuperiod") {
 
-		var cpuperiodFlagName string
+		var CpuperiodFlagName string
 		if cmdPrefix == "" {
-			cpuperiodFlagName = "cpuperiod"
+			CpuperiodFlagName = "cpuperiod"
 		} else {
-			cpuperiodFlagName = fmt.Sprintf("%v.cpuperiod", cmdPrefix)
+			CpuperiodFlagName = fmt.Sprintf("%v.cpuperiod", cmdPrefix)
 		}
 
-		cpuperiodFlagValue, err := cmd.Flags().GetInt64(cpuperiodFlagName)
+		CpuperiodFlagValue, err := cmd.Flags().GetInt64(CpuperiodFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Cpuperiod = &cpuperiodFlagValue
+		m.Cpuperiod = &CpuperiodFlagValue
 
 	}
 	return nil, retAdded
@@ -818,18 +818,18 @@ func retrieveOperationImageImageBuildCpuquotaFlag(m *image.ImageBuildParams, cmd
 	retAdded := false
 	if cmd.Flags().Changed("cpuquota") {
 
-		var cpuquotaFlagName string
+		var CpuquotaFlagName string
 		if cmdPrefix == "" {
-			cpuquotaFlagName = "cpuquota"
+			CpuquotaFlagName = "cpuquota"
 		} else {
-			cpuquotaFlagName = fmt.Sprintf("%v.cpuquota", cmdPrefix)
+			CpuquotaFlagName = fmt.Sprintf("%v.cpuquota", cmdPrefix)
 		}
 
-		cpuquotaFlagValue, err := cmd.Flags().GetInt64(cpuquotaFlagName)
+		CpuquotaFlagValue, err := cmd.Flags().GetInt64(CpuquotaFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Cpuquota = &cpuquotaFlagValue
+		m.Cpuquota = &CpuquotaFlagValue
 
 	}
 	return nil, retAdded
@@ -838,18 +838,18 @@ func retrieveOperationImageImageBuildCpusetcpusFlag(m *image.ImageBuildParams, c
 	retAdded := false
 	if cmd.Flags().Changed("cpusetcpus") {
 
-		var cpusetcpusFlagName string
+		var CpusetcpusFlagName string
 		if cmdPrefix == "" {
-			cpusetcpusFlagName = "cpusetcpus"
+			CpusetcpusFlagName = "cpusetcpus"
 		} else {
-			cpusetcpusFlagName = fmt.Sprintf("%v.cpusetcpus", cmdPrefix)
+			CpusetcpusFlagName = fmt.Sprintf("%v.cpusetcpus", cmdPrefix)
 		}
 
-		cpusetcpusFlagValue, err := cmd.Flags().GetString(cpusetcpusFlagName)
+		CpusetcpusFlagValue, err := cmd.Flags().GetString(CpusetcpusFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Cpusetcpus = &cpusetcpusFlagValue
+		m.Cpusetcpus = &CpusetcpusFlagValue
 
 	}
 	return nil, retAdded
@@ -858,18 +858,18 @@ func retrieveOperationImageImageBuildCpusharesFlag(m *image.ImageBuildParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("cpushares") {
 
-		var cpusharesFlagName string
+		var CpusharesFlagName string
 		if cmdPrefix == "" {
-			cpusharesFlagName = "cpushares"
+			CpusharesFlagName = "cpushares"
 		} else {
-			cpusharesFlagName = fmt.Sprintf("%v.cpushares", cmdPrefix)
+			CpusharesFlagName = fmt.Sprintf("%v.cpushares", cmdPrefix)
 		}
 
-		cpusharesFlagValue, err := cmd.Flags().GetInt64(cpusharesFlagName)
+		CpusharesFlagValue, err := cmd.Flags().GetInt64(CpusharesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Cpushares = &cpusharesFlagValue
+		m.Cpushares = &CpusharesFlagValue
 
 	}
 	return nil, retAdded
@@ -878,18 +878,18 @@ func retrieveOperationImageImageBuildDockerfileFlag(m *image.ImageBuildParams, c
 	retAdded := false
 	if cmd.Flags().Changed("dockerfile") {
 
-		var dockerfileFlagName string
+		var DockerfileFlagName string
 		if cmdPrefix == "" {
-			dockerfileFlagName = "dockerfile"
+			DockerfileFlagName = "dockerfile"
 		} else {
-			dockerfileFlagName = fmt.Sprintf("%v.dockerfile", cmdPrefix)
+			DockerfileFlagName = fmt.Sprintf("%v.dockerfile", cmdPrefix)
 		}
 
-		dockerfileFlagValue, err := cmd.Flags().GetString(dockerfileFlagName)
+		DockerfileFlagValue, err := cmd.Flags().GetString(DockerfileFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Dockerfile = &dockerfileFlagValue
+		m.Dockerfile = &DockerfileFlagValue
 
 	}
 	return nil, retAdded
@@ -898,18 +898,18 @@ func retrieveOperationImageImageBuildExtrahostsFlag(m *image.ImageBuildParams, c
 	retAdded := false
 	if cmd.Flags().Changed("extrahosts") {
 
-		var extrahostsFlagName string
+		var ExtrahostsFlagName string
 		if cmdPrefix == "" {
-			extrahostsFlagName = "extrahosts"
+			ExtrahostsFlagName = "extrahosts"
 		} else {
-			extrahostsFlagName = fmt.Sprintf("%v.extrahosts", cmdPrefix)
+			ExtrahostsFlagName = fmt.Sprintf("%v.extrahosts", cmdPrefix)
 		}
 
-		extrahostsFlagValue, err := cmd.Flags().GetString(extrahostsFlagName)
+		ExtrahostsFlagValue, err := cmd.Flags().GetString(ExtrahostsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Extrahosts = &extrahostsFlagValue
+		m.Extrahosts = &ExtrahostsFlagValue
 
 	}
 	return nil, retAdded
@@ -918,18 +918,18 @@ func retrieveOperationImageImageBuildForcermFlag(m *image.ImageBuildParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("forcerm") {
 
-		var forcermFlagName string
+		var ForcermFlagName string
 		if cmdPrefix == "" {
-			forcermFlagName = "forcerm"
+			ForcermFlagName = "forcerm"
 		} else {
-			forcermFlagName = fmt.Sprintf("%v.forcerm", cmdPrefix)
+			ForcermFlagName = fmt.Sprintf("%v.forcerm", cmdPrefix)
 		}
 
-		forcermFlagValue, err := cmd.Flags().GetBool(forcermFlagName)
+		ForcermFlagValue, err := cmd.Flags().GetBool(ForcermFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Forcerm = &forcermFlagValue
+		m.Forcerm = &ForcermFlagValue
 
 	}
 	return nil, retAdded
@@ -945,18 +945,18 @@ func retrieveOperationImageImageBuildLabelsFlag(m *image.ImageBuildParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("labels") {
 
-		var labelsFlagName string
+		var LabelsFlagName string
 		if cmdPrefix == "" {
-			labelsFlagName = "labels"
+			LabelsFlagName = "labels"
 		} else {
-			labelsFlagName = fmt.Sprintf("%v.labels", cmdPrefix)
+			LabelsFlagName = fmt.Sprintf("%v.labels", cmdPrefix)
 		}
 
-		labelsFlagValue, err := cmd.Flags().GetString(labelsFlagName)
+		LabelsFlagValue, err := cmd.Flags().GetString(LabelsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Labels = &labelsFlagValue
+		m.Labels = &LabelsFlagValue
 
 	}
 	return nil, retAdded
@@ -965,18 +965,18 @@ func retrieveOperationImageImageBuildMemoryFlag(m *image.ImageBuildParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("memory") {
 
-		var memoryFlagName string
+		var MemoryFlagName string
 		if cmdPrefix == "" {
-			memoryFlagName = "memory"
+			MemoryFlagName = "memory"
 		} else {
-			memoryFlagName = fmt.Sprintf("%v.memory", cmdPrefix)
+			MemoryFlagName = fmt.Sprintf("%v.memory", cmdPrefix)
 		}
 
-		memoryFlagValue, err := cmd.Flags().GetInt64(memoryFlagName)
+		MemoryFlagValue, err := cmd.Flags().GetInt64(MemoryFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Memory = &memoryFlagValue
+		m.Memory = &MemoryFlagValue
 
 	}
 	return nil, retAdded
@@ -985,18 +985,18 @@ func retrieveOperationImageImageBuildMemswapFlag(m *image.ImageBuildParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("memswap") {
 
-		var memswapFlagName string
+		var MemswapFlagName string
 		if cmdPrefix == "" {
-			memswapFlagName = "memswap"
+			MemswapFlagName = "memswap"
 		} else {
-			memswapFlagName = fmt.Sprintf("%v.memswap", cmdPrefix)
+			MemswapFlagName = fmt.Sprintf("%v.memswap", cmdPrefix)
 		}
 
-		memswapFlagValue, err := cmd.Flags().GetInt64(memswapFlagName)
+		MemswapFlagValue, err := cmd.Flags().GetInt64(MemswapFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Memswap = &memswapFlagValue
+		m.Memswap = &MemswapFlagValue
 
 	}
 	return nil, retAdded
@@ -1005,18 +1005,18 @@ func retrieveOperationImageImageBuildNetworkmodeFlag(m *image.ImageBuildParams, 
 	retAdded := false
 	if cmd.Flags().Changed("networkmode") {
 
-		var networkmodeFlagName string
+		var NetworkmodeFlagName string
 		if cmdPrefix == "" {
-			networkmodeFlagName = "networkmode"
+			NetworkmodeFlagName = "networkmode"
 		} else {
-			networkmodeFlagName = fmt.Sprintf("%v.networkmode", cmdPrefix)
+			NetworkmodeFlagName = fmt.Sprintf("%v.networkmode", cmdPrefix)
 		}
 
-		networkmodeFlagValue, err := cmd.Flags().GetString(networkmodeFlagName)
+		NetworkmodeFlagValue, err := cmd.Flags().GetString(NetworkmodeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Networkmode = &networkmodeFlagValue
+		m.Networkmode = &NetworkmodeFlagValue
 
 	}
 	return nil, retAdded
@@ -1025,18 +1025,18 @@ func retrieveOperationImageImageBuildNocacheFlag(m *image.ImageBuildParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("nocache") {
 
-		var nocacheFlagName string
+		var NocacheFlagName string
 		if cmdPrefix == "" {
-			nocacheFlagName = "nocache"
+			NocacheFlagName = "nocache"
 		} else {
-			nocacheFlagName = fmt.Sprintf("%v.nocache", cmdPrefix)
+			NocacheFlagName = fmt.Sprintf("%v.nocache", cmdPrefix)
 		}
 
-		nocacheFlagValue, err := cmd.Flags().GetBool(nocacheFlagName)
+		NocacheFlagValue, err := cmd.Flags().GetBool(NocacheFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Nocache = &nocacheFlagValue
+		m.Nocache = &NocacheFlagValue
 
 	}
 	return nil, retAdded
@@ -1045,18 +1045,18 @@ func retrieveOperationImageImageBuildOutputsFlag(m *image.ImageBuildParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("outputs") {
 
-		var outputsFlagName string
+		var OutputsFlagName string
 		if cmdPrefix == "" {
-			outputsFlagName = "outputs"
+			OutputsFlagName = "outputs"
 		} else {
-			outputsFlagName = fmt.Sprintf("%v.outputs", cmdPrefix)
+			OutputsFlagName = fmt.Sprintf("%v.outputs", cmdPrefix)
 		}
 
-		outputsFlagValue, err := cmd.Flags().GetString(outputsFlagName)
+		OutputsFlagValue, err := cmd.Flags().GetString(OutputsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Outputs = &outputsFlagValue
+		m.Outputs = &OutputsFlagValue
 
 	}
 	return nil, retAdded
@@ -1065,18 +1065,18 @@ func retrieveOperationImageImageBuildPlatformFlag(m *image.ImageBuildParams, cmd
 	retAdded := false
 	if cmd.Flags().Changed("platform") {
 
-		var platformFlagName string
+		var PlatformFlagName string
 		if cmdPrefix == "" {
-			platformFlagName = "platform"
+			PlatformFlagName = "platform"
 		} else {
-			platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
+			PlatformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
 		}
 
-		platformFlagValue, err := cmd.Flags().GetString(platformFlagName)
+		PlatformFlagValue, err := cmd.Flags().GetString(PlatformFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Platform = &platformFlagValue
+		m.Platform = &PlatformFlagValue
 
 	}
 	return nil, retAdded
@@ -1085,18 +1085,18 @@ func retrieveOperationImageImageBuildPullFlag(m *image.ImageBuildParams, cmdPref
 	retAdded := false
 	if cmd.Flags().Changed("pull") {
 
-		var pullFlagName string
+		var PullFlagName string
 		if cmdPrefix == "" {
-			pullFlagName = "pull"
+			PullFlagName = "pull"
 		} else {
-			pullFlagName = fmt.Sprintf("%v.pull", cmdPrefix)
+			PullFlagName = fmt.Sprintf("%v.pull", cmdPrefix)
 		}
 
-		pullFlagValue, err := cmd.Flags().GetString(pullFlagName)
+		PullFlagValue, err := cmd.Flags().GetString(PullFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Pull = &pullFlagValue
+		m.Pull = &PullFlagValue
 
 	}
 	return nil, retAdded
@@ -1105,18 +1105,18 @@ func retrieveOperationImageImageBuildQFlag(m *image.ImageBuildParams, cmdPrefix 
 	retAdded := false
 	if cmd.Flags().Changed("q") {
 
-		var qFlagName string
+		var QFlagName string
 		if cmdPrefix == "" {
-			qFlagName = "q"
+			QFlagName = "q"
 		} else {
-			qFlagName = fmt.Sprintf("%v.q", cmdPrefix)
+			QFlagName = fmt.Sprintf("%v.q", cmdPrefix)
 		}
 
-		qFlagValue, err := cmd.Flags().GetBool(qFlagName)
+		QFlagValue, err := cmd.Flags().GetBool(QFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Q = &qFlagValue
+		m.Q = &QFlagValue
 
 	}
 	return nil, retAdded
@@ -1125,18 +1125,18 @@ func retrieveOperationImageImageBuildRemoteFlag(m *image.ImageBuildParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("remote") {
 
-		var remoteFlagName string
+		var RemoteFlagName string
 		if cmdPrefix == "" {
-			remoteFlagName = "remote"
+			RemoteFlagName = "remote"
 		} else {
-			remoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
+			RemoteFlagName = fmt.Sprintf("%v.remote", cmdPrefix)
 		}
 
-		remoteFlagValue, err := cmd.Flags().GetString(remoteFlagName)
+		RemoteFlagValue, err := cmd.Flags().GetString(RemoteFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Remote = &remoteFlagValue
+		m.Remote = &RemoteFlagValue
 
 	}
 	return nil, retAdded
@@ -1145,18 +1145,18 @@ func retrieveOperationImageImageBuildRmFlag(m *image.ImageBuildParams, cmdPrefix
 	retAdded := false
 	if cmd.Flags().Changed("rm") {
 
-		var rmFlagName string
+		var RmFlagName string
 		if cmdPrefix == "" {
-			rmFlagName = "rm"
+			RmFlagName = "rm"
 		} else {
-			rmFlagName = fmt.Sprintf("%v.rm", cmdPrefix)
+			RmFlagName = fmt.Sprintf("%v.rm", cmdPrefix)
 		}
 
-		rmFlagValue, err := cmd.Flags().GetBool(rmFlagName)
+		RmFlagValue, err := cmd.Flags().GetBool(RmFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Rm = &rmFlagValue
+		m.Rm = &RmFlagValue
 
 	}
 	return nil, retAdded
@@ -1165,18 +1165,18 @@ func retrieveOperationImageImageBuildShmsizeFlag(m *image.ImageBuildParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("shmsize") {
 
-		var shmsizeFlagName string
+		var ShmsizeFlagName string
 		if cmdPrefix == "" {
-			shmsizeFlagName = "shmsize"
+			ShmsizeFlagName = "shmsize"
 		} else {
-			shmsizeFlagName = fmt.Sprintf("%v.shmsize", cmdPrefix)
+			ShmsizeFlagName = fmt.Sprintf("%v.shmsize", cmdPrefix)
 		}
 
-		shmsizeFlagValue, err := cmd.Flags().GetInt64(shmsizeFlagName)
+		ShmsizeFlagValue, err := cmd.Flags().GetInt64(ShmsizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Shmsize = &shmsizeFlagValue
+		m.Shmsize = &ShmsizeFlagValue
 
 	}
 	return nil, retAdded
@@ -1185,18 +1185,18 @@ func retrieveOperationImageImageBuildSquashFlag(m *image.ImageBuildParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("squash") {
 
-		var squashFlagName string
+		var SquashFlagName string
 		if cmdPrefix == "" {
-			squashFlagName = "squash"
+			SquashFlagName = "squash"
 		} else {
-			squashFlagName = fmt.Sprintf("%v.squash", cmdPrefix)
+			SquashFlagName = fmt.Sprintf("%v.squash", cmdPrefix)
 		}
 
-		squashFlagValue, err := cmd.Flags().GetBool(squashFlagName)
+		SquashFlagValue, err := cmd.Flags().GetBool(SquashFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Squash = &squashFlagValue
+		m.Squash = &SquashFlagValue
 
 	}
 	return nil, retAdded
@@ -1205,18 +1205,18 @@ func retrieveOperationImageImageBuildTFlag(m *image.ImageBuildParams, cmdPrefix 
 	retAdded := false
 	if cmd.Flags().Changed("t") {
 
-		var tFlagName string
+		var TFlagName string
 		if cmdPrefix == "" {
-			tFlagName = "t"
+			TFlagName = "t"
 		} else {
-			tFlagName = fmt.Sprintf("%v.t", cmdPrefix)
+			TFlagName = fmt.Sprintf("%v.t", cmdPrefix)
 		}
 
-		tFlagValue, err := cmd.Flags().GetString(tFlagName)
+		TFlagValue, err := cmd.Flags().GetString(TFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.T = &tFlagValue
+		m.T = &TFlagValue
 
 	}
 	return nil, retAdded
@@ -1225,18 +1225,18 @@ func retrieveOperationImageImageBuildTargetFlag(m *image.ImageBuildParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("target") {
 
-		var targetFlagName string
+		var TargetFlagName string
 		if cmdPrefix == "" {
-			targetFlagName = "target"
+			TargetFlagName = "target"
 		} else {
-			targetFlagName = fmt.Sprintf("%v.target", cmdPrefix)
+			TargetFlagName = fmt.Sprintf("%v.target", cmdPrefix)
 		}
 
-		targetFlagValue, err := cmd.Flags().GetString(targetFlagName)
+		TargetFlagValue, err := cmd.Flags().GetString(TargetFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Target = &targetFlagValue
+		m.Target = &TargetFlagValue
 
 	}
 	return nil, retAdded

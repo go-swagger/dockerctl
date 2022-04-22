@@ -74,18 +74,18 @@ func registerOperationContainerContainerChangesParamFlags(cmd *cobra.Command) er
 
 func registerOperationContainerContainerChangesIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -94,18 +94,18 @@ func retrieveOperationContainerContainerChangesIDFlag(m *container.ContainerChan
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -194,18 +194,18 @@ func registerContainerChangeResponseItemPath(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	pathDescription := `Required. Path to file that has changed`
+	PathDescription := `Required. Path to file that has changed`
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "Path"
+		PathFlagName = "Path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -214,17 +214,17 @@ func registerContainerChangeResponseItemPath(depth int, cmdPrefix string, cmd *c
 func retrieveModelContainerChangeResponseItemFlags(depth int, m *container.ContainerChangeResponseItem, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, kindAdded := retrieveContainerChangeResponseItemKindFlags(depth, m, cmdPrefix, cmd)
+	err, KindAdded := retrieveContainerChangeResponseItemKindFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || kindAdded
+	retAdded = retAdded || KindAdded
 
-	err, pathAdded := retrieveContainerChangeResponseItemPathFlags(depth, m, cmdPrefix, cmd)
+	err, PathAdded := retrieveContainerChangeResponseItemPathFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathAdded
+	retAdded = retAdded || PathAdded
 
 	return nil, retAdded
 }
@@ -235,8 +235,8 @@ func retrieveContainerChangeResponseItemKindFlags(depth int, m *container.Contai
 	}
 	retAdded := false
 
-	kindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
-	if cmd.Flags().Changed(kindFlagName) {
+	KindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
+	if cmd.Flags().Changed(KindFlagName) {
 
 		// warning: primitive Kind uint8 is not supported by go-swagger cli yet
 
@@ -252,21 +252,21 @@ func retrieveContainerChangeResponseItemPathFlags(depth int, m *container.Contai
 	}
 	retAdded := false
 
-	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
-	if cmd.Flags().Changed(pathFlagName) {
+	PathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
+	if cmd.Flags().Changed(PathFlagName) {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "Path"
+			PathFlagName = "Path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = pathFlagValue
+		m.Path = PathFlagValue
 
 		retAdded = true
 	}

@@ -65,18 +65,18 @@ func registerImageSummaryContainers(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	containersDescription := `Required. `
+	ContainersDescription := `Required. `
 
-	var containersFlagName string
+	var ContainersFlagName string
 	if cmdPrefix == "" {
-		containersFlagName = "Containers"
+		ContainersFlagName = "Containers"
 	} else {
-		containersFlagName = fmt.Sprintf("%v.Containers", cmdPrefix)
+		ContainersFlagName = fmt.Sprintf("%v.Containers", cmdPrefix)
 	}
 
-	var containersFlagDefault int64
+	var ContainersFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(containersFlagName, containersFlagDefault, containersDescription)
+	_ = cmd.PersistentFlags().Int64(ContainersFlagName, ContainersFlagDefault, ContainersDescription)
 
 	return nil
 }
@@ -86,18 +86,18 @@ func registerImageSummaryCreated(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	createdDescription := `Required. `
+	CreatedDescription := `Required. `
 
-	var createdFlagName string
+	var CreatedFlagName string
 	if cmdPrefix == "" {
-		createdFlagName = "Created"
+		CreatedFlagName = "Created"
 	} else {
-		createdFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
+		CreatedFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
 	}
 
-	var createdFlagDefault int64
+	var CreatedFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(createdFlagName, createdFlagDefault, createdDescription)
+	_ = cmd.PersistentFlags().Int64(CreatedFlagName, CreatedFlagDefault, CreatedDescription)
 
 	return nil
 }
@@ -107,18 +107,18 @@ func registerImageSummaryID(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	idDescription := `Required. `
+	IDDescription := `Required. `
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -138,18 +138,18 @@ func registerImageSummaryParentID(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	parentIdDescription := `Required. `
+	ParentIDDescription := `Required. `
 
-	var parentIdFlagName string
+	var ParentIDFlagName string
 	if cmdPrefix == "" {
-		parentIdFlagName = "ParentId"
+		ParentIDFlagName = "ParentId"
 	} else {
-		parentIdFlagName = fmt.Sprintf("%v.ParentId", cmdPrefix)
+		ParentIDFlagName = fmt.Sprintf("%v.ParentId", cmdPrefix)
 	}
 
-	var parentIdFlagDefault string
+	var ParentIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(parentIdFlagName, parentIdFlagDefault, parentIdDescription)
+	_ = cmd.PersistentFlags().String(ParentIDFlagName, ParentIDFlagDefault, ParentIDDescription)
 
 	return nil
 }
@@ -179,18 +179,18 @@ func registerImageSummarySharedSize(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	sharedSizeDescription := `Required. `
+	SharedSizeDescription := `Required. `
 
-	var sharedSizeFlagName string
+	var SharedSizeFlagName string
 	if cmdPrefix == "" {
-		sharedSizeFlagName = "SharedSize"
+		SharedSizeFlagName = "SharedSize"
 	} else {
-		sharedSizeFlagName = fmt.Sprintf("%v.SharedSize", cmdPrefix)
+		SharedSizeFlagName = fmt.Sprintf("%v.SharedSize", cmdPrefix)
 	}
 
-	var sharedSizeFlagDefault int64
+	var SharedSizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sharedSizeFlagName, sharedSizeFlagDefault, sharedSizeDescription)
+	_ = cmd.PersistentFlags().Int64(SharedSizeFlagName, SharedSizeFlagDefault, SharedSizeDescription)
 
 	return nil
 }
@@ -200,18 +200,18 @@ func registerImageSummarySize(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	sizeDescription := `Required. `
+	SizeDescription := `Required. `
 
-	var sizeFlagName string
+	var SizeFlagName string
 	if cmdPrefix == "" {
-		sizeFlagName = "Size"
+		SizeFlagName = "Size"
 	} else {
-		sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+		SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 	}
 
-	var sizeFlagDefault int64
+	var SizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sizeFlagName, sizeFlagDefault, sizeDescription)
+	_ = cmd.PersistentFlags().Int64(SizeFlagName, SizeFlagDefault, SizeDescription)
 
 	return nil
 }
@@ -221,18 +221,18 @@ func registerImageSummaryVirtualSize(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	virtualSizeDescription := `Required. `
+	VirtualSizeDescription := `Required. `
 
-	var virtualSizeFlagName string
+	var VirtualSizeFlagName string
 	if cmdPrefix == "" {
-		virtualSizeFlagName = "VirtualSize"
+		VirtualSizeFlagName = "VirtualSize"
 	} else {
-		virtualSizeFlagName = fmt.Sprintf("%v.VirtualSize", cmdPrefix)
+		VirtualSizeFlagName = fmt.Sprintf("%v.VirtualSize", cmdPrefix)
 	}
 
-	var virtualSizeFlagDefault int64
+	var VirtualSizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(virtualSizeFlagName, virtualSizeFlagDefault, virtualSizeDescription)
+	_ = cmd.PersistentFlags().Int64(VirtualSizeFlagName, VirtualSizeFlagDefault, VirtualSizeDescription)
 
 	return nil
 }
@@ -241,65 +241,65 @@ func registerImageSummaryVirtualSize(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelImageSummaryFlags(depth int, m *models.ImageSummary, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, containersAdded := retrieveImageSummaryContainersFlags(depth, m, cmdPrefix, cmd)
+	err, ContainersAdded := retrieveImageSummaryContainersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containersAdded
+	retAdded = retAdded || ContainersAdded
 
-	err, createdAdded := retrieveImageSummaryCreatedFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAdded := retrieveImageSummaryCreatedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAdded
+	retAdded = retAdded || CreatedAdded
 
-	err, idAdded := retrieveImageSummaryIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveImageSummaryIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, labelsAdded := retrieveImageSummaryLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveImageSummaryLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, parentIdAdded := retrieveImageSummaryParentIDFlags(depth, m, cmdPrefix, cmd)
+	err, ParentIDAdded := retrieveImageSummaryParentIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || parentIdAdded
+	retAdded = retAdded || ParentIDAdded
 
-	err, repoDigestsAdded := retrieveImageSummaryRepoDigestsFlags(depth, m, cmdPrefix, cmd)
+	err, RepoDigestsAdded := retrieveImageSummaryRepoDigestsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || repoDigestsAdded
+	retAdded = retAdded || RepoDigestsAdded
 
-	err, repoTagsAdded := retrieveImageSummaryRepoTagsFlags(depth, m, cmdPrefix, cmd)
+	err, RepoTagsAdded := retrieveImageSummaryRepoTagsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || repoTagsAdded
+	retAdded = retAdded || RepoTagsAdded
 
-	err, sharedSizeAdded := retrieveImageSummarySharedSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SharedSizeAdded := retrieveImageSummarySharedSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sharedSizeAdded
+	retAdded = retAdded || SharedSizeAdded
 
-	err, sizeAdded := retrieveImageSummarySizeFlags(depth, m, cmdPrefix, cmd)
+	err, SizeAdded := retrieveImageSummarySizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sizeAdded
+	retAdded = retAdded || SizeAdded
 
-	err, virtualSizeAdded := retrieveImageSummaryVirtualSizeFlags(depth, m, cmdPrefix, cmd)
+	err, VirtualSizeAdded := retrieveImageSummaryVirtualSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || virtualSizeAdded
+	retAdded = retAdded || VirtualSizeAdded
 
 	return nil, retAdded
 }
@@ -310,21 +310,21 @@ func retrieveImageSummaryContainersFlags(depth int, m *models.ImageSummary, cmdP
 	}
 	retAdded := false
 
-	containersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
-	if cmd.Flags().Changed(containersFlagName) {
+	ContainersFlagName := fmt.Sprintf("%v.Containers", cmdPrefix)
+	if cmd.Flags().Changed(ContainersFlagName) {
 
-		var containersFlagName string
+		var ContainersFlagName string
 		if cmdPrefix == "" {
-			containersFlagName = "Containers"
+			ContainersFlagName = "Containers"
 		} else {
-			containersFlagName = fmt.Sprintf("%v.Containers", cmdPrefix)
+			ContainersFlagName = fmt.Sprintf("%v.Containers", cmdPrefix)
 		}
 
-		containersFlagValue, err := cmd.Flags().GetInt64(containersFlagName)
+		ContainersFlagValue, err := cmd.Flags().GetInt64(ContainersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Containers = containersFlagValue
+		m.Containers = ContainersFlagValue
 
 		retAdded = true
 	}
@@ -338,21 +338,21 @@ func retrieveImageSummaryCreatedFlags(depth int, m *models.ImageSummary, cmdPref
 	}
 	retAdded := false
 
-	createdFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
-	if cmd.Flags().Changed(createdFlagName) {
+	CreatedFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
+	if cmd.Flags().Changed(CreatedFlagName) {
 
-		var createdFlagName string
+		var CreatedFlagName string
 		if cmdPrefix == "" {
-			createdFlagName = "Created"
+			CreatedFlagName = "Created"
 		} else {
-			createdFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
+			CreatedFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
 		}
 
-		createdFlagValue, err := cmd.Flags().GetInt64(createdFlagName)
+		CreatedFlagValue, err := cmd.Flags().GetInt64(CreatedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Created = createdFlagValue
+		m.Created = CreatedFlagValue
 
 		retAdded = true
 	}
@@ -366,21 +366,21 @@ func retrieveImageSummaryIDFlags(depth int, m *models.ImageSummary, cmdPrefix st
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -394,8 +394,8 @@ func retrieveImageSummaryLabelsFlags(depth int, m *models.ImageSummary, cmdPrefi
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -408,21 +408,21 @@ func retrieveImageSummaryParentIDFlags(depth int, m *models.ImageSummary, cmdPre
 	}
 	retAdded := false
 
-	parentIdFlagName := fmt.Sprintf("%v.ParentId", cmdPrefix)
-	if cmd.Flags().Changed(parentIdFlagName) {
+	ParentIDFlagName := fmt.Sprintf("%v.ParentId", cmdPrefix)
+	if cmd.Flags().Changed(ParentIDFlagName) {
 
-		var parentIdFlagName string
+		var ParentIDFlagName string
 		if cmdPrefix == "" {
-			parentIdFlagName = "ParentId"
+			ParentIDFlagName = "ParentId"
 		} else {
-			parentIdFlagName = fmt.Sprintf("%v.ParentId", cmdPrefix)
+			ParentIDFlagName = fmt.Sprintf("%v.ParentId", cmdPrefix)
 		}
 
-		parentIdFlagValue, err := cmd.Flags().GetString(parentIdFlagName)
+		ParentIDFlagValue, err := cmd.Flags().GetString(ParentIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ParentID = parentIdFlagValue
+		m.ParentID = ParentIDFlagValue
 
 		retAdded = true
 	}
@@ -436,8 +436,8 @@ func retrieveImageSummaryRepoDigestsFlags(depth int, m *models.ImageSummary, cmd
 	}
 	retAdded := false
 
-	repoDigestsFlagName := fmt.Sprintf("%v.RepoDigests", cmdPrefix)
-	if cmd.Flags().Changed(repoDigestsFlagName) {
+	RepoDigestsFlagName := fmt.Sprintf("%v.RepoDigests", cmdPrefix)
+	if cmd.Flags().Changed(RepoDigestsFlagName) {
 		// warning: RepoDigests array type []string is not supported by go-swagger cli yet
 	}
 
@@ -450,8 +450,8 @@ func retrieveImageSummaryRepoTagsFlags(depth int, m *models.ImageSummary, cmdPre
 	}
 	retAdded := false
 
-	repoTagsFlagName := fmt.Sprintf("%v.RepoTags", cmdPrefix)
-	if cmd.Flags().Changed(repoTagsFlagName) {
+	RepoTagsFlagName := fmt.Sprintf("%v.RepoTags", cmdPrefix)
+	if cmd.Flags().Changed(RepoTagsFlagName) {
 		// warning: RepoTags array type []string is not supported by go-swagger cli yet
 	}
 
@@ -464,21 +464,21 @@ func retrieveImageSummarySharedSizeFlags(depth int, m *models.ImageSummary, cmdP
 	}
 	retAdded := false
 
-	sharedSizeFlagName := fmt.Sprintf("%v.SharedSize", cmdPrefix)
-	if cmd.Flags().Changed(sharedSizeFlagName) {
+	SharedSizeFlagName := fmt.Sprintf("%v.SharedSize", cmdPrefix)
+	if cmd.Flags().Changed(SharedSizeFlagName) {
 
-		var sharedSizeFlagName string
+		var SharedSizeFlagName string
 		if cmdPrefix == "" {
-			sharedSizeFlagName = "SharedSize"
+			SharedSizeFlagName = "SharedSize"
 		} else {
-			sharedSizeFlagName = fmt.Sprintf("%v.SharedSize", cmdPrefix)
+			SharedSizeFlagName = fmt.Sprintf("%v.SharedSize", cmdPrefix)
 		}
 
-		sharedSizeFlagValue, err := cmd.Flags().GetInt64(sharedSizeFlagName)
+		SharedSizeFlagValue, err := cmd.Flags().GetInt64(SharedSizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SharedSize = sharedSizeFlagValue
+		m.SharedSize = SharedSizeFlagValue
 
 		retAdded = true
 	}
@@ -492,21 +492,21 @@ func retrieveImageSummarySizeFlags(depth int, m *models.ImageSummary, cmdPrefix 
 	}
 	retAdded := false
 
-	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
-	if cmd.Flags().Changed(sizeFlagName) {
+	SizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
+	if cmd.Flags().Changed(SizeFlagName) {
 
-		var sizeFlagName string
+		var SizeFlagName string
 		if cmdPrefix == "" {
-			sizeFlagName = "Size"
+			SizeFlagName = "Size"
 		} else {
-			sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+			SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 		}
 
-		sizeFlagValue, err := cmd.Flags().GetInt64(sizeFlagName)
+		SizeFlagValue, err := cmd.Flags().GetInt64(SizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Size = sizeFlagValue
+		m.Size = SizeFlagValue
 
 		retAdded = true
 	}
@@ -520,21 +520,21 @@ func retrieveImageSummaryVirtualSizeFlags(depth int, m *models.ImageSummary, cmd
 	}
 	retAdded := false
 
-	virtualSizeFlagName := fmt.Sprintf("%v.VirtualSize", cmdPrefix)
-	if cmd.Flags().Changed(virtualSizeFlagName) {
+	VirtualSizeFlagName := fmt.Sprintf("%v.VirtualSize", cmdPrefix)
+	if cmd.Flags().Changed(VirtualSizeFlagName) {
 
-		var virtualSizeFlagName string
+		var VirtualSizeFlagName string
 		if cmdPrefix == "" {
-			virtualSizeFlagName = "VirtualSize"
+			VirtualSizeFlagName = "VirtualSize"
 		} else {
-			virtualSizeFlagName = fmt.Sprintf("%v.VirtualSize", cmdPrefix)
+			VirtualSizeFlagName = fmt.Sprintf("%v.VirtualSize", cmdPrefix)
 		}
 
-		virtualSizeFlagValue, err := cmd.Flags().GetInt64(virtualSizeFlagName)
+		VirtualSizeFlagValue, err := cmd.Flags().GetInt64(VirtualSizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.VirtualSize = virtualSizeFlagValue
+		m.VirtualSize = VirtualSizeFlagValue
 
 		retAdded = true
 	}

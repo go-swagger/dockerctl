@@ -41,18 +41,18 @@ func registerPluginEnvDescription(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	descriptionDescription := `Required. `
+	DescriptionDescription := `Required. `
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -62,18 +62,18 @@ func registerPluginEnvName(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -93,18 +93,18 @@ func registerPluginEnvValue(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	valueDescription := `Required. `
+	ValueDescription := `Required. `
 
-	var valueFlagName string
+	var ValueFlagName string
 	if cmdPrefix == "" {
-		valueFlagName = "Value"
+		ValueFlagName = "Value"
 	} else {
-		valueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
+		ValueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
 	}
 
-	var valueFlagDefault string
+	var ValueFlagDefault string
 
-	_ = cmd.PersistentFlags().String(valueFlagName, valueFlagDefault, valueDescription)
+	_ = cmd.PersistentFlags().String(ValueFlagName, ValueFlagDefault, ValueDescription)
 
 	return nil
 }
@@ -113,29 +113,29 @@ func registerPluginEnvValue(depth int, cmdPrefix string, cmd *cobra.Command) err
 func retrieveModelPluginEnvFlags(depth int, m *models.PluginEnv, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, descriptionAdded := retrievePluginEnvDescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrievePluginEnvDescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, nameAdded := retrievePluginEnvNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrievePluginEnvNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, settableAdded := retrievePluginEnvSettableFlags(depth, m, cmdPrefix, cmd)
+	err, SettableAdded := retrievePluginEnvSettableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || settableAdded
+	retAdded = retAdded || SettableAdded
 
-	err, valueAdded := retrievePluginEnvValueFlags(depth, m, cmdPrefix, cmd)
+	err, ValueAdded := retrievePluginEnvValueFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || valueAdded
+	retAdded = retAdded || ValueAdded
 
 	return nil, retAdded
 }
@@ -146,21 +146,21 @@ func retrievePluginEnvDescriptionFlags(depth int, m *models.PluginEnv, cmdPrefix
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "Description"
+			DescriptionFlagName = "Description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -174,21 +174,21 @@ func retrievePluginEnvNameFlags(depth int, m *models.PluginEnv, cmdPrefix string
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -202,8 +202,8 @@ func retrievePluginEnvSettableFlags(depth int, m *models.PluginEnv, cmdPrefix st
 	}
 	retAdded := false
 
-	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
-	if cmd.Flags().Changed(settableFlagName) {
+	SettableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
+	if cmd.Flags().Changed(SettableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
 
@@ -216,21 +216,21 @@ func retrievePluginEnvValueFlags(depth int, m *models.PluginEnv, cmdPrefix strin
 	}
 	retAdded := false
 
-	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
-	if cmd.Flags().Changed(valueFlagName) {
+	ValueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(ValueFlagName) {
 
-		var valueFlagName string
+		var ValueFlagName string
 		if cmdPrefix == "" {
-			valueFlagName = "Value"
+			ValueFlagName = "Value"
 		} else {
-			valueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
+			ValueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
 		}
 
-		valueFlagValue, err := cmd.Flags().GetString(valueFlagName)
+		ValueFlagValue, err := cmd.Flags().GetString(ValueFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Value = &valueFlagValue
+		m.Value = &ValueFlagValue
 
 		retAdded = true
 	}

@@ -69,14 +69,14 @@ func registerOperationSwarmSwarmInitParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSwarmSwarmInitBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmInitBodyFlags(0, "swarmInitBody", cmd); err != nil {
@@ -231,18 +231,18 @@ func registerSwarmInitBodyAdvertiseAddr(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	advertiseAddrDescription := `Externally reachable address advertised to other nodes. This can either be an address/port combination in the form ` + "`" + `192.168.1.1:4567` + "`" + `, or an interface followed by a port number, like ` + "`" + `eth0:4567` + "`" + `. If the port number is omitted, the port number from the listen address is used. If ` + "`" + `AdvertiseAddr` + "`" + ` is not specified, it will be automatically detected when possible.`
+	AdvertiseAddrDescription := `Externally reachable address advertised to other nodes. This can either be an address/port combination in the form ` + "`" + `192.168.1.1:4567` + "`" + `, or an interface followed by a port number, like ` + "`" + `eth0:4567` + "`" + `. If the port number is omitted, the port number from the listen address is used. If ` + "`" + `AdvertiseAddr` + "`" + ` is not specified, it will be automatically detected when possible.`
 
-	var advertiseAddrFlagName string
+	var AdvertiseAddrFlagName string
 	if cmdPrefix == "" {
-		advertiseAddrFlagName = "AdvertiseAddr"
+		AdvertiseAddrFlagName = "AdvertiseAddr"
 	} else {
-		advertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
+		AdvertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
 	}
 
-	var advertiseAddrFlagDefault string
+	var AdvertiseAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(advertiseAddrFlagName, advertiseAddrFlagDefault, advertiseAddrDescription)
+	_ = cmd.PersistentFlags().String(AdvertiseAddrFlagName, AdvertiseAddrFlagDefault, AdvertiseAddrDescription)
 
 	return nil
 }
@@ -252,7 +252,7 @@ func registerSwarmInitBodyDataPathAddr(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	dataPathAddrDescription := `Address or interface to use for data path traffic (format: ` + "`" + `<ip|interface>` + "`" + `), for example,  ` + "`" + `192.168.1.1` + "`" + `,
+	DataPathAddrDescription := `Address or interface to use for data path traffic (format: ` + "`" + `<ip|interface>` + "`" + `), for example,  ` + "`" + `192.168.1.1` + "`" + `,
 or an interface, like ` + "`" + `eth0` + "`" + `. If ` + "`" + `DataPathAddr` + "`" + ` is unspecified, the same address as ` + "`" + `AdvertiseAddr` + "`" + `
 is used.
 
@@ -261,16 +261,16 @@ nodes in order to reach the containers running on this node. Using this paramete
 separate the container data traffic from the management traffic of the cluster.
 `
 
-	var dataPathAddrFlagName string
+	var DataPathAddrFlagName string
 	if cmdPrefix == "" {
-		dataPathAddrFlagName = "DataPathAddr"
+		DataPathAddrFlagName = "DataPathAddr"
 	} else {
-		dataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
+		DataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
 	}
 
-	var dataPathAddrFlagDefault string
+	var DataPathAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(dataPathAddrFlagName, dataPathAddrFlagDefault, dataPathAddrDescription)
+	_ = cmd.PersistentFlags().String(DataPathAddrFlagName, DataPathAddrFlagDefault, DataPathAddrDescription)
 
 	return nil
 }
@@ -300,18 +300,18 @@ func registerSwarmInitBodyForceNewCluster(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	forceNewClusterDescription := `Force creation of a new swarm.`
+	ForceNewClusterDescription := `Force creation of a new swarm.`
 
-	var forceNewClusterFlagName string
+	var ForceNewClusterFlagName string
 	if cmdPrefix == "" {
-		forceNewClusterFlagName = "ForceNewCluster"
+		ForceNewClusterFlagName = "ForceNewCluster"
 	} else {
-		forceNewClusterFlagName = fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
+		ForceNewClusterFlagName = fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
 	}
 
-	var forceNewClusterFlagDefault bool
+	var ForceNewClusterFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceNewClusterFlagName, forceNewClusterFlagDefault, forceNewClusterDescription)
+	_ = cmd.PersistentFlags().Bool(ForceNewClusterFlagName, ForceNewClusterFlagDefault, ForceNewClusterDescription)
 
 	return nil
 }
@@ -321,18 +321,18 @@ func registerSwarmInitBodyListenAddr(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	listenAddrDescription := `Listen address used for inter-manager communication, as well as determining the networking interface used for the VXLAN Tunnel Endpoint (VTEP). This can either be an address/port combination in the form ` + "`" + `192.168.1.1:4567` + "`" + `, or an interface followed by a port number, like ` + "`" + `eth0:4567` + "`" + `. If the port number is omitted, the default swarm listening port is used.`
+	ListenAddrDescription := `Listen address used for inter-manager communication, as well as determining the networking interface used for the VXLAN Tunnel Endpoint (VTEP). This can either be an address/port combination in the form ` + "`" + `192.168.1.1:4567` + "`" + `, or an interface followed by a port number, like ` + "`" + `eth0:4567` + "`" + `. If the port number is omitted, the default swarm listening port is used.`
 
-	var listenAddrFlagName string
+	var ListenAddrFlagName string
 	if cmdPrefix == "" {
-		listenAddrFlagName = "ListenAddr"
+		ListenAddrFlagName = "ListenAddr"
 	} else {
-		listenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
+		ListenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
 	}
 
-	var listenAddrFlagDefault string
+	var ListenAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(listenAddrFlagName, listenAddrFlagDefault, listenAddrDescription)
+	_ = cmd.PersistentFlags().String(ListenAddrFlagName, ListenAddrFlagDefault, ListenAddrDescription)
 
 	return nil
 }
@@ -342,14 +342,14 @@ func registerSwarmInitBodySpec(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	var specFlagName string
+	var SpecFlagName string
 	if cmdPrefix == "" {
-		specFlagName = "Spec"
+		SpecFlagName = "Spec"
 	} else {
-		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+		SpecFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecFlags(depth+1, specFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecFlags(depth+1, SpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -370,53 +370,53 @@ func registerSwarmInitBodySubnetSize(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelSwarmInitBodyFlags(depth int, m *swarm.SwarmInitBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, advertiseAddrAdded := retrieveSwarmInitBodyAdvertiseAddrFlags(depth, m, cmdPrefix, cmd)
+	err, AdvertiseAddrAdded := retrieveSwarmInitBodyAdvertiseAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || advertiseAddrAdded
+	retAdded = retAdded || AdvertiseAddrAdded
 
-	err, dataPathAddrAdded := retrieveSwarmInitBodyDataPathAddrFlags(depth, m, cmdPrefix, cmd)
+	err, DataPathAddrAdded := retrieveSwarmInitBodyDataPathAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dataPathAddrAdded
+	retAdded = retAdded || DataPathAddrAdded
 
-	err, dataPathPortAdded := retrieveSwarmInitBodyDataPathPortFlags(depth, m, cmdPrefix, cmd)
+	err, DataPathPortAdded := retrieveSwarmInitBodyDataPathPortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dataPathPortAdded
+	retAdded = retAdded || DataPathPortAdded
 
-	err, defaultAddrPoolAdded := retrieveSwarmInitBodyDefaultAddrPoolFlags(depth, m, cmdPrefix, cmd)
+	err, DefaultAddrPoolAdded := retrieveSwarmInitBodyDefaultAddrPoolFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || defaultAddrPoolAdded
+	retAdded = retAdded || DefaultAddrPoolAdded
 
-	err, forceNewClusterAdded := retrieveSwarmInitBodyForceNewClusterFlags(depth, m, cmdPrefix, cmd)
+	err, ForceNewClusterAdded := retrieveSwarmInitBodyForceNewClusterFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || forceNewClusterAdded
+	retAdded = retAdded || ForceNewClusterAdded
 
-	err, listenAddrAdded := retrieveSwarmInitBodyListenAddrFlags(depth, m, cmdPrefix, cmd)
+	err, ListenAddrAdded := retrieveSwarmInitBodyListenAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || listenAddrAdded
+	retAdded = retAdded || ListenAddrAdded
 
-	err, specAdded := retrieveSwarmInitBodySpecFlags(depth, m, cmdPrefix, cmd)
+	err, SpecAdded := retrieveSwarmInitBodySpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
+	retAdded = retAdded || SpecAdded
 
-	err, subnetSizeAdded := retrieveSwarmInitBodySubnetSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SubnetSizeAdded := retrieveSwarmInitBodySubnetSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || subnetSizeAdded
+	retAdded = retAdded || SubnetSizeAdded
 
 	return nil, retAdded
 }
@@ -427,21 +427,21 @@ func retrieveSwarmInitBodyAdvertiseAddrFlags(depth int, m *swarm.SwarmInitBody, 
 	}
 	retAdded := false
 
-	advertiseAddrFlagName := fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
-	if cmd.Flags().Changed(advertiseAddrFlagName) {
+	AdvertiseAddrFlagName := fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
+	if cmd.Flags().Changed(AdvertiseAddrFlagName) {
 
-		var advertiseAddrFlagName string
+		var AdvertiseAddrFlagName string
 		if cmdPrefix == "" {
-			advertiseAddrFlagName = "AdvertiseAddr"
+			AdvertiseAddrFlagName = "AdvertiseAddr"
 		} else {
-			advertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
+			AdvertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
 		}
 
-		advertiseAddrFlagValue, err := cmd.Flags().GetString(advertiseAddrFlagName)
+		AdvertiseAddrFlagValue, err := cmd.Flags().GetString(AdvertiseAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AdvertiseAddr = advertiseAddrFlagValue
+		m.AdvertiseAddr = AdvertiseAddrFlagValue
 
 		retAdded = true
 	}
@@ -455,21 +455,21 @@ func retrieveSwarmInitBodyDataPathAddrFlags(depth int, m *swarm.SwarmInitBody, c
 	}
 	retAdded := false
 
-	dataPathAddrFlagName := fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
-	if cmd.Flags().Changed(dataPathAddrFlagName) {
+	DataPathAddrFlagName := fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
+	if cmd.Flags().Changed(DataPathAddrFlagName) {
 
-		var dataPathAddrFlagName string
+		var DataPathAddrFlagName string
 		if cmdPrefix == "" {
-			dataPathAddrFlagName = "DataPathAddr"
+			DataPathAddrFlagName = "DataPathAddr"
 		} else {
-			dataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
+			DataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
 		}
 
-		dataPathAddrFlagValue, err := cmd.Flags().GetString(dataPathAddrFlagName)
+		DataPathAddrFlagValue, err := cmd.Flags().GetString(DataPathAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DataPathAddr = dataPathAddrFlagValue
+		m.DataPathAddr = DataPathAddrFlagValue
 
 		retAdded = true
 	}
@@ -483,8 +483,8 @@ func retrieveSwarmInitBodyDataPathPortFlags(depth int, m *swarm.SwarmInitBody, c
 	}
 	retAdded := false
 
-	dataPathPortFlagName := fmt.Sprintf("%v.DataPathPort", cmdPrefix)
-	if cmd.Flags().Changed(dataPathPortFlagName) {
+	DataPathPortFlagName := fmt.Sprintf("%v.DataPathPort", cmdPrefix)
+	if cmd.Flags().Changed(DataPathPortFlagName) {
 
 		// warning: primitive DataPathPort uint32 is not supported by go-swagger cli yet
 
@@ -500,8 +500,8 @@ func retrieveSwarmInitBodyDefaultAddrPoolFlags(depth int, m *swarm.SwarmInitBody
 	}
 	retAdded := false
 
-	defaultAddrPoolFlagName := fmt.Sprintf("%v.DefaultAddrPool", cmdPrefix)
-	if cmd.Flags().Changed(defaultAddrPoolFlagName) {
+	DefaultAddrPoolFlagName := fmt.Sprintf("%v.DefaultAddrPool", cmdPrefix)
+	if cmd.Flags().Changed(DefaultAddrPoolFlagName) {
 		// warning: DefaultAddrPool array type []string is not supported by go-swagger cli yet
 	}
 
@@ -514,21 +514,21 @@ func retrieveSwarmInitBodyForceNewClusterFlags(depth int, m *swarm.SwarmInitBody
 	}
 	retAdded := false
 
-	forceNewClusterFlagName := fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
-	if cmd.Flags().Changed(forceNewClusterFlagName) {
+	ForceNewClusterFlagName := fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
+	if cmd.Flags().Changed(ForceNewClusterFlagName) {
 
-		var forceNewClusterFlagName string
+		var ForceNewClusterFlagName string
 		if cmdPrefix == "" {
-			forceNewClusterFlagName = "ForceNewCluster"
+			ForceNewClusterFlagName = "ForceNewCluster"
 		} else {
-			forceNewClusterFlagName = fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
+			ForceNewClusterFlagName = fmt.Sprintf("%v.ForceNewCluster", cmdPrefix)
 		}
 
-		forceNewClusterFlagValue, err := cmd.Flags().GetBool(forceNewClusterFlagName)
+		ForceNewClusterFlagValue, err := cmd.Flags().GetBool(ForceNewClusterFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ForceNewCluster = forceNewClusterFlagValue
+		m.ForceNewCluster = ForceNewClusterFlagValue
 
 		retAdded = true
 	}
@@ -542,21 +542,21 @@ func retrieveSwarmInitBodyListenAddrFlags(depth int, m *swarm.SwarmInitBody, cmd
 	}
 	retAdded := false
 
-	listenAddrFlagName := fmt.Sprintf("%v.ListenAddr", cmdPrefix)
-	if cmd.Flags().Changed(listenAddrFlagName) {
+	ListenAddrFlagName := fmt.Sprintf("%v.ListenAddr", cmdPrefix)
+	if cmd.Flags().Changed(ListenAddrFlagName) {
 
-		var listenAddrFlagName string
+		var ListenAddrFlagName string
 		if cmdPrefix == "" {
-			listenAddrFlagName = "ListenAddr"
+			ListenAddrFlagName = "ListenAddr"
 		} else {
-			listenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
+			ListenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
 		}
 
-		listenAddrFlagValue, err := cmd.Flags().GetString(listenAddrFlagName)
+		ListenAddrFlagValue, err := cmd.Flags().GetString(ListenAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ListenAddr = listenAddrFlagValue
+		m.ListenAddr = ListenAddrFlagValue
 
 		retAdded = true
 	}
@@ -570,22 +570,22 @@ func retrieveSwarmInitBodySpecFlags(depth int, m *swarm.SwarmInitBody, cmdPrefix
 	}
 	retAdded := false
 
-	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
-	if cmd.Flags().Changed(specFlagName) {
+	SpecFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(SpecFlagName) {
 		// info: complex object Spec models.SwarmSpec is retrieved outside this Changed() block
 	}
-	specFlagValue := m.Spec
-	if swag.IsZero(specFlagValue) {
-		specFlagValue = &models.SwarmSpec{}
+	SpecFlagValue := m.Spec
+	if swag.IsZero(SpecFlagValue) {
+		SpecFlagValue = &models.SwarmSpec{}
 	}
 
-	err, specAdded := retrieveModelSwarmSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+	err, SpecAdded := retrieveModelSwarmSpecFlags(depth+1, SpecFlagValue, SpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
-	if specAdded {
-		m.Spec = specFlagValue
+	retAdded = retAdded || SpecAdded
+	if SpecAdded {
+		m.Spec = SpecFlagValue
 	}
 
 	return nil, retAdded
@@ -597,8 +597,8 @@ func retrieveSwarmInitBodySubnetSizeFlags(depth int, m *swarm.SwarmInitBody, cmd
 	}
 	retAdded := false
 
-	subnetSizeFlagName := fmt.Sprintf("%v.SubnetSize", cmdPrefix)
-	if cmd.Flags().Changed(subnetSizeFlagName) {
+	SubnetSizeFlagName := fmt.Sprintf("%v.SubnetSize", cmdPrefix)
+	if cmd.Flags().Changed(SubnetSizeFlagName) {
 
 		// warning: primitive SubnetSize uint32 is not supported by go-swagger cli yet
 

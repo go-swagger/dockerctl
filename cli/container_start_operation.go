@@ -74,35 +74,35 @@ func registerOperationContainerContainerStartParamFlags(cmd *cobra.Command) erro
 
 func registerOperationContainerContainerStartDetachKeysParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	detachKeysDescription := `Override the key sequence for detaching a container. Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
+	DetachKeysDescription := `Override the key sequence for detaching a container. Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
 
-	var detachKeysFlagName string
+	var DetachKeysFlagName string
 	if cmdPrefix == "" {
-		detachKeysFlagName = "detachKeys"
+		DetachKeysFlagName = "detachKeys"
 	} else {
-		detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
+		DetachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
 	}
 
-	var detachKeysFlagDefault string
+	var DetachKeysFlagDefault string
 
-	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
+	_ = cmd.PersistentFlags().String(DetachKeysFlagName, DetachKeysFlagDefault, DetachKeysDescription)
 
 	return nil
 }
 func registerOperationContainerContainerStartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationContainerContainerStartDetachKeysFlag(m *container.Contain
 	retAdded := false
 	if cmd.Flags().Changed("detachKeys") {
 
-		var detachKeysFlagName string
+		var DetachKeysFlagName string
 		if cmdPrefix == "" {
-			detachKeysFlagName = "detachKeys"
+			DetachKeysFlagName = "detachKeys"
 		} else {
-			detachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
+			DetachKeysFlagName = fmt.Sprintf("%v.detachKeys", cmdPrefix)
 		}
 
-		detachKeysFlagValue, err := cmd.Flags().GetString(detachKeysFlagName)
+		DetachKeysFlagValue, err := cmd.Flags().GetString(DetachKeysFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DetachKeys = &detachKeysFlagValue
+		m.DetachKeys = &DetachKeysFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationContainerContainerStartIDFlag(m *container.ContainerStartP
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded

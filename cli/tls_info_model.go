@@ -37,18 +37,18 @@ func registerTLSInfoCertIssuerPublicKey(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	certIssuerPublicKeyDescription := `The base64-url-safe-encoded raw public key bytes of the issuer`
+	CertIssuerPublicKeyDescription := `The base64-url-safe-encoded raw public key bytes of the issuer`
 
-	var certIssuerPublicKeyFlagName string
+	var CertIssuerPublicKeyFlagName string
 	if cmdPrefix == "" {
-		certIssuerPublicKeyFlagName = "CertIssuerPublicKey"
+		CertIssuerPublicKeyFlagName = "CertIssuerPublicKey"
 	} else {
-		certIssuerPublicKeyFlagName = fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
+		CertIssuerPublicKeyFlagName = fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
 	}
 
-	var certIssuerPublicKeyFlagDefault string
+	var CertIssuerPublicKeyFlagDefault string
 
-	_ = cmd.PersistentFlags().String(certIssuerPublicKeyFlagName, certIssuerPublicKeyFlagDefault, certIssuerPublicKeyDescription)
+	_ = cmd.PersistentFlags().String(CertIssuerPublicKeyFlagName, CertIssuerPublicKeyFlagDefault, CertIssuerPublicKeyDescription)
 
 	return nil
 }
@@ -58,18 +58,18 @@ func registerTLSInfoCertIssuerSubject(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	certIssuerSubjectDescription := `The base64-url-safe-encoded raw subject bytes of the issuer`
+	CertIssuerSubjectDescription := `The base64-url-safe-encoded raw subject bytes of the issuer`
 
-	var certIssuerSubjectFlagName string
+	var CertIssuerSubjectFlagName string
 	if cmdPrefix == "" {
-		certIssuerSubjectFlagName = "CertIssuerSubject"
+		CertIssuerSubjectFlagName = "CertIssuerSubject"
 	} else {
-		certIssuerSubjectFlagName = fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
+		CertIssuerSubjectFlagName = fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
 	}
 
-	var certIssuerSubjectFlagDefault string
+	var CertIssuerSubjectFlagDefault string
 
-	_ = cmd.PersistentFlags().String(certIssuerSubjectFlagName, certIssuerSubjectFlagDefault, certIssuerSubjectDescription)
+	_ = cmd.PersistentFlags().String(CertIssuerSubjectFlagName, CertIssuerSubjectFlagDefault, CertIssuerSubjectDescription)
 
 	return nil
 }
@@ -79,18 +79,18 @@ func registerTLSInfoTrustRoot(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	trustRootDescription := `The root CA certificate(s) that are used to validate leaf TLS certificates`
+	TrustRootDescription := `The root CA certificate(s) that are used to validate leaf TLS certificates`
 
-	var trustRootFlagName string
+	var TrustRootFlagName string
 	if cmdPrefix == "" {
-		trustRootFlagName = "TrustRoot"
+		TrustRootFlagName = "TrustRoot"
 	} else {
-		trustRootFlagName = fmt.Sprintf("%v.TrustRoot", cmdPrefix)
+		TrustRootFlagName = fmt.Sprintf("%v.TrustRoot", cmdPrefix)
 	}
 
-	var trustRootFlagDefault string
+	var TrustRootFlagDefault string
 
-	_ = cmd.PersistentFlags().String(trustRootFlagName, trustRootFlagDefault, trustRootDescription)
+	_ = cmd.PersistentFlags().String(TrustRootFlagName, TrustRootFlagDefault, TrustRootDescription)
 
 	return nil
 }
@@ -99,23 +99,23 @@ func registerTLSInfoTrustRoot(depth int, cmdPrefix string, cmd *cobra.Command) e
 func retrieveModelTLSInfoFlags(depth int, m *models.TLSInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, certIssuerPublicKeyAdded := retrieveTLSInfoCertIssuerPublicKeyFlags(depth, m, cmdPrefix, cmd)
+	err, CertIssuerPublicKeyAdded := retrieveTLSInfoCertIssuerPublicKeyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || certIssuerPublicKeyAdded
+	retAdded = retAdded || CertIssuerPublicKeyAdded
 
-	err, certIssuerSubjectAdded := retrieveTLSInfoCertIssuerSubjectFlags(depth, m, cmdPrefix, cmd)
+	err, CertIssuerSubjectAdded := retrieveTLSInfoCertIssuerSubjectFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || certIssuerSubjectAdded
+	retAdded = retAdded || CertIssuerSubjectAdded
 
-	err, trustRootAdded := retrieveTLSInfoTrustRootFlags(depth, m, cmdPrefix, cmd)
+	err, TrustRootAdded := retrieveTLSInfoTrustRootFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || trustRootAdded
+	retAdded = retAdded || TrustRootAdded
 
 	return nil, retAdded
 }
@@ -126,21 +126,21 @@ func retrieveTLSInfoCertIssuerPublicKeyFlags(depth int, m *models.TLSInfo, cmdPr
 	}
 	retAdded := false
 
-	certIssuerPublicKeyFlagName := fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
-	if cmd.Flags().Changed(certIssuerPublicKeyFlagName) {
+	CertIssuerPublicKeyFlagName := fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
+	if cmd.Flags().Changed(CertIssuerPublicKeyFlagName) {
 
-		var certIssuerPublicKeyFlagName string
+		var CertIssuerPublicKeyFlagName string
 		if cmdPrefix == "" {
-			certIssuerPublicKeyFlagName = "CertIssuerPublicKey"
+			CertIssuerPublicKeyFlagName = "CertIssuerPublicKey"
 		} else {
-			certIssuerPublicKeyFlagName = fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
+			CertIssuerPublicKeyFlagName = fmt.Sprintf("%v.CertIssuerPublicKey", cmdPrefix)
 		}
 
-		certIssuerPublicKeyFlagValue, err := cmd.Flags().GetString(certIssuerPublicKeyFlagName)
+		CertIssuerPublicKeyFlagValue, err := cmd.Flags().GetString(CertIssuerPublicKeyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CertIssuerPublicKey = certIssuerPublicKeyFlagValue
+		m.CertIssuerPublicKey = CertIssuerPublicKeyFlagValue
 
 		retAdded = true
 	}
@@ -154,21 +154,21 @@ func retrieveTLSInfoCertIssuerSubjectFlags(depth int, m *models.TLSInfo, cmdPref
 	}
 	retAdded := false
 
-	certIssuerSubjectFlagName := fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
-	if cmd.Flags().Changed(certIssuerSubjectFlagName) {
+	CertIssuerSubjectFlagName := fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
+	if cmd.Flags().Changed(CertIssuerSubjectFlagName) {
 
-		var certIssuerSubjectFlagName string
+		var CertIssuerSubjectFlagName string
 		if cmdPrefix == "" {
-			certIssuerSubjectFlagName = "CertIssuerSubject"
+			CertIssuerSubjectFlagName = "CertIssuerSubject"
 		} else {
-			certIssuerSubjectFlagName = fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
+			CertIssuerSubjectFlagName = fmt.Sprintf("%v.CertIssuerSubject", cmdPrefix)
 		}
 
-		certIssuerSubjectFlagValue, err := cmd.Flags().GetString(certIssuerSubjectFlagName)
+		CertIssuerSubjectFlagValue, err := cmd.Flags().GetString(CertIssuerSubjectFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CertIssuerSubject = certIssuerSubjectFlagValue
+		m.CertIssuerSubject = CertIssuerSubjectFlagValue
 
 		retAdded = true
 	}
@@ -182,21 +182,21 @@ func retrieveTLSInfoTrustRootFlags(depth int, m *models.TLSInfo, cmdPrefix strin
 	}
 	retAdded := false
 
-	trustRootFlagName := fmt.Sprintf("%v.TrustRoot", cmdPrefix)
-	if cmd.Flags().Changed(trustRootFlagName) {
+	TrustRootFlagName := fmt.Sprintf("%v.TrustRoot", cmdPrefix)
+	if cmd.Flags().Changed(TrustRootFlagName) {
 
-		var trustRootFlagName string
+		var TrustRootFlagName string
 		if cmdPrefix == "" {
-			trustRootFlagName = "TrustRoot"
+			TrustRootFlagName = "TrustRoot"
 		} else {
-			trustRootFlagName = fmt.Sprintf("%v.TrustRoot", cmdPrefix)
+			TrustRootFlagName = fmt.Sprintf("%v.TrustRoot", cmdPrefix)
 		}
 
-		trustRootFlagValue, err := cmd.Flags().GetString(trustRootFlagName)
+		TrustRootFlagValue, err := cmd.Flags().GetString(TrustRootFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.TrustRoot = trustRootFlagValue
+		m.TrustRoot = TrustRootFlagValue
 
 		retAdded = true
 	}

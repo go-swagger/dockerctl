@@ -41,18 +41,18 @@ func registerPluginDeviceDescription(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	descriptionDescription := `Required. `
+	DescriptionDescription := `Required. `
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -62,18 +62,18 @@ func registerPluginDeviceName(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -83,18 +83,18 @@ func registerPluginDevicePath(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	pathDescription := `Required. `
+	PathDescription := `Required. `
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "Path"
+		PathFlagName = "Path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -113,29 +113,29 @@ func registerPluginDeviceSettable(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelPluginDeviceFlags(depth int, m *models.PluginDevice, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, descriptionAdded := retrievePluginDeviceDescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrievePluginDeviceDescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, nameAdded := retrievePluginDeviceNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrievePluginDeviceNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, pathAdded := retrievePluginDevicePathFlags(depth, m, cmdPrefix, cmd)
+	err, PathAdded := retrievePluginDevicePathFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathAdded
+	retAdded = retAdded || PathAdded
 
-	err, settableAdded := retrievePluginDeviceSettableFlags(depth, m, cmdPrefix, cmd)
+	err, SettableAdded := retrievePluginDeviceSettableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || settableAdded
+	retAdded = retAdded || SettableAdded
 
 	return nil, retAdded
 }
@@ -146,21 +146,21 @@ func retrievePluginDeviceDescriptionFlags(depth int, m *models.PluginDevice, cmd
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "Description"
+			DescriptionFlagName = "Description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -174,21 +174,21 @@ func retrievePluginDeviceNameFlags(depth int, m *models.PluginDevice, cmdPrefix 
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -202,21 +202,21 @@ func retrievePluginDevicePathFlags(depth int, m *models.PluginDevice, cmdPrefix 
 	}
 	retAdded := false
 
-	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
-	if cmd.Flags().Changed(pathFlagName) {
+	PathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
+	if cmd.Flags().Changed(PathFlagName) {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "Path"
+			PathFlagName = "Path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = &pathFlagValue
+		m.Path = &PathFlagValue
 
 		retAdded = true
 	}
@@ -230,8 +230,8 @@ func retrievePluginDeviceSettableFlags(depth int, m *models.PluginDevice, cmdPre
 	}
 	retAdded := false
 
-	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
-	if cmd.Flags().Changed(settableFlagName) {
+	SettableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
+	if cmd.Flags().Changed(SettableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
 

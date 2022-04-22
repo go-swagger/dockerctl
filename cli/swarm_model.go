@@ -41,14 +41,14 @@ func registerSwarmAnonAO1JoinTokens(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	var joinTokensFlagName string
+	var JoinTokensFlagName string
 	if cmdPrefix == "" {
-		joinTokensFlagName = "JoinTokens"
+		JoinTokensFlagName = "JoinTokens"
 	} else {
-		joinTokensFlagName = fmt.Sprintf("%v.JoinTokens", cmdPrefix)
+		JoinTokensFlagName = fmt.Sprintf("%v.JoinTokens", cmdPrefix)
 	}
 
-	if err := registerModelJoinTokensFlags(depth+1, joinTokensFlagName, cmd); err != nil {
+	if err := registerModelJoinTokensFlags(depth+1, JoinTokensFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -60,19 +60,19 @@ func retrieveModelSwarmFlags(depth int, m *models.Swarm, cmdPrefix string, cmd *
 	retAdded := false
 
 	// retrieve model ClusterInfo
-	err, aO0Added := retrieveModelClusterInfoFlags(depth, &m.ClusterInfo, cmdPrefix, cmd)
+	err, AO0Added := retrieveModelClusterInfoFlags(depth, &m.ClusterInfo, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || aO0Added
+	retAdded = retAdded || AO0Added
 
 	// retrieve allOf AO1 fields
 
-	err, joinTokensAdded := retrieveSwarmAnonAO1JoinTokensFlags(depth, m, cmdPrefix, cmd)
+	err, JoinTokensAdded := retrieveSwarmAnonAO1JoinTokensFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || joinTokensAdded
+	retAdded = retAdded || JoinTokensAdded
 
 	return nil, retAdded
 }
@@ -85,22 +85,22 @@ func retrieveSwarmAnonAO1JoinTokensFlags(depth int, m *models.Swarm, cmdPrefix s
 	}
 	retAdded := false
 
-	joinTokensFlagName := fmt.Sprintf("%v.JoinTokens", cmdPrefix)
-	if cmd.Flags().Changed(joinTokensFlagName) {
+	JoinTokensFlagName := fmt.Sprintf("%v.JoinTokens", cmdPrefix)
+	if cmd.Flags().Changed(JoinTokensFlagName) {
 		// info: complex object JoinTokens JoinTokens is retrieved outside this Changed() block
 	}
-	joinTokensFlagValue := m.JoinTokens
-	if swag.IsZero(joinTokensFlagValue) {
-		joinTokensFlagValue = &models.JoinTokens{}
+	JoinTokensFlagValue := m.JoinTokens
+	if swag.IsZero(JoinTokensFlagValue) {
+		JoinTokensFlagValue = &models.JoinTokens{}
 	}
 
-	err, joinTokensAdded := retrieveModelJoinTokensFlags(depth+1, joinTokensFlagValue, joinTokensFlagName, cmd)
+	err, JoinTokensAdded := retrieveModelJoinTokensFlags(depth+1, JoinTokensFlagValue, JoinTokensFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || joinTokensAdded
-	if joinTokensAdded {
-		m.JoinTokens = joinTokensFlagValue
+	retAdded = retAdded || JoinTokensAdded
+	if JoinTokensAdded {
+		m.JoinTokens = JoinTokensFlagValue
 	}
 
 	return nil, retAdded

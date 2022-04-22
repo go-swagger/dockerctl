@@ -74,35 +74,35 @@ func registerOperationServiceServiceInspectParamFlags(cmd *cobra.Command) error 
 
 func registerOperationServiceServiceInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of service.`
+	IDDescription := `Required. ID or name of service.`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationServiceServiceInspectInsertDefaultsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	insertDefaultsDescription := `Fill empty fields with default values.`
+	InsertDefaultsDescription := `Fill empty fields with default values.`
 
-	var insertDefaultsFlagName string
+	var InsertDefaultsFlagName string
 	if cmdPrefix == "" {
-		insertDefaultsFlagName = "insertDefaults"
+		InsertDefaultsFlagName = "insertDefaults"
 	} else {
-		insertDefaultsFlagName = fmt.Sprintf("%v.insertDefaults", cmdPrefix)
+		InsertDefaultsFlagName = fmt.Sprintf("%v.insertDefaults", cmdPrefix)
 	}
 
-	var insertDefaultsFlagDefault bool
+	var InsertDefaultsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(insertDefaultsFlagName, insertDefaultsFlagDefault, insertDefaultsDescription)
+	_ = cmd.PersistentFlags().Bool(InsertDefaultsFlagName, InsertDefaultsFlagDefault, InsertDefaultsDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationServiceServiceInspectIDFlag(m *service.ServiceInspectParam
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationServiceServiceInspectInsertDefaultsFlag(m *service.Service
 	retAdded := false
 	if cmd.Flags().Changed("insertDefaults") {
 
-		var insertDefaultsFlagName string
+		var InsertDefaultsFlagName string
 		if cmdPrefix == "" {
-			insertDefaultsFlagName = "insertDefaults"
+			InsertDefaultsFlagName = "insertDefaults"
 		} else {
-			insertDefaultsFlagName = fmt.Sprintf("%v.insertDefaults", cmdPrefix)
+			InsertDefaultsFlagName = fmt.Sprintf("%v.insertDefaults", cmdPrefix)
 		}
 
-		insertDefaultsFlagValue, err := cmd.Flags().GetBool(insertDefaultsFlagName)
+		InsertDefaultsFlagValue, err := cmd.Flags().GetBool(InsertDefaultsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.InsertDefaults = &insertDefaultsFlagValue
+		m.InsertDefaults = &InsertDefaultsFlagValue
 
 	}
 	return nil, retAdded

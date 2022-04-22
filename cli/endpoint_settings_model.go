@@ -99,19 +99,19 @@ func registerEndpointSettingsEndpointID(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	endpointIdDescription := `Unique ID for the service endpoint in a Sandbox.
+	EndpointIDDescription := `Unique ID for the service endpoint in a Sandbox.
 `
 
-	var endpointIdFlagName string
+	var EndpointIDFlagName string
 	if cmdPrefix == "" {
-		endpointIdFlagName = "EndpointID"
+		EndpointIDFlagName = "EndpointID"
 	} else {
-		endpointIdFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
+		EndpointIDFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
 	}
 
-	var endpointIdFlagDefault string
+	var EndpointIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(endpointIdFlagName, endpointIdFlagDefault, endpointIdDescription)
+	_ = cmd.PersistentFlags().String(EndpointIDFlagName, EndpointIDFlagDefault, EndpointIDDescription)
 
 	return nil
 }
@@ -121,19 +121,19 @@ func registerEndpointSettingsGateway(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	gatewayDescription := `Gateway address for this network.
+	GatewayDescription := `Gateway address for this network.
 `
 
-	var gatewayFlagName string
+	var GatewayFlagName string
 	if cmdPrefix == "" {
-		gatewayFlagName = "Gateway"
+		GatewayFlagName = "Gateway"
 	} else {
-		gatewayFlagName = fmt.Sprintf("%v.Gateway", cmdPrefix)
+		GatewayFlagName = fmt.Sprintf("%v.Gateway", cmdPrefix)
 	}
 
-	var gatewayFlagDefault string
+	var GatewayFlagDefault string
 
-	_ = cmd.PersistentFlags().String(gatewayFlagName, gatewayFlagDefault, gatewayDescription)
+	_ = cmd.PersistentFlags().String(GatewayFlagName, GatewayFlagDefault, GatewayDescription)
 
 	return nil
 }
@@ -143,19 +143,19 @@ func registerEndpointSettingsGlobalIPV6Address(depth int, cmdPrefix string, cmd 
 		return nil
 	}
 
-	globalIpv6AddressDescription := `Global IPv6 address.
+	GlobalIPV6AddressDescription := `Global IPv6 address.
 `
 
-	var globalIpv6AddressFlagName string
+	var GlobalIPV6AddressFlagName string
 	if cmdPrefix == "" {
-		globalIpv6AddressFlagName = "GlobalIPv6Address"
+		GlobalIPV6AddressFlagName = "GlobalIPv6Address"
 	} else {
-		globalIpv6AddressFlagName = fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
+		GlobalIPV6AddressFlagName = fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
 	}
 
-	var globalIpv6AddressFlagDefault string
+	var GlobalIPV6AddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(globalIpv6AddressFlagName, globalIpv6AddressFlagDefault, globalIpv6AddressDescription)
+	_ = cmd.PersistentFlags().String(GlobalIPV6AddressFlagName, GlobalIPV6AddressFlagDefault, GlobalIPV6AddressDescription)
 
 	return nil
 }
@@ -165,19 +165,19 @@ func registerEndpointSettingsGlobalIPV6PrefixLen(depth int, cmdPrefix string, cm
 		return nil
 	}
 
-	globalIpv6PrefixLenDescription := `Mask length of the global IPv6 address.
+	GlobalIPV6PrefixLenDescription := `Mask length of the global IPv6 address.
 `
 
-	var globalIpv6PrefixLenFlagName string
+	var GlobalIPV6PrefixLenFlagName string
 	if cmdPrefix == "" {
-		globalIpv6PrefixLenFlagName = "GlobalIPv6PrefixLen"
+		GlobalIPV6PrefixLenFlagName = "GlobalIPv6PrefixLen"
 	} else {
-		globalIpv6PrefixLenFlagName = fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
+		GlobalIPV6PrefixLenFlagName = fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
 	}
 
-	var globalIpv6PrefixLenFlagDefault int64
+	var GlobalIPV6PrefixLenFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(globalIpv6PrefixLenFlagName, globalIpv6PrefixLenFlagDefault, globalIpv6PrefixLenDescription)
+	_ = cmd.PersistentFlags().Int64(GlobalIPV6PrefixLenFlagName, GlobalIPV6PrefixLenFlagDefault, GlobalIPV6PrefixLenDescription)
 
 	return nil
 }
@@ -187,14 +187,14 @@ func registerEndpointSettingsIPAMConfig(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	var ipAMConfigFlagName string
+	var IPAMConfigFlagName string
 	if cmdPrefix == "" {
-		ipAMConfigFlagName = "IPAMConfig"
+		IPAMConfigFlagName = "IPAMConfig"
 	} else {
-		ipAMConfigFlagName = fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
+		IPAMConfigFlagName = fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
 	}
 
-	if err := registerModelEndpointIPAMConfigFlags(depth+1, ipAMConfigFlagName, cmd); err != nil {
+	if err := registerModelEndpointIPAMConfigFlags(depth+1, IPAMConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -206,19 +206,19 @@ func registerEndpointSettingsIPAddress(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	ipAddressDescription := `IPv4 address.
+	IPAddressDescription := `IPv4 address.
 `
 
-	var ipAddressFlagName string
+	var IPAddressFlagName string
 	if cmdPrefix == "" {
-		ipAddressFlagName = "IPAddress"
+		IPAddressFlagName = "IPAddress"
 	} else {
-		ipAddressFlagName = fmt.Sprintf("%v.IPAddress", cmdPrefix)
+		IPAddressFlagName = fmt.Sprintf("%v.IPAddress", cmdPrefix)
 	}
 
-	var ipAddressFlagDefault string
+	var IPAddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipAddressFlagName, ipAddressFlagDefault, ipAddressDescription)
+	_ = cmd.PersistentFlags().String(IPAddressFlagName, IPAddressFlagDefault, IPAddressDescription)
 
 	return nil
 }
@@ -228,19 +228,19 @@ func registerEndpointSettingsIPPrefixLen(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	ipPrefixLenDescription := `Mask length of the IPv4 address.
+	IPPrefixLenDescription := `Mask length of the IPv4 address.
 `
 
-	var ipPrefixLenFlagName string
+	var IPPrefixLenFlagName string
 	if cmdPrefix == "" {
-		ipPrefixLenFlagName = "IPPrefixLen"
+		IPPrefixLenFlagName = "IPPrefixLen"
 	} else {
-		ipPrefixLenFlagName = fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
+		IPPrefixLenFlagName = fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
 	}
 
-	var ipPrefixLenFlagDefault int64
+	var IPPrefixLenFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(ipPrefixLenFlagName, ipPrefixLenFlagDefault, ipPrefixLenDescription)
+	_ = cmd.PersistentFlags().Int64(IPPrefixLenFlagName, IPPrefixLenFlagDefault, IPPrefixLenDescription)
 
 	return nil
 }
@@ -250,19 +250,19 @@ func registerEndpointSettingsIPV6Gateway(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	ipv6GatewayDescription := `IPv6 gateway address.
+	IPV6GatewayDescription := `IPv6 gateway address.
 `
 
-	var ipv6GatewayFlagName string
+	var IPV6GatewayFlagName string
 	if cmdPrefix == "" {
-		ipv6GatewayFlagName = "IPv6Gateway"
+		IPV6GatewayFlagName = "IPv6Gateway"
 	} else {
-		ipv6GatewayFlagName = fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
+		IPV6GatewayFlagName = fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
 	}
 
-	var ipv6GatewayFlagDefault string
+	var IPV6GatewayFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipv6GatewayFlagName, ipv6GatewayFlagDefault, ipv6GatewayDescription)
+	_ = cmd.PersistentFlags().String(IPV6GatewayFlagName, IPV6GatewayFlagDefault, IPV6GatewayDescription)
 
 	return nil
 }
@@ -282,19 +282,19 @@ func registerEndpointSettingsMacAddress(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	macAddressDescription := `MAC address for the endpoint on this network.
+	MacAddressDescription := `MAC address for the endpoint on this network.
 `
 
-	var macAddressFlagName string
+	var MacAddressFlagName string
 	if cmdPrefix == "" {
-		macAddressFlagName = "MacAddress"
+		MacAddressFlagName = "MacAddress"
 	} else {
-		macAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
+		MacAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	}
 
-	var macAddressFlagDefault string
+	var MacAddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(macAddressFlagName, macAddressFlagDefault, macAddressDescription)
+	_ = cmd.PersistentFlags().String(MacAddressFlagName, MacAddressFlagDefault, MacAddressDescription)
 
 	return nil
 }
@@ -304,19 +304,19 @@ func registerEndpointSettingsNetworkID(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	networkIdDescription := `Unique ID of the network.
+	NetworkIDDescription := `Unique ID of the network.
 `
 
-	var networkIdFlagName string
+	var NetworkIDFlagName string
 	if cmdPrefix == "" {
-		networkIdFlagName = "NetworkID"
+		NetworkIDFlagName = "NetworkID"
 	} else {
-		networkIdFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
+		NetworkIDFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
 	}
 
-	var networkIdFlagDefault string
+	var NetworkIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(networkIdFlagName, networkIdFlagDefault, networkIdDescription)
+	_ = cmd.PersistentFlags().String(NetworkIDFlagName, NetworkIDFlagDefault, NetworkIDDescription)
 
 	return nil
 }
@@ -325,83 +325,83 @@ func registerEndpointSettingsNetworkID(depth int, cmdPrefix string, cmd *cobra.C
 func retrieveModelEndpointSettingsFlags(depth int, m *models.EndpointSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, aliasesAdded := retrieveEndpointSettingsAliasesFlags(depth, m, cmdPrefix, cmd)
+	err, AliasesAdded := retrieveEndpointSettingsAliasesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || aliasesAdded
+	retAdded = retAdded || AliasesAdded
 
-	err, driverOptsAdded := retrieveEndpointSettingsDriverOptsFlags(depth, m, cmdPrefix, cmd)
+	err, DriverOptsAdded := retrieveEndpointSettingsDriverOptsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverOptsAdded
+	retAdded = retAdded || DriverOptsAdded
 
-	err, endpointIdAdded := retrieveEndpointSettingsEndpointIDFlags(depth, m, cmdPrefix, cmd)
+	err, EndpointIDAdded := retrieveEndpointSettingsEndpointIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointIdAdded
+	retAdded = retAdded || EndpointIDAdded
 
-	err, gatewayAdded := retrieveEndpointSettingsGatewayFlags(depth, m, cmdPrefix, cmd)
+	err, GatewayAdded := retrieveEndpointSettingsGatewayFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || gatewayAdded
+	retAdded = retAdded || GatewayAdded
 
-	err, globalIpv6AddressAdded := retrieveEndpointSettingsGlobalIPV6AddressFlags(depth, m, cmdPrefix, cmd)
+	err, GlobalIPV6AddressAdded := retrieveEndpointSettingsGlobalIPV6AddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || globalIpv6AddressAdded
+	retAdded = retAdded || GlobalIPV6AddressAdded
 
-	err, globalIpv6PrefixLenAdded := retrieveEndpointSettingsGlobalIPV6PrefixLenFlags(depth, m, cmdPrefix, cmd)
+	err, GlobalIPV6PrefixLenAdded := retrieveEndpointSettingsGlobalIPV6PrefixLenFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || globalIpv6PrefixLenAdded
+	retAdded = retAdded || GlobalIPV6PrefixLenAdded
 
-	err, ipAMConfigAdded := retrieveEndpointSettingsIPAMConfigFlags(depth, m, cmdPrefix, cmd)
+	err, IPAMConfigAdded := retrieveEndpointSettingsIPAMConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAMConfigAdded
+	retAdded = retAdded || IPAMConfigAdded
 
-	err, ipAddressAdded := retrieveEndpointSettingsIPAddressFlags(depth, m, cmdPrefix, cmd)
+	err, IPAddressAdded := retrieveEndpointSettingsIPAddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAddressAdded
+	retAdded = retAdded || IPAddressAdded
 
-	err, ipPrefixLenAdded := retrieveEndpointSettingsIPPrefixLenFlags(depth, m, cmdPrefix, cmd)
+	err, IPPrefixLenAdded := retrieveEndpointSettingsIPPrefixLenFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipPrefixLenAdded
+	retAdded = retAdded || IPPrefixLenAdded
 
-	err, ipv6GatewayAdded := retrieveEndpointSettingsIPV6GatewayFlags(depth, m, cmdPrefix, cmd)
+	err, IPV6GatewayAdded := retrieveEndpointSettingsIPV6GatewayFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipv6GatewayAdded
+	retAdded = retAdded || IPV6GatewayAdded
 
-	err, linksAdded := retrieveEndpointSettingsLinksFlags(depth, m, cmdPrefix, cmd)
+	err, LinksAdded := retrieveEndpointSettingsLinksFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || linksAdded
+	retAdded = retAdded || LinksAdded
 
-	err, macAddressAdded := retrieveEndpointSettingsMacAddressFlags(depth, m, cmdPrefix, cmd)
+	err, MacAddressAdded := retrieveEndpointSettingsMacAddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || macAddressAdded
+	retAdded = retAdded || MacAddressAdded
 
-	err, networkIdAdded := retrieveEndpointSettingsNetworkIDFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkIDAdded := retrieveEndpointSettingsNetworkIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkIdAdded
+	retAdded = retAdded || NetworkIDAdded
 
 	return nil, retAdded
 }
@@ -412,8 +412,8 @@ func retrieveEndpointSettingsAliasesFlags(depth int, m *models.EndpointSettings,
 	}
 	retAdded := false
 
-	aliasesFlagName := fmt.Sprintf("%v.Aliases", cmdPrefix)
-	if cmd.Flags().Changed(aliasesFlagName) {
+	AliasesFlagName := fmt.Sprintf("%v.Aliases", cmdPrefix)
+	if cmd.Flags().Changed(AliasesFlagName) {
 		// warning: Aliases array type []string is not supported by go-swagger cli yet
 	}
 
@@ -426,8 +426,8 @@ func retrieveEndpointSettingsDriverOptsFlags(depth int, m *models.EndpointSettin
 	}
 	retAdded := false
 
-	driverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
-	if cmd.Flags().Changed(driverOptsFlagName) {
+	DriverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
+	if cmd.Flags().Changed(DriverOptsFlagName) {
 		// warning: DriverOpts map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -440,21 +440,21 @@ func retrieveEndpointSettingsEndpointIDFlags(depth int, m *models.EndpointSettin
 	}
 	retAdded := false
 
-	endpointIdFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
-	if cmd.Flags().Changed(endpointIdFlagName) {
+	EndpointIDFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
+	if cmd.Flags().Changed(EndpointIDFlagName) {
 
-		var endpointIdFlagName string
+		var EndpointIDFlagName string
 		if cmdPrefix == "" {
-			endpointIdFlagName = "EndpointID"
+			EndpointIDFlagName = "EndpointID"
 		} else {
-			endpointIdFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
+			EndpointIDFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
 		}
 
-		endpointIdFlagValue, err := cmd.Flags().GetString(endpointIdFlagName)
+		EndpointIDFlagValue, err := cmd.Flags().GetString(EndpointIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.EndpointID = endpointIdFlagValue
+		m.EndpointID = EndpointIDFlagValue
 
 		retAdded = true
 	}
@@ -468,21 +468,21 @@ func retrieveEndpointSettingsGatewayFlags(depth int, m *models.EndpointSettings,
 	}
 	retAdded := false
 
-	gatewayFlagName := fmt.Sprintf("%v.Gateway", cmdPrefix)
-	if cmd.Flags().Changed(gatewayFlagName) {
+	GatewayFlagName := fmt.Sprintf("%v.Gateway", cmdPrefix)
+	if cmd.Flags().Changed(GatewayFlagName) {
 
-		var gatewayFlagName string
+		var GatewayFlagName string
 		if cmdPrefix == "" {
-			gatewayFlagName = "Gateway"
+			GatewayFlagName = "Gateway"
 		} else {
-			gatewayFlagName = fmt.Sprintf("%v.Gateway", cmdPrefix)
+			GatewayFlagName = fmt.Sprintf("%v.Gateway", cmdPrefix)
 		}
 
-		gatewayFlagValue, err := cmd.Flags().GetString(gatewayFlagName)
+		GatewayFlagValue, err := cmd.Flags().GetString(GatewayFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Gateway = gatewayFlagValue
+		m.Gateway = GatewayFlagValue
 
 		retAdded = true
 	}
@@ -496,21 +496,21 @@ func retrieveEndpointSettingsGlobalIPV6AddressFlags(depth int, m *models.Endpoin
 	}
 	retAdded := false
 
-	globalIpv6AddressFlagName := fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
-	if cmd.Flags().Changed(globalIpv6AddressFlagName) {
+	GlobalIPV6AddressFlagName := fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
+	if cmd.Flags().Changed(GlobalIPV6AddressFlagName) {
 
-		var globalIpv6AddressFlagName string
+		var GlobalIPV6AddressFlagName string
 		if cmdPrefix == "" {
-			globalIpv6AddressFlagName = "GlobalIPv6Address"
+			GlobalIPV6AddressFlagName = "GlobalIPv6Address"
 		} else {
-			globalIpv6AddressFlagName = fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
+			GlobalIPV6AddressFlagName = fmt.Sprintf("%v.GlobalIPv6Address", cmdPrefix)
 		}
 
-		globalIpv6AddressFlagValue, err := cmd.Flags().GetString(globalIpv6AddressFlagName)
+		GlobalIPV6AddressFlagValue, err := cmd.Flags().GetString(GlobalIPV6AddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.GlobalIPV6Address = globalIpv6AddressFlagValue
+		m.GlobalIPV6Address = GlobalIPV6AddressFlagValue
 
 		retAdded = true
 	}
@@ -524,21 +524,21 @@ func retrieveEndpointSettingsGlobalIPV6PrefixLenFlags(depth int, m *models.Endpo
 	}
 	retAdded := false
 
-	globalIpv6PrefixLenFlagName := fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
-	if cmd.Flags().Changed(globalIpv6PrefixLenFlagName) {
+	GlobalIPV6PrefixLenFlagName := fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
+	if cmd.Flags().Changed(GlobalIPV6PrefixLenFlagName) {
 
-		var globalIpv6PrefixLenFlagName string
+		var GlobalIPV6PrefixLenFlagName string
 		if cmdPrefix == "" {
-			globalIpv6PrefixLenFlagName = "GlobalIPv6PrefixLen"
+			GlobalIPV6PrefixLenFlagName = "GlobalIPv6PrefixLen"
 		} else {
-			globalIpv6PrefixLenFlagName = fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
+			GlobalIPV6PrefixLenFlagName = fmt.Sprintf("%v.GlobalIPv6PrefixLen", cmdPrefix)
 		}
 
-		globalIpv6PrefixLenFlagValue, err := cmd.Flags().GetInt64(globalIpv6PrefixLenFlagName)
+		GlobalIPV6PrefixLenFlagValue, err := cmd.Flags().GetInt64(GlobalIPV6PrefixLenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.GlobalIPV6PrefixLen = globalIpv6PrefixLenFlagValue
+		m.GlobalIPV6PrefixLen = GlobalIPV6PrefixLenFlagValue
 
 		retAdded = true
 	}
@@ -552,22 +552,22 @@ func retrieveEndpointSettingsIPAMConfigFlags(depth int, m *models.EndpointSettin
 	}
 	retAdded := false
 
-	ipAMConfigFlagName := fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
-	if cmd.Flags().Changed(ipAMConfigFlagName) {
+	IPAMConfigFlagName := fmt.Sprintf("%v.IPAMConfig", cmdPrefix)
+	if cmd.Flags().Changed(IPAMConfigFlagName) {
 		// info: complex object IPAMConfig EndpointIPAMConfig is retrieved outside this Changed() block
 	}
-	ipAMConfigFlagValue := m.IPAMConfig
-	if swag.IsZero(ipAMConfigFlagValue) {
-		ipAMConfigFlagValue = &models.EndpointIPAMConfig{}
+	IPAMConfigFlagValue := m.IPAMConfig
+	if swag.IsZero(IPAMConfigFlagValue) {
+		IPAMConfigFlagValue = &models.EndpointIPAMConfig{}
 	}
 
-	err, ipAMConfigAdded := retrieveModelEndpointIPAMConfigFlags(depth+1, ipAMConfigFlagValue, ipAMConfigFlagName, cmd)
+	err, IPAMConfigAdded := retrieveModelEndpointIPAMConfigFlags(depth+1, IPAMConfigFlagValue, IPAMConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAMConfigAdded
-	if ipAMConfigAdded {
-		m.IPAMConfig = ipAMConfigFlagValue
+	retAdded = retAdded || IPAMConfigAdded
+	if IPAMConfigAdded {
+		m.IPAMConfig = IPAMConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -579,21 +579,21 @@ func retrieveEndpointSettingsIPAddressFlags(depth int, m *models.EndpointSetting
 	}
 	retAdded := false
 
-	ipAddressFlagName := fmt.Sprintf("%v.IPAddress", cmdPrefix)
-	if cmd.Flags().Changed(ipAddressFlagName) {
+	IPAddressFlagName := fmt.Sprintf("%v.IPAddress", cmdPrefix)
+	if cmd.Flags().Changed(IPAddressFlagName) {
 
-		var ipAddressFlagName string
+		var IPAddressFlagName string
 		if cmdPrefix == "" {
-			ipAddressFlagName = "IPAddress"
+			IPAddressFlagName = "IPAddress"
 		} else {
-			ipAddressFlagName = fmt.Sprintf("%v.IPAddress", cmdPrefix)
+			IPAddressFlagName = fmt.Sprintf("%v.IPAddress", cmdPrefix)
 		}
 
-		ipAddressFlagValue, err := cmd.Flags().GetString(ipAddressFlagName)
+		IPAddressFlagValue, err := cmd.Flags().GetString(IPAddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPAddress = ipAddressFlagValue
+		m.IPAddress = IPAddressFlagValue
 
 		retAdded = true
 	}
@@ -607,21 +607,21 @@ func retrieveEndpointSettingsIPPrefixLenFlags(depth int, m *models.EndpointSetti
 	}
 	retAdded := false
 
-	ipPrefixLenFlagName := fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
-	if cmd.Flags().Changed(ipPrefixLenFlagName) {
+	IPPrefixLenFlagName := fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
+	if cmd.Flags().Changed(IPPrefixLenFlagName) {
 
-		var ipPrefixLenFlagName string
+		var IPPrefixLenFlagName string
 		if cmdPrefix == "" {
-			ipPrefixLenFlagName = "IPPrefixLen"
+			IPPrefixLenFlagName = "IPPrefixLen"
 		} else {
-			ipPrefixLenFlagName = fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
+			IPPrefixLenFlagName = fmt.Sprintf("%v.IPPrefixLen", cmdPrefix)
 		}
 
-		ipPrefixLenFlagValue, err := cmd.Flags().GetInt64(ipPrefixLenFlagName)
+		IPPrefixLenFlagValue, err := cmd.Flags().GetInt64(IPPrefixLenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPPrefixLen = ipPrefixLenFlagValue
+		m.IPPrefixLen = IPPrefixLenFlagValue
 
 		retAdded = true
 	}
@@ -635,21 +635,21 @@ func retrieveEndpointSettingsIPV6GatewayFlags(depth int, m *models.EndpointSetti
 	}
 	retAdded := false
 
-	ipv6GatewayFlagName := fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
-	if cmd.Flags().Changed(ipv6GatewayFlagName) {
+	IPV6GatewayFlagName := fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
+	if cmd.Flags().Changed(IPV6GatewayFlagName) {
 
-		var ipv6GatewayFlagName string
+		var IPV6GatewayFlagName string
 		if cmdPrefix == "" {
-			ipv6GatewayFlagName = "IPv6Gateway"
+			IPV6GatewayFlagName = "IPv6Gateway"
 		} else {
-			ipv6GatewayFlagName = fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
+			IPV6GatewayFlagName = fmt.Sprintf("%v.IPv6Gateway", cmdPrefix)
 		}
 
-		ipv6GatewayFlagValue, err := cmd.Flags().GetString(ipv6GatewayFlagName)
+		IPV6GatewayFlagValue, err := cmd.Flags().GetString(IPV6GatewayFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPV6Gateway = ipv6GatewayFlagValue
+		m.IPV6Gateway = IPV6GatewayFlagValue
 
 		retAdded = true
 	}
@@ -663,8 +663,8 @@ func retrieveEndpointSettingsLinksFlags(depth int, m *models.EndpointSettings, c
 	}
 	retAdded := false
 
-	linksFlagName := fmt.Sprintf("%v.Links", cmdPrefix)
-	if cmd.Flags().Changed(linksFlagName) {
+	LinksFlagName := fmt.Sprintf("%v.Links", cmdPrefix)
+	if cmd.Flags().Changed(LinksFlagName) {
 		// warning: Links array type []string is not supported by go-swagger cli yet
 	}
 
@@ -677,21 +677,21 @@ func retrieveEndpointSettingsMacAddressFlags(depth int, m *models.EndpointSettin
 	}
 	retAdded := false
 
-	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
-	if cmd.Flags().Changed(macAddressFlagName) {
+	MacAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
+	if cmd.Flags().Changed(MacAddressFlagName) {
 
-		var macAddressFlagName string
+		var MacAddressFlagName string
 		if cmdPrefix == "" {
-			macAddressFlagName = "MacAddress"
+			MacAddressFlagName = "MacAddress"
 		} else {
-			macAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
+			MacAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
 		}
 
-		macAddressFlagValue, err := cmd.Flags().GetString(macAddressFlagName)
+		MacAddressFlagValue, err := cmd.Flags().GetString(MacAddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MacAddress = macAddressFlagValue
+		m.MacAddress = MacAddressFlagValue
 
 		retAdded = true
 	}
@@ -705,21 +705,21 @@ func retrieveEndpointSettingsNetworkIDFlags(depth int, m *models.EndpointSetting
 	}
 	retAdded := false
 
-	networkIdFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
-	if cmd.Flags().Changed(networkIdFlagName) {
+	NetworkIDFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
+	if cmd.Flags().Changed(NetworkIDFlagName) {
 
-		var networkIdFlagName string
+		var NetworkIDFlagName string
 		if cmdPrefix == "" {
-			networkIdFlagName = "NetworkID"
+			NetworkIDFlagName = "NetworkID"
 		} else {
-			networkIdFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
+			NetworkIDFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
 		}
 
-		networkIdFlagValue, err := cmd.Flags().GetString(networkIdFlagName)
+		NetworkIDFlagValue, err := cmd.Flags().GetString(NetworkIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NetworkID = networkIdFlagValue
+		m.NetworkID = NetworkIDFlagValue
 
 		retAdded = true
 	}

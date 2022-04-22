@@ -80,52 +80,52 @@ func registerOperationContainerContainerResizeParamFlags(cmd *cobra.Command) err
 
 func registerOperationContainerContainerResizeHParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	hDescription := `Height of the tty session in characters`
+	HDescription := `Height of the tty session in characters`
 
-	var hFlagName string
+	var HFlagName string
 	if cmdPrefix == "" {
-		hFlagName = "h"
+		HFlagName = "h"
 	} else {
-		hFlagName = fmt.Sprintf("%v.h", cmdPrefix)
+		HFlagName = fmt.Sprintf("%v.h", cmdPrefix)
 	}
 
-	var hFlagDefault int64
+	var HFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(hFlagName, hFlagDefault, hDescription)
+	_ = cmd.PersistentFlags().Int64(HFlagName, HFlagDefault, HDescription)
 
 	return nil
 }
 func registerOperationContainerContainerResizeIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerResizeWParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	wDescription := `Width of the tty session in characters`
+	WDescription := `Width of the tty session in characters`
 
-	var wFlagName string
+	var WFlagName string
 	if cmdPrefix == "" {
-		wFlagName = "w"
+		WFlagName = "w"
 	} else {
-		wFlagName = fmt.Sprintf("%v.w", cmdPrefix)
+		WFlagName = fmt.Sprintf("%v.w", cmdPrefix)
 	}
 
-	var wFlagDefault int64
+	var WFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(wFlagName, wFlagDefault, wDescription)
+	_ = cmd.PersistentFlags().Int64(WFlagName, WFlagDefault, WDescription)
 
 	return nil
 }
@@ -134,18 +134,18 @@ func retrieveOperationContainerContainerResizeHFlag(m *container.ContainerResize
 	retAdded := false
 	if cmd.Flags().Changed("h") {
 
-		var hFlagName string
+		var HFlagName string
 		if cmdPrefix == "" {
-			hFlagName = "h"
+			HFlagName = "h"
 		} else {
-			hFlagName = fmt.Sprintf("%v.h", cmdPrefix)
+			HFlagName = fmt.Sprintf("%v.h", cmdPrefix)
 		}
 
-		hFlagValue, err := cmd.Flags().GetInt64(hFlagName)
+		HFlagValue, err := cmd.Flags().GetInt64(HFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.H = &hFlagValue
+		m.H = &HFlagValue
 
 	}
 	return nil, retAdded
@@ -154,18 +154,18 @@ func retrieveOperationContainerContainerResizeIDFlag(m *container.ContainerResiz
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -174,18 +174,18 @@ func retrieveOperationContainerContainerResizeWFlag(m *container.ContainerResize
 	retAdded := false
 	if cmd.Flags().Changed("w") {
 
-		var wFlagName string
+		var WFlagName string
 		if cmdPrefix == "" {
-			wFlagName = "w"
+			WFlagName = "w"
 		} else {
-			wFlagName = fmt.Sprintf("%v.w", cmdPrefix)
+			WFlagName = fmt.Sprintf("%v.w", cmdPrefix)
 		}
 
-		wFlagValue, err := cmd.Flags().GetInt64(wFlagName)
+		WFlagValue, err := cmd.Flags().GetInt64(WFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.W = &wFlagValue
+		m.W = &WFlagValue
 
 	}
 	return nil, retAdded

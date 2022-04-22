@@ -68,14 +68,14 @@ func registerOperationSwarmSwarmUnlockParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSwarmSwarmUnlockBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmUnlockBodyFlags(0, "swarmUnlockBody", cmd); err != nil {
@@ -177,18 +177,18 @@ func registerSwarmUnlockBodyUnlockKey(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	unlockKeyDescription := `The swarm's unlock key.`
+	UnlockKeyDescription := `The swarm's unlock key.`
 
-	var unlockKeyFlagName string
+	var UnlockKeyFlagName string
 	if cmdPrefix == "" {
-		unlockKeyFlagName = "UnlockKey"
+		UnlockKeyFlagName = "UnlockKey"
 	} else {
-		unlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
+		UnlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
 	}
 
-	var unlockKeyFlagDefault string
+	var UnlockKeyFlagDefault string
 
-	_ = cmd.PersistentFlags().String(unlockKeyFlagName, unlockKeyFlagDefault, unlockKeyDescription)
+	_ = cmd.PersistentFlags().String(UnlockKeyFlagName, UnlockKeyFlagDefault, UnlockKeyDescription)
 
 	return nil
 }
@@ -197,11 +197,11 @@ func registerSwarmUnlockBodyUnlockKey(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelSwarmUnlockBodyFlags(depth int, m *swarm.SwarmUnlockBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, unlockKeyAdded := retrieveSwarmUnlockBodyUnlockKeyFlags(depth, m, cmdPrefix, cmd)
+	err, UnlockKeyAdded := retrieveSwarmUnlockBodyUnlockKeyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || unlockKeyAdded
+	retAdded = retAdded || UnlockKeyAdded
 
 	return nil, retAdded
 }
@@ -212,21 +212,21 @@ func retrieveSwarmUnlockBodyUnlockKeyFlags(depth int, m *swarm.SwarmUnlockBody, 
 	}
 	retAdded := false
 
-	unlockKeyFlagName := fmt.Sprintf("%v.UnlockKey", cmdPrefix)
-	if cmd.Flags().Changed(unlockKeyFlagName) {
+	UnlockKeyFlagName := fmt.Sprintf("%v.UnlockKey", cmdPrefix)
+	if cmd.Flags().Changed(UnlockKeyFlagName) {
 
-		var unlockKeyFlagName string
+		var UnlockKeyFlagName string
 		if cmdPrefix == "" {
-			unlockKeyFlagName = "UnlockKey"
+			UnlockKeyFlagName = "UnlockKey"
 		} else {
-			unlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
+			UnlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
 		}
 
-		unlockKeyFlagValue, err := cmd.Flags().GetString(unlockKeyFlagName)
+		UnlockKeyFlagValue, err := cmd.Flags().GetString(UnlockKeyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UnlockKey = unlockKeyFlagValue
+		m.UnlockKey = UnlockKeyFlagValue
 
 		retAdded = true
 	}

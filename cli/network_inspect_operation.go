@@ -80,52 +80,52 @@ func registerOperationNetworkNetworkInspectParamFlags(cmd *cobra.Command) error 
 
 func registerOperationNetworkNetworkInspectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. Network ID or name`
+	IDDescription := `Required. Network ID or name`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationNetworkNetworkInspectScopeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	scopeDescription := `Filter the network by scope (swarm, global, or local)`
+	ScopeDescription := `Filter the network by scope (swarm, global, or local)`
 
-	var scopeFlagName string
+	var ScopeFlagName string
 	if cmdPrefix == "" {
-		scopeFlagName = "scope"
+		ScopeFlagName = "scope"
 	} else {
-		scopeFlagName = fmt.Sprintf("%v.scope", cmdPrefix)
+		ScopeFlagName = fmt.Sprintf("%v.scope", cmdPrefix)
 	}
 
-	var scopeFlagDefault string
+	var ScopeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(scopeFlagName, scopeFlagDefault, scopeDescription)
+	_ = cmd.PersistentFlags().String(ScopeFlagName, ScopeFlagDefault, ScopeDescription)
 
 	return nil
 }
 func registerOperationNetworkNetworkInspectVerboseParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	verboseDescription := `Detailed inspect output for troubleshooting`
+	VerboseDescription := `Detailed inspect output for troubleshooting`
 
-	var verboseFlagName string
+	var VerboseFlagName string
 	if cmdPrefix == "" {
-		verboseFlagName = "verbose"
+		VerboseFlagName = "verbose"
 	} else {
-		verboseFlagName = fmt.Sprintf("%v.verbose", cmdPrefix)
+		VerboseFlagName = fmt.Sprintf("%v.verbose", cmdPrefix)
 	}
 
-	var verboseFlagDefault bool
+	var VerboseFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(verboseFlagName, verboseFlagDefault, verboseDescription)
+	_ = cmd.PersistentFlags().Bool(VerboseFlagName, VerboseFlagDefault, VerboseDescription)
 
 	return nil
 }
@@ -134,18 +134,18 @@ func retrieveOperationNetworkNetworkInspectIDFlag(m *network.NetworkInspectParam
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -154,18 +154,18 @@ func retrieveOperationNetworkNetworkInspectScopeFlag(m *network.NetworkInspectPa
 	retAdded := false
 	if cmd.Flags().Changed("scope") {
 
-		var scopeFlagName string
+		var ScopeFlagName string
 		if cmdPrefix == "" {
-			scopeFlagName = "scope"
+			ScopeFlagName = "scope"
 		} else {
-			scopeFlagName = fmt.Sprintf("%v.scope", cmdPrefix)
+			ScopeFlagName = fmt.Sprintf("%v.scope", cmdPrefix)
 		}
 
-		scopeFlagValue, err := cmd.Flags().GetString(scopeFlagName)
+		ScopeFlagValue, err := cmd.Flags().GetString(ScopeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Scope = &scopeFlagValue
+		m.Scope = &ScopeFlagValue
 
 	}
 	return nil, retAdded
@@ -174,18 +174,18 @@ func retrieveOperationNetworkNetworkInspectVerboseFlag(m *network.NetworkInspect
 	retAdded := false
 	if cmd.Flags().Changed("verbose") {
 
-		var verboseFlagName string
+		var VerboseFlagName string
 		if cmdPrefix == "" {
-			verboseFlagName = "verbose"
+			VerboseFlagName = "verbose"
 		} else {
-			verboseFlagName = fmt.Sprintf("%v.verbose", cmdPrefix)
+			VerboseFlagName = fmt.Sprintf("%v.verbose", cmdPrefix)
 		}
 
-		verboseFlagValue, err := cmd.Flags().GetBool(verboseFlagName)
+		VerboseFlagValue, err := cmd.Flags().GetBool(VerboseFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Verbose = &verboseFlagValue
+		m.Verbose = &VerboseFlagValue
 
 	}
 	return nil, retAdded

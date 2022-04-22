@@ -47,18 +47,18 @@ func registerResourceObjectMemoryBytes(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	memoryBytesDescription := ``
+	MemoryBytesDescription := ``
 
-	var memoryBytesFlagName string
+	var MemoryBytesFlagName string
 	if cmdPrefix == "" {
-		memoryBytesFlagName = "MemoryBytes"
+		MemoryBytesFlagName = "MemoryBytes"
 	} else {
-		memoryBytesFlagName = fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
+		MemoryBytesFlagName = fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
 	}
 
-	var memoryBytesFlagDefault int64
+	var MemoryBytesFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memoryBytesFlagName, memoryBytesFlagDefault, memoryBytesDescription)
+	_ = cmd.PersistentFlags().Int64(MemoryBytesFlagName, MemoryBytesFlagDefault, MemoryBytesDescription)
 
 	return nil
 }
@@ -68,18 +68,18 @@ func registerResourceObjectNanoCPUs(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	nanoCPUsDescription := ``
+	NanoCPUsDescription := ``
 
-	var nanoCPUsFlagName string
+	var NanoCPUsFlagName string
 	if cmdPrefix == "" {
-		nanoCPUsFlagName = "NanoCPUs"
+		NanoCPUsFlagName = "NanoCPUs"
 	} else {
-		nanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
+		NanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
 	}
 
-	var nanoCPUsFlagDefault int64
+	var NanoCPUsFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(nanoCPUsFlagName, nanoCPUsFlagDefault, nanoCPUsDescription)
+	_ = cmd.PersistentFlags().Int64(NanoCPUsFlagName, NanoCPUsFlagDefault, NanoCPUsDescription)
 
 	return nil
 }
@@ -88,23 +88,23 @@ func registerResourceObjectNanoCPUs(depth int, cmdPrefix string, cmd *cobra.Comm
 func retrieveModelResourceObjectFlags(depth int, m *models.ResourceObject, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, genericResourcesAdded := retrieveResourceObjectGenericResourcesFlags(depth, m, cmdPrefix, cmd)
+	err, GenericResourcesAdded := retrieveResourceObjectGenericResourcesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || genericResourcesAdded
+	retAdded = retAdded || GenericResourcesAdded
 
-	err, memoryBytesAdded := retrieveResourceObjectMemoryBytesFlags(depth, m, cmdPrefix, cmd)
+	err, MemoryBytesAdded := retrieveResourceObjectMemoryBytesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || memoryBytesAdded
+	retAdded = retAdded || MemoryBytesAdded
 
-	err, nanoCPUsAdded := retrieveResourceObjectNanoCPUsFlags(depth, m, cmdPrefix, cmd)
+	err, NanoCPUsAdded := retrieveResourceObjectNanoCPUsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nanoCPUsAdded
+	retAdded = retAdded || NanoCPUsAdded
 
 	return nil, retAdded
 }
@@ -115,8 +115,8 @@ func retrieveResourceObjectGenericResourcesFlags(depth int, m *models.ResourceOb
 	}
 	retAdded := false
 
-	genericResourcesFlagName := fmt.Sprintf("%v.GenericResources", cmdPrefix)
-	if cmd.Flags().Changed(genericResourcesFlagName) {
+	GenericResourcesFlagName := fmt.Sprintf("%v.GenericResources", cmdPrefix)
+	if cmd.Flags().Changed(GenericResourcesFlagName) {
 		// warning: GenericResources array type GenericResources is not supported by go-swagger cli yet
 	}
 
@@ -129,21 +129,21 @@ func retrieveResourceObjectMemoryBytesFlags(depth int, m *models.ResourceObject,
 	}
 	retAdded := false
 
-	memoryBytesFlagName := fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
-	if cmd.Flags().Changed(memoryBytesFlagName) {
+	MemoryBytesFlagName := fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
+	if cmd.Flags().Changed(MemoryBytesFlagName) {
 
-		var memoryBytesFlagName string
+		var MemoryBytesFlagName string
 		if cmdPrefix == "" {
-			memoryBytesFlagName = "MemoryBytes"
+			MemoryBytesFlagName = "MemoryBytes"
 		} else {
-			memoryBytesFlagName = fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
+			MemoryBytesFlagName = fmt.Sprintf("%v.MemoryBytes", cmdPrefix)
 		}
 
-		memoryBytesFlagValue, err := cmd.Flags().GetInt64(memoryBytesFlagName)
+		MemoryBytesFlagValue, err := cmd.Flags().GetInt64(MemoryBytesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MemoryBytes = memoryBytesFlagValue
+		m.MemoryBytes = MemoryBytesFlagValue
 
 		retAdded = true
 	}
@@ -157,21 +157,21 @@ func retrieveResourceObjectNanoCPUsFlags(depth int, m *models.ResourceObject, cm
 	}
 	retAdded := false
 
-	nanoCPUsFlagName := fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
-	if cmd.Flags().Changed(nanoCPUsFlagName) {
+	NanoCPUsFlagName := fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
+	if cmd.Flags().Changed(NanoCPUsFlagName) {
 
-		var nanoCPUsFlagName string
+		var NanoCPUsFlagName string
 		if cmdPrefix == "" {
-			nanoCPUsFlagName = "NanoCPUs"
+			NanoCPUsFlagName = "NanoCPUs"
 		} else {
-			nanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
+			NanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
 		}
 
-		nanoCPUsFlagValue, err := cmd.Flags().GetInt64(nanoCPUsFlagName)
+		NanoCPUsFlagValue, err := cmd.Flags().GetInt64(NanoCPUsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NanoCPUs = nanoCPUsFlagValue
+		m.NanoCPUs = NanoCPUsFlagValue
 
 		retAdded = true
 	}

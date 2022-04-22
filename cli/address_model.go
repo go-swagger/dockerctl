@@ -33,18 +33,18 @@ func registerAddressAddr(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	addrDescription := `IP address.`
+	AddrDescription := `IP address.`
 
-	var addrFlagName string
+	var AddrFlagName string
 	if cmdPrefix == "" {
-		addrFlagName = "Addr"
+		AddrFlagName = "Addr"
 	} else {
-		addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+		AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 	}
 
-	var addrFlagDefault string
+	var AddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(addrFlagName, addrFlagDefault, addrDescription)
+	_ = cmd.PersistentFlags().String(AddrFlagName, AddrFlagDefault, AddrDescription)
 
 	return nil
 }
@@ -54,18 +54,18 @@ func registerAddressPrefixLen(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	prefixLenDescription := `Mask length of the IP address.`
+	PrefixLenDescription := `Mask length of the IP address.`
 
-	var prefixLenFlagName string
+	var PrefixLenFlagName string
 	if cmdPrefix == "" {
-		prefixLenFlagName = "PrefixLen"
+		PrefixLenFlagName = "PrefixLen"
 	} else {
-		prefixLenFlagName = fmt.Sprintf("%v.PrefixLen", cmdPrefix)
+		PrefixLenFlagName = fmt.Sprintf("%v.PrefixLen", cmdPrefix)
 	}
 
-	var prefixLenFlagDefault int64
+	var PrefixLenFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(prefixLenFlagName, prefixLenFlagDefault, prefixLenDescription)
+	_ = cmd.PersistentFlags().Int64(PrefixLenFlagName, PrefixLenFlagDefault, PrefixLenDescription)
 
 	return nil
 }
@@ -74,17 +74,17 @@ func registerAddressPrefixLen(depth int, cmdPrefix string, cmd *cobra.Command) e
 func retrieveModelAddressFlags(depth int, m *models.Address, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, addrAdded := retrieveAddressAddrFlags(depth, m, cmdPrefix, cmd)
+	err, AddrAdded := retrieveAddressAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || addrAdded
+	retAdded = retAdded || AddrAdded
 
-	err, prefixLenAdded := retrieveAddressPrefixLenFlags(depth, m, cmdPrefix, cmd)
+	err, PrefixLenAdded := retrieveAddressPrefixLenFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || prefixLenAdded
+	retAdded = retAdded || PrefixLenAdded
 
 	return nil, retAdded
 }
@@ -95,21 +95,21 @@ func retrieveAddressAddrFlags(depth int, m *models.Address, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
-	if cmd.Flags().Changed(addrFlagName) {
+	AddrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
+	if cmd.Flags().Changed(AddrFlagName) {
 
-		var addrFlagName string
+		var AddrFlagName string
 		if cmdPrefix == "" {
-			addrFlagName = "Addr"
+			AddrFlagName = "Addr"
 		} else {
-			addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+			AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 		}
 
-		addrFlagValue, err := cmd.Flags().GetString(addrFlagName)
+		AddrFlagValue, err := cmd.Flags().GetString(AddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Addr = addrFlagValue
+		m.Addr = AddrFlagValue
 
 		retAdded = true
 	}
@@ -123,21 +123,21 @@ func retrieveAddressPrefixLenFlags(depth int, m *models.Address, cmdPrefix strin
 	}
 	retAdded := false
 
-	prefixLenFlagName := fmt.Sprintf("%v.PrefixLen", cmdPrefix)
-	if cmd.Flags().Changed(prefixLenFlagName) {
+	PrefixLenFlagName := fmt.Sprintf("%v.PrefixLen", cmdPrefix)
+	if cmd.Flags().Changed(PrefixLenFlagName) {
 
-		var prefixLenFlagName string
+		var PrefixLenFlagName string
 		if cmdPrefix == "" {
-			prefixLenFlagName = "PrefixLen"
+			PrefixLenFlagName = "PrefixLen"
 		} else {
-			prefixLenFlagName = fmt.Sprintf("%v.PrefixLen", cmdPrefix)
+			PrefixLenFlagName = fmt.Sprintf("%v.PrefixLen", cmdPrefix)
 		}
 
-		prefixLenFlagValue, err := cmd.Flags().GetInt64(prefixLenFlagName)
+		PrefixLenFlagValue, err := cmd.Flags().GetInt64(PrefixLenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PrefixLen = prefixLenFlagValue
+		m.PrefixLen = PrefixLenFlagValue
 
 		retAdded = true
 	}

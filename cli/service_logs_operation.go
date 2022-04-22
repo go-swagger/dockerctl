@@ -114,137 +114,137 @@ func registerOperationServiceServiceLogsParamFlags(cmd *cobra.Command) error {
 
 func registerOperationServiceServiceLogsDetailsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	detailsDescription := `Show service context and extra details provided to logs.`
+	DetailsDescription := `Show service context and extra details provided to logs.`
 
-	var detailsFlagName string
+	var DetailsFlagName string
 	if cmdPrefix == "" {
-		detailsFlagName = "details"
+		DetailsFlagName = "details"
 	} else {
-		detailsFlagName = fmt.Sprintf("%v.details", cmdPrefix)
+		DetailsFlagName = fmt.Sprintf("%v.details", cmdPrefix)
 	}
 
-	var detailsFlagDefault bool
+	var DetailsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(detailsFlagName, detailsFlagDefault, detailsDescription)
+	_ = cmd.PersistentFlags().Bool(DetailsFlagName, DetailsFlagDefault, DetailsDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsFollowParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	followDescription := `Keep connection after returning logs.`
+	FollowDescription := `Keep connection after returning logs.`
 
-	var followFlagName string
+	var FollowFlagName string
 	if cmdPrefix == "" {
-		followFlagName = "follow"
+		FollowFlagName = "follow"
 	} else {
-		followFlagName = fmt.Sprintf("%v.follow", cmdPrefix)
+		FollowFlagName = fmt.Sprintf("%v.follow", cmdPrefix)
 	}
 
-	var followFlagDefault bool
+	var FollowFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(followFlagName, followFlagDefault, followDescription)
+	_ = cmd.PersistentFlags().Bool(FollowFlagName, FollowFlagDefault, FollowDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the service`
+	IDDescription := `Required. ID or name of the service`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsSinceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	sinceDescription := `Only return logs since this time, as a UNIX timestamp`
+	SinceDescription := `Only return logs since this time, as a UNIX timestamp`
 
-	var sinceFlagName string
+	var SinceFlagName string
 	if cmdPrefix == "" {
-		sinceFlagName = "since"
+		SinceFlagName = "since"
 	} else {
-		sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
+		SinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
 	}
 
-	var sinceFlagDefault int64
+	var SinceFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sinceFlagName, sinceFlagDefault, sinceDescription)
+	_ = cmd.PersistentFlags().Int64(SinceFlagName, SinceFlagDefault, SinceDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsStderrParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	stderrDescription := `Return logs from ` + "`" + `stderr` + "`" + ``
+	StderrDescription := `Return logs from ` + "`" + `stderr` + "`" + ``
 
-	var stderrFlagName string
+	var StderrFlagName string
 	if cmdPrefix == "" {
-		stderrFlagName = "stderr"
+		StderrFlagName = "stderr"
 	} else {
-		stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
+		StderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
 	}
 
-	var stderrFlagDefault bool
+	var StderrFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(stderrFlagName, stderrFlagDefault, stderrDescription)
+	_ = cmd.PersistentFlags().Bool(StderrFlagName, StderrFlagDefault, StderrDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsStdoutParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	stdoutDescription := `Return logs from ` + "`" + `stdout` + "`" + ``
+	StdoutDescription := `Return logs from ` + "`" + `stdout` + "`" + ``
 
-	var stdoutFlagName string
+	var StdoutFlagName string
 	if cmdPrefix == "" {
-		stdoutFlagName = "stdout"
+		StdoutFlagName = "stdout"
 	} else {
-		stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
+		StdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
 	}
 
-	var stdoutFlagDefault bool
+	var StdoutFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(stdoutFlagName, stdoutFlagDefault, stdoutDescription)
+	_ = cmd.PersistentFlags().Bool(StdoutFlagName, StdoutFlagDefault, StdoutDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsTailParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tailDescription := `Only return this number of log lines from the end of the logs. Specify as an integer or ` + "`" + `all` + "`" + ` to output all log lines.`
+	TailDescription := `Only return this number of log lines from the end of the logs. Specify as an integer or ` + "`" + `all` + "`" + ` to output all log lines.`
 
-	var tailFlagName string
+	var TailFlagName string
 	if cmdPrefix == "" {
-		tailFlagName = "tail"
+		TailFlagName = "tail"
 	} else {
-		tailFlagName = fmt.Sprintf("%v.tail", cmdPrefix)
+		TailFlagName = fmt.Sprintf("%v.tail", cmdPrefix)
 	}
 
-	var tailFlagDefault string = "all"
+	var TailFlagDefault string = "all"
 
-	_ = cmd.PersistentFlags().String(tailFlagName, tailFlagDefault, tailDescription)
+	_ = cmd.PersistentFlags().String(TailFlagName, TailFlagDefault, TailDescription)
 
 	return nil
 }
 func registerOperationServiceServiceLogsTimestampsParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	timestampsDescription := `Add timestamps to every log line`
+	TimestampsDescription := `Add timestamps to every log line`
 
-	var timestampsFlagName string
+	var TimestampsFlagName string
 	if cmdPrefix == "" {
-		timestampsFlagName = "timestamps"
+		TimestampsFlagName = "timestamps"
 	} else {
-		timestampsFlagName = fmt.Sprintf("%v.timestamps", cmdPrefix)
+		TimestampsFlagName = fmt.Sprintf("%v.timestamps", cmdPrefix)
 	}
 
-	var timestampsFlagDefault bool
+	var TimestampsFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(timestampsFlagName, timestampsFlagDefault, timestampsDescription)
+	_ = cmd.PersistentFlags().Bool(TimestampsFlagName, TimestampsFlagDefault, TimestampsDescription)
 
 	return nil
 }
@@ -253,18 +253,18 @@ func retrieveOperationServiceServiceLogsDetailsFlag(m *service.ServiceLogsParams
 	retAdded := false
 	if cmd.Flags().Changed("details") {
 
-		var detailsFlagName string
+		var DetailsFlagName string
 		if cmdPrefix == "" {
-			detailsFlagName = "details"
+			DetailsFlagName = "details"
 		} else {
-			detailsFlagName = fmt.Sprintf("%v.details", cmdPrefix)
+			DetailsFlagName = fmt.Sprintf("%v.details", cmdPrefix)
 		}
 
-		detailsFlagValue, err := cmd.Flags().GetBool(detailsFlagName)
+		DetailsFlagValue, err := cmd.Flags().GetBool(DetailsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Details = &detailsFlagValue
+		m.Details = &DetailsFlagValue
 
 	}
 	return nil, retAdded
@@ -273,18 +273,18 @@ func retrieveOperationServiceServiceLogsFollowFlag(m *service.ServiceLogsParams,
 	retAdded := false
 	if cmd.Flags().Changed("follow") {
 
-		var followFlagName string
+		var FollowFlagName string
 		if cmdPrefix == "" {
-			followFlagName = "follow"
+			FollowFlagName = "follow"
 		} else {
-			followFlagName = fmt.Sprintf("%v.follow", cmdPrefix)
+			FollowFlagName = fmt.Sprintf("%v.follow", cmdPrefix)
 		}
 
-		followFlagValue, err := cmd.Flags().GetBool(followFlagName)
+		FollowFlagValue, err := cmd.Flags().GetBool(FollowFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Follow = &followFlagValue
+		m.Follow = &FollowFlagValue
 
 	}
 	return nil, retAdded
@@ -293,18 +293,18 @@ func retrieveOperationServiceServiceLogsIDFlag(m *service.ServiceLogsParams, cmd
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -313,18 +313,18 @@ func retrieveOperationServiceServiceLogsSinceFlag(m *service.ServiceLogsParams, 
 	retAdded := false
 	if cmd.Flags().Changed("since") {
 
-		var sinceFlagName string
+		var SinceFlagName string
 		if cmdPrefix == "" {
-			sinceFlagName = "since"
+			SinceFlagName = "since"
 		} else {
-			sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
+			SinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
 		}
 
-		sinceFlagValue, err := cmd.Flags().GetInt64(sinceFlagName)
+		SinceFlagValue, err := cmd.Flags().GetInt64(SinceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Since = &sinceFlagValue
+		m.Since = &SinceFlagValue
 
 	}
 	return nil, retAdded
@@ -333,18 +333,18 @@ func retrieveOperationServiceServiceLogsStderrFlag(m *service.ServiceLogsParams,
 	retAdded := false
 	if cmd.Flags().Changed("stderr") {
 
-		var stderrFlagName string
+		var StderrFlagName string
 		if cmdPrefix == "" {
-			stderrFlagName = "stderr"
+			StderrFlagName = "stderr"
 		} else {
-			stderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
+			StderrFlagName = fmt.Sprintf("%v.stderr", cmdPrefix)
 		}
 
-		stderrFlagValue, err := cmd.Flags().GetBool(stderrFlagName)
+		StderrFlagValue, err := cmd.Flags().GetBool(StderrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stderr = &stderrFlagValue
+		m.Stderr = &StderrFlagValue
 
 	}
 	return nil, retAdded
@@ -353,18 +353,18 @@ func retrieveOperationServiceServiceLogsStdoutFlag(m *service.ServiceLogsParams,
 	retAdded := false
 	if cmd.Flags().Changed("stdout") {
 
-		var stdoutFlagName string
+		var StdoutFlagName string
 		if cmdPrefix == "" {
-			stdoutFlagName = "stdout"
+			StdoutFlagName = "stdout"
 		} else {
-			stdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
+			StdoutFlagName = fmt.Sprintf("%v.stdout", cmdPrefix)
 		}
 
-		stdoutFlagValue, err := cmd.Flags().GetBool(stdoutFlagName)
+		StdoutFlagValue, err := cmd.Flags().GetBool(StdoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Stdout = &stdoutFlagValue
+		m.Stdout = &StdoutFlagValue
 
 	}
 	return nil, retAdded
@@ -373,18 +373,18 @@ func retrieveOperationServiceServiceLogsTailFlag(m *service.ServiceLogsParams, c
 	retAdded := false
 	if cmd.Flags().Changed("tail") {
 
-		var tailFlagName string
+		var TailFlagName string
 		if cmdPrefix == "" {
-			tailFlagName = "tail"
+			TailFlagName = "tail"
 		} else {
-			tailFlagName = fmt.Sprintf("%v.tail", cmdPrefix)
+			TailFlagName = fmt.Sprintf("%v.tail", cmdPrefix)
 		}
 
-		tailFlagValue, err := cmd.Flags().GetString(tailFlagName)
+		TailFlagValue, err := cmd.Flags().GetString(TailFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tail = &tailFlagValue
+		m.Tail = &TailFlagValue
 
 	}
 	return nil, retAdded
@@ -393,18 +393,18 @@ func retrieveOperationServiceServiceLogsTimestampsFlag(m *service.ServiceLogsPar
 	retAdded := false
 	if cmd.Flags().Changed("timestamps") {
 
-		var timestampsFlagName string
+		var TimestampsFlagName string
 		if cmdPrefix == "" {
-			timestampsFlagName = "timestamps"
+			TimestampsFlagName = "timestamps"
 		} else {
-			timestampsFlagName = fmt.Sprintf("%v.timestamps", cmdPrefix)
+			TimestampsFlagName = fmt.Sprintf("%v.timestamps", cmdPrefix)
 		}
 
-		timestampsFlagValue, err := cmd.Flags().GetBool(timestampsFlagName)
+		TimestampsFlagValue, err := cmd.Flags().GetBool(TimestampsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Timestamps = &timestampsFlagValue
+		m.Timestamps = &TimestampsFlagValue
 
 	}
 	return nil, retAdded

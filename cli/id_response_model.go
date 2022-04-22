@@ -29,18 +29,18 @@ func registerIDResponseID(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	idDescription := `Required. The id of the newly created object.`
+	IDDescription := `Required. The id of the newly created object.`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -49,11 +49,11 @@ func registerIDResponseID(depth int, cmdPrefix string, cmd *cobra.Command) error
 func retrieveModelIDResponseFlags(depth int, m *models.IDResponse, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, idAdded := retrieveIDResponseIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveIDResponseIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
 	return nil, retAdded
 }
@@ -64,21 +64,21 @@ func retrieveIDResponseIDFlags(depth int, m *models.IDResponse, cmdPrefix string
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}

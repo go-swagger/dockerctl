@@ -33,20 +33,20 @@ func registerPlatformArchitecture(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	architectureDescription := `Architecture represents the hardware architecture (for example,
+	ArchitectureDescription := `Architecture represents the hardware architecture (for example,
 ` + "`" + `x86_64` + "`" + `).
 `
 
-	var architectureFlagName string
+	var ArchitectureFlagName string
 	if cmdPrefix == "" {
-		architectureFlagName = "Architecture"
+		ArchitectureFlagName = "Architecture"
 	} else {
-		architectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
+		ArchitectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
 	}
 
-	var architectureFlagDefault string
+	var ArchitectureFlagDefault string
 
-	_ = cmd.PersistentFlags().String(architectureFlagName, architectureFlagDefault, architectureDescription)
+	_ = cmd.PersistentFlags().String(ArchitectureFlagName, ArchitectureFlagDefault, ArchitectureDescription)
 
 	return nil
 }
@@ -56,19 +56,19 @@ func registerPlatformOS(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	oSDescription := `OS represents the Operating System (for example, ` + "`" + `linux` + "`" + ` or ` + "`" + `windows` + "`" + `).
+	OSDescription := `OS represents the Operating System (for example, ` + "`" + `linux` + "`" + ` or ` + "`" + `windows` + "`" + `).
 `
 
-	var oSFlagName string
+	var OSFlagName string
 	if cmdPrefix == "" {
-		oSFlagName = "OS"
+		OSFlagName = "OS"
 	} else {
-		oSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
+		OSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
 	}
 
-	var oSFlagDefault string
+	var OSFlagDefault string
 
-	_ = cmd.PersistentFlags().String(oSFlagName, oSFlagDefault, oSDescription)
+	_ = cmd.PersistentFlags().String(OSFlagName, OSFlagDefault, OSDescription)
 
 	return nil
 }
@@ -77,17 +77,17 @@ func registerPlatformOS(depth int, cmdPrefix string, cmd *cobra.Command) error {
 func retrieveModelPlatformFlags(depth int, m *models.Platform, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, architectureAdded := retrievePlatformArchitectureFlags(depth, m, cmdPrefix, cmd)
+	err, ArchitectureAdded := retrievePlatformArchitectureFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || architectureAdded
+	retAdded = retAdded || ArchitectureAdded
 
-	err, oSAdded := retrievePlatformOSFlags(depth, m, cmdPrefix, cmd)
+	err, OSAdded := retrievePlatformOSFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || oSAdded
+	retAdded = retAdded || OSAdded
 
 	return nil, retAdded
 }
@@ -98,21 +98,21 @@ func retrievePlatformArchitectureFlags(depth int, m *models.Platform, cmdPrefix 
 	}
 	retAdded := false
 
-	architectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
-	if cmd.Flags().Changed(architectureFlagName) {
+	ArchitectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
+	if cmd.Flags().Changed(ArchitectureFlagName) {
 
-		var architectureFlagName string
+		var ArchitectureFlagName string
 		if cmdPrefix == "" {
-			architectureFlagName = "Architecture"
+			ArchitectureFlagName = "Architecture"
 		} else {
-			architectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
+			ArchitectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
 		}
 
-		architectureFlagValue, err := cmd.Flags().GetString(architectureFlagName)
+		ArchitectureFlagValue, err := cmd.Flags().GetString(ArchitectureFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Architecture = architectureFlagValue
+		m.Architecture = ArchitectureFlagValue
 
 		retAdded = true
 	}
@@ -126,21 +126,21 @@ func retrievePlatformOSFlags(depth int, m *models.Platform, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	oSFlagName := fmt.Sprintf("%v.OS", cmdPrefix)
-	if cmd.Flags().Changed(oSFlagName) {
+	OSFlagName := fmt.Sprintf("%v.OS", cmdPrefix)
+	if cmd.Flags().Changed(OSFlagName) {
 
-		var oSFlagName string
+		var OSFlagName string
 		if cmdPrefix == "" {
-			oSFlagName = "OS"
+			OSFlagName = "OS"
 		} else {
-			oSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
+			OSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
 		}
 
-		oSFlagValue, err := cmd.Flags().GetString(oSFlagName)
+		OSFlagValue, err := cmd.Flags().GetString(OSFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OS = oSFlagValue
+		m.OS = OSFlagValue
 
 		retAdded = true
 	}

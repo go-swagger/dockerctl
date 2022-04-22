@@ -193,18 +193,18 @@ func registerResourcesBlkioWeight(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	blkioWeightDescription := `Block IO weight (relative weight).`
+	BlkioWeightDescription := `Block IO weight (relative weight).`
 
-	var blkioWeightFlagName string
+	var BlkioWeightFlagName string
 	if cmdPrefix == "" {
-		blkioWeightFlagName = "BlkioWeight"
+		BlkioWeightFlagName = "BlkioWeight"
 	} else {
-		blkioWeightFlagName = fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
+		BlkioWeightFlagName = fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
 	}
 
-	var blkioWeightFlagDefault int64
+	var BlkioWeightFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(blkioWeightFlagName, blkioWeightFlagDefault, blkioWeightDescription)
+	_ = cmd.PersistentFlags().Int64(BlkioWeightFlagName, BlkioWeightFlagDefault, BlkioWeightDescription)
 
 	return nil
 }
@@ -224,18 +224,18 @@ func registerResourcesCgroupParent(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	cgroupParentDescription := `Path to ` + "`" + `cgroups` + "`" + ` under which the container's ` + "`" + `cgroup` + "`" + ` is created. If the path is not absolute, the path is considered to be relative to the ` + "`" + `cgroups` + "`" + ` path of the init process. Cgroups are created if they do not already exist.`
+	CgroupParentDescription := `Path to ` + "`" + `cgroups` + "`" + ` under which the container's ` + "`" + `cgroup` + "`" + ` is created. If the path is not absolute, the path is considered to be relative to the ` + "`" + `cgroups` + "`" + ` path of the init process. Cgroups are created if they do not already exist.`
 
-	var cgroupParentFlagName string
+	var CgroupParentFlagName string
 	if cmdPrefix == "" {
-		cgroupParentFlagName = "CgroupParent"
+		CgroupParentFlagName = "CgroupParent"
 	} else {
-		cgroupParentFlagName = fmt.Sprintf("%v.CgroupParent", cmdPrefix)
+		CgroupParentFlagName = fmt.Sprintf("%v.CgroupParent", cmdPrefix)
 	}
 
-	var cgroupParentFlagDefault string
+	var CgroupParentFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cgroupParentFlagName, cgroupParentFlagDefault, cgroupParentDescription)
+	_ = cmd.PersistentFlags().String(CgroupParentFlagName, CgroupParentFlagDefault, CgroupParentDescription)
 
 	return nil
 }
@@ -245,21 +245,21 @@ func registerResourcesCPUCount(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	cpuCountDescription := `The number of usable CPUs (Windows only).
+	CPUCountDescription := `The number of usable CPUs (Windows only).
 
 On Windows Server containers, the processor resource controls are mutually exclusive. The order of precedence is ` + "`" + `CPUCount` + "`" + ` first, then ` + "`" + `CPUShares` + "`" + `, and ` + "`" + `CPUPercent` + "`" + ` last.
 `
 
-	var cpuCountFlagName string
+	var CPUCountFlagName string
 	if cmdPrefix == "" {
-		cpuCountFlagName = "CpuCount"
+		CPUCountFlagName = "CpuCount"
 	} else {
-		cpuCountFlagName = fmt.Sprintf("%v.CpuCount", cmdPrefix)
+		CPUCountFlagName = fmt.Sprintf("%v.CpuCount", cmdPrefix)
 	}
 
-	var cpuCountFlagDefault int64
+	var CPUCountFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuCountFlagName, cpuCountFlagDefault, cpuCountDescription)
+	_ = cmd.PersistentFlags().Int64(CPUCountFlagName, CPUCountFlagDefault, CPUCountDescription)
 
 	return nil
 }
@@ -269,21 +269,21 @@ func registerResourcesCPUPercent(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	cpuPercentDescription := `The usable percentage of the available CPUs (Windows only).
+	CPUPercentDescription := `The usable percentage of the available CPUs (Windows only).
 
 On Windows Server containers, the processor resource controls are mutually exclusive. The order of precedence is ` + "`" + `CPUCount` + "`" + ` first, then ` + "`" + `CPUShares` + "`" + `, and ` + "`" + `CPUPercent` + "`" + ` last.
 `
 
-	var cpuPercentFlagName string
+	var CPUPercentFlagName string
 	if cmdPrefix == "" {
-		cpuPercentFlagName = "CpuPercent"
+		CPUPercentFlagName = "CpuPercent"
 	} else {
-		cpuPercentFlagName = fmt.Sprintf("%v.CpuPercent", cmdPrefix)
+		CPUPercentFlagName = fmt.Sprintf("%v.CpuPercent", cmdPrefix)
 	}
 
-	var cpuPercentFlagDefault int64
+	var CPUPercentFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuPercentFlagName, cpuPercentFlagDefault, cpuPercentDescription)
+	_ = cmd.PersistentFlags().Int64(CPUPercentFlagName, CPUPercentFlagDefault, CPUPercentDescription)
 
 	return nil
 }
@@ -293,18 +293,18 @@ func registerResourcesCPUPeriod(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	cpuPeriodDescription := `The length of a CPU period in microseconds.`
+	CPUPeriodDescription := `The length of a CPU period in microseconds.`
 
-	var cpuPeriodFlagName string
+	var CPUPeriodFlagName string
 	if cmdPrefix == "" {
-		cpuPeriodFlagName = "CpuPeriod"
+		CPUPeriodFlagName = "CpuPeriod"
 	} else {
-		cpuPeriodFlagName = fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
+		CPUPeriodFlagName = fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
 	}
 
-	var cpuPeriodFlagDefault int64
+	var CPUPeriodFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuPeriodFlagName, cpuPeriodFlagDefault, cpuPeriodDescription)
+	_ = cmd.PersistentFlags().Int64(CPUPeriodFlagName, CPUPeriodFlagDefault, CPUPeriodDescription)
 
 	return nil
 }
@@ -314,18 +314,18 @@ func registerResourcesCPUQuota(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	cpuQuotaDescription := `Microseconds of CPU time that the container can get in a CPU period.`
+	CPUQuotaDescription := `Microseconds of CPU time that the container can get in a CPU period.`
 
-	var cpuQuotaFlagName string
+	var CPUQuotaFlagName string
 	if cmdPrefix == "" {
-		cpuQuotaFlagName = "CpuQuota"
+		CPUQuotaFlagName = "CpuQuota"
 	} else {
-		cpuQuotaFlagName = fmt.Sprintf("%v.CpuQuota", cmdPrefix)
+		CPUQuotaFlagName = fmt.Sprintf("%v.CpuQuota", cmdPrefix)
 	}
 
-	var cpuQuotaFlagDefault int64
+	var CPUQuotaFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuQuotaFlagName, cpuQuotaFlagDefault, cpuQuotaDescription)
+	_ = cmd.PersistentFlags().Int64(CPUQuotaFlagName, CPUQuotaFlagDefault, CPUQuotaDescription)
 
 	return nil
 }
@@ -335,18 +335,18 @@ func registerResourcesCPURealtimePeriod(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	cpuRealtimePeriodDescription := `The length of a CPU real-time period in microseconds. Set to 0 to allocate no time allocated to real-time tasks.`
+	CPURealtimePeriodDescription := `The length of a CPU real-time period in microseconds. Set to 0 to allocate no time allocated to real-time tasks.`
 
-	var cpuRealtimePeriodFlagName string
+	var CPURealtimePeriodFlagName string
 	if cmdPrefix == "" {
-		cpuRealtimePeriodFlagName = "CpuRealtimePeriod"
+		CPURealtimePeriodFlagName = "CpuRealtimePeriod"
 	} else {
-		cpuRealtimePeriodFlagName = fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
+		CPURealtimePeriodFlagName = fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
 	}
 
-	var cpuRealtimePeriodFlagDefault int64
+	var CPURealtimePeriodFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuRealtimePeriodFlagName, cpuRealtimePeriodFlagDefault, cpuRealtimePeriodDescription)
+	_ = cmd.PersistentFlags().Int64(CPURealtimePeriodFlagName, CPURealtimePeriodFlagDefault, CPURealtimePeriodDescription)
 
 	return nil
 }
@@ -356,18 +356,18 @@ func registerResourcesCPURealtimeRuntime(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	cpuRealtimeRuntimeDescription := `The length of a CPU real-time runtime in microseconds. Set to 0 to allocate no time allocated to real-time tasks.`
+	CPURealtimeRuntimeDescription := `The length of a CPU real-time runtime in microseconds. Set to 0 to allocate no time allocated to real-time tasks.`
 
-	var cpuRealtimeRuntimeFlagName string
+	var CPURealtimeRuntimeFlagName string
 	if cmdPrefix == "" {
-		cpuRealtimeRuntimeFlagName = "CpuRealtimeRuntime"
+		CPURealtimeRuntimeFlagName = "CpuRealtimeRuntime"
 	} else {
-		cpuRealtimeRuntimeFlagName = fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
+		CPURealtimeRuntimeFlagName = fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
 	}
 
-	var cpuRealtimeRuntimeFlagDefault int64
+	var CPURealtimeRuntimeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuRealtimeRuntimeFlagName, cpuRealtimeRuntimeFlagDefault, cpuRealtimeRuntimeDescription)
+	_ = cmd.PersistentFlags().Int64(CPURealtimeRuntimeFlagName, CPURealtimeRuntimeFlagDefault, CPURealtimeRuntimeDescription)
 
 	return nil
 }
@@ -377,18 +377,18 @@ func registerResourcesCPUShares(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	cpuSharesDescription := `An integer value representing this container's relative CPU weight versus other containers.`
+	CPUSharesDescription := `An integer value representing this container's relative CPU weight versus other containers.`
 
-	var cpuSharesFlagName string
+	var CPUSharesFlagName string
 	if cmdPrefix == "" {
-		cpuSharesFlagName = "CpuShares"
+		CPUSharesFlagName = "CpuShares"
 	} else {
-		cpuSharesFlagName = fmt.Sprintf("%v.CpuShares", cmdPrefix)
+		CPUSharesFlagName = fmt.Sprintf("%v.CpuShares", cmdPrefix)
 	}
 
-	var cpuSharesFlagDefault int64
+	var CPUSharesFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(cpuSharesFlagName, cpuSharesFlagDefault, cpuSharesDescription)
+	_ = cmd.PersistentFlags().Int64(CPUSharesFlagName, CPUSharesFlagDefault, CPUSharesDescription)
 
 	return nil
 }
@@ -398,18 +398,18 @@ func registerResourcesCpusetCpus(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	cpusetCpusDescription := `CPUs in which to allow execution (e.g., ` + "`" + `0-3` + "`" + `, ` + "`" + `0,1` + "`" + `)`
+	CpusetCpusDescription := `CPUs in which to allow execution (e.g., ` + "`" + `0-3` + "`" + `, ` + "`" + `0,1` + "`" + `)`
 
-	var cpusetCpusFlagName string
+	var CpusetCpusFlagName string
 	if cmdPrefix == "" {
-		cpusetCpusFlagName = "CpusetCpus"
+		CpusetCpusFlagName = "CpusetCpus"
 	} else {
-		cpusetCpusFlagName = fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
+		CpusetCpusFlagName = fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
 	}
 
-	var cpusetCpusFlagDefault string
+	var CpusetCpusFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cpusetCpusFlagName, cpusetCpusFlagDefault, cpusetCpusDescription)
+	_ = cmd.PersistentFlags().String(CpusetCpusFlagName, CpusetCpusFlagDefault, CpusetCpusDescription)
 
 	return nil
 }
@@ -419,18 +419,18 @@ func registerResourcesCpusetMems(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	cpusetMemsDescription := `Memory nodes (MEMs) in which to allow execution (0-3, 0,1). Only effective on NUMA systems.`
+	CpusetMemsDescription := `Memory nodes (MEMs) in which to allow execution (0-3, 0,1). Only effective on NUMA systems.`
 
-	var cpusetMemsFlagName string
+	var CpusetMemsFlagName string
 	if cmdPrefix == "" {
-		cpusetMemsFlagName = "CpusetMems"
+		CpusetMemsFlagName = "CpusetMems"
 	} else {
-		cpusetMemsFlagName = fmt.Sprintf("%v.CpusetMems", cmdPrefix)
+		CpusetMemsFlagName = fmt.Sprintf("%v.CpusetMems", cmdPrefix)
 	}
 
-	var cpusetMemsFlagDefault string
+	var CpusetMemsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cpusetMemsFlagName, cpusetMemsFlagDefault, cpusetMemsDescription)
+	_ = cmd.PersistentFlags().String(CpusetMemsFlagName, CpusetMemsFlagDefault, CpusetMemsDescription)
 
 	return nil
 }
@@ -470,18 +470,18 @@ func registerResourcesIOMaximumBandwidth(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	iOMaximumBandwidthDescription := `Maximum IO in bytes per second for the container system drive (Windows only)`
+	IOMaximumBandwidthDescription := `Maximum IO in bytes per second for the container system drive (Windows only)`
 
-	var iOMaximumBandwidthFlagName string
+	var IOMaximumBandwidthFlagName string
 	if cmdPrefix == "" {
-		iOMaximumBandwidthFlagName = "IOMaximumBandwidth"
+		IOMaximumBandwidthFlagName = "IOMaximumBandwidth"
 	} else {
-		iOMaximumBandwidthFlagName = fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
+		IOMaximumBandwidthFlagName = fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
 	}
 
-	var iOMaximumBandwidthFlagDefault int64
+	var IOMaximumBandwidthFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(iOMaximumBandwidthFlagName, iOMaximumBandwidthFlagDefault, iOMaximumBandwidthDescription)
+	_ = cmd.PersistentFlags().Int64(IOMaximumBandwidthFlagName, IOMaximumBandwidthFlagDefault, IOMaximumBandwidthDescription)
 
 	return nil
 }
@@ -491,18 +491,18 @@ func registerResourcesIOMaximumIOps(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	iOMaximumIOpsDescription := `Maximum IOps for the container system drive (Windows only)`
+	IOMaximumIOpsDescription := `Maximum IOps for the container system drive (Windows only)`
 
-	var iOMaximumIOpsFlagName string
+	var IOMaximumIOpsFlagName string
 	if cmdPrefix == "" {
-		iOMaximumIOpsFlagName = "IOMaximumIOps"
+		IOMaximumIOpsFlagName = "IOMaximumIOps"
 	} else {
-		iOMaximumIOpsFlagName = fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
+		IOMaximumIOpsFlagName = fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
 	}
 
-	var iOMaximumIOpsFlagDefault int64
+	var IOMaximumIOpsFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(iOMaximumIOpsFlagName, iOMaximumIOpsFlagDefault, iOMaximumIOpsDescription)
+	_ = cmd.PersistentFlags().Int64(IOMaximumIOpsFlagName, IOMaximumIOpsFlagDefault, IOMaximumIOpsDescription)
 
 	return nil
 }
@@ -512,18 +512,18 @@ func registerResourcesInit(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	initDescription := `Run an init inside the container that forwards signals and reaps processes. This field is omitted if empty, and the default (as configured on the daemon) is used.`
+	InitDescription := `Run an init inside the container that forwards signals and reaps processes. This field is omitted if empty, and the default (as configured on the daemon) is used.`
 
-	var initFlagName string
+	var InitFlagName string
 	if cmdPrefix == "" {
-		initFlagName = "Init"
+		InitFlagName = "Init"
 	} else {
-		initFlagName = fmt.Sprintf("%v.Init", cmdPrefix)
+		InitFlagName = fmt.Sprintf("%v.Init", cmdPrefix)
 	}
 
-	var initFlagDefault bool
+	var InitFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(initFlagName, initFlagDefault, initDescription)
+	_ = cmd.PersistentFlags().Bool(InitFlagName, InitFlagDefault, InitDescription)
 
 	return nil
 }
@@ -533,18 +533,18 @@ func registerResourcesKernelMemory(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	kernelMemoryDescription := `Kernel memory limit in bytes.`
+	KernelMemoryDescription := `Kernel memory limit in bytes.`
 
-	var kernelMemoryFlagName string
+	var KernelMemoryFlagName string
 	if cmdPrefix == "" {
-		kernelMemoryFlagName = "KernelMemory"
+		KernelMemoryFlagName = "KernelMemory"
 	} else {
-		kernelMemoryFlagName = fmt.Sprintf("%v.KernelMemory", cmdPrefix)
+		KernelMemoryFlagName = fmt.Sprintf("%v.KernelMemory", cmdPrefix)
 	}
 
-	var kernelMemoryFlagDefault int64
+	var KernelMemoryFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(kernelMemoryFlagName, kernelMemoryFlagDefault, kernelMemoryDescription)
+	_ = cmd.PersistentFlags().Int64(KernelMemoryFlagName, KernelMemoryFlagDefault, KernelMemoryDescription)
 
 	return nil
 }
@@ -554,18 +554,18 @@ func registerResourcesKernelMemoryTCP(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	kernelMemoryTcpDescription := `Hard limit for kernel TCP buffer memory (in bytes).`
+	KernelMemoryTCPDescription := `Hard limit for kernel TCP buffer memory (in bytes).`
 
-	var kernelMemoryTcpFlagName string
+	var KernelMemoryTCPFlagName string
 	if cmdPrefix == "" {
-		kernelMemoryTcpFlagName = "KernelMemoryTCP"
+		KernelMemoryTCPFlagName = "KernelMemoryTCP"
 	} else {
-		kernelMemoryTcpFlagName = fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
+		KernelMemoryTCPFlagName = fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
 	}
 
-	var kernelMemoryTcpFlagDefault int64
+	var KernelMemoryTCPFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(kernelMemoryTcpFlagName, kernelMemoryTcpFlagDefault, kernelMemoryTcpDescription)
+	_ = cmd.PersistentFlags().Int64(KernelMemoryTCPFlagName, KernelMemoryTCPFlagDefault, KernelMemoryTCPDescription)
 
 	return nil
 }
@@ -575,18 +575,18 @@ func registerResourcesMemory(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	memoryDescription := `Memory limit in bytes.`
+	MemoryDescription := `Memory limit in bytes.`
 
-	var memoryFlagName string
+	var MemoryFlagName string
 	if cmdPrefix == "" {
-		memoryFlagName = "Memory"
+		MemoryFlagName = "Memory"
 	} else {
-		memoryFlagName = fmt.Sprintf("%v.Memory", cmdPrefix)
+		MemoryFlagName = fmt.Sprintf("%v.Memory", cmdPrefix)
 	}
 
-	var memoryFlagDefault int64
+	var MemoryFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memoryFlagName, memoryFlagDefault, memoryDescription)
+	_ = cmd.PersistentFlags().Int64(MemoryFlagName, MemoryFlagDefault, MemoryDescription)
 
 	return nil
 }
@@ -596,18 +596,18 @@ func registerResourcesMemoryReservation(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	memoryReservationDescription := `Memory soft limit in bytes.`
+	MemoryReservationDescription := `Memory soft limit in bytes.`
 
-	var memoryReservationFlagName string
+	var MemoryReservationFlagName string
 	if cmdPrefix == "" {
-		memoryReservationFlagName = "MemoryReservation"
+		MemoryReservationFlagName = "MemoryReservation"
 	} else {
-		memoryReservationFlagName = fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
+		MemoryReservationFlagName = fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
 	}
 
-	var memoryReservationFlagDefault int64
+	var MemoryReservationFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memoryReservationFlagName, memoryReservationFlagDefault, memoryReservationDescription)
+	_ = cmd.PersistentFlags().Int64(MemoryReservationFlagName, MemoryReservationFlagDefault, MemoryReservationDescription)
 
 	return nil
 }
@@ -617,18 +617,18 @@ func registerResourcesMemorySwap(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	memorySwapDescription := `Total memory limit (memory + swap). Set as ` + "`" + `-1` + "`" + ` to enable unlimited swap.`
+	MemorySwapDescription := `Total memory limit (memory + swap). Set as ` + "`" + `-1` + "`" + ` to enable unlimited swap.`
 
-	var memorySwapFlagName string
+	var MemorySwapFlagName string
 	if cmdPrefix == "" {
-		memorySwapFlagName = "MemorySwap"
+		MemorySwapFlagName = "MemorySwap"
 	} else {
-		memorySwapFlagName = fmt.Sprintf("%v.MemorySwap", cmdPrefix)
+		MemorySwapFlagName = fmt.Sprintf("%v.MemorySwap", cmdPrefix)
 	}
 
-	var memorySwapFlagDefault int64
+	var MemorySwapFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memorySwapFlagName, memorySwapFlagDefault, memorySwapDescription)
+	_ = cmd.PersistentFlags().Int64(MemorySwapFlagName, MemorySwapFlagDefault, MemorySwapDescription)
 
 	return nil
 }
@@ -638,18 +638,18 @@ func registerResourcesMemorySwappiness(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	memorySwappinessDescription := `Tune a container's memory swappiness behavior. Accepts an integer between 0 and 100.`
+	MemorySwappinessDescription := `Tune a container's memory swappiness behavior. Accepts an integer between 0 and 100.`
 
-	var memorySwappinessFlagName string
+	var MemorySwappinessFlagName string
 	if cmdPrefix == "" {
-		memorySwappinessFlagName = "MemorySwappiness"
+		MemorySwappinessFlagName = "MemorySwappiness"
 	} else {
-		memorySwappinessFlagName = fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
+		MemorySwappinessFlagName = fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
 	}
 
-	var memorySwappinessFlagDefault int64
+	var MemorySwappinessFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(memorySwappinessFlagName, memorySwappinessFlagDefault, memorySwappinessDescription)
+	_ = cmd.PersistentFlags().Int64(MemorySwappinessFlagName, MemorySwappinessFlagDefault, MemorySwappinessDescription)
 
 	return nil
 }
@@ -659,18 +659,18 @@ func registerResourcesNanoCPUs(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	nanoCPUsDescription := `CPU quota in units of 10<sup>-9</sup> CPUs.`
+	NanoCPUsDescription := `CPU quota in units of 10<sup>-9</sup> CPUs.`
 
-	var nanoCPUsFlagName string
+	var NanoCPUsFlagName string
 	if cmdPrefix == "" {
-		nanoCPUsFlagName = "NanoCPUs"
+		NanoCPUsFlagName = "NanoCPUs"
 	} else {
-		nanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
+		NanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
 	}
 
-	var nanoCPUsFlagDefault int64
+	var NanoCPUsFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(nanoCPUsFlagName, nanoCPUsFlagDefault, nanoCPUsDescription)
+	_ = cmd.PersistentFlags().Int64(NanoCPUsFlagName, NanoCPUsFlagDefault, NanoCPUsDescription)
 
 	return nil
 }
@@ -680,18 +680,18 @@ func registerResourcesOomKillDisable(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	oomKillDisableDescription := `Disable OOM Killer for the container.`
+	OomKillDisableDescription := `Disable OOM Killer for the container.`
 
-	var oomKillDisableFlagName string
+	var OomKillDisableFlagName string
 	if cmdPrefix == "" {
-		oomKillDisableFlagName = "OomKillDisable"
+		OomKillDisableFlagName = "OomKillDisable"
 	} else {
-		oomKillDisableFlagName = fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
+		OomKillDisableFlagName = fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
 	}
 
-	var oomKillDisableFlagDefault bool
+	var OomKillDisableFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(oomKillDisableFlagName, oomKillDisableFlagDefault, oomKillDisableDescription)
+	_ = cmd.PersistentFlags().Bool(OomKillDisableFlagName, OomKillDisableFlagDefault, OomKillDisableDescription)
 
 	return nil
 }
@@ -701,19 +701,19 @@ func registerResourcesPidsLimit(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	pidsLimitDescription := `Tune a container's PIDs limit. Set ` + "`" + `0` + "`" + ` or ` + "`" + `-1` + "`" + ` for unlimited, or ` + "`" + `null` + "`" + ` to not change.
+	PidsLimitDescription := `Tune a container's PIDs limit. Set ` + "`" + `0` + "`" + ` or ` + "`" + `-1` + "`" + ` for unlimited, or ` + "`" + `null` + "`" + ` to not change.
 `
 
-	var pidsLimitFlagName string
+	var PidsLimitFlagName string
 	if cmdPrefix == "" {
-		pidsLimitFlagName = "PidsLimit"
+		PidsLimitFlagName = "PidsLimit"
 	} else {
-		pidsLimitFlagName = fmt.Sprintf("%v.PidsLimit", cmdPrefix)
+		PidsLimitFlagName = fmt.Sprintf("%v.PidsLimit", cmdPrefix)
 	}
 
-	var pidsLimitFlagDefault int64
+	var PidsLimitFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(pidsLimitFlagName, pidsLimitFlagDefault, pidsLimitDescription)
+	_ = cmd.PersistentFlags().Int64(PidsLimitFlagName, PidsLimitFlagDefault, PidsLimitDescription)
 
 	return nil
 }
@@ -732,197 +732,197 @@ func registerResourcesUlimits(depth int, cmdPrefix string, cmd *cobra.Command) e
 func retrieveModelResourcesFlags(depth int, m *models.Resources, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, blkioDeviceReadBpsAdded := retrieveResourcesBlkioDeviceReadBpsFlags(depth, m, cmdPrefix, cmd)
+	err, BlkioDeviceReadBpsAdded := retrieveResourcesBlkioDeviceReadBpsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || blkioDeviceReadBpsAdded
+	retAdded = retAdded || BlkioDeviceReadBpsAdded
 
-	err, blkioDeviceReadIOpsAdded := retrieveResourcesBlkioDeviceReadIOpsFlags(depth, m, cmdPrefix, cmd)
+	err, BlkioDeviceReadIOpsAdded := retrieveResourcesBlkioDeviceReadIOpsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || blkioDeviceReadIOpsAdded
+	retAdded = retAdded || BlkioDeviceReadIOpsAdded
 
-	err, blkioDeviceWriteBpsAdded := retrieveResourcesBlkioDeviceWriteBpsFlags(depth, m, cmdPrefix, cmd)
+	err, BlkioDeviceWriteBpsAdded := retrieveResourcesBlkioDeviceWriteBpsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || blkioDeviceWriteBpsAdded
+	retAdded = retAdded || BlkioDeviceWriteBpsAdded
 
-	err, blkioDeviceWriteIOpsAdded := retrieveResourcesBlkioDeviceWriteIOpsFlags(depth, m, cmdPrefix, cmd)
+	err, BlkioDeviceWriteIOpsAdded := retrieveResourcesBlkioDeviceWriteIOpsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || blkioDeviceWriteIOpsAdded
+	retAdded = retAdded || BlkioDeviceWriteIOpsAdded
 
-	err, blkioWeightAdded := retrieveResourcesBlkioWeightFlags(depth, m, cmdPrefix, cmd)
+	err, BlkioWeightAdded := retrieveResourcesBlkioWeightFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || blkioWeightAdded
+	retAdded = retAdded || BlkioWeightAdded
 
-	err, blkioWeightDeviceAdded := retrieveResourcesBlkioWeightDeviceFlags(depth, m, cmdPrefix, cmd)
+	err, BlkioWeightDeviceAdded := retrieveResourcesBlkioWeightDeviceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || blkioWeightDeviceAdded
+	retAdded = retAdded || BlkioWeightDeviceAdded
 
-	err, cgroupParentAdded := retrieveResourcesCgroupParentFlags(depth, m, cmdPrefix, cmd)
+	err, CgroupParentAdded := retrieveResourcesCgroupParentFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cgroupParentAdded
+	retAdded = retAdded || CgroupParentAdded
 
-	err, cpuCountAdded := retrieveResourcesCPUCountFlags(depth, m, cmdPrefix, cmd)
+	err, CPUCountAdded := retrieveResourcesCPUCountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuCountAdded
+	retAdded = retAdded || CPUCountAdded
 
-	err, cpuPercentAdded := retrieveResourcesCPUPercentFlags(depth, m, cmdPrefix, cmd)
+	err, CPUPercentAdded := retrieveResourcesCPUPercentFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuPercentAdded
+	retAdded = retAdded || CPUPercentAdded
 
-	err, cpuPeriodAdded := retrieveResourcesCPUPeriodFlags(depth, m, cmdPrefix, cmd)
+	err, CPUPeriodAdded := retrieveResourcesCPUPeriodFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuPeriodAdded
+	retAdded = retAdded || CPUPeriodAdded
 
-	err, cpuQuotaAdded := retrieveResourcesCPUQuotaFlags(depth, m, cmdPrefix, cmd)
+	err, CPUQuotaAdded := retrieveResourcesCPUQuotaFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuQuotaAdded
+	retAdded = retAdded || CPUQuotaAdded
 
-	err, cpuRealtimePeriodAdded := retrieveResourcesCPURealtimePeriodFlags(depth, m, cmdPrefix, cmd)
+	err, CPURealtimePeriodAdded := retrieveResourcesCPURealtimePeriodFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuRealtimePeriodAdded
+	retAdded = retAdded || CPURealtimePeriodAdded
 
-	err, cpuRealtimeRuntimeAdded := retrieveResourcesCPURealtimeRuntimeFlags(depth, m, cmdPrefix, cmd)
+	err, CPURealtimeRuntimeAdded := retrieveResourcesCPURealtimeRuntimeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuRealtimeRuntimeAdded
+	retAdded = retAdded || CPURealtimeRuntimeAdded
 
-	err, cpuSharesAdded := retrieveResourcesCPUSharesFlags(depth, m, cmdPrefix, cmd)
+	err, CPUSharesAdded := retrieveResourcesCPUSharesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpuSharesAdded
+	retAdded = retAdded || CPUSharesAdded
 
-	err, cpusetCpusAdded := retrieveResourcesCpusetCpusFlags(depth, m, cmdPrefix, cmd)
+	err, CpusetCpusAdded := retrieveResourcesCpusetCpusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpusetCpusAdded
+	retAdded = retAdded || CpusetCpusAdded
 
-	err, cpusetMemsAdded := retrieveResourcesCpusetMemsFlags(depth, m, cmdPrefix, cmd)
+	err, CpusetMemsAdded := retrieveResourcesCpusetMemsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cpusetMemsAdded
+	retAdded = retAdded || CpusetMemsAdded
 
-	err, deviceCgroupRulesAdded := retrieveResourcesDeviceCgroupRulesFlags(depth, m, cmdPrefix, cmd)
+	err, DeviceCgroupRulesAdded := retrieveResourcesDeviceCgroupRulesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || deviceCgroupRulesAdded
+	retAdded = retAdded || DeviceCgroupRulesAdded
 
-	err, deviceRequestsAdded := retrieveResourcesDeviceRequestsFlags(depth, m, cmdPrefix, cmd)
+	err, DeviceRequestsAdded := retrieveResourcesDeviceRequestsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || deviceRequestsAdded
+	retAdded = retAdded || DeviceRequestsAdded
 
-	err, devicesAdded := retrieveResourcesDevicesFlags(depth, m, cmdPrefix, cmd)
+	err, DevicesAdded := retrieveResourcesDevicesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || devicesAdded
+	retAdded = retAdded || DevicesAdded
 
-	err, iOMaximumBandwidthAdded := retrieveResourcesIOMaximumBandwidthFlags(depth, m, cmdPrefix, cmd)
+	err, IOMaximumBandwidthAdded := retrieveResourcesIOMaximumBandwidthFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || iOMaximumBandwidthAdded
+	retAdded = retAdded || IOMaximumBandwidthAdded
 
-	err, iOMaximumIOpsAdded := retrieveResourcesIOMaximumIOpsFlags(depth, m, cmdPrefix, cmd)
+	err, IOMaximumIOpsAdded := retrieveResourcesIOMaximumIOpsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || iOMaximumIOpsAdded
+	retAdded = retAdded || IOMaximumIOpsAdded
 
-	err, initAdded := retrieveResourcesInitFlags(depth, m, cmdPrefix, cmd)
+	err, InitAdded := retrieveResourcesInitFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || initAdded
+	retAdded = retAdded || InitAdded
 
-	err, kernelMemoryAdded := retrieveResourcesKernelMemoryFlags(depth, m, cmdPrefix, cmd)
+	err, KernelMemoryAdded := retrieveResourcesKernelMemoryFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || kernelMemoryAdded
+	retAdded = retAdded || KernelMemoryAdded
 
-	err, kernelMemoryTcpAdded := retrieveResourcesKernelMemoryTCPFlags(depth, m, cmdPrefix, cmd)
+	err, KernelMemoryTCPAdded := retrieveResourcesKernelMemoryTCPFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || kernelMemoryTcpAdded
+	retAdded = retAdded || KernelMemoryTCPAdded
 
-	err, memoryAdded := retrieveResourcesMemoryFlags(depth, m, cmdPrefix, cmd)
+	err, MemoryAdded := retrieveResourcesMemoryFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || memoryAdded
+	retAdded = retAdded || MemoryAdded
 
-	err, memoryReservationAdded := retrieveResourcesMemoryReservationFlags(depth, m, cmdPrefix, cmd)
+	err, MemoryReservationAdded := retrieveResourcesMemoryReservationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || memoryReservationAdded
+	retAdded = retAdded || MemoryReservationAdded
 
-	err, memorySwapAdded := retrieveResourcesMemorySwapFlags(depth, m, cmdPrefix, cmd)
+	err, MemorySwapAdded := retrieveResourcesMemorySwapFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || memorySwapAdded
+	retAdded = retAdded || MemorySwapAdded
 
-	err, memorySwappinessAdded := retrieveResourcesMemorySwappinessFlags(depth, m, cmdPrefix, cmd)
+	err, MemorySwappinessAdded := retrieveResourcesMemorySwappinessFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || memorySwappinessAdded
+	retAdded = retAdded || MemorySwappinessAdded
 
-	err, nanoCPUsAdded := retrieveResourcesNanoCPUsFlags(depth, m, cmdPrefix, cmd)
+	err, NanoCPUsAdded := retrieveResourcesNanoCPUsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nanoCPUsAdded
+	retAdded = retAdded || NanoCPUsAdded
 
-	err, oomKillDisableAdded := retrieveResourcesOomKillDisableFlags(depth, m, cmdPrefix, cmd)
+	err, OomKillDisableAdded := retrieveResourcesOomKillDisableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || oomKillDisableAdded
+	retAdded = retAdded || OomKillDisableAdded
 
-	err, pidsLimitAdded := retrieveResourcesPidsLimitFlags(depth, m, cmdPrefix, cmd)
+	err, PidsLimitAdded := retrieveResourcesPidsLimitFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pidsLimitAdded
+	retAdded = retAdded || PidsLimitAdded
 
-	err, ulimitsAdded := retrieveResourcesUlimitsFlags(depth, m, cmdPrefix, cmd)
+	err, UlimitsAdded := retrieveResourcesUlimitsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ulimitsAdded
+	retAdded = retAdded || UlimitsAdded
 
 	return nil, retAdded
 }
@@ -933,8 +933,8 @@ func retrieveResourcesBlkioDeviceReadBpsFlags(depth int, m *models.Resources, cm
 	}
 	retAdded := false
 
-	blkioDeviceReadBpsFlagName := fmt.Sprintf("%v.BlkioDeviceReadBps", cmdPrefix)
-	if cmd.Flags().Changed(blkioDeviceReadBpsFlagName) {
+	BlkioDeviceReadBpsFlagName := fmt.Sprintf("%v.BlkioDeviceReadBps", cmdPrefix)
+	if cmd.Flags().Changed(BlkioDeviceReadBpsFlagName) {
 		// warning: BlkioDeviceReadBps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
 
@@ -947,8 +947,8 @@ func retrieveResourcesBlkioDeviceReadIOpsFlags(depth int, m *models.Resources, c
 	}
 	retAdded := false
 
-	blkioDeviceReadIOpsFlagName := fmt.Sprintf("%v.BlkioDeviceReadIOps", cmdPrefix)
-	if cmd.Flags().Changed(blkioDeviceReadIOpsFlagName) {
+	BlkioDeviceReadIOpsFlagName := fmt.Sprintf("%v.BlkioDeviceReadIOps", cmdPrefix)
+	if cmd.Flags().Changed(BlkioDeviceReadIOpsFlagName) {
 		// warning: BlkioDeviceReadIOps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
 
@@ -961,8 +961,8 @@ func retrieveResourcesBlkioDeviceWriteBpsFlags(depth int, m *models.Resources, c
 	}
 	retAdded := false
 
-	blkioDeviceWriteBpsFlagName := fmt.Sprintf("%v.BlkioDeviceWriteBps", cmdPrefix)
-	if cmd.Flags().Changed(blkioDeviceWriteBpsFlagName) {
+	BlkioDeviceWriteBpsFlagName := fmt.Sprintf("%v.BlkioDeviceWriteBps", cmdPrefix)
+	if cmd.Flags().Changed(BlkioDeviceWriteBpsFlagName) {
 		// warning: BlkioDeviceWriteBps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
 
@@ -975,8 +975,8 @@ func retrieveResourcesBlkioDeviceWriteIOpsFlags(depth int, m *models.Resources, 
 	}
 	retAdded := false
 
-	blkioDeviceWriteIOpsFlagName := fmt.Sprintf("%v.BlkioDeviceWriteIOps", cmdPrefix)
-	if cmd.Flags().Changed(blkioDeviceWriteIOpsFlagName) {
+	BlkioDeviceWriteIOpsFlagName := fmt.Sprintf("%v.BlkioDeviceWriteIOps", cmdPrefix)
+	if cmd.Flags().Changed(BlkioDeviceWriteIOpsFlagName) {
 		// warning: BlkioDeviceWriteIOps array type []*ThrottleDevice is not supported by go-swagger cli yet
 	}
 
@@ -989,21 +989,21 @@ func retrieveResourcesBlkioWeightFlags(depth int, m *models.Resources, cmdPrefix
 	}
 	retAdded := false
 
-	blkioWeightFlagName := fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
-	if cmd.Flags().Changed(blkioWeightFlagName) {
+	BlkioWeightFlagName := fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
+	if cmd.Flags().Changed(BlkioWeightFlagName) {
 
-		var blkioWeightFlagName string
+		var BlkioWeightFlagName string
 		if cmdPrefix == "" {
-			blkioWeightFlagName = "BlkioWeight"
+			BlkioWeightFlagName = "BlkioWeight"
 		} else {
-			blkioWeightFlagName = fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
+			BlkioWeightFlagName = fmt.Sprintf("%v.BlkioWeight", cmdPrefix)
 		}
 
-		blkioWeightFlagValue, err := cmd.Flags().GetInt64(blkioWeightFlagName)
+		BlkioWeightFlagValue, err := cmd.Flags().GetInt64(BlkioWeightFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.BlkioWeight = &blkioWeightFlagValue
+		m.BlkioWeight = &BlkioWeightFlagValue
 
 		retAdded = true
 	}
@@ -1017,8 +1017,8 @@ func retrieveResourcesBlkioWeightDeviceFlags(depth int, m *models.Resources, cmd
 	}
 	retAdded := false
 
-	blkioWeightDeviceFlagName := fmt.Sprintf("%v.BlkioWeightDevice", cmdPrefix)
-	if cmd.Flags().Changed(blkioWeightDeviceFlagName) {
+	BlkioWeightDeviceFlagName := fmt.Sprintf("%v.BlkioWeightDevice", cmdPrefix)
+	if cmd.Flags().Changed(BlkioWeightDeviceFlagName) {
 		// warning: BlkioWeightDevice array type []*ResourcesBlkioWeightDeviceItems0 is not supported by go-swagger cli yet
 	}
 
@@ -1031,21 +1031,21 @@ func retrieveResourcesCgroupParentFlags(depth int, m *models.Resources, cmdPrefi
 	}
 	retAdded := false
 
-	cgroupParentFlagName := fmt.Sprintf("%v.CgroupParent", cmdPrefix)
-	if cmd.Flags().Changed(cgroupParentFlagName) {
+	CgroupParentFlagName := fmt.Sprintf("%v.CgroupParent", cmdPrefix)
+	if cmd.Flags().Changed(CgroupParentFlagName) {
 
-		var cgroupParentFlagName string
+		var CgroupParentFlagName string
 		if cmdPrefix == "" {
-			cgroupParentFlagName = "CgroupParent"
+			CgroupParentFlagName = "CgroupParent"
 		} else {
-			cgroupParentFlagName = fmt.Sprintf("%v.CgroupParent", cmdPrefix)
+			CgroupParentFlagName = fmt.Sprintf("%v.CgroupParent", cmdPrefix)
 		}
 
-		cgroupParentFlagValue, err := cmd.Flags().GetString(cgroupParentFlagName)
+		CgroupParentFlagValue, err := cmd.Flags().GetString(CgroupParentFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CgroupParent = cgroupParentFlagValue
+		m.CgroupParent = CgroupParentFlagValue
 
 		retAdded = true
 	}
@@ -1059,21 +1059,21 @@ func retrieveResourcesCPUCountFlags(depth int, m *models.Resources, cmdPrefix st
 	}
 	retAdded := false
 
-	cpuCountFlagName := fmt.Sprintf("%v.CpuCount", cmdPrefix)
-	if cmd.Flags().Changed(cpuCountFlagName) {
+	CPUCountFlagName := fmt.Sprintf("%v.CpuCount", cmdPrefix)
+	if cmd.Flags().Changed(CPUCountFlagName) {
 
-		var cpuCountFlagName string
+		var CPUCountFlagName string
 		if cmdPrefix == "" {
-			cpuCountFlagName = "CpuCount"
+			CPUCountFlagName = "CpuCount"
 		} else {
-			cpuCountFlagName = fmt.Sprintf("%v.CpuCount", cmdPrefix)
+			CPUCountFlagName = fmt.Sprintf("%v.CpuCount", cmdPrefix)
 		}
 
-		cpuCountFlagValue, err := cmd.Flags().GetInt64(cpuCountFlagName)
+		CPUCountFlagValue, err := cmd.Flags().GetInt64(CPUCountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPUCount = cpuCountFlagValue
+		m.CPUCount = CPUCountFlagValue
 
 		retAdded = true
 	}
@@ -1087,21 +1087,21 @@ func retrieveResourcesCPUPercentFlags(depth int, m *models.Resources, cmdPrefix 
 	}
 	retAdded := false
 
-	cpuPercentFlagName := fmt.Sprintf("%v.CpuPercent", cmdPrefix)
-	if cmd.Flags().Changed(cpuPercentFlagName) {
+	CPUPercentFlagName := fmt.Sprintf("%v.CpuPercent", cmdPrefix)
+	if cmd.Flags().Changed(CPUPercentFlagName) {
 
-		var cpuPercentFlagName string
+		var CPUPercentFlagName string
 		if cmdPrefix == "" {
-			cpuPercentFlagName = "CpuPercent"
+			CPUPercentFlagName = "CpuPercent"
 		} else {
-			cpuPercentFlagName = fmt.Sprintf("%v.CpuPercent", cmdPrefix)
+			CPUPercentFlagName = fmt.Sprintf("%v.CpuPercent", cmdPrefix)
 		}
 
-		cpuPercentFlagValue, err := cmd.Flags().GetInt64(cpuPercentFlagName)
+		CPUPercentFlagValue, err := cmd.Flags().GetInt64(CPUPercentFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPUPercent = cpuPercentFlagValue
+		m.CPUPercent = CPUPercentFlagValue
 
 		retAdded = true
 	}
@@ -1115,21 +1115,21 @@ func retrieveResourcesCPUPeriodFlags(depth int, m *models.Resources, cmdPrefix s
 	}
 	retAdded := false
 
-	cpuPeriodFlagName := fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
-	if cmd.Flags().Changed(cpuPeriodFlagName) {
+	CPUPeriodFlagName := fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
+	if cmd.Flags().Changed(CPUPeriodFlagName) {
 
-		var cpuPeriodFlagName string
+		var CPUPeriodFlagName string
 		if cmdPrefix == "" {
-			cpuPeriodFlagName = "CpuPeriod"
+			CPUPeriodFlagName = "CpuPeriod"
 		} else {
-			cpuPeriodFlagName = fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
+			CPUPeriodFlagName = fmt.Sprintf("%v.CpuPeriod", cmdPrefix)
 		}
 
-		cpuPeriodFlagValue, err := cmd.Flags().GetInt64(cpuPeriodFlagName)
+		CPUPeriodFlagValue, err := cmd.Flags().GetInt64(CPUPeriodFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPUPeriod = cpuPeriodFlagValue
+		m.CPUPeriod = CPUPeriodFlagValue
 
 		retAdded = true
 	}
@@ -1143,21 +1143,21 @@ func retrieveResourcesCPUQuotaFlags(depth int, m *models.Resources, cmdPrefix st
 	}
 	retAdded := false
 
-	cpuQuotaFlagName := fmt.Sprintf("%v.CpuQuota", cmdPrefix)
-	if cmd.Flags().Changed(cpuQuotaFlagName) {
+	CPUQuotaFlagName := fmt.Sprintf("%v.CpuQuota", cmdPrefix)
+	if cmd.Flags().Changed(CPUQuotaFlagName) {
 
-		var cpuQuotaFlagName string
+		var CPUQuotaFlagName string
 		if cmdPrefix == "" {
-			cpuQuotaFlagName = "CpuQuota"
+			CPUQuotaFlagName = "CpuQuota"
 		} else {
-			cpuQuotaFlagName = fmt.Sprintf("%v.CpuQuota", cmdPrefix)
+			CPUQuotaFlagName = fmt.Sprintf("%v.CpuQuota", cmdPrefix)
 		}
 
-		cpuQuotaFlagValue, err := cmd.Flags().GetInt64(cpuQuotaFlagName)
+		CPUQuotaFlagValue, err := cmd.Flags().GetInt64(CPUQuotaFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPUQuota = cpuQuotaFlagValue
+		m.CPUQuota = CPUQuotaFlagValue
 
 		retAdded = true
 	}
@@ -1171,21 +1171,21 @@ func retrieveResourcesCPURealtimePeriodFlags(depth int, m *models.Resources, cmd
 	}
 	retAdded := false
 
-	cpuRealtimePeriodFlagName := fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
-	if cmd.Flags().Changed(cpuRealtimePeriodFlagName) {
+	CPURealtimePeriodFlagName := fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
+	if cmd.Flags().Changed(CPURealtimePeriodFlagName) {
 
-		var cpuRealtimePeriodFlagName string
+		var CPURealtimePeriodFlagName string
 		if cmdPrefix == "" {
-			cpuRealtimePeriodFlagName = "CpuRealtimePeriod"
+			CPURealtimePeriodFlagName = "CpuRealtimePeriod"
 		} else {
-			cpuRealtimePeriodFlagName = fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
+			CPURealtimePeriodFlagName = fmt.Sprintf("%v.CpuRealtimePeriod", cmdPrefix)
 		}
 
-		cpuRealtimePeriodFlagValue, err := cmd.Flags().GetInt64(cpuRealtimePeriodFlagName)
+		CPURealtimePeriodFlagValue, err := cmd.Flags().GetInt64(CPURealtimePeriodFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPURealtimePeriod = cpuRealtimePeriodFlagValue
+		m.CPURealtimePeriod = CPURealtimePeriodFlagValue
 
 		retAdded = true
 	}
@@ -1199,21 +1199,21 @@ func retrieveResourcesCPURealtimeRuntimeFlags(depth int, m *models.Resources, cm
 	}
 	retAdded := false
 
-	cpuRealtimeRuntimeFlagName := fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
-	if cmd.Flags().Changed(cpuRealtimeRuntimeFlagName) {
+	CPURealtimeRuntimeFlagName := fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
+	if cmd.Flags().Changed(CPURealtimeRuntimeFlagName) {
 
-		var cpuRealtimeRuntimeFlagName string
+		var CPURealtimeRuntimeFlagName string
 		if cmdPrefix == "" {
-			cpuRealtimeRuntimeFlagName = "CpuRealtimeRuntime"
+			CPURealtimeRuntimeFlagName = "CpuRealtimeRuntime"
 		} else {
-			cpuRealtimeRuntimeFlagName = fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
+			CPURealtimeRuntimeFlagName = fmt.Sprintf("%v.CpuRealtimeRuntime", cmdPrefix)
 		}
 
-		cpuRealtimeRuntimeFlagValue, err := cmd.Flags().GetInt64(cpuRealtimeRuntimeFlagName)
+		CPURealtimeRuntimeFlagValue, err := cmd.Flags().GetInt64(CPURealtimeRuntimeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPURealtimeRuntime = cpuRealtimeRuntimeFlagValue
+		m.CPURealtimeRuntime = CPURealtimeRuntimeFlagValue
 
 		retAdded = true
 	}
@@ -1227,21 +1227,21 @@ func retrieveResourcesCPUSharesFlags(depth int, m *models.Resources, cmdPrefix s
 	}
 	retAdded := false
 
-	cpuSharesFlagName := fmt.Sprintf("%v.CpuShares", cmdPrefix)
-	if cmd.Flags().Changed(cpuSharesFlagName) {
+	CPUSharesFlagName := fmt.Sprintf("%v.CpuShares", cmdPrefix)
+	if cmd.Flags().Changed(CPUSharesFlagName) {
 
-		var cpuSharesFlagName string
+		var CPUSharesFlagName string
 		if cmdPrefix == "" {
-			cpuSharesFlagName = "CpuShares"
+			CPUSharesFlagName = "CpuShares"
 		} else {
-			cpuSharesFlagName = fmt.Sprintf("%v.CpuShares", cmdPrefix)
+			CPUSharesFlagName = fmt.Sprintf("%v.CpuShares", cmdPrefix)
 		}
 
-		cpuSharesFlagValue, err := cmd.Flags().GetInt64(cpuSharesFlagName)
+		CPUSharesFlagValue, err := cmd.Flags().GetInt64(CPUSharesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CPUShares = cpuSharesFlagValue
+		m.CPUShares = CPUSharesFlagValue
 
 		retAdded = true
 	}
@@ -1255,21 +1255,21 @@ func retrieveResourcesCpusetCpusFlags(depth int, m *models.Resources, cmdPrefix 
 	}
 	retAdded := false
 
-	cpusetCpusFlagName := fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
-	if cmd.Flags().Changed(cpusetCpusFlagName) {
+	CpusetCpusFlagName := fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
+	if cmd.Flags().Changed(CpusetCpusFlagName) {
 
-		var cpusetCpusFlagName string
+		var CpusetCpusFlagName string
 		if cmdPrefix == "" {
-			cpusetCpusFlagName = "CpusetCpus"
+			CpusetCpusFlagName = "CpusetCpus"
 		} else {
-			cpusetCpusFlagName = fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
+			CpusetCpusFlagName = fmt.Sprintf("%v.CpusetCpus", cmdPrefix)
 		}
 
-		cpusetCpusFlagValue, err := cmd.Flags().GetString(cpusetCpusFlagName)
+		CpusetCpusFlagValue, err := cmd.Flags().GetString(CpusetCpusFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CpusetCpus = cpusetCpusFlagValue
+		m.CpusetCpus = CpusetCpusFlagValue
 
 		retAdded = true
 	}
@@ -1283,21 +1283,21 @@ func retrieveResourcesCpusetMemsFlags(depth int, m *models.Resources, cmdPrefix 
 	}
 	retAdded := false
 
-	cpusetMemsFlagName := fmt.Sprintf("%v.CpusetMems", cmdPrefix)
-	if cmd.Flags().Changed(cpusetMemsFlagName) {
+	CpusetMemsFlagName := fmt.Sprintf("%v.CpusetMems", cmdPrefix)
+	if cmd.Flags().Changed(CpusetMemsFlagName) {
 
-		var cpusetMemsFlagName string
+		var CpusetMemsFlagName string
 		if cmdPrefix == "" {
-			cpusetMemsFlagName = "CpusetMems"
+			CpusetMemsFlagName = "CpusetMems"
 		} else {
-			cpusetMemsFlagName = fmt.Sprintf("%v.CpusetMems", cmdPrefix)
+			CpusetMemsFlagName = fmt.Sprintf("%v.CpusetMems", cmdPrefix)
 		}
 
-		cpusetMemsFlagValue, err := cmd.Flags().GetString(cpusetMemsFlagName)
+		CpusetMemsFlagValue, err := cmd.Flags().GetString(CpusetMemsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CpusetMems = cpusetMemsFlagValue
+		m.CpusetMems = CpusetMemsFlagValue
 
 		retAdded = true
 	}
@@ -1311,8 +1311,8 @@ func retrieveResourcesDeviceCgroupRulesFlags(depth int, m *models.Resources, cmd
 	}
 	retAdded := false
 
-	deviceCgroupRulesFlagName := fmt.Sprintf("%v.DeviceCgroupRules", cmdPrefix)
-	if cmd.Flags().Changed(deviceCgroupRulesFlagName) {
+	DeviceCgroupRulesFlagName := fmt.Sprintf("%v.DeviceCgroupRules", cmdPrefix)
+	if cmd.Flags().Changed(DeviceCgroupRulesFlagName) {
 		// warning: DeviceCgroupRules array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1325,8 +1325,8 @@ func retrieveResourcesDeviceRequestsFlags(depth int, m *models.Resources, cmdPre
 	}
 	retAdded := false
 
-	deviceRequestsFlagName := fmt.Sprintf("%v.DeviceRequests", cmdPrefix)
-	if cmd.Flags().Changed(deviceRequestsFlagName) {
+	DeviceRequestsFlagName := fmt.Sprintf("%v.DeviceRequests", cmdPrefix)
+	if cmd.Flags().Changed(DeviceRequestsFlagName) {
 		// warning: DeviceRequests array type []*DeviceRequest is not supported by go-swagger cli yet
 	}
 
@@ -1339,8 +1339,8 @@ func retrieveResourcesDevicesFlags(depth int, m *models.Resources, cmdPrefix str
 	}
 	retAdded := false
 
-	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
-	if cmd.Flags().Changed(devicesFlagName) {
+	DevicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
+	if cmd.Flags().Changed(DevicesFlagName) {
 		// warning: Devices array type []*DeviceMapping is not supported by go-swagger cli yet
 	}
 
@@ -1353,21 +1353,21 @@ func retrieveResourcesIOMaximumBandwidthFlags(depth int, m *models.Resources, cm
 	}
 	retAdded := false
 
-	iOMaximumBandwidthFlagName := fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
-	if cmd.Flags().Changed(iOMaximumBandwidthFlagName) {
+	IOMaximumBandwidthFlagName := fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
+	if cmd.Flags().Changed(IOMaximumBandwidthFlagName) {
 
-		var iOMaximumBandwidthFlagName string
+		var IOMaximumBandwidthFlagName string
 		if cmdPrefix == "" {
-			iOMaximumBandwidthFlagName = "IOMaximumBandwidth"
+			IOMaximumBandwidthFlagName = "IOMaximumBandwidth"
 		} else {
-			iOMaximumBandwidthFlagName = fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
+			IOMaximumBandwidthFlagName = fmt.Sprintf("%v.IOMaximumBandwidth", cmdPrefix)
 		}
 
-		iOMaximumBandwidthFlagValue, err := cmd.Flags().GetInt64(iOMaximumBandwidthFlagName)
+		IOMaximumBandwidthFlagValue, err := cmd.Flags().GetInt64(IOMaximumBandwidthFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IOMaximumBandwidth = iOMaximumBandwidthFlagValue
+		m.IOMaximumBandwidth = IOMaximumBandwidthFlagValue
 
 		retAdded = true
 	}
@@ -1381,21 +1381,21 @@ func retrieveResourcesIOMaximumIOpsFlags(depth int, m *models.Resources, cmdPref
 	}
 	retAdded := false
 
-	iOMaximumIOpsFlagName := fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
-	if cmd.Flags().Changed(iOMaximumIOpsFlagName) {
+	IOMaximumIOpsFlagName := fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
+	if cmd.Flags().Changed(IOMaximumIOpsFlagName) {
 
-		var iOMaximumIOpsFlagName string
+		var IOMaximumIOpsFlagName string
 		if cmdPrefix == "" {
-			iOMaximumIOpsFlagName = "IOMaximumIOps"
+			IOMaximumIOpsFlagName = "IOMaximumIOps"
 		} else {
-			iOMaximumIOpsFlagName = fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
+			IOMaximumIOpsFlagName = fmt.Sprintf("%v.IOMaximumIOps", cmdPrefix)
 		}
 
-		iOMaximumIOpsFlagValue, err := cmd.Flags().GetInt64(iOMaximumIOpsFlagName)
+		IOMaximumIOpsFlagValue, err := cmd.Flags().GetInt64(IOMaximumIOpsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IOMaximumIOps = iOMaximumIOpsFlagValue
+		m.IOMaximumIOps = IOMaximumIOpsFlagValue
 
 		retAdded = true
 	}
@@ -1409,21 +1409,21 @@ func retrieveResourcesInitFlags(depth int, m *models.Resources, cmdPrefix string
 	}
 	retAdded := false
 
-	initFlagName := fmt.Sprintf("%v.Init", cmdPrefix)
-	if cmd.Flags().Changed(initFlagName) {
+	InitFlagName := fmt.Sprintf("%v.Init", cmdPrefix)
+	if cmd.Flags().Changed(InitFlagName) {
 
-		var initFlagName string
+		var InitFlagName string
 		if cmdPrefix == "" {
-			initFlagName = "Init"
+			InitFlagName = "Init"
 		} else {
-			initFlagName = fmt.Sprintf("%v.Init", cmdPrefix)
+			InitFlagName = fmt.Sprintf("%v.Init", cmdPrefix)
 		}
 
-		initFlagValue, err := cmd.Flags().GetBool(initFlagName)
+		InitFlagValue, err := cmd.Flags().GetBool(InitFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Init = &initFlagValue
+		m.Init = &InitFlagValue
 
 		retAdded = true
 	}
@@ -1437,21 +1437,21 @@ func retrieveResourcesKernelMemoryFlags(depth int, m *models.Resources, cmdPrefi
 	}
 	retAdded := false
 
-	kernelMemoryFlagName := fmt.Sprintf("%v.KernelMemory", cmdPrefix)
-	if cmd.Flags().Changed(kernelMemoryFlagName) {
+	KernelMemoryFlagName := fmt.Sprintf("%v.KernelMemory", cmdPrefix)
+	if cmd.Flags().Changed(KernelMemoryFlagName) {
 
-		var kernelMemoryFlagName string
+		var KernelMemoryFlagName string
 		if cmdPrefix == "" {
-			kernelMemoryFlagName = "KernelMemory"
+			KernelMemoryFlagName = "KernelMemory"
 		} else {
-			kernelMemoryFlagName = fmt.Sprintf("%v.KernelMemory", cmdPrefix)
+			KernelMemoryFlagName = fmt.Sprintf("%v.KernelMemory", cmdPrefix)
 		}
 
-		kernelMemoryFlagValue, err := cmd.Flags().GetInt64(kernelMemoryFlagName)
+		KernelMemoryFlagValue, err := cmd.Flags().GetInt64(KernelMemoryFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.KernelMemory = kernelMemoryFlagValue
+		m.KernelMemory = KernelMemoryFlagValue
 
 		retAdded = true
 	}
@@ -1465,21 +1465,21 @@ func retrieveResourcesKernelMemoryTCPFlags(depth int, m *models.Resources, cmdPr
 	}
 	retAdded := false
 
-	kernelMemoryTcpFlagName := fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
-	if cmd.Flags().Changed(kernelMemoryTcpFlagName) {
+	KernelMemoryTCPFlagName := fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
+	if cmd.Flags().Changed(KernelMemoryTCPFlagName) {
 
-		var kernelMemoryTcpFlagName string
+		var KernelMemoryTCPFlagName string
 		if cmdPrefix == "" {
-			kernelMemoryTcpFlagName = "KernelMemoryTCP"
+			KernelMemoryTCPFlagName = "KernelMemoryTCP"
 		} else {
-			kernelMemoryTcpFlagName = fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
+			KernelMemoryTCPFlagName = fmt.Sprintf("%v.KernelMemoryTCP", cmdPrefix)
 		}
 
-		kernelMemoryTcpFlagValue, err := cmd.Flags().GetInt64(kernelMemoryTcpFlagName)
+		KernelMemoryTCPFlagValue, err := cmd.Flags().GetInt64(KernelMemoryTCPFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.KernelMemoryTCP = kernelMemoryTcpFlagValue
+		m.KernelMemoryTCP = KernelMemoryTCPFlagValue
 
 		retAdded = true
 	}
@@ -1493,21 +1493,21 @@ func retrieveResourcesMemoryFlags(depth int, m *models.Resources, cmdPrefix stri
 	}
 	retAdded := false
 
-	memoryFlagName := fmt.Sprintf("%v.Memory", cmdPrefix)
-	if cmd.Flags().Changed(memoryFlagName) {
+	MemoryFlagName := fmt.Sprintf("%v.Memory", cmdPrefix)
+	if cmd.Flags().Changed(MemoryFlagName) {
 
-		var memoryFlagName string
+		var MemoryFlagName string
 		if cmdPrefix == "" {
-			memoryFlagName = "Memory"
+			MemoryFlagName = "Memory"
 		} else {
-			memoryFlagName = fmt.Sprintf("%v.Memory", cmdPrefix)
+			MemoryFlagName = fmt.Sprintf("%v.Memory", cmdPrefix)
 		}
 
-		memoryFlagValue, err := cmd.Flags().GetInt64(memoryFlagName)
+		MemoryFlagValue, err := cmd.Flags().GetInt64(MemoryFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Memory = memoryFlagValue
+		m.Memory = MemoryFlagValue
 
 		retAdded = true
 	}
@@ -1521,21 +1521,21 @@ func retrieveResourcesMemoryReservationFlags(depth int, m *models.Resources, cmd
 	}
 	retAdded := false
 
-	memoryReservationFlagName := fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
-	if cmd.Flags().Changed(memoryReservationFlagName) {
+	MemoryReservationFlagName := fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
+	if cmd.Flags().Changed(MemoryReservationFlagName) {
 
-		var memoryReservationFlagName string
+		var MemoryReservationFlagName string
 		if cmdPrefix == "" {
-			memoryReservationFlagName = "MemoryReservation"
+			MemoryReservationFlagName = "MemoryReservation"
 		} else {
-			memoryReservationFlagName = fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
+			MemoryReservationFlagName = fmt.Sprintf("%v.MemoryReservation", cmdPrefix)
 		}
 
-		memoryReservationFlagValue, err := cmd.Flags().GetInt64(memoryReservationFlagName)
+		MemoryReservationFlagValue, err := cmd.Flags().GetInt64(MemoryReservationFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MemoryReservation = memoryReservationFlagValue
+		m.MemoryReservation = MemoryReservationFlagValue
 
 		retAdded = true
 	}
@@ -1549,21 +1549,21 @@ func retrieveResourcesMemorySwapFlags(depth int, m *models.Resources, cmdPrefix 
 	}
 	retAdded := false
 
-	memorySwapFlagName := fmt.Sprintf("%v.MemorySwap", cmdPrefix)
-	if cmd.Flags().Changed(memorySwapFlagName) {
+	MemorySwapFlagName := fmt.Sprintf("%v.MemorySwap", cmdPrefix)
+	if cmd.Flags().Changed(MemorySwapFlagName) {
 
-		var memorySwapFlagName string
+		var MemorySwapFlagName string
 		if cmdPrefix == "" {
-			memorySwapFlagName = "MemorySwap"
+			MemorySwapFlagName = "MemorySwap"
 		} else {
-			memorySwapFlagName = fmt.Sprintf("%v.MemorySwap", cmdPrefix)
+			MemorySwapFlagName = fmt.Sprintf("%v.MemorySwap", cmdPrefix)
 		}
 
-		memorySwapFlagValue, err := cmd.Flags().GetInt64(memorySwapFlagName)
+		MemorySwapFlagValue, err := cmd.Flags().GetInt64(MemorySwapFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MemorySwap = memorySwapFlagValue
+		m.MemorySwap = MemorySwapFlagValue
 
 		retAdded = true
 	}
@@ -1577,21 +1577,21 @@ func retrieveResourcesMemorySwappinessFlags(depth int, m *models.Resources, cmdP
 	}
 	retAdded := false
 
-	memorySwappinessFlagName := fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
-	if cmd.Flags().Changed(memorySwappinessFlagName) {
+	MemorySwappinessFlagName := fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
+	if cmd.Flags().Changed(MemorySwappinessFlagName) {
 
-		var memorySwappinessFlagName string
+		var MemorySwappinessFlagName string
 		if cmdPrefix == "" {
-			memorySwappinessFlagName = "MemorySwappiness"
+			MemorySwappinessFlagName = "MemorySwappiness"
 		} else {
-			memorySwappinessFlagName = fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
+			MemorySwappinessFlagName = fmt.Sprintf("%v.MemorySwappiness", cmdPrefix)
 		}
 
-		memorySwappinessFlagValue, err := cmd.Flags().GetInt64(memorySwappinessFlagName)
+		MemorySwappinessFlagValue, err := cmd.Flags().GetInt64(MemorySwappinessFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MemorySwappiness = &memorySwappinessFlagValue
+		m.MemorySwappiness = &MemorySwappinessFlagValue
 
 		retAdded = true
 	}
@@ -1605,21 +1605,21 @@ func retrieveResourcesNanoCPUsFlags(depth int, m *models.Resources, cmdPrefix st
 	}
 	retAdded := false
 
-	nanoCPUsFlagName := fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
-	if cmd.Flags().Changed(nanoCPUsFlagName) {
+	NanoCPUsFlagName := fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
+	if cmd.Flags().Changed(NanoCPUsFlagName) {
 
-		var nanoCPUsFlagName string
+		var NanoCPUsFlagName string
 		if cmdPrefix == "" {
-			nanoCPUsFlagName = "NanoCPUs"
+			NanoCPUsFlagName = "NanoCPUs"
 		} else {
-			nanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
+			NanoCPUsFlagName = fmt.Sprintf("%v.NanoCPUs", cmdPrefix)
 		}
 
-		nanoCPUsFlagValue, err := cmd.Flags().GetInt64(nanoCPUsFlagName)
+		NanoCPUsFlagValue, err := cmd.Flags().GetInt64(NanoCPUsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NanoCPUs = nanoCPUsFlagValue
+		m.NanoCPUs = NanoCPUsFlagValue
 
 		retAdded = true
 	}
@@ -1633,21 +1633,21 @@ func retrieveResourcesOomKillDisableFlags(depth int, m *models.Resources, cmdPre
 	}
 	retAdded := false
 
-	oomKillDisableFlagName := fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
-	if cmd.Flags().Changed(oomKillDisableFlagName) {
+	OomKillDisableFlagName := fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
+	if cmd.Flags().Changed(OomKillDisableFlagName) {
 
-		var oomKillDisableFlagName string
+		var OomKillDisableFlagName string
 		if cmdPrefix == "" {
-			oomKillDisableFlagName = "OomKillDisable"
+			OomKillDisableFlagName = "OomKillDisable"
 		} else {
-			oomKillDisableFlagName = fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
+			OomKillDisableFlagName = fmt.Sprintf("%v.OomKillDisable", cmdPrefix)
 		}
 
-		oomKillDisableFlagValue, err := cmd.Flags().GetBool(oomKillDisableFlagName)
+		OomKillDisableFlagValue, err := cmd.Flags().GetBool(OomKillDisableFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OomKillDisable = oomKillDisableFlagValue
+		m.OomKillDisable = OomKillDisableFlagValue
 
 		retAdded = true
 	}
@@ -1661,21 +1661,21 @@ func retrieveResourcesPidsLimitFlags(depth int, m *models.Resources, cmdPrefix s
 	}
 	retAdded := false
 
-	pidsLimitFlagName := fmt.Sprintf("%v.PidsLimit", cmdPrefix)
-	if cmd.Flags().Changed(pidsLimitFlagName) {
+	PidsLimitFlagName := fmt.Sprintf("%v.PidsLimit", cmdPrefix)
+	if cmd.Flags().Changed(PidsLimitFlagName) {
 
-		var pidsLimitFlagName string
+		var PidsLimitFlagName string
 		if cmdPrefix == "" {
-			pidsLimitFlagName = "PidsLimit"
+			PidsLimitFlagName = "PidsLimit"
 		} else {
-			pidsLimitFlagName = fmt.Sprintf("%v.PidsLimit", cmdPrefix)
+			PidsLimitFlagName = fmt.Sprintf("%v.PidsLimit", cmdPrefix)
 		}
 
-		pidsLimitFlagValue, err := cmd.Flags().GetInt64(pidsLimitFlagName)
+		PidsLimitFlagValue, err := cmd.Flags().GetInt64(PidsLimitFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PidsLimit = &pidsLimitFlagValue
+		m.PidsLimit = &PidsLimitFlagValue
 
 		retAdded = true
 	}
@@ -1689,8 +1689,8 @@ func retrieveResourcesUlimitsFlags(depth int, m *models.Resources, cmdPrefix str
 	}
 	retAdded := false
 
-	ulimitsFlagName := fmt.Sprintf("%v.Ulimits", cmdPrefix)
-	if cmd.Flags().Changed(ulimitsFlagName) {
+	UlimitsFlagName := fmt.Sprintf("%v.Ulimits", cmdPrefix)
+	if cmd.Flags().Changed(UlimitsFlagName) {
 		// warning: Ulimits array type []*ResourcesUlimitsItems0 is not supported by go-swagger cli yet
 	}
 
@@ -1718,18 +1718,18 @@ func registerResourcesBlkioWeightDeviceItems0Path(depth int, cmdPrefix string, c
 		return nil
 	}
 
-	pathDescription := ``
+	PathDescription := ``
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "Path"
+		PathFlagName = "Path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -1739,18 +1739,18 @@ func registerResourcesBlkioWeightDeviceItems0Weight(depth int, cmdPrefix string,
 		return nil
 	}
 
-	weightDescription := ``
+	WeightDescription := ``
 
-	var weightFlagName string
+	var WeightFlagName string
 	if cmdPrefix == "" {
-		weightFlagName = "Weight"
+		WeightFlagName = "Weight"
 	} else {
-		weightFlagName = fmt.Sprintf("%v.Weight", cmdPrefix)
+		WeightFlagName = fmt.Sprintf("%v.Weight", cmdPrefix)
 	}
 
-	var weightFlagDefault int64
+	var WeightFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(weightFlagName, weightFlagDefault, weightDescription)
+	_ = cmd.PersistentFlags().Int64(WeightFlagName, WeightFlagDefault, WeightDescription)
 
 	return nil
 }
@@ -1759,17 +1759,17 @@ func registerResourcesBlkioWeightDeviceItems0Weight(depth int, cmdPrefix string,
 func retrieveModelResourcesBlkioWeightDeviceItems0Flags(depth int, m *models.ResourcesBlkioWeightDeviceItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, pathAdded := retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth, m, cmdPrefix, cmd)
+	err, PathAdded := retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathAdded
+	retAdded = retAdded || PathAdded
 
-	err, weightAdded := retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth, m, cmdPrefix, cmd)
+	err, WeightAdded := retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || weightAdded
+	retAdded = retAdded || WeightAdded
 
 	return nil, retAdded
 }
@@ -1780,21 +1780,21 @@ func retrieveResourcesBlkioWeightDeviceItems0PathFlags(depth int, m *models.Reso
 	}
 	retAdded := false
 
-	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
-	if cmd.Flags().Changed(pathFlagName) {
+	PathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
+	if cmd.Flags().Changed(PathFlagName) {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "Path"
+			PathFlagName = "Path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = pathFlagValue
+		m.Path = PathFlagValue
 
 		retAdded = true
 	}
@@ -1808,21 +1808,21 @@ func retrieveResourcesBlkioWeightDeviceItems0WeightFlags(depth int, m *models.Re
 	}
 	retAdded := false
 
-	weightFlagName := fmt.Sprintf("%v.Weight", cmdPrefix)
-	if cmd.Flags().Changed(weightFlagName) {
+	WeightFlagName := fmt.Sprintf("%v.Weight", cmdPrefix)
+	if cmd.Flags().Changed(WeightFlagName) {
 
-		var weightFlagName string
+		var WeightFlagName string
 		if cmdPrefix == "" {
-			weightFlagName = "Weight"
+			WeightFlagName = "Weight"
 		} else {
-			weightFlagName = fmt.Sprintf("%v.Weight", cmdPrefix)
+			WeightFlagName = fmt.Sprintf("%v.Weight", cmdPrefix)
 		}
 
-		weightFlagValue, err := cmd.Flags().GetInt64(weightFlagName)
+		WeightFlagValue, err := cmd.Flags().GetInt64(WeightFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Weight = &weightFlagValue
+		m.Weight = &WeightFlagValue
 
 		retAdded = true
 	}
@@ -1855,18 +1855,18 @@ func registerResourcesUlimitsItems0Hard(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	hardDescription := `Hard limit`
+	HardDescription := `Hard limit`
 
-	var hardFlagName string
+	var HardFlagName string
 	if cmdPrefix == "" {
-		hardFlagName = "Hard"
+		HardFlagName = "Hard"
 	} else {
-		hardFlagName = fmt.Sprintf("%v.Hard", cmdPrefix)
+		HardFlagName = fmt.Sprintf("%v.Hard", cmdPrefix)
 	}
 
-	var hardFlagDefault int64
+	var HardFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(hardFlagName, hardFlagDefault, hardDescription)
+	_ = cmd.PersistentFlags().Int64(HardFlagName, HardFlagDefault, HardDescription)
 
 	return nil
 }
@@ -1876,18 +1876,18 @@ func registerResourcesUlimitsItems0Name(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	nameDescription := `Name of ulimit`
+	NameDescription := `Name of ulimit`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -1897,18 +1897,18 @@ func registerResourcesUlimitsItems0Soft(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	softDescription := `Soft limit`
+	SoftDescription := `Soft limit`
 
-	var softFlagName string
+	var SoftFlagName string
 	if cmdPrefix == "" {
-		softFlagName = "Soft"
+		SoftFlagName = "Soft"
 	} else {
-		softFlagName = fmt.Sprintf("%v.Soft", cmdPrefix)
+		SoftFlagName = fmt.Sprintf("%v.Soft", cmdPrefix)
 	}
 
-	var softFlagDefault int64
+	var SoftFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(softFlagName, softFlagDefault, softDescription)
+	_ = cmd.PersistentFlags().Int64(SoftFlagName, SoftFlagDefault, SoftDescription)
 
 	return nil
 }
@@ -1917,23 +1917,23 @@ func registerResourcesUlimitsItems0Soft(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelResourcesUlimitsItems0Flags(depth int, m *models.ResourcesUlimitsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, hardAdded := retrieveResourcesUlimitsItems0HardFlags(depth, m, cmdPrefix, cmd)
+	err, HardAdded := retrieveResourcesUlimitsItems0HardFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hardAdded
+	retAdded = retAdded || HardAdded
 
-	err, nameAdded := retrieveResourcesUlimitsItems0NameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveResourcesUlimitsItems0NameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, softAdded := retrieveResourcesUlimitsItems0SoftFlags(depth, m, cmdPrefix, cmd)
+	err, SoftAdded := retrieveResourcesUlimitsItems0SoftFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || softAdded
+	retAdded = retAdded || SoftAdded
 
 	return nil, retAdded
 }
@@ -1944,21 +1944,21 @@ func retrieveResourcesUlimitsItems0HardFlags(depth int, m *models.ResourcesUlimi
 	}
 	retAdded := false
 
-	hardFlagName := fmt.Sprintf("%v.Hard", cmdPrefix)
-	if cmd.Flags().Changed(hardFlagName) {
+	HardFlagName := fmt.Sprintf("%v.Hard", cmdPrefix)
+	if cmd.Flags().Changed(HardFlagName) {
 
-		var hardFlagName string
+		var HardFlagName string
 		if cmdPrefix == "" {
-			hardFlagName = "Hard"
+			HardFlagName = "Hard"
 		} else {
-			hardFlagName = fmt.Sprintf("%v.Hard", cmdPrefix)
+			HardFlagName = fmt.Sprintf("%v.Hard", cmdPrefix)
 		}
 
-		hardFlagValue, err := cmd.Flags().GetInt64(hardFlagName)
+		HardFlagValue, err := cmd.Flags().GetInt64(HardFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Hard = hardFlagValue
+		m.Hard = HardFlagValue
 
 		retAdded = true
 	}
@@ -1972,21 +1972,21 @@ func retrieveResourcesUlimitsItems0NameFlags(depth int, m *models.ResourcesUlimi
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -2000,21 +2000,21 @@ func retrieveResourcesUlimitsItems0SoftFlags(depth int, m *models.ResourcesUlimi
 	}
 	retAdded := false
 
-	softFlagName := fmt.Sprintf("%v.Soft", cmdPrefix)
-	if cmd.Flags().Changed(softFlagName) {
+	SoftFlagName := fmt.Sprintf("%v.Soft", cmdPrefix)
+	if cmd.Flags().Changed(SoftFlagName) {
 
-		var softFlagName string
+		var SoftFlagName string
 		if cmdPrefix == "" {
-			softFlagName = "Soft"
+			SoftFlagName = "Soft"
 		} else {
-			softFlagName = fmt.Sprintf("%v.Soft", cmdPrefix)
+			SoftFlagName = fmt.Sprintf("%v.Soft", cmdPrefix)
 		}
 
-		softFlagValue, err := cmd.Flags().GetInt64(softFlagName)
+		SoftFlagValue, err := cmd.Flags().GetInt64(SoftFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Soft = softFlagValue
+		m.Soft = SoftFlagValue
 
 		retAdded = true
 	}

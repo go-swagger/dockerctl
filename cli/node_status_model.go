@@ -37,18 +37,18 @@ func registerNodeStatusAddr(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	addrDescription := `IP address of the node.`
+	AddrDescription := `IP address of the node.`
 
-	var addrFlagName string
+	var AddrFlagName string
 	if cmdPrefix == "" {
-		addrFlagName = "Addr"
+		AddrFlagName = "Addr"
 	} else {
-		addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+		AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 	}
 
-	var addrFlagDefault string
+	var AddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(addrFlagName, addrFlagDefault, addrDescription)
+	_ = cmd.PersistentFlags().String(AddrFlagName, AddrFlagDefault, AddrDescription)
 
 	return nil
 }
@@ -58,18 +58,18 @@ func registerNodeStatusMessage(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	messageDescription := ``
+	MessageDescription := ``
 
-	var messageFlagName string
+	var MessageFlagName string
 	if cmdPrefix == "" {
-		messageFlagName = "Message"
+		MessageFlagName = "Message"
 	} else {
-		messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+		MessageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
 	}
 
-	var messageFlagDefault string
+	var MessageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+	_ = cmd.PersistentFlags().String(MessageFlagName, MessageFlagDefault, MessageDescription)
 
 	return nil
 }
@@ -88,23 +88,23 @@ func registerNodeStatusState(depth int, cmdPrefix string, cmd *cobra.Command) er
 func retrieveModelNodeStatusFlags(depth int, m *models.NodeStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, addrAdded := retrieveNodeStatusAddrFlags(depth, m, cmdPrefix, cmd)
+	err, AddrAdded := retrieveNodeStatusAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || addrAdded
+	retAdded = retAdded || AddrAdded
 
-	err, messageAdded := retrieveNodeStatusMessageFlags(depth, m, cmdPrefix, cmd)
+	err, MessageAdded := retrieveNodeStatusMessageFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || messageAdded
+	retAdded = retAdded || MessageAdded
 
-	err, stateAdded := retrieveNodeStatusStateFlags(depth, m, cmdPrefix, cmd)
+	err, StateAdded := retrieveNodeStatusStateFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || stateAdded
+	retAdded = retAdded || StateAdded
 
 	return nil, retAdded
 }
@@ -115,21 +115,21 @@ func retrieveNodeStatusAddrFlags(depth int, m *models.NodeStatus, cmdPrefix stri
 	}
 	retAdded := false
 
-	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
-	if cmd.Flags().Changed(addrFlagName) {
+	AddrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
+	if cmd.Flags().Changed(AddrFlagName) {
 
-		var addrFlagName string
+		var AddrFlagName string
 		if cmdPrefix == "" {
-			addrFlagName = "Addr"
+			AddrFlagName = "Addr"
 		} else {
-			addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+			AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 		}
 
-		addrFlagValue, err := cmd.Flags().GetString(addrFlagName)
+		AddrFlagValue, err := cmd.Flags().GetString(AddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Addr = addrFlagValue
+		m.Addr = AddrFlagValue
 
 		retAdded = true
 	}
@@ -143,21 +143,21 @@ func retrieveNodeStatusMessageFlags(depth int, m *models.NodeStatus, cmdPrefix s
 	}
 	retAdded := false
 
-	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
-	if cmd.Flags().Changed(messageFlagName) {
+	MessageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
+	if cmd.Flags().Changed(MessageFlagName) {
 
-		var messageFlagName string
+		var MessageFlagName string
 		if cmdPrefix == "" {
-			messageFlagName = "Message"
+			MessageFlagName = "Message"
 		} else {
-			messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+			MessageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
 		}
 
-		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		MessageFlagValue, err := cmd.Flags().GetString(MessageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Message = messageFlagValue
+		m.Message = MessageFlagValue
 
 		retAdded = true
 	}
@@ -171,8 +171,8 @@ func retrieveNodeStatusStateFlags(depth int, m *models.NodeStatus, cmdPrefix str
 	}
 	retAdded := false
 
-	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
-	if cmd.Flags().Changed(stateFlagName) {
+	StateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
+	if cmd.Flags().Changed(StateFlagName) {
 
 		// warning: primitive State NodeState is not supported by go-swagger cli yet
 

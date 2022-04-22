@@ -60,14 +60,14 @@ func registerSwarmSpecCAConfig(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	var cAConfigFlagName string
+	var CAConfigFlagName string
 	if cmdPrefix == "" {
-		cAConfigFlagName = "CAConfig"
+		CAConfigFlagName = "CAConfig"
 	} else {
-		cAConfigFlagName = fmt.Sprintf("%v.CAConfig", cmdPrefix)
+		CAConfigFlagName = fmt.Sprintf("%v.CAConfig", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecCAConfigFlags(depth+1, cAConfigFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecCAConfigFlags(depth+1, CAConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -79,14 +79,14 @@ func registerSwarmSpecDispatcher(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	var dispatcherFlagName string
+	var DispatcherFlagName string
 	if cmdPrefix == "" {
-		dispatcherFlagName = "Dispatcher"
+		DispatcherFlagName = "Dispatcher"
 	} else {
-		dispatcherFlagName = fmt.Sprintf("%v.Dispatcher", cmdPrefix)
+		DispatcherFlagName = fmt.Sprintf("%v.Dispatcher", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecDispatcherFlags(depth+1, dispatcherFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecDispatcherFlags(depth+1, DispatcherFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -98,14 +98,14 @@ func registerSwarmSpecEncryptionConfig(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	var encryptionConfigFlagName string
+	var EncryptionConfigFlagName string
 	if cmdPrefix == "" {
-		encryptionConfigFlagName = "EncryptionConfig"
+		EncryptionConfigFlagName = "EncryptionConfig"
 	} else {
-		encryptionConfigFlagName = fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
+		EncryptionConfigFlagName = fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecEncryptionConfigFlags(depth+1, encryptionConfigFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecEncryptionConfigFlags(depth+1, EncryptionConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -127,18 +127,18 @@ func registerSwarmSpecName(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	nameDescription := `Name of the swarm.`
+	NameDescription := `Name of the swarm.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -148,14 +148,14 @@ func registerSwarmSpecOrchestration(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	var orchestrationFlagName string
+	var OrchestrationFlagName string
 	if cmdPrefix == "" {
-		orchestrationFlagName = "Orchestration"
+		OrchestrationFlagName = "Orchestration"
 	} else {
-		orchestrationFlagName = fmt.Sprintf("%v.Orchestration", cmdPrefix)
+		OrchestrationFlagName = fmt.Sprintf("%v.Orchestration", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecOrchestrationFlags(depth+1, orchestrationFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecOrchestrationFlags(depth+1, OrchestrationFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -167,14 +167,14 @@ func registerSwarmSpecRaft(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	var raftFlagName string
+	var RaftFlagName string
 	if cmdPrefix == "" {
-		raftFlagName = "Raft"
+		RaftFlagName = "Raft"
 	} else {
-		raftFlagName = fmt.Sprintf("%v.Raft", cmdPrefix)
+		RaftFlagName = fmt.Sprintf("%v.Raft", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecRaftFlags(depth+1, raftFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecRaftFlags(depth+1, RaftFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -186,14 +186,14 @@ func registerSwarmSpecTaskDefaults(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	var taskDefaultsFlagName string
+	var TaskDefaultsFlagName string
 	if cmdPrefix == "" {
-		taskDefaultsFlagName = "TaskDefaults"
+		TaskDefaultsFlagName = "TaskDefaults"
 	} else {
-		taskDefaultsFlagName = fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
+		TaskDefaultsFlagName = fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecTaskDefaultsFlags(depth+1, taskDefaultsFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecTaskDefaultsFlags(depth+1, TaskDefaultsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -204,53 +204,53 @@ func registerSwarmSpecTaskDefaults(depth int, cmdPrefix string, cmd *cobra.Comma
 func retrieveModelSwarmSpecFlags(depth int, m *models.SwarmSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, cAConfigAdded := retrieveSwarmSpecCAConfigFlags(depth, m, cmdPrefix, cmd)
+	err, CAConfigAdded := retrieveSwarmSpecCAConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cAConfigAdded
+	retAdded = retAdded || CAConfigAdded
 
-	err, dispatcherAdded := retrieveSwarmSpecDispatcherFlags(depth, m, cmdPrefix, cmd)
+	err, DispatcherAdded := retrieveSwarmSpecDispatcherFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dispatcherAdded
+	retAdded = retAdded || DispatcherAdded
 
-	err, encryptionConfigAdded := retrieveSwarmSpecEncryptionConfigFlags(depth, m, cmdPrefix, cmd)
+	err, EncryptionConfigAdded := retrieveSwarmSpecEncryptionConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || encryptionConfigAdded
+	retAdded = retAdded || EncryptionConfigAdded
 
-	err, labelsAdded := retrieveSwarmSpecLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveSwarmSpecLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, nameAdded := retrieveSwarmSpecNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveSwarmSpecNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, orchestrationAdded := retrieveSwarmSpecOrchestrationFlags(depth, m, cmdPrefix, cmd)
+	err, OrchestrationAdded := retrieveSwarmSpecOrchestrationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || orchestrationAdded
+	retAdded = retAdded || OrchestrationAdded
 
-	err, raftAdded := retrieveSwarmSpecRaftFlags(depth, m, cmdPrefix, cmd)
+	err, RaftAdded := retrieveSwarmSpecRaftFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || raftAdded
+	retAdded = retAdded || RaftAdded
 
-	err, taskDefaultsAdded := retrieveSwarmSpecTaskDefaultsFlags(depth, m, cmdPrefix, cmd)
+	err, TaskDefaultsAdded := retrieveSwarmSpecTaskDefaultsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || taskDefaultsAdded
+	retAdded = retAdded || TaskDefaultsAdded
 
 	return nil, retAdded
 }
@@ -261,22 +261,22 @@ func retrieveSwarmSpecCAConfigFlags(depth int, m *models.SwarmSpec, cmdPrefix st
 	}
 	retAdded := false
 
-	cAConfigFlagName := fmt.Sprintf("%v.CAConfig", cmdPrefix)
-	if cmd.Flags().Changed(cAConfigFlagName) {
+	CAConfigFlagName := fmt.Sprintf("%v.CAConfig", cmdPrefix)
+	if cmd.Flags().Changed(CAConfigFlagName) {
 		// info: complex object CAConfig SwarmSpecCAConfig is retrieved outside this Changed() block
 	}
-	cAConfigFlagValue := m.CAConfig
-	if swag.IsZero(cAConfigFlagValue) {
-		cAConfigFlagValue = &models.SwarmSpecCAConfig{}
+	CAConfigFlagValue := m.CAConfig
+	if swag.IsZero(CAConfigFlagValue) {
+		CAConfigFlagValue = &models.SwarmSpecCAConfig{}
 	}
 
-	err, cAConfigAdded := retrieveModelSwarmSpecCAConfigFlags(depth+1, cAConfigFlagValue, cAConfigFlagName, cmd)
+	err, CAConfigAdded := retrieveModelSwarmSpecCAConfigFlags(depth+1, CAConfigFlagValue, CAConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cAConfigAdded
-	if cAConfigAdded {
-		m.CAConfig = cAConfigFlagValue
+	retAdded = retAdded || CAConfigAdded
+	if CAConfigAdded {
+		m.CAConfig = CAConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -288,22 +288,22 @@ func retrieveSwarmSpecDispatcherFlags(depth int, m *models.SwarmSpec, cmdPrefix 
 	}
 	retAdded := false
 
-	dispatcherFlagName := fmt.Sprintf("%v.Dispatcher", cmdPrefix)
-	if cmd.Flags().Changed(dispatcherFlagName) {
+	DispatcherFlagName := fmt.Sprintf("%v.Dispatcher", cmdPrefix)
+	if cmd.Flags().Changed(DispatcherFlagName) {
 		// info: complex object Dispatcher SwarmSpecDispatcher is retrieved outside this Changed() block
 	}
-	dispatcherFlagValue := m.Dispatcher
-	if swag.IsZero(dispatcherFlagValue) {
-		dispatcherFlagValue = &models.SwarmSpecDispatcher{}
+	DispatcherFlagValue := m.Dispatcher
+	if swag.IsZero(DispatcherFlagValue) {
+		DispatcherFlagValue = &models.SwarmSpecDispatcher{}
 	}
 
-	err, dispatcherAdded := retrieveModelSwarmSpecDispatcherFlags(depth+1, dispatcherFlagValue, dispatcherFlagName, cmd)
+	err, DispatcherAdded := retrieveModelSwarmSpecDispatcherFlags(depth+1, DispatcherFlagValue, DispatcherFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dispatcherAdded
-	if dispatcherAdded {
-		m.Dispatcher = dispatcherFlagValue
+	retAdded = retAdded || DispatcherAdded
+	if DispatcherAdded {
+		m.Dispatcher = DispatcherFlagValue
 	}
 
 	return nil, retAdded
@@ -315,22 +315,22 @@ func retrieveSwarmSpecEncryptionConfigFlags(depth int, m *models.SwarmSpec, cmdP
 	}
 	retAdded := false
 
-	encryptionConfigFlagName := fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
-	if cmd.Flags().Changed(encryptionConfigFlagName) {
+	EncryptionConfigFlagName := fmt.Sprintf("%v.EncryptionConfig", cmdPrefix)
+	if cmd.Flags().Changed(EncryptionConfigFlagName) {
 		// info: complex object EncryptionConfig SwarmSpecEncryptionConfig is retrieved outside this Changed() block
 	}
-	encryptionConfigFlagValue := m.EncryptionConfig
-	if swag.IsZero(encryptionConfigFlagValue) {
-		encryptionConfigFlagValue = &models.SwarmSpecEncryptionConfig{}
+	EncryptionConfigFlagValue := m.EncryptionConfig
+	if swag.IsZero(EncryptionConfigFlagValue) {
+		EncryptionConfigFlagValue = &models.SwarmSpecEncryptionConfig{}
 	}
 
-	err, encryptionConfigAdded := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, encryptionConfigFlagValue, encryptionConfigFlagName, cmd)
+	err, EncryptionConfigAdded := retrieveModelSwarmSpecEncryptionConfigFlags(depth+1, EncryptionConfigFlagValue, EncryptionConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || encryptionConfigAdded
-	if encryptionConfigAdded {
-		m.EncryptionConfig = encryptionConfigFlagValue
+	retAdded = retAdded || EncryptionConfigAdded
+	if EncryptionConfigAdded {
+		m.EncryptionConfig = EncryptionConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -342,8 +342,8 @@ func retrieveSwarmSpecLabelsFlags(depth int, m *models.SwarmSpec, cmdPrefix stri
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -356,21 +356,21 @@ func retrieveSwarmSpecNameFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -384,22 +384,22 @@ func retrieveSwarmSpecOrchestrationFlags(depth int, m *models.SwarmSpec, cmdPref
 	}
 	retAdded := false
 
-	orchestrationFlagName := fmt.Sprintf("%v.Orchestration", cmdPrefix)
-	if cmd.Flags().Changed(orchestrationFlagName) {
+	OrchestrationFlagName := fmt.Sprintf("%v.Orchestration", cmdPrefix)
+	if cmd.Flags().Changed(OrchestrationFlagName) {
 		// info: complex object Orchestration SwarmSpecOrchestration is retrieved outside this Changed() block
 	}
-	orchestrationFlagValue := m.Orchestration
-	if swag.IsZero(orchestrationFlagValue) {
-		orchestrationFlagValue = &models.SwarmSpecOrchestration{}
+	OrchestrationFlagValue := m.Orchestration
+	if swag.IsZero(OrchestrationFlagValue) {
+		OrchestrationFlagValue = &models.SwarmSpecOrchestration{}
 	}
 
-	err, orchestrationAdded := retrieveModelSwarmSpecOrchestrationFlags(depth+1, orchestrationFlagValue, orchestrationFlagName, cmd)
+	err, OrchestrationAdded := retrieveModelSwarmSpecOrchestrationFlags(depth+1, OrchestrationFlagValue, OrchestrationFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || orchestrationAdded
-	if orchestrationAdded {
-		m.Orchestration = orchestrationFlagValue
+	retAdded = retAdded || OrchestrationAdded
+	if OrchestrationAdded {
+		m.Orchestration = OrchestrationFlagValue
 	}
 
 	return nil, retAdded
@@ -411,22 +411,22 @@ func retrieveSwarmSpecRaftFlags(depth int, m *models.SwarmSpec, cmdPrefix string
 	}
 	retAdded := false
 
-	raftFlagName := fmt.Sprintf("%v.Raft", cmdPrefix)
-	if cmd.Flags().Changed(raftFlagName) {
+	RaftFlagName := fmt.Sprintf("%v.Raft", cmdPrefix)
+	if cmd.Flags().Changed(RaftFlagName) {
 		// info: complex object Raft SwarmSpecRaft is retrieved outside this Changed() block
 	}
-	raftFlagValue := m.Raft
-	if swag.IsZero(raftFlagValue) {
-		raftFlagValue = &models.SwarmSpecRaft{}
+	RaftFlagValue := m.Raft
+	if swag.IsZero(RaftFlagValue) {
+		RaftFlagValue = &models.SwarmSpecRaft{}
 	}
 
-	err, raftAdded := retrieveModelSwarmSpecRaftFlags(depth+1, raftFlagValue, raftFlagName, cmd)
+	err, RaftAdded := retrieveModelSwarmSpecRaftFlags(depth+1, RaftFlagValue, RaftFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || raftAdded
-	if raftAdded {
-		m.Raft = raftFlagValue
+	retAdded = retAdded || RaftAdded
+	if RaftAdded {
+		m.Raft = RaftFlagValue
 	}
 
 	return nil, retAdded
@@ -438,22 +438,22 @@ func retrieveSwarmSpecTaskDefaultsFlags(depth int, m *models.SwarmSpec, cmdPrefi
 	}
 	retAdded := false
 
-	taskDefaultsFlagName := fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
-	if cmd.Flags().Changed(taskDefaultsFlagName) {
+	TaskDefaultsFlagName := fmt.Sprintf("%v.TaskDefaults", cmdPrefix)
+	if cmd.Flags().Changed(TaskDefaultsFlagName) {
 		// info: complex object TaskDefaults SwarmSpecTaskDefaults is retrieved outside this Changed() block
 	}
-	taskDefaultsFlagValue := m.TaskDefaults
-	if swag.IsZero(taskDefaultsFlagValue) {
-		taskDefaultsFlagValue = &models.SwarmSpecTaskDefaults{}
+	TaskDefaultsFlagValue := m.TaskDefaults
+	if swag.IsZero(TaskDefaultsFlagValue) {
+		TaskDefaultsFlagValue = &models.SwarmSpecTaskDefaults{}
 	}
 
-	err, taskDefaultsAdded := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, taskDefaultsFlagValue, taskDefaultsFlagName, cmd)
+	err, TaskDefaultsAdded := retrieveModelSwarmSpecTaskDefaultsFlags(depth+1, TaskDefaultsFlagValue, TaskDefaultsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || taskDefaultsAdded
-	if taskDefaultsAdded {
-		m.TaskDefaults = taskDefaultsFlagValue
+	retAdded = retAdded || TaskDefaultsAdded
+	if TaskDefaultsAdded {
+		m.TaskDefaults = TaskDefaultsFlagValue
 	}
 
 	return nil, retAdded
@@ -512,18 +512,18 @@ func registerSwarmSpecCAConfigNodeCertExpiry(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	nodeCertExpiryDescription := `The duration node certificates are issued for.`
+	NodeCertExpiryDescription := `The duration node certificates are issued for.`
 
-	var nodeCertExpiryFlagName string
+	var NodeCertExpiryFlagName string
 	if cmdPrefix == "" {
-		nodeCertExpiryFlagName = "NodeCertExpiry"
+		NodeCertExpiryFlagName = "NodeCertExpiry"
 	} else {
-		nodeCertExpiryFlagName = fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
+		NodeCertExpiryFlagName = fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
 	}
 
-	var nodeCertExpiryFlagDefault int64
+	var NodeCertExpiryFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(nodeCertExpiryFlagName, nodeCertExpiryFlagDefault, nodeCertExpiryDescription)
+	_ = cmd.PersistentFlags().Int64(NodeCertExpiryFlagName, NodeCertExpiryFlagDefault, NodeCertExpiryDescription)
 
 	return nil
 }
@@ -533,18 +533,18 @@ func registerSwarmSpecCAConfigSigningCACert(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	signingCACertDescription := `The desired signing CA certificate for all swarm node TLS leaf certificates, in PEM format.`
+	SigningCACertDescription := `The desired signing CA certificate for all swarm node TLS leaf certificates, in PEM format.`
 
-	var signingCACertFlagName string
+	var SigningCACertFlagName string
 	if cmdPrefix == "" {
-		signingCACertFlagName = "SigningCACert"
+		SigningCACertFlagName = "SigningCACert"
 	} else {
-		signingCACertFlagName = fmt.Sprintf("%v.SigningCACert", cmdPrefix)
+		SigningCACertFlagName = fmt.Sprintf("%v.SigningCACert", cmdPrefix)
 	}
 
-	var signingCACertFlagDefault string
+	var SigningCACertFlagDefault string
 
-	_ = cmd.PersistentFlags().String(signingCACertFlagName, signingCACertFlagDefault, signingCACertDescription)
+	_ = cmd.PersistentFlags().String(SigningCACertFlagName, SigningCACertFlagDefault, SigningCACertDescription)
 
 	return nil
 }
@@ -554,18 +554,18 @@ func registerSwarmSpecCAConfigSigningCAKey(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	signingCAKeyDescription := `The desired signing CA key for all swarm node TLS leaf certificates, in PEM format.`
+	SigningCAKeyDescription := `The desired signing CA key for all swarm node TLS leaf certificates, in PEM format.`
 
-	var signingCAKeyFlagName string
+	var SigningCAKeyFlagName string
 	if cmdPrefix == "" {
-		signingCAKeyFlagName = "SigningCAKey"
+		SigningCAKeyFlagName = "SigningCAKey"
 	} else {
-		signingCAKeyFlagName = fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
+		SigningCAKeyFlagName = fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
 	}
 
-	var signingCAKeyFlagDefault string
+	var SigningCAKeyFlagDefault string
 
-	_ = cmd.PersistentFlags().String(signingCAKeyFlagName, signingCAKeyFlagDefault, signingCAKeyDescription)
+	_ = cmd.PersistentFlags().String(SigningCAKeyFlagName, SigningCAKeyFlagDefault, SigningCAKeyDescription)
 
 	return nil
 }
@@ -574,35 +574,35 @@ func registerSwarmSpecCAConfigSigningCAKey(depth int, cmdPrefix string, cmd *cob
 func retrieveModelSwarmSpecCAConfigFlags(depth int, m *models.SwarmSpecCAConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, externalCAsAdded := retrieveSwarmSpecCAConfigExternalCAsFlags(depth, m, cmdPrefix, cmd)
+	err, ExternalCAsAdded := retrieveSwarmSpecCAConfigExternalCAsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || externalCAsAdded
+	retAdded = retAdded || ExternalCAsAdded
 
-	err, forceRotateAdded := retrieveSwarmSpecCAConfigForceRotateFlags(depth, m, cmdPrefix, cmd)
+	err, ForceRotateAdded := retrieveSwarmSpecCAConfigForceRotateFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || forceRotateAdded
+	retAdded = retAdded || ForceRotateAdded
 
-	err, nodeCertExpiryAdded := retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth, m, cmdPrefix, cmd)
+	err, NodeCertExpiryAdded := retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nodeCertExpiryAdded
+	retAdded = retAdded || NodeCertExpiryAdded
 
-	err, signingCACertAdded := retrieveSwarmSpecCAConfigSigningCACertFlags(depth, m, cmdPrefix, cmd)
+	err, SigningCACertAdded := retrieveSwarmSpecCAConfigSigningCACertFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || signingCACertAdded
+	retAdded = retAdded || SigningCACertAdded
 
-	err, signingCAKeyAdded := retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth, m, cmdPrefix, cmd)
+	err, SigningCAKeyAdded := retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || signingCAKeyAdded
+	retAdded = retAdded || SigningCAKeyAdded
 
 	return nil, retAdded
 }
@@ -613,8 +613,8 @@ func retrieveSwarmSpecCAConfigExternalCAsFlags(depth int, m *models.SwarmSpecCAC
 	}
 	retAdded := false
 
-	externalCAsFlagName := fmt.Sprintf("%v.ExternalCAs", cmdPrefix)
-	if cmd.Flags().Changed(externalCAsFlagName) {
+	ExternalCAsFlagName := fmt.Sprintf("%v.ExternalCAs", cmdPrefix)
+	if cmd.Flags().Changed(ExternalCAsFlagName) {
 		// warning: ExternalCAs array type []*SwarmSpecCAConfigExternalCAsItems0 is not supported by go-swagger cli yet
 	}
 
@@ -627,8 +627,8 @@ func retrieveSwarmSpecCAConfigForceRotateFlags(depth int, m *models.SwarmSpecCAC
 	}
 	retAdded := false
 
-	forceRotateFlagName := fmt.Sprintf("%v.ForceRotate", cmdPrefix)
-	if cmd.Flags().Changed(forceRotateFlagName) {
+	ForceRotateFlagName := fmt.Sprintf("%v.ForceRotate", cmdPrefix)
+	if cmd.Flags().Changed(ForceRotateFlagName) {
 
 		// warning: primitive ForceRotate uint64 is not supported by go-swagger cli yet
 
@@ -644,21 +644,21 @@ func retrieveSwarmSpecCAConfigNodeCertExpiryFlags(depth int, m *models.SwarmSpec
 	}
 	retAdded := false
 
-	nodeCertExpiryFlagName := fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
-	if cmd.Flags().Changed(nodeCertExpiryFlagName) {
+	NodeCertExpiryFlagName := fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
+	if cmd.Flags().Changed(NodeCertExpiryFlagName) {
 
-		var nodeCertExpiryFlagName string
+		var NodeCertExpiryFlagName string
 		if cmdPrefix == "" {
-			nodeCertExpiryFlagName = "NodeCertExpiry"
+			NodeCertExpiryFlagName = "NodeCertExpiry"
 		} else {
-			nodeCertExpiryFlagName = fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
+			NodeCertExpiryFlagName = fmt.Sprintf("%v.NodeCertExpiry", cmdPrefix)
 		}
 
-		nodeCertExpiryFlagValue, err := cmd.Flags().GetInt64(nodeCertExpiryFlagName)
+		NodeCertExpiryFlagValue, err := cmd.Flags().GetInt64(NodeCertExpiryFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NodeCertExpiry = nodeCertExpiryFlagValue
+		m.NodeCertExpiry = NodeCertExpiryFlagValue
 
 		retAdded = true
 	}
@@ -672,21 +672,21 @@ func retrieveSwarmSpecCAConfigSigningCACertFlags(depth int, m *models.SwarmSpecC
 	}
 	retAdded := false
 
-	signingCACertFlagName := fmt.Sprintf("%v.SigningCACert", cmdPrefix)
-	if cmd.Flags().Changed(signingCACertFlagName) {
+	SigningCACertFlagName := fmt.Sprintf("%v.SigningCACert", cmdPrefix)
+	if cmd.Flags().Changed(SigningCACertFlagName) {
 
-		var signingCACertFlagName string
+		var SigningCACertFlagName string
 		if cmdPrefix == "" {
-			signingCACertFlagName = "SigningCACert"
+			SigningCACertFlagName = "SigningCACert"
 		} else {
-			signingCACertFlagName = fmt.Sprintf("%v.SigningCACert", cmdPrefix)
+			SigningCACertFlagName = fmt.Sprintf("%v.SigningCACert", cmdPrefix)
 		}
 
-		signingCACertFlagValue, err := cmd.Flags().GetString(signingCACertFlagName)
+		SigningCACertFlagValue, err := cmd.Flags().GetString(SigningCACertFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SigningCACert = signingCACertFlagValue
+		m.SigningCACert = SigningCACertFlagValue
 
 		retAdded = true
 	}
@@ -700,21 +700,21 @@ func retrieveSwarmSpecCAConfigSigningCAKeyFlags(depth int, m *models.SwarmSpecCA
 	}
 	retAdded := false
 
-	signingCAKeyFlagName := fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
-	if cmd.Flags().Changed(signingCAKeyFlagName) {
+	SigningCAKeyFlagName := fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
+	if cmd.Flags().Changed(SigningCAKeyFlagName) {
 
-		var signingCAKeyFlagName string
+		var SigningCAKeyFlagName string
 		if cmdPrefix == "" {
-			signingCAKeyFlagName = "SigningCAKey"
+			SigningCAKeyFlagName = "SigningCAKey"
 		} else {
-			signingCAKeyFlagName = fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
+			SigningCAKeyFlagName = fmt.Sprintf("%v.SigningCAKey", cmdPrefix)
 		}
 
-		signingCAKeyFlagValue, err := cmd.Flags().GetString(signingCAKeyFlagName)
+		SigningCAKeyFlagValue, err := cmd.Flags().GetString(SigningCAKeyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SigningCAKey = signingCAKeyFlagValue
+		m.SigningCAKey = SigningCAKeyFlagValue
 
 		retAdded = true
 	}
@@ -751,18 +751,18 @@ func registerSwarmSpecCAConfigExternalCAsItems0CACert(depth int, cmdPrefix strin
 		return nil
 	}
 
-	cACertDescription := `The root CA certificate (in PEM format) this external CA uses to issue TLS certificates (assumed to be to the current swarm root CA certificate if not provided).`
+	CACertDescription := `The root CA certificate (in PEM format) this external CA uses to issue TLS certificates (assumed to be to the current swarm root CA certificate if not provided).`
 
-	var cACertFlagName string
+	var CACertFlagName string
 	if cmdPrefix == "" {
-		cACertFlagName = "CACert"
+		CACertFlagName = "CACert"
 	} else {
-		cACertFlagName = fmt.Sprintf("%v.CACert", cmdPrefix)
+		CACertFlagName = fmt.Sprintf("%v.CACert", cmdPrefix)
 	}
 
-	var cACertFlagDefault string
+	var CACertFlagDefault string
 
-	_ = cmd.PersistentFlags().String(cACertFlagName, cACertFlagDefault, cACertDescription)
+	_ = cmd.PersistentFlags().String(CACertFlagName, CACertFlagDefault, CACertDescription)
 
 	return nil
 }
@@ -782,20 +782,20 @@ func registerSwarmSpecCAConfigExternalCAsItems0Protocol(depth int, cmdPrefix str
 		return nil
 	}
 
-	protocolDescription := `Enum: ["cfssl"]. Protocol for communication with the external CA (currently only ` + "`" + `cfssl` + "`" + ` is supported).`
+	ProtocolDescription := `Enum: ["cfssl"]. Protocol for communication with the external CA (currently only ` + "`" + `cfssl` + "`" + ` is supported).`
 
-	var protocolFlagName string
+	var ProtocolFlagName string
 	if cmdPrefix == "" {
-		protocolFlagName = "Protocol"
+		ProtocolFlagName = "Protocol"
 	} else {
-		protocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
+		ProtocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
 	}
 
-	var protocolFlagDefault string = "cfssl"
+	var ProtocolFlagDefault string = "cfssl"
 
-	_ = cmd.PersistentFlags().String(protocolFlagName, protocolFlagDefault, protocolDescription)
+	_ = cmd.PersistentFlags().String(ProtocolFlagName, ProtocolFlagDefault, ProtocolDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(protocolFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(ProtocolFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["cfssl"]`), &res); err != nil {
@@ -814,18 +814,18 @@ func registerSwarmSpecCAConfigExternalCAsItems0URL(depth int, cmdPrefix string, 
 		return nil
 	}
 
-	urlDescription := `URL where certificate signing requests should be sent.`
+	URLDescription := `URL where certificate signing requests should be sent.`
 
-	var urlFlagName string
+	var URLFlagName string
 	if cmdPrefix == "" {
-		urlFlagName = "URL"
+		URLFlagName = "URL"
 	} else {
-		urlFlagName = fmt.Sprintf("%v.URL", cmdPrefix)
+		URLFlagName = fmt.Sprintf("%v.URL", cmdPrefix)
 	}
 
-	var urlFlagDefault string
+	var URLFlagDefault string
 
-	_ = cmd.PersistentFlags().String(urlFlagName, urlFlagDefault, urlDescription)
+	_ = cmd.PersistentFlags().String(URLFlagName, URLFlagDefault, URLDescription)
 
 	return nil
 }
@@ -834,29 +834,29 @@ func registerSwarmSpecCAConfigExternalCAsItems0URL(depth int, cmdPrefix string, 
 func retrieveModelSwarmSpecCAConfigExternalCAsItems0Flags(depth int, m *models.SwarmSpecCAConfigExternalCAsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, cACertAdded := retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth, m, cmdPrefix, cmd)
+	err, CACertAdded := retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cACertAdded
+	retAdded = retAdded || CACertAdded
 
-	err, optionsAdded := retrieveSwarmSpecCAConfigExternalCAsItems0OptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveSwarmSpecCAConfigExternalCAsItems0OptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
-	err, protocolAdded := retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth, m, cmdPrefix, cmd)
+	err, ProtocolAdded := retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || protocolAdded
+	retAdded = retAdded || ProtocolAdded
 
-	err, urlAdded := retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth, m, cmdPrefix, cmd)
+	err, URLAdded := retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || urlAdded
+	retAdded = retAdded || URLAdded
 
 	return nil, retAdded
 }
@@ -867,21 +867,21 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0CACertFlags(depth int, m *models.
 	}
 	retAdded := false
 
-	cACertFlagName := fmt.Sprintf("%v.CACert", cmdPrefix)
-	if cmd.Flags().Changed(cACertFlagName) {
+	CACertFlagName := fmt.Sprintf("%v.CACert", cmdPrefix)
+	if cmd.Flags().Changed(CACertFlagName) {
 
-		var cACertFlagName string
+		var CACertFlagName string
 		if cmdPrefix == "" {
-			cACertFlagName = "CACert"
+			CACertFlagName = "CACert"
 		} else {
-			cACertFlagName = fmt.Sprintf("%v.CACert", cmdPrefix)
+			CACertFlagName = fmt.Sprintf("%v.CACert", cmdPrefix)
 		}
 
-		cACertFlagValue, err := cmd.Flags().GetString(cACertFlagName)
+		CACertFlagValue, err := cmd.Flags().GetString(CACertFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CACert = cACertFlagValue
+		m.CACert = CACertFlagValue
 
 		retAdded = true
 	}
@@ -895,8 +895,8 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0OptionsFlags(depth int, m *models
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -909,21 +909,21 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0ProtocolFlags(depth int, m *model
 	}
 	retAdded := false
 
-	protocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
-	if cmd.Flags().Changed(protocolFlagName) {
+	ProtocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
+	if cmd.Flags().Changed(ProtocolFlagName) {
 
-		var protocolFlagName string
+		var ProtocolFlagName string
 		if cmdPrefix == "" {
-			protocolFlagName = "Protocol"
+			ProtocolFlagName = "Protocol"
 		} else {
-			protocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
+			ProtocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
 		}
 
-		protocolFlagValue, err := cmd.Flags().GetString(protocolFlagName)
+		ProtocolFlagValue, err := cmd.Flags().GetString(ProtocolFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Protocol = &protocolFlagValue
+		m.Protocol = &ProtocolFlagValue
 
 		retAdded = true
 	}
@@ -937,21 +937,21 @@ func retrieveSwarmSpecCAConfigExternalCAsItems0URLFlags(depth int, m *models.Swa
 	}
 	retAdded := false
 
-	urlFlagName := fmt.Sprintf("%v.URL", cmdPrefix)
-	if cmd.Flags().Changed(urlFlagName) {
+	URLFlagName := fmt.Sprintf("%v.URL", cmdPrefix)
+	if cmd.Flags().Changed(URLFlagName) {
 
-		var urlFlagName string
+		var URLFlagName string
 		if cmdPrefix == "" {
-			urlFlagName = "URL"
+			URLFlagName = "URL"
 		} else {
-			urlFlagName = fmt.Sprintf("%v.URL", cmdPrefix)
+			URLFlagName = fmt.Sprintf("%v.URL", cmdPrefix)
 		}
 
-		urlFlagValue, err := cmd.Flags().GetString(urlFlagName)
+		URLFlagValue, err := cmd.Flags().GetString(URLFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.URL = urlFlagValue
+		m.URL = URLFlagValue
 
 		retAdded = true
 	}
@@ -976,18 +976,18 @@ func registerSwarmSpecDispatcherHeartbeatPeriod(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	heartbeatPeriodDescription := `The delay for an agent to send a heartbeat to the dispatcher.`
+	HeartbeatPeriodDescription := `The delay for an agent to send a heartbeat to the dispatcher.`
 
-	var heartbeatPeriodFlagName string
+	var HeartbeatPeriodFlagName string
 	if cmdPrefix == "" {
-		heartbeatPeriodFlagName = "HeartbeatPeriod"
+		HeartbeatPeriodFlagName = "HeartbeatPeriod"
 	} else {
-		heartbeatPeriodFlagName = fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
+		HeartbeatPeriodFlagName = fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
 	}
 
-	var heartbeatPeriodFlagDefault int64
+	var HeartbeatPeriodFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(heartbeatPeriodFlagName, heartbeatPeriodFlagDefault, heartbeatPeriodDescription)
+	_ = cmd.PersistentFlags().Int64(HeartbeatPeriodFlagName, HeartbeatPeriodFlagDefault, HeartbeatPeriodDescription)
 
 	return nil
 }
@@ -996,11 +996,11 @@ func registerSwarmSpecDispatcherHeartbeatPeriod(depth int, cmdPrefix string, cmd
 func retrieveModelSwarmSpecDispatcherFlags(depth int, m *models.SwarmSpecDispatcher, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, heartbeatPeriodAdded := retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth, m, cmdPrefix, cmd)
+	err, HeartbeatPeriodAdded := retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || heartbeatPeriodAdded
+	retAdded = retAdded || HeartbeatPeriodAdded
 
 	return nil, retAdded
 }
@@ -1011,21 +1011,21 @@ func retrieveSwarmSpecDispatcherHeartbeatPeriodFlags(depth int, m *models.SwarmS
 	}
 	retAdded := false
 
-	heartbeatPeriodFlagName := fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
-	if cmd.Flags().Changed(heartbeatPeriodFlagName) {
+	HeartbeatPeriodFlagName := fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
+	if cmd.Flags().Changed(HeartbeatPeriodFlagName) {
 
-		var heartbeatPeriodFlagName string
+		var HeartbeatPeriodFlagName string
 		if cmdPrefix == "" {
-			heartbeatPeriodFlagName = "HeartbeatPeriod"
+			HeartbeatPeriodFlagName = "HeartbeatPeriod"
 		} else {
-			heartbeatPeriodFlagName = fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
+			HeartbeatPeriodFlagName = fmt.Sprintf("%v.HeartbeatPeriod", cmdPrefix)
 		}
 
-		heartbeatPeriodFlagValue, err := cmd.Flags().GetInt64(heartbeatPeriodFlagName)
+		HeartbeatPeriodFlagValue, err := cmd.Flags().GetInt64(HeartbeatPeriodFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.HeartbeatPeriod = heartbeatPeriodFlagValue
+		m.HeartbeatPeriod = HeartbeatPeriodFlagValue
 
 		retAdded = true
 	}
@@ -1050,18 +1050,18 @@ func registerSwarmSpecEncryptionConfigAutoLockManagers(depth int, cmdPrefix stri
 		return nil
 	}
 
-	autoLockManagersDescription := `If set, generate a key and use it to lock data stored on the managers.`
+	AutoLockManagersDescription := `If set, generate a key and use it to lock data stored on the managers.`
 
-	var autoLockManagersFlagName string
+	var AutoLockManagersFlagName string
 	if cmdPrefix == "" {
-		autoLockManagersFlagName = "AutoLockManagers"
+		AutoLockManagersFlagName = "AutoLockManagers"
 	} else {
-		autoLockManagersFlagName = fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
+		AutoLockManagersFlagName = fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
 	}
 
-	var autoLockManagersFlagDefault bool
+	var AutoLockManagersFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(autoLockManagersFlagName, autoLockManagersFlagDefault, autoLockManagersDescription)
+	_ = cmd.PersistentFlags().Bool(AutoLockManagersFlagName, AutoLockManagersFlagDefault, AutoLockManagersDescription)
 
 	return nil
 }
@@ -1070,11 +1070,11 @@ func registerSwarmSpecEncryptionConfigAutoLockManagers(depth int, cmdPrefix stri
 func retrieveModelSwarmSpecEncryptionConfigFlags(depth int, m *models.SwarmSpecEncryptionConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, autoLockManagersAdded := retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth, m, cmdPrefix, cmd)
+	err, AutoLockManagersAdded := retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || autoLockManagersAdded
+	retAdded = retAdded || AutoLockManagersAdded
 
 	return nil, retAdded
 }
@@ -1085,21 +1085,21 @@ func retrieveSwarmSpecEncryptionConfigAutoLockManagersFlags(depth int, m *models
 	}
 	retAdded := false
 
-	autoLockManagersFlagName := fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
-	if cmd.Flags().Changed(autoLockManagersFlagName) {
+	AutoLockManagersFlagName := fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
+	if cmd.Flags().Changed(AutoLockManagersFlagName) {
 
-		var autoLockManagersFlagName string
+		var AutoLockManagersFlagName string
 		if cmdPrefix == "" {
-			autoLockManagersFlagName = "AutoLockManagers"
+			AutoLockManagersFlagName = "AutoLockManagers"
 		} else {
-			autoLockManagersFlagName = fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
+			AutoLockManagersFlagName = fmt.Sprintf("%v.AutoLockManagers", cmdPrefix)
 		}
 
-		autoLockManagersFlagValue, err := cmd.Flags().GetBool(autoLockManagersFlagName)
+		AutoLockManagersFlagValue, err := cmd.Flags().GetBool(AutoLockManagersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AutoLockManagers = autoLockManagersFlagValue
+		m.AutoLockManagers = AutoLockManagersFlagValue
 
 		retAdded = true
 	}
@@ -1124,18 +1124,18 @@ func registerSwarmSpecOrchestrationTaskHistoryRetentionLimit(depth int, cmdPrefi
 		return nil
 	}
 
-	taskHistoryRetentionLimitDescription := `The number of historic tasks to keep per instance or node. If negative, never remove completed or failed tasks.`
+	TaskHistoryRetentionLimitDescription := `The number of historic tasks to keep per instance or node. If negative, never remove completed or failed tasks.`
 
-	var taskHistoryRetentionLimitFlagName string
+	var TaskHistoryRetentionLimitFlagName string
 	if cmdPrefix == "" {
-		taskHistoryRetentionLimitFlagName = "TaskHistoryRetentionLimit"
+		TaskHistoryRetentionLimitFlagName = "TaskHistoryRetentionLimit"
 	} else {
-		taskHistoryRetentionLimitFlagName = fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
+		TaskHistoryRetentionLimitFlagName = fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
 	}
 
-	var taskHistoryRetentionLimitFlagDefault int64
+	var TaskHistoryRetentionLimitFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(taskHistoryRetentionLimitFlagName, taskHistoryRetentionLimitFlagDefault, taskHistoryRetentionLimitDescription)
+	_ = cmd.PersistentFlags().Int64(TaskHistoryRetentionLimitFlagName, TaskHistoryRetentionLimitFlagDefault, TaskHistoryRetentionLimitDescription)
 
 	return nil
 }
@@ -1144,11 +1144,11 @@ func registerSwarmSpecOrchestrationTaskHistoryRetentionLimit(depth int, cmdPrefi
 func retrieveModelSwarmSpecOrchestrationFlags(depth int, m *models.SwarmSpecOrchestration, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, taskHistoryRetentionLimitAdded := retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth, m, cmdPrefix, cmd)
+	err, TaskHistoryRetentionLimitAdded := retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || taskHistoryRetentionLimitAdded
+	retAdded = retAdded || TaskHistoryRetentionLimitAdded
 
 	return nil, retAdded
 }
@@ -1159,21 +1159,21 @@ func retrieveSwarmSpecOrchestrationTaskHistoryRetentionLimitFlags(depth int, m *
 	}
 	retAdded := false
 
-	taskHistoryRetentionLimitFlagName := fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
-	if cmd.Flags().Changed(taskHistoryRetentionLimitFlagName) {
+	TaskHistoryRetentionLimitFlagName := fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
+	if cmd.Flags().Changed(TaskHistoryRetentionLimitFlagName) {
 
-		var taskHistoryRetentionLimitFlagName string
+		var TaskHistoryRetentionLimitFlagName string
 		if cmdPrefix == "" {
-			taskHistoryRetentionLimitFlagName = "TaskHistoryRetentionLimit"
+			TaskHistoryRetentionLimitFlagName = "TaskHistoryRetentionLimit"
 		} else {
-			taskHistoryRetentionLimitFlagName = fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
+			TaskHistoryRetentionLimitFlagName = fmt.Sprintf("%v.TaskHistoryRetentionLimit", cmdPrefix)
 		}
 
-		taskHistoryRetentionLimitFlagValue, err := cmd.Flags().GetInt64(taskHistoryRetentionLimitFlagName)
+		TaskHistoryRetentionLimitFlagValue, err := cmd.Flags().GetInt64(TaskHistoryRetentionLimitFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.TaskHistoryRetentionLimit = taskHistoryRetentionLimitFlagValue
+		m.TaskHistoryRetentionLimit = TaskHistoryRetentionLimitFlagValue
 
 		retAdded = true
 	}
@@ -1214,21 +1214,21 @@ func registerSwarmSpecRaftElectionTick(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	electionTickDescription := `The number of ticks that a follower will wait for a message from the leader before becoming a candidate and starting an election. ` + "`" + `ElectionTick` + "`" + ` must be greater than ` + "`" + `HeartbeatTick` + "`" + `.
+	ElectionTickDescription := `The number of ticks that a follower will wait for a message from the leader before becoming a candidate and starting an election. ` + "`" + `ElectionTick` + "`" + ` must be greater than ` + "`" + `HeartbeatTick` + "`" + `.
 
 A tick currently defaults to one second, so these translate directly to seconds currently, but this is NOT guaranteed.
 `
 
-	var electionTickFlagName string
+	var ElectionTickFlagName string
 	if cmdPrefix == "" {
-		electionTickFlagName = "ElectionTick"
+		ElectionTickFlagName = "ElectionTick"
 	} else {
-		electionTickFlagName = fmt.Sprintf("%v.ElectionTick", cmdPrefix)
+		ElectionTickFlagName = fmt.Sprintf("%v.ElectionTick", cmdPrefix)
 	}
 
-	var electionTickFlagDefault int64
+	var ElectionTickFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(electionTickFlagName, electionTickFlagDefault, electionTickDescription)
+	_ = cmd.PersistentFlags().Int64(ElectionTickFlagName, ElectionTickFlagDefault, ElectionTickDescription)
 
 	return nil
 }
@@ -1238,21 +1238,21 @@ func registerSwarmSpecRaftHeartbeatTick(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	heartbeatTickDescription := `The number of ticks between heartbeats. Every HeartbeatTick ticks, the leader will send a heartbeat to the followers.
+	HeartbeatTickDescription := `The number of ticks between heartbeats. Every HeartbeatTick ticks, the leader will send a heartbeat to the followers.
 
 A tick currently defaults to one second, so these translate directly to seconds currently, but this is NOT guaranteed.
 `
 
-	var heartbeatTickFlagName string
+	var HeartbeatTickFlagName string
 	if cmdPrefix == "" {
-		heartbeatTickFlagName = "HeartbeatTick"
+		HeartbeatTickFlagName = "HeartbeatTick"
 	} else {
-		heartbeatTickFlagName = fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
+		HeartbeatTickFlagName = fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
 	}
 
-	var heartbeatTickFlagDefault int64
+	var HeartbeatTickFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(heartbeatTickFlagName, heartbeatTickFlagDefault, heartbeatTickDescription)
+	_ = cmd.PersistentFlags().Int64(HeartbeatTickFlagName, HeartbeatTickFlagDefault, HeartbeatTickDescription)
 
 	return nil
 }
@@ -1291,35 +1291,35 @@ func registerSwarmSpecRaftSnapshotInterval(depth int, cmdPrefix string, cmd *cob
 func retrieveModelSwarmSpecRaftFlags(depth int, m *models.SwarmSpecRaft, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, electionTickAdded := retrieveSwarmSpecRaftElectionTickFlags(depth, m, cmdPrefix, cmd)
+	err, ElectionTickAdded := retrieveSwarmSpecRaftElectionTickFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || electionTickAdded
+	retAdded = retAdded || ElectionTickAdded
 
-	err, heartbeatTickAdded := retrieveSwarmSpecRaftHeartbeatTickFlags(depth, m, cmdPrefix, cmd)
+	err, HeartbeatTickAdded := retrieveSwarmSpecRaftHeartbeatTickFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || heartbeatTickAdded
+	retAdded = retAdded || HeartbeatTickAdded
 
-	err, keepOldSnapshotsAdded := retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth, m, cmdPrefix, cmd)
+	err, KeepOldSnapshotsAdded := retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || keepOldSnapshotsAdded
+	retAdded = retAdded || KeepOldSnapshotsAdded
 
-	err, logEntriesForSlowFollowersAdded := retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth, m, cmdPrefix, cmd)
+	err, LogEntriesForSlowFollowersAdded := retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || logEntriesForSlowFollowersAdded
+	retAdded = retAdded || LogEntriesForSlowFollowersAdded
 
-	err, snapshotIntervalAdded := retrieveSwarmSpecRaftSnapshotIntervalFlags(depth, m, cmdPrefix, cmd)
+	err, SnapshotIntervalAdded := retrieveSwarmSpecRaftSnapshotIntervalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || snapshotIntervalAdded
+	retAdded = retAdded || SnapshotIntervalAdded
 
 	return nil, retAdded
 }
@@ -1330,21 +1330,21 @@ func retrieveSwarmSpecRaftElectionTickFlags(depth int, m *models.SwarmSpecRaft, 
 	}
 	retAdded := false
 
-	electionTickFlagName := fmt.Sprintf("%v.ElectionTick", cmdPrefix)
-	if cmd.Flags().Changed(electionTickFlagName) {
+	ElectionTickFlagName := fmt.Sprintf("%v.ElectionTick", cmdPrefix)
+	if cmd.Flags().Changed(ElectionTickFlagName) {
 
-		var electionTickFlagName string
+		var ElectionTickFlagName string
 		if cmdPrefix == "" {
-			electionTickFlagName = "ElectionTick"
+			ElectionTickFlagName = "ElectionTick"
 		} else {
-			electionTickFlagName = fmt.Sprintf("%v.ElectionTick", cmdPrefix)
+			ElectionTickFlagName = fmt.Sprintf("%v.ElectionTick", cmdPrefix)
 		}
 
-		electionTickFlagValue, err := cmd.Flags().GetInt64(electionTickFlagName)
+		ElectionTickFlagValue, err := cmd.Flags().GetInt64(ElectionTickFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ElectionTick = electionTickFlagValue
+		m.ElectionTick = ElectionTickFlagValue
 
 		retAdded = true
 	}
@@ -1358,21 +1358,21 @@ func retrieveSwarmSpecRaftHeartbeatTickFlags(depth int, m *models.SwarmSpecRaft,
 	}
 	retAdded := false
 
-	heartbeatTickFlagName := fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
-	if cmd.Flags().Changed(heartbeatTickFlagName) {
+	HeartbeatTickFlagName := fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
+	if cmd.Flags().Changed(HeartbeatTickFlagName) {
 
-		var heartbeatTickFlagName string
+		var HeartbeatTickFlagName string
 		if cmdPrefix == "" {
-			heartbeatTickFlagName = "HeartbeatTick"
+			HeartbeatTickFlagName = "HeartbeatTick"
 		} else {
-			heartbeatTickFlagName = fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
+			HeartbeatTickFlagName = fmt.Sprintf("%v.HeartbeatTick", cmdPrefix)
 		}
 
-		heartbeatTickFlagValue, err := cmd.Flags().GetInt64(heartbeatTickFlagName)
+		HeartbeatTickFlagValue, err := cmd.Flags().GetInt64(HeartbeatTickFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.HeartbeatTick = heartbeatTickFlagValue
+		m.HeartbeatTick = HeartbeatTickFlagValue
 
 		retAdded = true
 	}
@@ -1386,8 +1386,8 @@ func retrieveSwarmSpecRaftKeepOldSnapshotsFlags(depth int, m *models.SwarmSpecRa
 	}
 	retAdded := false
 
-	keepOldSnapshotsFlagName := fmt.Sprintf("%v.KeepOldSnapshots", cmdPrefix)
-	if cmd.Flags().Changed(keepOldSnapshotsFlagName) {
+	KeepOldSnapshotsFlagName := fmt.Sprintf("%v.KeepOldSnapshots", cmdPrefix)
+	if cmd.Flags().Changed(KeepOldSnapshotsFlagName) {
 
 		// warning: primitive KeepOldSnapshots uint64 is not supported by go-swagger cli yet
 
@@ -1403,8 +1403,8 @@ func retrieveSwarmSpecRaftLogEntriesForSlowFollowersFlags(depth int, m *models.S
 	}
 	retAdded := false
 
-	logEntriesForSlowFollowersFlagName := fmt.Sprintf("%v.LogEntriesForSlowFollowers", cmdPrefix)
-	if cmd.Flags().Changed(logEntriesForSlowFollowersFlagName) {
+	LogEntriesForSlowFollowersFlagName := fmt.Sprintf("%v.LogEntriesForSlowFollowers", cmdPrefix)
+	if cmd.Flags().Changed(LogEntriesForSlowFollowersFlagName) {
 
 		// warning: primitive LogEntriesForSlowFollowers uint64 is not supported by go-swagger cli yet
 
@@ -1420,8 +1420,8 @@ func retrieveSwarmSpecRaftSnapshotIntervalFlags(depth int, m *models.SwarmSpecRa
 	}
 	retAdded := false
 
-	snapshotIntervalFlagName := fmt.Sprintf("%v.SnapshotInterval", cmdPrefix)
-	if cmd.Flags().Changed(snapshotIntervalFlagName) {
+	SnapshotIntervalFlagName := fmt.Sprintf("%v.SnapshotInterval", cmdPrefix)
+	if cmd.Flags().Changed(SnapshotIntervalFlagName) {
 
 		// warning: primitive SnapshotInterval uint64 is not supported by go-swagger cli yet
 
@@ -1448,14 +1448,14 @@ func registerSwarmSpecTaskDefaultsLogDriver(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	var logDriverFlagName string
+	var LogDriverFlagName string
 	if cmdPrefix == "" {
-		logDriverFlagName = "LogDriver"
+		LogDriverFlagName = "LogDriver"
 	} else {
-		logDriverFlagName = fmt.Sprintf("%v.LogDriver", cmdPrefix)
+		LogDriverFlagName = fmt.Sprintf("%v.LogDriver", cmdPrefix)
 	}
 
-	if err := registerModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, logDriverFlagName, cmd); err != nil {
+	if err := registerModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, LogDriverFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -1466,11 +1466,11 @@ func registerSwarmSpecTaskDefaultsLogDriver(depth int, cmdPrefix string, cmd *co
 func retrieveModelSwarmSpecTaskDefaultsFlags(depth int, m *models.SwarmSpecTaskDefaults, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, logDriverAdded := retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth, m, cmdPrefix, cmd)
+	err, LogDriverAdded := retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || logDriverAdded
+	retAdded = retAdded || LogDriverAdded
 
 	return nil, retAdded
 }
@@ -1481,22 +1481,22 @@ func retrieveSwarmSpecTaskDefaultsLogDriverFlags(depth int, m *models.SwarmSpecT
 	}
 	retAdded := false
 
-	logDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
-	if cmd.Flags().Changed(logDriverFlagName) {
+	LogDriverFlagName := fmt.Sprintf("%v.LogDriver", cmdPrefix)
+	if cmd.Flags().Changed(LogDriverFlagName) {
 		// info: complex object LogDriver SwarmSpecTaskDefaultsLogDriver is retrieved outside this Changed() block
 	}
-	logDriverFlagValue := m.LogDriver
-	if swag.IsZero(logDriverFlagValue) {
-		logDriverFlagValue = &models.SwarmSpecTaskDefaultsLogDriver{}
+	LogDriverFlagValue := m.LogDriver
+	if swag.IsZero(LogDriverFlagValue) {
+		LogDriverFlagValue = &models.SwarmSpecTaskDefaultsLogDriver{}
 	}
 
-	err, logDriverAdded := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, logDriverFlagValue, logDriverFlagName, cmd)
+	err, LogDriverAdded := retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth+1, LogDriverFlagValue, LogDriverFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || logDriverAdded
-	if logDriverAdded {
-		m.LogDriver = logDriverFlagValue
+	retAdded = retAdded || LogDriverAdded
+	if LogDriverAdded {
+		m.LogDriver = LogDriverFlagValue
 	}
 
 	return nil, retAdded
@@ -1523,19 +1523,19 @@ func registerSwarmSpecTaskDefaultsLogDriverName(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	nameDescription := `The log driver to use as a default for new tasks.
+	NameDescription := `The log driver to use as a default for new tasks.
 `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -1554,17 +1554,17 @@ func registerSwarmSpecTaskDefaultsLogDriverOptions(depth int, cmdPrefix string, 
 func retrieveModelSwarmSpecTaskDefaultsLogDriverFlags(depth int, m *models.SwarmSpecTaskDefaultsLogDriver, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nameAdded := retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, optionsAdded := retrieveSwarmSpecTaskDefaultsLogDriverOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveSwarmSpecTaskDefaultsLogDriverOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
 	return nil, retAdded
 }
@@ -1575,21 +1575,21 @@ func retrieveSwarmSpecTaskDefaultsLogDriverNameFlags(depth int, m *models.SwarmS
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -1603,8 +1603,8 @@ func retrieveSwarmSpecTaskDefaultsLogDriverOptionsFlags(depth int, m *models.Swa
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 

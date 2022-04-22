@@ -68,14 +68,14 @@ func registerOperationVolumeVolumeCreateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationVolumeVolumeCreateVolumeConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var volumeConfigFlagName string
+	var VolumeConfigFlagName string
 	if cmdPrefix == "" {
-		volumeConfigFlagName = "volumeConfig"
+		VolumeConfigFlagName = "volumeConfig"
 	} else {
-		volumeConfigFlagName = fmt.Sprintf("%v.volumeConfig", cmdPrefix)
+		VolumeConfigFlagName = fmt.Sprintf("%v.volumeConfig", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(volumeConfigFlagName, "", "Optional json string for [volumeConfig]. Volume configuration")
+	_ = cmd.PersistentFlags().String(VolumeConfigFlagName, "", "Optional json string for [volumeConfig]. Volume configuration")
 
 	// add flags for body
 	if err := registerModelVolumeCreateBodyFlags(0, "volumeCreateBody", cmd); err != nil {
@@ -193,18 +193,18 @@ func registerVolumeCreateBodyDriver(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	driverDescription := `Name of the volume driver to use.`
+	DriverDescription := `Name of the volume driver to use.`
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string = "local"
+	var DriverFlagDefault string = "local"
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -234,18 +234,18 @@ func registerVolumeCreateBodyName(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	nameDescription := `The new volume's name. If not specified, Docker generates a name.`
+	NameDescription := `The new volume's name. If not specified, Docker generates a name.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -254,29 +254,29 @@ func registerVolumeCreateBodyName(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelVolumeCreateBodyFlags(depth int, m *volume.VolumeCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, driverAdded := retrieveVolumeCreateBodyDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveVolumeCreateBodyDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, driverOptsAdded := retrieveVolumeCreateBodyDriverOptsFlags(depth, m, cmdPrefix, cmd)
+	err, DriverOptsAdded := retrieveVolumeCreateBodyDriverOptsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverOptsAdded
+	retAdded = retAdded || DriverOptsAdded
 
-	err, labelsAdded := retrieveVolumeCreateBodyLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveVolumeCreateBodyLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, nameAdded := retrieveVolumeCreateBodyNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveVolumeCreateBodyNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
 	return nil, retAdded
 }
@@ -287,21 +287,21 @@ func retrieveVolumeCreateBodyDriverFlags(depth int, m *volume.VolumeCreateBody, 
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = driverFlagValue
+		m.Driver = DriverFlagValue
 
 		retAdded = true
 	}
@@ -315,8 +315,8 @@ func retrieveVolumeCreateBodyDriverOptsFlags(depth int, m *volume.VolumeCreateBo
 	}
 	retAdded := false
 
-	driverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
-	if cmd.Flags().Changed(driverOptsFlagName) {
+	DriverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
+	if cmd.Flags().Changed(DriverOptsFlagName) {
 		// warning: DriverOpts map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -329,8 +329,8 @@ func retrieveVolumeCreateBodyLabelsFlags(depth int, m *volume.VolumeCreateBody, 
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -343,21 +343,21 @@ func retrieveVolumeCreateBodyNameFlags(depth int, m *volume.VolumeCreateBody, cm
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}

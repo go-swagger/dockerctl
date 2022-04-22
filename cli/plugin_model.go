@@ -52,14 +52,14 @@ func registerPluginConfig(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	var configFlagName string
+	var ConfigFlagName string
 	if cmdPrefix == "" {
-		configFlagName = "Config"
+		ConfigFlagName = "Config"
 	} else {
-		configFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
+		ConfigFlagName = fmt.Sprintf("%v.Config", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigFlags(depth+1, configFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigFlags(depth+1, ConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -71,18 +71,18 @@ func registerPluginEnabled(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	enabledDescription := `Required. True if the plugin is running. False if the plugin is not running, only installed.`
+	EnabledDescription := `Required. True if the plugin is running. False if the plugin is not running, only installed.`
 
-	var enabledFlagName string
+	var EnabledFlagName string
 	if cmdPrefix == "" {
-		enabledFlagName = "Enabled"
+		EnabledFlagName = "Enabled"
 	} else {
-		enabledFlagName = fmt.Sprintf("%v.Enabled", cmdPrefix)
+		EnabledFlagName = fmt.Sprintf("%v.Enabled", cmdPrefix)
 	}
 
-	var enabledFlagDefault bool
+	var EnabledFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(enabledFlagName, enabledFlagDefault, enabledDescription)
+	_ = cmd.PersistentFlags().Bool(EnabledFlagName, EnabledFlagDefault, EnabledDescription)
 
 	return nil
 }
@@ -92,18 +92,18 @@ func registerPluginID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -113,18 +113,18 @@ func registerPluginName(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -134,18 +134,18 @@ func registerPluginPluginReference(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	pluginReferenceDescription := `plugin remote reference used to push/pull the plugin`
+	PluginReferenceDescription := `plugin remote reference used to push/pull the plugin`
 
-	var pluginReferenceFlagName string
+	var PluginReferenceFlagName string
 	if cmdPrefix == "" {
-		pluginReferenceFlagName = "PluginReference"
+		PluginReferenceFlagName = "PluginReference"
 	} else {
-		pluginReferenceFlagName = fmt.Sprintf("%v.PluginReference", cmdPrefix)
+		PluginReferenceFlagName = fmt.Sprintf("%v.PluginReference", cmdPrefix)
 	}
 
-	var pluginReferenceFlagDefault string
+	var PluginReferenceFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pluginReferenceFlagName, pluginReferenceFlagDefault, pluginReferenceDescription)
+	_ = cmd.PersistentFlags().String(PluginReferenceFlagName, PluginReferenceFlagDefault, PluginReferenceDescription)
 
 	return nil
 }
@@ -155,14 +155,14 @@ func registerPluginSettings(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	var settingsFlagName string
+	var SettingsFlagName string
 	if cmdPrefix == "" {
-		settingsFlagName = "Settings"
+		SettingsFlagName = "Settings"
 	} else {
-		settingsFlagName = fmt.Sprintf("%v.Settings", cmdPrefix)
+		SettingsFlagName = fmt.Sprintf("%v.Settings", cmdPrefix)
 	}
 
-	if err := registerModelPluginSettingsFlags(depth+1, settingsFlagName, cmd); err != nil {
+	if err := registerModelPluginSettingsFlags(depth+1, SettingsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -173,41 +173,41 @@ func registerPluginSettings(depth int, cmdPrefix string, cmd *cobra.Command) err
 func retrieveModelPluginFlags(depth int, m *models.Plugin, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, configAdded := retrievePluginConfigFlags(depth, m, cmdPrefix, cmd)
+	err, ConfigAdded := retrievePluginConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || configAdded
+	retAdded = retAdded || ConfigAdded
 
-	err, enabledAdded := retrievePluginEnabledFlags(depth, m, cmdPrefix, cmd)
+	err, EnabledAdded := retrievePluginEnabledFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || enabledAdded
+	retAdded = retAdded || EnabledAdded
 
-	err, idAdded := retrievePluginIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrievePluginIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, nameAdded := retrievePluginNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrievePluginNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, pluginReferenceAdded := retrievePluginPluginReferenceFlags(depth, m, cmdPrefix, cmd)
+	err, PluginReferenceAdded := retrievePluginPluginReferenceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pluginReferenceAdded
+	retAdded = retAdded || PluginReferenceAdded
 
-	err, settingsAdded := retrievePluginSettingsFlags(depth, m, cmdPrefix, cmd)
+	err, SettingsAdded := retrievePluginSettingsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || settingsAdded
+	retAdded = retAdded || SettingsAdded
 
 	return nil, retAdded
 }
@@ -218,22 +218,22 @@ func retrievePluginConfigFlags(depth int, m *models.Plugin, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
-	if cmd.Flags().Changed(configFlagName) {
+	ConfigFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
+	if cmd.Flags().Changed(ConfigFlagName) {
 		// info: complex object Config PluginConfig is retrieved outside this Changed() block
 	}
-	configFlagValue := m.Config
-	if swag.IsZero(configFlagValue) {
-		configFlagValue = models.PluginConfig{}
+	ConfigFlagValue := m.Config
+	if swag.IsZero(ConfigFlagValue) {
+		ConfigFlagValue = models.PluginConfig{}
 	}
 
-	err, configAdded := retrieveModelPluginConfigFlags(depth+1, &configFlagValue, configFlagName, cmd)
+	err, ConfigAdded := retrieveModelPluginConfigFlags(depth+1, &ConfigFlagValue, ConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || configAdded
-	if configAdded {
-		m.Config = configFlagValue
+	retAdded = retAdded || ConfigAdded
+	if ConfigAdded {
+		m.Config = ConfigFlagValue
 	}
 
 	return nil, retAdded
@@ -245,21 +245,21 @@ func retrievePluginEnabledFlags(depth int, m *models.Plugin, cmdPrefix string, c
 	}
 	retAdded := false
 
-	enabledFlagName := fmt.Sprintf("%v.Enabled", cmdPrefix)
-	if cmd.Flags().Changed(enabledFlagName) {
+	EnabledFlagName := fmt.Sprintf("%v.Enabled", cmdPrefix)
+	if cmd.Flags().Changed(EnabledFlagName) {
 
-		var enabledFlagName string
+		var EnabledFlagName string
 		if cmdPrefix == "" {
-			enabledFlagName = "Enabled"
+			EnabledFlagName = "Enabled"
 		} else {
-			enabledFlagName = fmt.Sprintf("%v.Enabled", cmdPrefix)
+			EnabledFlagName = fmt.Sprintf("%v.Enabled", cmdPrefix)
 		}
 
-		enabledFlagValue, err := cmd.Flags().GetBool(enabledFlagName)
+		EnabledFlagValue, err := cmd.Flags().GetBool(EnabledFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Enabled = enabledFlagValue
+		m.Enabled = EnabledFlagValue
 
 		retAdded = true
 	}
@@ -273,21 +273,21 @@ func retrievePluginIDFlags(depth int, m *models.Plugin, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -301,21 +301,21 @@ func retrievePluginNameFlags(depth int, m *models.Plugin, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -329,21 +329,21 @@ func retrievePluginPluginReferenceFlags(depth int, m *models.Plugin, cmdPrefix s
 	}
 	retAdded := false
 
-	pluginReferenceFlagName := fmt.Sprintf("%v.PluginReference", cmdPrefix)
-	if cmd.Flags().Changed(pluginReferenceFlagName) {
+	PluginReferenceFlagName := fmt.Sprintf("%v.PluginReference", cmdPrefix)
+	if cmd.Flags().Changed(PluginReferenceFlagName) {
 
-		var pluginReferenceFlagName string
+		var PluginReferenceFlagName string
 		if cmdPrefix == "" {
-			pluginReferenceFlagName = "PluginReference"
+			PluginReferenceFlagName = "PluginReference"
 		} else {
-			pluginReferenceFlagName = fmt.Sprintf("%v.PluginReference", cmdPrefix)
+			PluginReferenceFlagName = fmt.Sprintf("%v.PluginReference", cmdPrefix)
 		}
 
-		pluginReferenceFlagValue, err := cmd.Flags().GetString(pluginReferenceFlagName)
+		PluginReferenceFlagValue, err := cmd.Flags().GetString(PluginReferenceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PluginReference = pluginReferenceFlagValue
+		m.PluginReference = PluginReferenceFlagValue
 
 		retAdded = true
 	}
@@ -357,22 +357,22 @@ func retrievePluginSettingsFlags(depth int, m *models.Plugin, cmdPrefix string, 
 	}
 	retAdded := false
 
-	settingsFlagName := fmt.Sprintf("%v.Settings", cmdPrefix)
-	if cmd.Flags().Changed(settingsFlagName) {
+	SettingsFlagName := fmt.Sprintf("%v.Settings", cmdPrefix)
+	if cmd.Flags().Changed(SettingsFlagName) {
 		// info: complex object Settings PluginSettings is retrieved outside this Changed() block
 	}
-	settingsFlagValue := m.Settings
-	if swag.IsZero(settingsFlagValue) {
-		settingsFlagValue = models.PluginSettings{}
+	SettingsFlagValue := m.Settings
+	if swag.IsZero(SettingsFlagValue) {
+		SettingsFlagValue = models.PluginSettings{}
 	}
 
-	err, settingsAdded := retrieveModelPluginSettingsFlags(depth+1, &settingsFlagValue, settingsFlagName, cmd)
+	err, SettingsAdded := retrieveModelPluginSettingsFlags(depth+1, &SettingsFlagValue, SettingsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || settingsAdded
-	if settingsAdded {
-		m.Settings = settingsFlagValue
+	retAdded = retAdded || SettingsAdded
+	if SettingsAdded {
+		m.Settings = SettingsFlagValue
 	}
 
 	return nil, retAdded
@@ -455,14 +455,14 @@ func registerPluginConfigArgs(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	var argsFlagName string
+	var ArgsFlagName string
 	if cmdPrefix == "" {
-		argsFlagName = "Args"
+		ArgsFlagName = "Args"
 	} else {
-		argsFlagName = fmt.Sprintf("%v.Args", cmdPrefix)
+		ArgsFlagName = fmt.Sprintf("%v.Args", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigArgsFlags(depth+1, argsFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigArgsFlags(depth+1, ArgsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -474,18 +474,18 @@ func registerPluginConfigDescription(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	descriptionDescription := `Required. `
+	DescriptionDescription := `Required. `
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -495,18 +495,18 @@ func registerPluginConfigDockerVersion(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	dockerVersionDescription := `Docker Version used to create the plugin`
+	DockerVersionDescription := `Docker Version used to create the plugin`
 
-	var dockerVersionFlagName string
+	var DockerVersionFlagName string
 	if cmdPrefix == "" {
-		dockerVersionFlagName = "DockerVersion"
+		DockerVersionFlagName = "DockerVersion"
 	} else {
-		dockerVersionFlagName = fmt.Sprintf("%v.DockerVersion", cmdPrefix)
+		DockerVersionFlagName = fmt.Sprintf("%v.DockerVersion", cmdPrefix)
 	}
 
-	var dockerVersionFlagDefault string
+	var DockerVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(dockerVersionFlagName, dockerVersionFlagDefault, dockerVersionDescription)
+	_ = cmd.PersistentFlags().String(DockerVersionFlagName, DockerVersionFlagDefault, DockerVersionDescription)
 
 	return nil
 }
@@ -516,18 +516,18 @@ func registerPluginConfigDocumentation(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	documentationDescription := `Required. `
+	DocumentationDescription := `Required. `
 
-	var documentationFlagName string
+	var DocumentationFlagName string
 	if cmdPrefix == "" {
-		documentationFlagName = "Documentation"
+		DocumentationFlagName = "Documentation"
 	} else {
-		documentationFlagName = fmt.Sprintf("%v.Documentation", cmdPrefix)
+		DocumentationFlagName = fmt.Sprintf("%v.Documentation", cmdPrefix)
 	}
 
-	var documentationFlagDefault string
+	var DocumentationFlagDefault string
 
-	_ = cmd.PersistentFlags().String(documentationFlagName, documentationFlagDefault, documentationDescription)
+	_ = cmd.PersistentFlags().String(DocumentationFlagName, DocumentationFlagDefault, DocumentationDescription)
 
 	return nil
 }
@@ -557,14 +557,14 @@ func registerPluginConfigInterface(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	var interfaceFlagName string
+	var InterfaceFlagName string
 	if cmdPrefix == "" {
-		interfaceFlagName = "Interface"
+		InterfaceFlagName = "Interface"
 	} else {
-		interfaceFlagName = fmt.Sprintf("%v.Interface", cmdPrefix)
+		InterfaceFlagName = fmt.Sprintf("%v.Interface", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigInterfaceFlags(depth+1, interfaceFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigInterfaceFlags(depth+1, InterfaceFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -576,18 +576,18 @@ func registerPluginConfigIpcHost(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	ipcHostDescription := `Required. `
+	IpcHostDescription := `Required. `
 
-	var ipcHostFlagName string
+	var IpcHostFlagName string
 	if cmdPrefix == "" {
-		ipcHostFlagName = "IpcHost"
+		IpcHostFlagName = "IpcHost"
 	} else {
-		ipcHostFlagName = fmt.Sprintf("%v.IpcHost", cmdPrefix)
+		IpcHostFlagName = fmt.Sprintf("%v.IpcHost", cmdPrefix)
 	}
 
-	var ipcHostFlagDefault bool
+	var IpcHostFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ipcHostFlagName, ipcHostFlagDefault, ipcHostDescription)
+	_ = cmd.PersistentFlags().Bool(IpcHostFlagName, IpcHostFlagDefault, IpcHostDescription)
 
 	return nil
 }
@@ -597,14 +597,14 @@ func registerPluginConfigLinux(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	var linuxFlagName string
+	var LinuxFlagName string
 	if cmdPrefix == "" {
-		linuxFlagName = "Linux"
+		LinuxFlagName = "Linux"
 	} else {
-		linuxFlagName = fmt.Sprintf("%v.Linux", cmdPrefix)
+		LinuxFlagName = fmt.Sprintf("%v.Linux", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigLinuxFlags(depth+1, linuxFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigLinuxFlags(depth+1, LinuxFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -626,14 +626,14 @@ func registerPluginConfigNetwork(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	var networkFlagName string
+	var NetworkFlagName string
 	if cmdPrefix == "" {
-		networkFlagName = "Network"
+		NetworkFlagName = "Network"
 	} else {
-		networkFlagName = fmt.Sprintf("%v.Network", cmdPrefix)
+		NetworkFlagName = fmt.Sprintf("%v.Network", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigNetworkFlags(depth+1, networkFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigNetworkFlags(depth+1, NetworkFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -645,18 +645,18 @@ func registerPluginConfigPidHost(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	pidHostDescription := `Required. `
+	PidHostDescription := `Required. `
 
-	var pidHostFlagName string
+	var PidHostFlagName string
 	if cmdPrefix == "" {
-		pidHostFlagName = "PidHost"
+		PidHostFlagName = "PidHost"
 	} else {
-		pidHostFlagName = fmt.Sprintf("%v.PidHost", cmdPrefix)
+		PidHostFlagName = fmt.Sprintf("%v.PidHost", cmdPrefix)
 	}
 
-	var pidHostFlagDefault bool
+	var PidHostFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(pidHostFlagName, pidHostFlagDefault, pidHostDescription)
+	_ = cmd.PersistentFlags().Bool(PidHostFlagName, PidHostFlagDefault, PidHostDescription)
 
 	return nil
 }
@@ -666,18 +666,18 @@ func registerPluginConfigPropagatedMount(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	propagatedMountDescription := `Required. `
+	PropagatedMountDescription := `Required. `
 
-	var propagatedMountFlagName string
+	var PropagatedMountFlagName string
 	if cmdPrefix == "" {
-		propagatedMountFlagName = "PropagatedMount"
+		PropagatedMountFlagName = "PropagatedMount"
 	} else {
-		propagatedMountFlagName = fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
+		PropagatedMountFlagName = fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
 	}
 
-	var propagatedMountFlagDefault string
+	var PropagatedMountFlagDefault string
 
-	_ = cmd.PersistentFlags().String(propagatedMountFlagName, propagatedMountFlagDefault, propagatedMountDescription)
+	_ = cmd.PersistentFlags().String(PropagatedMountFlagName, PropagatedMountFlagDefault, PropagatedMountDescription)
 
 	return nil
 }
@@ -687,14 +687,14 @@ func registerPluginConfigUser(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	var userFlagName string
+	var UserFlagName string
 	if cmdPrefix == "" {
-		userFlagName = "User"
+		UserFlagName = "User"
 	} else {
-		userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+		UserFlagName = fmt.Sprintf("%v.User", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigUserFlags(depth+1, userFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigUserFlags(depth+1, UserFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -706,18 +706,18 @@ func registerPluginConfigWorkDir(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	workDirDescription := `Required. `
+	WorkDirDescription := `Required. `
 
-	var workDirFlagName string
+	var WorkDirFlagName string
 	if cmdPrefix == "" {
-		workDirFlagName = "WorkDir"
+		WorkDirFlagName = "WorkDir"
 	} else {
-		workDirFlagName = fmt.Sprintf("%v.WorkDir", cmdPrefix)
+		WorkDirFlagName = fmt.Sprintf("%v.WorkDir", cmdPrefix)
 	}
 
-	var workDirFlagDefault string
+	var WorkDirFlagDefault string
 
-	_ = cmd.PersistentFlags().String(workDirFlagName, workDirFlagDefault, workDirDescription)
+	_ = cmd.PersistentFlags().String(WorkDirFlagName, WorkDirFlagDefault, WorkDirDescription)
 
 	return nil
 }
@@ -727,14 +727,14 @@ func registerPluginConfigRootfs(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	var rootfsFlagName string
+	var RootfsFlagName string
 	if cmdPrefix == "" {
-		rootfsFlagName = "rootfs"
+		RootfsFlagName = "rootfs"
 	} else {
-		rootfsFlagName = fmt.Sprintf("%v.rootfs", cmdPrefix)
+		RootfsFlagName = fmt.Sprintf("%v.rootfs", cmdPrefix)
 	}
 
-	if err := registerModelPluginConfigRootfsFlags(depth+1, rootfsFlagName, cmd); err != nil {
+	if err := registerModelPluginConfigRootfsFlags(depth+1, RootfsFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -745,101 +745,101 @@ func registerPluginConfigRootfs(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelPluginConfigFlags(depth int, m *models.PluginConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, argsAdded := retrievePluginConfigArgsFlags(depth, m, cmdPrefix, cmd)
+	err, ArgsAdded := retrievePluginConfigArgsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || argsAdded
+	retAdded = retAdded || ArgsAdded
 
-	err, descriptionAdded := retrievePluginConfigDescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrievePluginConfigDescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, dockerVersionAdded := retrievePluginConfigDockerVersionFlags(depth, m, cmdPrefix, cmd)
+	err, DockerVersionAdded := retrievePluginConfigDockerVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dockerVersionAdded
+	retAdded = retAdded || DockerVersionAdded
 
-	err, documentationAdded := retrievePluginConfigDocumentationFlags(depth, m, cmdPrefix, cmd)
+	err, DocumentationAdded := retrievePluginConfigDocumentationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || documentationAdded
+	retAdded = retAdded || DocumentationAdded
 
-	err, entrypointAdded := retrievePluginConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
+	err, EntrypointAdded := retrievePluginConfigEntrypointFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || entrypointAdded
+	retAdded = retAdded || EntrypointAdded
 
-	err, envAdded := retrievePluginConfigEnvFlags(depth, m, cmdPrefix, cmd)
+	err, EnvAdded := retrievePluginConfigEnvFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || envAdded
+	retAdded = retAdded || EnvAdded
 
-	err, interfaceAdded := retrievePluginConfigInterfaceFlags(depth, m, cmdPrefix, cmd)
+	err, InterfaceAdded := retrievePluginConfigInterfaceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || interfaceAdded
+	retAdded = retAdded || InterfaceAdded
 
-	err, ipcHostAdded := retrievePluginConfigIpcHostFlags(depth, m, cmdPrefix, cmd)
+	err, IpcHostAdded := retrievePluginConfigIpcHostFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipcHostAdded
+	retAdded = retAdded || IpcHostAdded
 
-	err, linuxAdded := retrievePluginConfigLinuxFlags(depth, m, cmdPrefix, cmd)
+	err, LinuxAdded := retrievePluginConfigLinuxFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || linuxAdded
+	retAdded = retAdded || LinuxAdded
 
-	err, mountsAdded := retrievePluginConfigMountsFlags(depth, m, cmdPrefix, cmd)
+	err, MountsAdded := retrievePluginConfigMountsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mountsAdded
+	retAdded = retAdded || MountsAdded
 
-	err, networkAdded := retrievePluginConfigNetworkFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkAdded := retrievePluginConfigNetworkFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkAdded
+	retAdded = retAdded || NetworkAdded
 
-	err, pidHostAdded := retrievePluginConfigPidHostFlags(depth, m, cmdPrefix, cmd)
+	err, PidHostAdded := retrievePluginConfigPidHostFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pidHostAdded
+	retAdded = retAdded || PidHostAdded
 
-	err, propagatedMountAdded := retrievePluginConfigPropagatedMountFlags(depth, m, cmdPrefix, cmd)
+	err, PropagatedMountAdded := retrievePluginConfigPropagatedMountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || propagatedMountAdded
+	retAdded = retAdded || PropagatedMountAdded
 
-	err, userAdded := retrievePluginConfigUserFlags(depth, m, cmdPrefix, cmd)
+	err, UserAdded := retrievePluginConfigUserFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || userAdded
+	retAdded = retAdded || UserAdded
 
-	err, workDirAdded := retrievePluginConfigWorkDirFlags(depth, m, cmdPrefix, cmd)
+	err, WorkDirAdded := retrievePluginConfigWorkDirFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || workDirAdded
+	retAdded = retAdded || WorkDirAdded
 
-	err, rootfsAdded := retrievePluginConfigRootfsFlags(depth, m, cmdPrefix, cmd)
+	err, RootfsAdded := retrievePluginConfigRootfsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || rootfsAdded
+	retAdded = retAdded || RootfsAdded
 
 	return nil, retAdded
 }
@@ -850,22 +850,22 @@ func retrievePluginConfigArgsFlags(depth int, m *models.PluginConfig, cmdPrefix 
 	}
 	retAdded := false
 
-	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
-	if cmd.Flags().Changed(argsFlagName) {
+	ArgsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
+	if cmd.Flags().Changed(ArgsFlagName) {
 		// info: complex object Args PluginConfigArgs is retrieved outside this Changed() block
 	}
-	argsFlagValue := m.Args
-	if swag.IsZero(argsFlagValue) {
-		argsFlagValue = models.PluginConfigArgs{}
+	ArgsFlagValue := m.Args
+	if swag.IsZero(ArgsFlagValue) {
+		ArgsFlagValue = models.PluginConfigArgs{}
 	}
 
-	err, argsAdded := retrieveModelPluginConfigArgsFlags(depth+1, &argsFlagValue, argsFlagName, cmd)
+	err, ArgsAdded := retrieveModelPluginConfigArgsFlags(depth+1, &ArgsFlagValue, ArgsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || argsAdded
-	if argsAdded {
-		m.Args = argsFlagValue
+	retAdded = retAdded || ArgsAdded
+	if ArgsAdded {
+		m.Args = ArgsFlagValue
 	}
 
 	return nil, retAdded
@@ -877,21 +877,21 @@ func retrievePluginConfigDescriptionFlags(depth int, m *models.PluginConfig, cmd
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "Description"
+			DescriptionFlagName = "Description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -905,21 +905,21 @@ func retrievePluginConfigDockerVersionFlags(depth int, m *models.PluginConfig, c
 	}
 	retAdded := false
 
-	dockerVersionFlagName := fmt.Sprintf("%v.DockerVersion", cmdPrefix)
-	if cmd.Flags().Changed(dockerVersionFlagName) {
+	DockerVersionFlagName := fmt.Sprintf("%v.DockerVersion", cmdPrefix)
+	if cmd.Flags().Changed(DockerVersionFlagName) {
 
-		var dockerVersionFlagName string
+		var DockerVersionFlagName string
 		if cmdPrefix == "" {
-			dockerVersionFlagName = "DockerVersion"
+			DockerVersionFlagName = "DockerVersion"
 		} else {
-			dockerVersionFlagName = fmt.Sprintf("%v.DockerVersion", cmdPrefix)
+			DockerVersionFlagName = fmt.Sprintf("%v.DockerVersion", cmdPrefix)
 		}
 
-		dockerVersionFlagValue, err := cmd.Flags().GetString(dockerVersionFlagName)
+		DockerVersionFlagValue, err := cmd.Flags().GetString(DockerVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DockerVersion = dockerVersionFlagValue
+		m.DockerVersion = DockerVersionFlagValue
 
 		retAdded = true
 	}
@@ -933,21 +933,21 @@ func retrievePluginConfigDocumentationFlags(depth int, m *models.PluginConfig, c
 	}
 	retAdded := false
 
-	documentationFlagName := fmt.Sprintf("%v.Documentation", cmdPrefix)
-	if cmd.Flags().Changed(documentationFlagName) {
+	DocumentationFlagName := fmt.Sprintf("%v.Documentation", cmdPrefix)
+	if cmd.Flags().Changed(DocumentationFlagName) {
 
-		var documentationFlagName string
+		var DocumentationFlagName string
 		if cmdPrefix == "" {
-			documentationFlagName = "Documentation"
+			DocumentationFlagName = "Documentation"
 		} else {
-			documentationFlagName = fmt.Sprintf("%v.Documentation", cmdPrefix)
+			DocumentationFlagName = fmt.Sprintf("%v.Documentation", cmdPrefix)
 		}
 
-		documentationFlagValue, err := cmd.Flags().GetString(documentationFlagName)
+		DocumentationFlagValue, err := cmd.Flags().GetString(DocumentationFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Documentation = documentationFlagValue
+		m.Documentation = DocumentationFlagValue
 
 		retAdded = true
 	}
@@ -961,8 +961,8 @@ func retrievePluginConfigEntrypointFlags(depth int, m *models.PluginConfig, cmdP
 	}
 	retAdded := false
 
-	entrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
-	if cmd.Flags().Changed(entrypointFlagName) {
+	EntrypointFlagName := fmt.Sprintf("%v.Entrypoint", cmdPrefix)
+	if cmd.Flags().Changed(EntrypointFlagName) {
 		// warning: Entrypoint array type []string is not supported by go-swagger cli yet
 	}
 
@@ -975,8 +975,8 @@ func retrievePluginConfigEnvFlags(depth int, m *models.PluginConfig, cmdPrefix s
 	}
 	retAdded := false
 
-	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
-	if cmd.Flags().Changed(envFlagName) {
+	EnvFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(EnvFlagName) {
 		// warning: Env array type []PluginEnv is not supported by go-swagger cli yet
 	}
 
@@ -989,22 +989,22 @@ func retrievePluginConfigInterfaceFlags(depth int, m *models.PluginConfig, cmdPr
 	}
 	retAdded := false
 
-	interfaceFlagName := fmt.Sprintf("%v.Interface", cmdPrefix)
-	if cmd.Flags().Changed(interfaceFlagName) {
+	InterfaceFlagName := fmt.Sprintf("%v.Interface", cmdPrefix)
+	if cmd.Flags().Changed(InterfaceFlagName) {
 		// info: complex object Interface PluginConfigInterface is retrieved outside this Changed() block
 	}
-	interfaceFlagValue := m.Interface
-	if swag.IsZero(interfaceFlagValue) {
-		interfaceFlagValue = models.PluginConfigInterface{}
+	InterfaceFlagValue := m.Interface
+	if swag.IsZero(InterfaceFlagValue) {
+		InterfaceFlagValue = models.PluginConfigInterface{}
 	}
 
-	err, interfaceAdded := retrieveModelPluginConfigInterfaceFlags(depth+1, &interfaceFlagValue, interfaceFlagName, cmd)
+	err, InterfaceAdded := retrieveModelPluginConfigInterfaceFlags(depth+1, &InterfaceFlagValue, InterfaceFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || interfaceAdded
-	if interfaceAdded {
-		m.Interface = interfaceFlagValue
+	retAdded = retAdded || InterfaceAdded
+	if InterfaceAdded {
+		m.Interface = InterfaceFlagValue
 	}
 
 	return nil, retAdded
@@ -1016,21 +1016,21 @@ func retrievePluginConfigIpcHostFlags(depth int, m *models.PluginConfig, cmdPref
 	}
 	retAdded := false
 
-	ipcHostFlagName := fmt.Sprintf("%v.IpcHost", cmdPrefix)
-	if cmd.Flags().Changed(ipcHostFlagName) {
+	IpcHostFlagName := fmt.Sprintf("%v.IpcHost", cmdPrefix)
+	if cmd.Flags().Changed(IpcHostFlagName) {
 
-		var ipcHostFlagName string
+		var IpcHostFlagName string
 		if cmdPrefix == "" {
-			ipcHostFlagName = "IpcHost"
+			IpcHostFlagName = "IpcHost"
 		} else {
-			ipcHostFlagName = fmt.Sprintf("%v.IpcHost", cmdPrefix)
+			IpcHostFlagName = fmt.Sprintf("%v.IpcHost", cmdPrefix)
 		}
 
-		ipcHostFlagValue, err := cmd.Flags().GetBool(ipcHostFlagName)
+		IpcHostFlagValue, err := cmd.Flags().GetBool(IpcHostFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IpcHost = ipcHostFlagValue
+		m.IpcHost = IpcHostFlagValue
 
 		retAdded = true
 	}
@@ -1044,22 +1044,22 @@ func retrievePluginConfigLinuxFlags(depth int, m *models.PluginConfig, cmdPrefix
 	}
 	retAdded := false
 
-	linuxFlagName := fmt.Sprintf("%v.Linux", cmdPrefix)
-	if cmd.Flags().Changed(linuxFlagName) {
+	LinuxFlagName := fmt.Sprintf("%v.Linux", cmdPrefix)
+	if cmd.Flags().Changed(LinuxFlagName) {
 		// info: complex object Linux PluginConfigLinux is retrieved outside this Changed() block
 	}
-	linuxFlagValue := m.Linux
-	if swag.IsZero(linuxFlagValue) {
-		linuxFlagValue = models.PluginConfigLinux{}
+	LinuxFlagValue := m.Linux
+	if swag.IsZero(LinuxFlagValue) {
+		LinuxFlagValue = models.PluginConfigLinux{}
 	}
 
-	err, linuxAdded := retrieveModelPluginConfigLinuxFlags(depth+1, &linuxFlagValue, linuxFlagName, cmd)
+	err, LinuxAdded := retrieveModelPluginConfigLinuxFlags(depth+1, &LinuxFlagValue, LinuxFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || linuxAdded
-	if linuxAdded {
-		m.Linux = linuxFlagValue
+	retAdded = retAdded || LinuxAdded
+	if LinuxAdded {
+		m.Linux = LinuxFlagValue
 	}
 
 	return nil, retAdded
@@ -1071,8 +1071,8 @@ func retrievePluginConfigMountsFlags(depth int, m *models.PluginConfig, cmdPrefi
 	}
 	retAdded := false
 
-	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
-	if cmd.Flags().Changed(mountsFlagName) {
+	MountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
+	if cmd.Flags().Changed(MountsFlagName) {
 		// warning: Mounts array type []PluginMount is not supported by go-swagger cli yet
 	}
 
@@ -1085,22 +1085,22 @@ func retrievePluginConfigNetworkFlags(depth int, m *models.PluginConfig, cmdPref
 	}
 	retAdded := false
 
-	networkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
-	if cmd.Flags().Changed(networkFlagName) {
+	NetworkFlagName := fmt.Sprintf("%v.Network", cmdPrefix)
+	if cmd.Flags().Changed(NetworkFlagName) {
 		// info: complex object Network PluginConfigNetwork is retrieved outside this Changed() block
 	}
-	networkFlagValue := m.Network
-	if swag.IsZero(networkFlagValue) {
-		networkFlagValue = models.PluginConfigNetwork{}
+	NetworkFlagValue := m.Network
+	if swag.IsZero(NetworkFlagValue) {
+		NetworkFlagValue = models.PluginConfigNetwork{}
 	}
 
-	err, networkAdded := retrieveModelPluginConfigNetworkFlags(depth+1, &networkFlagValue, networkFlagName, cmd)
+	err, NetworkAdded := retrieveModelPluginConfigNetworkFlags(depth+1, &NetworkFlagValue, NetworkFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkAdded
-	if networkAdded {
-		m.Network = networkFlagValue
+	retAdded = retAdded || NetworkAdded
+	if NetworkAdded {
+		m.Network = NetworkFlagValue
 	}
 
 	return nil, retAdded
@@ -1112,21 +1112,21 @@ func retrievePluginConfigPidHostFlags(depth int, m *models.PluginConfig, cmdPref
 	}
 	retAdded := false
 
-	pidHostFlagName := fmt.Sprintf("%v.PidHost", cmdPrefix)
-	if cmd.Flags().Changed(pidHostFlagName) {
+	PidHostFlagName := fmt.Sprintf("%v.PidHost", cmdPrefix)
+	if cmd.Flags().Changed(PidHostFlagName) {
 
-		var pidHostFlagName string
+		var PidHostFlagName string
 		if cmdPrefix == "" {
-			pidHostFlagName = "PidHost"
+			PidHostFlagName = "PidHost"
 		} else {
-			pidHostFlagName = fmt.Sprintf("%v.PidHost", cmdPrefix)
+			PidHostFlagName = fmt.Sprintf("%v.PidHost", cmdPrefix)
 		}
 
-		pidHostFlagValue, err := cmd.Flags().GetBool(pidHostFlagName)
+		PidHostFlagValue, err := cmd.Flags().GetBool(PidHostFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PidHost = pidHostFlagValue
+		m.PidHost = PidHostFlagValue
 
 		retAdded = true
 	}
@@ -1140,21 +1140,21 @@ func retrievePluginConfigPropagatedMountFlags(depth int, m *models.PluginConfig,
 	}
 	retAdded := false
 
-	propagatedMountFlagName := fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
-	if cmd.Flags().Changed(propagatedMountFlagName) {
+	PropagatedMountFlagName := fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
+	if cmd.Flags().Changed(PropagatedMountFlagName) {
 
-		var propagatedMountFlagName string
+		var PropagatedMountFlagName string
 		if cmdPrefix == "" {
-			propagatedMountFlagName = "PropagatedMount"
+			PropagatedMountFlagName = "PropagatedMount"
 		} else {
-			propagatedMountFlagName = fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
+			PropagatedMountFlagName = fmt.Sprintf("%v.PropagatedMount", cmdPrefix)
 		}
 
-		propagatedMountFlagValue, err := cmd.Flags().GetString(propagatedMountFlagName)
+		PropagatedMountFlagValue, err := cmd.Flags().GetString(PropagatedMountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PropagatedMount = propagatedMountFlagValue
+		m.PropagatedMount = PropagatedMountFlagValue
 
 		retAdded = true
 	}
@@ -1168,22 +1168,22 @@ func retrievePluginConfigUserFlags(depth int, m *models.PluginConfig, cmdPrefix 
 	}
 	retAdded := false
 
-	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
-	if cmd.Flags().Changed(userFlagName) {
+	UserFlagName := fmt.Sprintf("%v.User", cmdPrefix)
+	if cmd.Flags().Changed(UserFlagName) {
 		// info: complex object User PluginConfigUser is retrieved outside this Changed() block
 	}
-	userFlagValue := m.User
-	if swag.IsZero(userFlagValue) {
-		userFlagValue = models.PluginConfigUser{}
+	UserFlagValue := m.User
+	if swag.IsZero(UserFlagValue) {
+		UserFlagValue = models.PluginConfigUser{}
 	}
 
-	err, userAdded := retrieveModelPluginConfigUserFlags(depth+1, &userFlagValue, userFlagName, cmd)
+	err, UserAdded := retrieveModelPluginConfigUserFlags(depth+1, &UserFlagValue, UserFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || userAdded
-	if userAdded {
-		m.User = userFlagValue
+	retAdded = retAdded || UserAdded
+	if UserAdded {
+		m.User = UserFlagValue
 	}
 
 	return nil, retAdded
@@ -1195,21 +1195,21 @@ func retrievePluginConfigWorkDirFlags(depth int, m *models.PluginConfig, cmdPref
 	}
 	retAdded := false
 
-	workDirFlagName := fmt.Sprintf("%v.WorkDir", cmdPrefix)
-	if cmd.Flags().Changed(workDirFlagName) {
+	WorkDirFlagName := fmt.Sprintf("%v.WorkDir", cmdPrefix)
+	if cmd.Flags().Changed(WorkDirFlagName) {
 
-		var workDirFlagName string
+		var WorkDirFlagName string
 		if cmdPrefix == "" {
-			workDirFlagName = "WorkDir"
+			WorkDirFlagName = "WorkDir"
 		} else {
-			workDirFlagName = fmt.Sprintf("%v.WorkDir", cmdPrefix)
+			WorkDirFlagName = fmt.Sprintf("%v.WorkDir", cmdPrefix)
 		}
 
-		workDirFlagValue, err := cmd.Flags().GetString(workDirFlagName)
+		WorkDirFlagValue, err := cmd.Flags().GetString(WorkDirFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.WorkDir = workDirFlagValue
+		m.WorkDir = WorkDirFlagValue
 
 		retAdded = true
 	}
@@ -1223,22 +1223,22 @@ func retrievePluginConfigRootfsFlags(depth int, m *models.PluginConfig, cmdPrefi
 	}
 	retAdded := false
 
-	rootfsFlagName := fmt.Sprintf("%v.rootfs", cmdPrefix)
-	if cmd.Flags().Changed(rootfsFlagName) {
+	RootfsFlagName := fmt.Sprintf("%v.rootfs", cmdPrefix)
+	if cmd.Flags().Changed(RootfsFlagName) {
 		// info: complex object rootfs PluginConfigRootfs is retrieved outside this Changed() block
 	}
-	rootfsFlagValue := m.Rootfs
-	if swag.IsZero(rootfsFlagValue) {
-		rootfsFlagValue = &models.PluginConfigRootfs{}
+	RootfsFlagValue := m.Rootfs
+	if swag.IsZero(RootfsFlagValue) {
+		RootfsFlagValue = &models.PluginConfigRootfs{}
 	}
 
-	err, rootfsAdded := retrieveModelPluginConfigRootfsFlags(depth+1, rootfsFlagValue, rootfsFlagName, cmd)
+	err, RootfsAdded := retrieveModelPluginConfigRootfsFlags(depth+1, RootfsFlagValue, RootfsFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || rootfsAdded
-	if rootfsAdded {
-		m.Rootfs = rootfsFlagValue
+	retAdded = retAdded || RootfsAdded
+	if RootfsAdded {
+		m.Rootfs = RootfsFlagValue
 	}
 
 	return nil, retAdded
@@ -1273,18 +1273,18 @@ func registerPluginConfigArgsDescription(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	descriptionDescription := `Required. `
+	DescriptionDescription := `Required. `
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -1294,18 +1294,18 @@ func registerPluginConfigArgsName(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -1334,29 +1334,29 @@ func registerPluginConfigArgsValue(depth int, cmdPrefix string, cmd *cobra.Comma
 func retrieveModelPluginConfigArgsFlags(depth int, m *models.PluginConfigArgs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, descriptionAdded := retrievePluginConfigArgsDescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrievePluginConfigArgsDescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, nameAdded := retrievePluginConfigArgsNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrievePluginConfigArgsNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, settableAdded := retrievePluginConfigArgsSettableFlags(depth, m, cmdPrefix, cmd)
+	err, SettableAdded := retrievePluginConfigArgsSettableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || settableAdded
+	retAdded = retAdded || SettableAdded
 
-	err, valueAdded := retrievePluginConfigArgsValueFlags(depth, m, cmdPrefix, cmd)
+	err, ValueAdded := retrievePluginConfigArgsValueFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || valueAdded
+	retAdded = retAdded || ValueAdded
 
 	return nil, retAdded
 }
@@ -1367,21 +1367,21 @@ func retrievePluginConfigArgsDescriptionFlags(depth int, m *models.PluginConfigA
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "Description"
+			DescriptionFlagName = "Description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -1395,21 +1395,21 @@ func retrievePluginConfigArgsNameFlags(depth int, m *models.PluginConfigArgs, cm
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -1423,8 +1423,8 @@ func retrievePluginConfigArgsSettableFlags(depth int, m *models.PluginConfigArgs
 	}
 	retAdded := false
 
-	settableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
-	if cmd.Flags().Changed(settableFlagName) {
+	SettableFlagName := fmt.Sprintf("%v.Settable", cmdPrefix)
+	if cmd.Flags().Changed(SettableFlagName) {
 		// warning: Settable array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1437,8 +1437,8 @@ func retrievePluginConfigArgsValueFlags(depth int, m *models.PluginConfigArgs, c
 	}
 	retAdded := false
 
-	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
-	if cmd.Flags().Changed(valueFlagName) {
+	ValueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(ValueFlagName) {
 		// warning: Value array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1470,20 +1470,20 @@ func registerPluginConfigInterfaceProtocolScheme(depth int, cmdPrefix string, cm
 		return nil
 	}
 
-	protocolSchemeDescription := `Enum: ["","moby.plugins.http/v1"]. Protocol to use for clients connecting to the plugin.`
+	ProtocolSchemeDescription := `Enum: ["","moby.plugins.http/v1"]. Protocol to use for clients connecting to the plugin.`
 
-	var protocolSchemeFlagName string
+	var ProtocolSchemeFlagName string
 	if cmdPrefix == "" {
-		protocolSchemeFlagName = "ProtocolScheme"
+		ProtocolSchemeFlagName = "ProtocolScheme"
 	} else {
-		protocolSchemeFlagName = fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
+		ProtocolSchemeFlagName = fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
 	}
 
-	var protocolSchemeFlagDefault string
+	var ProtocolSchemeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(protocolSchemeFlagName, protocolSchemeFlagDefault, protocolSchemeDescription)
+	_ = cmd.PersistentFlags().String(ProtocolSchemeFlagName, ProtocolSchemeFlagDefault, ProtocolSchemeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(protocolSchemeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(ProtocolSchemeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["","moby.plugins.http/v1"]`), &res); err != nil {
@@ -1502,18 +1502,18 @@ func registerPluginConfigInterfaceSocket(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	socketDescription := `Required. `
+	SocketDescription := `Required. `
 
-	var socketFlagName string
+	var SocketFlagName string
 	if cmdPrefix == "" {
-		socketFlagName = "Socket"
+		SocketFlagName = "Socket"
 	} else {
-		socketFlagName = fmt.Sprintf("%v.Socket", cmdPrefix)
+		SocketFlagName = fmt.Sprintf("%v.Socket", cmdPrefix)
 	}
 
-	var socketFlagDefault string
+	var SocketFlagDefault string
 
-	_ = cmd.PersistentFlags().String(socketFlagName, socketFlagDefault, socketDescription)
+	_ = cmd.PersistentFlags().String(SocketFlagName, SocketFlagDefault, SocketDescription)
 
 	return nil
 }
@@ -1532,23 +1532,23 @@ func registerPluginConfigInterfaceTypes(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelPluginConfigInterfaceFlags(depth int, m *models.PluginConfigInterface, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, protocolSchemeAdded := retrievePluginConfigInterfaceProtocolSchemeFlags(depth, m, cmdPrefix, cmd)
+	err, ProtocolSchemeAdded := retrievePluginConfigInterfaceProtocolSchemeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || protocolSchemeAdded
+	retAdded = retAdded || ProtocolSchemeAdded
 
-	err, socketAdded := retrievePluginConfigInterfaceSocketFlags(depth, m, cmdPrefix, cmd)
+	err, SocketAdded := retrievePluginConfigInterfaceSocketFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || socketAdded
+	retAdded = retAdded || SocketAdded
 
-	err, typesAdded := retrievePluginConfigInterfaceTypesFlags(depth, m, cmdPrefix, cmd)
+	err, TypesAdded := retrievePluginConfigInterfaceTypesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typesAdded
+	retAdded = retAdded || TypesAdded
 
 	return nil, retAdded
 }
@@ -1559,21 +1559,21 @@ func retrievePluginConfigInterfaceProtocolSchemeFlags(depth int, m *models.Plugi
 	}
 	retAdded := false
 
-	protocolSchemeFlagName := fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
-	if cmd.Flags().Changed(protocolSchemeFlagName) {
+	ProtocolSchemeFlagName := fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
+	if cmd.Flags().Changed(ProtocolSchemeFlagName) {
 
-		var protocolSchemeFlagName string
+		var ProtocolSchemeFlagName string
 		if cmdPrefix == "" {
-			protocolSchemeFlagName = "ProtocolScheme"
+			ProtocolSchemeFlagName = "ProtocolScheme"
 		} else {
-			protocolSchemeFlagName = fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
+			ProtocolSchemeFlagName = fmt.Sprintf("%v.ProtocolScheme", cmdPrefix)
 		}
 
-		protocolSchemeFlagValue, err := cmd.Flags().GetString(protocolSchemeFlagName)
+		ProtocolSchemeFlagValue, err := cmd.Flags().GetString(ProtocolSchemeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ProtocolScheme = protocolSchemeFlagValue
+		m.ProtocolScheme = ProtocolSchemeFlagValue
 
 		retAdded = true
 	}
@@ -1587,21 +1587,21 @@ func retrievePluginConfigInterfaceSocketFlags(depth int, m *models.PluginConfigI
 	}
 	retAdded := false
 
-	socketFlagName := fmt.Sprintf("%v.Socket", cmdPrefix)
-	if cmd.Flags().Changed(socketFlagName) {
+	SocketFlagName := fmt.Sprintf("%v.Socket", cmdPrefix)
+	if cmd.Flags().Changed(SocketFlagName) {
 
-		var socketFlagName string
+		var SocketFlagName string
 		if cmdPrefix == "" {
-			socketFlagName = "Socket"
+			SocketFlagName = "Socket"
 		} else {
-			socketFlagName = fmt.Sprintf("%v.Socket", cmdPrefix)
+			SocketFlagName = fmt.Sprintf("%v.Socket", cmdPrefix)
 		}
 
-		socketFlagValue, err := cmd.Flags().GetString(socketFlagName)
+		SocketFlagValue, err := cmd.Flags().GetString(SocketFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Socket = socketFlagValue
+		m.Socket = SocketFlagValue
 
 		retAdded = true
 	}
@@ -1615,8 +1615,8 @@ func retrievePluginConfigInterfaceTypesFlags(depth int, m *models.PluginConfigIn
 	}
 	retAdded := false
 
-	typesFlagName := fmt.Sprintf("%v.Types", cmdPrefix)
-	if cmd.Flags().Changed(typesFlagName) {
+	TypesFlagName := fmt.Sprintf("%v.Types", cmdPrefix)
+	if cmd.Flags().Changed(TypesFlagName) {
 		// warning: Types array type []PluginInterfaceType is not supported by go-swagger cli yet
 	}
 
@@ -1648,18 +1648,18 @@ func registerPluginConfigLinuxAllowAllDevices(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	allowAllDevicesDescription := `Required. `
+	AllowAllDevicesDescription := `Required. `
 
-	var allowAllDevicesFlagName string
+	var AllowAllDevicesFlagName string
 	if cmdPrefix == "" {
-		allowAllDevicesFlagName = "AllowAllDevices"
+		AllowAllDevicesFlagName = "AllowAllDevices"
 	} else {
-		allowAllDevicesFlagName = fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
+		AllowAllDevicesFlagName = fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
 	}
 
-	var allowAllDevicesFlagDefault bool
+	var AllowAllDevicesFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(allowAllDevicesFlagName, allowAllDevicesFlagDefault, allowAllDevicesDescription)
+	_ = cmd.PersistentFlags().Bool(AllowAllDevicesFlagName, AllowAllDevicesFlagDefault, AllowAllDevicesDescription)
 
 	return nil
 }
@@ -1688,23 +1688,23 @@ func registerPluginConfigLinuxDevices(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelPluginConfigLinuxFlags(depth int, m *models.PluginConfigLinux, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, allowAllDevicesAdded := retrievePluginConfigLinuxAllowAllDevicesFlags(depth, m, cmdPrefix, cmd)
+	err, AllowAllDevicesAdded := retrievePluginConfigLinuxAllowAllDevicesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || allowAllDevicesAdded
+	retAdded = retAdded || AllowAllDevicesAdded
 
-	err, capabilitiesAdded := retrievePluginConfigLinuxCapabilitiesFlags(depth, m, cmdPrefix, cmd)
+	err, CapabilitiesAdded := retrievePluginConfigLinuxCapabilitiesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || capabilitiesAdded
+	retAdded = retAdded || CapabilitiesAdded
 
-	err, devicesAdded := retrievePluginConfigLinuxDevicesFlags(depth, m, cmdPrefix, cmd)
+	err, DevicesAdded := retrievePluginConfigLinuxDevicesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || devicesAdded
+	retAdded = retAdded || DevicesAdded
 
 	return nil, retAdded
 }
@@ -1715,21 +1715,21 @@ func retrievePluginConfigLinuxAllowAllDevicesFlags(depth int, m *models.PluginCo
 	}
 	retAdded := false
 
-	allowAllDevicesFlagName := fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
-	if cmd.Flags().Changed(allowAllDevicesFlagName) {
+	AllowAllDevicesFlagName := fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
+	if cmd.Flags().Changed(AllowAllDevicesFlagName) {
 
-		var allowAllDevicesFlagName string
+		var AllowAllDevicesFlagName string
 		if cmdPrefix == "" {
-			allowAllDevicesFlagName = "AllowAllDevices"
+			AllowAllDevicesFlagName = "AllowAllDevices"
 		} else {
-			allowAllDevicesFlagName = fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
+			AllowAllDevicesFlagName = fmt.Sprintf("%v.AllowAllDevices", cmdPrefix)
 		}
 
-		allowAllDevicesFlagValue, err := cmd.Flags().GetBool(allowAllDevicesFlagName)
+		AllowAllDevicesFlagValue, err := cmd.Flags().GetBool(AllowAllDevicesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AllowAllDevices = allowAllDevicesFlagValue
+		m.AllowAllDevices = AllowAllDevicesFlagValue
 
 		retAdded = true
 	}
@@ -1743,8 +1743,8 @@ func retrievePluginConfigLinuxCapabilitiesFlags(depth int, m *models.PluginConfi
 	}
 	retAdded := false
 
-	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
-	if cmd.Flags().Changed(capabilitiesFlagName) {
+	CapabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
+	if cmd.Flags().Changed(CapabilitiesFlagName) {
 		// warning: Capabilities array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1757,8 +1757,8 @@ func retrievePluginConfigLinuxDevicesFlags(depth int, m *models.PluginConfigLinu
 	}
 	retAdded := false
 
-	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
-	if cmd.Flags().Changed(devicesFlagName) {
+	DevicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
+	if cmd.Flags().Changed(DevicesFlagName) {
 		// warning: Devices array type []PluginDevice is not supported by go-swagger cli yet
 	}
 
@@ -1782,18 +1782,18 @@ func registerPluginConfigNetworkType(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	typeDescription := `Required. `
+	TypeDescription := `Required. `
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
 	return nil
 }
@@ -1802,11 +1802,11 @@ func registerPluginConfigNetworkType(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelPluginConfigNetworkFlags(depth int, m *models.PluginConfigNetwork, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, typeAdded := retrievePluginConfigNetworkTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrievePluginConfigNetworkTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
 	return nil, retAdded
 }
@@ -1817,21 +1817,21 @@ func retrievePluginConfigNetworkTypeFlags(depth int, m *models.PluginConfigNetwo
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}
@@ -1870,18 +1870,18 @@ func registerPluginConfigRootfsType(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	typeDescription := ``
+	TypeDescription := ``
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "type"
+		TypeFlagName = "type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
 	return nil
 }
@@ -1890,17 +1890,17 @@ func registerPluginConfigRootfsType(depth int, cmdPrefix string, cmd *cobra.Comm
 func retrieveModelPluginConfigRootfsFlags(depth int, m *models.PluginConfigRootfs, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, diffIdsAdded := retrievePluginConfigRootfsDiffIdsFlags(depth, m, cmdPrefix, cmd)
+	err, DiffIdsAdded := retrievePluginConfigRootfsDiffIdsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || diffIdsAdded
+	retAdded = retAdded || DiffIdsAdded
 
-	err, typeAdded := retrievePluginConfigRootfsTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrievePluginConfigRootfsTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
 	return nil, retAdded
 }
@@ -1911,8 +1911,8 @@ func retrievePluginConfigRootfsDiffIdsFlags(depth int, m *models.PluginConfigRoo
 	}
 	retAdded := false
 
-	diffIdsFlagName := fmt.Sprintf("%v.diff_ids", cmdPrefix)
-	if cmd.Flags().Changed(diffIdsFlagName) {
+	DiffIdsFlagName := fmt.Sprintf("%v.diff_ids", cmdPrefix)
+	if cmd.Flags().Changed(DiffIdsFlagName) {
 		// warning: diff_ids array type []string is not supported by go-swagger cli yet
 	}
 
@@ -1925,21 +1925,21 @@ func retrievePluginConfigRootfsTypeFlags(depth int, m *models.PluginConfigRootfs
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "type"
+			TypeFlagName = "type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}
@@ -1987,17 +1987,17 @@ func registerPluginConfigUserUID(depth int, cmdPrefix string, cmd *cobra.Command
 func retrieveModelPluginConfigUserFlags(depth int, m *models.PluginConfigUser, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, gIdAdded := retrievePluginConfigUserGIDFlags(depth, m, cmdPrefix, cmd)
+	err, GIDAdded := retrievePluginConfigUserGIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || gIdAdded
+	retAdded = retAdded || GIDAdded
 
-	err, uidAdded := retrievePluginConfigUserUIDFlags(depth, m, cmdPrefix, cmd)
+	err, UIDAdded := retrievePluginConfigUserUIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || uidAdded
+	retAdded = retAdded || UIDAdded
 
 	return nil, retAdded
 }
@@ -2008,8 +2008,8 @@ func retrievePluginConfigUserGIDFlags(depth int, m *models.PluginConfigUser, cmd
 	}
 	retAdded := false
 
-	gIdFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
-	if cmd.Flags().Changed(gIdFlagName) {
+	GIDFlagName := fmt.Sprintf("%v.GID", cmdPrefix)
+	if cmd.Flags().Changed(GIDFlagName) {
 
 		// warning: primitive GID uint32 is not supported by go-swagger cli yet
 
@@ -2025,8 +2025,8 @@ func retrievePluginConfigUserUIDFlags(depth int, m *models.PluginConfigUser, cmd
 	}
 	retAdded := false
 
-	uidFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
-	if cmd.Flags().Changed(uidFlagName) {
+	UIDFlagName := fmt.Sprintf("%v.UID", cmdPrefix)
+	if cmd.Flags().Changed(UIDFlagName) {
 
 		// warning: primitive UID uint32 is not supported by go-swagger cli yet
 
@@ -2104,29 +2104,29 @@ func registerPluginSettingsMounts(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelPluginSettingsFlags(depth int, m *models.PluginSettings, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, argsAdded := retrievePluginSettingsArgsFlags(depth, m, cmdPrefix, cmd)
+	err, ArgsAdded := retrievePluginSettingsArgsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || argsAdded
+	retAdded = retAdded || ArgsAdded
 
-	err, devicesAdded := retrievePluginSettingsDevicesFlags(depth, m, cmdPrefix, cmd)
+	err, DevicesAdded := retrievePluginSettingsDevicesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || devicesAdded
+	retAdded = retAdded || DevicesAdded
 
-	err, envAdded := retrievePluginSettingsEnvFlags(depth, m, cmdPrefix, cmd)
+	err, EnvAdded := retrievePluginSettingsEnvFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || envAdded
+	retAdded = retAdded || EnvAdded
 
-	err, mountsAdded := retrievePluginSettingsMountsFlags(depth, m, cmdPrefix, cmd)
+	err, MountsAdded := retrievePluginSettingsMountsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mountsAdded
+	retAdded = retAdded || MountsAdded
 
 	return nil, retAdded
 }
@@ -2137,8 +2137,8 @@ func retrievePluginSettingsArgsFlags(depth int, m *models.PluginSettings, cmdPre
 	}
 	retAdded := false
 
-	argsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
-	if cmd.Flags().Changed(argsFlagName) {
+	ArgsFlagName := fmt.Sprintf("%v.Args", cmdPrefix)
+	if cmd.Flags().Changed(ArgsFlagName) {
 		// warning: Args array type []string is not supported by go-swagger cli yet
 	}
 
@@ -2151,8 +2151,8 @@ func retrievePluginSettingsDevicesFlags(depth int, m *models.PluginSettings, cmd
 	}
 	retAdded := false
 
-	devicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
-	if cmd.Flags().Changed(devicesFlagName) {
+	DevicesFlagName := fmt.Sprintf("%v.Devices", cmdPrefix)
+	if cmd.Flags().Changed(DevicesFlagName) {
 		// warning: Devices array type []PluginDevice is not supported by go-swagger cli yet
 	}
 
@@ -2165,8 +2165,8 @@ func retrievePluginSettingsEnvFlags(depth int, m *models.PluginSettings, cmdPref
 	}
 	retAdded := false
 
-	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
-	if cmd.Flags().Changed(envFlagName) {
+	EnvFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(EnvFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
 
@@ -2179,8 +2179,8 @@ func retrievePluginSettingsMountsFlags(depth int, m *models.PluginSettings, cmdP
 	}
 	retAdded := false
 
-	mountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
-	if cmd.Flags().Changed(mountsFlagName) {
+	MountsFlagName := fmt.Sprintf("%v.Mounts", cmdPrefix)
+	if cmd.Flags().Changed(MountsFlagName) {
 		// warning: Mounts array type []PluginMount is not supported by go-swagger cli yet
 	}
 

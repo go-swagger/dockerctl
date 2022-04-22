@@ -104,120 +104,120 @@ func registerOperationImageImageCreateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageCreateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	xRegistryAuthDescription := `A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
+	XRegistryAuthDescription := `A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
 
-	var xRegistryAuthFlagName string
+	var XRegistryAuthFlagName string
 	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
+		XRegistryAuthFlagName = "X-Registry-Auth"
 	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+		XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 	}
 
-	var xRegistryAuthFlagDefault string
+	var XRegistryAuthFlagDefault string
 
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+	_ = cmd.PersistentFlags().String(XRegistryAuthFlagName, XRegistryAuthFlagDefault, XRegistryAuthDescription)
 
 	return nil
 }
 func registerOperationImageImageCreateFromImageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	fromImageDescription := `Name of the image to pull. The name may include a tag or digest. This parameter may only be used when pulling an image. The pull is cancelled if the HTTP connection is closed.`
+	FromImageDescription := `Name of the image to pull. The name may include a tag or digest. This parameter may only be used when pulling an image. The pull is cancelled if the HTTP connection is closed.`
 
-	var fromImageFlagName string
+	var FromImageFlagName string
 	if cmdPrefix == "" {
-		fromImageFlagName = "fromImage"
+		FromImageFlagName = "fromImage"
 	} else {
-		fromImageFlagName = fmt.Sprintf("%v.fromImage", cmdPrefix)
+		FromImageFlagName = fmt.Sprintf("%v.fromImage", cmdPrefix)
 	}
 
-	var fromImageFlagDefault string
+	var FromImageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(fromImageFlagName, fromImageFlagDefault, fromImageDescription)
+	_ = cmd.PersistentFlags().String(FromImageFlagName, FromImageFlagDefault, FromImageDescription)
 
 	return nil
 }
 func registerOperationImageImageCreateFromSrcParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	fromSrcDescription := `Source to import. The value may be a URL from which the image can be retrieved or ` + "`" + `-` + "`" + ` to read the image from the request body. This parameter may only be used when importing an image.`
+	FromSrcDescription := `Source to import. The value may be a URL from which the image can be retrieved or ` + "`" + `-` + "`" + ` to read the image from the request body. This parameter may only be used when importing an image.`
 
-	var fromSrcFlagName string
+	var FromSrcFlagName string
 	if cmdPrefix == "" {
-		fromSrcFlagName = "fromSrc"
+		FromSrcFlagName = "fromSrc"
 	} else {
-		fromSrcFlagName = fmt.Sprintf("%v.fromSrc", cmdPrefix)
+		FromSrcFlagName = fmt.Sprintf("%v.fromSrc", cmdPrefix)
 	}
 
-	var fromSrcFlagDefault string
+	var FromSrcFlagDefault string
 
-	_ = cmd.PersistentFlags().String(fromSrcFlagName, fromSrcFlagDefault, fromSrcDescription)
+	_ = cmd.PersistentFlags().String(FromSrcFlagName, FromSrcFlagDefault, FromSrcDescription)
 
 	return nil
 }
 func registerOperationImageImageCreateInputImageParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	inputImageDescription := `Image content if the value ` + "`" + `-` + "`" + ` has been specified in fromSrc query parameter`
+	InputImageDescription := `Image content if the value ` + "`" + `-` + "`" + ` has been specified in fromSrc query parameter`
 
-	var inputImageFlagName string
+	var InputImageFlagName string
 	if cmdPrefix == "" {
-		inputImageFlagName = "inputImage"
+		InputImageFlagName = "inputImage"
 	} else {
-		inputImageFlagName = fmt.Sprintf("%v.inputImage", cmdPrefix)
+		InputImageFlagName = fmt.Sprintf("%v.inputImage", cmdPrefix)
 	}
 
-	var inputImageFlagDefault string
+	var InputImageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(inputImageFlagName, inputImageFlagDefault, inputImageDescription)
+	_ = cmd.PersistentFlags().String(InputImageFlagName, InputImageFlagDefault, InputImageDescription)
 
 	return nil
 }
 func registerOperationImageImageCreatePlatformParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	platformDescription := `Platform in the format os[/arch[/variant]]`
+	PlatformDescription := `Platform in the format os[/arch[/variant]]`
 
-	var platformFlagName string
+	var PlatformFlagName string
 	if cmdPrefix == "" {
-		platformFlagName = "platform"
+		PlatformFlagName = "platform"
 	} else {
-		platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
+		PlatformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
 	}
 
-	var platformFlagDefault string
+	var PlatformFlagDefault string
 
-	_ = cmd.PersistentFlags().String(platformFlagName, platformFlagDefault, platformDescription)
+	_ = cmd.PersistentFlags().String(PlatformFlagName, PlatformFlagDefault, PlatformDescription)
 
 	return nil
 }
 func registerOperationImageImageCreateRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	repoDescription := `Repository name given to an image when it is imported. The repo may include a tag. This parameter may only be used when importing an image.`
+	RepoDescription := `Repository name given to an image when it is imported. The repo may include a tag. This parameter may only be used when importing an image.`
 
-	var repoFlagName string
+	var RepoFlagName string
 	if cmdPrefix == "" {
-		repoFlagName = "repo"
+		RepoFlagName = "repo"
 	} else {
-		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+		RepoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
 	}
 
-	var repoFlagDefault string
+	var RepoFlagDefault string
 
-	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
+	_ = cmd.PersistentFlags().String(RepoFlagName, RepoFlagDefault, RepoDescription)
 
 	return nil
 }
 func registerOperationImageImageCreateTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tagDescription := `Tag or digest. If empty when pulling an image, this causes all tags for the given image to be pulled.`
+	TagDescription := `Tag or digest. If empty when pulling an image, this causes all tags for the given image to be pulled.`
 
-	var tagFlagName string
+	var TagFlagName string
 	if cmdPrefix == "" {
-		tagFlagName = "tag"
+		TagFlagName = "tag"
 	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+		TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 	}
 
-	var tagFlagDefault string
+	var TagFlagDefault string
 
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+	_ = cmd.PersistentFlags().String(TagFlagName, TagFlagDefault, TagDescription)
 
 	return nil
 }
@@ -226,18 +226,18 @@ func retrieveOperationImageImageCreateXRegistryAuthFlag(m *image.ImageCreatePara
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
 
-		var xRegistryAuthFlagName string
+		var XRegistryAuthFlagName string
 		if cmdPrefix == "" {
-			xRegistryAuthFlagName = "X-Registry-Auth"
+			XRegistryAuthFlagName = "X-Registry-Auth"
 		} else {
-			xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+			XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 		}
 
-		xRegistryAuthFlagValue, err := cmd.Flags().GetString(xRegistryAuthFlagName)
+		XRegistryAuthFlagValue, err := cmd.Flags().GetString(XRegistryAuthFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.XRegistryAuth = &xRegistryAuthFlagValue
+		m.XRegistryAuth = &XRegistryAuthFlagValue
 
 	}
 	return nil, retAdded
@@ -246,18 +246,18 @@ func retrieveOperationImageImageCreateFromImageFlag(m *image.ImageCreateParams, 
 	retAdded := false
 	if cmd.Flags().Changed("fromImage") {
 
-		var fromImageFlagName string
+		var FromImageFlagName string
 		if cmdPrefix == "" {
-			fromImageFlagName = "fromImage"
+			FromImageFlagName = "fromImage"
 		} else {
-			fromImageFlagName = fmt.Sprintf("%v.fromImage", cmdPrefix)
+			FromImageFlagName = fmt.Sprintf("%v.fromImage", cmdPrefix)
 		}
 
-		fromImageFlagValue, err := cmd.Flags().GetString(fromImageFlagName)
+		FromImageFlagValue, err := cmd.Flags().GetString(FromImageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.FromImage = &fromImageFlagValue
+		m.FromImage = &FromImageFlagValue
 
 	}
 	return nil, retAdded
@@ -266,18 +266,18 @@ func retrieveOperationImageImageCreateFromSrcFlag(m *image.ImageCreateParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("fromSrc") {
 
-		var fromSrcFlagName string
+		var FromSrcFlagName string
 		if cmdPrefix == "" {
-			fromSrcFlagName = "fromSrc"
+			FromSrcFlagName = "fromSrc"
 		} else {
-			fromSrcFlagName = fmt.Sprintf("%v.fromSrc", cmdPrefix)
+			FromSrcFlagName = fmt.Sprintf("%v.fromSrc", cmdPrefix)
 		}
 
-		fromSrcFlagValue, err := cmd.Flags().GetString(fromSrcFlagName)
+		FromSrcFlagValue, err := cmd.Flags().GetString(FromSrcFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.FromSrc = &fromSrcFlagValue
+		m.FromSrc = &FromSrcFlagValue
 
 	}
 	return nil, retAdded
@@ -286,18 +286,18 @@ func retrieveOperationImageImageCreateInputImageFlag(m *image.ImageCreateParams,
 	retAdded := false
 	if cmd.Flags().Changed("inputImage") {
 
-		var inputImageFlagName string
+		var InputImageFlagName string
 		if cmdPrefix == "" {
-			inputImageFlagName = "inputImage"
+			InputImageFlagName = "inputImage"
 		} else {
-			inputImageFlagName = fmt.Sprintf("%v.inputImage", cmdPrefix)
+			InputImageFlagName = fmt.Sprintf("%v.inputImage", cmdPrefix)
 		}
 
-		inputImageFlagValue, err := cmd.Flags().GetString(inputImageFlagName)
+		InputImageFlagValue, err := cmd.Flags().GetString(InputImageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.InputImage = inputImageFlagValue
+		m.InputImage = InputImageFlagValue
 
 	}
 	return nil, retAdded
@@ -306,18 +306,18 @@ func retrieveOperationImageImageCreatePlatformFlag(m *image.ImageCreateParams, c
 	retAdded := false
 	if cmd.Flags().Changed("platform") {
 
-		var platformFlagName string
+		var PlatformFlagName string
 		if cmdPrefix == "" {
-			platformFlagName = "platform"
+			PlatformFlagName = "platform"
 		} else {
-			platformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
+			PlatformFlagName = fmt.Sprintf("%v.platform", cmdPrefix)
 		}
 
-		platformFlagValue, err := cmd.Flags().GetString(platformFlagName)
+		PlatformFlagValue, err := cmd.Flags().GetString(PlatformFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Platform = &platformFlagValue
+		m.Platform = &PlatformFlagValue
 
 	}
 	return nil, retAdded
@@ -326,18 +326,18 @@ func retrieveOperationImageImageCreateRepoFlag(m *image.ImageCreateParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("repo") {
 
-		var repoFlagName string
+		var RepoFlagName string
 		if cmdPrefix == "" {
-			repoFlagName = "repo"
+			RepoFlagName = "repo"
 		} else {
-			repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+			RepoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
 		}
 
-		repoFlagValue, err := cmd.Flags().GetString(repoFlagName)
+		RepoFlagValue, err := cmd.Flags().GetString(RepoFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Repo = &repoFlagValue
+		m.Repo = &RepoFlagValue
 
 	}
 	return nil, retAdded
@@ -346,18 +346,18 @@ func retrieveOperationImageImageCreateTagFlag(m *image.ImageCreateParams, cmdPre
 	retAdded := false
 	if cmd.Flags().Changed("tag") {
 
-		var tagFlagName string
+		var TagFlagName string
 		if cmdPrefix == "" {
-			tagFlagName = "tag"
+			TagFlagName = "tag"
 		} else {
-			tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+			TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 		}
 
-		tagFlagValue, err := cmd.Flags().GetString(tagFlagName)
+		TagFlagValue, err := cmd.Flags().GetString(TagFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tag = &tagFlagValue
+		m.Tag = &TagFlagValue
 
 	}
 	return nil, retAdded

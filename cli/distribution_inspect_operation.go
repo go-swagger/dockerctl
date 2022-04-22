@@ -68,18 +68,18 @@ func registerOperationDistributionDistributionInspectParamFlags(cmd *cobra.Comma
 
 func registerOperationDistributionDistributionInspectNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. Image name or id`
+	NameDescription := `Required. Image name or id`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -88,18 +88,18 @@ func retrieveOperationDistributionDistributionInspectNameFlag(m *distribution.Di
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -186,18 +186,18 @@ func registerDistributionInspectDistributionInspectOKBodyDescriptorDigest(depth 
 		return nil
 	}
 
-	digestDescription := ``
+	DigestDescription := ``
 
-	var digestFlagName string
+	var DigestFlagName string
 	if cmdPrefix == "" {
-		digestFlagName = "Digest"
+		DigestFlagName = "Digest"
 	} else {
-		digestFlagName = fmt.Sprintf("%v.Digest", cmdPrefix)
+		DigestFlagName = fmt.Sprintf("%v.Digest", cmdPrefix)
 	}
 
-	var digestFlagDefault string
+	var DigestFlagDefault string
 
-	_ = cmd.PersistentFlags().String(digestFlagName, digestFlagDefault, digestDescription)
+	_ = cmd.PersistentFlags().String(DigestFlagName, DigestFlagDefault, DigestDescription)
 
 	return nil
 }
@@ -207,18 +207,18 @@ func registerDistributionInspectDistributionInspectOKBodyDescriptorMediaType(dep
 		return nil
 	}
 
-	mediaTypeDescription := ``
+	MediaTypeDescription := ``
 
-	var mediaTypeFlagName string
+	var MediaTypeFlagName string
 	if cmdPrefix == "" {
-		mediaTypeFlagName = "MediaType"
+		MediaTypeFlagName = "MediaType"
 	} else {
-		mediaTypeFlagName = fmt.Sprintf("%v.MediaType", cmdPrefix)
+		MediaTypeFlagName = fmt.Sprintf("%v.MediaType", cmdPrefix)
 	}
 
-	var mediaTypeFlagDefault string
+	var MediaTypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(mediaTypeFlagName, mediaTypeFlagDefault, mediaTypeDescription)
+	_ = cmd.PersistentFlags().String(MediaTypeFlagName, MediaTypeFlagDefault, MediaTypeDescription)
 
 	return nil
 }
@@ -228,18 +228,18 @@ func registerDistributionInspectDistributionInspectOKBodyDescriptorSize(depth in
 		return nil
 	}
 
-	sizeDescription := ``
+	SizeDescription := ``
 
-	var sizeFlagName string
+	var SizeFlagName string
 	if cmdPrefix == "" {
-		sizeFlagName = "Size"
+		SizeFlagName = "Size"
 	} else {
-		sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+		SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 	}
 
-	var sizeFlagDefault int64
+	var SizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sizeFlagName, sizeFlagDefault, sizeDescription)
+	_ = cmd.PersistentFlags().Int64(SizeFlagName, SizeFlagDefault, SizeDescription)
 
 	return nil
 }
@@ -258,29 +258,29 @@ func registerDistributionInspectDistributionInspectOKBodyDescriptorURLs(depth in
 func retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth int, m *distribution.DistributionInspectDistributionInspectOKBodyDescriptor, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, digestAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorDigestFlags(depth, m, cmdPrefix, cmd)
+	err, DigestAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorDigestFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || digestAdded
+	retAdded = retAdded || DigestAdded
 
-	err, mediaTypeAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorMediaTypeFlags(depth, m, cmdPrefix, cmd)
+	err, MediaTypeAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorMediaTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mediaTypeAdded
+	retAdded = retAdded || MediaTypeAdded
 
-	err, sizeAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SizeAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sizeAdded
+	retAdded = retAdded || SizeAdded
 
-	err, uRLsAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorURLsFlags(depth, m, cmdPrefix, cmd)
+	err, URLsAdded := retrieveDistributionInspectDistributionInspectOKBodyDescriptorURLsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || uRLsAdded
+	retAdded = retAdded || URLsAdded
 
 	return nil, retAdded
 }
@@ -291,21 +291,21 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorDigestFlags(d
 	}
 	retAdded := false
 
-	digestFlagName := fmt.Sprintf("%v.Digest", cmdPrefix)
-	if cmd.Flags().Changed(digestFlagName) {
+	DigestFlagName := fmt.Sprintf("%v.Digest", cmdPrefix)
+	if cmd.Flags().Changed(DigestFlagName) {
 
-		var digestFlagName string
+		var DigestFlagName string
 		if cmdPrefix == "" {
-			digestFlagName = "Digest"
+			DigestFlagName = "Digest"
 		} else {
-			digestFlagName = fmt.Sprintf("%v.Digest", cmdPrefix)
+			DigestFlagName = fmt.Sprintf("%v.Digest", cmdPrefix)
 		}
 
-		digestFlagValue, err := cmd.Flags().GetString(digestFlagName)
+		DigestFlagValue, err := cmd.Flags().GetString(DigestFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Digest = digestFlagValue
+		m.Digest = DigestFlagValue
 
 		retAdded = true
 	}
@@ -319,21 +319,21 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorMediaTypeFlag
 	}
 	retAdded := false
 
-	mediaTypeFlagName := fmt.Sprintf("%v.MediaType", cmdPrefix)
-	if cmd.Flags().Changed(mediaTypeFlagName) {
+	MediaTypeFlagName := fmt.Sprintf("%v.MediaType", cmdPrefix)
+	if cmd.Flags().Changed(MediaTypeFlagName) {
 
-		var mediaTypeFlagName string
+		var MediaTypeFlagName string
 		if cmdPrefix == "" {
-			mediaTypeFlagName = "MediaType"
+			MediaTypeFlagName = "MediaType"
 		} else {
-			mediaTypeFlagName = fmt.Sprintf("%v.MediaType", cmdPrefix)
+			MediaTypeFlagName = fmt.Sprintf("%v.MediaType", cmdPrefix)
 		}
 
-		mediaTypeFlagValue, err := cmd.Flags().GetString(mediaTypeFlagName)
+		MediaTypeFlagValue, err := cmd.Flags().GetString(MediaTypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MediaType = mediaTypeFlagValue
+		m.MediaType = MediaTypeFlagValue
 
 		retAdded = true
 	}
@@ -347,21 +347,21 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorSizeFlags(dep
 	}
 	retAdded := false
 
-	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
-	if cmd.Flags().Changed(sizeFlagName) {
+	SizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
+	if cmd.Flags().Changed(SizeFlagName) {
 
-		var sizeFlagName string
+		var SizeFlagName string
 		if cmdPrefix == "" {
-			sizeFlagName = "Size"
+			SizeFlagName = "Size"
 		} else {
-			sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+			SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 		}
 
-		sizeFlagValue, err := cmd.Flags().GetInt64(sizeFlagName)
+		SizeFlagValue, err := cmd.Flags().GetInt64(SizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Size = sizeFlagValue
+		m.Size = SizeFlagValue
 
 		retAdded = true
 	}
@@ -375,8 +375,8 @@ func retrieveDistributionInspectDistributionInspectOKBodyDescriptorURLsFlags(dep
 	}
 	retAdded := false
 
-	uRLsFlagName := fmt.Sprintf("%v.URLs", cmdPrefix)
-	if cmd.Flags().Changed(uRLsFlagName) {
+	URLsFlagName := fmt.Sprintf("%v.URLs", cmdPrefix)
+	if cmd.Flags().Changed(URLsFlagName) {
 		// warning: URLs array type []string is not supported by go-swagger cli yet
 	}
 
@@ -402,14 +402,14 @@ func registerDistributionInspectOKBodyDescriptor(depth int, cmdPrefix string, cm
 		return nil
 	}
 
-	var descriptorFlagName string
+	var DescriptorFlagName string
 	if cmdPrefix == "" {
-		descriptorFlagName = "Descriptor"
+		DescriptorFlagName = "Descriptor"
 	} else {
-		descriptorFlagName = fmt.Sprintf("%v.Descriptor", cmdPrefix)
+		DescriptorFlagName = fmt.Sprintf("%v.Descriptor", cmdPrefix)
 	}
 
-	if err := registerModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, descriptorFlagName, cmd); err != nil {
+	if err := registerModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, DescriptorFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -430,17 +430,17 @@ func registerDistributionInspectOKBodyPlatforms(depth int, cmdPrefix string, cmd
 func retrieveModelDistributionInspectOKBodyFlags(depth int, m *distribution.DistributionInspectOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, descriptorAdded := retrieveDistributionInspectOKBodyDescriptorFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptorAdded := retrieveDistributionInspectOKBodyDescriptorFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptorAdded
+	retAdded = retAdded || DescriptorAdded
 
-	err, platformsAdded := retrieveDistributionInspectOKBodyPlatformsFlags(depth, m, cmdPrefix, cmd)
+	err, PlatformsAdded := retrieveDistributionInspectOKBodyPlatformsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || platformsAdded
+	retAdded = retAdded || PlatformsAdded
 
 	return nil, retAdded
 }
@@ -451,22 +451,22 @@ func retrieveDistributionInspectOKBodyDescriptorFlags(depth int, m *distribution
 	}
 	retAdded := false
 
-	descriptorFlagName := fmt.Sprintf("%v.Descriptor", cmdPrefix)
-	if cmd.Flags().Changed(descriptorFlagName) {
+	DescriptorFlagName := fmt.Sprintf("%v.Descriptor", cmdPrefix)
+	if cmd.Flags().Changed(DescriptorFlagName) {
 		// info: complex object Descriptor DistributionInspectDistributionInspectOKBodyDescriptor is retrieved outside this Changed() block
 	}
-	descriptorFlagValue := m.Descriptor
-	if swag.IsZero(descriptorFlagValue) {
-		descriptorFlagValue = &distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
+	DescriptorFlagValue := m.Descriptor
+	if swag.IsZero(DescriptorFlagValue) {
+		DescriptorFlagValue = &distribution.DistributionInspectDistributionInspectOKBodyDescriptor{}
 	}
 
-	err, descriptorAdded := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, descriptorFlagValue, descriptorFlagName, cmd)
+	err, DescriptorAdded := retrieveModelDistributionInspectDistributionInspectOKBodyDescriptorFlags(depth+1, DescriptorFlagValue, DescriptorFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptorAdded
-	if descriptorAdded {
-		m.Descriptor = descriptorFlagValue
+	retAdded = retAdded || DescriptorAdded
+	if DescriptorAdded {
+		m.Descriptor = DescriptorFlagValue
 	}
 
 	return nil, retAdded
@@ -478,8 +478,8 @@ func retrieveDistributionInspectOKBodyPlatformsFlags(depth int, m *distribution.
 	}
 	retAdded := false
 
-	platformsFlagName := fmt.Sprintf("%v.Platforms", cmdPrefix)
-	if cmd.Flags().Changed(platformsFlagName) {
+	PlatformsFlagName := fmt.Sprintf("%v.Platforms", cmdPrefix)
+	if cmd.Flags().Changed(PlatformsFlagName) {
 		// warning: Platforms array type []*DistributionInspectPlatformsItems0 is not supported by go-swagger cli yet
 	}
 
@@ -521,18 +521,18 @@ func registerDistributionInspectPlatformsItems0Architecture(depth int, cmdPrefix
 		return nil
 	}
 
-	architectureDescription := ``
+	ArchitectureDescription := ``
 
-	var architectureFlagName string
+	var ArchitectureFlagName string
 	if cmdPrefix == "" {
-		architectureFlagName = "Architecture"
+		ArchitectureFlagName = "Architecture"
 	} else {
-		architectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
+		ArchitectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
 	}
 
-	var architectureFlagDefault string
+	var ArchitectureFlagDefault string
 
-	_ = cmd.PersistentFlags().String(architectureFlagName, architectureFlagDefault, architectureDescription)
+	_ = cmd.PersistentFlags().String(ArchitectureFlagName, ArchitectureFlagDefault, ArchitectureDescription)
 
 	return nil
 }
@@ -552,18 +552,18 @@ func registerDistributionInspectPlatformsItems0OS(depth int, cmdPrefix string, c
 		return nil
 	}
 
-	oSDescription := ``
+	OSDescription := ``
 
-	var oSFlagName string
+	var OSFlagName string
 	if cmdPrefix == "" {
-		oSFlagName = "OS"
+		OSFlagName = "OS"
 	} else {
-		oSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
+		OSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
 	}
 
-	var oSFlagDefault string
+	var OSFlagDefault string
 
-	_ = cmd.PersistentFlags().String(oSFlagName, oSFlagDefault, oSDescription)
+	_ = cmd.PersistentFlags().String(OSFlagName, OSFlagDefault, OSDescription)
 
 	return nil
 }
@@ -583,18 +583,18 @@ func registerDistributionInspectPlatformsItems0OSVersion(depth int, cmdPrefix st
 		return nil
 	}
 
-	oSVersionDescription := ``
+	OSVersionDescription := ``
 
-	var oSVersionFlagName string
+	var OSVersionFlagName string
 	if cmdPrefix == "" {
-		oSVersionFlagName = "OSVersion"
+		OSVersionFlagName = "OSVersion"
 	} else {
-		oSVersionFlagName = fmt.Sprintf("%v.OSVersion", cmdPrefix)
+		OSVersionFlagName = fmt.Sprintf("%v.OSVersion", cmdPrefix)
 	}
 
-	var oSVersionFlagDefault string
+	var OSVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(oSVersionFlagName, oSVersionFlagDefault, oSVersionDescription)
+	_ = cmd.PersistentFlags().String(OSVersionFlagName, OSVersionFlagDefault, OSVersionDescription)
 
 	return nil
 }
@@ -604,18 +604,18 @@ func registerDistributionInspectPlatformsItems0Variant(depth int, cmdPrefix stri
 		return nil
 	}
 
-	variantDescription := ``
+	VariantDescription := ``
 
-	var variantFlagName string
+	var VariantFlagName string
 	if cmdPrefix == "" {
-		variantFlagName = "Variant"
+		VariantFlagName = "Variant"
 	} else {
-		variantFlagName = fmt.Sprintf("%v.Variant", cmdPrefix)
+		VariantFlagName = fmt.Sprintf("%v.Variant", cmdPrefix)
 	}
 
-	var variantFlagDefault string
+	var VariantFlagDefault string
 
-	_ = cmd.PersistentFlags().String(variantFlagName, variantFlagDefault, variantDescription)
+	_ = cmd.PersistentFlags().String(VariantFlagName, VariantFlagDefault, VariantDescription)
 
 	return nil
 }
@@ -624,41 +624,41 @@ func registerDistributionInspectPlatformsItems0Variant(depth int, cmdPrefix stri
 func retrieveModelDistributionInspectPlatformsItems0Flags(depth int, m *distribution.DistributionInspectPlatformsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, architectureAdded := retrieveDistributionInspectPlatformsItems0ArchitectureFlags(depth, m, cmdPrefix, cmd)
+	err, ArchitectureAdded := retrieveDistributionInspectPlatformsItems0ArchitectureFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || architectureAdded
+	retAdded = retAdded || ArchitectureAdded
 
-	err, featuresAdded := retrieveDistributionInspectPlatformsItems0FeaturesFlags(depth, m, cmdPrefix, cmd)
+	err, FeaturesAdded := retrieveDistributionInspectPlatformsItems0FeaturesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || featuresAdded
+	retAdded = retAdded || FeaturesAdded
 
-	err, oSAdded := retrieveDistributionInspectPlatformsItems0OSFlags(depth, m, cmdPrefix, cmd)
+	err, OSAdded := retrieveDistributionInspectPlatformsItems0OSFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || oSAdded
+	retAdded = retAdded || OSAdded
 
-	err, oSFeaturesAdded := retrieveDistributionInspectPlatformsItems0OSFeaturesFlags(depth, m, cmdPrefix, cmd)
+	err, OSFeaturesAdded := retrieveDistributionInspectPlatformsItems0OSFeaturesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || oSFeaturesAdded
+	retAdded = retAdded || OSFeaturesAdded
 
-	err, oSVersionAdded := retrieveDistributionInspectPlatformsItems0OSVersionFlags(depth, m, cmdPrefix, cmd)
+	err, OSVersionAdded := retrieveDistributionInspectPlatformsItems0OSVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || oSVersionAdded
+	retAdded = retAdded || OSVersionAdded
 
-	err, variantAdded := retrieveDistributionInspectPlatformsItems0VariantFlags(depth, m, cmdPrefix, cmd)
+	err, VariantAdded := retrieveDistributionInspectPlatformsItems0VariantFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || variantAdded
+	retAdded = retAdded || VariantAdded
 
 	return nil, retAdded
 }
@@ -669,21 +669,21 @@ func retrieveDistributionInspectPlatformsItems0ArchitectureFlags(depth int, m *d
 	}
 	retAdded := false
 
-	architectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
-	if cmd.Flags().Changed(architectureFlagName) {
+	ArchitectureFlagName := fmt.Sprintf("%v.Architecture", cmdPrefix)
+	if cmd.Flags().Changed(ArchitectureFlagName) {
 
-		var architectureFlagName string
+		var ArchitectureFlagName string
 		if cmdPrefix == "" {
-			architectureFlagName = "Architecture"
+			ArchitectureFlagName = "Architecture"
 		} else {
-			architectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
+			ArchitectureFlagName = fmt.Sprintf("%v.Architecture", cmdPrefix)
 		}
 
-		architectureFlagValue, err := cmd.Flags().GetString(architectureFlagName)
+		ArchitectureFlagValue, err := cmd.Flags().GetString(ArchitectureFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Architecture = architectureFlagValue
+		m.Architecture = ArchitectureFlagValue
 
 		retAdded = true
 	}
@@ -697,8 +697,8 @@ func retrieveDistributionInspectPlatformsItems0FeaturesFlags(depth int, m *distr
 	}
 	retAdded := false
 
-	featuresFlagName := fmt.Sprintf("%v.Features", cmdPrefix)
-	if cmd.Flags().Changed(featuresFlagName) {
+	FeaturesFlagName := fmt.Sprintf("%v.Features", cmdPrefix)
+	if cmd.Flags().Changed(FeaturesFlagName) {
 		// warning: Features array type []string is not supported by go-swagger cli yet
 	}
 
@@ -711,21 +711,21 @@ func retrieveDistributionInspectPlatformsItems0OSFlags(depth int, m *distributio
 	}
 	retAdded := false
 
-	oSFlagName := fmt.Sprintf("%v.OS", cmdPrefix)
-	if cmd.Flags().Changed(oSFlagName) {
+	OSFlagName := fmt.Sprintf("%v.OS", cmdPrefix)
+	if cmd.Flags().Changed(OSFlagName) {
 
-		var oSFlagName string
+		var OSFlagName string
 		if cmdPrefix == "" {
-			oSFlagName = "OS"
+			OSFlagName = "OS"
 		} else {
-			oSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
+			OSFlagName = fmt.Sprintf("%v.OS", cmdPrefix)
 		}
 
-		oSFlagValue, err := cmd.Flags().GetString(oSFlagName)
+		OSFlagValue, err := cmd.Flags().GetString(OSFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OS = oSFlagValue
+		m.OS = OSFlagValue
 
 		retAdded = true
 	}
@@ -739,8 +739,8 @@ func retrieveDistributionInspectPlatformsItems0OSFeaturesFlags(depth int, m *dis
 	}
 	retAdded := false
 
-	oSFeaturesFlagName := fmt.Sprintf("%v.OSFeatures", cmdPrefix)
-	if cmd.Flags().Changed(oSFeaturesFlagName) {
+	OSFeaturesFlagName := fmt.Sprintf("%v.OSFeatures", cmdPrefix)
+	if cmd.Flags().Changed(OSFeaturesFlagName) {
 		// warning: OSFeatures array type []string is not supported by go-swagger cli yet
 	}
 
@@ -753,21 +753,21 @@ func retrieveDistributionInspectPlatformsItems0OSVersionFlags(depth int, m *dist
 	}
 	retAdded := false
 
-	oSVersionFlagName := fmt.Sprintf("%v.OSVersion", cmdPrefix)
-	if cmd.Flags().Changed(oSVersionFlagName) {
+	OSVersionFlagName := fmt.Sprintf("%v.OSVersion", cmdPrefix)
+	if cmd.Flags().Changed(OSVersionFlagName) {
 
-		var oSVersionFlagName string
+		var OSVersionFlagName string
 		if cmdPrefix == "" {
-			oSVersionFlagName = "OSVersion"
+			OSVersionFlagName = "OSVersion"
 		} else {
-			oSVersionFlagName = fmt.Sprintf("%v.OSVersion", cmdPrefix)
+			OSVersionFlagName = fmt.Sprintf("%v.OSVersion", cmdPrefix)
 		}
 
-		oSVersionFlagValue, err := cmd.Flags().GetString(oSVersionFlagName)
+		OSVersionFlagValue, err := cmd.Flags().GetString(OSVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.OSVersion = oSVersionFlagValue
+		m.OSVersion = OSVersionFlagValue
 
 		retAdded = true
 	}
@@ -781,21 +781,21 @@ func retrieveDistributionInspectPlatformsItems0VariantFlags(depth int, m *distri
 	}
 	retAdded := false
 
-	variantFlagName := fmt.Sprintf("%v.Variant", cmdPrefix)
-	if cmd.Flags().Changed(variantFlagName) {
+	VariantFlagName := fmt.Sprintf("%v.Variant", cmdPrefix)
+	if cmd.Flags().Changed(VariantFlagName) {
 
-		var variantFlagName string
+		var VariantFlagName string
 		if cmdPrefix == "" {
-			variantFlagName = "Variant"
+			VariantFlagName = "Variant"
 		} else {
-			variantFlagName = fmt.Sprintf("%v.Variant", cmdPrefix)
+			VariantFlagName = fmt.Sprintf("%v.Variant", cmdPrefix)
 		}
 
-		variantFlagValue, err := cmd.Flags().GetString(variantFlagName)
+		VariantFlagValue, err := cmd.Flags().GetString(VariantFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Variant = variantFlagValue
+		m.Variant = VariantFlagValue
 
 		retAdded = true
 	}

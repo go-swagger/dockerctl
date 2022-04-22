@@ -93,14 +93,14 @@ func registerOperationSwarmSwarmUpdateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSwarmSwarmUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmSpecFlags(0, "swarmSpec", cmd); err != nil {
@@ -111,69 +111,69 @@ func registerOperationSwarmSwarmUpdateBodyParamFlags(cmdPrefix string, cmd *cobr
 }
 func registerOperationSwarmSwarmUpdateRotateManagerTokenParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	rotateManagerTokenDescription := `Rotate the manager join token.`
+	RotateManagerTokenDescription := `Rotate the manager join token.`
 
-	var rotateManagerTokenFlagName string
+	var RotateManagerTokenFlagName string
 	if cmdPrefix == "" {
-		rotateManagerTokenFlagName = "rotateManagerToken"
+		RotateManagerTokenFlagName = "rotateManagerToken"
 	} else {
-		rotateManagerTokenFlagName = fmt.Sprintf("%v.rotateManagerToken", cmdPrefix)
+		RotateManagerTokenFlagName = fmt.Sprintf("%v.rotateManagerToken", cmdPrefix)
 	}
 
-	var rotateManagerTokenFlagDefault bool
+	var RotateManagerTokenFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(rotateManagerTokenFlagName, rotateManagerTokenFlagDefault, rotateManagerTokenDescription)
+	_ = cmd.PersistentFlags().Bool(RotateManagerTokenFlagName, RotateManagerTokenFlagDefault, RotateManagerTokenDescription)
 
 	return nil
 }
 func registerOperationSwarmSwarmUpdateRotateManagerUnlockKeyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	rotateManagerUnlockKeyDescription := `Rotate the manager unlock key.`
+	RotateManagerUnlockKeyDescription := `Rotate the manager unlock key.`
 
-	var rotateManagerUnlockKeyFlagName string
+	var RotateManagerUnlockKeyFlagName string
 	if cmdPrefix == "" {
-		rotateManagerUnlockKeyFlagName = "rotateManagerUnlockKey"
+		RotateManagerUnlockKeyFlagName = "rotateManagerUnlockKey"
 	} else {
-		rotateManagerUnlockKeyFlagName = fmt.Sprintf("%v.rotateManagerUnlockKey", cmdPrefix)
+		RotateManagerUnlockKeyFlagName = fmt.Sprintf("%v.rotateManagerUnlockKey", cmdPrefix)
 	}
 
-	var rotateManagerUnlockKeyFlagDefault bool
+	var RotateManagerUnlockKeyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(rotateManagerUnlockKeyFlagName, rotateManagerUnlockKeyFlagDefault, rotateManagerUnlockKeyDescription)
+	_ = cmd.PersistentFlags().Bool(RotateManagerUnlockKeyFlagName, RotateManagerUnlockKeyFlagDefault, RotateManagerUnlockKeyDescription)
 
 	return nil
 }
 func registerOperationSwarmSwarmUpdateRotateWorkerTokenParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	rotateWorkerTokenDescription := `Rotate the worker join token.`
+	RotateWorkerTokenDescription := `Rotate the worker join token.`
 
-	var rotateWorkerTokenFlagName string
+	var RotateWorkerTokenFlagName string
 	if cmdPrefix == "" {
-		rotateWorkerTokenFlagName = "rotateWorkerToken"
+		RotateWorkerTokenFlagName = "rotateWorkerToken"
 	} else {
-		rotateWorkerTokenFlagName = fmt.Sprintf("%v.rotateWorkerToken", cmdPrefix)
+		RotateWorkerTokenFlagName = fmt.Sprintf("%v.rotateWorkerToken", cmdPrefix)
 	}
 
-	var rotateWorkerTokenFlagDefault bool
+	var RotateWorkerTokenFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(rotateWorkerTokenFlagName, rotateWorkerTokenFlagDefault, rotateWorkerTokenDescription)
+	_ = cmd.PersistentFlags().Bool(RotateWorkerTokenFlagName, RotateWorkerTokenFlagDefault, RotateWorkerTokenDescription)
 
 	return nil
 }
 func registerOperationSwarmSwarmUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	versionDescription := `Required. The version number of the swarm object being updated. This is required to avoid conflicting writes.`
+	VersionDescription := `Required. The version number of the swarm object being updated. This is required to avoid conflicting writes.`
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "version"
+		VersionFlagName = "version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
 	}
 
-	var versionFlagDefault int64
+	var VersionFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+	_ = cmd.PersistentFlags().Int64(VersionFlagName, VersionFlagDefault, VersionDescription)
 
 	return nil
 }
@@ -220,18 +220,18 @@ func retrieveOperationSwarmSwarmUpdateRotateManagerTokenFlag(m *swarm.SwarmUpdat
 	retAdded := false
 	if cmd.Flags().Changed("rotateManagerToken") {
 
-		var rotateManagerTokenFlagName string
+		var RotateManagerTokenFlagName string
 		if cmdPrefix == "" {
-			rotateManagerTokenFlagName = "rotateManagerToken"
+			RotateManagerTokenFlagName = "rotateManagerToken"
 		} else {
-			rotateManagerTokenFlagName = fmt.Sprintf("%v.rotateManagerToken", cmdPrefix)
+			RotateManagerTokenFlagName = fmt.Sprintf("%v.rotateManagerToken", cmdPrefix)
 		}
 
-		rotateManagerTokenFlagValue, err := cmd.Flags().GetBool(rotateManagerTokenFlagName)
+		RotateManagerTokenFlagValue, err := cmd.Flags().GetBool(RotateManagerTokenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.RotateManagerToken = &rotateManagerTokenFlagValue
+		m.RotateManagerToken = &RotateManagerTokenFlagValue
 
 	}
 	return nil, retAdded
@@ -240,18 +240,18 @@ func retrieveOperationSwarmSwarmUpdateRotateManagerUnlockKeyFlag(m *swarm.SwarmU
 	retAdded := false
 	if cmd.Flags().Changed("rotateManagerUnlockKey") {
 
-		var rotateManagerUnlockKeyFlagName string
+		var RotateManagerUnlockKeyFlagName string
 		if cmdPrefix == "" {
-			rotateManagerUnlockKeyFlagName = "rotateManagerUnlockKey"
+			RotateManagerUnlockKeyFlagName = "rotateManagerUnlockKey"
 		} else {
-			rotateManagerUnlockKeyFlagName = fmt.Sprintf("%v.rotateManagerUnlockKey", cmdPrefix)
+			RotateManagerUnlockKeyFlagName = fmt.Sprintf("%v.rotateManagerUnlockKey", cmdPrefix)
 		}
 
-		rotateManagerUnlockKeyFlagValue, err := cmd.Flags().GetBool(rotateManagerUnlockKeyFlagName)
+		RotateManagerUnlockKeyFlagValue, err := cmd.Flags().GetBool(RotateManagerUnlockKeyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.RotateManagerUnlockKey = &rotateManagerUnlockKeyFlagValue
+		m.RotateManagerUnlockKey = &RotateManagerUnlockKeyFlagValue
 
 	}
 	return nil, retAdded
@@ -260,18 +260,18 @@ func retrieveOperationSwarmSwarmUpdateRotateWorkerTokenFlag(m *swarm.SwarmUpdate
 	retAdded := false
 	if cmd.Flags().Changed("rotateWorkerToken") {
 
-		var rotateWorkerTokenFlagName string
+		var RotateWorkerTokenFlagName string
 		if cmdPrefix == "" {
-			rotateWorkerTokenFlagName = "rotateWorkerToken"
+			RotateWorkerTokenFlagName = "rotateWorkerToken"
 		} else {
-			rotateWorkerTokenFlagName = fmt.Sprintf("%v.rotateWorkerToken", cmdPrefix)
+			RotateWorkerTokenFlagName = fmt.Sprintf("%v.rotateWorkerToken", cmdPrefix)
 		}
 
-		rotateWorkerTokenFlagValue, err := cmd.Flags().GetBool(rotateWorkerTokenFlagName)
+		RotateWorkerTokenFlagValue, err := cmd.Flags().GetBool(RotateWorkerTokenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.RotateWorkerToken = &rotateWorkerTokenFlagValue
+		m.RotateWorkerToken = &RotateWorkerTokenFlagValue
 
 	}
 	return nil, retAdded
@@ -280,18 +280,18 @@ func retrieveOperationSwarmSwarmUpdateVersionFlag(m *swarm.SwarmUpdateParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("version") {
 
-		var versionFlagName string
+		var VersionFlagName string
 		if cmdPrefix == "" {
-			versionFlagName = "version"
+			VersionFlagName = "version"
 		} else {
-			versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+			VersionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
 		}
 
-		versionFlagValue, err := cmd.Flags().GetInt64(versionFlagName)
+		VersionFlagValue, err := cmd.Flags().GetInt64(VersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Version = versionFlagValue
+		m.Version = VersionFlagValue
 
 	}
 	return nil, retAdded

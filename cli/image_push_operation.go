@@ -85,52 +85,52 @@ func registerOperationImageImagePushParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImagePushXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	xRegistryAuthDescription := `Required. A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
+	XRegistryAuthDescription := `Required. A base64-encoded auth configuration. [See the authentication section for details.](#section/Authentication)`
 
-	var xRegistryAuthFlagName string
+	var XRegistryAuthFlagName string
 	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
+		XRegistryAuthFlagName = "X-Registry-Auth"
 	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+		XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 	}
 
-	var xRegistryAuthFlagDefault string
+	var XRegistryAuthFlagDefault string
 
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+	_ = cmd.PersistentFlags().String(XRegistryAuthFlagName, XRegistryAuthFlagDefault, XRegistryAuthDescription)
 
 	return nil
 }
 func registerOperationImageImagePushNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. Image name or ID.`
+	NameDescription := `Required. Image name or ID.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
 func registerOperationImageImagePushTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tagDescription := `The tag to associate with the image on the registry.`
+	TagDescription := `The tag to associate with the image on the registry.`
 
-	var tagFlagName string
+	var TagFlagName string
 	if cmdPrefix == "" {
-		tagFlagName = "tag"
+		TagFlagName = "tag"
 	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+		TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 	}
 
-	var tagFlagDefault string
+	var TagFlagDefault string
 
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+	_ = cmd.PersistentFlags().String(TagFlagName, TagFlagDefault, TagDescription)
 
 	return nil
 }
@@ -139,18 +139,18 @@ func retrieveOperationImageImagePushXRegistryAuthFlag(m *image.ImagePushParams, 
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
 
-		var xRegistryAuthFlagName string
+		var XRegistryAuthFlagName string
 		if cmdPrefix == "" {
-			xRegistryAuthFlagName = "X-Registry-Auth"
+			XRegistryAuthFlagName = "X-Registry-Auth"
 		} else {
-			xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+			XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 		}
 
-		xRegistryAuthFlagValue, err := cmd.Flags().GetString(xRegistryAuthFlagName)
+		XRegistryAuthFlagValue, err := cmd.Flags().GetString(XRegistryAuthFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.XRegistryAuth = xRegistryAuthFlagValue
+		m.XRegistryAuth = XRegistryAuthFlagValue
 
 	}
 	return nil, retAdded
@@ -159,18 +159,18 @@ func retrieveOperationImageImagePushNameFlag(m *image.ImagePushParams, cmdPrefix
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -179,18 +179,18 @@ func retrieveOperationImageImagePushTagFlag(m *image.ImagePushParams, cmdPrefix 
 	retAdded := false
 	if cmd.Flags().Changed("tag") {
 
-		var tagFlagName string
+		var TagFlagName string
 		if cmdPrefix == "" {
-			tagFlagName = "tag"
+			TagFlagName = "tag"
 		} else {
-			tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+			TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 		}
 
-		tagFlagValue, err := cmd.Flags().GetString(tagFlagName)
+		TagFlagValue, err := cmd.Flags().GetString(TagFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tag = &tagFlagValue
+		m.Tag = &TagFlagValue
 
 	}
 	return nil, retAdded

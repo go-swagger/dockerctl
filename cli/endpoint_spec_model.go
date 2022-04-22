@@ -34,21 +34,21 @@ func registerEndpointSpecMode(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	modeDescription := `Enum: ["vip","dnsrr"]. The mode of resolution to use for internal load balancing between tasks.
+	ModeDescription := `Enum: ["vip","dnsrr"]. The mode of resolution to use for internal load balancing between tasks.
 `
 
-	var modeFlagName string
+	var ModeFlagName string
 	if cmdPrefix == "" {
-		modeFlagName = "Mode"
+		ModeFlagName = "Mode"
 	} else {
-		modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+		ModeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 	}
 
-	var modeFlagDefault string = "vip"
+	var ModeFlagDefault string = "vip"
 
-	_ = cmd.PersistentFlags().String(modeFlagName, modeFlagDefault, modeDescription)
+	_ = cmd.PersistentFlags().String(ModeFlagName, ModeFlagDefault, ModeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(modeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(ModeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["vip","dnsrr"]`), &res); err != nil {
@@ -76,17 +76,17 @@ func registerEndpointSpecPorts(depth int, cmdPrefix string, cmd *cobra.Command) 
 func retrieveModelEndpointSpecFlags(depth int, m *models.EndpointSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, modeAdded := retrieveEndpointSpecModeFlags(depth, m, cmdPrefix, cmd)
+	err, ModeAdded := retrieveEndpointSpecModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || modeAdded
+	retAdded = retAdded || ModeAdded
 
-	err, portsAdded := retrieveEndpointSpecPortsFlags(depth, m, cmdPrefix, cmd)
+	err, PortsAdded := retrieveEndpointSpecPortsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || portsAdded
+	retAdded = retAdded || PortsAdded
 
 	return nil, retAdded
 }
@@ -97,21 +97,21 @@ func retrieveEndpointSpecModeFlags(depth int, m *models.EndpointSpec, cmdPrefix 
 	}
 	retAdded := false
 
-	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
-	if cmd.Flags().Changed(modeFlagName) {
+	ModeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
+	if cmd.Flags().Changed(ModeFlagName) {
 
-		var modeFlagName string
+		var ModeFlagName string
 		if cmdPrefix == "" {
-			modeFlagName = "Mode"
+			ModeFlagName = "Mode"
 		} else {
-			modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+			ModeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 		}
 
-		modeFlagValue, err := cmd.Flags().GetString(modeFlagName)
+		ModeFlagValue, err := cmd.Flags().GetString(ModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Mode = &modeFlagValue
+		m.Mode = &ModeFlagValue
 
 		retAdded = true
 	}
@@ -125,8 +125,8 @@ func retrieveEndpointSpecPortsFlags(depth int, m *models.EndpointSpec, cmdPrefix
 	}
 	retAdded := false
 
-	portsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
-	if cmd.Flags().Changed(portsFlagName) {
+	PortsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
+	if cmd.Flags().Changed(PortsFlagName) {
 		// warning: Ports array type []*EndpointPortConfig is not supported by go-swagger cli yet
 	}
 

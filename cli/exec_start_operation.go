@@ -74,14 +74,14 @@ func registerOperationExecExecStartParamFlags(cmd *cobra.Command) error {
 
 func registerOperationExecExecStartExecStartConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var execStartConfigFlagName string
+	var ExecStartConfigFlagName string
 	if cmdPrefix == "" {
-		execStartConfigFlagName = "execStartConfig"
+		ExecStartConfigFlagName = "execStartConfig"
 	} else {
-		execStartConfigFlagName = fmt.Sprintf("%v.execStartConfig", cmdPrefix)
+		ExecStartConfigFlagName = fmt.Sprintf("%v.execStartConfig", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(execStartConfigFlagName, "", "Optional json string for [execStartConfig]. ")
+	_ = cmd.PersistentFlags().String(ExecStartConfigFlagName, "", "Optional json string for [execStartConfig]. ")
 
 	// add flags for body
 	if err := registerModelExecStartBodyFlags(0, "execStartBody", cmd); err != nil {
@@ -92,18 +92,18 @@ func registerOperationExecExecStartExecStartConfigParamFlags(cmdPrefix string, c
 }
 func registerOperationExecExecStartIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. Exec instance ID`
+	IDDescription := `Required. Exec instance ID`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -150,18 +150,18 @@ func retrieveOperationExecExecStartIDFlag(m *exec.ExecStartParams, cmdPrefix str
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -224,18 +224,18 @@ func registerExecStartBodyDetach(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	detachDescription := `Detach from the command.`
+	DetachDescription := `Detach from the command.`
 
-	var detachFlagName string
+	var DetachFlagName string
 	if cmdPrefix == "" {
-		detachFlagName = "Detach"
+		DetachFlagName = "Detach"
 	} else {
-		detachFlagName = fmt.Sprintf("%v.Detach", cmdPrefix)
+		DetachFlagName = fmt.Sprintf("%v.Detach", cmdPrefix)
 	}
 
-	var detachFlagDefault bool
+	var DetachFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(detachFlagName, detachFlagDefault, detachDescription)
+	_ = cmd.PersistentFlags().Bool(DetachFlagName, DetachFlagDefault, DetachDescription)
 
 	return nil
 }
@@ -245,18 +245,18 @@ func registerExecStartBodyTty(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	ttyDescription := `Allocate a pseudo-TTY.`
+	TtyDescription := `Allocate a pseudo-TTY.`
 
-	var ttyFlagName string
+	var TtyFlagName string
 	if cmdPrefix == "" {
-		ttyFlagName = "Tty"
+		TtyFlagName = "Tty"
 	} else {
-		ttyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
+		TtyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
 	}
 
-	var ttyFlagDefault bool
+	var TtyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ttyFlagName, ttyFlagDefault, ttyDescription)
+	_ = cmd.PersistentFlags().Bool(TtyFlagName, TtyFlagDefault, TtyDescription)
 
 	return nil
 }
@@ -265,17 +265,17 @@ func registerExecStartBodyTty(depth int, cmdPrefix string, cmd *cobra.Command) e
 func retrieveModelExecStartBodyFlags(depth int, m *exec.ExecStartBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, detachAdded := retrieveExecStartBodyDetachFlags(depth, m, cmdPrefix, cmd)
+	err, DetachAdded := retrieveExecStartBodyDetachFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || detachAdded
+	retAdded = retAdded || DetachAdded
 
-	err, ttyAdded := retrieveExecStartBodyTtyFlags(depth, m, cmdPrefix, cmd)
+	err, TtyAdded := retrieveExecStartBodyTtyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ttyAdded
+	retAdded = retAdded || TtyAdded
 
 	return nil, retAdded
 }
@@ -286,21 +286,21 @@ func retrieveExecStartBodyDetachFlags(depth int, m *exec.ExecStartBody, cmdPrefi
 	}
 	retAdded := false
 
-	detachFlagName := fmt.Sprintf("%v.Detach", cmdPrefix)
-	if cmd.Flags().Changed(detachFlagName) {
+	DetachFlagName := fmt.Sprintf("%v.Detach", cmdPrefix)
+	if cmd.Flags().Changed(DetachFlagName) {
 
-		var detachFlagName string
+		var DetachFlagName string
 		if cmdPrefix == "" {
-			detachFlagName = "Detach"
+			DetachFlagName = "Detach"
 		} else {
-			detachFlagName = fmt.Sprintf("%v.Detach", cmdPrefix)
+			DetachFlagName = fmt.Sprintf("%v.Detach", cmdPrefix)
 		}
 
-		detachFlagValue, err := cmd.Flags().GetBool(detachFlagName)
+		DetachFlagValue, err := cmd.Flags().GetBool(DetachFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Detach = detachFlagValue
+		m.Detach = DetachFlagValue
 
 		retAdded = true
 	}
@@ -314,21 +314,21 @@ func retrieveExecStartBodyTtyFlags(depth int, m *exec.ExecStartBody, cmdPrefix s
 	}
 	retAdded := false
 
-	ttyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
-	if cmd.Flags().Changed(ttyFlagName) {
+	TtyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
+	if cmd.Flags().Changed(TtyFlagName) {
 
-		var ttyFlagName string
+		var TtyFlagName string
 		if cmdPrefix == "" {
-			ttyFlagName = "Tty"
+			TtyFlagName = "Tty"
 		} else {
-			ttyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
+			TtyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
 		}
 
-		ttyFlagValue, err := cmd.Flags().GetBool(ttyFlagName)
+		TtyFlagValue, err := cmd.Flags().GetBool(TtyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tty = ttyFlagValue
+		m.Tty = TtyFlagValue
 
 		retAdded = true
 	}

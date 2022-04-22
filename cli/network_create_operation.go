@@ -69,14 +69,14 @@ func registerOperationNetworkNetworkCreateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationNetworkNetworkCreateNetworkConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var networkConfigFlagName string
+	var NetworkConfigFlagName string
 	if cmdPrefix == "" {
-		networkConfigFlagName = "networkConfig"
+		NetworkConfigFlagName = "networkConfig"
 	} else {
-		networkConfigFlagName = fmt.Sprintf("%v.networkConfig", cmdPrefix)
+		NetworkConfigFlagName = fmt.Sprintf("%v.networkConfig", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(networkConfigFlagName, "", "Optional json string for [networkConfig]. Network configuration")
+	_ = cmd.PersistentFlags().String(NetworkConfigFlagName, "", "Optional json string for [networkConfig]. Network configuration")
 
 	// add flags for body
 	if err := registerModelNetworkCreateBodyFlags(0, "networkCreateBody", cmd); err != nil {
@@ -242,18 +242,18 @@ func registerNetworkCreateBodyAttachable(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	attachableDescription := `Globally scoped network is manually attachable by regular containers from workers in swarm mode.`
+	AttachableDescription := `Globally scoped network is manually attachable by regular containers from workers in swarm mode.`
 
-	var attachableFlagName string
+	var AttachableFlagName string
 	if cmdPrefix == "" {
-		attachableFlagName = "Attachable"
+		AttachableFlagName = "Attachable"
 	} else {
-		attachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
+		AttachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
 	}
 
-	var attachableFlagDefault bool
+	var AttachableFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(attachableFlagName, attachableFlagDefault, attachableDescription)
+	_ = cmd.PersistentFlags().Bool(AttachableFlagName, AttachableFlagDefault, AttachableDescription)
 
 	return nil
 }
@@ -263,18 +263,18 @@ func registerNetworkCreateBodyCheckDuplicate(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	checkDuplicateDescription := `Check for networks with duplicate names. Since Network is primarily keyed based on a random ID and not on the name, and network name is strictly a user-friendly alias to the network which is uniquely identified using ID, there is no guaranteed way to check for duplicates. CheckDuplicate is there to provide a best effort checking of any networks which has the same name but it is not guaranteed to catch all name collisions.`
+	CheckDuplicateDescription := `Check for networks with duplicate names. Since Network is primarily keyed based on a random ID and not on the name, and network name is strictly a user-friendly alias to the network which is uniquely identified using ID, there is no guaranteed way to check for duplicates. CheckDuplicate is there to provide a best effort checking of any networks which has the same name but it is not guaranteed to catch all name collisions.`
 
-	var checkDuplicateFlagName string
+	var CheckDuplicateFlagName string
 	if cmdPrefix == "" {
-		checkDuplicateFlagName = "CheckDuplicate"
+		CheckDuplicateFlagName = "CheckDuplicate"
 	} else {
-		checkDuplicateFlagName = fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
+		CheckDuplicateFlagName = fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
 	}
 
-	var checkDuplicateFlagDefault bool
+	var CheckDuplicateFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(checkDuplicateFlagName, checkDuplicateFlagDefault, checkDuplicateDescription)
+	_ = cmd.PersistentFlags().Bool(CheckDuplicateFlagName, CheckDuplicateFlagDefault, CheckDuplicateDescription)
 
 	return nil
 }
@@ -284,18 +284,18 @@ func registerNetworkCreateBodyDriver(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	driverDescription := `Name of the network driver plugin to use.`
+	DriverDescription := `Name of the network driver plugin to use.`
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string = "bridge"
+	var DriverFlagDefault string = "bridge"
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -305,18 +305,18 @@ func registerNetworkCreateBodyEnableIPV6(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	enableIpv6Description := `Enable IPv6 on the network.`
+	EnableIPV6Description := `Enable IPv6 on the network.`
 
-	var enableIpv6FlagName string
+	var EnableIPV6FlagName string
 	if cmdPrefix == "" {
-		enableIpv6FlagName = "EnableIPv6"
+		EnableIPV6FlagName = "EnableIPv6"
 	} else {
-		enableIpv6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
+		EnableIPV6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
 	}
 
-	var enableIpv6FlagDefault bool
+	var EnableIPV6FlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(enableIpv6FlagName, enableIpv6FlagDefault, enableIpv6Description)
+	_ = cmd.PersistentFlags().Bool(EnableIPV6FlagName, EnableIPV6FlagDefault, EnableIPV6Description)
 
 	return nil
 }
@@ -326,14 +326,14 @@ func registerNetworkCreateBodyIPAM(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	var ipAMFlagName string
+	var IPAMFlagName string
 	if cmdPrefix == "" {
-		ipAMFlagName = "IPAM"
+		IPAMFlagName = "IPAM"
 	} else {
-		ipAMFlagName = fmt.Sprintf("%v.IPAM", cmdPrefix)
+		IPAMFlagName = fmt.Sprintf("%v.IPAM", cmdPrefix)
 	}
 
-	if err := registerModelIPAMFlags(depth+1, ipAMFlagName, cmd); err != nil {
+	if err := registerModelIPAMFlags(depth+1, IPAMFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -345,18 +345,18 @@ func registerNetworkCreateBodyIngress(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	ingressDescription := `Ingress network is the network which provides the routing-mesh in swarm mode.`
+	IngressDescription := `Ingress network is the network which provides the routing-mesh in swarm mode.`
 
-	var ingressFlagName string
+	var IngressFlagName string
 	if cmdPrefix == "" {
-		ingressFlagName = "Ingress"
+		IngressFlagName = "Ingress"
 	} else {
-		ingressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
+		IngressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
 	}
 
-	var ingressFlagDefault bool
+	var IngressFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ingressFlagName, ingressFlagDefault, ingressDescription)
+	_ = cmd.PersistentFlags().Bool(IngressFlagName, IngressFlagDefault, IngressDescription)
 
 	return nil
 }
@@ -366,18 +366,18 @@ func registerNetworkCreateBodyInternal(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	internalDescription := `Restrict external access to the network.`
+	InternalDescription := `Restrict external access to the network.`
 
-	var internalFlagName string
+	var InternalFlagName string
 	if cmdPrefix == "" {
-		internalFlagName = "Internal"
+		InternalFlagName = "Internal"
 	} else {
-		internalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
+		InternalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
 	}
 
-	var internalFlagDefault bool
+	var InternalFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(internalFlagName, internalFlagDefault, internalDescription)
+	_ = cmd.PersistentFlags().Bool(InternalFlagName, InternalFlagDefault, InternalDescription)
 
 	return nil
 }
@@ -397,18 +397,18 @@ func registerNetworkCreateBodyName(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	nameDescription := `Required. The network's name.`
+	NameDescription := `Required. The network's name.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -427,65 +427,65 @@ func registerNetworkCreateBodyOptions(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelNetworkCreateBodyFlags(depth int, m *network.NetworkCreateBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, attachableAdded := retrieveNetworkCreateBodyAttachableFlags(depth, m, cmdPrefix, cmd)
+	err, AttachableAdded := retrieveNetworkCreateBodyAttachableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachableAdded
+	retAdded = retAdded || AttachableAdded
 
-	err, checkDuplicateAdded := retrieveNetworkCreateBodyCheckDuplicateFlags(depth, m, cmdPrefix, cmd)
+	err, CheckDuplicateAdded := retrieveNetworkCreateBodyCheckDuplicateFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || checkDuplicateAdded
+	retAdded = retAdded || CheckDuplicateAdded
 
-	err, driverAdded := retrieveNetworkCreateBodyDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveNetworkCreateBodyDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, enableIpv6Added := retrieveNetworkCreateBodyEnableIPV6Flags(depth, m, cmdPrefix, cmd)
+	err, EnableIPV6Added := retrieveNetworkCreateBodyEnableIPV6Flags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || enableIpv6Added
+	retAdded = retAdded || EnableIPV6Added
 
-	err, ipAMAdded := retrieveNetworkCreateBodyIPAMFlags(depth, m, cmdPrefix, cmd)
+	err, IPAMAdded := retrieveNetworkCreateBodyIPAMFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAMAdded
+	retAdded = retAdded || IPAMAdded
 
-	err, ingressAdded := retrieveNetworkCreateBodyIngressFlags(depth, m, cmdPrefix, cmd)
+	err, IngressAdded := retrieveNetworkCreateBodyIngressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ingressAdded
+	retAdded = retAdded || IngressAdded
 
-	err, internalAdded := retrieveNetworkCreateBodyInternalFlags(depth, m, cmdPrefix, cmd)
+	err, InternalAdded := retrieveNetworkCreateBodyInternalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || internalAdded
+	retAdded = retAdded || InternalAdded
 
-	err, labelsAdded := retrieveNetworkCreateBodyLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveNetworkCreateBodyLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, nameAdded := retrieveNetworkCreateBodyNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveNetworkCreateBodyNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, optionsAdded := retrieveNetworkCreateBodyOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveNetworkCreateBodyOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
 	return nil, retAdded
 }
@@ -496,21 +496,21 @@ func retrieveNetworkCreateBodyAttachableFlags(depth int, m *network.NetworkCreat
 	}
 	retAdded := false
 
-	attachableFlagName := fmt.Sprintf("%v.Attachable", cmdPrefix)
-	if cmd.Flags().Changed(attachableFlagName) {
+	AttachableFlagName := fmt.Sprintf("%v.Attachable", cmdPrefix)
+	if cmd.Flags().Changed(AttachableFlagName) {
 
-		var attachableFlagName string
+		var AttachableFlagName string
 		if cmdPrefix == "" {
-			attachableFlagName = "Attachable"
+			AttachableFlagName = "Attachable"
 		} else {
-			attachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
+			AttachableFlagName = fmt.Sprintf("%v.Attachable", cmdPrefix)
 		}
 
-		attachableFlagValue, err := cmd.Flags().GetBool(attachableFlagName)
+		AttachableFlagValue, err := cmd.Flags().GetBool(AttachableFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Attachable = attachableFlagValue
+		m.Attachable = AttachableFlagValue
 
 		retAdded = true
 	}
@@ -524,21 +524,21 @@ func retrieveNetworkCreateBodyCheckDuplicateFlags(depth int, m *network.NetworkC
 	}
 	retAdded := false
 
-	checkDuplicateFlagName := fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
-	if cmd.Flags().Changed(checkDuplicateFlagName) {
+	CheckDuplicateFlagName := fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
+	if cmd.Flags().Changed(CheckDuplicateFlagName) {
 
-		var checkDuplicateFlagName string
+		var CheckDuplicateFlagName string
 		if cmdPrefix == "" {
-			checkDuplicateFlagName = "CheckDuplicate"
+			CheckDuplicateFlagName = "CheckDuplicate"
 		} else {
-			checkDuplicateFlagName = fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
+			CheckDuplicateFlagName = fmt.Sprintf("%v.CheckDuplicate", cmdPrefix)
 		}
 
-		checkDuplicateFlagValue, err := cmd.Flags().GetBool(checkDuplicateFlagName)
+		CheckDuplicateFlagValue, err := cmd.Flags().GetBool(CheckDuplicateFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CheckDuplicate = checkDuplicateFlagValue
+		m.CheckDuplicate = CheckDuplicateFlagValue
 
 		retAdded = true
 	}
@@ -552,21 +552,21 @@ func retrieveNetworkCreateBodyDriverFlags(depth int, m *network.NetworkCreateBod
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = &driverFlagValue
+		m.Driver = &DriverFlagValue
 
 		retAdded = true
 	}
@@ -580,21 +580,21 @@ func retrieveNetworkCreateBodyEnableIPV6Flags(depth int, m *network.NetworkCreat
 	}
 	retAdded := false
 
-	enableIpv6FlagName := fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
-	if cmd.Flags().Changed(enableIpv6FlagName) {
+	EnableIPV6FlagName := fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
+	if cmd.Flags().Changed(EnableIPV6FlagName) {
 
-		var enableIpv6FlagName string
+		var EnableIPV6FlagName string
 		if cmdPrefix == "" {
-			enableIpv6FlagName = "EnableIPv6"
+			EnableIPV6FlagName = "EnableIPv6"
 		} else {
-			enableIpv6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
+			EnableIPV6FlagName = fmt.Sprintf("%v.EnableIPv6", cmdPrefix)
 		}
 
-		enableIpv6FlagValue, err := cmd.Flags().GetBool(enableIpv6FlagName)
+		EnableIPV6FlagValue, err := cmd.Flags().GetBool(EnableIPV6FlagName)
 		if err != nil {
 			return err, false
 		}
-		m.EnableIPV6 = enableIpv6FlagValue
+		m.EnableIPV6 = EnableIPV6FlagValue
 
 		retAdded = true
 	}
@@ -608,22 +608,22 @@ func retrieveNetworkCreateBodyIPAMFlags(depth int, m *network.NetworkCreateBody,
 	}
 	retAdded := false
 
-	ipAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
-	if cmd.Flags().Changed(ipAMFlagName) {
+	IPAMFlagName := fmt.Sprintf("%v.IPAM", cmdPrefix)
+	if cmd.Flags().Changed(IPAMFlagName) {
 		// info: complex object IPAM models.IPAM is retrieved outside this Changed() block
 	}
-	ipAMFlagValue := m.IPAM
-	if swag.IsZero(ipAMFlagValue) {
-		ipAMFlagValue = &models.IPAM{}
+	IPAMFlagValue := m.IPAM
+	if swag.IsZero(IPAMFlagValue) {
+		IPAMFlagValue = &models.IPAM{}
 	}
 
-	err, ipAMAdded := retrieveModelIPAMFlags(depth+1, ipAMFlagValue, ipAMFlagName, cmd)
+	err, IPAMAdded := retrieveModelIPAMFlags(depth+1, IPAMFlagValue, IPAMFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipAMAdded
-	if ipAMAdded {
-		m.IPAM = ipAMFlagValue
+	retAdded = retAdded || IPAMAdded
+	if IPAMAdded {
+		m.IPAM = IPAMFlagValue
 	}
 
 	return nil, retAdded
@@ -635,21 +635,21 @@ func retrieveNetworkCreateBodyIngressFlags(depth int, m *network.NetworkCreateBo
 	}
 	retAdded := false
 
-	ingressFlagName := fmt.Sprintf("%v.Ingress", cmdPrefix)
-	if cmd.Flags().Changed(ingressFlagName) {
+	IngressFlagName := fmt.Sprintf("%v.Ingress", cmdPrefix)
+	if cmd.Flags().Changed(IngressFlagName) {
 
-		var ingressFlagName string
+		var IngressFlagName string
 		if cmdPrefix == "" {
-			ingressFlagName = "Ingress"
+			IngressFlagName = "Ingress"
 		} else {
-			ingressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
+			IngressFlagName = fmt.Sprintf("%v.Ingress", cmdPrefix)
 		}
 
-		ingressFlagValue, err := cmd.Flags().GetBool(ingressFlagName)
+		IngressFlagValue, err := cmd.Flags().GetBool(IngressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Ingress = ingressFlagValue
+		m.Ingress = IngressFlagValue
 
 		retAdded = true
 	}
@@ -663,21 +663,21 @@ func retrieveNetworkCreateBodyInternalFlags(depth int, m *network.NetworkCreateB
 	}
 	retAdded := false
 
-	internalFlagName := fmt.Sprintf("%v.Internal", cmdPrefix)
-	if cmd.Flags().Changed(internalFlagName) {
+	InternalFlagName := fmt.Sprintf("%v.Internal", cmdPrefix)
+	if cmd.Flags().Changed(InternalFlagName) {
 
-		var internalFlagName string
+		var InternalFlagName string
 		if cmdPrefix == "" {
-			internalFlagName = "Internal"
+			InternalFlagName = "Internal"
 		} else {
-			internalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
+			InternalFlagName = fmt.Sprintf("%v.Internal", cmdPrefix)
 		}
 
-		internalFlagValue, err := cmd.Flags().GetBool(internalFlagName)
+		InternalFlagValue, err := cmd.Flags().GetBool(InternalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Internal = internalFlagValue
+		m.Internal = InternalFlagValue
 
 		retAdded = true
 	}
@@ -691,8 +691,8 @@ func retrieveNetworkCreateBodyLabelsFlags(depth int, m *network.NetworkCreateBod
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -705,21 +705,21 @@ func retrieveNetworkCreateBodyNameFlags(depth int, m *network.NetworkCreateBody,
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = &nameFlagValue
+		m.Name = &NameFlagValue
 
 		retAdded = true
 	}
@@ -733,8 +733,8 @@ func retrieveNetworkCreateBodyOptionsFlags(depth int, m *network.NetworkCreateBo
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -760,18 +760,18 @@ func registerNetworkCreateCreatedBodyID(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	idDescription := `The ID of the created network.`
+	IDDescription := `The ID of the created network.`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -781,18 +781,18 @@ func registerNetworkCreateCreatedBodyWarning(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	warningDescription := ``
+	WarningDescription := ``
 
-	var warningFlagName string
+	var WarningFlagName string
 	if cmdPrefix == "" {
-		warningFlagName = "Warning"
+		WarningFlagName = "Warning"
 	} else {
-		warningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
+		WarningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
 	}
 
-	var warningFlagDefault string
+	var WarningFlagDefault string
 
-	_ = cmd.PersistentFlags().String(warningFlagName, warningFlagDefault, warningDescription)
+	_ = cmd.PersistentFlags().String(WarningFlagName, WarningFlagDefault, WarningDescription)
 
 	return nil
 }
@@ -801,17 +801,17 @@ func registerNetworkCreateCreatedBodyWarning(depth int, cmdPrefix string, cmd *c
 func retrieveModelNetworkCreateCreatedBodyFlags(depth int, m *network.NetworkCreateCreatedBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, idAdded := retrieveNetworkCreateCreatedBodyIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveNetworkCreateCreatedBodyIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, warningAdded := retrieveNetworkCreateCreatedBodyWarningFlags(depth, m, cmdPrefix, cmd)
+	err, WarningAdded := retrieveNetworkCreateCreatedBodyWarningFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || warningAdded
+	retAdded = retAdded || WarningAdded
 
 	return nil, retAdded
 }
@@ -822,21 +822,21 @@ func retrieveNetworkCreateCreatedBodyIDFlags(depth int, m *network.NetworkCreate
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -850,21 +850,21 @@ func retrieveNetworkCreateCreatedBodyWarningFlags(depth int, m *network.NetworkC
 	}
 	retAdded := false
 
-	warningFlagName := fmt.Sprintf("%v.Warning", cmdPrefix)
-	if cmd.Flags().Changed(warningFlagName) {
+	WarningFlagName := fmt.Sprintf("%v.Warning", cmdPrefix)
+	if cmd.Flags().Changed(WarningFlagName) {
 
-		var warningFlagName string
+		var WarningFlagName string
 		if cmdPrefix == "" {
-			warningFlagName = "Warning"
+			WarningFlagName = "Warning"
 		} else {
-			warningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
+			WarningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
 		}
 
-		warningFlagValue, err := cmd.Flags().GetString(warningFlagName)
+		WarningFlagValue, err := cmd.Flags().GetString(WarningFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Warning = warningFlagValue
+		m.Warning = WarningFlagValue
 
 		retAdded = true
 	}

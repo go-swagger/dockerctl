@@ -57,18 +57,18 @@ func registerNetworkAttachmentConfigTarget(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	targetDescription := `The target network for attachment. Must be a network name or ID.`
+	TargetDescription := `The target network for attachment. Must be a network name or ID.`
 
-	var targetFlagName string
+	var TargetFlagName string
 	if cmdPrefix == "" {
-		targetFlagName = "Target"
+		TargetFlagName = "Target"
 	} else {
-		targetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
+		TargetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
 	}
 
-	var targetFlagDefault string
+	var TargetFlagDefault string
 
-	_ = cmd.PersistentFlags().String(targetFlagName, targetFlagDefault, targetDescription)
+	_ = cmd.PersistentFlags().String(TargetFlagName, TargetFlagDefault, TargetDescription)
 
 	return nil
 }
@@ -77,23 +77,23 @@ func registerNetworkAttachmentConfigTarget(depth int, cmdPrefix string, cmd *cob
 func retrieveModelNetworkAttachmentConfigFlags(depth int, m *models.NetworkAttachmentConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, aliasesAdded := retrieveNetworkAttachmentConfigAliasesFlags(depth, m, cmdPrefix, cmd)
+	err, AliasesAdded := retrieveNetworkAttachmentConfigAliasesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || aliasesAdded
+	retAdded = retAdded || AliasesAdded
 
-	err, driverOptsAdded := retrieveNetworkAttachmentConfigDriverOptsFlags(depth, m, cmdPrefix, cmd)
+	err, DriverOptsAdded := retrieveNetworkAttachmentConfigDriverOptsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverOptsAdded
+	retAdded = retAdded || DriverOptsAdded
 
-	err, targetAdded := retrieveNetworkAttachmentConfigTargetFlags(depth, m, cmdPrefix, cmd)
+	err, TargetAdded := retrieveNetworkAttachmentConfigTargetFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || targetAdded
+	retAdded = retAdded || TargetAdded
 
 	return nil, retAdded
 }
@@ -104,8 +104,8 @@ func retrieveNetworkAttachmentConfigAliasesFlags(depth int, m *models.NetworkAtt
 	}
 	retAdded := false
 
-	aliasesFlagName := fmt.Sprintf("%v.Aliases", cmdPrefix)
-	if cmd.Flags().Changed(aliasesFlagName) {
+	AliasesFlagName := fmt.Sprintf("%v.Aliases", cmdPrefix)
+	if cmd.Flags().Changed(AliasesFlagName) {
 		// warning: Aliases array type []string is not supported by go-swagger cli yet
 	}
 
@@ -118,8 +118,8 @@ func retrieveNetworkAttachmentConfigDriverOptsFlags(depth int, m *models.Network
 	}
 	retAdded := false
 
-	driverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
-	if cmd.Flags().Changed(driverOptsFlagName) {
+	DriverOptsFlagName := fmt.Sprintf("%v.DriverOpts", cmdPrefix)
+	if cmd.Flags().Changed(DriverOptsFlagName) {
 		// warning: DriverOpts map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -132,21 +132,21 @@ func retrieveNetworkAttachmentConfigTargetFlags(depth int, m *models.NetworkAtta
 	}
 	retAdded := false
 
-	targetFlagName := fmt.Sprintf("%v.Target", cmdPrefix)
-	if cmd.Flags().Changed(targetFlagName) {
+	TargetFlagName := fmt.Sprintf("%v.Target", cmdPrefix)
+	if cmd.Flags().Changed(TargetFlagName) {
 
-		var targetFlagName string
+		var TargetFlagName string
 		if cmdPrefix == "" {
-			targetFlagName = "Target"
+			TargetFlagName = "Target"
 		} else {
-			targetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
+			TargetFlagName = fmt.Sprintf("%v.Target", cmdPrefix)
 		}
 
-		targetFlagValue, err := cmd.Flags().GetString(targetFlagName)
+		TargetFlagValue, err := cmd.Flags().GetString(TargetFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Target = targetFlagValue
+		m.Target = TargetFlagValue
 
 		retAdded = true
 	}

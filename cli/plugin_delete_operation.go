@@ -74,35 +74,35 @@ func registerOperationPluginPluginDeleteParamFlags(cmd *cobra.Command) error {
 
 func registerOperationPluginPluginDeleteForceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	forceDescription := `Disable the plugin before removing. This may result in issues if the plugin is in use by a container.`
+	ForceDescription := `Disable the plugin before removing. This may result in issues if the plugin is in use by a container.`
 
-	var forceFlagName string
+	var ForceFlagName string
 	if cmdPrefix == "" {
-		forceFlagName = "force"
+		ForceFlagName = "force"
 	} else {
-		forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+		ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 	}
 
-	var forceFlagDefault bool
+	var ForceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+	_ = cmd.PersistentFlags().Bool(ForceFlagName, ForceFlagDefault, ForceDescription)
 
 	return nil
 }
 func registerOperationPluginPluginDeleteNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
+	NameDescription := `Required. The name of the plugin. The ` + "`" + `:latest` + "`" + ` tag is optional, and is the default if omitted.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationPluginPluginDeleteForceFlag(m *plugin.PluginDeleteParams, 
 	retAdded := false
 	if cmd.Flags().Changed("force") {
 
-		var forceFlagName string
+		var ForceFlagName string
 		if cmdPrefix == "" {
-			forceFlagName = "force"
+			ForceFlagName = "force"
 		} else {
-			forceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
+			ForceFlagName = fmt.Sprintf("%v.force", cmdPrefix)
 		}
 
-		forceFlagValue, err := cmd.Flags().GetBool(forceFlagName)
+		ForceFlagValue, err := cmd.Flags().GetBool(ForceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Force = &forceFlagValue
+		m.Force = &ForceFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationPluginPluginDeleteNameFlag(m *plugin.PluginDeleteParams, c
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded

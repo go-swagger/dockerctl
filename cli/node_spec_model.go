@@ -42,20 +42,20 @@ func registerNodeSpecAvailability(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	availabilityDescription := `Enum: ["active","pause","drain"]. Availability of the node.`
+	AvailabilityDescription := `Enum: ["active","pause","drain"]. Availability of the node.`
 
-	var availabilityFlagName string
+	var AvailabilityFlagName string
 	if cmdPrefix == "" {
-		availabilityFlagName = "Availability"
+		AvailabilityFlagName = "Availability"
 	} else {
-		availabilityFlagName = fmt.Sprintf("%v.Availability", cmdPrefix)
+		AvailabilityFlagName = fmt.Sprintf("%v.Availability", cmdPrefix)
 	}
 
-	var availabilityFlagDefault string
+	var AvailabilityFlagDefault string
 
-	_ = cmd.PersistentFlags().String(availabilityFlagName, availabilityFlagDefault, availabilityDescription)
+	_ = cmd.PersistentFlags().String(AvailabilityFlagName, AvailabilityFlagDefault, AvailabilityDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(availabilityFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(AvailabilityFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["active","pause","drain"]`), &res); err != nil {
@@ -84,18 +84,18 @@ func registerNodeSpecName(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	nameDescription := `Name for the node.`
+	NameDescription := `Name for the node.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -105,20 +105,20 @@ func registerNodeSpecRole(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	roleDescription := `Enum: ["worker","manager"]. Role of the node.`
+	RoleDescription := `Enum: ["worker","manager"]. Role of the node.`
 
-	var roleFlagName string
+	var RoleFlagName string
 	if cmdPrefix == "" {
-		roleFlagName = "Role"
+		RoleFlagName = "Role"
 	} else {
-		roleFlagName = fmt.Sprintf("%v.Role", cmdPrefix)
+		RoleFlagName = fmt.Sprintf("%v.Role", cmdPrefix)
 	}
 
-	var roleFlagDefault string
+	var RoleFlagDefault string
 
-	_ = cmd.PersistentFlags().String(roleFlagName, roleFlagDefault, roleDescription)
+	_ = cmd.PersistentFlags().String(RoleFlagName, RoleFlagDefault, RoleDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(roleFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(RoleFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["worker","manager"]`), &res); err != nil {
@@ -136,29 +136,29 @@ func registerNodeSpecRole(depth int, cmdPrefix string, cmd *cobra.Command) error
 func retrieveModelNodeSpecFlags(depth int, m *models.NodeSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, availabilityAdded := retrieveNodeSpecAvailabilityFlags(depth, m, cmdPrefix, cmd)
+	err, AvailabilityAdded := retrieveNodeSpecAvailabilityFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || availabilityAdded
+	retAdded = retAdded || AvailabilityAdded
 
-	err, labelsAdded := retrieveNodeSpecLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveNodeSpecLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, nameAdded := retrieveNodeSpecNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveNodeSpecNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, roleAdded := retrieveNodeSpecRoleFlags(depth, m, cmdPrefix, cmd)
+	err, RoleAdded := retrieveNodeSpecRoleFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || roleAdded
+	retAdded = retAdded || RoleAdded
 
 	return nil, retAdded
 }
@@ -169,21 +169,21 @@ func retrieveNodeSpecAvailabilityFlags(depth int, m *models.NodeSpec, cmdPrefix 
 	}
 	retAdded := false
 
-	availabilityFlagName := fmt.Sprintf("%v.Availability", cmdPrefix)
-	if cmd.Flags().Changed(availabilityFlagName) {
+	AvailabilityFlagName := fmt.Sprintf("%v.Availability", cmdPrefix)
+	if cmd.Flags().Changed(AvailabilityFlagName) {
 
-		var availabilityFlagName string
+		var AvailabilityFlagName string
 		if cmdPrefix == "" {
-			availabilityFlagName = "Availability"
+			AvailabilityFlagName = "Availability"
 		} else {
-			availabilityFlagName = fmt.Sprintf("%v.Availability", cmdPrefix)
+			AvailabilityFlagName = fmt.Sprintf("%v.Availability", cmdPrefix)
 		}
 
-		availabilityFlagValue, err := cmd.Flags().GetString(availabilityFlagName)
+		AvailabilityFlagValue, err := cmd.Flags().GetString(AvailabilityFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Availability = availabilityFlagValue
+		m.Availability = AvailabilityFlagValue
 
 		retAdded = true
 	}
@@ -197,8 +197,8 @@ func retrieveNodeSpecLabelsFlags(depth int, m *models.NodeSpec, cmdPrefix string
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -211,21 +211,21 @@ func retrieveNodeSpecNameFlags(depth int, m *models.NodeSpec, cmdPrefix string, 
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -239,21 +239,21 @@ func retrieveNodeSpecRoleFlags(depth int, m *models.NodeSpec, cmdPrefix string, 
 	}
 	retAdded := false
 
-	roleFlagName := fmt.Sprintf("%v.Role", cmdPrefix)
-	if cmd.Flags().Changed(roleFlagName) {
+	RoleFlagName := fmt.Sprintf("%v.Role", cmdPrefix)
+	if cmd.Flags().Changed(RoleFlagName) {
 
-		var roleFlagName string
+		var RoleFlagName string
 		if cmdPrefix == "" {
-			roleFlagName = "Role"
+			RoleFlagName = "Role"
 		} else {
-			roleFlagName = fmt.Sprintf("%v.Role", cmdPrefix)
+			RoleFlagName = fmt.Sprintf("%v.Role", cmdPrefix)
 		}
 
-		roleFlagValue, err := cmd.Flags().GetString(roleFlagName)
+		RoleFlagValue, err := cmd.Flags().GetString(RoleFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Role = roleFlagValue
+		m.Role = RoleFlagValue
 
 		retAdded = true
 	}

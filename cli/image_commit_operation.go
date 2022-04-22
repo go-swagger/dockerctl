@@ -111,82 +111,82 @@ func registerOperationImageImageCommitParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageCommitAuthorParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	authorDescription := `Author of the image (e.g., ` + "`" + `John Hannibal Smith <hannibal@a-team.com>` + "`" + `)`
+	AuthorDescription := `Author of the image (e.g., ` + "`" + `John Hannibal Smith <hannibal@a-team.com>` + "`" + `)`
 
-	var authorFlagName string
+	var AuthorFlagName string
 	if cmdPrefix == "" {
-		authorFlagName = "author"
+		AuthorFlagName = "author"
 	} else {
-		authorFlagName = fmt.Sprintf("%v.author", cmdPrefix)
+		AuthorFlagName = fmt.Sprintf("%v.author", cmdPrefix)
 	}
 
-	var authorFlagDefault string
+	var AuthorFlagDefault string
 
-	_ = cmd.PersistentFlags().String(authorFlagName, authorFlagDefault, authorDescription)
+	_ = cmd.PersistentFlags().String(AuthorFlagName, AuthorFlagDefault, AuthorDescription)
 
 	return nil
 }
 func registerOperationImageImageCommitChangesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	changesDescription := `` + "`" + `Dockerfile` + "`" + ` instructions to apply while committing`
+	ChangesDescription := `` + "`" + `Dockerfile` + "`" + ` instructions to apply while committing`
 
-	var changesFlagName string
+	var ChangesFlagName string
 	if cmdPrefix == "" {
-		changesFlagName = "changes"
+		ChangesFlagName = "changes"
 	} else {
-		changesFlagName = fmt.Sprintf("%v.changes", cmdPrefix)
+		ChangesFlagName = fmt.Sprintf("%v.changes", cmdPrefix)
 	}
 
-	var changesFlagDefault string
+	var ChangesFlagDefault string
 
-	_ = cmd.PersistentFlags().String(changesFlagName, changesFlagDefault, changesDescription)
+	_ = cmd.PersistentFlags().String(ChangesFlagName, ChangesFlagDefault, ChangesDescription)
 
 	return nil
 }
 func registerOperationImageImageCommitCommentParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	commentDescription := `Commit message`
+	CommentDescription := `Commit message`
 
-	var commentFlagName string
+	var CommentFlagName string
 	if cmdPrefix == "" {
-		commentFlagName = "comment"
+		CommentFlagName = "comment"
 	} else {
-		commentFlagName = fmt.Sprintf("%v.comment", cmdPrefix)
+		CommentFlagName = fmt.Sprintf("%v.comment", cmdPrefix)
 	}
 
-	var commentFlagDefault string
+	var CommentFlagDefault string
 
-	_ = cmd.PersistentFlags().String(commentFlagName, commentFlagDefault, commentDescription)
+	_ = cmd.PersistentFlags().String(CommentFlagName, CommentFlagDefault, CommentDescription)
 
 	return nil
 }
 func registerOperationImageImageCommitContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	containerDescription := `The ID or name of the container to commit`
+	ContainerDescription := `The ID or name of the container to commit`
 
-	var containerFlagName string
+	var ContainerFlagName string
 	if cmdPrefix == "" {
-		containerFlagName = "container"
+		ContainerFlagName = "container"
 	} else {
-		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+		ContainerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
 	}
 
-	var containerFlagDefault string
+	var ContainerFlagDefault string
 
-	_ = cmd.PersistentFlags().String(containerFlagName, containerFlagDefault, containerDescription)
+	_ = cmd.PersistentFlags().String(ContainerFlagName, ContainerFlagDefault, ContainerDescription)
 
 	return nil
 }
 func registerOperationImageImageCommitContainerConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var containerConfigFlagName string
+	var ContainerConfigFlagName string
 	if cmdPrefix == "" {
-		containerConfigFlagName = "containerConfig"
+		ContainerConfigFlagName = "containerConfig"
 	} else {
-		containerConfigFlagName = fmt.Sprintf("%v.containerConfig", cmdPrefix)
+		ContainerConfigFlagName = fmt.Sprintf("%v.containerConfig", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(containerConfigFlagName, "", "Optional json string for [containerConfig]. The container configuration")
+	_ = cmd.PersistentFlags().String(ContainerConfigFlagName, "", "Optional json string for [containerConfig]. The container configuration")
 
 	// add flags for body
 	if err := registerModelContainerConfigFlags(0, "containerConfig", cmd); err != nil {
@@ -197,52 +197,52 @@ func registerOperationImageImageCommitContainerConfigParamFlags(cmdPrefix string
 }
 func registerOperationImageImageCommitPauseParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	pauseDescription := `Whether to pause the container before committing`
+	PauseDescription := `Whether to pause the container before committing`
 
-	var pauseFlagName string
+	var PauseFlagName string
 	if cmdPrefix == "" {
-		pauseFlagName = "pause"
+		PauseFlagName = "pause"
 	} else {
-		pauseFlagName = fmt.Sprintf("%v.pause", cmdPrefix)
+		PauseFlagName = fmt.Sprintf("%v.pause", cmdPrefix)
 	}
 
-	var pauseFlagDefault bool = true
+	var PauseFlagDefault bool = true
 
-	_ = cmd.PersistentFlags().Bool(pauseFlagName, pauseFlagDefault, pauseDescription)
+	_ = cmd.PersistentFlags().Bool(PauseFlagName, PauseFlagDefault, PauseDescription)
 
 	return nil
 }
 func registerOperationImageImageCommitRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	repoDescription := `Repository name for the created image`
+	RepoDescription := `Repository name for the created image`
 
-	var repoFlagName string
+	var RepoFlagName string
 	if cmdPrefix == "" {
-		repoFlagName = "repo"
+		RepoFlagName = "repo"
 	} else {
-		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+		RepoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
 	}
 
-	var repoFlagDefault string
+	var RepoFlagDefault string
 
-	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
+	_ = cmd.PersistentFlags().String(RepoFlagName, RepoFlagDefault, RepoDescription)
 
 	return nil
 }
 func registerOperationImageImageCommitTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tagDescription := `Tag name for the create image`
+	TagDescription := `Tag name for the create image`
 
-	var tagFlagName string
+	var TagFlagName string
 	if cmdPrefix == "" {
-		tagFlagName = "tag"
+		TagFlagName = "tag"
 	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+		TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 	}
 
-	var tagFlagDefault string
+	var TagFlagDefault string
 
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+	_ = cmd.PersistentFlags().String(TagFlagName, TagFlagDefault, TagDescription)
 
 	return nil
 }
@@ -251,18 +251,18 @@ func retrieveOperationImageImageCommitAuthorFlag(m *image.ImageCommitParams, cmd
 	retAdded := false
 	if cmd.Flags().Changed("author") {
 
-		var authorFlagName string
+		var AuthorFlagName string
 		if cmdPrefix == "" {
-			authorFlagName = "author"
+			AuthorFlagName = "author"
 		} else {
-			authorFlagName = fmt.Sprintf("%v.author", cmdPrefix)
+			AuthorFlagName = fmt.Sprintf("%v.author", cmdPrefix)
 		}
 
-		authorFlagValue, err := cmd.Flags().GetString(authorFlagName)
+		AuthorFlagValue, err := cmd.Flags().GetString(AuthorFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Author = &authorFlagValue
+		m.Author = &AuthorFlagValue
 
 	}
 	return nil, retAdded
@@ -271,18 +271,18 @@ func retrieveOperationImageImageCommitChangesFlag(m *image.ImageCommitParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("changes") {
 
-		var changesFlagName string
+		var ChangesFlagName string
 		if cmdPrefix == "" {
-			changesFlagName = "changes"
+			ChangesFlagName = "changes"
 		} else {
-			changesFlagName = fmt.Sprintf("%v.changes", cmdPrefix)
+			ChangesFlagName = fmt.Sprintf("%v.changes", cmdPrefix)
 		}
 
-		changesFlagValue, err := cmd.Flags().GetString(changesFlagName)
+		ChangesFlagValue, err := cmd.Flags().GetString(ChangesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Changes = &changesFlagValue
+		m.Changes = &ChangesFlagValue
 
 	}
 	return nil, retAdded
@@ -291,18 +291,18 @@ func retrieveOperationImageImageCommitCommentFlag(m *image.ImageCommitParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("comment") {
 
-		var commentFlagName string
+		var CommentFlagName string
 		if cmdPrefix == "" {
-			commentFlagName = "comment"
+			CommentFlagName = "comment"
 		} else {
-			commentFlagName = fmt.Sprintf("%v.comment", cmdPrefix)
+			CommentFlagName = fmt.Sprintf("%v.comment", cmdPrefix)
 		}
 
-		commentFlagValue, err := cmd.Flags().GetString(commentFlagName)
+		CommentFlagValue, err := cmd.Flags().GetString(CommentFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Comment = &commentFlagValue
+		m.Comment = &CommentFlagValue
 
 	}
 	return nil, retAdded
@@ -311,18 +311,18 @@ func retrieveOperationImageImageCommitContainerFlag(m *image.ImageCommitParams, 
 	retAdded := false
 	if cmd.Flags().Changed("container") {
 
-		var containerFlagName string
+		var ContainerFlagName string
 		if cmdPrefix == "" {
-			containerFlagName = "container"
+			ContainerFlagName = "container"
 		} else {
-			containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+			ContainerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
 		}
 
-		containerFlagValue, err := cmd.Flags().GetString(containerFlagName)
+		ContainerFlagValue, err := cmd.Flags().GetString(ContainerFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Container = &containerFlagValue
+		m.Container = &ContainerFlagValue
 
 	}
 	return nil, retAdded
@@ -369,18 +369,18 @@ func retrieveOperationImageImageCommitPauseFlag(m *image.ImageCommitParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("pause") {
 
-		var pauseFlagName string
+		var PauseFlagName string
 		if cmdPrefix == "" {
-			pauseFlagName = "pause"
+			PauseFlagName = "pause"
 		} else {
-			pauseFlagName = fmt.Sprintf("%v.pause", cmdPrefix)
+			PauseFlagName = fmt.Sprintf("%v.pause", cmdPrefix)
 		}
 
-		pauseFlagValue, err := cmd.Flags().GetBool(pauseFlagName)
+		PauseFlagValue, err := cmd.Flags().GetBool(PauseFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Pause = &pauseFlagValue
+		m.Pause = &PauseFlagValue
 
 	}
 	return nil, retAdded
@@ -389,18 +389,18 @@ func retrieveOperationImageImageCommitRepoFlag(m *image.ImageCommitParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("repo") {
 
-		var repoFlagName string
+		var RepoFlagName string
 		if cmdPrefix == "" {
-			repoFlagName = "repo"
+			RepoFlagName = "repo"
 		} else {
-			repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+			RepoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
 		}
 
-		repoFlagValue, err := cmd.Flags().GetString(repoFlagName)
+		RepoFlagValue, err := cmd.Flags().GetString(RepoFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Repo = &repoFlagValue
+		m.Repo = &RepoFlagValue
 
 	}
 	return nil, retAdded
@@ -409,18 +409,18 @@ func retrieveOperationImageImageCommitTagFlag(m *image.ImageCommitParams, cmdPre
 	retAdded := false
 	if cmd.Flags().Changed("tag") {
 
-		var tagFlagName string
+		var TagFlagName string
 		if cmdPrefix == "" {
-			tagFlagName = "tag"
+			TagFlagName = "tag"
 		} else {
-			tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+			TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 		}
 
-		tagFlagValue, err := cmd.Flags().GetString(tagFlagName)
+		TagFlagValue, err := cmd.Flags().GetString(TagFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tag = &tagFlagValue
+		m.Tag = &TagFlagValue
 
 	}
 	return nil, retAdded

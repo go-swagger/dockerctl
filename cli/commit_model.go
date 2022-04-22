@@ -33,19 +33,19 @@ func registerCommitExpected(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	expectedDescription := `Commit ID of external tool expected by dockerd as set at build time.
+	ExpectedDescription := `Commit ID of external tool expected by dockerd as set at build time.
 `
 
-	var expectedFlagName string
+	var ExpectedFlagName string
 	if cmdPrefix == "" {
-		expectedFlagName = "Expected"
+		ExpectedFlagName = "Expected"
 	} else {
-		expectedFlagName = fmt.Sprintf("%v.Expected", cmdPrefix)
+		ExpectedFlagName = fmt.Sprintf("%v.Expected", cmdPrefix)
 	}
 
-	var expectedFlagDefault string
+	var ExpectedFlagDefault string
 
-	_ = cmd.PersistentFlags().String(expectedFlagName, expectedFlagDefault, expectedDescription)
+	_ = cmd.PersistentFlags().String(ExpectedFlagName, ExpectedFlagDefault, ExpectedDescription)
 
 	return nil
 }
@@ -55,18 +55,18 @@ func registerCommitID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	idDescription := `Actual commit ID of external tool.`
+	IDDescription := `Actual commit ID of external tool.`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -75,17 +75,17 @@ func registerCommitID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 func retrieveModelCommitFlags(depth int, m *models.Commit, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, expectedAdded := retrieveCommitExpectedFlags(depth, m, cmdPrefix, cmd)
+	err, ExpectedAdded := retrieveCommitExpectedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || expectedAdded
+	retAdded = retAdded || ExpectedAdded
 
-	err, idAdded := retrieveCommitIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveCommitIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
 	return nil, retAdded
 }
@@ -96,21 +96,21 @@ func retrieveCommitExpectedFlags(depth int, m *models.Commit, cmdPrefix string, 
 	}
 	retAdded := false
 
-	expectedFlagName := fmt.Sprintf("%v.Expected", cmdPrefix)
-	if cmd.Flags().Changed(expectedFlagName) {
+	ExpectedFlagName := fmt.Sprintf("%v.Expected", cmdPrefix)
+	if cmd.Flags().Changed(ExpectedFlagName) {
 
-		var expectedFlagName string
+		var ExpectedFlagName string
 		if cmdPrefix == "" {
-			expectedFlagName = "Expected"
+			ExpectedFlagName = "Expected"
 		} else {
-			expectedFlagName = fmt.Sprintf("%v.Expected", cmdPrefix)
+			ExpectedFlagName = fmt.Sprintf("%v.Expected", cmdPrefix)
 		}
 
-		expectedFlagValue, err := cmd.Flags().GetString(expectedFlagName)
+		ExpectedFlagValue, err := cmd.Flags().GetString(ExpectedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Expected = expectedFlagValue
+		m.Expected = ExpectedFlagValue
 
 		retAdded = true
 	}
@@ -124,21 +124,21 @@ func retrieveCommitIDFlags(depth int, m *models.Commit, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}

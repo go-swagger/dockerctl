@@ -37,18 +37,18 @@ func registerEngineDescriptionEngineVersion(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	engineVersionDescription := ``
+	EngineVersionDescription := ``
 
-	var engineVersionFlagName string
+	var EngineVersionFlagName string
 	if cmdPrefix == "" {
-		engineVersionFlagName = "EngineVersion"
+		EngineVersionFlagName = "EngineVersion"
 	} else {
-		engineVersionFlagName = fmt.Sprintf("%v.EngineVersion", cmdPrefix)
+		EngineVersionFlagName = fmt.Sprintf("%v.EngineVersion", cmdPrefix)
 	}
 
-	var engineVersionFlagDefault string
+	var EngineVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(engineVersionFlagName, engineVersionFlagDefault, engineVersionDescription)
+	_ = cmd.PersistentFlags().String(EngineVersionFlagName, EngineVersionFlagDefault, EngineVersionDescription)
 
 	return nil
 }
@@ -77,23 +77,23 @@ func registerEngineDescriptionPlugins(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelEngineDescriptionFlags(depth int, m *models.EngineDescription, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, engineVersionAdded := retrieveEngineDescriptionEngineVersionFlags(depth, m, cmdPrefix, cmd)
+	err, EngineVersionAdded := retrieveEngineDescriptionEngineVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || engineVersionAdded
+	retAdded = retAdded || EngineVersionAdded
 
-	err, labelsAdded := retrieveEngineDescriptionLabelsFlags(depth, m, cmdPrefix, cmd)
+	err, LabelsAdded := retrieveEngineDescriptionLabelsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || labelsAdded
+	retAdded = retAdded || LabelsAdded
 
-	err, pluginsAdded := retrieveEngineDescriptionPluginsFlags(depth, m, cmdPrefix, cmd)
+	err, PluginsAdded := retrieveEngineDescriptionPluginsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pluginsAdded
+	retAdded = retAdded || PluginsAdded
 
 	return nil, retAdded
 }
@@ -104,21 +104,21 @@ func retrieveEngineDescriptionEngineVersionFlags(depth int, m *models.EngineDesc
 	}
 	retAdded := false
 
-	engineVersionFlagName := fmt.Sprintf("%v.EngineVersion", cmdPrefix)
-	if cmd.Flags().Changed(engineVersionFlagName) {
+	EngineVersionFlagName := fmt.Sprintf("%v.EngineVersion", cmdPrefix)
+	if cmd.Flags().Changed(EngineVersionFlagName) {
 
-		var engineVersionFlagName string
+		var EngineVersionFlagName string
 		if cmdPrefix == "" {
-			engineVersionFlagName = "EngineVersion"
+			EngineVersionFlagName = "EngineVersion"
 		} else {
-			engineVersionFlagName = fmt.Sprintf("%v.EngineVersion", cmdPrefix)
+			EngineVersionFlagName = fmt.Sprintf("%v.EngineVersion", cmdPrefix)
 		}
 
-		engineVersionFlagValue, err := cmd.Flags().GetString(engineVersionFlagName)
+		EngineVersionFlagValue, err := cmd.Flags().GetString(EngineVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.EngineVersion = engineVersionFlagValue
+		m.EngineVersion = EngineVersionFlagValue
 
 		retAdded = true
 	}
@@ -132,8 +132,8 @@ func retrieveEngineDescriptionLabelsFlags(depth int, m *models.EngineDescription
 	}
 	retAdded := false
 
-	labelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
-	if cmd.Flags().Changed(labelsFlagName) {
+	LabelsFlagName := fmt.Sprintf("%v.Labels", cmdPrefix)
+	if cmd.Flags().Changed(LabelsFlagName) {
 		// warning: Labels map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -146,8 +146,8 @@ func retrieveEngineDescriptionPluginsFlags(depth int, m *models.EngineDescriptio
 	}
 	retAdded := false
 
-	pluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
-	if cmd.Flags().Changed(pluginsFlagName) {
+	PluginsFlagName := fmt.Sprintf("%v.Plugins", cmdPrefix)
+	if cmd.Flags().Changed(PluginsFlagName) {
 		// warning: Plugins array type []*EngineDescriptionPluginsItems0 is not supported by go-swagger cli yet
 	}
 
@@ -175,18 +175,18 @@ func registerEngineDescriptionPluginsItems0Name(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -196,18 +196,18 @@ func registerEngineDescriptionPluginsItems0Type(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	typeDescription := ``
+	TypeDescription := ``
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
 	return nil
 }
@@ -216,17 +216,17 @@ func registerEngineDescriptionPluginsItems0Type(depth int, cmdPrefix string, cmd
 func retrieveModelEngineDescriptionPluginsItems0Flags(depth int, m *models.EngineDescriptionPluginsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nameAdded := retrieveEngineDescriptionPluginsItems0NameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveEngineDescriptionPluginsItems0NameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, typeAdded := retrieveEngineDescriptionPluginsItems0TypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrieveEngineDescriptionPluginsItems0TypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
 	return nil, retAdded
 }
@@ -237,21 +237,21 @@ func retrieveEngineDescriptionPluginsItems0NameFlags(depth int, m *models.Engine
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -265,21 +265,21 @@ func retrieveEngineDescriptionPluginsItems0TypeFlags(depth int, m *models.Engine
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}

@@ -51,19 +51,19 @@ func registerIndexInfoName(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	nameDescription := `Name of the registry, such as "docker.io".
+	NameDescription := `Name of the registry, such as "docker.io".
 `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -73,19 +73,19 @@ func registerIndexInfoOfficial(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	officialDescription := `Indicates whether this is an official registry (i.e., Docker Hub / docker.io)
+	OfficialDescription := `Indicates whether this is an official registry (i.e., Docker Hub / docker.io)
 `
 
-	var officialFlagName string
+	var OfficialFlagName string
 	if cmdPrefix == "" {
-		officialFlagName = "Official"
+		OfficialFlagName = "Official"
 	} else {
-		officialFlagName = fmt.Sprintf("%v.Official", cmdPrefix)
+		OfficialFlagName = fmt.Sprintf("%v.Official", cmdPrefix)
 	}
 
-	var officialFlagDefault bool
+	var OfficialFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(officialFlagName, officialFlagDefault, officialDescription)
+	_ = cmd.PersistentFlags().Bool(OfficialFlagName, OfficialFlagDefault, OfficialDescription)
 
 	return nil
 }
@@ -95,7 +95,7 @@ func registerIndexInfoSecure(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	secureDescription := `Indicates if the registry is part of the list of insecure
+	SecureDescription := `Indicates if the registry is part of the list of insecure
 registries.
 
 If ` + "`" + `false` + "`" + `, the registry is insecure. Insecure registries accept
@@ -109,16 +109,16 @@ unknown CAs) communication.
 > trusted CAs instead of enabling this option.
 `
 
-	var secureFlagName string
+	var SecureFlagName string
 	if cmdPrefix == "" {
-		secureFlagName = "Secure"
+		SecureFlagName = "Secure"
 	} else {
-		secureFlagName = fmt.Sprintf("%v.Secure", cmdPrefix)
+		SecureFlagName = fmt.Sprintf("%v.Secure", cmdPrefix)
 	}
 
-	var secureFlagDefault bool
+	var SecureFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(secureFlagName, secureFlagDefault, secureDescription)
+	_ = cmd.PersistentFlags().Bool(SecureFlagName, SecureFlagDefault, SecureDescription)
 
 	return nil
 }
@@ -127,29 +127,29 @@ unknown CAs) communication.
 func retrieveModelIndexInfoFlags(depth int, m *models.IndexInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, mirrorsAdded := retrieveIndexInfoMirrorsFlags(depth, m, cmdPrefix, cmd)
+	err, MirrorsAdded := retrieveIndexInfoMirrorsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mirrorsAdded
+	retAdded = retAdded || MirrorsAdded
 
-	err, nameAdded := retrieveIndexInfoNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveIndexInfoNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, officialAdded := retrieveIndexInfoOfficialFlags(depth, m, cmdPrefix, cmd)
+	err, OfficialAdded := retrieveIndexInfoOfficialFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || officialAdded
+	retAdded = retAdded || OfficialAdded
 
-	err, secureAdded := retrieveIndexInfoSecureFlags(depth, m, cmdPrefix, cmd)
+	err, SecureAdded := retrieveIndexInfoSecureFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || secureAdded
+	retAdded = retAdded || SecureAdded
 
 	return nil, retAdded
 }
@@ -160,8 +160,8 @@ func retrieveIndexInfoMirrorsFlags(depth int, m *models.IndexInfo, cmdPrefix str
 	}
 	retAdded := false
 
-	mirrorsFlagName := fmt.Sprintf("%v.Mirrors", cmdPrefix)
-	if cmd.Flags().Changed(mirrorsFlagName) {
+	MirrorsFlagName := fmt.Sprintf("%v.Mirrors", cmdPrefix)
+	if cmd.Flags().Changed(MirrorsFlagName) {
 		// warning: Mirrors array type []string is not supported by go-swagger cli yet
 	}
 
@@ -174,21 +174,21 @@ func retrieveIndexInfoNameFlags(depth int, m *models.IndexInfo, cmdPrefix string
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -202,21 +202,21 @@ func retrieveIndexInfoOfficialFlags(depth int, m *models.IndexInfo, cmdPrefix st
 	}
 	retAdded := false
 
-	officialFlagName := fmt.Sprintf("%v.Official", cmdPrefix)
-	if cmd.Flags().Changed(officialFlagName) {
+	OfficialFlagName := fmt.Sprintf("%v.Official", cmdPrefix)
+	if cmd.Flags().Changed(OfficialFlagName) {
 
-		var officialFlagName string
+		var OfficialFlagName string
 		if cmdPrefix == "" {
-			officialFlagName = "Official"
+			OfficialFlagName = "Official"
 		} else {
-			officialFlagName = fmt.Sprintf("%v.Official", cmdPrefix)
+			OfficialFlagName = fmt.Sprintf("%v.Official", cmdPrefix)
 		}
 
-		officialFlagValue, err := cmd.Flags().GetBool(officialFlagName)
+		OfficialFlagValue, err := cmd.Flags().GetBool(OfficialFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Official = officialFlagValue
+		m.Official = OfficialFlagValue
 
 		retAdded = true
 	}
@@ -230,21 +230,21 @@ func retrieveIndexInfoSecureFlags(depth int, m *models.IndexInfo, cmdPrefix stri
 	}
 	retAdded := false
 
-	secureFlagName := fmt.Sprintf("%v.Secure", cmdPrefix)
-	if cmd.Flags().Changed(secureFlagName) {
+	SecureFlagName := fmt.Sprintf("%v.Secure", cmdPrefix)
+	if cmd.Flags().Changed(SecureFlagName) {
 
-		var secureFlagName string
+		var SecureFlagName string
 		if cmdPrefix == "" {
-			secureFlagName = "Secure"
+			SecureFlagName = "Secure"
 		} else {
-			secureFlagName = fmt.Sprintf("%v.Secure", cmdPrefix)
+			SecureFlagName = fmt.Sprintf("%v.Secure", cmdPrefix)
 		}
 
-		secureFlagValue, err := cmd.Flags().GetBool(secureFlagName)
+		SecureFlagValue, err := cmd.Flags().GetBool(SecureFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Secure = secureFlagValue
+		m.Secure = SecureFlagValue
 
 		retAdded = true
 	}

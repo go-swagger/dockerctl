@@ -75,14 +75,14 @@ func registerOperationNetworkNetworkConnectParamFlags(cmd *cobra.Command) error 
 
 func registerOperationNetworkNetworkConnectContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var containerFlagName string
+	var ContainerFlagName string
 	if cmdPrefix == "" {
-		containerFlagName = "container"
+		ContainerFlagName = "container"
 	} else {
-		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+		ContainerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(containerFlagName, "", "Optional json string for [container]. ")
+	_ = cmd.PersistentFlags().String(ContainerFlagName, "", "Optional json string for [container]. ")
 
 	// add flags for body
 	if err := registerModelNetworkConnectBodyFlags(0, "networkConnectBody", cmd); err != nil {
@@ -93,18 +93,18 @@ func registerOperationNetworkNetworkConnectContainerParamFlags(cmdPrefix string,
 }
 func registerOperationNetworkNetworkConnectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. Network ID or name`
+	IDDescription := `Required. Network ID or name`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -151,18 +151,18 @@ func retrieveOperationNetworkNetworkConnectIDFlag(m *network.NetworkConnectParam
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -237,18 +237,18 @@ func registerNetworkConnectBodyContainer(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	containerDescription := `The ID or name of the container to connect to the network.`
+	ContainerDescription := `The ID or name of the container to connect to the network.`
 
-	var containerFlagName string
+	var ContainerFlagName string
 	if cmdPrefix == "" {
-		containerFlagName = "Container"
+		ContainerFlagName = "Container"
 	} else {
-		containerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
+		ContainerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
 	}
 
-	var containerFlagDefault string
+	var ContainerFlagDefault string
 
-	_ = cmd.PersistentFlags().String(containerFlagName, containerFlagDefault, containerDescription)
+	_ = cmd.PersistentFlags().String(ContainerFlagName, ContainerFlagDefault, ContainerDescription)
 
 	return nil
 }
@@ -258,14 +258,14 @@ func registerNetworkConnectBodyEndpointConfig(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	var endpointConfigFlagName string
+	var EndpointConfigFlagName string
 	if cmdPrefix == "" {
-		endpointConfigFlagName = "EndpointConfig"
+		EndpointConfigFlagName = "EndpointConfig"
 	} else {
-		endpointConfigFlagName = fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
+		EndpointConfigFlagName = fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
 	}
 
-	if err := registerModelEndpointSettingsFlags(depth+1, endpointConfigFlagName, cmd); err != nil {
+	if err := registerModelEndpointSettingsFlags(depth+1, EndpointConfigFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -276,17 +276,17 @@ func registerNetworkConnectBodyEndpointConfig(depth int, cmdPrefix string, cmd *
 func retrieveModelNetworkConnectBodyFlags(depth int, m *network.NetworkConnectBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, containerAdded := retrieveNetworkConnectBodyContainerFlags(depth, m, cmdPrefix, cmd)
+	err, ContainerAdded := retrieveNetworkConnectBodyContainerFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerAdded
+	retAdded = retAdded || ContainerAdded
 
-	err, endpointConfigAdded := retrieveNetworkConnectBodyEndpointConfigFlags(depth, m, cmdPrefix, cmd)
+	err, EndpointConfigAdded := retrieveNetworkConnectBodyEndpointConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointConfigAdded
+	retAdded = retAdded || EndpointConfigAdded
 
 	return nil, retAdded
 }
@@ -297,21 +297,21 @@ func retrieveNetworkConnectBodyContainerFlags(depth int, m *network.NetworkConne
 	}
 	retAdded := false
 
-	containerFlagName := fmt.Sprintf("%v.Container", cmdPrefix)
-	if cmd.Flags().Changed(containerFlagName) {
+	ContainerFlagName := fmt.Sprintf("%v.Container", cmdPrefix)
+	if cmd.Flags().Changed(ContainerFlagName) {
 
-		var containerFlagName string
+		var ContainerFlagName string
 		if cmdPrefix == "" {
-			containerFlagName = "Container"
+			ContainerFlagName = "Container"
 		} else {
-			containerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
+			ContainerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
 		}
 
-		containerFlagValue, err := cmd.Flags().GetString(containerFlagName)
+		ContainerFlagValue, err := cmd.Flags().GetString(ContainerFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Container = containerFlagValue
+		m.Container = ContainerFlagValue
 
 		retAdded = true
 	}
@@ -325,22 +325,22 @@ func retrieveNetworkConnectBodyEndpointConfigFlags(depth int, m *network.Network
 	}
 	retAdded := false
 
-	endpointConfigFlagName := fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
-	if cmd.Flags().Changed(endpointConfigFlagName) {
+	EndpointConfigFlagName := fmt.Sprintf("%v.EndpointConfig", cmdPrefix)
+	if cmd.Flags().Changed(EndpointConfigFlagName) {
 		// info: complex object EndpointConfig models.EndpointSettings is retrieved outside this Changed() block
 	}
-	endpointConfigFlagValue := m.EndpointConfig
-	if swag.IsZero(endpointConfigFlagValue) {
-		endpointConfigFlagValue = &models.EndpointSettings{}
+	EndpointConfigFlagValue := m.EndpointConfig
+	if swag.IsZero(EndpointConfigFlagValue) {
+		EndpointConfigFlagValue = &models.EndpointSettings{}
 	}
 
-	err, endpointConfigAdded := retrieveModelEndpointSettingsFlags(depth+1, endpointConfigFlagValue, endpointConfigFlagName, cmd)
+	err, EndpointConfigAdded := retrieveModelEndpointSettingsFlags(depth+1, EndpointConfigFlagValue, EndpointConfigFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointConfigAdded
-	if endpointConfigAdded {
-		m.EndpointConfig = endpointConfigFlagValue
+	retAdded = retAdded || EndpointConfigAdded
+	if EndpointConfigAdded {
+		m.EndpointConfig = EndpointConfigFlagValue
 	}
 
 	return nil, retAdded

@@ -43,18 +43,18 @@ func registerPushImageInfoError(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	errorDescription := ``
+	ErrorDescription := ``
 
-	var errorFlagName string
+	var ErrorFlagName string
 	if cmdPrefix == "" {
-		errorFlagName = "error"
+		ErrorFlagName = "error"
 	} else {
-		errorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
+		ErrorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
 	}
 
-	var errorFlagDefault string
+	var ErrorFlagDefault string
 
-	_ = cmd.PersistentFlags().String(errorFlagName, errorFlagDefault, errorDescription)
+	_ = cmd.PersistentFlags().String(ErrorFlagName, ErrorFlagDefault, ErrorDescription)
 
 	return nil
 }
@@ -64,18 +64,18 @@ func registerPushImageInfoProgress(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	progressDescription := ``
+	ProgressDescription := ``
 
-	var progressFlagName string
+	var ProgressFlagName string
 	if cmdPrefix == "" {
-		progressFlagName = "progress"
+		ProgressFlagName = "progress"
 	} else {
-		progressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
+		ProgressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
 	}
 
-	var progressFlagDefault string
+	var ProgressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(progressFlagName, progressFlagDefault, progressDescription)
+	_ = cmd.PersistentFlags().String(ProgressFlagName, ProgressFlagDefault, ProgressDescription)
 
 	return nil
 }
@@ -85,14 +85,14 @@ func registerPushImageInfoProgressDetail(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	var progressDetailFlagName string
+	var ProgressDetailFlagName string
 	if cmdPrefix == "" {
-		progressDetailFlagName = "progressDetail"
+		ProgressDetailFlagName = "progressDetail"
 	} else {
-		progressDetailFlagName = fmt.Sprintf("%v.progressDetail", cmdPrefix)
+		ProgressDetailFlagName = fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	}
 
-	if err := registerModelProgressDetailFlags(depth+1, progressDetailFlagName, cmd); err != nil {
+	if err := registerModelProgressDetailFlags(depth+1, ProgressDetailFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -104,18 +104,18 @@ func registerPushImageInfoStatus(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	statusDescription := ``
+	StatusDescription := ``
 
-	var statusFlagName string
+	var StatusFlagName string
 	if cmdPrefix == "" {
-		statusFlagName = "status"
+		StatusFlagName = "status"
 	} else {
-		statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+		StatusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
 	}
 
-	var statusFlagDefault string
+	var StatusFlagDefault string
 
-	_ = cmd.PersistentFlags().String(statusFlagName, statusFlagDefault, statusDescription)
+	_ = cmd.PersistentFlags().String(StatusFlagName, StatusFlagDefault, StatusDescription)
 
 	return nil
 }
@@ -124,29 +124,29 @@ func registerPushImageInfoStatus(depth int, cmdPrefix string, cmd *cobra.Command
 func retrieveModelPushImageInfoFlags(depth int, m *models.PushImageInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, errorAdded := retrievePushImageInfoErrorFlags(depth, m, cmdPrefix, cmd)
+	err, ErrorAdded := retrievePushImageInfoErrorFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || errorAdded
+	retAdded = retAdded || ErrorAdded
 
-	err, progressAdded := retrievePushImageInfoProgressFlags(depth, m, cmdPrefix, cmd)
+	err, ProgressAdded := retrievePushImageInfoProgressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || progressAdded
+	retAdded = retAdded || ProgressAdded
 
-	err, progressDetailAdded := retrievePushImageInfoProgressDetailFlags(depth, m, cmdPrefix, cmd)
+	err, ProgressDetailAdded := retrievePushImageInfoProgressDetailFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || progressDetailAdded
+	retAdded = retAdded || ProgressDetailAdded
 
-	err, statusAdded := retrievePushImageInfoStatusFlags(depth, m, cmdPrefix, cmd)
+	err, StatusAdded := retrievePushImageInfoStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusAdded
+	retAdded = retAdded || StatusAdded
 
 	return nil, retAdded
 }
@@ -157,21 +157,21 @@ func retrievePushImageInfoErrorFlags(depth int, m *models.PushImageInfo, cmdPref
 	}
 	retAdded := false
 
-	errorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
-	if cmd.Flags().Changed(errorFlagName) {
+	ErrorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
+	if cmd.Flags().Changed(ErrorFlagName) {
 
-		var errorFlagName string
+		var ErrorFlagName string
 		if cmdPrefix == "" {
-			errorFlagName = "error"
+			ErrorFlagName = "error"
 		} else {
-			errorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
+			ErrorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
 		}
 
-		errorFlagValue, err := cmd.Flags().GetString(errorFlagName)
+		ErrorFlagValue, err := cmd.Flags().GetString(ErrorFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Error = errorFlagValue
+		m.Error = ErrorFlagValue
 
 		retAdded = true
 	}
@@ -185,21 +185,21 @@ func retrievePushImageInfoProgressFlags(depth int, m *models.PushImageInfo, cmdP
 	}
 	retAdded := false
 
-	progressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
-	if cmd.Flags().Changed(progressFlagName) {
+	ProgressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
+	if cmd.Flags().Changed(ProgressFlagName) {
 
-		var progressFlagName string
+		var ProgressFlagName string
 		if cmdPrefix == "" {
-			progressFlagName = "progress"
+			ProgressFlagName = "progress"
 		} else {
-			progressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
+			ProgressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
 		}
 
-		progressFlagValue, err := cmd.Flags().GetString(progressFlagName)
+		ProgressFlagValue, err := cmd.Flags().GetString(ProgressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Progress = progressFlagValue
+		m.Progress = ProgressFlagValue
 
 		retAdded = true
 	}
@@ -213,22 +213,22 @@ func retrievePushImageInfoProgressDetailFlags(depth int, m *models.PushImageInfo
 	}
 	retAdded := false
 
-	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
-	if cmd.Flags().Changed(progressDetailFlagName) {
+	ProgressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
+	if cmd.Flags().Changed(ProgressDetailFlagName) {
 		// info: complex object progressDetail ProgressDetail is retrieved outside this Changed() block
 	}
-	progressDetailFlagValue := m.ProgressDetail
-	if swag.IsZero(progressDetailFlagValue) {
-		progressDetailFlagValue = &models.ProgressDetail{}
+	ProgressDetailFlagValue := m.ProgressDetail
+	if swag.IsZero(ProgressDetailFlagValue) {
+		ProgressDetailFlagValue = &models.ProgressDetail{}
 	}
 
-	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+	err, ProgressDetailAdded := retrieveModelProgressDetailFlags(depth+1, ProgressDetailFlagValue, ProgressDetailFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || progressDetailAdded
-	if progressDetailAdded {
-		m.ProgressDetail = progressDetailFlagValue
+	retAdded = retAdded || ProgressDetailAdded
+	if ProgressDetailAdded {
+		m.ProgressDetail = ProgressDetailFlagValue
 	}
 
 	return nil, retAdded
@@ -240,21 +240,21 @@ func retrievePushImageInfoStatusFlags(depth int, m *models.PushImageInfo, cmdPre
 	}
 	retAdded := false
 
-	statusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
-	if cmd.Flags().Changed(statusFlagName) {
+	StatusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
+	if cmd.Flags().Changed(StatusFlagName) {
 
-		var statusFlagName string
+		var StatusFlagName string
 		if cmdPrefix == "" {
-			statusFlagName = "status"
+			StatusFlagName = "status"
 		} else {
-			statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+			StatusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
 		}
 
-		statusFlagValue, err := cmd.Flags().GetString(statusFlagName)
+		StatusFlagValue, err := cmd.Flags().GetString(StatusFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Status = statusFlagValue
+		m.Status = StatusFlagValue
 
 		retAdded = true
 	}

@@ -63,14 +63,14 @@ func registerSwarmInfoCluster(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	var clusterFlagName string
+	var ClusterFlagName string
 	if cmdPrefix == "" {
-		clusterFlagName = "Cluster"
+		ClusterFlagName = "Cluster"
 	} else {
-		clusterFlagName = fmt.Sprintf("%v.Cluster", cmdPrefix)
+		ClusterFlagName = fmt.Sprintf("%v.Cluster", cmdPrefix)
 	}
 
-	if err := registerModelClusterInfoFlags(depth+1, clusterFlagName, cmd); err != nil {
+	if err := registerModelClusterInfoFlags(depth+1, ClusterFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -82,18 +82,18 @@ func registerSwarmInfoControlAvailable(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	controlAvailableDescription := ``
+	ControlAvailableDescription := ``
 
-	var controlAvailableFlagName string
+	var ControlAvailableFlagName string
 	if cmdPrefix == "" {
-		controlAvailableFlagName = "ControlAvailable"
+		ControlAvailableFlagName = "ControlAvailable"
 	} else {
-		controlAvailableFlagName = fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
+		ControlAvailableFlagName = fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
 	}
 
-	var controlAvailableFlagDefault bool
+	var ControlAvailableFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(controlAvailableFlagName, controlAvailableFlagDefault, controlAvailableDescription)
+	_ = cmd.PersistentFlags().Bool(ControlAvailableFlagName, ControlAvailableFlagDefault, ControlAvailableDescription)
 
 	return nil
 }
@@ -103,18 +103,18 @@ func registerSwarmInfoError(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	errorDescription := ``
+	ErrorDescription := ``
 
-	var errorFlagName string
+	var ErrorFlagName string
 	if cmdPrefix == "" {
-		errorFlagName = "Error"
+		ErrorFlagName = "Error"
 	} else {
-		errorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
+		ErrorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
 	}
 
-	var errorFlagDefault string
+	var ErrorFlagDefault string
 
-	_ = cmd.PersistentFlags().String(errorFlagName, errorFlagDefault, errorDescription)
+	_ = cmd.PersistentFlags().String(ErrorFlagName, ErrorFlagDefault, ErrorDescription)
 
 	return nil
 }
@@ -134,18 +134,18 @@ func registerSwarmInfoManagers(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	managersDescription := `Total number of managers in the swarm.`
+	ManagersDescription := `Total number of managers in the swarm.`
 
-	var managersFlagName string
+	var ManagersFlagName string
 	if cmdPrefix == "" {
-		managersFlagName = "Managers"
+		ManagersFlagName = "Managers"
 	} else {
-		managersFlagName = fmt.Sprintf("%v.Managers", cmdPrefix)
+		ManagersFlagName = fmt.Sprintf("%v.Managers", cmdPrefix)
 	}
 
-	var managersFlagDefault int64
+	var ManagersFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(managersFlagName, managersFlagDefault, managersDescription)
+	_ = cmd.PersistentFlags().Int64(ManagersFlagName, ManagersFlagDefault, ManagersDescription)
 
 	return nil
 }
@@ -155,20 +155,20 @@ func registerSwarmInfoNodeAddr(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	nodeAddrDescription := `IP address at which this node can be reached by other nodes in the
+	NodeAddrDescription := `IP address at which this node can be reached by other nodes in the
 swarm.
 `
 
-	var nodeAddrFlagName string
+	var NodeAddrFlagName string
 	if cmdPrefix == "" {
-		nodeAddrFlagName = "NodeAddr"
+		NodeAddrFlagName = "NodeAddr"
 	} else {
-		nodeAddrFlagName = fmt.Sprintf("%v.NodeAddr", cmdPrefix)
+		NodeAddrFlagName = fmt.Sprintf("%v.NodeAddr", cmdPrefix)
 	}
 
-	var nodeAddrFlagDefault string
+	var NodeAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nodeAddrFlagName, nodeAddrFlagDefault, nodeAddrDescription)
+	_ = cmd.PersistentFlags().String(NodeAddrFlagName, NodeAddrFlagDefault, NodeAddrDescription)
 
 	return nil
 }
@@ -178,18 +178,18 @@ func registerSwarmInfoNodeID(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	nodeIdDescription := `Unique identifier of for this node in the swarm.`
+	NodeIDDescription := `Unique identifier of for this node in the swarm.`
 
-	var nodeIdFlagName string
+	var NodeIDFlagName string
 	if cmdPrefix == "" {
-		nodeIdFlagName = "NodeID"
+		NodeIDFlagName = "NodeID"
 	} else {
-		nodeIdFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
+		NodeIDFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
 	}
 
-	var nodeIdFlagDefault string
+	var NodeIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nodeIdFlagName, nodeIdFlagDefault, nodeIdDescription)
+	_ = cmd.PersistentFlags().String(NodeIDFlagName, NodeIDFlagDefault, NodeIDDescription)
 
 	return nil
 }
@@ -199,18 +199,18 @@ func registerSwarmInfoNodes(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	nodesDescription := `Total number of nodes in the swarm.`
+	NodesDescription := `Total number of nodes in the swarm.`
 
-	var nodesFlagName string
+	var NodesFlagName string
 	if cmdPrefix == "" {
-		nodesFlagName = "Nodes"
+		NodesFlagName = "Nodes"
 	} else {
-		nodesFlagName = fmt.Sprintf("%v.Nodes", cmdPrefix)
+		NodesFlagName = fmt.Sprintf("%v.Nodes", cmdPrefix)
 	}
 
-	var nodesFlagDefault int64
+	var NodesFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(nodesFlagName, nodesFlagDefault, nodesDescription)
+	_ = cmd.PersistentFlags().Int64(NodesFlagName, NodesFlagDefault, NodesDescription)
 
 	return nil
 }
@@ -229,59 +229,59 @@ func registerSwarmInfoRemoteManagers(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelSwarmInfoFlags(depth int, m *models.SwarmInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, clusterAdded := retrieveSwarmInfoClusterFlags(depth, m, cmdPrefix, cmd)
+	err, ClusterAdded := retrieveSwarmInfoClusterFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || clusterAdded
+	retAdded = retAdded || ClusterAdded
 
-	err, controlAvailableAdded := retrieveSwarmInfoControlAvailableFlags(depth, m, cmdPrefix, cmd)
+	err, ControlAvailableAdded := retrieveSwarmInfoControlAvailableFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || controlAvailableAdded
+	retAdded = retAdded || ControlAvailableAdded
 
-	err, errorAdded := retrieveSwarmInfoErrorFlags(depth, m, cmdPrefix, cmd)
+	err, ErrorAdded := retrieveSwarmInfoErrorFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || errorAdded
+	retAdded = retAdded || ErrorAdded
 
-	err, localNodeStateAdded := retrieveSwarmInfoLocalNodeStateFlags(depth, m, cmdPrefix, cmd)
+	err, LocalNodeStateAdded := retrieveSwarmInfoLocalNodeStateFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || localNodeStateAdded
+	retAdded = retAdded || LocalNodeStateAdded
 
-	err, managersAdded := retrieveSwarmInfoManagersFlags(depth, m, cmdPrefix, cmd)
+	err, ManagersAdded := retrieveSwarmInfoManagersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || managersAdded
+	retAdded = retAdded || ManagersAdded
 
-	err, nodeAddrAdded := retrieveSwarmInfoNodeAddrFlags(depth, m, cmdPrefix, cmd)
+	err, NodeAddrAdded := retrieveSwarmInfoNodeAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nodeAddrAdded
+	retAdded = retAdded || NodeAddrAdded
 
-	err, nodeIdAdded := retrieveSwarmInfoNodeIDFlags(depth, m, cmdPrefix, cmd)
+	err, NodeIDAdded := retrieveSwarmInfoNodeIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nodeIdAdded
+	retAdded = retAdded || NodeIDAdded
 
-	err, nodesAdded := retrieveSwarmInfoNodesFlags(depth, m, cmdPrefix, cmd)
+	err, NodesAdded := retrieveSwarmInfoNodesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nodesAdded
+	retAdded = retAdded || NodesAdded
 
-	err, remoteManagersAdded := retrieveSwarmInfoRemoteManagersFlags(depth, m, cmdPrefix, cmd)
+	err, RemoteManagersAdded := retrieveSwarmInfoRemoteManagersFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || remoteManagersAdded
+	retAdded = retAdded || RemoteManagersAdded
 
 	return nil, retAdded
 }
@@ -292,22 +292,22 @@ func retrieveSwarmInfoClusterFlags(depth int, m *models.SwarmInfo, cmdPrefix str
 	}
 	retAdded := false
 
-	clusterFlagName := fmt.Sprintf("%v.Cluster", cmdPrefix)
-	if cmd.Flags().Changed(clusterFlagName) {
+	ClusterFlagName := fmt.Sprintf("%v.Cluster", cmdPrefix)
+	if cmd.Flags().Changed(ClusterFlagName) {
 		// info: complex object Cluster ClusterInfo is retrieved outside this Changed() block
 	}
-	clusterFlagValue := m.Cluster
-	if swag.IsZero(clusterFlagValue) {
-		clusterFlagValue = &models.ClusterInfo{}
+	ClusterFlagValue := m.Cluster
+	if swag.IsZero(ClusterFlagValue) {
+		ClusterFlagValue = &models.ClusterInfo{}
 	}
 
-	err, clusterAdded := retrieveModelClusterInfoFlags(depth+1, clusterFlagValue, clusterFlagName, cmd)
+	err, ClusterAdded := retrieveModelClusterInfoFlags(depth+1, ClusterFlagValue, ClusterFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || clusterAdded
-	if clusterAdded {
-		m.Cluster = clusterFlagValue
+	retAdded = retAdded || ClusterAdded
+	if ClusterAdded {
+		m.Cluster = ClusterFlagValue
 	}
 
 	return nil, retAdded
@@ -319,21 +319,21 @@ func retrieveSwarmInfoControlAvailableFlags(depth int, m *models.SwarmInfo, cmdP
 	}
 	retAdded := false
 
-	controlAvailableFlagName := fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
-	if cmd.Flags().Changed(controlAvailableFlagName) {
+	ControlAvailableFlagName := fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
+	if cmd.Flags().Changed(ControlAvailableFlagName) {
 
-		var controlAvailableFlagName string
+		var ControlAvailableFlagName string
 		if cmdPrefix == "" {
-			controlAvailableFlagName = "ControlAvailable"
+			ControlAvailableFlagName = "ControlAvailable"
 		} else {
-			controlAvailableFlagName = fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
+			ControlAvailableFlagName = fmt.Sprintf("%v.ControlAvailable", cmdPrefix)
 		}
 
-		controlAvailableFlagValue, err := cmd.Flags().GetBool(controlAvailableFlagName)
+		ControlAvailableFlagValue, err := cmd.Flags().GetBool(ControlAvailableFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ControlAvailable = &controlAvailableFlagValue
+		m.ControlAvailable = &ControlAvailableFlagValue
 
 		retAdded = true
 	}
@@ -347,21 +347,21 @@ func retrieveSwarmInfoErrorFlags(depth int, m *models.SwarmInfo, cmdPrefix strin
 	}
 	retAdded := false
 
-	errorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
-	if cmd.Flags().Changed(errorFlagName) {
+	ErrorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
+	if cmd.Flags().Changed(ErrorFlagName) {
 
-		var errorFlagName string
+		var ErrorFlagName string
 		if cmdPrefix == "" {
-			errorFlagName = "Error"
+			ErrorFlagName = "Error"
 		} else {
-			errorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
+			ErrorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
 		}
 
-		errorFlagValue, err := cmd.Flags().GetString(errorFlagName)
+		ErrorFlagValue, err := cmd.Flags().GetString(ErrorFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Error = errorFlagValue
+		m.Error = ErrorFlagValue
 
 		retAdded = true
 	}
@@ -375,8 +375,8 @@ func retrieveSwarmInfoLocalNodeStateFlags(depth int, m *models.SwarmInfo, cmdPre
 	}
 	retAdded := false
 
-	localNodeStateFlagName := fmt.Sprintf("%v.LocalNodeState", cmdPrefix)
-	if cmd.Flags().Changed(localNodeStateFlagName) {
+	LocalNodeStateFlagName := fmt.Sprintf("%v.LocalNodeState", cmdPrefix)
+	if cmd.Flags().Changed(LocalNodeStateFlagName) {
 
 		// warning: primitive LocalNodeState LocalNodeState is not supported by go-swagger cli yet
 
@@ -392,21 +392,21 @@ func retrieveSwarmInfoManagersFlags(depth int, m *models.SwarmInfo, cmdPrefix st
 	}
 	retAdded := false
 
-	managersFlagName := fmt.Sprintf("%v.Managers", cmdPrefix)
-	if cmd.Flags().Changed(managersFlagName) {
+	ManagersFlagName := fmt.Sprintf("%v.Managers", cmdPrefix)
+	if cmd.Flags().Changed(ManagersFlagName) {
 
-		var managersFlagName string
+		var ManagersFlagName string
 		if cmdPrefix == "" {
-			managersFlagName = "Managers"
+			ManagersFlagName = "Managers"
 		} else {
-			managersFlagName = fmt.Sprintf("%v.Managers", cmdPrefix)
+			ManagersFlagName = fmt.Sprintf("%v.Managers", cmdPrefix)
 		}
 
-		managersFlagValue, err := cmd.Flags().GetInt64(managersFlagName)
+		ManagersFlagValue, err := cmd.Flags().GetInt64(ManagersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Managers = &managersFlagValue
+		m.Managers = &ManagersFlagValue
 
 		retAdded = true
 	}
@@ -420,21 +420,21 @@ func retrieveSwarmInfoNodeAddrFlags(depth int, m *models.SwarmInfo, cmdPrefix st
 	}
 	retAdded := false
 
-	nodeAddrFlagName := fmt.Sprintf("%v.NodeAddr", cmdPrefix)
-	if cmd.Flags().Changed(nodeAddrFlagName) {
+	NodeAddrFlagName := fmt.Sprintf("%v.NodeAddr", cmdPrefix)
+	if cmd.Flags().Changed(NodeAddrFlagName) {
 
-		var nodeAddrFlagName string
+		var NodeAddrFlagName string
 		if cmdPrefix == "" {
-			nodeAddrFlagName = "NodeAddr"
+			NodeAddrFlagName = "NodeAddr"
 		} else {
-			nodeAddrFlagName = fmt.Sprintf("%v.NodeAddr", cmdPrefix)
+			NodeAddrFlagName = fmt.Sprintf("%v.NodeAddr", cmdPrefix)
 		}
 
-		nodeAddrFlagValue, err := cmd.Flags().GetString(nodeAddrFlagName)
+		NodeAddrFlagValue, err := cmd.Flags().GetString(NodeAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NodeAddr = nodeAddrFlagValue
+		m.NodeAddr = NodeAddrFlagValue
 
 		retAdded = true
 	}
@@ -448,21 +448,21 @@ func retrieveSwarmInfoNodeIDFlags(depth int, m *models.SwarmInfo, cmdPrefix stri
 	}
 	retAdded := false
 
-	nodeIdFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
-	if cmd.Flags().Changed(nodeIdFlagName) {
+	NodeIDFlagName := fmt.Sprintf("%v.NodeID", cmdPrefix)
+	if cmd.Flags().Changed(NodeIDFlagName) {
 
-		var nodeIdFlagName string
+		var NodeIDFlagName string
 		if cmdPrefix == "" {
-			nodeIdFlagName = "NodeID"
+			NodeIDFlagName = "NodeID"
 		} else {
-			nodeIdFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
+			NodeIDFlagName = fmt.Sprintf("%v.NodeID", cmdPrefix)
 		}
 
-		nodeIdFlagValue, err := cmd.Flags().GetString(nodeIdFlagName)
+		NodeIDFlagValue, err := cmd.Flags().GetString(NodeIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NodeID = nodeIdFlagValue
+		m.NodeID = NodeIDFlagValue
 
 		retAdded = true
 	}
@@ -476,21 +476,21 @@ func retrieveSwarmInfoNodesFlags(depth int, m *models.SwarmInfo, cmdPrefix strin
 	}
 	retAdded := false
 
-	nodesFlagName := fmt.Sprintf("%v.Nodes", cmdPrefix)
-	if cmd.Flags().Changed(nodesFlagName) {
+	NodesFlagName := fmt.Sprintf("%v.Nodes", cmdPrefix)
+	if cmd.Flags().Changed(NodesFlagName) {
 
-		var nodesFlagName string
+		var NodesFlagName string
 		if cmdPrefix == "" {
-			nodesFlagName = "Nodes"
+			NodesFlagName = "Nodes"
 		} else {
-			nodesFlagName = fmt.Sprintf("%v.Nodes", cmdPrefix)
+			NodesFlagName = fmt.Sprintf("%v.Nodes", cmdPrefix)
 		}
 
-		nodesFlagValue, err := cmd.Flags().GetInt64(nodesFlagName)
+		NodesFlagValue, err := cmd.Flags().GetInt64(NodesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Nodes = &nodesFlagValue
+		m.Nodes = &NodesFlagValue
 
 		retAdded = true
 	}
@@ -504,8 +504,8 @@ func retrieveSwarmInfoRemoteManagersFlags(depth int, m *models.SwarmInfo, cmdPre
 	}
 	retAdded := false
 
-	remoteManagersFlagName := fmt.Sprintf("%v.RemoteManagers", cmdPrefix)
-	if cmd.Flags().Changed(remoteManagersFlagName) {
+	RemoteManagersFlagName := fmt.Sprintf("%v.RemoteManagers", cmdPrefix)
+	if cmd.Flags().Changed(RemoteManagersFlagName) {
 		// warning: RemoteManagers array type []*PeerNode is not supported by go-swagger cli yet
 	}
 

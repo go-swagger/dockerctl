@@ -68,22 +68,22 @@ func registerOperationVolumeVolumePruneParamFlags(cmd *cobra.Command) error {
 
 func registerOperationVolumeVolumePruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+	FiltersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
 
 Available filters:
 - ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune volumes with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -92,18 +92,18 @@ func retrieveOperationVolumeVolumePruneFiltersFlag(m *volume.VolumePruneParams, 
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -170,18 +170,18 @@ func registerVolumePruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	spaceReclaimedDescription := `Disk space reclaimed in bytes`
+	SpaceReclaimedDescription := `Disk space reclaimed in bytes`
 
-	var spaceReclaimedFlagName string
+	var SpaceReclaimedFlagName string
 	if cmdPrefix == "" {
-		spaceReclaimedFlagName = "SpaceReclaimed"
+		SpaceReclaimedFlagName = "SpaceReclaimed"
 	} else {
-		spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+		SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	}
 
-	var spaceReclaimedFlagDefault int64
+	var SpaceReclaimedFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(spaceReclaimedFlagName, spaceReclaimedFlagDefault, spaceReclaimedDescription)
+	_ = cmd.PersistentFlags().Int64(SpaceReclaimedFlagName, SpaceReclaimedFlagDefault, SpaceReclaimedDescription)
 
 	return nil
 }
@@ -200,17 +200,17 @@ func registerVolumePruneOKBodyVolumesDeleted(depth int, cmdPrefix string, cmd *c
 func retrieveModelVolumePruneOKBodyFlags(depth int, m *volume.VolumePruneOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, spaceReclaimedAdded := retrieveVolumePruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
+	err, SpaceReclaimedAdded := retrieveVolumePruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || spaceReclaimedAdded
+	retAdded = retAdded || SpaceReclaimedAdded
 
-	err, volumesDeletedAdded := retrieveVolumePruneOKBodyVolumesDeletedFlags(depth, m, cmdPrefix, cmd)
+	err, VolumesDeletedAdded := retrieveVolumePruneOKBodyVolumesDeletedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || volumesDeletedAdded
+	retAdded = retAdded || VolumesDeletedAdded
 
 	return nil, retAdded
 }
@@ -221,21 +221,21 @@ func retrieveVolumePruneOKBodySpaceReclaimedFlags(depth int, m *volume.VolumePru
 	}
 	retAdded := false
 
-	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
-	if cmd.Flags().Changed(spaceReclaimedFlagName) {
+	SpaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+	if cmd.Flags().Changed(SpaceReclaimedFlagName) {
 
-		var spaceReclaimedFlagName string
+		var SpaceReclaimedFlagName string
 		if cmdPrefix == "" {
-			spaceReclaimedFlagName = "SpaceReclaimed"
+			SpaceReclaimedFlagName = "SpaceReclaimed"
 		} else {
-			spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+			SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 		}
 
-		spaceReclaimedFlagValue, err := cmd.Flags().GetInt64(spaceReclaimedFlagName)
+		SpaceReclaimedFlagValue, err := cmd.Flags().GetInt64(SpaceReclaimedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SpaceReclaimed = spaceReclaimedFlagValue
+		m.SpaceReclaimed = SpaceReclaimedFlagValue
 
 		retAdded = true
 	}
@@ -249,8 +249,8 @@ func retrieveVolumePruneOKBodyVolumesDeletedFlags(depth int, m *volume.VolumePru
 	}
 	retAdded := false
 
-	volumesDeletedFlagName := fmt.Sprintf("%v.VolumesDeleted", cmdPrefix)
-	if cmd.Flags().Changed(volumesDeletedFlagName) {
+	VolumesDeletedFlagName := fmt.Sprintf("%v.VolumesDeleted", cmdPrefix)
+	if cmd.Flags().Changed(VolumesDeletedFlagName) {
 		// warning: VolumesDeleted array type []string is not supported by go-swagger cli yet
 	}
 

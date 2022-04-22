@@ -135,18 +135,18 @@ func registerComponentVersionName(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -156,18 +156,18 @@ func registerComponentVersionVersion(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	versionDescription := `Required. `
+	VersionDescription := `Required. `
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	var versionFlagDefault string
+	var VersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(versionFlagName, versionFlagDefault, versionDescription)
+	_ = cmd.PersistentFlags().String(VersionFlagName, VersionFlagDefault, VersionDescription)
 
 	return nil
 }
@@ -176,23 +176,23 @@ func registerComponentVersionVersion(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelComponentVersionFlags(depth int, m *system.ComponentVersion, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, detailsAdded := retrieveComponentVersionDetailsFlags(depth, m, cmdPrefix, cmd)
+	err, DetailsAdded := retrieveComponentVersionDetailsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || detailsAdded
+	retAdded = retAdded || DetailsAdded
 
-	err, nameAdded := retrieveComponentVersionNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveComponentVersionNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, versionAdded := retrieveComponentVersionVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrieveComponentVersionVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -203,8 +203,8 @@ func retrieveComponentVersionDetailsFlags(depth int, m *system.ComponentVersion,
 	}
 	retAdded := false
 
-	detailsFlagName := fmt.Sprintf("%v.Details", cmdPrefix)
-	if cmd.Flags().Changed(detailsFlagName) {
+	DetailsFlagName := fmt.Sprintf("%v.Details", cmdPrefix)
+	if cmd.Flags().Changed(DetailsFlagName) {
 		// warning: Details map type interface{} is not supported by go-swagger cli yet
 	}
 
@@ -217,21 +217,21 @@ func retrieveComponentVersionNameFlags(depth int, m *system.ComponentVersion, cm
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = &nameFlagValue
+		m.Name = &NameFlagValue
 
 		retAdded = true
 	}
@@ -245,21 +245,21 @@ func retrieveComponentVersionVersionFlags(depth int, m *system.ComponentVersion,
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 
-		var versionFlagName string
+		var VersionFlagName string
 		if cmdPrefix == "" {
-			versionFlagName = "Version"
+			VersionFlagName = "Version"
 		} else {
-			versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+			VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 		}
 
-		versionFlagValue, err := cmd.Flags().GetString(versionFlagName)
+		VersionFlagValue, err := cmd.Flags().GetString(VersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Version = versionFlagValue
+		m.Version = VersionFlagValue
 
 		retAdded = true
 	}
@@ -326,18 +326,18 @@ func registerSystemVersionOKBodyAPIVersion(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	apiVersionDescription := ``
+	APIVersionDescription := ``
 
-	var apiVersionFlagName string
+	var APIVersionFlagName string
 	if cmdPrefix == "" {
-		apiVersionFlagName = "ApiVersion"
+		APIVersionFlagName = "ApiVersion"
 	} else {
-		apiVersionFlagName = fmt.Sprintf("%v.ApiVersion", cmdPrefix)
+		APIVersionFlagName = fmt.Sprintf("%v.ApiVersion", cmdPrefix)
 	}
 
-	var apiVersionFlagDefault string
+	var APIVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(apiVersionFlagName, apiVersionFlagDefault, apiVersionDescription)
+	_ = cmd.PersistentFlags().String(APIVersionFlagName, APIVersionFlagDefault, APIVersionDescription)
 
 	return nil
 }
@@ -347,18 +347,18 @@ func registerSystemVersionOKBodyArch(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	archDescription := ``
+	ArchDescription := ``
 
-	var archFlagName string
+	var ArchFlagName string
 	if cmdPrefix == "" {
-		archFlagName = "Arch"
+		ArchFlagName = "Arch"
 	} else {
-		archFlagName = fmt.Sprintf("%v.Arch", cmdPrefix)
+		ArchFlagName = fmt.Sprintf("%v.Arch", cmdPrefix)
 	}
 
-	var archFlagDefault string
+	var ArchFlagDefault string
 
-	_ = cmd.PersistentFlags().String(archFlagName, archFlagDefault, archDescription)
+	_ = cmd.PersistentFlags().String(ArchFlagName, ArchFlagDefault, ArchDescription)
 
 	return nil
 }
@@ -368,18 +368,18 @@ func registerSystemVersionOKBodyBuildTime(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	buildTimeDescription := ``
+	BuildTimeDescription := ``
 
-	var buildTimeFlagName string
+	var BuildTimeFlagName string
 	if cmdPrefix == "" {
-		buildTimeFlagName = "BuildTime"
+		BuildTimeFlagName = "BuildTime"
 	} else {
-		buildTimeFlagName = fmt.Sprintf("%v.BuildTime", cmdPrefix)
+		BuildTimeFlagName = fmt.Sprintf("%v.BuildTime", cmdPrefix)
 	}
 
-	var buildTimeFlagDefault string
+	var BuildTimeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(buildTimeFlagName, buildTimeFlagDefault, buildTimeDescription)
+	_ = cmd.PersistentFlags().String(BuildTimeFlagName, BuildTimeFlagDefault, BuildTimeDescription)
 
 	return nil
 }
@@ -399,18 +399,18 @@ func registerSystemVersionOKBodyExperimental(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	experimentalDescription := ``
+	ExperimentalDescription := ``
 
-	var experimentalFlagName string
+	var ExperimentalFlagName string
 	if cmdPrefix == "" {
-		experimentalFlagName = "Experimental"
+		ExperimentalFlagName = "Experimental"
 	} else {
-		experimentalFlagName = fmt.Sprintf("%v.Experimental", cmdPrefix)
+		ExperimentalFlagName = fmt.Sprintf("%v.Experimental", cmdPrefix)
 	}
 
-	var experimentalFlagDefault bool
+	var ExperimentalFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(experimentalFlagName, experimentalFlagDefault, experimentalDescription)
+	_ = cmd.PersistentFlags().Bool(ExperimentalFlagName, ExperimentalFlagDefault, ExperimentalDescription)
 
 	return nil
 }
@@ -420,18 +420,18 @@ func registerSystemVersionOKBodyGitCommit(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	gitCommitDescription := ``
+	GitCommitDescription := ``
 
-	var gitCommitFlagName string
+	var GitCommitFlagName string
 	if cmdPrefix == "" {
-		gitCommitFlagName = "GitCommit"
+		GitCommitFlagName = "GitCommit"
 	} else {
-		gitCommitFlagName = fmt.Sprintf("%v.GitCommit", cmdPrefix)
+		GitCommitFlagName = fmt.Sprintf("%v.GitCommit", cmdPrefix)
 	}
 
-	var gitCommitFlagDefault string
+	var GitCommitFlagDefault string
 
-	_ = cmd.PersistentFlags().String(gitCommitFlagName, gitCommitFlagDefault, gitCommitDescription)
+	_ = cmd.PersistentFlags().String(GitCommitFlagName, GitCommitFlagDefault, GitCommitDescription)
 
 	return nil
 }
@@ -441,18 +441,18 @@ func registerSystemVersionOKBodyGoVersion(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	goVersionDescription := ``
+	GoVersionDescription := ``
 
-	var goVersionFlagName string
+	var GoVersionFlagName string
 	if cmdPrefix == "" {
-		goVersionFlagName = "GoVersion"
+		GoVersionFlagName = "GoVersion"
 	} else {
-		goVersionFlagName = fmt.Sprintf("%v.GoVersion", cmdPrefix)
+		GoVersionFlagName = fmt.Sprintf("%v.GoVersion", cmdPrefix)
 	}
 
-	var goVersionFlagDefault string
+	var GoVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(goVersionFlagName, goVersionFlagDefault, goVersionDescription)
+	_ = cmd.PersistentFlags().String(GoVersionFlagName, GoVersionFlagDefault, GoVersionDescription)
 
 	return nil
 }
@@ -462,18 +462,18 @@ func registerSystemVersionOKBodyKernelVersion(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	kernelVersionDescription := ``
+	KernelVersionDescription := ``
 
-	var kernelVersionFlagName string
+	var KernelVersionFlagName string
 	if cmdPrefix == "" {
-		kernelVersionFlagName = "KernelVersion"
+		KernelVersionFlagName = "KernelVersion"
 	} else {
-		kernelVersionFlagName = fmt.Sprintf("%v.KernelVersion", cmdPrefix)
+		KernelVersionFlagName = fmt.Sprintf("%v.KernelVersion", cmdPrefix)
 	}
 
-	var kernelVersionFlagDefault string
+	var KernelVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(kernelVersionFlagName, kernelVersionFlagDefault, kernelVersionDescription)
+	_ = cmd.PersistentFlags().String(KernelVersionFlagName, KernelVersionFlagDefault, KernelVersionDescription)
 
 	return nil
 }
@@ -483,18 +483,18 @@ func registerSystemVersionOKBodyMinAPIVersion(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	minApiVersionDescription := ``
+	MinAPIVersionDescription := ``
 
-	var minApiVersionFlagName string
+	var MinAPIVersionFlagName string
 	if cmdPrefix == "" {
-		minApiVersionFlagName = "MinAPIVersion"
+		MinAPIVersionFlagName = "MinAPIVersion"
 	} else {
-		minApiVersionFlagName = fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
+		MinAPIVersionFlagName = fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
 	}
 
-	var minApiVersionFlagDefault string
+	var MinAPIVersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(minApiVersionFlagName, minApiVersionFlagDefault, minApiVersionDescription)
+	_ = cmd.PersistentFlags().String(MinAPIVersionFlagName, MinAPIVersionFlagDefault, MinAPIVersionDescription)
 
 	return nil
 }
@@ -504,18 +504,18 @@ func registerSystemVersionOKBodyOs(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	osDescription := ``
+	OsDescription := ``
 
-	var osFlagName string
+	var OsFlagName string
 	if cmdPrefix == "" {
-		osFlagName = "Os"
+		OsFlagName = "Os"
 	} else {
-		osFlagName = fmt.Sprintf("%v.Os", cmdPrefix)
+		OsFlagName = fmt.Sprintf("%v.Os", cmdPrefix)
 	}
 
-	var osFlagDefault string
+	var OsFlagDefault string
 
-	_ = cmd.PersistentFlags().String(osFlagName, osFlagDefault, osDescription)
+	_ = cmd.PersistentFlags().String(OsFlagName, OsFlagDefault, OsDescription)
 
 	return nil
 }
@@ -525,14 +525,14 @@ func registerSystemVersionOKBodyPlatform(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	var platformFlagName string
+	var PlatformFlagName string
 	if cmdPrefix == "" {
-		platformFlagName = "Platform"
+		PlatformFlagName = "Platform"
 	} else {
-		platformFlagName = fmt.Sprintf("%v.Platform", cmdPrefix)
+		PlatformFlagName = fmt.Sprintf("%v.Platform", cmdPrefix)
 	}
 
-	if err := registerModelSystemVersionOKBodyPlatformFlags(depth+1, platformFlagName, cmd); err != nil {
+	if err := registerModelSystemVersionOKBodyPlatformFlags(depth+1, PlatformFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -544,18 +544,18 @@ func registerSystemVersionOKBodyVersion(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	versionDescription := ``
+	VersionDescription := ``
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	var versionFlagDefault string
+	var VersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(versionFlagName, versionFlagDefault, versionDescription)
+	_ = cmd.PersistentFlags().String(VersionFlagName, VersionFlagDefault, VersionDescription)
 
 	return nil
 }
@@ -564,77 +564,77 @@ func registerSystemVersionOKBodyVersion(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelSystemVersionOKBodyFlags(depth int, m *system.SystemVersionOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, apiVersionAdded := retrieveSystemVersionOKBodyAPIVersionFlags(depth, m, cmdPrefix, cmd)
+	err, APIVersionAdded := retrieveSystemVersionOKBodyAPIVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || apiVersionAdded
+	retAdded = retAdded || APIVersionAdded
 
-	err, archAdded := retrieveSystemVersionOKBodyArchFlags(depth, m, cmdPrefix, cmd)
+	err, ArchAdded := retrieveSystemVersionOKBodyArchFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || archAdded
+	retAdded = retAdded || ArchAdded
 
-	err, buildTimeAdded := retrieveSystemVersionOKBodyBuildTimeFlags(depth, m, cmdPrefix, cmd)
+	err, BuildTimeAdded := retrieveSystemVersionOKBodyBuildTimeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || buildTimeAdded
+	retAdded = retAdded || BuildTimeAdded
 
-	err, componentsAdded := retrieveSystemVersionOKBodyComponentsFlags(depth, m, cmdPrefix, cmd)
+	err, ComponentsAdded := retrieveSystemVersionOKBodyComponentsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || componentsAdded
+	retAdded = retAdded || ComponentsAdded
 
-	err, experimentalAdded := retrieveSystemVersionOKBodyExperimentalFlags(depth, m, cmdPrefix, cmd)
+	err, ExperimentalAdded := retrieveSystemVersionOKBodyExperimentalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || experimentalAdded
+	retAdded = retAdded || ExperimentalAdded
 
-	err, gitCommitAdded := retrieveSystemVersionOKBodyGitCommitFlags(depth, m, cmdPrefix, cmd)
+	err, GitCommitAdded := retrieveSystemVersionOKBodyGitCommitFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || gitCommitAdded
+	retAdded = retAdded || GitCommitAdded
 
-	err, goVersionAdded := retrieveSystemVersionOKBodyGoVersionFlags(depth, m, cmdPrefix, cmd)
+	err, GoVersionAdded := retrieveSystemVersionOKBodyGoVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || goVersionAdded
+	retAdded = retAdded || GoVersionAdded
 
-	err, kernelVersionAdded := retrieveSystemVersionOKBodyKernelVersionFlags(depth, m, cmdPrefix, cmd)
+	err, KernelVersionAdded := retrieveSystemVersionOKBodyKernelVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || kernelVersionAdded
+	retAdded = retAdded || KernelVersionAdded
 
-	err, minApiVersionAdded := retrieveSystemVersionOKBodyMinAPIVersionFlags(depth, m, cmdPrefix, cmd)
+	err, MinAPIVersionAdded := retrieveSystemVersionOKBodyMinAPIVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || minApiVersionAdded
+	retAdded = retAdded || MinAPIVersionAdded
 
-	err, osAdded := retrieveSystemVersionOKBodyOsFlags(depth, m, cmdPrefix, cmd)
+	err, OsAdded := retrieveSystemVersionOKBodyOsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || osAdded
+	retAdded = retAdded || OsAdded
 
-	err, platformAdded := retrieveSystemVersionOKBodyPlatformFlags(depth, m, cmdPrefix, cmd)
+	err, PlatformAdded := retrieveSystemVersionOKBodyPlatformFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || platformAdded
+	retAdded = retAdded || PlatformAdded
 
-	err, versionAdded := retrieveSystemVersionOKBodyVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrieveSystemVersionOKBodyVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -645,21 +645,21 @@ func retrieveSystemVersionOKBodyAPIVersionFlags(depth int, m *system.SystemVersi
 	}
 	retAdded := false
 
-	apiVersionFlagName := fmt.Sprintf("%v.ApiVersion", cmdPrefix)
-	if cmd.Flags().Changed(apiVersionFlagName) {
+	APIVersionFlagName := fmt.Sprintf("%v.ApiVersion", cmdPrefix)
+	if cmd.Flags().Changed(APIVersionFlagName) {
 
-		var apiVersionFlagName string
+		var APIVersionFlagName string
 		if cmdPrefix == "" {
-			apiVersionFlagName = "ApiVersion"
+			APIVersionFlagName = "ApiVersion"
 		} else {
-			apiVersionFlagName = fmt.Sprintf("%v.ApiVersion", cmdPrefix)
+			APIVersionFlagName = fmt.Sprintf("%v.ApiVersion", cmdPrefix)
 		}
 
-		apiVersionFlagValue, err := cmd.Flags().GetString(apiVersionFlagName)
+		APIVersionFlagValue, err := cmd.Flags().GetString(APIVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.APIVersion = apiVersionFlagValue
+		m.APIVersion = APIVersionFlagValue
 
 		retAdded = true
 	}
@@ -673,21 +673,21 @@ func retrieveSystemVersionOKBodyArchFlags(depth int, m *system.SystemVersionOKBo
 	}
 	retAdded := false
 
-	archFlagName := fmt.Sprintf("%v.Arch", cmdPrefix)
-	if cmd.Flags().Changed(archFlagName) {
+	ArchFlagName := fmt.Sprintf("%v.Arch", cmdPrefix)
+	if cmd.Flags().Changed(ArchFlagName) {
 
-		var archFlagName string
+		var ArchFlagName string
 		if cmdPrefix == "" {
-			archFlagName = "Arch"
+			ArchFlagName = "Arch"
 		} else {
-			archFlagName = fmt.Sprintf("%v.Arch", cmdPrefix)
+			ArchFlagName = fmt.Sprintf("%v.Arch", cmdPrefix)
 		}
 
-		archFlagValue, err := cmd.Flags().GetString(archFlagName)
+		ArchFlagValue, err := cmd.Flags().GetString(ArchFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Arch = archFlagValue
+		m.Arch = ArchFlagValue
 
 		retAdded = true
 	}
@@ -701,21 +701,21 @@ func retrieveSystemVersionOKBodyBuildTimeFlags(depth int, m *system.SystemVersio
 	}
 	retAdded := false
 
-	buildTimeFlagName := fmt.Sprintf("%v.BuildTime", cmdPrefix)
-	if cmd.Flags().Changed(buildTimeFlagName) {
+	BuildTimeFlagName := fmt.Sprintf("%v.BuildTime", cmdPrefix)
+	if cmd.Flags().Changed(BuildTimeFlagName) {
 
-		var buildTimeFlagName string
+		var BuildTimeFlagName string
 		if cmdPrefix == "" {
-			buildTimeFlagName = "BuildTime"
+			BuildTimeFlagName = "BuildTime"
 		} else {
-			buildTimeFlagName = fmt.Sprintf("%v.BuildTime", cmdPrefix)
+			BuildTimeFlagName = fmt.Sprintf("%v.BuildTime", cmdPrefix)
 		}
 
-		buildTimeFlagValue, err := cmd.Flags().GetString(buildTimeFlagName)
+		BuildTimeFlagValue, err := cmd.Flags().GetString(BuildTimeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.BuildTime = buildTimeFlagValue
+		m.BuildTime = BuildTimeFlagValue
 
 		retAdded = true
 	}
@@ -729,8 +729,8 @@ func retrieveSystemVersionOKBodyComponentsFlags(depth int, m *system.SystemVersi
 	}
 	retAdded := false
 
-	componentsFlagName := fmt.Sprintf("%v.Components", cmdPrefix)
-	if cmd.Flags().Changed(componentsFlagName) {
+	ComponentsFlagName := fmt.Sprintf("%v.Components", cmdPrefix)
+	if cmd.Flags().Changed(ComponentsFlagName) {
 		// warning: Components array type []*ComponentVersion is not supported by go-swagger cli yet
 	}
 
@@ -743,21 +743,21 @@ func retrieveSystemVersionOKBodyExperimentalFlags(depth int, m *system.SystemVer
 	}
 	retAdded := false
 
-	experimentalFlagName := fmt.Sprintf("%v.Experimental", cmdPrefix)
-	if cmd.Flags().Changed(experimentalFlagName) {
+	ExperimentalFlagName := fmt.Sprintf("%v.Experimental", cmdPrefix)
+	if cmd.Flags().Changed(ExperimentalFlagName) {
 
-		var experimentalFlagName string
+		var ExperimentalFlagName string
 		if cmdPrefix == "" {
-			experimentalFlagName = "Experimental"
+			ExperimentalFlagName = "Experimental"
 		} else {
-			experimentalFlagName = fmt.Sprintf("%v.Experimental", cmdPrefix)
+			ExperimentalFlagName = fmt.Sprintf("%v.Experimental", cmdPrefix)
 		}
 
-		experimentalFlagValue, err := cmd.Flags().GetBool(experimentalFlagName)
+		ExperimentalFlagValue, err := cmd.Flags().GetBool(ExperimentalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Experimental = experimentalFlagValue
+		m.Experimental = ExperimentalFlagValue
 
 		retAdded = true
 	}
@@ -771,21 +771,21 @@ func retrieveSystemVersionOKBodyGitCommitFlags(depth int, m *system.SystemVersio
 	}
 	retAdded := false
 
-	gitCommitFlagName := fmt.Sprintf("%v.GitCommit", cmdPrefix)
-	if cmd.Flags().Changed(gitCommitFlagName) {
+	GitCommitFlagName := fmt.Sprintf("%v.GitCommit", cmdPrefix)
+	if cmd.Flags().Changed(GitCommitFlagName) {
 
-		var gitCommitFlagName string
+		var GitCommitFlagName string
 		if cmdPrefix == "" {
-			gitCommitFlagName = "GitCommit"
+			GitCommitFlagName = "GitCommit"
 		} else {
-			gitCommitFlagName = fmt.Sprintf("%v.GitCommit", cmdPrefix)
+			GitCommitFlagName = fmt.Sprintf("%v.GitCommit", cmdPrefix)
 		}
 
-		gitCommitFlagValue, err := cmd.Flags().GetString(gitCommitFlagName)
+		GitCommitFlagValue, err := cmd.Flags().GetString(GitCommitFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.GitCommit = gitCommitFlagValue
+		m.GitCommit = GitCommitFlagValue
 
 		retAdded = true
 	}
@@ -799,21 +799,21 @@ func retrieveSystemVersionOKBodyGoVersionFlags(depth int, m *system.SystemVersio
 	}
 	retAdded := false
 
-	goVersionFlagName := fmt.Sprintf("%v.GoVersion", cmdPrefix)
-	if cmd.Flags().Changed(goVersionFlagName) {
+	GoVersionFlagName := fmt.Sprintf("%v.GoVersion", cmdPrefix)
+	if cmd.Flags().Changed(GoVersionFlagName) {
 
-		var goVersionFlagName string
+		var GoVersionFlagName string
 		if cmdPrefix == "" {
-			goVersionFlagName = "GoVersion"
+			GoVersionFlagName = "GoVersion"
 		} else {
-			goVersionFlagName = fmt.Sprintf("%v.GoVersion", cmdPrefix)
+			GoVersionFlagName = fmt.Sprintf("%v.GoVersion", cmdPrefix)
 		}
 
-		goVersionFlagValue, err := cmd.Flags().GetString(goVersionFlagName)
+		GoVersionFlagValue, err := cmd.Flags().GetString(GoVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.GoVersion = goVersionFlagValue
+		m.GoVersion = GoVersionFlagValue
 
 		retAdded = true
 	}
@@ -827,21 +827,21 @@ func retrieveSystemVersionOKBodyKernelVersionFlags(depth int, m *system.SystemVe
 	}
 	retAdded := false
 
-	kernelVersionFlagName := fmt.Sprintf("%v.KernelVersion", cmdPrefix)
-	if cmd.Flags().Changed(kernelVersionFlagName) {
+	KernelVersionFlagName := fmt.Sprintf("%v.KernelVersion", cmdPrefix)
+	if cmd.Flags().Changed(KernelVersionFlagName) {
 
-		var kernelVersionFlagName string
+		var KernelVersionFlagName string
 		if cmdPrefix == "" {
-			kernelVersionFlagName = "KernelVersion"
+			KernelVersionFlagName = "KernelVersion"
 		} else {
-			kernelVersionFlagName = fmt.Sprintf("%v.KernelVersion", cmdPrefix)
+			KernelVersionFlagName = fmt.Sprintf("%v.KernelVersion", cmdPrefix)
 		}
 
-		kernelVersionFlagValue, err := cmd.Flags().GetString(kernelVersionFlagName)
+		KernelVersionFlagValue, err := cmd.Flags().GetString(KernelVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.KernelVersion = kernelVersionFlagValue
+		m.KernelVersion = KernelVersionFlagValue
 
 		retAdded = true
 	}
@@ -855,21 +855,21 @@ func retrieveSystemVersionOKBodyMinAPIVersionFlags(depth int, m *system.SystemVe
 	}
 	retAdded := false
 
-	minApiVersionFlagName := fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
-	if cmd.Flags().Changed(minApiVersionFlagName) {
+	MinAPIVersionFlagName := fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
+	if cmd.Flags().Changed(MinAPIVersionFlagName) {
 
-		var minApiVersionFlagName string
+		var MinAPIVersionFlagName string
 		if cmdPrefix == "" {
-			minApiVersionFlagName = "MinAPIVersion"
+			MinAPIVersionFlagName = "MinAPIVersion"
 		} else {
-			minApiVersionFlagName = fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
+			MinAPIVersionFlagName = fmt.Sprintf("%v.MinAPIVersion", cmdPrefix)
 		}
 
-		minApiVersionFlagValue, err := cmd.Flags().GetString(minApiVersionFlagName)
+		MinAPIVersionFlagValue, err := cmd.Flags().GetString(MinAPIVersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MinAPIVersion = minApiVersionFlagValue
+		m.MinAPIVersion = MinAPIVersionFlagValue
 
 		retAdded = true
 	}
@@ -883,21 +883,21 @@ func retrieveSystemVersionOKBodyOsFlags(depth int, m *system.SystemVersionOKBody
 	}
 	retAdded := false
 
-	osFlagName := fmt.Sprintf("%v.Os", cmdPrefix)
-	if cmd.Flags().Changed(osFlagName) {
+	OsFlagName := fmt.Sprintf("%v.Os", cmdPrefix)
+	if cmd.Flags().Changed(OsFlagName) {
 
-		var osFlagName string
+		var OsFlagName string
 		if cmdPrefix == "" {
-			osFlagName = "Os"
+			OsFlagName = "Os"
 		} else {
-			osFlagName = fmt.Sprintf("%v.Os", cmdPrefix)
+			OsFlagName = fmt.Sprintf("%v.Os", cmdPrefix)
 		}
 
-		osFlagValue, err := cmd.Flags().GetString(osFlagName)
+		OsFlagValue, err := cmd.Flags().GetString(OsFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Os = osFlagValue
+		m.Os = OsFlagValue
 
 		retAdded = true
 	}
@@ -911,22 +911,22 @@ func retrieveSystemVersionOKBodyPlatformFlags(depth int, m *system.SystemVersion
 	}
 	retAdded := false
 
-	platformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
-	if cmd.Flags().Changed(platformFlagName) {
+	PlatformFlagName := fmt.Sprintf("%v.Platform", cmdPrefix)
+	if cmd.Flags().Changed(PlatformFlagName) {
 		// info: complex object Platform SystemVersionOKBodyPlatform is retrieved outside this Changed() block
 	}
-	platformFlagValue := m.Platform
-	if swag.IsZero(platformFlagValue) {
-		platformFlagValue = &system.SystemVersionOKBodyPlatform{}
+	PlatformFlagValue := m.Platform
+	if swag.IsZero(PlatformFlagValue) {
+		PlatformFlagValue = &system.SystemVersionOKBodyPlatform{}
 	}
 
-	err, platformAdded := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, platformFlagValue, platformFlagName, cmd)
+	err, PlatformAdded := retrieveModelSystemVersionOKBodyPlatformFlags(depth+1, PlatformFlagValue, PlatformFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || platformAdded
-	if platformAdded {
-		m.Platform = platformFlagValue
+	retAdded = retAdded || PlatformAdded
+	if PlatformAdded {
+		m.Platform = PlatformFlagValue
 	}
 
 	return nil, retAdded
@@ -938,21 +938,21 @@ func retrieveSystemVersionOKBodyVersionFlags(depth int, m *system.SystemVersionO
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 
-		var versionFlagName string
+		var VersionFlagName string
 		if cmdPrefix == "" {
-			versionFlagName = "Version"
+			VersionFlagName = "Version"
 		} else {
-			versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+			VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 		}
 
-		versionFlagValue, err := cmd.Flags().GetString(versionFlagName)
+		VersionFlagValue, err := cmd.Flags().GetString(VersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Version = versionFlagValue
+		m.Version = VersionFlagValue
 
 		retAdded = true
 	}
@@ -975,18 +975,18 @@ func registerSystemVersionOKBodyPlatformName(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	nameDescription := `Required. `
+	NameDescription := `Required. `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -995,11 +995,11 @@ func registerSystemVersionOKBodyPlatformName(depth int, cmdPrefix string, cmd *c
 func retrieveModelSystemVersionOKBodyPlatformFlags(depth int, m *system.SystemVersionOKBodyPlatform, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nameAdded := retrieveSystemVersionOKBodyPlatformNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveSystemVersionOKBodyPlatformNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
 	return nil, retAdded
 }
@@ -1010,21 +1010,21 @@ func retrieveSystemVersionOKBodyPlatformNameFlags(depth int, m *system.SystemVer
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = &nameFlagValue
+		m.Name = &NameFlagValue
 
 		retAdded = true
 	}

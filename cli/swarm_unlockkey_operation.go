@@ -129,18 +129,18 @@ func registerSwarmUnlockkeyOKBodyUnlockKey(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	unlockKeyDescription := `The swarm's unlock key.`
+	UnlockKeyDescription := `The swarm's unlock key.`
 
-	var unlockKeyFlagName string
+	var UnlockKeyFlagName string
 	if cmdPrefix == "" {
-		unlockKeyFlagName = "UnlockKey"
+		UnlockKeyFlagName = "UnlockKey"
 	} else {
-		unlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
+		UnlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
 	}
 
-	var unlockKeyFlagDefault string
+	var UnlockKeyFlagDefault string
 
-	_ = cmd.PersistentFlags().String(unlockKeyFlagName, unlockKeyFlagDefault, unlockKeyDescription)
+	_ = cmd.PersistentFlags().String(UnlockKeyFlagName, UnlockKeyFlagDefault, UnlockKeyDescription)
 
 	return nil
 }
@@ -149,11 +149,11 @@ func registerSwarmUnlockkeyOKBodyUnlockKey(depth int, cmdPrefix string, cmd *cob
 func retrieveModelSwarmUnlockkeyOKBodyFlags(depth int, m *swarm.SwarmUnlockkeyOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, unlockKeyAdded := retrieveSwarmUnlockkeyOKBodyUnlockKeyFlags(depth, m, cmdPrefix, cmd)
+	err, UnlockKeyAdded := retrieveSwarmUnlockkeyOKBodyUnlockKeyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || unlockKeyAdded
+	retAdded = retAdded || UnlockKeyAdded
 
 	return nil, retAdded
 }
@@ -164,21 +164,21 @@ func retrieveSwarmUnlockkeyOKBodyUnlockKeyFlags(depth int, m *swarm.SwarmUnlockk
 	}
 	retAdded := false
 
-	unlockKeyFlagName := fmt.Sprintf("%v.UnlockKey", cmdPrefix)
-	if cmd.Flags().Changed(unlockKeyFlagName) {
+	UnlockKeyFlagName := fmt.Sprintf("%v.UnlockKey", cmdPrefix)
+	if cmd.Flags().Changed(UnlockKeyFlagName) {
 
-		var unlockKeyFlagName string
+		var UnlockKeyFlagName string
 		if cmdPrefix == "" {
-			unlockKeyFlagName = "UnlockKey"
+			UnlockKeyFlagName = "UnlockKey"
 		} else {
-			unlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
+			UnlockKeyFlagName = fmt.Sprintf("%v.UnlockKey", cmdPrefix)
 		}
 
-		unlockKeyFlagValue, err := cmd.Flags().GetString(unlockKeyFlagName)
+		UnlockKeyFlagValue, err := cmd.Flags().GetString(UnlockKeyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UnlockKey = unlockKeyFlagValue
+		m.UnlockKey = UnlockKeyFlagValue
 
 		retAdded = true
 	}

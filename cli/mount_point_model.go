@@ -57,18 +57,18 @@ func registerMountPointDestination(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	destinationDescription := ``
+	DestinationDescription := ``
 
-	var destinationFlagName string
+	var DestinationFlagName string
 	if cmdPrefix == "" {
-		destinationFlagName = "Destination"
+		DestinationFlagName = "Destination"
 	} else {
-		destinationFlagName = fmt.Sprintf("%v.Destination", cmdPrefix)
+		DestinationFlagName = fmt.Sprintf("%v.Destination", cmdPrefix)
 	}
 
-	var destinationFlagDefault string
+	var DestinationFlagDefault string
 
-	_ = cmd.PersistentFlags().String(destinationFlagName, destinationFlagDefault, destinationDescription)
+	_ = cmd.PersistentFlags().String(DestinationFlagName, DestinationFlagDefault, DestinationDescription)
 
 	return nil
 }
@@ -78,18 +78,18 @@ func registerMountPointDriver(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	driverDescription := ``
+	DriverDescription := ``
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string
+	var DriverFlagDefault string
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -99,18 +99,18 @@ func registerMountPointMode(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	modeDescription := ``
+	ModeDescription := ``
 
-	var modeFlagName string
+	var ModeFlagName string
 	if cmdPrefix == "" {
-		modeFlagName = "Mode"
+		ModeFlagName = "Mode"
 	} else {
-		modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+		ModeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 	}
 
-	var modeFlagDefault string
+	var ModeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(modeFlagName, modeFlagDefault, modeDescription)
+	_ = cmd.PersistentFlags().String(ModeFlagName, ModeFlagDefault, ModeDescription)
 
 	return nil
 }
@@ -120,18 +120,18 @@ func registerMountPointName(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -141,18 +141,18 @@ func registerMountPointPropagation(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	propagationDescription := ``
+	PropagationDescription := ``
 
-	var propagationFlagName string
+	var PropagationFlagName string
 	if cmdPrefix == "" {
-		propagationFlagName = "Propagation"
+		PropagationFlagName = "Propagation"
 	} else {
-		propagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
+		PropagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
 	}
 
-	var propagationFlagDefault string
+	var PropagationFlagDefault string
 
-	_ = cmd.PersistentFlags().String(propagationFlagName, propagationFlagDefault, propagationDescription)
+	_ = cmd.PersistentFlags().String(PropagationFlagName, PropagationFlagDefault, PropagationDescription)
 
 	return nil
 }
@@ -162,18 +162,18 @@ func registerMountPointRW(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	rWDescription := ``
+	RWDescription := ``
 
-	var rWFlagName string
+	var RWFlagName string
 	if cmdPrefix == "" {
-		rWFlagName = "RW"
+		RWFlagName = "RW"
 	} else {
-		rWFlagName = fmt.Sprintf("%v.RW", cmdPrefix)
+		RWFlagName = fmt.Sprintf("%v.RW", cmdPrefix)
 	}
 
-	var rWFlagDefault bool
+	var RWFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(rWFlagName, rWFlagDefault, rWDescription)
+	_ = cmd.PersistentFlags().Bool(RWFlagName, RWFlagDefault, RWDescription)
 
 	return nil
 }
@@ -183,18 +183,18 @@ func registerMountPointSource(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	sourceDescription := ``
+	SourceDescription := ``
 
-	var sourceFlagName string
+	var SourceFlagName string
 	if cmdPrefix == "" {
-		sourceFlagName = "Source"
+		SourceFlagName = "Source"
 	} else {
-		sourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
+		SourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
 	}
 
-	var sourceFlagDefault string
+	var SourceFlagDefault string
 
-	_ = cmd.PersistentFlags().String(sourceFlagName, sourceFlagDefault, sourceDescription)
+	_ = cmd.PersistentFlags().String(SourceFlagName, SourceFlagDefault, SourceDescription)
 
 	return nil
 }
@@ -204,18 +204,18 @@ func registerMountPointType(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	typeDescription := ``
+	TypeDescription := ``
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
 	return nil
 }
@@ -224,53 +224,53 @@ func registerMountPointType(depth int, cmdPrefix string, cmd *cobra.Command) err
 func retrieveModelMountPointFlags(depth int, m *models.MountPoint, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, destinationAdded := retrieveMountPointDestinationFlags(depth, m, cmdPrefix, cmd)
+	err, DestinationAdded := retrieveMountPointDestinationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || destinationAdded
+	retAdded = retAdded || DestinationAdded
 
-	err, driverAdded := retrieveMountPointDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveMountPointDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, modeAdded := retrieveMountPointModeFlags(depth, m, cmdPrefix, cmd)
+	err, ModeAdded := retrieveMountPointModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || modeAdded
+	retAdded = retAdded || ModeAdded
 
-	err, nameAdded := retrieveMountPointNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveMountPointNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, propagationAdded := retrieveMountPointPropagationFlags(depth, m, cmdPrefix, cmd)
+	err, PropagationAdded := retrieveMountPointPropagationFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || propagationAdded
+	retAdded = retAdded || PropagationAdded
 
-	err, rWAdded := retrieveMountPointRWFlags(depth, m, cmdPrefix, cmd)
+	err, RWAdded := retrieveMountPointRWFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || rWAdded
+	retAdded = retAdded || RWAdded
 
-	err, sourceAdded := retrieveMountPointSourceFlags(depth, m, cmdPrefix, cmd)
+	err, SourceAdded := retrieveMountPointSourceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sourceAdded
+	retAdded = retAdded || SourceAdded
 
-	err, typeAdded := retrieveMountPointTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrieveMountPointTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
 	return nil, retAdded
 }
@@ -281,21 +281,21 @@ func retrieveMountPointDestinationFlags(depth int, m *models.MountPoint, cmdPref
 	}
 	retAdded := false
 
-	destinationFlagName := fmt.Sprintf("%v.Destination", cmdPrefix)
-	if cmd.Flags().Changed(destinationFlagName) {
+	DestinationFlagName := fmt.Sprintf("%v.Destination", cmdPrefix)
+	if cmd.Flags().Changed(DestinationFlagName) {
 
-		var destinationFlagName string
+		var DestinationFlagName string
 		if cmdPrefix == "" {
-			destinationFlagName = "Destination"
+			DestinationFlagName = "Destination"
 		} else {
-			destinationFlagName = fmt.Sprintf("%v.Destination", cmdPrefix)
+			DestinationFlagName = fmt.Sprintf("%v.Destination", cmdPrefix)
 		}
 
-		destinationFlagValue, err := cmd.Flags().GetString(destinationFlagName)
+		DestinationFlagValue, err := cmd.Flags().GetString(DestinationFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Destination = destinationFlagValue
+		m.Destination = DestinationFlagValue
 
 		retAdded = true
 	}
@@ -309,21 +309,21 @@ func retrieveMountPointDriverFlags(depth int, m *models.MountPoint, cmdPrefix st
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = driverFlagValue
+		m.Driver = DriverFlagValue
 
 		retAdded = true
 	}
@@ -337,21 +337,21 @@ func retrieveMountPointModeFlags(depth int, m *models.MountPoint, cmdPrefix stri
 	}
 	retAdded := false
 
-	modeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
-	if cmd.Flags().Changed(modeFlagName) {
+	ModeFlagName := fmt.Sprintf("%v.Mode", cmdPrefix)
+	if cmd.Flags().Changed(ModeFlagName) {
 
-		var modeFlagName string
+		var ModeFlagName string
 		if cmdPrefix == "" {
-			modeFlagName = "Mode"
+			ModeFlagName = "Mode"
 		} else {
-			modeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
+			ModeFlagName = fmt.Sprintf("%v.Mode", cmdPrefix)
 		}
 
-		modeFlagValue, err := cmd.Flags().GetString(modeFlagName)
+		ModeFlagValue, err := cmd.Flags().GetString(ModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Mode = modeFlagValue
+		m.Mode = ModeFlagValue
 
 		retAdded = true
 	}
@@ -365,21 +365,21 @@ func retrieveMountPointNameFlags(depth int, m *models.MountPoint, cmdPrefix stri
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -393,21 +393,21 @@ func retrieveMountPointPropagationFlags(depth int, m *models.MountPoint, cmdPref
 	}
 	retAdded := false
 
-	propagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
-	if cmd.Flags().Changed(propagationFlagName) {
+	PropagationFlagName := fmt.Sprintf("%v.Propagation", cmdPrefix)
+	if cmd.Flags().Changed(PropagationFlagName) {
 
-		var propagationFlagName string
+		var PropagationFlagName string
 		if cmdPrefix == "" {
-			propagationFlagName = "Propagation"
+			PropagationFlagName = "Propagation"
 		} else {
-			propagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
+			PropagationFlagName = fmt.Sprintf("%v.Propagation", cmdPrefix)
 		}
 
-		propagationFlagValue, err := cmd.Flags().GetString(propagationFlagName)
+		PropagationFlagValue, err := cmd.Flags().GetString(PropagationFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Propagation = propagationFlagValue
+		m.Propagation = PropagationFlagValue
 
 		retAdded = true
 	}
@@ -421,21 +421,21 @@ func retrieveMountPointRWFlags(depth int, m *models.MountPoint, cmdPrefix string
 	}
 	retAdded := false
 
-	rWFlagName := fmt.Sprintf("%v.RW", cmdPrefix)
-	if cmd.Flags().Changed(rWFlagName) {
+	RWFlagName := fmt.Sprintf("%v.RW", cmdPrefix)
+	if cmd.Flags().Changed(RWFlagName) {
 
-		var rWFlagName string
+		var RWFlagName string
 		if cmdPrefix == "" {
-			rWFlagName = "RW"
+			RWFlagName = "RW"
 		} else {
-			rWFlagName = fmt.Sprintf("%v.RW", cmdPrefix)
+			RWFlagName = fmt.Sprintf("%v.RW", cmdPrefix)
 		}
 
-		rWFlagValue, err := cmd.Flags().GetBool(rWFlagName)
+		RWFlagValue, err := cmd.Flags().GetBool(RWFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.RW = rWFlagValue
+		m.RW = RWFlagValue
 
 		retAdded = true
 	}
@@ -449,21 +449,21 @@ func retrieveMountPointSourceFlags(depth int, m *models.MountPoint, cmdPrefix st
 	}
 	retAdded := false
 
-	sourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
-	if cmd.Flags().Changed(sourceFlagName) {
+	SourceFlagName := fmt.Sprintf("%v.Source", cmdPrefix)
+	if cmd.Flags().Changed(SourceFlagName) {
 
-		var sourceFlagName string
+		var SourceFlagName string
 		if cmdPrefix == "" {
-			sourceFlagName = "Source"
+			SourceFlagName = "Source"
 		} else {
-			sourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
+			SourceFlagName = fmt.Sprintf("%v.Source", cmdPrefix)
 		}
 
-		sourceFlagValue, err := cmd.Flags().GetString(sourceFlagName)
+		SourceFlagValue, err := cmd.Flags().GetString(SourceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Source = sourceFlagValue
+		m.Source = SourceFlagValue
 
 		retAdded = true
 	}
@@ -477,21 +477,21 @@ func retrieveMountPointTypeFlags(depth int, m *models.MountPoint, cmdPrefix stri
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}

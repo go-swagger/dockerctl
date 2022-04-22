@@ -90,24 +90,24 @@ func registerOperationContainerContainerListParamFlags(cmd *cobra.Command) error
 
 func registerOperationContainerContainerListAllParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	allDescription := `Return all containers. By default, only running containers are shown`
+	AllDescription := `Return all containers. By default, only running containers are shown`
 
-	var allFlagName string
+	var AllFlagName string
 	if cmdPrefix == "" {
-		allFlagName = "all"
+		AllFlagName = "all"
 	} else {
-		allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+		AllFlagName = fmt.Sprintf("%v.all", cmdPrefix)
 	}
 
-	var allFlagDefault bool
+	var AllFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(allFlagName, allFlagDefault, allDescription)
+	_ = cmd.PersistentFlags().Bool(AllFlagName, AllFlagDefault, AllDescription)
 
 	return nil
 }
 func registerOperationContainerContainerListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `Filters to process on the container list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `). For example, ` + "`" + `{"status": ["paused"]}` + "`" + ` will only return paused containers. Available filters:
+	FiltersDescription := `Filters to process on the container list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `). For example, ` + "`" + `{"status": ["paused"]}` + "`" + ` will only return paused containers. Available filters:
 
 - ` + "`" + `ancestor` + "`" + `=(` + "`" + `<image-name>[:<tag>]` + "`" + `, ` + "`" + `<image id>` + "`" + `, or ` + "`" + `<image@digest>` + "`" + `)
 - ` + "`" + `before` + "`" + `=(` + "`" + `<container id>` + "`" + ` or ` + "`" + `<container name>` + "`" + `)
@@ -126,50 +126,50 @@ func registerOperationContainerContainerListFiltersParamFlags(cmdPrefix string, 
 - ` + "`" + `volume` + "`" + `=(` + "`" + `<volume name>` + "`" + ` or ` + "`" + `<mount point destination>` + "`" + `)
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
 func registerOperationContainerContainerListLimitParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	limitDescription := `Return this number of most recently created containers, including non-running ones.`
+	LimitDescription := `Return this number of most recently created containers, including non-running ones.`
 
-	var limitFlagName string
+	var LimitFlagName string
 	if cmdPrefix == "" {
-		limitFlagName = "limit"
+		LimitFlagName = "limit"
 	} else {
-		limitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
+		LimitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
 	}
 
-	var limitFlagDefault int64
+	var LimitFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(limitFlagName, limitFlagDefault, limitDescription)
+	_ = cmd.PersistentFlags().Int64(LimitFlagName, LimitFlagDefault, LimitDescription)
 
 	return nil
 }
 func registerOperationContainerContainerListSizeParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	sizeDescription := `Return the size of container as fields ` + "`" + `SizeRw` + "`" + ` and ` + "`" + `SizeRootFs` + "`" + `.`
+	SizeDescription := `Return the size of container as fields ` + "`" + `SizeRw` + "`" + ` and ` + "`" + `SizeRootFs` + "`" + `.`
 
-	var sizeFlagName string
+	var SizeFlagName string
 	if cmdPrefix == "" {
-		sizeFlagName = "size"
+		SizeFlagName = "size"
 	} else {
-		sizeFlagName = fmt.Sprintf("%v.size", cmdPrefix)
+		SizeFlagName = fmt.Sprintf("%v.size", cmdPrefix)
 	}
 
-	var sizeFlagDefault bool
+	var SizeFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(sizeFlagName, sizeFlagDefault, sizeDescription)
+	_ = cmd.PersistentFlags().Bool(SizeFlagName, SizeFlagDefault, SizeDescription)
 
 	return nil
 }
@@ -178,18 +178,18 @@ func retrieveOperationContainerContainerListAllFlag(m *container.ContainerListPa
 	retAdded := false
 	if cmd.Flags().Changed("all") {
 
-		var allFlagName string
+		var AllFlagName string
 		if cmdPrefix == "" {
-			allFlagName = "all"
+			AllFlagName = "all"
 		} else {
-			allFlagName = fmt.Sprintf("%v.all", cmdPrefix)
+			AllFlagName = fmt.Sprintf("%v.all", cmdPrefix)
 		}
 
-		allFlagValue, err := cmd.Flags().GetBool(allFlagName)
+		AllFlagValue, err := cmd.Flags().GetBool(AllFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.All = &allFlagValue
+		m.All = &AllFlagValue
 
 	}
 	return nil, retAdded
@@ -198,18 +198,18 @@ func retrieveOperationContainerContainerListFiltersFlag(m *container.ContainerLi
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -218,18 +218,18 @@ func retrieveOperationContainerContainerListLimitFlag(m *container.ContainerList
 	retAdded := false
 	if cmd.Flags().Changed("limit") {
 
-		var limitFlagName string
+		var LimitFlagName string
 		if cmdPrefix == "" {
-			limitFlagName = "limit"
+			LimitFlagName = "limit"
 		} else {
-			limitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
+			LimitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
 		}
 
-		limitFlagValue, err := cmd.Flags().GetInt64(limitFlagName)
+		LimitFlagValue, err := cmd.Flags().GetInt64(LimitFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Limit = &limitFlagValue
+		m.Limit = &LimitFlagValue
 
 	}
 	return nil, retAdded
@@ -238,18 +238,18 @@ func retrieveOperationContainerContainerListSizeFlag(m *container.ContainerListP
 	retAdded := false
 	if cmd.Flags().Changed("size") {
 
-		var sizeFlagName string
+		var SizeFlagName string
 		if cmdPrefix == "" {
-			sizeFlagName = "size"
+			SizeFlagName = "size"
 		} else {
-			sizeFlagName = fmt.Sprintf("%v.size", cmdPrefix)
+			SizeFlagName = fmt.Sprintf("%v.size", cmdPrefix)
 		}
 
-		sizeFlagValue, err := cmd.Flags().GetBool(sizeFlagName)
+		SizeFlagValue, err := cmd.Flags().GetBool(SizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Size = &sizeFlagValue
+		m.Size = &SizeFlagValue
 
 	}
 	return nil, retAdded

@@ -65,18 +65,18 @@ func registerBuildCacheCreatedAt(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	createdAtDescription := ``
+	CreatedAtDescription := ``
 
-	var createdAtFlagName string
+	var CreatedAtFlagName string
 	if cmdPrefix == "" {
-		createdAtFlagName = "CreatedAt"
+		CreatedAtFlagName = "CreatedAt"
 	} else {
-		createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+		CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	}
 
-	var createdAtFlagDefault int64
+	var CreatedAtFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(createdAtFlagName, createdAtFlagDefault, createdAtDescription)
+	_ = cmd.PersistentFlags().Int64(CreatedAtFlagName, CreatedAtFlagDefault, CreatedAtDescription)
 
 	return nil
 }
@@ -86,18 +86,18 @@ func registerBuildCacheDescription(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	descriptionDescription := ``
+	DescriptionDescription := ``
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -107,18 +107,18 @@ func registerBuildCacheID(depth int, cmdPrefix string, cmd *cobra.Command) error
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -128,18 +128,18 @@ func registerBuildCacheInUse(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	inUseDescription := ``
+	InUseDescription := ``
 
-	var inUseFlagName string
+	var InUseFlagName string
 	if cmdPrefix == "" {
-		inUseFlagName = "InUse"
+		InUseFlagName = "InUse"
 	} else {
-		inUseFlagName = fmt.Sprintf("%v.InUse", cmdPrefix)
+		InUseFlagName = fmt.Sprintf("%v.InUse", cmdPrefix)
 	}
 
-	var inUseFlagDefault bool
+	var InUseFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(inUseFlagName, inUseFlagDefault, inUseDescription)
+	_ = cmd.PersistentFlags().Bool(InUseFlagName, InUseFlagDefault, InUseDescription)
 
 	return nil
 }
@@ -149,18 +149,18 @@ func registerBuildCacheLastUsedAt(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	lastUsedAtDescription := ``
+	LastUsedAtDescription := ``
 
-	var lastUsedAtFlagName string
+	var LastUsedAtFlagName string
 	if cmdPrefix == "" {
-		lastUsedAtFlagName = "LastUsedAt"
+		LastUsedAtFlagName = "LastUsedAt"
 	} else {
-		lastUsedAtFlagName = fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
+		LastUsedAtFlagName = fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
 	}
 
-	var lastUsedAtFlagDefault int64
+	var LastUsedAtFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(lastUsedAtFlagName, lastUsedAtFlagDefault, lastUsedAtDescription)
+	_ = cmd.PersistentFlags().Int64(LastUsedAtFlagName, LastUsedAtFlagDefault, LastUsedAtDescription)
 
 	return nil
 }
@@ -170,18 +170,18 @@ func registerBuildCacheParent(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	parentDescription := ``
+	ParentDescription := ``
 
-	var parentFlagName string
+	var ParentFlagName string
 	if cmdPrefix == "" {
-		parentFlagName = "Parent"
+		ParentFlagName = "Parent"
 	} else {
-		parentFlagName = fmt.Sprintf("%v.Parent", cmdPrefix)
+		ParentFlagName = fmt.Sprintf("%v.Parent", cmdPrefix)
 	}
 
-	var parentFlagDefault string
+	var ParentFlagDefault string
 
-	_ = cmd.PersistentFlags().String(parentFlagName, parentFlagDefault, parentDescription)
+	_ = cmd.PersistentFlags().String(ParentFlagName, ParentFlagDefault, ParentDescription)
 
 	return nil
 }
@@ -191,18 +191,18 @@ func registerBuildCacheShared(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	sharedDescription := ``
+	SharedDescription := ``
 
-	var sharedFlagName string
+	var SharedFlagName string
 	if cmdPrefix == "" {
-		sharedFlagName = "Shared"
+		SharedFlagName = "Shared"
 	} else {
-		sharedFlagName = fmt.Sprintf("%v.Shared", cmdPrefix)
+		SharedFlagName = fmt.Sprintf("%v.Shared", cmdPrefix)
 	}
 
-	var sharedFlagDefault bool
+	var SharedFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(sharedFlagName, sharedFlagDefault, sharedDescription)
+	_ = cmd.PersistentFlags().Bool(SharedFlagName, SharedFlagDefault, SharedDescription)
 
 	return nil
 }
@@ -212,18 +212,18 @@ func registerBuildCacheSize(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	sizeDescription := ``
+	SizeDescription := ``
 
-	var sizeFlagName string
+	var SizeFlagName string
 	if cmdPrefix == "" {
-		sizeFlagName = "Size"
+		SizeFlagName = "Size"
 	} else {
-		sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+		SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 	}
 
-	var sizeFlagDefault int64
+	var SizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sizeFlagName, sizeFlagDefault, sizeDescription)
+	_ = cmd.PersistentFlags().Int64(SizeFlagName, SizeFlagDefault, SizeDescription)
 
 	return nil
 }
@@ -233,18 +233,18 @@ func registerBuildCacheType(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	typeDescription := ``
+	TypeDescription := ``
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
 	return nil
 }
@@ -254,18 +254,18 @@ func registerBuildCacheUsageCount(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	usageCountDescription := ``
+	UsageCountDescription := ``
 
-	var usageCountFlagName string
+	var UsageCountFlagName string
 	if cmdPrefix == "" {
-		usageCountFlagName = "UsageCount"
+		UsageCountFlagName = "UsageCount"
 	} else {
-		usageCountFlagName = fmt.Sprintf("%v.UsageCount", cmdPrefix)
+		UsageCountFlagName = fmt.Sprintf("%v.UsageCount", cmdPrefix)
 	}
 
-	var usageCountFlagDefault int64
+	var UsageCountFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(usageCountFlagName, usageCountFlagDefault, usageCountDescription)
+	_ = cmd.PersistentFlags().Int64(UsageCountFlagName, UsageCountFlagDefault, UsageCountDescription)
 
 	return nil
 }
@@ -274,65 +274,65 @@ func registerBuildCacheUsageCount(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelBuildCacheFlags(depth int, m *models.BuildCache, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, createdAtAdded := retrieveBuildCacheCreatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAtAdded := retrieveBuildCacheCreatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAtAdded
+	retAdded = retAdded || CreatedAtAdded
 
-	err, descriptionAdded := retrieveBuildCacheDescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrieveBuildCacheDescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, idAdded := retrieveBuildCacheIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveBuildCacheIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, inUseAdded := retrieveBuildCacheInUseFlags(depth, m, cmdPrefix, cmd)
+	err, InUseAdded := retrieveBuildCacheInUseFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || inUseAdded
+	retAdded = retAdded || InUseAdded
 
-	err, lastUsedAtAdded := retrieveBuildCacheLastUsedAtFlags(depth, m, cmdPrefix, cmd)
+	err, LastUsedAtAdded := retrieveBuildCacheLastUsedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || lastUsedAtAdded
+	retAdded = retAdded || LastUsedAtAdded
 
-	err, parentAdded := retrieveBuildCacheParentFlags(depth, m, cmdPrefix, cmd)
+	err, ParentAdded := retrieveBuildCacheParentFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || parentAdded
+	retAdded = retAdded || ParentAdded
 
-	err, sharedAdded := retrieveBuildCacheSharedFlags(depth, m, cmdPrefix, cmd)
+	err, SharedAdded := retrieveBuildCacheSharedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sharedAdded
+	retAdded = retAdded || SharedAdded
 
-	err, sizeAdded := retrieveBuildCacheSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SizeAdded := retrieveBuildCacheSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sizeAdded
+	retAdded = retAdded || SizeAdded
 
-	err, typeAdded := retrieveBuildCacheTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrieveBuildCacheTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
-	err, usageCountAdded := retrieveBuildCacheUsageCountFlags(depth, m, cmdPrefix, cmd)
+	err, UsageCountAdded := retrieveBuildCacheUsageCountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || usageCountAdded
+	retAdded = retAdded || UsageCountAdded
 
 	return nil, retAdded
 }
@@ -343,21 +343,21 @@ func retrieveBuildCacheCreatedAtFlags(depth int, m *models.BuildCache, cmdPrefix
 	}
 	retAdded := false
 
-	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
-	if cmd.Flags().Changed(createdAtFlagName) {
+	CreatedAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+	if cmd.Flags().Changed(CreatedAtFlagName) {
 
-		var createdAtFlagName string
+		var CreatedAtFlagName string
 		if cmdPrefix == "" {
-			createdAtFlagName = "CreatedAt"
+			CreatedAtFlagName = "CreatedAt"
 		} else {
-			createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+			CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 		}
 
-		createdAtFlagValue, err := cmd.Flags().GetInt64(createdAtFlagName)
+		CreatedAtFlagValue, err := cmd.Flags().GetInt64(CreatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedAt = createdAtFlagValue
+		m.CreatedAt = CreatedAtFlagValue
 
 		retAdded = true
 	}
@@ -371,21 +371,21 @@ func retrieveBuildCacheDescriptionFlags(depth int, m *models.BuildCache, cmdPref
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "Description"
+			DescriptionFlagName = "Description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -399,21 +399,21 @@ func retrieveBuildCacheIDFlags(depth int, m *models.BuildCache, cmdPrefix string
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -427,21 +427,21 @@ func retrieveBuildCacheInUseFlags(depth int, m *models.BuildCache, cmdPrefix str
 	}
 	retAdded := false
 
-	inUseFlagName := fmt.Sprintf("%v.InUse", cmdPrefix)
-	if cmd.Flags().Changed(inUseFlagName) {
+	InUseFlagName := fmt.Sprintf("%v.InUse", cmdPrefix)
+	if cmd.Flags().Changed(InUseFlagName) {
 
-		var inUseFlagName string
+		var InUseFlagName string
 		if cmdPrefix == "" {
-			inUseFlagName = "InUse"
+			InUseFlagName = "InUse"
 		} else {
-			inUseFlagName = fmt.Sprintf("%v.InUse", cmdPrefix)
+			InUseFlagName = fmt.Sprintf("%v.InUse", cmdPrefix)
 		}
 
-		inUseFlagValue, err := cmd.Flags().GetBool(inUseFlagName)
+		InUseFlagValue, err := cmd.Flags().GetBool(InUseFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.InUse = inUseFlagValue
+		m.InUse = InUseFlagValue
 
 		retAdded = true
 	}
@@ -455,21 +455,21 @@ func retrieveBuildCacheLastUsedAtFlags(depth int, m *models.BuildCache, cmdPrefi
 	}
 	retAdded := false
 
-	lastUsedAtFlagName := fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
-	if cmd.Flags().Changed(lastUsedAtFlagName) {
+	LastUsedAtFlagName := fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
+	if cmd.Flags().Changed(LastUsedAtFlagName) {
 
-		var lastUsedAtFlagName string
+		var LastUsedAtFlagName string
 		if cmdPrefix == "" {
-			lastUsedAtFlagName = "LastUsedAt"
+			LastUsedAtFlagName = "LastUsedAt"
 		} else {
-			lastUsedAtFlagName = fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
+			LastUsedAtFlagName = fmt.Sprintf("%v.LastUsedAt", cmdPrefix)
 		}
 
-		lastUsedAtFlagValue, err := cmd.Flags().GetInt64(lastUsedAtFlagName)
+		LastUsedAtFlagValue, err := cmd.Flags().GetInt64(LastUsedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.LastUsedAt = &lastUsedAtFlagValue
+		m.LastUsedAt = &LastUsedAtFlagValue
 
 		retAdded = true
 	}
@@ -483,21 +483,21 @@ func retrieveBuildCacheParentFlags(depth int, m *models.BuildCache, cmdPrefix st
 	}
 	retAdded := false
 
-	parentFlagName := fmt.Sprintf("%v.Parent", cmdPrefix)
-	if cmd.Flags().Changed(parentFlagName) {
+	ParentFlagName := fmt.Sprintf("%v.Parent", cmdPrefix)
+	if cmd.Flags().Changed(ParentFlagName) {
 
-		var parentFlagName string
+		var ParentFlagName string
 		if cmdPrefix == "" {
-			parentFlagName = "Parent"
+			ParentFlagName = "Parent"
 		} else {
-			parentFlagName = fmt.Sprintf("%v.Parent", cmdPrefix)
+			ParentFlagName = fmt.Sprintf("%v.Parent", cmdPrefix)
 		}
 
-		parentFlagValue, err := cmd.Flags().GetString(parentFlagName)
+		ParentFlagValue, err := cmd.Flags().GetString(ParentFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Parent = parentFlagValue
+		m.Parent = ParentFlagValue
 
 		retAdded = true
 	}
@@ -511,21 +511,21 @@ func retrieveBuildCacheSharedFlags(depth int, m *models.BuildCache, cmdPrefix st
 	}
 	retAdded := false
 
-	sharedFlagName := fmt.Sprintf("%v.Shared", cmdPrefix)
-	if cmd.Flags().Changed(sharedFlagName) {
+	SharedFlagName := fmt.Sprintf("%v.Shared", cmdPrefix)
+	if cmd.Flags().Changed(SharedFlagName) {
 
-		var sharedFlagName string
+		var SharedFlagName string
 		if cmdPrefix == "" {
-			sharedFlagName = "Shared"
+			SharedFlagName = "Shared"
 		} else {
-			sharedFlagName = fmt.Sprintf("%v.Shared", cmdPrefix)
+			SharedFlagName = fmt.Sprintf("%v.Shared", cmdPrefix)
 		}
 
-		sharedFlagValue, err := cmd.Flags().GetBool(sharedFlagName)
+		SharedFlagValue, err := cmd.Flags().GetBool(SharedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Shared = sharedFlagValue
+		m.Shared = SharedFlagValue
 
 		retAdded = true
 	}
@@ -539,21 +539,21 @@ func retrieveBuildCacheSizeFlags(depth int, m *models.BuildCache, cmdPrefix stri
 	}
 	retAdded := false
 
-	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
-	if cmd.Flags().Changed(sizeFlagName) {
+	SizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
+	if cmd.Flags().Changed(SizeFlagName) {
 
-		var sizeFlagName string
+		var SizeFlagName string
 		if cmdPrefix == "" {
-			sizeFlagName = "Size"
+			SizeFlagName = "Size"
 		} else {
-			sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+			SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 		}
 
-		sizeFlagValue, err := cmd.Flags().GetInt64(sizeFlagName)
+		SizeFlagValue, err := cmd.Flags().GetInt64(SizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Size = sizeFlagValue
+		m.Size = SizeFlagValue
 
 		retAdded = true
 	}
@@ -567,21 +567,21 @@ func retrieveBuildCacheTypeFlags(depth int, m *models.BuildCache, cmdPrefix stri
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}
@@ -595,21 +595,21 @@ func retrieveBuildCacheUsageCountFlags(depth int, m *models.BuildCache, cmdPrefi
 	}
 	retAdded := false
 
-	usageCountFlagName := fmt.Sprintf("%v.UsageCount", cmdPrefix)
-	if cmd.Flags().Changed(usageCountFlagName) {
+	UsageCountFlagName := fmt.Sprintf("%v.UsageCount", cmdPrefix)
+	if cmd.Flags().Changed(UsageCountFlagName) {
 
-		var usageCountFlagName string
+		var UsageCountFlagName string
 		if cmdPrefix == "" {
-			usageCountFlagName = "UsageCount"
+			UsageCountFlagName = "UsageCount"
 		} else {
-			usageCountFlagName = fmt.Sprintf("%v.UsageCount", cmdPrefix)
+			UsageCountFlagName = fmt.Sprintf("%v.UsageCount", cmdPrefix)
 		}
 
-		usageCountFlagValue, err := cmd.Flags().GetInt64(usageCountFlagName)
+		UsageCountFlagValue, err := cmd.Flags().GetInt64(UsageCountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UsageCount = usageCountFlagValue
+		m.UsageCount = UsageCountFlagValue
 
 		retAdded = true
 	}

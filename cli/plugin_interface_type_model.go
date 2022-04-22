@@ -37,18 +37,18 @@ func registerPluginInterfaceTypeCapability(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	capabilityDescription := `Required. `
+	CapabilityDescription := `Required. `
 
-	var capabilityFlagName string
+	var CapabilityFlagName string
 	if cmdPrefix == "" {
-		capabilityFlagName = "Capability"
+		CapabilityFlagName = "Capability"
 	} else {
-		capabilityFlagName = fmt.Sprintf("%v.Capability", cmdPrefix)
+		CapabilityFlagName = fmt.Sprintf("%v.Capability", cmdPrefix)
 	}
 
-	var capabilityFlagDefault string
+	var CapabilityFlagDefault string
 
-	_ = cmd.PersistentFlags().String(capabilityFlagName, capabilityFlagDefault, capabilityDescription)
+	_ = cmd.PersistentFlags().String(CapabilityFlagName, CapabilityFlagDefault, CapabilityDescription)
 
 	return nil
 }
@@ -58,18 +58,18 @@ func registerPluginInterfaceTypePrefix(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	prefixDescription := `Required. `
+	PrefixDescription := `Required. `
 
-	var prefixFlagName string
+	var PrefixFlagName string
 	if cmdPrefix == "" {
-		prefixFlagName = "Prefix"
+		PrefixFlagName = "Prefix"
 	} else {
-		prefixFlagName = fmt.Sprintf("%v.Prefix", cmdPrefix)
+		PrefixFlagName = fmt.Sprintf("%v.Prefix", cmdPrefix)
 	}
 
-	var prefixFlagDefault string
+	var PrefixFlagDefault string
 
-	_ = cmd.PersistentFlags().String(prefixFlagName, prefixFlagDefault, prefixDescription)
+	_ = cmd.PersistentFlags().String(PrefixFlagName, PrefixFlagDefault, PrefixDescription)
 
 	return nil
 }
@@ -79,18 +79,18 @@ func registerPluginInterfaceTypeVersion(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	versionDescription := `Required. `
+	VersionDescription := `Required. `
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	var versionFlagDefault string
+	var VersionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(versionFlagName, versionFlagDefault, versionDescription)
+	_ = cmd.PersistentFlags().String(VersionFlagName, VersionFlagDefault, VersionDescription)
 
 	return nil
 }
@@ -99,23 +99,23 @@ func registerPluginInterfaceTypeVersion(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelPluginInterfaceTypeFlags(depth int, m *models.PluginInterfaceType, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, capabilityAdded := retrievePluginInterfaceTypeCapabilityFlags(depth, m, cmdPrefix, cmd)
+	err, CapabilityAdded := retrievePluginInterfaceTypeCapabilityFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || capabilityAdded
+	retAdded = retAdded || CapabilityAdded
 
-	err, prefixAdded := retrievePluginInterfaceTypePrefixFlags(depth, m, cmdPrefix, cmd)
+	err, PrefixAdded := retrievePluginInterfaceTypePrefixFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || prefixAdded
+	retAdded = retAdded || PrefixAdded
 
-	err, versionAdded := retrievePluginInterfaceTypeVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrievePluginInterfaceTypeVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -126,21 +126,21 @@ func retrievePluginInterfaceTypeCapabilityFlags(depth int, m *models.PluginInter
 	}
 	retAdded := false
 
-	capabilityFlagName := fmt.Sprintf("%v.Capability", cmdPrefix)
-	if cmd.Flags().Changed(capabilityFlagName) {
+	CapabilityFlagName := fmt.Sprintf("%v.Capability", cmdPrefix)
+	if cmd.Flags().Changed(CapabilityFlagName) {
 
-		var capabilityFlagName string
+		var CapabilityFlagName string
 		if cmdPrefix == "" {
-			capabilityFlagName = "Capability"
+			CapabilityFlagName = "Capability"
 		} else {
-			capabilityFlagName = fmt.Sprintf("%v.Capability", cmdPrefix)
+			CapabilityFlagName = fmt.Sprintf("%v.Capability", cmdPrefix)
 		}
 
-		capabilityFlagValue, err := cmd.Flags().GetString(capabilityFlagName)
+		CapabilityFlagValue, err := cmd.Flags().GetString(CapabilityFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Capability = capabilityFlagValue
+		m.Capability = CapabilityFlagValue
 
 		retAdded = true
 	}
@@ -154,21 +154,21 @@ func retrievePluginInterfaceTypePrefixFlags(depth int, m *models.PluginInterface
 	}
 	retAdded := false
 
-	prefixFlagName := fmt.Sprintf("%v.Prefix", cmdPrefix)
-	if cmd.Flags().Changed(prefixFlagName) {
+	PrefixFlagName := fmt.Sprintf("%v.Prefix", cmdPrefix)
+	if cmd.Flags().Changed(PrefixFlagName) {
 
-		var prefixFlagName string
+		var PrefixFlagName string
 		if cmdPrefix == "" {
-			prefixFlagName = "Prefix"
+			PrefixFlagName = "Prefix"
 		} else {
-			prefixFlagName = fmt.Sprintf("%v.Prefix", cmdPrefix)
+			PrefixFlagName = fmt.Sprintf("%v.Prefix", cmdPrefix)
 		}
 
-		prefixFlagValue, err := cmd.Flags().GetString(prefixFlagName)
+		PrefixFlagValue, err := cmd.Flags().GetString(PrefixFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Prefix = prefixFlagValue
+		m.Prefix = PrefixFlagValue
 
 		retAdded = true
 	}
@@ -182,21 +182,21 @@ func retrievePluginInterfaceTypeVersionFlags(depth int, m *models.PluginInterfac
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 
-		var versionFlagName string
+		var VersionFlagName string
 		if cmdPrefix == "" {
-			versionFlagName = "Version"
+			VersionFlagName = "Version"
 		} else {
-			versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+			VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 		}
 
-		versionFlagValue, err := cmd.Flags().GetString(versionFlagName)
+		VersionFlagValue, err := cmd.Flags().GetString(VersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Version = versionFlagValue
+		m.Version = VersionFlagValue
 
 		retAdded = true
 	}

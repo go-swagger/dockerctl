@@ -74,14 +74,14 @@ func registerOperationNetworkNetworkDisconnectParamFlags(cmd *cobra.Command) err
 
 func registerOperationNetworkNetworkDisconnectContainerParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var containerFlagName string
+	var ContainerFlagName string
 	if cmdPrefix == "" {
-		containerFlagName = "container"
+		ContainerFlagName = "container"
 	} else {
-		containerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
+		ContainerFlagName = fmt.Sprintf("%v.container", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(containerFlagName, "", "Optional json string for [container]. ")
+	_ = cmd.PersistentFlags().String(ContainerFlagName, "", "Optional json string for [container]. ")
 
 	// add flags for body
 	if err := registerModelNetworkDisconnectBodyFlags(0, "networkDisconnectBody", cmd); err != nil {
@@ -92,18 +92,18 @@ func registerOperationNetworkNetworkDisconnectContainerParamFlags(cmdPrefix stri
 }
 func registerOperationNetworkNetworkDisconnectIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. Network ID or name`
+	IDDescription := `Required. Network ID or name`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -150,18 +150,18 @@ func retrieveOperationNetworkNetworkDisconnectIDFlag(m *network.NetworkDisconnec
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -236,18 +236,18 @@ func registerNetworkDisconnectBodyContainer(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	containerDescription := `The ID or name of the container to disconnect from the network.`
+	ContainerDescription := `The ID or name of the container to disconnect from the network.`
 
-	var containerFlagName string
+	var ContainerFlagName string
 	if cmdPrefix == "" {
-		containerFlagName = "Container"
+		ContainerFlagName = "Container"
 	} else {
-		containerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
+		ContainerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
 	}
 
-	var containerFlagDefault string
+	var ContainerFlagDefault string
 
-	_ = cmd.PersistentFlags().String(containerFlagName, containerFlagDefault, containerDescription)
+	_ = cmd.PersistentFlags().String(ContainerFlagName, ContainerFlagDefault, ContainerDescription)
 
 	return nil
 }
@@ -257,18 +257,18 @@ func registerNetworkDisconnectBodyForce(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	forceDescription := `Force the container to disconnect from the network.`
+	ForceDescription := `Force the container to disconnect from the network.`
 
-	var forceFlagName string
+	var ForceFlagName string
 	if cmdPrefix == "" {
-		forceFlagName = "Force"
+		ForceFlagName = "Force"
 	} else {
-		forceFlagName = fmt.Sprintf("%v.Force", cmdPrefix)
+		ForceFlagName = fmt.Sprintf("%v.Force", cmdPrefix)
 	}
 
-	var forceFlagDefault bool
+	var ForceFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(forceFlagName, forceFlagDefault, forceDescription)
+	_ = cmd.PersistentFlags().Bool(ForceFlagName, ForceFlagDefault, ForceDescription)
 
 	return nil
 }
@@ -277,17 +277,17 @@ func registerNetworkDisconnectBodyForce(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelNetworkDisconnectBodyFlags(depth int, m *network.NetworkDisconnectBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, containerAdded := retrieveNetworkDisconnectBodyContainerFlags(depth, m, cmdPrefix, cmd)
+	err, ContainerAdded := retrieveNetworkDisconnectBodyContainerFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerAdded
+	retAdded = retAdded || ContainerAdded
 
-	err, forceAdded := retrieveNetworkDisconnectBodyForceFlags(depth, m, cmdPrefix, cmd)
+	err, ForceAdded := retrieveNetworkDisconnectBodyForceFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || forceAdded
+	retAdded = retAdded || ForceAdded
 
 	return nil, retAdded
 }
@@ -298,21 +298,21 @@ func retrieveNetworkDisconnectBodyContainerFlags(depth int, m *network.NetworkDi
 	}
 	retAdded := false
 
-	containerFlagName := fmt.Sprintf("%v.Container", cmdPrefix)
-	if cmd.Flags().Changed(containerFlagName) {
+	ContainerFlagName := fmt.Sprintf("%v.Container", cmdPrefix)
+	if cmd.Flags().Changed(ContainerFlagName) {
 
-		var containerFlagName string
+		var ContainerFlagName string
 		if cmdPrefix == "" {
-			containerFlagName = "Container"
+			ContainerFlagName = "Container"
 		} else {
-			containerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
+			ContainerFlagName = fmt.Sprintf("%v.Container", cmdPrefix)
 		}
 
-		containerFlagValue, err := cmd.Flags().GetString(containerFlagName)
+		ContainerFlagValue, err := cmd.Flags().GetString(ContainerFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Container = containerFlagValue
+		m.Container = ContainerFlagValue
 
 		retAdded = true
 	}
@@ -326,21 +326,21 @@ func retrieveNetworkDisconnectBodyForceFlags(depth int, m *network.NetworkDiscon
 	}
 	retAdded := false
 
-	forceFlagName := fmt.Sprintf("%v.Force", cmdPrefix)
-	if cmd.Flags().Changed(forceFlagName) {
+	ForceFlagName := fmt.Sprintf("%v.Force", cmdPrefix)
+	if cmd.Flags().Changed(ForceFlagName) {
 
-		var forceFlagName string
+		var ForceFlagName string
 		if cmdPrefix == "" {
-			forceFlagName = "Force"
+			ForceFlagName = "Force"
 		} else {
-			forceFlagName = fmt.Sprintf("%v.Force", cmdPrefix)
+			ForceFlagName = fmt.Sprintf("%v.Force", cmdPrefix)
 		}
 
-		forceFlagValue, err := cmd.Flags().GetBool(forceFlagName)
+		ForceFlagValue, err := cmd.Flags().GetBool(ForceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Force = forceFlagValue
+		m.Force = ForceFlagValue
 
 		retAdded = true
 	}

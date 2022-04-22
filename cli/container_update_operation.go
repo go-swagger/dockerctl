@@ -75,31 +75,31 @@ func registerOperationContainerContainerUpdateParamFlags(cmd *cobra.Command) err
 
 func registerOperationContainerContainerUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationContainerContainerUpdateUpdateParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var updateFlagName string
+	var UpdateFlagName string
 	if cmdPrefix == "" {
-		updateFlagName = "update"
+		UpdateFlagName = "update"
 	} else {
-		updateFlagName = fmt.Sprintf("%v.update", cmdPrefix)
+		UpdateFlagName = fmt.Sprintf("%v.update", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(updateFlagName, "", "Optional json string for [update]. ")
+	_ = cmd.PersistentFlags().String(UpdateFlagName, "", "Optional json string for [update]. ")
 
 	// add flags for body
 	if err := registerModelContainerUpdateBodyFlags(0, "containerUpdateBody", cmd); err != nil {
@@ -113,18 +113,18 @@ func retrieveOperationContainerContainerUpdateIDFlag(m *container.ContainerUpdat
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -247,14 +247,14 @@ func registerContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicy(de
 		return nil
 	}
 
-	var restartPolicyFlagName string
+	var RestartPolicyFlagName string
 	if cmdPrefix == "" {
-		restartPolicyFlagName = "RestartPolicy"
+		RestartPolicyFlagName = "RestartPolicy"
 	} else {
-		restartPolicyFlagName = fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
+		RestartPolicyFlagName = fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
 	}
 
-	if err := registerModelRestartPolicyFlags(depth+1, restartPolicyFlagName, cmd); err != nil {
+	if err := registerModelRestartPolicyFlags(depth+1, RestartPolicyFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -266,19 +266,19 @@ func retrieveModelContainerUpdateBodyFlags(depth int, m *container.ContainerUpda
 	retAdded := false
 
 	// retrieve model models.Resources
-	err, containerUpdateParamsBodyAO0Added := retrieveModelResourcesFlags(depth, &m.Resources, cmdPrefix, cmd)
+	err, ContainerUpdateParamsBodyAO0Added := retrieveModelResourcesFlags(depth, &m.Resources, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containerUpdateParamsBodyAO0Added
+	retAdded = retAdded || ContainerUpdateParamsBodyAO0Added
 
 	// retrieve allOf ContainerUpdateParamsBodyAO1 fields
 
-	err, restartPolicyAdded := retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFlags(depth, m, cmdPrefix, cmd)
+	err, RestartPolicyAdded := retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || restartPolicyAdded
+	retAdded = retAdded || RestartPolicyAdded
 
 	return nil, retAdded
 }
@@ -291,22 +291,22 @@ func retrieveContainerUpdateBodyAnonContainerUpdateParamsBodyAO1RestartPolicyFla
 	}
 	retAdded := false
 
-	restartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
-	if cmd.Flags().Changed(restartPolicyFlagName) {
+	RestartPolicyFlagName := fmt.Sprintf("%v.RestartPolicy", cmdPrefix)
+	if cmd.Flags().Changed(RestartPolicyFlagName) {
 		// info: complex object RestartPolicy models.RestartPolicy is retrieved outside this Changed() block
 	}
-	restartPolicyFlagValue := m.RestartPolicy
-	if swag.IsZero(restartPolicyFlagValue) {
-		restartPolicyFlagValue = &models.RestartPolicy{}
+	RestartPolicyFlagValue := m.RestartPolicy
+	if swag.IsZero(RestartPolicyFlagValue) {
+		RestartPolicyFlagValue = &models.RestartPolicy{}
 	}
 
-	err, restartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, restartPolicyFlagValue, restartPolicyFlagName, cmd)
+	err, RestartPolicyAdded := retrieveModelRestartPolicyFlags(depth+1, RestartPolicyFlagValue, RestartPolicyFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || restartPolicyAdded
-	if restartPolicyAdded {
-		m.RestartPolicy = restartPolicyFlagValue
+	retAdded = retAdded || RestartPolicyAdded
+	if RestartPolicyAdded {
+		m.RestartPolicy = RestartPolicyFlagValue
 	}
 
 	return nil, retAdded
@@ -336,11 +336,11 @@ func registerContainerUpdateOKBodyWarnings(depth int, cmdPrefix string, cmd *cob
 func retrieveModelContainerUpdateOKBodyFlags(depth int, m *container.ContainerUpdateOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, warningsAdded := retrieveContainerUpdateOKBodyWarningsFlags(depth, m, cmdPrefix, cmd)
+	err, WarningsAdded := retrieveContainerUpdateOKBodyWarningsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || warningsAdded
+	retAdded = retAdded || WarningsAdded
 
 	return nil, retAdded
 }
@@ -351,8 +351,8 @@ func retrieveContainerUpdateOKBodyWarningsFlags(depth int, m *container.Containe
 	}
 	retAdded := false
 
-	warningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
-	if cmd.Flags().Changed(warningsFlagName) {
+	WarningsFlagName := fmt.Sprintf("%v.Warnings", cmdPrefix)
+	if cmd.Flags().Changed(WarningsFlagName) {
 		// warning: Warnings array type []string is not supported by go-swagger cli yet
 	}
 

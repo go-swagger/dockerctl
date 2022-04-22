@@ -74,18 +74,18 @@ func registerOperationImageImageGetAllParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageGetAllNamesParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	namesDescription := `Image names to filter by`
+	NamesDescription := `Image names to filter by`
 
-	var namesFlagName string
+	var NamesFlagName string
 	if cmdPrefix == "" {
-		namesFlagName = "names"
+		NamesFlagName = "names"
 	} else {
-		namesFlagName = fmt.Sprintf("%v.names", cmdPrefix)
+		NamesFlagName = fmt.Sprintf("%v.names", cmdPrefix)
 	}
 
-	var namesFlagDefault []string
+	var NamesFlagDefault []string
 
-	_ = cmd.PersistentFlags().StringSlice(namesFlagName, namesFlagDefault, namesDescription)
+	_ = cmd.PersistentFlags().StringSlice(NamesFlagName, NamesFlagDefault, NamesDescription)
 
 	return nil
 }
@@ -94,18 +94,18 @@ func retrieveOperationImageImageGetAllNamesFlag(m *image.ImageGetAllParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("names") {
 
-		var namesFlagName string
+		var NamesFlagName string
 		if cmdPrefix == "" {
-			namesFlagName = "names"
+			NamesFlagName = "names"
 		} else {
-			namesFlagName = fmt.Sprintf("%v.names", cmdPrefix)
+			NamesFlagName = fmt.Sprintf("%v.names", cmdPrefix)
 		}
 
-		namesFlagValues, err := cmd.Flags().GetStringSlice(namesFlagName)
+		NamesFlagValues, err := cmd.Flags().GetStringSlice(NamesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Names = namesFlagValues
+		m.Names = NamesFlagValues
 
 	}
 	return nil, retAdded

@@ -41,18 +41,18 @@ func registerAuthConfigEmail(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	emailDescription := ``
+	EmailDescription := ``
 
-	var emailFlagName string
+	var EmailFlagName string
 	if cmdPrefix == "" {
-		emailFlagName = "email"
+		EmailFlagName = "email"
 	} else {
-		emailFlagName = fmt.Sprintf("%v.email", cmdPrefix)
+		EmailFlagName = fmt.Sprintf("%v.email", cmdPrefix)
 	}
 
-	var emailFlagDefault string
+	var EmailFlagDefault string
 
-	_ = cmd.PersistentFlags().String(emailFlagName, emailFlagDefault, emailDescription)
+	_ = cmd.PersistentFlags().String(EmailFlagName, EmailFlagDefault, EmailDescription)
 
 	return nil
 }
@@ -62,18 +62,18 @@ func registerAuthConfigPassword(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	passwordDescription := ``
+	PasswordDescription := ``
 
-	var passwordFlagName string
+	var PasswordFlagName string
 	if cmdPrefix == "" {
-		passwordFlagName = "password"
+		PasswordFlagName = "password"
 	} else {
-		passwordFlagName = fmt.Sprintf("%v.password", cmdPrefix)
+		PasswordFlagName = fmt.Sprintf("%v.password", cmdPrefix)
 	}
 
-	var passwordFlagDefault string
+	var PasswordFlagDefault string
 
-	_ = cmd.PersistentFlags().String(passwordFlagName, passwordFlagDefault, passwordDescription)
+	_ = cmd.PersistentFlags().String(PasswordFlagName, PasswordFlagDefault, PasswordDescription)
 
 	return nil
 }
@@ -83,18 +83,18 @@ func registerAuthConfigServeraddress(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	serveraddressDescription := ``
+	ServeraddressDescription := ``
 
-	var serveraddressFlagName string
+	var ServeraddressFlagName string
 	if cmdPrefix == "" {
-		serveraddressFlagName = "serveraddress"
+		ServeraddressFlagName = "serveraddress"
 	} else {
-		serveraddressFlagName = fmt.Sprintf("%v.serveraddress", cmdPrefix)
+		ServeraddressFlagName = fmt.Sprintf("%v.serveraddress", cmdPrefix)
 	}
 
-	var serveraddressFlagDefault string
+	var ServeraddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(serveraddressFlagName, serveraddressFlagDefault, serveraddressDescription)
+	_ = cmd.PersistentFlags().String(ServeraddressFlagName, ServeraddressFlagDefault, ServeraddressDescription)
 
 	return nil
 }
@@ -104,18 +104,18 @@ func registerAuthConfigUsername(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	usernameDescription := ``
+	UsernameDescription := ``
 
-	var usernameFlagName string
+	var UsernameFlagName string
 	if cmdPrefix == "" {
-		usernameFlagName = "username"
+		UsernameFlagName = "username"
 	} else {
-		usernameFlagName = fmt.Sprintf("%v.username", cmdPrefix)
+		UsernameFlagName = fmt.Sprintf("%v.username", cmdPrefix)
 	}
 
-	var usernameFlagDefault string
+	var UsernameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(usernameFlagName, usernameFlagDefault, usernameDescription)
+	_ = cmd.PersistentFlags().String(UsernameFlagName, UsernameFlagDefault, UsernameDescription)
 
 	return nil
 }
@@ -124,29 +124,29 @@ func registerAuthConfigUsername(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelAuthConfigFlags(depth int, m *models.AuthConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, emailAdded := retrieveAuthConfigEmailFlags(depth, m, cmdPrefix, cmd)
+	err, EmailAdded := retrieveAuthConfigEmailFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || emailAdded
+	retAdded = retAdded || EmailAdded
 
-	err, passwordAdded := retrieveAuthConfigPasswordFlags(depth, m, cmdPrefix, cmd)
+	err, PasswordAdded := retrieveAuthConfigPasswordFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || passwordAdded
+	retAdded = retAdded || PasswordAdded
 
-	err, serveraddressAdded := retrieveAuthConfigServeraddressFlags(depth, m, cmdPrefix, cmd)
+	err, ServeraddressAdded := retrieveAuthConfigServeraddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || serveraddressAdded
+	retAdded = retAdded || ServeraddressAdded
 
-	err, usernameAdded := retrieveAuthConfigUsernameFlags(depth, m, cmdPrefix, cmd)
+	err, UsernameAdded := retrieveAuthConfigUsernameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || usernameAdded
+	retAdded = retAdded || UsernameAdded
 
 	return nil, retAdded
 }
@@ -157,21 +157,21 @@ func retrieveAuthConfigEmailFlags(depth int, m *models.AuthConfig, cmdPrefix str
 	}
 	retAdded := false
 
-	emailFlagName := fmt.Sprintf("%v.email", cmdPrefix)
-	if cmd.Flags().Changed(emailFlagName) {
+	EmailFlagName := fmt.Sprintf("%v.email", cmdPrefix)
+	if cmd.Flags().Changed(EmailFlagName) {
 
-		var emailFlagName string
+		var EmailFlagName string
 		if cmdPrefix == "" {
-			emailFlagName = "email"
+			EmailFlagName = "email"
 		} else {
-			emailFlagName = fmt.Sprintf("%v.email", cmdPrefix)
+			EmailFlagName = fmt.Sprintf("%v.email", cmdPrefix)
 		}
 
-		emailFlagValue, err := cmd.Flags().GetString(emailFlagName)
+		EmailFlagValue, err := cmd.Flags().GetString(EmailFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Email = emailFlagValue
+		m.Email = EmailFlagValue
 
 		retAdded = true
 	}
@@ -185,21 +185,21 @@ func retrieveAuthConfigPasswordFlags(depth int, m *models.AuthConfig, cmdPrefix 
 	}
 	retAdded := false
 
-	passwordFlagName := fmt.Sprintf("%v.password", cmdPrefix)
-	if cmd.Flags().Changed(passwordFlagName) {
+	PasswordFlagName := fmt.Sprintf("%v.password", cmdPrefix)
+	if cmd.Flags().Changed(PasswordFlagName) {
 
-		var passwordFlagName string
+		var PasswordFlagName string
 		if cmdPrefix == "" {
-			passwordFlagName = "password"
+			PasswordFlagName = "password"
 		} else {
-			passwordFlagName = fmt.Sprintf("%v.password", cmdPrefix)
+			PasswordFlagName = fmt.Sprintf("%v.password", cmdPrefix)
 		}
 
-		passwordFlagValue, err := cmd.Flags().GetString(passwordFlagName)
+		PasswordFlagValue, err := cmd.Flags().GetString(PasswordFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Password = passwordFlagValue
+		m.Password = PasswordFlagValue
 
 		retAdded = true
 	}
@@ -213,21 +213,21 @@ func retrieveAuthConfigServeraddressFlags(depth int, m *models.AuthConfig, cmdPr
 	}
 	retAdded := false
 
-	serveraddressFlagName := fmt.Sprintf("%v.serveraddress", cmdPrefix)
-	if cmd.Flags().Changed(serveraddressFlagName) {
+	ServeraddressFlagName := fmt.Sprintf("%v.serveraddress", cmdPrefix)
+	if cmd.Flags().Changed(ServeraddressFlagName) {
 
-		var serveraddressFlagName string
+		var ServeraddressFlagName string
 		if cmdPrefix == "" {
-			serveraddressFlagName = "serveraddress"
+			ServeraddressFlagName = "serveraddress"
 		} else {
-			serveraddressFlagName = fmt.Sprintf("%v.serveraddress", cmdPrefix)
+			ServeraddressFlagName = fmt.Sprintf("%v.serveraddress", cmdPrefix)
 		}
 
-		serveraddressFlagValue, err := cmd.Flags().GetString(serveraddressFlagName)
+		ServeraddressFlagValue, err := cmd.Flags().GetString(ServeraddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Serveraddress = serveraddressFlagValue
+		m.Serveraddress = ServeraddressFlagValue
 
 		retAdded = true
 	}
@@ -241,21 +241,21 @@ func retrieveAuthConfigUsernameFlags(depth int, m *models.AuthConfig, cmdPrefix 
 	}
 	retAdded := false
 
-	usernameFlagName := fmt.Sprintf("%v.username", cmdPrefix)
-	if cmd.Flags().Changed(usernameFlagName) {
+	UsernameFlagName := fmt.Sprintf("%v.username", cmdPrefix)
+	if cmd.Flags().Changed(UsernameFlagName) {
 
-		var usernameFlagName string
+		var UsernameFlagName string
 		if cmdPrefix == "" {
-			usernameFlagName = "username"
+			UsernameFlagName = "username"
 		} else {
-			usernameFlagName = fmt.Sprintf("%v.username", cmdPrefix)
+			UsernameFlagName = fmt.Sprintf("%v.username", cmdPrefix)
 		}
 
-		usernameFlagValue, err := cmd.Flags().GetString(usernameFlagName)
+		UsernameFlagValue, err := cmd.Flags().GetString(UsernameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Username = usernameFlagValue
+		m.Username = UsernameFlagValue
 
 		retAdded = true
 	}

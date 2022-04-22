@@ -68,18 +68,18 @@ func registerOperationImageImageHistoryParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageHistoryNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. Image name or ID`
+	NameDescription := `Required. Image name or ID`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -88,18 +88,18 @@ func retrieveOperationImageImageHistoryNameFlag(m *image.ImageHistoryParams, cmd
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -194,18 +194,18 @@ func registerHistoryResponseItemComment(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	commentDescription := `Required. `
+	CommentDescription := `Required. `
 
-	var commentFlagName string
+	var CommentFlagName string
 	if cmdPrefix == "" {
-		commentFlagName = "Comment"
+		CommentFlagName = "Comment"
 	} else {
-		commentFlagName = fmt.Sprintf("%v.Comment", cmdPrefix)
+		CommentFlagName = fmt.Sprintf("%v.Comment", cmdPrefix)
 	}
 
-	var commentFlagDefault string
+	var CommentFlagDefault string
 
-	_ = cmd.PersistentFlags().String(commentFlagName, commentFlagDefault, commentDescription)
+	_ = cmd.PersistentFlags().String(CommentFlagName, CommentFlagDefault, CommentDescription)
 
 	return nil
 }
@@ -215,18 +215,18 @@ func registerHistoryResponseItemCreated(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	createdDescription := `Required. `
+	CreatedDescription := `Required. `
 
-	var createdFlagName string
+	var CreatedFlagName string
 	if cmdPrefix == "" {
-		createdFlagName = "Created"
+		CreatedFlagName = "Created"
 	} else {
-		createdFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
+		CreatedFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
 	}
 
-	var createdFlagDefault int64
+	var CreatedFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(createdFlagName, createdFlagDefault, createdDescription)
+	_ = cmd.PersistentFlags().Int64(CreatedFlagName, CreatedFlagDefault, CreatedDescription)
 
 	return nil
 }
@@ -236,18 +236,18 @@ func registerHistoryResponseItemCreatedBy(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	createdByDescription := `Required. `
+	CreatedByDescription := `Required. `
 
-	var createdByFlagName string
+	var CreatedByFlagName string
 	if cmdPrefix == "" {
-		createdByFlagName = "CreatedBy"
+		CreatedByFlagName = "CreatedBy"
 	} else {
-		createdByFlagName = fmt.Sprintf("%v.CreatedBy", cmdPrefix)
+		CreatedByFlagName = fmt.Sprintf("%v.CreatedBy", cmdPrefix)
 	}
 
-	var createdByFlagDefault string
+	var CreatedByFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdByFlagName, createdByFlagDefault, createdByDescription)
+	_ = cmd.PersistentFlags().String(CreatedByFlagName, CreatedByFlagDefault, CreatedByDescription)
 
 	return nil
 }
@@ -257,18 +257,18 @@ func registerHistoryResponseItemID(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	idDescription := `Required. `
+	IDDescription := `Required. `
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "Id"
+		IDFlagName = "Id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -278,18 +278,18 @@ func registerHistoryResponseItemSize(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	sizeDescription := `Required. `
+	SizeDescription := `Required. `
 
-	var sizeFlagName string
+	var SizeFlagName string
 	if cmdPrefix == "" {
-		sizeFlagName = "Size"
+		SizeFlagName = "Size"
 	} else {
-		sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+		SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 	}
 
-	var sizeFlagDefault int64
+	var SizeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(sizeFlagName, sizeFlagDefault, sizeDescription)
+	_ = cmd.PersistentFlags().Int64(SizeFlagName, SizeFlagDefault, SizeDescription)
 
 	return nil
 }
@@ -308,41 +308,41 @@ func registerHistoryResponseItemTags(depth int, cmdPrefix string, cmd *cobra.Com
 func retrieveModelHistoryResponseItemFlags(depth int, m *image.HistoryResponseItem, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, commentAdded := retrieveHistoryResponseItemCommentFlags(depth, m, cmdPrefix, cmd)
+	err, CommentAdded := retrieveHistoryResponseItemCommentFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || commentAdded
+	retAdded = retAdded || CommentAdded
 
-	err, createdAdded := retrieveHistoryResponseItemCreatedFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAdded := retrieveHistoryResponseItemCreatedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAdded
+	retAdded = retAdded || CreatedAdded
 
-	err, createdByAdded := retrieveHistoryResponseItemCreatedByFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedByAdded := retrieveHistoryResponseItemCreatedByFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdByAdded
+	retAdded = retAdded || CreatedByAdded
 
-	err, idAdded := retrieveHistoryResponseItemIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveHistoryResponseItemIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, sizeAdded := retrieveHistoryResponseItemSizeFlags(depth, m, cmdPrefix, cmd)
+	err, SizeAdded := retrieveHistoryResponseItemSizeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || sizeAdded
+	retAdded = retAdded || SizeAdded
 
-	err, tagsAdded := retrieveHistoryResponseItemTagsFlags(depth, m, cmdPrefix, cmd)
+	err, TagsAdded := retrieveHistoryResponseItemTagsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || tagsAdded
+	retAdded = retAdded || TagsAdded
 
 	return nil, retAdded
 }
@@ -353,21 +353,21 @@ func retrieveHistoryResponseItemCommentFlags(depth int, m *image.HistoryResponse
 	}
 	retAdded := false
 
-	commentFlagName := fmt.Sprintf("%v.Comment", cmdPrefix)
-	if cmd.Flags().Changed(commentFlagName) {
+	CommentFlagName := fmt.Sprintf("%v.Comment", cmdPrefix)
+	if cmd.Flags().Changed(CommentFlagName) {
 
-		var commentFlagName string
+		var CommentFlagName string
 		if cmdPrefix == "" {
-			commentFlagName = "Comment"
+			CommentFlagName = "Comment"
 		} else {
-			commentFlagName = fmt.Sprintf("%v.Comment", cmdPrefix)
+			CommentFlagName = fmt.Sprintf("%v.Comment", cmdPrefix)
 		}
 
-		commentFlagValue, err := cmd.Flags().GetString(commentFlagName)
+		CommentFlagValue, err := cmd.Flags().GetString(CommentFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Comment = commentFlagValue
+		m.Comment = CommentFlagValue
 
 		retAdded = true
 	}
@@ -381,21 +381,21 @@ func retrieveHistoryResponseItemCreatedFlags(depth int, m *image.HistoryResponse
 	}
 	retAdded := false
 
-	createdFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
-	if cmd.Flags().Changed(createdFlagName) {
+	CreatedFlagName := fmt.Sprintf("%v.Created", cmdPrefix)
+	if cmd.Flags().Changed(CreatedFlagName) {
 
-		var createdFlagName string
+		var CreatedFlagName string
 		if cmdPrefix == "" {
-			createdFlagName = "Created"
+			CreatedFlagName = "Created"
 		} else {
-			createdFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
+			CreatedFlagName = fmt.Sprintf("%v.Created", cmdPrefix)
 		}
 
-		createdFlagValue, err := cmd.Flags().GetInt64(createdFlagName)
+		CreatedFlagValue, err := cmd.Flags().GetInt64(CreatedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Created = createdFlagValue
+		m.Created = CreatedFlagValue
 
 		retAdded = true
 	}
@@ -409,21 +409,21 @@ func retrieveHistoryResponseItemCreatedByFlags(depth int, m *image.HistoryRespon
 	}
 	retAdded := false
 
-	createdByFlagName := fmt.Sprintf("%v.CreatedBy", cmdPrefix)
-	if cmd.Flags().Changed(createdByFlagName) {
+	CreatedByFlagName := fmt.Sprintf("%v.CreatedBy", cmdPrefix)
+	if cmd.Flags().Changed(CreatedByFlagName) {
 
-		var createdByFlagName string
+		var CreatedByFlagName string
 		if cmdPrefix == "" {
-			createdByFlagName = "CreatedBy"
+			CreatedByFlagName = "CreatedBy"
 		} else {
-			createdByFlagName = fmt.Sprintf("%v.CreatedBy", cmdPrefix)
+			CreatedByFlagName = fmt.Sprintf("%v.CreatedBy", cmdPrefix)
 		}
 
-		createdByFlagValue, err := cmd.Flags().GetString(createdByFlagName)
+		CreatedByFlagValue, err := cmd.Flags().GetString(CreatedByFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedBy = createdByFlagValue
+		m.CreatedBy = CreatedByFlagValue
 
 		retAdded = true
 	}
@@ -437,21 +437,21 @@ func retrieveHistoryResponseItemIDFlags(depth int, m *image.HistoryResponseItem,
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.Id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "Id"
+			IDFlagName = "Id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.Id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -465,21 +465,21 @@ func retrieveHistoryResponseItemSizeFlags(depth int, m *image.HistoryResponseIte
 	}
 	retAdded := false
 
-	sizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
-	if cmd.Flags().Changed(sizeFlagName) {
+	SizeFlagName := fmt.Sprintf("%v.Size", cmdPrefix)
+	if cmd.Flags().Changed(SizeFlagName) {
 
-		var sizeFlagName string
+		var SizeFlagName string
 		if cmdPrefix == "" {
-			sizeFlagName = "Size"
+			SizeFlagName = "Size"
 		} else {
-			sizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
+			SizeFlagName = fmt.Sprintf("%v.Size", cmdPrefix)
 		}
 
-		sizeFlagValue, err := cmd.Flags().GetInt64(sizeFlagName)
+		SizeFlagValue, err := cmd.Flags().GetInt64(SizeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Size = sizeFlagValue
+		m.Size = SizeFlagValue
 
 		retAdded = true
 	}
@@ -493,8 +493,8 @@ func retrieveHistoryResponseItemTagsFlags(depth int, m *image.HistoryResponseIte
 	}
 	retAdded := false
 
-	tagsFlagName := fmt.Sprintf("%v.Tags", cmdPrefix)
-	if cmd.Flags().Changed(tagsFlagName) {
+	TagsFlagName := fmt.Sprintf("%v.Tags", cmdPrefix)
+	if cmd.Flags().Changed(TagsFlagName) {
 		// warning: Tags array type []string is not supported by go-swagger cli yet
 	}
 

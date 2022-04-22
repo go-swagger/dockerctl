@@ -60,18 +60,18 @@ func registerServiceCreatedAt(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	createdAtDescription := ``
+	CreatedAtDescription := ``
 
-	var createdAtFlagName string
+	var CreatedAtFlagName string
 	if cmdPrefix == "" {
-		createdAtFlagName = "CreatedAt"
+		CreatedAtFlagName = "CreatedAt"
 	} else {
-		createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+		CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	}
 
-	var createdAtFlagDefault string
+	var CreatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdAtFlagName, createdAtFlagDefault, createdAtDescription)
+	_ = cmd.PersistentFlags().String(CreatedAtFlagName, CreatedAtFlagDefault, CreatedAtDescription)
 
 	return nil
 }
@@ -81,14 +81,14 @@ func registerServiceEndpoint(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	var endpointFlagName string
+	var EndpointFlagName string
 	if cmdPrefix == "" {
-		endpointFlagName = "Endpoint"
+		EndpointFlagName = "Endpoint"
 	} else {
-		endpointFlagName = fmt.Sprintf("%v.Endpoint", cmdPrefix)
+		EndpointFlagName = fmt.Sprintf("%v.Endpoint", cmdPrefix)
 	}
 
-	if err := registerModelServiceEndpointFlags(depth+1, endpointFlagName, cmd); err != nil {
+	if err := registerModelServiceEndpointFlags(depth+1, EndpointFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -100,18 +100,18 @@ func registerServiceID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -121,14 +121,14 @@ func registerServiceServiceStatus(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	var serviceStatusFlagName string
+	var ServiceStatusFlagName string
 	if cmdPrefix == "" {
-		serviceStatusFlagName = "ServiceStatus"
+		ServiceStatusFlagName = "ServiceStatus"
 	} else {
-		serviceStatusFlagName = fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
+		ServiceStatusFlagName = fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
 	}
 
-	if err := registerModelServiceServiceStatusFlags(depth+1, serviceStatusFlagName, cmd); err != nil {
+	if err := registerModelServiceServiceStatusFlags(depth+1, ServiceStatusFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -140,14 +140,14 @@ func registerServiceSpec(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	var specFlagName string
+	var SpecFlagName string
 	if cmdPrefix == "" {
-		specFlagName = "Spec"
+		SpecFlagName = "Spec"
 	} else {
-		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+		SpecFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	if err := registerModelServiceSpecFlags(depth+1, specFlagName, cmd); err != nil {
+	if err := registerModelServiceSpecFlags(depth+1, SpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -159,14 +159,14 @@ func registerServiceUpdateStatus(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	var updateStatusFlagName string
+	var UpdateStatusFlagName string
 	if cmdPrefix == "" {
-		updateStatusFlagName = "UpdateStatus"
+		UpdateStatusFlagName = "UpdateStatus"
 	} else {
-		updateStatusFlagName = fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
+		UpdateStatusFlagName = fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
 	}
 
-	if err := registerModelServiceUpdateStatusFlags(depth+1, updateStatusFlagName, cmd); err != nil {
+	if err := registerModelServiceUpdateStatusFlags(depth+1, UpdateStatusFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -178,18 +178,18 @@ func registerServiceUpdatedAt(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	updatedAtDescription := ``
+	UpdatedAtDescription := ``
 
-	var updatedAtFlagName string
+	var UpdatedAtFlagName string
 	if cmdPrefix == "" {
-		updatedAtFlagName = "UpdatedAt"
+		UpdatedAtFlagName = "UpdatedAt"
 	} else {
-		updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+		UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	}
 
-	var updatedAtFlagDefault string
+	var UpdatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(updatedAtFlagName, updatedAtFlagDefault, updatedAtDescription)
+	_ = cmd.PersistentFlags().String(UpdatedAtFlagName, UpdatedAtFlagDefault, UpdatedAtDescription)
 
 	return nil
 }
@@ -199,14 +199,14 @@ func registerServiceVersion(depth int, cmdPrefix string, cmd *cobra.Command) err
 		return nil
 	}
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+	if err := registerModelObjectVersionFlags(depth+1, VersionFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -217,53 +217,53 @@ func registerServiceVersion(depth int, cmdPrefix string, cmd *cobra.Command) err
 func retrieveModelServiceFlags(depth int, m *models.Service, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, createdAtAdded := retrieveServiceCreatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAtAdded := retrieveServiceCreatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAtAdded
+	retAdded = retAdded || CreatedAtAdded
 
-	err, endpointAdded := retrieveServiceEndpointFlags(depth, m, cmdPrefix, cmd)
+	err, EndpointAdded := retrieveServiceEndpointFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointAdded
+	retAdded = retAdded || EndpointAdded
 
-	err, idAdded := retrieveServiceIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveServiceIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, serviceStatusAdded := retrieveServiceServiceStatusFlags(depth, m, cmdPrefix, cmd)
+	err, ServiceStatusAdded := retrieveServiceServiceStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || serviceStatusAdded
+	retAdded = retAdded || ServiceStatusAdded
 
-	err, specAdded := retrieveServiceSpecFlags(depth, m, cmdPrefix, cmd)
+	err, SpecAdded := retrieveServiceSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
+	retAdded = retAdded || SpecAdded
 
-	err, updateStatusAdded := retrieveServiceUpdateStatusFlags(depth, m, cmdPrefix, cmd)
+	err, UpdateStatusAdded := retrieveServiceUpdateStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || updateStatusAdded
+	retAdded = retAdded || UpdateStatusAdded
 
-	err, updatedAtAdded := retrieveServiceUpdatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, UpdatedAtAdded := retrieveServiceUpdatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || updatedAtAdded
+	retAdded = retAdded || UpdatedAtAdded
 
-	err, versionAdded := retrieveServiceVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrieveServiceVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -274,21 +274,21 @@ func retrieveServiceCreatedAtFlags(depth int, m *models.Service, cmdPrefix strin
 	}
 	retAdded := false
 
-	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
-	if cmd.Flags().Changed(createdAtFlagName) {
+	CreatedAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+	if cmd.Flags().Changed(CreatedAtFlagName) {
 
-		var createdAtFlagName string
+		var CreatedAtFlagName string
 		if cmdPrefix == "" {
-			createdAtFlagName = "CreatedAt"
+			CreatedAtFlagName = "CreatedAt"
 		} else {
-			createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+			CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 		}
 
-		createdAtFlagValue, err := cmd.Flags().GetString(createdAtFlagName)
+		CreatedAtFlagValue, err := cmd.Flags().GetString(CreatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedAt = createdAtFlagValue
+		m.CreatedAt = CreatedAtFlagValue
 
 		retAdded = true
 	}
@@ -302,22 +302,22 @@ func retrieveServiceEndpointFlags(depth int, m *models.Service, cmdPrefix string
 	}
 	retAdded := false
 
-	endpointFlagName := fmt.Sprintf("%v.Endpoint", cmdPrefix)
-	if cmd.Flags().Changed(endpointFlagName) {
+	EndpointFlagName := fmt.Sprintf("%v.Endpoint", cmdPrefix)
+	if cmd.Flags().Changed(EndpointFlagName) {
 		// info: complex object Endpoint ServiceEndpoint is retrieved outside this Changed() block
 	}
-	endpointFlagValue := m.Endpoint
-	if swag.IsZero(endpointFlagValue) {
-		endpointFlagValue = &models.ServiceEndpoint{}
+	EndpointFlagValue := m.Endpoint
+	if swag.IsZero(EndpointFlagValue) {
+		EndpointFlagValue = &models.ServiceEndpoint{}
 	}
 
-	err, endpointAdded := retrieveModelServiceEndpointFlags(depth+1, endpointFlagValue, endpointFlagName, cmd)
+	err, EndpointAdded := retrieveModelServiceEndpointFlags(depth+1, EndpointFlagValue, EndpointFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointAdded
-	if endpointAdded {
-		m.Endpoint = endpointFlagValue
+	retAdded = retAdded || EndpointAdded
+	if EndpointAdded {
+		m.Endpoint = EndpointFlagValue
 	}
 
 	return nil, retAdded
@@ -329,21 +329,21 @@ func retrieveServiceIDFlags(depth int, m *models.Service, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -357,22 +357,22 @@ func retrieveServiceServiceStatusFlags(depth int, m *models.Service, cmdPrefix s
 	}
 	retAdded := false
 
-	serviceStatusFlagName := fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
-	if cmd.Flags().Changed(serviceStatusFlagName) {
+	ServiceStatusFlagName := fmt.Sprintf("%v.ServiceStatus", cmdPrefix)
+	if cmd.Flags().Changed(ServiceStatusFlagName) {
 		// info: complex object ServiceStatus ServiceServiceStatus is retrieved outside this Changed() block
 	}
-	serviceStatusFlagValue := m.ServiceStatus
-	if swag.IsZero(serviceStatusFlagValue) {
-		serviceStatusFlagValue = &models.ServiceServiceStatus{}
+	ServiceStatusFlagValue := m.ServiceStatus
+	if swag.IsZero(ServiceStatusFlagValue) {
+		ServiceStatusFlagValue = &models.ServiceServiceStatus{}
 	}
 
-	err, serviceStatusAdded := retrieveModelServiceServiceStatusFlags(depth+1, serviceStatusFlagValue, serviceStatusFlagName, cmd)
+	err, ServiceStatusAdded := retrieveModelServiceServiceStatusFlags(depth+1, ServiceStatusFlagValue, ServiceStatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || serviceStatusAdded
-	if serviceStatusAdded {
-		m.ServiceStatus = serviceStatusFlagValue
+	retAdded = retAdded || ServiceStatusAdded
+	if ServiceStatusAdded {
+		m.ServiceStatus = ServiceStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -384,22 +384,22 @@ func retrieveServiceSpecFlags(depth int, m *models.Service, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
-	if cmd.Flags().Changed(specFlagName) {
+	SpecFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(SpecFlagName) {
 		// info: complex object Spec ServiceSpec is retrieved outside this Changed() block
 	}
-	specFlagValue := m.Spec
-	if swag.IsZero(specFlagValue) {
-		specFlagValue = &models.ServiceSpec{}
+	SpecFlagValue := m.Spec
+	if swag.IsZero(SpecFlagValue) {
+		SpecFlagValue = &models.ServiceSpec{}
 	}
 
-	err, specAdded := retrieveModelServiceSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+	err, SpecAdded := retrieveModelServiceSpecFlags(depth+1, SpecFlagValue, SpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
-	if specAdded {
-		m.Spec = specFlagValue
+	retAdded = retAdded || SpecAdded
+	if SpecAdded {
+		m.Spec = SpecFlagValue
 	}
 
 	return nil, retAdded
@@ -411,22 +411,22 @@ func retrieveServiceUpdateStatusFlags(depth int, m *models.Service, cmdPrefix st
 	}
 	retAdded := false
 
-	updateStatusFlagName := fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
-	if cmd.Flags().Changed(updateStatusFlagName) {
+	UpdateStatusFlagName := fmt.Sprintf("%v.UpdateStatus", cmdPrefix)
+	if cmd.Flags().Changed(UpdateStatusFlagName) {
 		// info: complex object UpdateStatus ServiceUpdateStatus is retrieved outside this Changed() block
 	}
-	updateStatusFlagValue := m.UpdateStatus
-	if swag.IsZero(updateStatusFlagValue) {
-		updateStatusFlagValue = &models.ServiceUpdateStatus{}
+	UpdateStatusFlagValue := m.UpdateStatus
+	if swag.IsZero(UpdateStatusFlagValue) {
+		UpdateStatusFlagValue = &models.ServiceUpdateStatus{}
 	}
 
-	err, updateStatusAdded := retrieveModelServiceUpdateStatusFlags(depth+1, updateStatusFlagValue, updateStatusFlagName, cmd)
+	err, UpdateStatusAdded := retrieveModelServiceUpdateStatusFlags(depth+1, UpdateStatusFlagValue, UpdateStatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || updateStatusAdded
-	if updateStatusAdded {
-		m.UpdateStatus = updateStatusFlagValue
+	retAdded = retAdded || UpdateStatusAdded
+	if UpdateStatusAdded {
+		m.UpdateStatus = UpdateStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -438,21 +438,21 @@ func retrieveServiceUpdatedAtFlags(depth int, m *models.Service, cmdPrefix strin
 	}
 	retAdded := false
 
-	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
-	if cmd.Flags().Changed(updatedAtFlagName) {
+	UpdatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+	if cmd.Flags().Changed(UpdatedAtFlagName) {
 
-		var updatedAtFlagName string
+		var UpdatedAtFlagName string
 		if cmdPrefix == "" {
-			updatedAtFlagName = "UpdatedAt"
+			UpdatedAtFlagName = "UpdatedAt"
 		} else {
-			updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+			UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 		}
 
-		updatedAtFlagValue, err := cmd.Flags().GetString(updatedAtFlagName)
+		UpdatedAtFlagValue, err := cmd.Flags().GetString(UpdatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UpdatedAt = updatedAtFlagValue
+		m.UpdatedAt = UpdatedAtFlagValue
 
 		retAdded = true
 	}
@@ -466,22 +466,22 @@ func retrieveServiceVersionFlags(depth int, m *models.Service, cmdPrefix string,
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
-	versionFlagValue := m.Version
-	if swag.IsZero(versionFlagValue) {
-		versionFlagValue = &models.ObjectVersion{}
+	VersionFlagValue := m.Version
+	if swag.IsZero(VersionFlagValue) {
+		VersionFlagValue = &models.ObjectVersion{}
 	}
 
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+	err, VersionAdded := retrieveModelObjectVersionFlags(depth+1, VersionFlagValue, VersionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
-	if versionAdded {
-		m.Version = versionFlagValue
+	retAdded = retAdded || VersionAdded
+	if VersionAdded {
+		m.Version = VersionFlagValue
 	}
 
 	return nil, retAdded
@@ -522,14 +522,14 @@ func registerServiceEndpointSpec(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	var specFlagName string
+	var SpecFlagName string
 	if cmdPrefix == "" {
-		specFlagName = "Spec"
+		SpecFlagName = "Spec"
 	} else {
-		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+		SpecFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	if err := registerModelEndpointSpecFlags(depth+1, specFlagName, cmd); err != nil {
+	if err := registerModelEndpointSpecFlags(depth+1, SpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -550,23 +550,23 @@ func registerServiceEndpointVirtualIPs(depth int, cmdPrefix string, cmd *cobra.C
 func retrieveModelServiceEndpointFlags(depth int, m *models.ServiceEndpoint, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, portsAdded := retrieveServiceEndpointPortsFlags(depth, m, cmdPrefix, cmd)
+	err, PortsAdded := retrieveServiceEndpointPortsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || portsAdded
+	retAdded = retAdded || PortsAdded
 
-	err, specAdded := retrieveServiceEndpointSpecFlags(depth, m, cmdPrefix, cmd)
+	err, SpecAdded := retrieveServiceEndpointSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
+	retAdded = retAdded || SpecAdded
 
-	err, virtualIPsAdded := retrieveServiceEndpointVirtualIPsFlags(depth, m, cmdPrefix, cmd)
+	err, VirtualIPsAdded := retrieveServiceEndpointVirtualIPsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || virtualIPsAdded
+	retAdded = retAdded || VirtualIPsAdded
 
 	return nil, retAdded
 }
@@ -577,8 +577,8 @@ func retrieveServiceEndpointPortsFlags(depth int, m *models.ServiceEndpoint, cmd
 	}
 	retAdded := false
 
-	portsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
-	if cmd.Flags().Changed(portsFlagName) {
+	PortsFlagName := fmt.Sprintf("%v.Ports", cmdPrefix)
+	if cmd.Flags().Changed(PortsFlagName) {
 		// warning: Ports array type []*EndpointPortConfig is not supported by go-swagger cli yet
 	}
 
@@ -591,22 +591,22 @@ func retrieveServiceEndpointSpecFlags(depth int, m *models.ServiceEndpoint, cmdP
 	}
 	retAdded := false
 
-	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
-	if cmd.Flags().Changed(specFlagName) {
+	SpecFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(SpecFlagName) {
 		// info: complex object Spec EndpointSpec is retrieved outside this Changed() block
 	}
-	specFlagValue := m.Spec
-	if swag.IsZero(specFlagValue) {
-		specFlagValue = &models.EndpointSpec{}
+	SpecFlagValue := m.Spec
+	if swag.IsZero(SpecFlagValue) {
+		SpecFlagValue = &models.EndpointSpec{}
 	}
 
-	err, specAdded := retrieveModelEndpointSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+	err, SpecAdded := retrieveModelEndpointSpecFlags(depth+1, SpecFlagValue, SpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
-	if specAdded {
-		m.Spec = specFlagValue
+	retAdded = retAdded || SpecAdded
+	if SpecAdded {
+		m.Spec = SpecFlagValue
 	}
 
 	return nil, retAdded
@@ -618,8 +618,8 @@ func retrieveServiceEndpointVirtualIPsFlags(depth int, m *models.ServiceEndpoint
 	}
 	retAdded := false
 
-	virtualIPsFlagName := fmt.Sprintf("%v.VirtualIPs", cmdPrefix)
-	if cmd.Flags().Changed(virtualIPsFlagName) {
+	VirtualIPsFlagName := fmt.Sprintf("%v.VirtualIPs", cmdPrefix)
+	if cmd.Flags().Changed(VirtualIPsFlagName) {
 		// warning: VirtualIPs array type []*ServiceEndpointVirtualIPsItems0 is not supported by go-swagger cli yet
 	}
 
@@ -647,18 +647,18 @@ func registerServiceEndpointVirtualIPsItems0Addr(depth int, cmdPrefix string, cm
 		return nil
 	}
 
-	addrDescription := ``
+	AddrDescription := ``
 
-	var addrFlagName string
+	var AddrFlagName string
 	if cmdPrefix == "" {
-		addrFlagName = "Addr"
+		AddrFlagName = "Addr"
 	} else {
-		addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+		AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 	}
 
-	var addrFlagDefault string
+	var AddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(addrFlagName, addrFlagDefault, addrDescription)
+	_ = cmd.PersistentFlags().String(AddrFlagName, AddrFlagDefault, AddrDescription)
 
 	return nil
 }
@@ -668,18 +668,18 @@ func registerServiceEndpointVirtualIPsItems0NetworkID(depth int, cmdPrefix strin
 		return nil
 	}
 
-	networkIdDescription := ``
+	NetworkIDDescription := ``
 
-	var networkIdFlagName string
+	var NetworkIDFlagName string
 	if cmdPrefix == "" {
-		networkIdFlagName = "NetworkID"
+		NetworkIDFlagName = "NetworkID"
 	} else {
-		networkIdFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
+		NetworkIDFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
 	}
 
-	var networkIdFlagDefault string
+	var NetworkIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(networkIdFlagName, networkIdFlagDefault, networkIdDescription)
+	_ = cmd.PersistentFlags().String(NetworkIDFlagName, NetworkIDFlagDefault, NetworkIDDescription)
 
 	return nil
 }
@@ -688,17 +688,17 @@ func registerServiceEndpointVirtualIPsItems0NetworkID(depth int, cmdPrefix strin
 func retrieveModelServiceEndpointVirtualIPsItems0Flags(depth int, m *models.ServiceEndpointVirtualIPsItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, addrAdded := retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth, m, cmdPrefix, cmd)
+	err, AddrAdded := retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || addrAdded
+	retAdded = retAdded || AddrAdded
 
-	err, networkIdAdded := retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth, m, cmdPrefix, cmd)
+	err, NetworkIDAdded := retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || networkIdAdded
+	retAdded = retAdded || NetworkIDAdded
 
 	return nil, retAdded
 }
@@ -709,21 +709,21 @@ func retrieveServiceEndpointVirtualIPsItems0AddrFlags(depth int, m *models.Servi
 	}
 	retAdded := false
 
-	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
-	if cmd.Flags().Changed(addrFlagName) {
+	AddrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
+	if cmd.Flags().Changed(AddrFlagName) {
 
-		var addrFlagName string
+		var AddrFlagName string
 		if cmdPrefix == "" {
-			addrFlagName = "Addr"
+			AddrFlagName = "Addr"
 		} else {
-			addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+			AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 		}
 
-		addrFlagValue, err := cmd.Flags().GetString(addrFlagName)
+		AddrFlagValue, err := cmd.Flags().GetString(AddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Addr = addrFlagValue
+		m.Addr = AddrFlagValue
 
 		retAdded = true
 	}
@@ -737,21 +737,21 @@ func retrieveServiceEndpointVirtualIPsItems0NetworkIDFlags(depth int, m *models.
 	}
 	retAdded := false
 
-	networkIdFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
-	if cmd.Flags().Changed(networkIdFlagName) {
+	NetworkIDFlagName := fmt.Sprintf("%v.NetworkID", cmdPrefix)
+	if cmd.Flags().Changed(NetworkIDFlagName) {
 
-		var networkIdFlagName string
+		var NetworkIDFlagName string
 		if cmdPrefix == "" {
-			networkIdFlagName = "NetworkID"
+			NetworkIDFlagName = "NetworkID"
 		} else {
-			networkIdFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
+			NetworkIDFlagName = fmt.Sprintf("%v.NetworkID", cmdPrefix)
 		}
 
-		networkIdFlagValue, err := cmd.Flags().GetString(networkIdFlagName)
+		NetworkIDFlagValue, err := cmd.Flags().GetString(NetworkIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.NetworkID = networkIdFlagValue
+		m.NetworkID = NetworkIDFlagValue
 
 		retAdded = true
 	}
@@ -799,17 +799,17 @@ func registerServiceServiceStatusRunningTasks(depth int, cmdPrefix string, cmd *
 func retrieveModelServiceServiceStatusFlags(depth int, m *models.ServiceServiceStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, desiredTasksAdded := retrieveServiceServiceStatusDesiredTasksFlags(depth, m, cmdPrefix, cmd)
+	err, DesiredTasksAdded := retrieveServiceServiceStatusDesiredTasksFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || desiredTasksAdded
+	retAdded = retAdded || DesiredTasksAdded
 
-	err, runningTasksAdded := retrieveServiceServiceStatusRunningTasksFlags(depth, m, cmdPrefix, cmd)
+	err, RunningTasksAdded := retrieveServiceServiceStatusRunningTasksFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || runningTasksAdded
+	retAdded = retAdded || RunningTasksAdded
 
 	return nil, retAdded
 }
@@ -820,8 +820,8 @@ func retrieveServiceServiceStatusDesiredTasksFlags(depth int, m *models.ServiceS
 	}
 	retAdded := false
 
-	desiredTasksFlagName := fmt.Sprintf("%v.DesiredTasks", cmdPrefix)
-	if cmd.Flags().Changed(desiredTasksFlagName) {
+	DesiredTasksFlagName := fmt.Sprintf("%v.DesiredTasks", cmdPrefix)
+	if cmd.Flags().Changed(DesiredTasksFlagName) {
 
 		// warning: primitive DesiredTasks uint64 is not supported by go-swagger cli yet
 
@@ -837,8 +837,8 @@ func retrieveServiceServiceStatusRunningTasksFlags(depth int, m *models.ServiceS
 	}
 	retAdded := false
 
-	runningTasksFlagName := fmt.Sprintf("%v.RunningTasks", cmdPrefix)
-	if cmd.Flags().Changed(runningTasksFlagName) {
+	RunningTasksFlagName := fmt.Sprintf("%v.RunningTasks", cmdPrefix)
+	if cmd.Flags().Changed(RunningTasksFlagName) {
 
 		// warning: primitive RunningTasks uint64 is not supported by go-swagger cli yet
 
@@ -877,18 +877,18 @@ func registerServiceUpdateStatusCompletedAt(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	completedAtDescription := ``
+	CompletedAtDescription := ``
 
-	var completedAtFlagName string
+	var CompletedAtFlagName string
 	if cmdPrefix == "" {
-		completedAtFlagName = "CompletedAt"
+		CompletedAtFlagName = "CompletedAt"
 	} else {
-		completedAtFlagName = fmt.Sprintf("%v.CompletedAt", cmdPrefix)
+		CompletedAtFlagName = fmt.Sprintf("%v.CompletedAt", cmdPrefix)
 	}
 
-	var completedAtFlagDefault string
+	var CompletedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(completedAtFlagName, completedAtFlagDefault, completedAtDescription)
+	_ = cmd.PersistentFlags().String(CompletedAtFlagName, CompletedAtFlagDefault, CompletedAtDescription)
 
 	return nil
 }
@@ -898,18 +898,18 @@ func registerServiceUpdateStatusMessage(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	messageDescription := ``
+	MessageDescription := ``
 
-	var messageFlagName string
+	var MessageFlagName string
 	if cmdPrefix == "" {
-		messageFlagName = "Message"
+		MessageFlagName = "Message"
 	} else {
-		messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+		MessageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
 	}
 
-	var messageFlagDefault string
+	var MessageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+	_ = cmd.PersistentFlags().String(MessageFlagName, MessageFlagDefault, MessageDescription)
 
 	return nil
 }
@@ -919,18 +919,18 @@ func registerServiceUpdateStatusStartedAt(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	startedAtDescription := ``
+	StartedAtDescription := ``
 
-	var startedAtFlagName string
+	var StartedAtFlagName string
 	if cmdPrefix == "" {
-		startedAtFlagName = "StartedAt"
+		StartedAtFlagName = "StartedAt"
 	} else {
-		startedAtFlagName = fmt.Sprintf("%v.StartedAt", cmdPrefix)
+		StartedAtFlagName = fmt.Sprintf("%v.StartedAt", cmdPrefix)
 	}
 
-	var startedAtFlagDefault string
+	var StartedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(startedAtFlagName, startedAtFlagDefault, startedAtDescription)
+	_ = cmd.PersistentFlags().String(StartedAtFlagName, StartedAtFlagDefault, StartedAtDescription)
 
 	return nil
 }
@@ -940,20 +940,20 @@ func registerServiceUpdateStatusState(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	stateDescription := `Enum: ["updating","paused","completed"]. `
+	StateDescription := `Enum: ["updating","paused","completed"]. `
 
-	var stateFlagName string
+	var StateFlagName string
 	if cmdPrefix == "" {
-		stateFlagName = "State"
+		StateFlagName = "State"
 	} else {
-		stateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
+		StateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
 	}
 
-	var stateFlagDefault string
+	var StateFlagDefault string
 
-	_ = cmd.PersistentFlags().String(stateFlagName, stateFlagDefault, stateDescription)
+	_ = cmd.PersistentFlags().String(StateFlagName, StateFlagDefault, StateDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(stateFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(StateFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["updating","paused","completed"]`), &res); err != nil {
@@ -971,29 +971,29 @@ func registerServiceUpdateStatusState(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelServiceUpdateStatusFlags(depth int, m *models.ServiceUpdateStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, completedAtAdded := retrieveServiceUpdateStatusCompletedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CompletedAtAdded := retrieveServiceUpdateStatusCompletedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || completedAtAdded
+	retAdded = retAdded || CompletedAtAdded
 
-	err, messageAdded := retrieveServiceUpdateStatusMessageFlags(depth, m, cmdPrefix, cmd)
+	err, MessageAdded := retrieveServiceUpdateStatusMessageFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || messageAdded
+	retAdded = retAdded || MessageAdded
 
-	err, startedAtAdded := retrieveServiceUpdateStatusStartedAtFlags(depth, m, cmdPrefix, cmd)
+	err, StartedAtAdded := retrieveServiceUpdateStatusStartedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || startedAtAdded
+	retAdded = retAdded || StartedAtAdded
 
-	err, stateAdded := retrieveServiceUpdateStatusStateFlags(depth, m, cmdPrefix, cmd)
+	err, StateAdded := retrieveServiceUpdateStatusStateFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || stateAdded
+	retAdded = retAdded || StateAdded
 
 	return nil, retAdded
 }
@@ -1004,21 +1004,21 @@ func retrieveServiceUpdateStatusCompletedAtFlags(depth int, m *models.ServiceUpd
 	}
 	retAdded := false
 
-	completedAtFlagName := fmt.Sprintf("%v.CompletedAt", cmdPrefix)
-	if cmd.Flags().Changed(completedAtFlagName) {
+	CompletedAtFlagName := fmt.Sprintf("%v.CompletedAt", cmdPrefix)
+	if cmd.Flags().Changed(CompletedAtFlagName) {
 
-		var completedAtFlagName string
+		var CompletedAtFlagName string
 		if cmdPrefix == "" {
-			completedAtFlagName = "CompletedAt"
+			CompletedAtFlagName = "CompletedAt"
 		} else {
-			completedAtFlagName = fmt.Sprintf("%v.CompletedAt", cmdPrefix)
+			CompletedAtFlagName = fmt.Sprintf("%v.CompletedAt", cmdPrefix)
 		}
 
-		completedAtFlagValue, err := cmd.Flags().GetString(completedAtFlagName)
+		CompletedAtFlagValue, err := cmd.Flags().GetString(CompletedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CompletedAt = completedAtFlagValue
+		m.CompletedAt = CompletedAtFlagValue
 
 		retAdded = true
 	}
@@ -1032,21 +1032,21 @@ func retrieveServiceUpdateStatusMessageFlags(depth int, m *models.ServiceUpdateS
 	}
 	retAdded := false
 
-	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
-	if cmd.Flags().Changed(messageFlagName) {
+	MessageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
+	if cmd.Flags().Changed(MessageFlagName) {
 
-		var messageFlagName string
+		var MessageFlagName string
 		if cmdPrefix == "" {
-			messageFlagName = "Message"
+			MessageFlagName = "Message"
 		} else {
-			messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+			MessageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
 		}
 
-		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		MessageFlagValue, err := cmd.Flags().GetString(MessageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Message = messageFlagValue
+		m.Message = MessageFlagValue
 
 		retAdded = true
 	}
@@ -1060,21 +1060,21 @@ func retrieveServiceUpdateStatusStartedAtFlags(depth int, m *models.ServiceUpdat
 	}
 	retAdded := false
 
-	startedAtFlagName := fmt.Sprintf("%v.StartedAt", cmdPrefix)
-	if cmd.Flags().Changed(startedAtFlagName) {
+	StartedAtFlagName := fmt.Sprintf("%v.StartedAt", cmdPrefix)
+	if cmd.Flags().Changed(StartedAtFlagName) {
 
-		var startedAtFlagName string
+		var StartedAtFlagName string
 		if cmdPrefix == "" {
-			startedAtFlagName = "StartedAt"
+			StartedAtFlagName = "StartedAt"
 		} else {
-			startedAtFlagName = fmt.Sprintf("%v.StartedAt", cmdPrefix)
+			StartedAtFlagName = fmt.Sprintf("%v.StartedAt", cmdPrefix)
 		}
 
-		startedAtFlagValue, err := cmd.Flags().GetString(startedAtFlagName)
+		StartedAtFlagValue, err := cmd.Flags().GetString(StartedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StartedAt = startedAtFlagValue
+		m.StartedAt = StartedAtFlagValue
 
 		retAdded = true
 	}
@@ -1088,21 +1088,21 @@ func retrieveServiceUpdateStatusStateFlags(depth int, m *models.ServiceUpdateSta
 	}
 	retAdded := false
 
-	stateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
-	if cmd.Flags().Changed(stateFlagName) {
+	StateFlagName := fmt.Sprintf("%v.State", cmdPrefix)
+	if cmd.Flags().Changed(StateFlagName) {
 
-		var stateFlagName string
+		var StateFlagName string
 		if cmdPrefix == "" {
-			stateFlagName = "State"
+			StateFlagName = "State"
 		} else {
-			stateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
+			StateFlagName = fmt.Sprintf("%v.State", cmdPrefix)
 		}
 
-		stateFlagValue, err := cmd.Flags().GetString(stateFlagName)
+		StateFlagValue, err := cmd.Flags().GetString(StateFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.State = stateFlagValue
+		m.State = StateFlagValue
 
 		retAdded = true
 	}

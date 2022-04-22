@@ -47,18 +47,18 @@ func registerCreateImageInfoError(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	errorDescription := ``
+	ErrorDescription := ``
 
-	var errorFlagName string
+	var ErrorFlagName string
 	if cmdPrefix == "" {
-		errorFlagName = "error"
+		ErrorFlagName = "error"
 	} else {
-		errorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
+		ErrorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
 	}
 
-	var errorFlagDefault string
+	var ErrorFlagDefault string
 
-	_ = cmd.PersistentFlags().String(errorFlagName, errorFlagDefault, errorDescription)
+	_ = cmd.PersistentFlags().String(ErrorFlagName, ErrorFlagDefault, ErrorDescription)
 
 	return nil
 }
@@ -68,18 +68,18 @@ func registerCreateImageInfoID(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -89,18 +89,18 @@ func registerCreateImageInfoProgress(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	progressDescription := ``
+	ProgressDescription := ``
 
-	var progressFlagName string
+	var ProgressFlagName string
 	if cmdPrefix == "" {
-		progressFlagName = "progress"
+		ProgressFlagName = "progress"
 	} else {
-		progressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
+		ProgressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
 	}
 
-	var progressFlagDefault string
+	var ProgressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(progressFlagName, progressFlagDefault, progressDescription)
+	_ = cmd.PersistentFlags().String(ProgressFlagName, ProgressFlagDefault, ProgressDescription)
 
 	return nil
 }
@@ -110,14 +110,14 @@ func registerCreateImageInfoProgressDetail(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	var progressDetailFlagName string
+	var ProgressDetailFlagName string
 	if cmdPrefix == "" {
-		progressDetailFlagName = "progressDetail"
+		ProgressDetailFlagName = "progressDetail"
 	} else {
-		progressDetailFlagName = fmt.Sprintf("%v.progressDetail", cmdPrefix)
+		ProgressDetailFlagName = fmt.Sprintf("%v.progressDetail", cmdPrefix)
 	}
 
-	if err := registerModelProgressDetailFlags(depth+1, progressDetailFlagName, cmd); err != nil {
+	if err := registerModelProgressDetailFlags(depth+1, ProgressDetailFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -129,18 +129,18 @@ func registerCreateImageInfoStatus(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	statusDescription := ``
+	StatusDescription := ``
 
-	var statusFlagName string
+	var StatusFlagName string
 	if cmdPrefix == "" {
-		statusFlagName = "status"
+		StatusFlagName = "status"
 	} else {
-		statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+		StatusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
 	}
 
-	var statusFlagDefault string
+	var StatusFlagDefault string
 
-	_ = cmd.PersistentFlags().String(statusFlagName, statusFlagDefault, statusDescription)
+	_ = cmd.PersistentFlags().String(StatusFlagName, StatusFlagDefault, StatusDescription)
 
 	return nil
 }
@@ -149,35 +149,35 @@ func registerCreateImageInfoStatus(depth int, cmdPrefix string, cmd *cobra.Comma
 func retrieveModelCreateImageInfoFlags(depth int, m *models.CreateImageInfo, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, errorAdded := retrieveCreateImageInfoErrorFlags(depth, m, cmdPrefix, cmd)
+	err, ErrorAdded := retrieveCreateImageInfoErrorFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || errorAdded
+	retAdded = retAdded || ErrorAdded
 
-	err, idAdded := retrieveCreateImageInfoIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveCreateImageInfoIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, progressAdded := retrieveCreateImageInfoProgressFlags(depth, m, cmdPrefix, cmd)
+	err, ProgressAdded := retrieveCreateImageInfoProgressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || progressAdded
+	retAdded = retAdded || ProgressAdded
 
-	err, progressDetailAdded := retrieveCreateImageInfoProgressDetailFlags(depth, m, cmdPrefix, cmd)
+	err, ProgressDetailAdded := retrieveCreateImageInfoProgressDetailFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || progressDetailAdded
+	retAdded = retAdded || ProgressDetailAdded
 
-	err, statusAdded := retrieveCreateImageInfoStatusFlags(depth, m, cmdPrefix, cmd)
+	err, StatusAdded := retrieveCreateImageInfoStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusAdded
+	retAdded = retAdded || StatusAdded
 
 	return nil, retAdded
 }
@@ -188,21 +188,21 @@ func retrieveCreateImageInfoErrorFlags(depth int, m *models.CreateImageInfo, cmd
 	}
 	retAdded := false
 
-	errorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
-	if cmd.Flags().Changed(errorFlagName) {
+	ErrorFlagName := fmt.Sprintf("%v.error", cmdPrefix)
+	if cmd.Flags().Changed(ErrorFlagName) {
 
-		var errorFlagName string
+		var ErrorFlagName string
 		if cmdPrefix == "" {
-			errorFlagName = "error"
+			ErrorFlagName = "error"
 		} else {
-			errorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
+			ErrorFlagName = fmt.Sprintf("%v.error", cmdPrefix)
 		}
 
-		errorFlagValue, err := cmd.Flags().GetString(errorFlagName)
+		ErrorFlagValue, err := cmd.Flags().GetString(ErrorFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Error = errorFlagValue
+		m.Error = ErrorFlagValue
 
 		retAdded = true
 	}
@@ -216,21 +216,21 @@ func retrieveCreateImageInfoIDFlags(depth int, m *models.CreateImageInfo, cmdPre
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.id", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.id", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -244,21 +244,21 @@ func retrieveCreateImageInfoProgressFlags(depth int, m *models.CreateImageInfo, 
 	}
 	retAdded := false
 
-	progressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
-	if cmd.Flags().Changed(progressFlagName) {
+	ProgressFlagName := fmt.Sprintf("%v.progress", cmdPrefix)
+	if cmd.Flags().Changed(ProgressFlagName) {
 
-		var progressFlagName string
+		var ProgressFlagName string
 		if cmdPrefix == "" {
-			progressFlagName = "progress"
+			ProgressFlagName = "progress"
 		} else {
-			progressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
+			ProgressFlagName = fmt.Sprintf("%v.progress", cmdPrefix)
 		}
 
-		progressFlagValue, err := cmd.Flags().GetString(progressFlagName)
+		ProgressFlagValue, err := cmd.Flags().GetString(ProgressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Progress = progressFlagValue
+		m.Progress = ProgressFlagValue
 
 		retAdded = true
 	}
@@ -272,22 +272,22 @@ func retrieveCreateImageInfoProgressDetailFlags(depth int, m *models.CreateImage
 	}
 	retAdded := false
 
-	progressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
-	if cmd.Flags().Changed(progressDetailFlagName) {
+	ProgressDetailFlagName := fmt.Sprintf("%v.progressDetail", cmdPrefix)
+	if cmd.Flags().Changed(ProgressDetailFlagName) {
 		// info: complex object progressDetail ProgressDetail is retrieved outside this Changed() block
 	}
-	progressDetailFlagValue := m.ProgressDetail
-	if swag.IsZero(progressDetailFlagValue) {
-		progressDetailFlagValue = &models.ProgressDetail{}
+	ProgressDetailFlagValue := m.ProgressDetail
+	if swag.IsZero(ProgressDetailFlagValue) {
+		ProgressDetailFlagValue = &models.ProgressDetail{}
 	}
 
-	err, progressDetailAdded := retrieveModelProgressDetailFlags(depth+1, progressDetailFlagValue, progressDetailFlagName, cmd)
+	err, ProgressDetailAdded := retrieveModelProgressDetailFlags(depth+1, ProgressDetailFlagValue, ProgressDetailFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || progressDetailAdded
-	if progressDetailAdded {
-		m.ProgressDetail = progressDetailFlagValue
+	retAdded = retAdded || ProgressDetailAdded
+	if ProgressDetailAdded {
+		m.ProgressDetail = ProgressDetailFlagValue
 	}
 
 	return nil, retAdded
@@ -299,21 +299,21 @@ func retrieveCreateImageInfoStatusFlags(depth int, m *models.CreateImageInfo, cm
 	}
 	retAdded := false
 
-	statusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
-	if cmd.Flags().Changed(statusFlagName) {
+	StatusFlagName := fmt.Sprintf("%v.status", cmdPrefix)
+	if cmd.Flags().Changed(StatusFlagName) {
 
-		var statusFlagName string
+		var StatusFlagName string
 		if cmdPrefix == "" {
-			statusFlagName = "status"
+			StatusFlagName = "status"
 		} else {
-			statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+			StatusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
 		}
 
-		statusFlagValue, err := cmd.Flags().GetString(statusFlagName)
+		StatusFlagValue, err := cmd.Flags().GetString(StatusFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Status = statusFlagValue
+		m.Status = StatusFlagValue
 
 		retAdded = true
 	}

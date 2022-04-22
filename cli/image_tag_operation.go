@@ -80,52 +80,52 @@ func registerOperationImageImageTagParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageTagNameParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	nameDescription := `Required. Image name or ID to tag.`
+	NameDescription := `Required. Image name or ID to tag.`
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
 func registerOperationImageImageTagRepoParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	repoDescription := `The repository to tag in. For example, ` + "`" + `someuser/someimage` + "`" + `.`
+	RepoDescription := `The repository to tag in. For example, ` + "`" + `someuser/someimage` + "`" + `.`
 
-	var repoFlagName string
+	var RepoFlagName string
 	if cmdPrefix == "" {
-		repoFlagName = "repo"
+		RepoFlagName = "repo"
 	} else {
-		repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+		RepoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
 	}
 
-	var repoFlagDefault string
+	var RepoFlagDefault string
 
-	_ = cmd.PersistentFlags().String(repoFlagName, repoFlagDefault, repoDescription)
+	_ = cmd.PersistentFlags().String(RepoFlagName, RepoFlagDefault, RepoDescription)
 
 	return nil
 }
 func registerOperationImageImageTagTagParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	tagDescription := `The name of the new tag.`
+	TagDescription := `The name of the new tag.`
 
-	var tagFlagName string
+	var TagFlagName string
 	if cmdPrefix == "" {
-		tagFlagName = "tag"
+		TagFlagName = "tag"
 	} else {
-		tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+		TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 	}
 
-	var tagFlagDefault string
+	var TagFlagDefault string
 
-	_ = cmd.PersistentFlags().String(tagFlagName, tagFlagDefault, tagDescription)
+	_ = cmd.PersistentFlags().String(TagFlagName, TagFlagDefault, TagDescription)
 
 	return nil
 }
@@ -134,18 +134,18 @@ func retrieveOperationImageImageTagNameFlag(m *image.ImageTagParams, cmdPrefix s
 	retAdded := false
 	if cmd.Flags().Changed("name") {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 	}
 	return nil, retAdded
@@ -154,18 +154,18 @@ func retrieveOperationImageImageTagRepoFlag(m *image.ImageTagParams, cmdPrefix s
 	retAdded := false
 	if cmd.Flags().Changed("repo") {
 
-		var repoFlagName string
+		var RepoFlagName string
 		if cmdPrefix == "" {
-			repoFlagName = "repo"
+			RepoFlagName = "repo"
 		} else {
-			repoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
+			RepoFlagName = fmt.Sprintf("%v.repo", cmdPrefix)
 		}
 
-		repoFlagValue, err := cmd.Flags().GetString(repoFlagName)
+		RepoFlagValue, err := cmd.Flags().GetString(RepoFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Repo = &repoFlagValue
+		m.Repo = &RepoFlagValue
 
 	}
 	return nil, retAdded
@@ -174,18 +174,18 @@ func retrieveOperationImageImageTagTagFlag(m *image.ImageTagParams, cmdPrefix st
 	retAdded := false
 	if cmd.Flags().Changed("tag") {
 
-		var tagFlagName string
+		var TagFlagName string
 		if cmdPrefix == "" {
-			tagFlagName = "tag"
+			TagFlagName = "tag"
 		} else {
-			tagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
+			TagFlagName = fmt.Sprintf("%v.tag", cmdPrefix)
 		}
 
-		tagFlagValue, err := cmd.Flags().GetString(tagFlagName)
+		TagFlagValue, err := cmd.Flags().GetString(TagFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tag = &tagFlagValue
+		m.Tag = &TagFlagValue
 
 	}
 	return nil, retAdded

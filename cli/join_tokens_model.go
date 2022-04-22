@@ -33,19 +33,19 @@ func registerJoinTokensManager(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	managerDescription := `The token managers can use to join the swarm.
+	ManagerDescription := `The token managers can use to join the swarm.
 `
 
-	var managerFlagName string
+	var ManagerFlagName string
 	if cmdPrefix == "" {
-		managerFlagName = "Manager"
+		ManagerFlagName = "Manager"
 	} else {
-		managerFlagName = fmt.Sprintf("%v.Manager", cmdPrefix)
+		ManagerFlagName = fmt.Sprintf("%v.Manager", cmdPrefix)
 	}
 
-	var managerFlagDefault string
+	var ManagerFlagDefault string
 
-	_ = cmd.PersistentFlags().String(managerFlagName, managerFlagDefault, managerDescription)
+	_ = cmd.PersistentFlags().String(ManagerFlagName, ManagerFlagDefault, ManagerDescription)
 
 	return nil
 }
@@ -55,19 +55,19 @@ func registerJoinTokensWorker(depth int, cmdPrefix string, cmd *cobra.Command) e
 		return nil
 	}
 
-	workerDescription := `The token workers can use to join the swarm.
+	WorkerDescription := `The token workers can use to join the swarm.
 `
 
-	var workerFlagName string
+	var WorkerFlagName string
 	if cmdPrefix == "" {
-		workerFlagName = "Worker"
+		WorkerFlagName = "Worker"
 	} else {
-		workerFlagName = fmt.Sprintf("%v.Worker", cmdPrefix)
+		WorkerFlagName = fmt.Sprintf("%v.Worker", cmdPrefix)
 	}
 
-	var workerFlagDefault string
+	var WorkerFlagDefault string
 
-	_ = cmd.PersistentFlags().String(workerFlagName, workerFlagDefault, workerDescription)
+	_ = cmd.PersistentFlags().String(WorkerFlagName, WorkerFlagDefault, WorkerDescription)
 
 	return nil
 }
@@ -76,17 +76,17 @@ func registerJoinTokensWorker(depth int, cmdPrefix string, cmd *cobra.Command) e
 func retrieveModelJoinTokensFlags(depth int, m *models.JoinTokens, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, managerAdded := retrieveJoinTokensManagerFlags(depth, m, cmdPrefix, cmd)
+	err, ManagerAdded := retrieveJoinTokensManagerFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || managerAdded
+	retAdded = retAdded || ManagerAdded
 
-	err, workerAdded := retrieveJoinTokensWorkerFlags(depth, m, cmdPrefix, cmd)
+	err, WorkerAdded := retrieveJoinTokensWorkerFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || workerAdded
+	retAdded = retAdded || WorkerAdded
 
 	return nil, retAdded
 }
@@ -97,21 +97,21 @@ func retrieveJoinTokensManagerFlags(depth int, m *models.JoinTokens, cmdPrefix s
 	}
 	retAdded := false
 
-	managerFlagName := fmt.Sprintf("%v.Manager", cmdPrefix)
-	if cmd.Flags().Changed(managerFlagName) {
+	ManagerFlagName := fmt.Sprintf("%v.Manager", cmdPrefix)
+	if cmd.Flags().Changed(ManagerFlagName) {
 
-		var managerFlagName string
+		var ManagerFlagName string
 		if cmdPrefix == "" {
-			managerFlagName = "Manager"
+			ManagerFlagName = "Manager"
 		} else {
-			managerFlagName = fmt.Sprintf("%v.Manager", cmdPrefix)
+			ManagerFlagName = fmt.Sprintf("%v.Manager", cmdPrefix)
 		}
 
-		managerFlagValue, err := cmd.Flags().GetString(managerFlagName)
+		ManagerFlagValue, err := cmd.Flags().GetString(ManagerFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Manager = managerFlagValue
+		m.Manager = ManagerFlagValue
 
 		retAdded = true
 	}
@@ -125,21 +125,21 @@ func retrieveJoinTokensWorkerFlags(depth int, m *models.JoinTokens, cmdPrefix st
 	}
 	retAdded := false
 
-	workerFlagName := fmt.Sprintf("%v.Worker", cmdPrefix)
-	if cmd.Flags().Changed(workerFlagName) {
+	WorkerFlagName := fmt.Sprintf("%v.Worker", cmdPrefix)
+	if cmd.Flags().Changed(WorkerFlagName) {
 
-		var workerFlagName string
+		var WorkerFlagName string
 		if cmdPrefix == "" {
-			workerFlagName = "Worker"
+			WorkerFlagName = "Worker"
 		} else {
-			workerFlagName = fmt.Sprintf("%v.Worker", cmdPrefix)
+			WorkerFlagName = fmt.Sprintf("%v.Worker", cmdPrefix)
 		}
 
-		workerFlagValue, err := cmd.Flags().GetString(workerFlagName)
+		WorkerFlagValue, err := cmd.Flags().GetString(WorkerFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Worker = workerFlagValue
+		m.Worker = WorkerFlagValue
 
 		retAdded = true
 	}

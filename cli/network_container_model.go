@@ -45,18 +45,18 @@ func registerNetworkContainerEndpointID(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	endpointIdDescription := ``
+	EndpointIDDescription := ``
 
-	var endpointIdFlagName string
+	var EndpointIDFlagName string
 	if cmdPrefix == "" {
-		endpointIdFlagName = "EndpointID"
+		EndpointIDFlagName = "EndpointID"
 	} else {
-		endpointIdFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
+		EndpointIDFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
 	}
 
-	var endpointIdFlagDefault string
+	var EndpointIDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(endpointIdFlagName, endpointIdFlagDefault, endpointIdDescription)
+	_ = cmd.PersistentFlags().String(EndpointIDFlagName, EndpointIDFlagDefault, EndpointIDDescription)
 
 	return nil
 }
@@ -66,18 +66,18 @@ func registerNetworkContainerIPV4Address(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	ipv4AddressDescription := ``
+	IPV4AddressDescription := ``
 
-	var ipv4AddressFlagName string
+	var IPV4AddressFlagName string
 	if cmdPrefix == "" {
-		ipv4AddressFlagName = "IPv4Address"
+		IPV4AddressFlagName = "IPv4Address"
 	} else {
-		ipv4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
+		IPV4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
 	}
 
-	var ipv4AddressFlagDefault string
+	var IPV4AddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipv4AddressFlagName, ipv4AddressFlagDefault, ipv4AddressDescription)
+	_ = cmd.PersistentFlags().String(IPV4AddressFlagName, IPV4AddressFlagDefault, IPV4AddressDescription)
 
 	return nil
 }
@@ -87,18 +87,18 @@ func registerNetworkContainerIPV6Address(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	ipv6AddressDescription := ``
+	IPV6AddressDescription := ``
 
-	var ipv6AddressFlagName string
+	var IPV6AddressFlagName string
 	if cmdPrefix == "" {
-		ipv6AddressFlagName = "IPv6Address"
+		IPV6AddressFlagName = "IPv6Address"
 	} else {
-		ipv6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
+		IPV6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
 	}
 
-	var ipv6AddressFlagDefault string
+	var IPV6AddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(ipv6AddressFlagName, ipv6AddressFlagDefault, ipv6AddressDescription)
+	_ = cmd.PersistentFlags().String(IPV6AddressFlagName, IPV6AddressFlagDefault, IPV6AddressDescription)
 
 	return nil
 }
@@ -108,18 +108,18 @@ func registerNetworkContainerMacAddress(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	macAddressDescription := ``
+	MacAddressDescription := ``
 
-	var macAddressFlagName string
+	var MacAddressFlagName string
 	if cmdPrefix == "" {
-		macAddressFlagName = "MacAddress"
+		MacAddressFlagName = "MacAddress"
 	} else {
-		macAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
+		MacAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
 	}
 
-	var macAddressFlagDefault string
+	var MacAddressFlagDefault string
 
-	_ = cmd.PersistentFlags().String(macAddressFlagName, macAddressFlagDefault, macAddressDescription)
+	_ = cmd.PersistentFlags().String(MacAddressFlagName, MacAddressFlagDefault, MacAddressDescription)
 
 	return nil
 }
@@ -129,18 +129,18 @@ func registerNetworkContainerName(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -149,35 +149,35 @@ func registerNetworkContainerName(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelNetworkContainerFlags(depth int, m *models.NetworkContainer, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, endpointIdAdded := retrieveNetworkContainerEndpointIDFlags(depth, m, cmdPrefix, cmd)
+	err, EndpointIDAdded := retrieveNetworkContainerEndpointIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || endpointIdAdded
+	retAdded = retAdded || EndpointIDAdded
 
-	err, ipv4AddressAdded := retrieveNetworkContainerIPV4AddressFlags(depth, m, cmdPrefix, cmd)
+	err, IPV4AddressAdded := retrieveNetworkContainerIPV4AddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipv4AddressAdded
+	retAdded = retAdded || IPV4AddressAdded
 
-	err, ipv6AddressAdded := retrieveNetworkContainerIPV6AddressFlags(depth, m, cmdPrefix, cmd)
+	err, IPV6AddressAdded := retrieveNetworkContainerIPV6AddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ipv6AddressAdded
+	retAdded = retAdded || IPV6AddressAdded
 
-	err, macAddressAdded := retrieveNetworkContainerMacAddressFlags(depth, m, cmdPrefix, cmd)
+	err, MacAddressAdded := retrieveNetworkContainerMacAddressFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || macAddressAdded
+	retAdded = retAdded || MacAddressAdded
 
-	err, nameAdded := retrieveNetworkContainerNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveNetworkContainerNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
 	return nil, retAdded
 }
@@ -188,21 +188,21 @@ func retrieveNetworkContainerEndpointIDFlags(depth int, m *models.NetworkContain
 	}
 	retAdded := false
 
-	endpointIdFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
-	if cmd.Flags().Changed(endpointIdFlagName) {
+	EndpointIDFlagName := fmt.Sprintf("%v.EndpointID", cmdPrefix)
+	if cmd.Flags().Changed(EndpointIDFlagName) {
 
-		var endpointIdFlagName string
+		var EndpointIDFlagName string
 		if cmdPrefix == "" {
-			endpointIdFlagName = "EndpointID"
+			EndpointIDFlagName = "EndpointID"
 		} else {
-			endpointIdFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
+			EndpointIDFlagName = fmt.Sprintf("%v.EndpointID", cmdPrefix)
 		}
 
-		endpointIdFlagValue, err := cmd.Flags().GetString(endpointIdFlagName)
+		EndpointIDFlagValue, err := cmd.Flags().GetString(EndpointIDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.EndpointID = endpointIdFlagValue
+		m.EndpointID = EndpointIDFlagValue
 
 		retAdded = true
 	}
@@ -216,21 +216,21 @@ func retrieveNetworkContainerIPV4AddressFlags(depth int, m *models.NetworkContai
 	}
 	retAdded := false
 
-	ipv4AddressFlagName := fmt.Sprintf("%v.IPv4Address", cmdPrefix)
-	if cmd.Flags().Changed(ipv4AddressFlagName) {
+	IPV4AddressFlagName := fmt.Sprintf("%v.IPv4Address", cmdPrefix)
+	if cmd.Flags().Changed(IPV4AddressFlagName) {
 
-		var ipv4AddressFlagName string
+		var IPV4AddressFlagName string
 		if cmdPrefix == "" {
-			ipv4AddressFlagName = "IPv4Address"
+			IPV4AddressFlagName = "IPv4Address"
 		} else {
-			ipv4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
+			IPV4AddressFlagName = fmt.Sprintf("%v.IPv4Address", cmdPrefix)
 		}
 
-		ipv4AddressFlagValue, err := cmd.Flags().GetString(ipv4AddressFlagName)
+		IPV4AddressFlagValue, err := cmd.Flags().GetString(IPV4AddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPV4Address = ipv4AddressFlagValue
+		m.IPV4Address = IPV4AddressFlagValue
 
 		retAdded = true
 	}
@@ -244,21 +244,21 @@ func retrieveNetworkContainerIPV6AddressFlags(depth int, m *models.NetworkContai
 	}
 	retAdded := false
 
-	ipv6AddressFlagName := fmt.Sprintf("%v.IPv6Address", cmdPrefix)
-	if cmd.Flags().Changed(ipv6AddressFlagName) {
+	IPV6AddressFlagName := fmt.Sprintf("%v.IPv6Address", cmdPrefix)
+	if cmd.Flags().Changed(IPV6AddressFlagName) {
 
-		var ipv6AddressFlagName string
+		var IPV6AddressFlagName string
 		if cmdPrefix == "" {
-			ipv6AddressFlagName = "IPv6Address"
+			IPV6AddressFlagName = "IPv6Address"
 		} else {
-			ipv6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
+			IPV6AddressFlagName = fmt.Sprintf("%v.IPv6Address", cmdPrefix)
 		}
 
-		ipv6AddressFlagValue, err := cmd.Flags().GetString(ipv6AddressFlagName)
+		IPV6AddressFlagValue, err := cmd.Flags().GetString(IPV6AddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IPV6Address = ipv6AddressFlagValue
+		m.IPV6Address = IPV6AddressFlagValue
 
 		retAdded = true
 	}
@@ -272,21 +272,21 @@ func retrieveNetworkContainerMacAddressFlags(depth int, m *models.NetworkContain
 	}
 	retAdded := false
 
-	macAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
-	if cmd.Flags().Changed(macAddressFlagName) {
+	MacAddressFlagName := fmt.Sprintf("%v.MacAddress", cmdPrefix)
+	if cmd.Flags().Changed(MacAddressFlagName) {
 
-		var macAddressFlagName string
+		var MacAddressFlagName string
 		if cmdPrefix == "" {
-			macAddressFlagName = "MacAddress"
+			MacAddressFlagName = "MacAddress"
 		} else {
-			macAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
+			MacAddressFlagName = fmt.Sprintf("%v.MacAddress", cmdPrefix)
 		}
 
-		macAddressFlagValue, err := cmd.Flags().GetString(macAddressFlagName)
+		MacAddressFlagValue, err := cmd.Flags().GetString(MacAddressFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MacAddress = macAddressFlagValue
+		m.MacAddress = MacAddressFlagValue
 
 		retAdded = true
 	}
@@ -300,21 +300,21 @@ func retrieveNetworkContainerNameFlags(depth int, m *models.NetworkContainer, cm
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}

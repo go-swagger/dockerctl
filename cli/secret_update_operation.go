@@ -81,14 +81,14 @@ func registerOperationSecretSecretUpdateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSecretSecretUpdateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. The spec of the secret to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [SecretInspect endpoint](#operation/SecretInspect) response values.")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. The spec of the secret to update. Currently, only the Labels field can be updated. All other fields must remain unchanged from the [SecretInspect endpoint](#operation/SecretInspect) response values.")
 
 	// add flags for body
 	if err := registerModelSecretSpecFlags(0, "secretSpec", cmd); err != nil {
@@ -99,35 +99,35 @@ func registerOperationSecretSecretUpdateBodyParamFlags(cmdPrefix string, cmd *co
 }
 func registerOperationSecretSecretUpdateIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. The ID or name of the secret`
+	IDDescription := `Required. The ID or name of the secret`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
 func registerOperationSecretSecretUpdateVersionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	versionDescription := `Required. The version number of the secret object being updated. This is required to avoid conflicting writes.`
+	VersionDescription := `Required. The version number of the secret object being updated. This is required to avoid conflicting writes.`
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "version"
+		VersionFlagName = "version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
 	}
 
-	var versionFlagDefault int64
+	var VersionFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(versionFlagName, versionFlagDefault, versionDescription)
+	_ = cmd.PersistentFlags().Int64(VersionFlagName, VersionFlagDefault, VersionDescription)
 
 	return nil
 }
@@ -174,18 +174,18 @@ func retrieveOperationSecretSecretUpdateIDFlag(m *secret.SecretUpdateParams, cmd
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -194,18 +194,18 @@ func retrieveOperationSecretSecretUpdateVersionFlag(m *secret.SecretUpdateParams
 	retAdded := false
 	if cmd.Flags().Changed("version") {
 
-		var versionFlagName string
+		var VersionFlagName string
 		if cmdPrefix == "" {
-			versionFlagName = "version"
+			VersionFlagName = "version"
 		} else {
-			versionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
+			VersionFlagName = fmt.Sprintf("%v.version", cmdPrefix)
 		}
 
-		versionFlagValue, err := cmd.Flags().GetInt64(versionFlagName)
+		VersionFlagValue, err := cmd.Flags().GetInt64(VersionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Version = versionFlagValue
+		m.Version = VersionFlagValue
 
 	}
 	return nil, retAdded

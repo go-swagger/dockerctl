@@ -47,18 +47,18 @@ func registerIPAMDriver(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	driverDescription := `Name of the IPAM driver to use.`
+	DriverDescription := `Name of the IPAM driver to use.`
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string = "default"
+	var DriverFlagDefault string = "default"
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -77,23 +77,23 @@ func registerIPAMOptions(depth int, cmdPrefix string, cmd *cobra.Command) error 
 func retrieveModelIPAMFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, configAdded := retrieveIPAMConfigFlags(depth, m, cmdPrefix, cmd)
+	err, ConfigAdded := retrieveIPAMConfigFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || configAdded
+	retAdded = retAdded || ConfigAdded
 
-	err, driverAdded := retrieveIPAMDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveIPAMDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, optionsAdded := retrieveIPAMOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveIPAMOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
 	return nil, retAdded
 }
@@ -104,8 +104,8 @@ func retrieveIPAMConfigFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	configFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
-	if cmd.Flags().Changed(configFlagName) {
+	ConfigFlagName := fmt.Sprintf("%v.Config", cmdPrefix)
+	if cmd.Flags().Changed(ConfigFlagName) {
 		// warning: Config array type []map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -118,21 +118,21 @@ func retrieveIPAMDriverFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = &driverFlagValue
+		m.Driver = &DriverFlagValue
 
 		retAdded = true
 	}
@@ -146,8 +146,8 @@ func retrieveIPAMOptionsFlags(depth int, m *models.IPAM, cmdPrefix string, cmd *
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 

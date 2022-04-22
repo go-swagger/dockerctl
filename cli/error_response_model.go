@@ -29,18 +29,18 @@ func registerErrorResponseMessage(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	messageDescription := `Required. The error message.`
+	MessageDescription := `Required. The error message.`
 
-	var messageFlagName string
+	var MessageFlagName string
 	if cmdPrefix == "" {
-		messageFlagName = "message"
+		MessageFlagName = "message"
 	} else {
-		messageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
+		MessageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
 	}
 
-	var messageFlagDefault string
+	var MessageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+	_ = cmd.PersistentFlags().String(MessageFlagName, MessageFlagDefault, MessageDescription)
 
 	return nil
 }
@@ -49,11 +49,11 @@ func registerErrorResponseMessage(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelErrorResponseFlags(depth int, m *models.ErrorResponse, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, messageAdded := retrieveErrorResponseMessageFlags(depth, m, cmdPrefix, cmd)
+	err, MessageAdded := retrieveErrorResponseMessageFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || messageAdded
+	retAdded = retAdded || MessageAdded
 
 	return nil, retAdded
 }
@@ -64,21 +64,21 @@ func retrieveErrorResponseMessageFlags(depth int, m *models.ErrorResponse, cmdPr
 	}
 	retAdded := false
 
-	messageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
-	if cmd.Flags().Changed(messageFlagName) {
+	MessageFlagName := fmt.Sprintf("%v.message", cmdPrefix)
+	if cmd.Flags().Changed(MessageFlagName) {
 
-		var messageFlagName string
+		var MessageFlagName string
 		if cmdPrefix == "" {
-			messageFlagName = "message"
+			MessageFlagName = "message"
 		} else {
-			messageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
+			MessageFlagName = fmt.Sprintf("%v.message", cmdPrefix)
 		}
 
-		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		MessageFlagValue, err := cmd.Flags().GetString(MessageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Message = messageFlagValue
+		m.Message = MessageFlagValue
 
 		retAdded = true
 	}

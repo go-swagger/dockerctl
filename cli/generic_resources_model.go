@@ -39,14 +39,14 @@ func registerGenericResourcesItems0DiscreteResourceSpec(depth int, cmdPrefix str
 		return nil
 	}
 
-	var discreteResourceSpecFlagName string
+	var DiscreteResourceSpecFlagName string
 	if cmdPrefix == "" {
-		discreteResourceSpecFlagName = "DiscreteResourceSpec"
+		DiscreteResourceSpecFlagName = "DiscreteResourceSpec"
 	} else {
-		discreteResourceSpecFlagName = fmt.Sprintf("%v.DiscreteResourceSpec", cmdPrefix)
+		DiscreteResourceSpecFlagName = fmt.Sprintf("%v.DiscreteResourceSpec", cmdPrefix)
 	}
 
-	if err := registerModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, discreteResourceSpecFlagName, cmd); err != nil {
+	if err := registerModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, DiscreteResourceSpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -58,14 +58,14 @@ func registerGenericResourcesItems0NamedResourceSpec(depth int, cmdPrefix string
 		return nil
 	}
 
-	var namedResourceSpecFlagName string
+	var NamedResourceSpecFlagName string
 	if cmdPrefix == "" {
-		namedResourceSpecFlagName = "NamedResourceSpec"
+		NamedResourceSpecFlagName = "NamedResourceSpec"
 	} else {
-		namedResourceSpecFlagName = fmt.Sprintf("%v.NamedResourceSpec", cmdPrefix)
+		NamedResourceSpecFlagName = fmt.Sprintf("%v.NamedResourceSpec", cmdPrefix)
 	}
 
-	if err := registerModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, namedResourceSpecFlagName, cmd); err != nil {
+	if err := registerModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, NamedResourceSpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -76,17 +76,17 @@ func registerGenericResourcesItems0NamedResourceSpec(depth int, cmdPrefix string
 func retrieveModelGenericResourcesItems0Flags(depth int, m *models.GenericResourcesItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, discreteResourceSpecAdded := retrieveGenericResourcesItems0DiscreteResourceSpecFlags(depth, m, cmdPrefix, cmd)
+	err, DiscreteResourceSpecAdded := retrieveGenericResourcesItems0DiscreteResourceSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || discreteResourceSpecAdded
+	retAdded = retAdded || DiscreteResourceSpecAdded
 
-	err, namedResourceSpecAdded := retrieveGenericResourcesItems0NamedResourceSpecFlags(depth, m, cmdPrefix, cmd)
+	err, NamedResourceSpecAdded := retrieveGenericResourcesItems0NamedResourceSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || namedResourceSpecAdded
+	retAdded = retAdded || NamedResourceSpecAdded
 
 	return nil, retAdded
 }
@@ -97,22 +97,22 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecFlags(depth int, m *model
 	}
 	retAdded := false
 
-	discreteResourceSpecFlagName := fmt.Sprintf("%v.DiscreteResourceSpec", cmdPrefix)
-	if cmd.Flags().Changed(discreteResourceSpecFlagName) {
+	DiscreteResourceSpecFlagName := fmt.Sprintf("%v.DiscreteResourceSpec", cmdPrefix)
+	if cmd.Flags().Changed(DiscreteResourceSpecFlagName) {
 		// info: complex object DiscreteResourceSpec GenericResourcesItems0DiscreteResourceSpec is retrieved outside this Changed() block
 	}
-	discreteResourceSpecFlagValue := m.DiscreteResourceSpec
-	if swag.IsZero(discreteResourceSpecFlagValue) {
-		discreteResourceSpecFlagValue = &models.GenericResourcesItems0DiscreteResourceSpec{}
+	DiscreteResourceSpecFlagValue := m.DiscreteResourceSpec
+	if swag.IsZero(DiscreteResourceSpecFlagValue) {
+		DiscreteResourceSpecFlagValue = &models.GenericResourcesItems0DiscreteResourceSpec{}
 	}
 
-	err, discreteResourceSpecAdded := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, discreteResourceSpecFlagValue, discreteResourceSpecFlagName, cmd)
+	err, DiscreteResourceSpecAdded := retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth+1, DiscreteResourceSpecFlagValue, DiscreteResourceSpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || discreteResourceSpecAdded
-	if discreteResourceSpecAdded {
-		m.DiscreteResourceSpec = discreteResourceSpecFlagValue
+	retAdded = retAdded || DiscreteResourceSpecAdded
+	if DiscreteResourceSpecAdded {
+		m.DiscreteResourceSpec = DiscreteResourceSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -124,22 +124,22 @@ func retrieveGenericResourcesItems0NamedResourceSpecFlags(depth int, m *models.G
 	}
 	retAdded := false
 
-	namedResourceSpecFlagName := fmt.Sprintf("%v.NamedResourceSpec", cmdPrefix)
-	if cmd.Flags().Changed(namedResourceSpecFlagName) {
+	NamedResourceSpecFlagName := fmt.Sprintf("%v.NamedResourceSpec", cmdPrefix)
+	if cmd.Flags().Changed(NamedResourceSpecFlagName) {
 		// info: complex object NamedResourceSpec GenericResourcesItems0NamedResourceSpec is retrieved outside this Changed() block
 	}
-	namedResourceSpecFlagValue := m.NamedResourceSpec
-	if swag.IsZero(namedResourceSpecFlagValue) {
-		namedResourceSpecFlagValue = &models.GenericResourcesItems0NamedResourceSpec{}
+	NamedResourceSpecFlagValue := m.NamedResourceSpec
+	if swag.IsZero(NamedResourceSpecFlagValue) {
+		NamedResourceSpecFlagValue = &models.GenericResourcesItems0NamedResourceSpec{}
 	}
 
-	err, namedResourceSpecAdded := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, namedResourceSpecFlagValue, namedResourceSpecFlagName, cmd)
+	err, NamedResourceSpecAdded := retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth+1, NamedResourceSpecFlagValue, NamedResourceSpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || namedResourceSpecAdded
-	if namedResourceSpecAdded {
-		m.NamedResourceSpec = namedResourceSpecFlagValue
+	retAdded = retAdded || NamedResourceSpecAdded
+	if NamedResourceSpecAdded {
+		m.NamedResourceSpec = NamedResourceSpecFlagValue
 	}
 
 	return nil, retAdded
@@ -166,18 +166,18 @@ func registerGenericResourcesItems0DiscreteResourceSpecKind(depth int, cmdPrefix
 		return nil
 	}
 
-	kindDescription := ``
+	KindDescription := ``
 
-	var kindFlagName string
+	var KindFlagName string
 	if cmdPrefix == "" {
-		kindFlagName = "Kind"
+		KindFlagName = "Kind"
 	} else {
-		kindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
+		KindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
 	}
 
-	var kindFlagDefault string
+	var KindFlagDefault string
 
-	_ = cmd.PersistentFlags().String(kindFlagName, kindFlagDefault, kindDescription)
+	_ = cmd.PersistentFlags().String(KindFlagName, KindFlagDefault, KindDescription)
 
 	return nil
 }
@@ -187,18 +187,18 @@ func registerGenericResourcesItems0DiscreteResourceSpecValue(depth int, cmdPrefi
 		return nil
 	}
 
-	valueDescription := ``
+	ValueDescription := ``
 
-	var valueFlagName string
+	var ValueFlagName string
 	if cmdPrefix == "" {
-		valueFlagName = "Value"
+		ValueFlagName = "Value"
 	} else {
-		valueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
+		ValueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
 	}
 
-	var valueFlagDefault int64
+	var ValueFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(valueFlagName, valueFlagDefault, valueDescription)
+	_ = cmd.PersistentFlags().Int64(ValueFlagName, ValueFlagDefault, ValueDescription)
 
 	return nil
 }
@@ -207,17 +207,17 @@ func registerGenericResourcesItems0DiscreteResourceSpecValue(depth int, cmdPrefi
 func retrieveModelGenericResourcesItems0DiscreteResourceSpecFlags(depth int, m *models.GenericResourcesItems0DiscreteResourceSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, kindAdded := retrieveGenericResourcesItems0DiscreteResourceSpecKindFlags(depth, m, cmdPrefix, cmd)
+	err, KindAdded := retrieveGenericResourcesItems0DiscreteResourceSpecKindFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || kindAdded
+	retAdded = retAdded || KindAdded
 
-	err, valueAdded := retrieveGenericResourcesItems0DiscreteResourceSpecValueFlags(depth, m, cmdPrefix, cmd)
+	err, ValueAdded := retrieveGenericResourcesItems0DiscreteResourceSpecValueFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || valueAdded
+	retAdded = retAdded || ValueAdded
 
 	return nil, retAdded
 }
@@ -228,21 +228,21 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecKindFlags(depth int, m *m
 	}
 	retAdded := false
 
-	kindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
-	if cmd.Flags().Changed(kindFlagName) {
+	KindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
+	if cmd.Flags().Changed(KindFlagName) {
 
-		var kindFlagName string
+		var KindFlagName string
 		if cmdPrefix == "" {
-			kindFlagName = "Kind"
+			KindFlagName = "Kind"
 		} else {
-			kindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
+			KindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
 		}
 
-		kindFlagValue, err := cmd.Flags().GetString(kindFlagName)
+		KindFlagValue, err := cmd.Flags().GetString(KindFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Kind = kindFlagValue
+		m.Kind = KindFlagValue
 
 		retAdded = true
 	}
@@ -256,21 +256,21 @@ func retrieveGenericResourcesItems0DiscreteResourceSpecValueFlags(depth int, m *
 	}
 	retAdded := false
 
-	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
-	if cmd.Flags().Changed(valueFlagName) {
+	ValueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(ValueFlagName) {
 
-		var valueFlagName string
+		var ValueFlagName string
 		if cmdPrefix == "" {
-			valueFlagName = "Value"
+			ValueFlagName = "Value"
 		} else {
-			valueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
+			ValueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
 		}
 
-		valueFlagValue, err := cmd.Flags().GetInt64(valueFlagName)
+		ValueFlagValue, err := cmd.Flags().GetInt64(ValueFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Value = valueFlagValue
+		m.Value = ValueFlagValue
 
 		retAdded = true
 	}
@@ -299,18 +299,18 @@ func registerGenericResourcesItems0NamedResourceSpecKind(depth int, cmdPrefix st
 		return nil
 	}
 
-	kindDescription := ``
+	KindDescription := ``
 
-	var kindFlagName string
+	var KindFlagName string
 	if cmdPrefix == "" {
-		kindFlagName = "Kind"
+		KindFlagName = "Kind"
 	} else {
-		kindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
+		KindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
 	}
 
-	var kindFlagDefault string
+	var KindFlagDefault string
 
-	_ = cmd.PersistentFlags().String(kindFlagName, kindFlagDefault, kindDescription)
+	_ = cmd.PersistentFlags().String(KindFlagName, KindFlagDefault, KindDescription)
 
 	return nil
 }
@@ -320,18 +320,18 @@ func registerGenericResourcesItems0NamedResourceSpecValue(depth int, cmdPrefix s
 		return nil
 	}
 
-	valueDescription := ``
+	ValueDescription := ``
 
-	var valueFlagName string
+	var ValueFlagName string
 	if cmdPrefix == "" {
-		valueFlagName = "Value"
+		ValueFlagName = "Value"
 	} else {
-		valueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
+		ValueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
 	}
 
-	var valueFlagDefault string
+	var ValueFlagDefault string
 
-	_ = cmd.PersistentFlags().String(valueFlagName, valueFlagDefault, valueDescription)
+	_ = cmd.PersistentFlags().String(ValueFlagName, ValueFlagDefault, ValueDescription)
 
 	return nil
 }
@@ -340,17 +340,17 @@ func registerGenericResourcesItems0NamedResourceSpecValue(depth int, cmdPrefix s
 func retrieveModelGenericResourcesItems0NamedResourceSpecFlags(depth int, m *models.GenericResourcesItems0NamedResourceSpec, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, kindAdded := retrieveGenericResourcesItems0NamedResourceSpecKindFlags(depth, m, cmdPrefix, cmd)
+	err, KindAdded := retrieveGenericResourcesItems0NamedResourceSpecKindFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || kindAdded
+	retAdded = retAdded || KindAdded
 
-	err, valueAdded := retrieveGenericResourcesItems0NamedResourceSpecValueFlags(depth, m, cmdPrefix, cmd)
+	err, ValueAdded := retrieveGenericResourcesItems0NamedResourceSpecValueFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || valueAdded
+	retAdded = retAdded || ValueAdded
 
 	return nil, retAdded
 }
@@ -361,21 +361,21 @@ func retrieveGenericResourcesItems0NamedResourceSpecKindFlags(depth int, m *mode
 	}
 	retAdded := false
 
-	kindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
-	if cmd.Flags().Changed(kindFlagName) {
+	KindFlagName := fmt.Sprintf("%v.Kind", cmdPrefix)
+	if cmd.Flags().Changed(KindFlagName) {
 
-		var kindFlagName string
+		var KindFlagName string
 		if cmdPrefix == "" {
-			kindFlagName = "Kind"
+			KindFlagName = "Kind"
 		} else {
-			kindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
+			KindFlagName = fmt.Sprintf("%v.Kind", cmdPrefix)
 		}
 
-		kindFlagValue, err := cmd.Flags().GetString(kindFlagName)
+		KindFlagValue, err := cmd.Flags().GetString(KindFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Kind = kindFlagValue
+		m.Kind = KindFlagValue
 
 		retAdded = true
 	}
@@ -389,21 +389,21 @@ func retrieveGenericResourcesItems0NamedResourceSpecValueFlags(depth int, m *mod
 	}
 	retAdded := false
 
-	valueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
-	if cmd.Flags().Changed(valueFlagName) {
+	ValueFlagName := fmt.Sprintf("%v.Value", cmdPrefix)
+	if cmd.Flags().Changed(ValueFlagName) {
 
-		var valueFlagName string
+		var ValueFlagName string
 		if cmdPrefix == "" {
-			valueFlagName = "Value"
+			ValueFlagName = "Value"
 		} else {
-			valueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
+			ValueFlagName = fmt.Sprintf("%v.Value", cmdPrefix)
 		}
 
-		valueFlagValue, err := cmd.Flags().GetString(valueFlagName)
+		ValueFlagValue, err := cmd.Flags().GetString(ValueFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Value = valueFlagValue
+		m.Value = ValueFlagValue
 
 		retAdded = true
 	}

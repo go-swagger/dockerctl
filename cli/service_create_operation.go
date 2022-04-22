@@ -74,31 +74,31 @@ func registerOperationServiceServiceCreateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationServiceServiceCreateXRegistryAuthParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	xRegistryAuthDescription := `A base64-encoded auth configuration for pulling from private registries. [See the authentication section for details.](#section/Authentication)`
+	XRegistryAuthDescription := `A base64-encoded auth configuration for pulling from private registries. [See the authentication section for details.](#section/Authentication)`
 
-	var xRegistryAuthFlagName string
+	var XRegistryAuthFlagName string
 	if cmdPrefix == "" {
-		xRegistryAuthFlagName = "X-Registry-Auth"
+		XRegistryAuthFlagName = "X-Registry-Auth"
 	} else {
-		xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+		XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 	}
 
-	var xRegistryAuthFlagDefault string
+	var XRegistryAuthFlagDefault string
 
-	_ = cmd.PersistentFlags().String(xRegistryAuthFlagName, xRegistryAuthFlagDefault, xRegistryAuthDescription)
+	_ = cmd.PersistentFlags().String(XRegistryAuthFlagName, XRegistryAuthFlagDefault, XRegistryAuthDescription)
 
 	return nil
 }
 func registerOperationServiceServiceCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelServiceCreateBodyFlags(0, "serviceCreateBody", cmd); err != nil {
@@ -112,18 +112,18 @@ func retrieveOperationServiceServiceCreateXRegistryAuthFlag(m *service.ServiceCr
 	retAdded := false
 	if cmd.Flags().Changed("X-Registry-Auth") {
 
-		var xRegistryAuthFlagName string
+		var XRegistryAuthFlagName string
 		if cmdPrefix == "" {
-			xRegistryAuthFlagName = "X-Registry-Auth"
+			XRegistryAuthFlagName = "X-Registry-Auth"
 		} else {
-			xRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
+			XRegistryAuthFlagName = fmt.Sprintf("%v.X-Registry-Auth", cmdPrefix)
 		}
 
-		xRegistryAuthFlagValue, err := cmd.Flags().GetString(xRegistryAuthFlagName)
+		XRegistryAuthFlagValue, err := cmd.Flags().GetString(XRegistryAuthFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.XRegistryAuth = &xRegistryAuthFlagValue
+		m.XRegistryAuth = &XRegistryAuthFlagValue
 
 	}
 	return nil, retAdded
@@ -276,11 +276,11 @@ func retrieveModelServiceCreateBodyFlags(depth int, m *service.ServiceCreateBody
 	retAdded := false
 
 	// retrieve model models.ServiceSpec
-	err, serviceCreateParamsBodyAO0Added := retrieveModelServiceSpecFlags(depth, &m.ServiceSpec, cmdPrefix, cmd)
+	err, ServiceCreateParamsBodyAO0Added := retrieveModelServiceSpecFlags(depth, &m.ServiceSpec, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || serviceCreateParamsBodyAO0Added
+	retAdded = retAdded || ServiceCreateParamsBodyAO0Added
 
 	return nil, retAdded
 }
@@ -304,18 +304,18 @@ func registerServiceCreateCreatedBodyID(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	idDescription := `The ID of the created service.`
+	IDDescription := `The ID of the created service.`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -325,18 +325,18 @@ func registerServiceCreateCreatedBodyWarning(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	warningDescription := `Optional warning message`
+	WarningDescription := `Optional warning message`
 
-	var warningFlagName string
+	var WarningFlagName string
 	if cmdPrefix == "" {
-		warningFlagName = "Warning"
+		WarningFlagName = "Warning"
 	} else {
-		warningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
+		WarningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
 	}
 
-	var warningFlagDefault string
+	var WarningFlagDefault string
 
-	_ = cmd.PersistentFlags().String(warningFlagName, warningFlagDefault, warningDescription)
+	_ = cmd.PersistentFlags().String(WarningFlagName, WarningFlagDefault, WarningDescription)
 
 	return nil
 }
@@ -345,17 +345,17 @@ func registerServiceCreateCreatedBodyWarning(depth int, cmdPrefix string, cmd *c
 func retrieveModelServiceCreateCreatedBodyFlags(depth int, m *service.ServiceCreateCreatedBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, idAdded := retrieveServiceCreateCreatedBodyIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveServiceCreateCreatedBodyIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, warningAdded := retrieveServiceCreateCreatedBodyWarningFlags(depth, m, cmdPrefix, cmd)
+	err, WarningAdded := retrieveServiceCreateCreatedBodyWarningFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || warningAdded
+	retAdded = retAdded || WarningAdded
 
 	return nil, retAdded
 }
@@ -366,21 +366,21 @@ func retrieveServiceCreateCreatedBodyIDFlags(depth int, m *service.ServiceCreate
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -394,21 +394,21 @@ func retrieveServiceCreateCreatedBodyWarningFlags(depth int, m *service.ServiceC
 	}
 	retAdded := false
 
-	warningFlagName := fmt.Sprintf("%v.Warning", cmdPrefix)
-	if cmd.Flags().Changed(warningFlagName) {
+	WarningFlagName := fmt.Sprintf("%v.Warning", cmdPrefix)
+	if cmd.Flags().Changed(WarningFlagName) {
 
-		var warningFlagName string
+		var WarningFlagName string
 		if cmdPrefix == "" {
-			warningFlagName = "Warning"
+			WarningFlagName = "Warning"
 		} else {
-			warningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
+			WarningFlagName = fmt.Sprintf("%v.Warning", cmdPrefix)
 		}
 
-		warningFlagValue, err := cmd.Flags().GetString(warningFlagName)
+		WarningFlagValue, err := cmd.Flags().GetString(WarningFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Warning = warningFlagValue
+		m.Warning = WarningFlagValue
 
 		retAdded = true
 	}

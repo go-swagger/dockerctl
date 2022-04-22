@@ -74,7 +74,7 @@ func registerOperationServiceServiceListParamFlags(cmd *cobra.Command) error {
 
 func registerOperationServiceServiceListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the services list. Available filters:
+	FiltersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the services list. Available filters:
 
 - ` + "`" + `id=<service id>` + "`" + `
 - ` + "`" + `label=<service label>` + "`" + `
@@ -82,33 +82,33 @@ func registerOperationServiceServiceListFiltersParamFlags(cmdPrefix string, cmd 
 - ` + "`" + `name=<service name>` + "`" + `
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
 func registerOperationServiceServiceListStatusParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	statusDescription := `Include service status, with count of running and desired tasks`
+	StatusDescription := `Include service status, with count of running and desired tasks`
 
-	var statusFlagName string
+	var StatusFlagName string
 	if cmdPrefix == "" {
-		statusFlagName = "status"
+		StatusFlagName = "status"
 	} else {
-		statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+		StatusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
 	}
 
-	var statusFlagDefault bool
+	var StatusFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(statusFlagName, statusFlagDefault, statusDescription)
+	_ = cmd.PersistentFlags().Bool(StatusFlagName, StatusFlagDefault, StatusDescription)
 
 	return nil
 }
@@ -117,18 +117,18 @@ func retrieveOperationServiceServiceListFiltersFlag(m *service.ServiceListParams
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -137,18 +137,18 @@ func retrieveOperationServiceServiceListStatusFlag(m *service.ServiceListParams,
 	retAdded := false
 	if cmd.Flags().Changed("status") {
 
-		var statusFlagName string
+		var StatusFlagName string
 		if cmdPrefix == "" {
-			statusFlagName = "status"
+			StatusFlagName = "status"
 		} else {
-			statusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
+			StatusFlagName = fmt.Sprintf("%v.status", cmdPrefix)
 		}
 
-		statusFlagValue, err := cmd.Flags().GetBool(statusFlagName)
+		StatusFlagValue, err := cmd.Flags().GetBool(StatusFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Status = &statusFlagValue
+		m.Status = &StatusFlagValue
 
 	}
 	return nil, retAdded

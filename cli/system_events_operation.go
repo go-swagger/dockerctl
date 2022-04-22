@@ -101,7 +101,7 @@ func registerOperationSystemSystemEventsParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSystemSystemEventsFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `A JSON encoded value of filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the event list. Available filters:
+	FiltersDescription := `A JSON encoded value of filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the event list. Available filters:
 
 - ` + "`" + `config=<string>` + "`" + ` config name or ID
 - ` + "`" + `container=<string>` + "`" + ` container name or ID
@@ -119,50 +119,50 @@ func registerOperationSystemSystemEventsFiltersParamFlags(cmdPrefix string, cmd 
 - ` + "`" + `volume=<string>` + "`" + ` volume name
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
 func registerOperationSystemSystemEventsSinceParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	sinceDescription := `Show events created since this timestamp then stream new events.`
+	SinceDescription := `Show events created since this timestamp then stream new events.`
 
-	var sinceFlagName string
+	var SinceFlagName string
 	if cmdPrefix == "" {
-		sinceFlagName = "since"
+		SinceFlagName = "since"
 	} else {
-		sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
+		SinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
 	}
 
-	var sinceFlagDefault string
+	var SinceFlagDefault string
 
-	_ = cmd.PersistentFlags().String(sinceFlagName, sinceFlagDefault, sinceDescription)
+	_ = cmd.PersistentFlags().String(SinceFlagName, SinceFlagDefault, SinceDescription)
 
 	return nil
 }
 func registerOperationSystemSystemEventsUntilParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	untilDescription := `Show events created until this timestamp then stop streaming.`
+	UntilDescription := `Show events created until this timestamp then stop streaming.`
 
-	var untilFlagName string
+	var UntilFlagName string
 	if cmdPrefix == "" {
-		untilFlagName = "until"
+		UntilFlagName = "until"
 	} else {
-		untilFlagName = fmt.Sprintf("%v.until", cmdPrefix)
+		UntilFlagName = fmt.Sprintf("%v.until", cmdPrefix)
 	}
 
-	var untilFlagDefault string
+	var UntilFlagDefault string
 
-	_ = cmd.PersistentFlags().String(untilFlagName, untilFlagDefault, untilDescription)
+	_ = cmd.PersistentFlags().String(UntilFlagName, UntilFlagDefault, UntilDescription)
 
 	return nil
 }
@@ -171,18 +171,18 @@ func retrieveOperationSystemSystemEventsFiltersFlag(m *system.SystemEventsParams
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -191,18 +191,18 @@ func retrieveOperationSystemSystemEventsSinceFlag(m *system.SystemEventsParams, 
 	retAdded := false
 	if cmd.Flags().Changed("since") {
 
-		var sinceFlagName string
+		var SinceFlagName string
 		if cmdPrefix == "" {
-			sinceFlagName = "since"
+			SinceFlagName = "since"
 		} else {
-			sinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
+			SinceFlagName = fmt.Sprintf("%v.since", cmdPrefix)
 		}
 
-		sinceFlagValue, err := cmd.Flags().GetString(sinceFlagName)
+		SinceFlagValue, err := cmd.Flags().GetString(SinceFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Since = &sinceFlagValue
+		m.Since = &SinceFlagValue
 
 	}
 	return nil, retAdded
@@ -211,18 +211,18 @@ func retrieveOperationSystemSystemEventsUntilFlag(m *system.SystemEventsParams, 
 	retAdded := false
 	if cmd.Flags().Changed("until") {
 
-		var untilFlagName string
+		var UntilFlagName string
 		if cmdPrefix == "" {
-			untilFlagName = "until"
+			UntilFlagName = "until"
 		} else {
-			untilFlagName = fmt.Sprintf("%v.until", cmdPrefix)
+			UntilFlagName = fmt.Sprintf("%v.until", cmdPrefix)
 		}
 
-		untilFlagValue, err := cmd.Flags().GetString(untilFlagName)
+		UntilFlagValue, err := cmd.Flags().GetString(UntilFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Until = &untilFlagValue
+		m.Until = &UntilFlagValue
 
 	}
 	return nil, retAdded
@@ -313,18 +313,18 @@ func registerSystemEventsOKBodyAction(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	actionDescription := `The type of event`
+	ActionDescription := `The type of event`
 
-	var actionFlagName string
+	var ActionFlagName string
 	if cmdPrefix == "" {
-		actionFlagName = "Action"
+		ActionFlagName = "Action"
 	} else {
-		actionFlagName = fmt.Sprintf("%v.Action", cmdPrefix)
+		ActionFlagName = fmt.Sprintf("%v.Action", cmdPrefix)
 	}
 
-	var actionFlagDefault string
+	var ActionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(actionFlagName, actionFlagDefault, actionDescription)
+	_ = cmd.PersistentFlags().String(ActionFlagName, ActionFlagDefault, ActionDescription)
 
 	return nil
 }
@@ -334,14 +334,14 @@ func registerSystemEventsOKBodyActor(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	var actorFlagName string
+	var ActorFlagName string
 	if cmdPrefix == "" {
-		actorFlagName = "Actor"
+		ActorFlagName = "Actor"
 	} else {
-		actorFlagName = fmt.Sprintf("%v.Actor", cmdPrefix)
+		ActorFlagName = fmt.Sprintf("%v.Actor", cmdPrefix)
 	}
 
-	if err := registerModelSystemEventsOKBodyActorFlags(depth+1, actorFlagName, cmd); err != nil {
+	if err := registerModelSystemEventsOKBodyActorFlags(depth+1, ActorFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -353,18 +353,18 @@ func registerSystemEventsOKBodyType(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	typeDescription := `The type of object emitting the event`
+	TypeDescription := `The type of object emitting the event`
 
-	var typeFlagName string
+	var TypeFlagName string
 	if cmdPrefix == "" {
-		typeFlagName = "Type"
+		TypeFlagName = "Type"
 	} else {
-		typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+		TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 	}
 
-	var typeFlagDefault string
+	var TypeFlagDefault string
 
-	_ = cmd.PersistentFlags().String(typeFlagName, typeFlagDefault, typeDescription)
+	_ = cmd.PersistentFlags().String(TypeFlagName, TypeFlagDefault, TypeDescription)
 
 	return nil
 }
@@ -374,18 +374,18 @@ func registerSystemEventsOKBodyTime(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	timeDescription := `Timestamp of event`
+	TimeDescription := `Timestamp of event`
 
-	var timeFlagName string
+	var TimeFlagName string
 	if cmdPrefix == "" {
-		timeFlagName = "time"
+		TimeFlagName = "time"
 	} else {
-		timeFlagName = fmt.Sprintf("%v.time", cmdPrefix)
+		TimeFlagName = fmt.Sprintf("%v.time", cmdPrefix)
 	}
 
-	var timeFlagDefault int64
+	var TimeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(timeFlagName, timeFlagDefault, timeDescription)
+	_ = cmd.PersistentFlags().Int64(TimeFlagName, TimeFlagDefault, TimeDescription)
 
 	return nil
 }
@@ -395,18 +395,18 @@ func registerSystemEventsOKBodyTimeNano(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	timeNanoDescription := `Timestamp of event, with nanosecond accuracy`
+	TimeNanoDescription := `Timestamp of event, with nanosecond accuracy`
 
-	var timeNanoFlagName string
+	var TimeNanoFlagName string
 	if cmdPrefix == "" {
-		timeNanoFlagName = "timeNano"
+		TimeNanoFlagName = "timeNano"
 	} else {
-		timeNanoFlagName = fmt.Sprintf("%v.timeNano", cmdPrefix)
+		TimeNanoFlagName = fmt.Sprintf("%v.timeNano", cmdPrefix)
 	}
 
-	var timeNanoFlagDefault int64
+	var TimeNanoFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(timeNanoFlagName, timeNanoFlagDefault, timeNanoDescription)
+	_ = cmd.PersistentFlags().Int64(TimeNanoFlagName, TimeNanoFlagDefault, TimeNanoDescription)
 
 	return nil
 }
@@ -415,35 +415,35 @@ func registerSystemEventsOKBodyTimeNano(depth int, cmdPrefix string, cmd *cobra.
 func retrieveModelSystemEventsOKBodyFlags(depth int, m *system.SystemEventsOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, actionAdded := retrieveSystemEventsOKBodyActionFlags(depth, m, cmdPrefix, cmd)
+	err, ActionAdded := retrieveSystemEventsOKBodyActionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || actionAdded
+	retAdded = retAdded || ActionAdded
 
-	err, actorAdded := retrieveSystemEventsOKBodyActorFlags(depth, m, cmdPrefix, cmd)
+	err, ActorAdded := retrieveSystemEventsOKBodyActorFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || actorAdded
+	retAdded = retAdded || ActorAdded
 
-	err, typeAdded := retrieveSystemEventsOKBodyTypeFlags(depth, m, cmdPrefix, cmd)
+	err, TypeAdded := retrieveSystemEventsOKBodyTypeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || typeAdded
+	retAdded = retAdded || TypeAdded
 
-	err, timeAdded := retrieveSystemEventsOKBodyTimeFlags(depth, m, cmdPrefix, cmd)
+	err, TimeAdded := retrieveSystemEventsOKBodyTimeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || timeAdded
+	retAdded = retAdded || TimeAdded
 
-	err, timeNanoAdded := retrieveSystemEventsOKBodyTimeNanoFlags(depth, m, cmdPrefix, cmd)
+	err, TimeNanoAdded := retrieveSystemEventsOKBodyTimeNanoFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || timeNanoAdded
+	retAdded = retAdded || TimeNanoAdded
 
 	return nil, retAdded
 }
@@ -454,21 +454,21 @@ func retrieveSystemEventsOKBodyActionFlags(depth int, m *system.SystemEventsOKBo
 	}
 	retAdded := false
 
-	actionFlagName := fmt.Sprintf("%v.Action", cmdPrefix)
-	if cmd.Flags().Changed(actionFlagName) {
+	ActionFlagName := fmt.Sprintf("%v.Action", cmdPrefix)
+	if cmd.Flags().Changed(ActionFlagName) {
 
-		var actionFlagName string
+		var ActionFlagName string
 		if cmdPrefix == "" {
-			actionFlagName = "Action"
+			ActionFlagName = "Action"
 		} else {
-			actionFlagName = fmt.Sprintf("%v.Action", cmdPrefix)
+			ActionFlagName = fmt.Sprintf("%v.Action", cmdPrefix)
 		}
 
-		actionFlagValue, err := cmd.Flags().GetString(actionFlagName)
+		ActionFlagValue, err := cmd.Flags().GetString(ActionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Action = actionFlagValue
+		m.Action = ActionFlagValue
 
 		retAdded = true
 	}
@@ -482,22 +482,22 @@ func retrieveSystemEventsOKBodyActorFlags(depth int, m *system.SystemEventsOKBod
 	}
 	retAdded := false
 
-	actorFlagName := fmt.Sprintf("%v.Actor", cmdPrefix)
-	if cmd.Flags().Changed(actorFlagName) {
+	ActorFlagName := fmt.Sprintf("%v.Actor", cmdPrefix)
+	if cmd.Flags().Changed(ActorFlagName) {
 		// info: complex object Actor SystemEventsOKBodyActor is retrieved outside this Changed() block
 	}
-	actorFlagValue := m.Actor
-	if swag.IsZero(actorFlagValue) {
-		actorFlagValue = &system.SystemEventsOKBodyActor{}
+	ActorFlagValue := m.Actor
+	if swag.IsZero(ActorFlagValue) {
+		ActorFlagValue = &system.SystemEventsOKBodyActor{}
 	}
 
-	err, actorAdded := retrieveModelSystemEventsOKBodyActorFlags(depth+1, actorFlagValue, actorFlagName, cmd)
+	err, ActorAdded := retrieveModelSystemEventsOKBodyActorFlags(depth+1, ActorFlagValue, ActorFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || actorAdded
-	if actorAdded {
-		m.Actor = actorFlagValue
+	retAdded = retAdded || ActorAdded
+	if ActorAdded {
+		m.Actor = ActorFlagValue
 	}
 
 	return nil, retAdded
@@ -509,21 +509,21 @@ func retrieveSystemEventsOKBodyTypeFlags(depth int, m *system.SystemEventsOKBody
 	}
 	retAdded := false
 
-	typeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
-	if cmd.Flags().Changed(typeFlagName) {
+	TypeFlagName := fmt.Sprintf("%v.Type", cmdPrefix)
+	if cmd.Flags().Changed(TypeFlagName) {
 
-		var typeFlagName string
+		var TypeFlagName string
 		if cmdPrefix == "" {
-			typeFlagName = "Type"
+			TypeFlagName = "Type"
 		} else {
-			typeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
+			TypeFlagName = fmt.Sprintf("%v.Type", cmdPrefix)
 		}
 
-		typeFlagValue, err := cmd.Flags().GetString(typeFlagName)
+		TypeFlagValue, err := cmd.Flags().GetString(TypeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Type = typeFlagValue
+		m.Type = TypeFlagValue
 
 		retAdded = true
 	}
@@ -537,21 +537,21 @@ func retrieveSystemEventsOKBodyTimeFlags(depth int, m *system.SystemEventsOKBody
 	}
 	retAdded := false
 
-	timeFlagName := fmt.Sprintf("%v.time", cmdPrefix)
-	if cmd.Flags().Changed(timeFlagName) {
+	TimeFlagName := fmt.Sprintf("%v.time", cmdPrefix)
+	if cmd.Flags().Changed(TimeFlagName) {
 
-		var timeFlagName string
+		var TimeFlagName string
 		if cmdPrefix == "" {
-			timeFlagName = "time"
+			TimeFlagName = "time"
 		} else {
-			timeFlagName = fmt.Sprintf("%v.time", cmdPrefix)
+			TimeFlagName = fmt.Sprintf("%v.time", cmdPrefix)
 		}
 
-		timeFlagValue, err := cmd.Flags().GetInt64(timeFlagName)
+		TimeFlagValue, err := cmd.Flags().GetInt64(TimeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Time = timeFlagValue
+		m.Time = TimeFlagValue
 
 		retAdded = true
 	}
@@ -565,21 +565,21 @@ func retrieveSystemEventsOKBodyTimeNanoFlags(depth int, m *system.SystemEventsOK
 	}
 	retAdded := false
 
-	timeNanoFlagName := fmt.Sprintf("%v.timeNano", cmdPrefix)
-	if cmd.Flags().Changed(timeNanoFlagName) {
+	TimeNanoFlagName := fmt.Sprintf("%v.timeNano", cmdPrefix)
+	if cmd.Flags().Changed(TimeNanoFlagName) {
 
-		var timeNanoFlagName string
+		var TimeNanoFlagName string
 		if cmdPrefix == "" {
-			timeNanoFlagName = "timeNano"
+			TimeNanoFlagName = "timeNano"
 		} else {
-			timeNanoFlagName = fmt.Sprintf("%v.timeNano", cmdPrefix)
+			TimeNanoFlagName = fmt.Sprintf("%v.timeNano", cmdPrefix)
 		}
 
-		timeNanoFlagValue, err := cmd.Flags().GetInt64(timeNanoFlagName)
+		TimeNanoFlagValue, err := cmd.Flags().GetInt64(TimeNanoFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.TimeNano = timeNanoFlagValue
+		m.TimeNano = TimeNanoFlagValue
 
 		retAdded = true
 	}
@@ -616,18 +616,18 @@ func registerSystemEventsOKBodyActorID(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	idDescription := `The ID of the object emitting the event`
+	IDDescription := `The ID of the object emitting the event`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -636,17 +636,17 @@ func registerSystemEventsOKBodyActorID(depth int, cmdPrefix string, cmd *cobra.C
 func retrieveModelSystemEventsOKBodyActorFlags(depth int, m *system.SystemEventsOKBodyActor, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, attributesAdded := retrieveSystemEventsOKBodyActorAttributesFlags(depth, m, cmdPrefix, cmd)
+	err, AttributesAdded := retrieveSystemEventsOKBodyActorAttributesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attributesAdded
+	retAdded = retAdded || AttributesAdded
 
-	err, idAdded := retrieveSystemEventsOKBodyActorIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveSystemEventsOKBodyActorIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
 	return nil, retAdded
 }
@@ -657,8 +657,8 @@ func retrieveSystemEventsOKBodyActorAttributesFlags(depth int, m *system.SystemE
 	}
 	retAdded := false
 
-	attributesFlagName := fmt.Sprintf("%v.Attributes", cmdPrefix)
-	if cmd.Flags().Changed(attributesFlagName) {
+	AttributesFlagName := fmt.Sprintf("%v.Attributes", cmdPrefix)
+	if cmd.Flags().Changed(AttributesFlagName) {
 		// warning: Attributes map type map[string]string is not supported by go-swagger cli yet
 	}
 
@@ -671,21 +671,21 @@ func retrieveSystemEventsOKBodyActorIDFlags(depth int, m *system.SystemEventsOKB
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}

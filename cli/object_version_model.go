@@ -38,11 +38,11 @@ func registerObjectVersionIndex(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelObjectVersionFlags(depth int, m *models.ObjectVersion, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, indexAdded := retrieveObjectVersionIndexFlags(depth, m, cmdPrefix, cmd)
+	err, IndexAdded := retrieveObjectVersionIndexFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || indexAdded
+	retAdded = retAdded || IndexAdded
 
 	return nil, retAdded
 }
@@ -53,8 +53,8 @@ func retrieveObjectVersionIndexFlags(depth int, m *models.ObjectVersion, cmdPref
 	}
 	retAdded := false
 
-	indexFlagName := fmt.Sprintf("%v.Index", cmdPrefix)
-	if cmd.Flags().Changed(indexFlagName) {
+	IndexFlagName := fmt.Sprintf("%v.Index", cmdPrefix)
+	if cmd.Flags().Changed(IndexFlagName) {
 
 		// warning: primitive Index uint64 is not supported by go-swagger cli yet
 

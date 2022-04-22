@@ -74,14 +74,14 @@ func registerOperationExecContainerExecParamFlags(cmd *cobra.Command) error {
 
 func registerOperationExecContainerExecExecConfigParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var execConfigFlagName string
+	var ExecConfigFlagName string
 	if cmdPrefix == "" {
-		execConfigFlagName = "execConfig"
+		ExecConfigFlagName = "execConfig"
 	} else {
-		execConfigFlagName = fmt.Sprintf("%v.execConfig", cmdPrefix)
+		ExecConfigFlagName = fmt.Sprintf("%v.execConfig", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(execConfigFlagName, "", "Optional json string for [execConfig]. Exec configuration")
+	_ = cmd.PersistentFlags().String(ExecConfigFlagName, "", "Optional json string for [execConfig]. Exec configuration")
 
 	// add flags for body
 	if err := registerModelContainerExecBodyFlags(0, "containerExecBody", cmd); err != nil {
@@ -92,18 +92,18 @@ func registerOperationExecContainerExecExecConfigParamFlags(cmdPrefix string, cm
 }
 func registerOperationExecContainerExecIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of container`
+	IDDescription := `Required. ID or name of container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -150,18 +150,18 @@ func retrieveOperationExecContainerExecIDFlag(m *exec.ContainerExecParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -284,18 +284,18 @@ func registerContainerExecBodyAttachStderr(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	attachStderrDescription := `Attach to ` + "`" + `stderr` + "`" + ` of the exec command.`
+	AttachStderrDescription := `Attach to ` + "`" + `stderr` + "`" + ` of the exec command.`
 
-	var attachStderrFlagName string
+	var AttachStderrFlagName string
 	if cmdPrefix == "" {
-		attachStderrFlagName = "AttachStderr"
+		AttachStderrFlagName = "AttachStderr"
 	} else {
-		attachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
+		AttachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
 	}
 
-	var attachStderrFlagDefault bool
+	var AttachStderrFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(attachStderrFlagName, attachStderrFlagDefault, attachStderrDescription)
+	_ = cmd.PersistentFlags().Bool(AttachStderrFlagName, AttachStderrFlagDefault, AttachStderrDescription)
 
 	return nil
 }
@@ -305,18 +305,18 @@ func registerContainerExecBodyAttachStdin(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	attachStdinDescription := `Attach to ` + "`" + `stdin` + "`" + ` of the exec command.`
+	AttachStdinDescription := `Attach to ` + "`" + `stdin` + "`" + ` of the exec command.`
 
-	var attachStdinFlagName string
+	var AttachStdinFlagName string
 	if cmdPrefix == "" {
-		attachStdinFlagName = "AttachStdin"
+		AttachStdinFlagName = "AttachStdin"
 	} else {
-		attachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
+		AttachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
 	}
 
-	var attachStdinFlagDefault bool
+	var AttachStdinFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(attachStdinFlagName, attachStdinFlagDefault, attachStdinDescription)
+	_ = cmd.PersistentFlags().Bool(AttachStdinFlagName, AttachStdinFlagDefault, AttachStdinDescription)
 
 	return nil
 }
@@ -326,18 +326,18 @@ func registerContainerExecBodyAttachStdout(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	attachStdoutDescription := `Attach to ` + "`" + `stdout` + "`" + ` of the exec command.`
+	AttachStdoutDescription := `Attach to ` + "`" + `stdout` + "`" + ` of the exec command.`
 
-	var attachStdoutFlagName string
+	var AttachStdoutFlagName string
 	if cmdPrefix == "" {
-		attachStdoutFlagName = "AttachStdout"
+		AttachStdoutFlagName = "AttachStdout"
 	} else {
-		attachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
+		AttachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
 	}
 
-	var attachStdoutFlagDefault bool
+	var AttachStdoutFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(attachStdoutFlagName, attachStdoutFlagDefault, attachStdoutDescription)
+	_ = cmd.PersistentFlags().Bool(AttachStdoutFlagName, AttachStdoutFlagDefault, AttachStdoutDescription)
 
 	return nil
 }
@@ -357,18 +357,18 @@ func registerContainerExecBodyDetachKeys(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	detachKeysDescription := `Override the key sequence for detaching a container. Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
+	DetachKeysDescription := `Override the key sequence for detaching a container. Format is a single character ` + "`" + `[a-Z]` + "`" + ` or ` + "`" + `ctrl-<value>` + "`" + ` where ` + "`" + `<value>` + "`" + ` is one of: ` + "`" + `a-z` + "`" + `, ` + "`" + `@` + "`" + `, ` + "`" + `^` + "`" + `, ` + "`" + `[` + "`" + `, ` + "`" + `,` + "`" + ` or ` + "`" + `_` + "`" + `.`
 
-	var detachKeysFlagName string
+	var DetachKeysFlagName string
 	if cmdPrefix == "" {
-		detachKeysFlagName = "DetachKeys"
+		DetachKeysFlagName = "DetachKeys"
 	} else {
-		detachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
+		DetachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
 	}
 
-	var detachKeysFlagDefault string
+	var DetachKeysFlagDefault string
 
-	_ = cmd.PersistentFlags().String(detachKeysFlagName, detachKeysFlagDefault, detachKeysDescription)
+	_ = cmd.PersistentFlags().String(DetachKeysFlagName, DetachKeysFlagDefault, DetachKeysDescription)
 
 	return nil
 }
@@ -388,18 +388,18 @@ func registerContainerExecBodyPrivileged(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	privilegedDescription := `Runs the exec process with extended privileges.`
+	PrivilegedDescription := `Runs the exec process with extended privileges.`
 
-	var privilegedFlagName string
+	var PrivilegedFlagName string
 	if cmdPrefix == "" {
-		privilegedFlagName = "Privileged"
+		PrivilegedFlagName = "Privileged"
 	} else {
-		privilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
+		PrivilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
 	}
 
-	var privilegedFlagDefault bool
+	var PrivilegedFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(privilegedFlagName, privilegedFlagDefault, privilegedDescription)
+	_ = cmd.PersistentFlags().Bool(PrivilegedFlagName, PrivilegedFlagDefault, PrivilegedDescription)
 
 	return nil
 }
@@ -409,18 +409,18 @@ func registerContainerExecBodyTty(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	ttyDescription := `Allocate a pseudo-TTY.`
+	TtyDescription := `Allocate a pseudo-TTY.`
 
-	var ttyFlagName string
+	var TtyFlagName string
 	if cmdPrefix == "" {
-		ttyFlagName = "Tty"
+		TtyFlagName = "Tty"
 	} else {
-		ttyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
+		TtyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
 	}
 
-	var ttyFlagDefault bool
+	var TtyFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(ttyFlagName, ttyFlagDefault, ttyDescription)
+	_ = cmd.PersistentFlags().Bool(TtyFlagName, TtyFlagDefault, TtyDescription)
 
 	return nil
 }
@@ -430,18 +430,18 @@ func registerContainerExecBodyUser(depth int, cmdPrefix string, cmd *cobra.Comma
 		return nil
 	}
 
-	userDescription := `The user, and optionally, group to run the exec process inside the container. Format is one of: ` + "`" + `user` + "`" + `, ` + "`" + `user:group` + "`" + `, ` + "`" + `uid` + "`" + `, or ` + "`" + `uid:gid` + "`" + `.`
+	UserDescription := `The user, and optionally, group to run the exec process inside the container. Format is one of: ` + "`" + `user` + "`" + `, ` + "`" + `user:group` + "`" + `, ` + "`" + `uid` + "`" + `, or ` + "`" + `uid:gid` + "`" + `.`
 
-	var userFlagName string
+	var UserFlagName string
 	if cmdPrefix == "" {
-		userFlagName = "User"
+		UserFlagName = "User"
 	} else {
-		userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+		UserFlagName = fmt.Sprintf("%v.User", cmdPrefix)
 	}
 
-	var userFlagDefault string
+	var UserFlagDefault string
 
-	_ = cmd.PersistentFlags().String(userFlagName, userFlagDefault, userDescription)
+	_ = cmd.PersistentFlags().String(UserFlagName, UserFlagDefault, UserDescription)
 
 	return nil
 }
@@ -451,18 +451,18 @@ func registerContainerExecBodyWorkingDir(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	workingDirDescription := `The working directory for the exec process inside the container.`
+	WorkingDirDescription := `The working directory for the exec process inside the container.`
 
-	var workingDirFlagName string
+	var WorkingDirFlagName string
 	if cmdPrefix == "" {
-		workingDirFlagName = "WorkingDir"
+		WorkingDirFlagName = "WorkingDir"
 	} else {
-		workingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
+		WorkingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
 	}
 
-	var workingDirFlagDefault string
+	var WorkingDirFlagDefault string
 
-	_ = cmd.PersistentFlags().String(workingDirFlagName, workingDirFlagDefault, workingDirDescription)
+	_ = cmd.PersistentFlags().String(WorkingDirFlagName, WorkingDirFlagDefault, WorkingDirDescription)
 
 	return nil
 }
@@ -471,65 +471,65 @@ func registerContainerExecBodyWorkingDir(depth int, cmdPrefix string, cmd *cobra
 func retrieveModelContainerExecBodyFlags(depth int, m *exec.ContainerExecBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, attachStderrAdded := retrieveContainerExecBodyAttachStderrFlags(depth, m, cmdPrefix, cmd)
+	err, AttachStderrAdded := retrieveContainerExecBodyAttachStderrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachStderrAdded
+	retAdded = retAdded || AttachStderrAdded
 
-	err, attachStdinAdded := retrieveContainerExecBodyAttachStdinFlags(depth, m, cmdPrefix, cmd)
+	err, AttachStdinAdded := retrieveContainerExecBodyAttachStdinFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachStdinAdded
+	retAdded = retAdded || AttachStdinAdded
 
-	err, attachStdoutAdded := retrieveContainerExecBodyAttachStdoutFlags(depth, m, cmdPrefix, cmd)
+	err, AttachStdoutAdded := retrieveContainerExecBodyAttachStdoutFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || attachStdoutAdded
+	retAdded = retAdded || AttachStdoutAdded
 
-	err, cmdAdded := retrieveContainerExecBodyCmdFlags(depth, m, cmdPrefix, cmd)
+	err, CmdAdded := retrieveContainerExecBodyCmdFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || cmdAdded
+	retAdded = retAdded || CmdAdded
 
-	err, detachKeysAdded := retrieveContainerExecBodyDetachKeysFlags(depth, m, cmdPrefix, cmd)
+	err, DetachKeysAdded := retrieveContainerExecBodyDetachKeysFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || detachKeysAdded
+	retAdded = retAdded || DetachKeysAdded
 
-	err, envAdded := retrieveContainerExecBodyEnvFlags(depth, m, cmdPrefix, cmd)
+	err, EnvAdded := retrieveContainerExecBodyEnvFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || envAdded
+	retAdded = retAdded || EnvAdded
 
-	err, privilegedAdded := retrieveContainerExecBodyPrivilegedFlags(depth, m, cmdPrefix, cmd)
+	err, PrivilegedAdded := retrieveContainerExecBodyPrivilegedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || privilegedAdded
+	retAdded = retAdded || PrivilegedAdded
 
-	err, ttyAdded := retrieveContainerExecBodyTtyFlags(depth, m, cmdPrefix, cmd)
+	err, TtyAdded := retrieveContainerExecBodyTtyFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || ttyAdded
+	retAdded = retAdded || TtyAdded
 
-	err, userAdded := retrieveContainerExecBodyUserFlags(depth, m, cmdPrefix, cmd)
+	err, UserAdded := retrieveContainerExecBodyUserFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || userAdded
+	retAdded = retAdded || UserAdded
 
-	err, workingDirAdded := retrieveContainerExecBodyWorkingDirFlags(depth, m, cmdPrefix, cmd)
+	err, WorkingDirAdded := retrieveContainerExecBodyWorkingDirFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || workingDirAdded
+	retAdded = retAdded || WorkingDirAdded
 
 	return nil, retAdded
 }
@@ -540,21 +540,21 @@ func retrieveContainerExecBodyAttachStderrFlags(depth int, m *exec.ContainerExec
 	}
 	retAdded := false
 
-	attachStderrFlagName := fmt.Sprintf("%v.AttachStderr", cmdPrefix)
-	if cmd.Flags().Changed(attachStderrFlagName) {
+	AttachStderrFlagName := fmt.Sprintf("%v.AttachStderr", cmdPrefix)
+	if cmd.Flags().Changed(AttachStderrFlagName) {
 
-		var attachStderrFlagName string
+		var AttachStderrFlagName string
 		if cmdPrefix == "" {
-			attachStderrFlagName = "AttachStderr"
+			AttachStderrFlagName = "AttachStderr"
 		} else {
-			attachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
+			AttachStderrFlagName = fmt.Sprintf("%v.AttachStderr", cmdPrefix)
 		}
 
-		attachStderrFlagValue, err := cmd.Flags().GetBool(attachStderrFlagName)
+		AttachStderrFlagValue, err := cmd.Flags().GetBool(AttachStderrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AttachStderr = attachStderrFlagValue
+		m.AttachStderr = AttachStderrFlagValue
 
 		retAdded = true
 	}
@@ -568,21 +568,21 @@ func retrieveContainerExecBodyAttachStdinFlags(depth int, m *exec.ContainerExecB
 	}
 	retAdded := false
 
-	attachStdinFlagName := fmt.Sprintf("%v.AttachStdin", cmdPrefix)
-	if cmd.Flags().Changed(attachStdinFlagName) {
+	AttachStdinFlagName := fmt.Sprintf("%v.AttachStdin", cmdPrefix)
+	if cmd.Flags().Changed(AttachStdinFlagName) {
 
-		var attachStdinFlagName string
+		var AttachStdinFlagName string
 		if cmdPrefix == "" {
-			attachStdinFlagName = "AttachStdin"
+			AttachStdinFlagName = "AttachStdin"
 		} else {
-			attachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
+			AttachStdinFlagName = fmt.Sprintf("%v.AttachStdin", cmdPrefix)
 		}
 
-		attachStdinFlagValue, err := cmd.Flags().GetBool(attachStdinFlagName)
+		AttachStdinFlagValue, err := cmd.Flags().GetBool(AttachStdinFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AttachStdin = attachStdinFlagValue
+		m.AttachStdin = AttachStdinFlagValue
 
 		retAdded = true
 	}
@@ -596,21 +596,21 @@ func retrieveContainerExecBodyAttachStdoutFlags(depth int, m *exec.ContainerExec
 	}
 	retAdded := false
 
-	attachStdoutFlagName := fmt.Sprintf("%v.AttachStdout", cmdPrefix)
-	if cmd.Flags().Changed(attachStdoutFlagName) {
+	AttachStdoutFlagName := fmt.Sprintf("%v.AttachStdout", cmdPrefix)
+	if cmd.Flags().Changed(AttachStdoutFlagName) {
 
-		var attachStdoutFlagName string
+		var AttachStdoutFlagName string
 		if cmdPrefix == "" {
-			attachStdoutFlagName = "AttachStdout"
+			AttachStdoutFlagName = "AttachStdout"
 		} else {
-			attachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
+			AttachStdoutFlagName = fmt.Sprintf("%v.AttachStdout", cmdPrefix)
 		}
 
-		attachStdoutFlagValue, err := cmd.Flags().GetBool(attachStdoutFlagName)
+		AttachStdoutFlagValue, err := cmd.Flags().GetBool(AttachStdoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AttachStdout = attachStdoutFlagValue
+		m.AttachStdout = AttachStdoutFlagValue
 
 		retAdded = true
 	}
@@ -624,8 +624,8 @@ func retrieveContainerExecBodyCmdFlags(depth int, m *exec.ContainerExecBody, cmd
 	}
 	retAdded := false
 
-	cmdFlagName := fmt.Sprintf("%v.Cmd", cmdPrefix)
-	if cmd.Flags().Changed(cmdFlagName) {
+	CmdFlagName := fmt.Sprintf("%v.Cmd", cmdPrefix)
+	if cmd.Flags().Changed(CmdFlagName) {
 		// warning: Cmd array type []string is not supported by go-swagger cli yet
 	}
 
@@ -638,21 +638,21 @@ func retrieveContainerExecBodyDetachKeysFlags(depth int, m *exec.ContainerExecBo
 	}
 	retAdded := false
 
-	detachKeysFlagName := fmt.Sprintf("%v.DetachKeys", cmdPrefix)
-	if cmd.Flags().Changed(detachKeysFlagName) {
+	DetachKeysFlagName := fmt.Sprintf("%v.DetachKeys", cmdPrefix)
+	if cmd.Flags().Changed(DetachKeysFlagName) {
 
-		var detachKeysFlagName string
+		var DetachKeysFlagName string
 		if cmdPrefix == "" {
-			detachKeysFlagName = "DetachKeys"
+			DetachKeysFlagName = "DetachKeys"
 		} else {
-			detachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
+			DetachKeysFlagName = fmt.Sprintf("%v.DetachKeys", cmdPrefix)
 		}
 
-		detachKeysFlagValue, err := cmd.Flags().GetString(detachKeysFlagName)
+		DetachKeysFlagValue, err := cmd.Flags().GetString(DetachKeysFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DetachKeys = detachKeysFlagValue
+		m.DetachKeys = DetachKeysFlagValue
 
 		retAdded = true
 	}
@@ -666,8 +666,8 @@ func retrieveContainerExecBodyEnvFlags(depth int, m *exec.ContainerExecBody, cmd
 	}
 	retAdded := false
 
-	envFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
-	if cmd.Flags().Changed(envFlagName) {
+	EnvFlagName := fmt.Sprintf("%v.Env", cmdPrefix)
+	if cmd.Flags().Changed(EnvFlagName) {
 		// warning: Env array type []string is not supported by go-swagger cli yet
 	}
 
@@ -680,21 +680,21 @@ func retrieveContainerExecBodyPrivilegedFlags(depth int, m *exec.ContainerExecBo
 	}
 	retAdded := false
 
-	privilegedFlagName := fmt.Sprintf("%v.Privileged", cmdPrefix)
-	if cmd.Flags().Changed(privilegedFlagName) {
+	PrivilegedFlagName := fmt.Sprintf("%v.Privileged", cmdPrefix)
+	if cmd.Flags().Changed(PrivilegedFlagName) {
 
-		var privilegedFlagName string
+		var PrivilegedFlagName string
 		if cmdPrefix == "" {
-			privilegedFlagName = "Privileged"
+			PrivilegedFlagName = "Privileged"
 		} else {
-			privilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
+			PrivilegedFlagName = fmt.Sprintf("%v.Privileged", cmdPrefix)
 		}
 
-		privilegedFlagValue, err := cmd.Flags().GetBool(privilegedFlagName)
+		PrivilegedFlagValue, err := cmd.Flags().GetBool(PrivilegedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Privileged = &privilegedFlagValue
+		m.Privileged = &PrivilegedFlagValue
 
 		retAdded = true
 	}
@@ -708,21 +708,21 @@ func retrieveContainerExecBodyTtyFlags(depth int, m *exec.ContainerExecBody, cmd
 	}
 	retAdded := false
 
-	ttyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
-	if cmd.Flags().Changed(ttyFlagName) {
+	TtyFlagName := fmt.Sprintf("%v.Tty", cmdPrefix)
+	if cmd.Flags().Changed(TtyFlagName) {
 
-		var ttyFlagName string
+		var TtyFlagName string
 		if cmdPrefix == "" {
-			ttyFlagName = "Tty"
+			TtyFlagName = "Tty"
 		} else {
-			ttyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
+			TtyFlagName = fmt.Sprintf("%v.Tty", cmdPrefix)
 		}
 
-		ttyFlagValue, err := cmd.Flags().GetBool(ttyFlagName)
+		TtyFlagValue, err := cmd.Flags().GetBool(TtyFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Tty = ttyFlagValue
+		m.Tty = TtyFlagValue
 
 		retAdded = true
 	}
@@ -736,21 +736,21 @@ func retrieveContainerExecBodyUserFlags(depth int, m *exec.ContainerExecBody, cm
 	}
 	retAdded := false
 
-	userFlagName := fmt.Sprintf("%v.User", cmdPrefix)
-	if cmd.Flags().Changed(userFlagName) {
+	UserFlagName := fmt.Sprintf("%v.User", cmdPrefix)
+	if cmd.Flags().Changed(UserFlagName) {
 
-		var userFlagName string
+		var UserFlagName string
 		if cmdPrefix == "" {
-			userFlagName = "User"
+			UserFlagName = "User"
 		} else {
-			userFlagName = fmt.Sprintf("%v.User", cmdPrefix)
+			UserFlagName = fmt.Sprintf("%v.User", cmdPrefix)
 		}
 
-		userFlagValue, err := cmd.Flags().GetString(userFlagName)
+		UserFlagValue, err := cmd.Flags().GetString(UserFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.User = userFlagValue
+		m.User = UserFlagValue
 
 		retAdded = true
 	}
@@ -764,21 +764,21 @@ func retrieveContainerExecBodyWorkingDirFlags(depth int, m *exec.ContainerExecBo
 	}
 	retAdded := false
 
-	workingDirFlagName := fmt.Sprintf("%v.WorkingDir", cmdPrefix)
-	if cmd.Flags().Changed(workingDirFlagName) {
+	WorkingDirFlagName := fmt.Sprintf("%v.WorkingDir", cmdPrefix)
+	if cmd.Flags().Changed(WorkingDirFlagName) {
 
-		var workingDirFlagName string
+		var WorkingDirFlagName string
 		if cmdPrefix == "" {
-			workingDirFlagName = "WorkingDir"
+			WorkingDirFlagName = "WorkingDir"
 		} else {
-			workingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
+			WorkingDirFlagName = fmt.Sprintf("%v.WorkingDir", cmdPrefix)
 		}
 
-		workingDirFlagValue, err := cmd.Flags().GetString(workingDirFlagName)
+		WorkingDirFlagValue, err := cmd.Flags().GetString(WorkingDirFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.WorkingDir = workingDirFlagValue
+		m.WorkingDir = WorkingDirFlagValue
 
 		retAdded = true
 	}

@@ -45,18 +45,18 @@ func registerHealthConfigInterval(depth int, cmdPrefix string, cmd *cobra.Comman
 		return nil
 	}
 
-	intervalDescription := `The time to wait between checks in nanoseconds. It should be 0 or at least 1000000 (1 ms). 0 means inherit.`
+	IntervalDescription := `The time to wait between checks in nanoseconds. It should be 0 or at least 1000000 (1 ms). 0 means inherit.`
 
-	var intervalFlagName string
+	var IntervalFlagName string
 	if cmdPrefix == "" {
-		intervalFlagName = "Interval"
+		IntervalFlagName = "Interval"
 	} else {
-		intervalFlagName = fmt.Sprintf("%v.Interval", cmdPrefix)
+		IntervalFlagName = fmt.Sprintf("%v.Interval", cmdPrefix)
 	}
 
-	var intervalFlagDefault int64
+	var IntervalFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(intervalFlagName, intervalFlagDefault, intervalDescription)
+	_ = cmd.PersistentFlags().Int64(IntervalFlagName, IntervalFlagDefault, IntervalDescription)
 
 	return nil
 }
@@ -66,18 +66,18 @@ func registerHealthConfigRetries(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	retriesDescription := `The number of consecutive failures needed to consider a container as unhealthy. 0 means inherit.`
+	RetriesDescription := `The number of consecutive failures needed to consider a container as unhealthy. 0 means inherit.`
 
-	var retriesFlagName string
+	var RetriesFlagName string
 	if cmdPrefix == "" {
-		retriesFlagName = "Retries"
+		RetriesFlagName = "Retries"
 	} else {
-		retriesFlagName = fmt.Sprintf("%v.Retries", cmdPrefix)
+		RetriesFlagName = fmt.Sprintf("%v.Retries", cmdPrefix)
 	}
 
-	var retriesFlagDefault int64
+	var RetriesFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(retriesFlagName, retriesFlagDefault, retriesDescription)
+	_ = cmd.PersistentFlags().Int64(RetriesFlagName, RetriesFlagDefault, RetriesDescription)
 
 	return nil
 }
@@ -87,18 +87,18 @@ func registerHealthConfigStartPeriod(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	startPeriodDescription := `Start period for the container to initialize before starting health-retries countdown in nanoseconds. It should be 0 or at least 1000000 (1 ms). 0 means inherit.`
+	StartPeriodDescription := `Start period for the container to initialize before starting health-retries countdown in nanoseconds. It should be 0 or at least 1000000 (1 ms). 0 means inherit.`
 
-	var startPeriodFlagName string
+	var StartPeriodFlagName string
 	if cmdPrefix == "" {
-		startPeriodFlagName = "StartPeriod"
+		StartPeriodFlagName = "StartPeriod"
 	} else {
-		startPeriodFlagName = fmt.Sprintf("%v.StartPeriod", cmdPrefix)
+		StartPeriodFlagName = fmt.Sprintf("%v.StartPeriod", cmdPrefix)
 	}
 
-	var startPeriodFlagDefault int64
+	var StartPeriodFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(startPeriodFlagName, startPeriodFlagDefault, startPeriodDescription)
+	_ = cmd.PersistentFlags().Int64(StartPeriodFlagName, StartPeriodFlagDefault, StartPeriodDescription)
 
 	return nil
 }
@@ -118,18 +118,18 @@ func registerHealthConfigTimeout(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	timeoutDescription := `The time to wait before considering the check to have hung. It should be 0 or at least 1000000 (1 ms). 0 means inherit.`
+	TimeoutDescription := `The time to wait before considering the check to have hung. It should be 0 or at least 1000000 (1 ms). 0 means inherit.`
 
-	var timeoutFlagName string
+	var TimeoutFlagName string
 	if cmdPrefix == "" {
-		timeoutFlagName = "Timeout"
+		TimeoutFlagName = "Timeout"
 	} else {
-		timeoutFlagName = fmt.Sprintf("%v.Timeout", cmdPrefix)
+		TimeoutFlagName = fmt.Sprintf("%v.Timeout", cmdPrefix)
 	}
 
-	var timeoutFlagDefault int64
+	var TimeoutFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(timeoutFlagName, timeoutFlagDefault, timeoutDescription)
+	_ = cmd.PersistentFlags().Int64(TimeoutFlagName, TimeoutFlagDefault, TimeoutDescription)
 
 	return nil
 }
@@ -138,35 +138,35 @@ func registerHealthConfigTimeout(depth int, cmdPrefix string, cmd *cobra.Command
 func retrieveModelHealthConfigFlags(depth int, m *models.HealthConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, intervalAdded := retrieveHealthConfigIntervalFlags(depth, m, cmdPrefix, cmd)
+	err, IntervalAdded := retrieveHealthConfigIntervalFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || intervalAdded
+	retAdded = retAdded || IntervalAdded
 
-	err, retriesAdded := retrieveHealthConfigRetriesFlags(depth, m, cmdPrefix, cmd)
+	err, RetriesAdded := retrieveHealthConfigRetriesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || retriesAdded
+	retAdded = retAdded || RetriesAdded
 
-	err, startPeriodAdded := retrieveHealthConfigStartPeriodFlags(depth, m, cmdPrefix, cmd)
+	err, StartPeriodAdded := retrieveHealthConfigStartPeriodFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || startPeriodAdded
+	retAdded = retAdded || StartPeriodAdded
 
-	err, testAdded := retrieveHealthConfigTestFlags(depth, m, cmdPrefix, cmd)
+	err, TestAdded := retrieveHealthConfigTestFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || testAdded
+	retAdded = retAdded || TestAdded
 
-	err, timeoutAdded := retrieveHealthConfigTimeoutFlags(depth, m, cmdPrefix, cmd)
+	err, TimeoutAdded := retrieveHealthConfigTimeoutFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || timeoutAdded
+	retAdded = retAdded || TimeoutAdded
 
 	return nil, retAdded
 }
@@ -177,21 +177,21 @@ func retrieveHealthConfigIntervalFlags(depth int, m *models.HealthConfig, cmdPre
 	}
 	retAdded := false
 
-	intervalFlagName := fmt.Sprintf("%v.Interval", cmdPrefix)
-	if cmd.Flags().Changed(intervalFlagName) {
+	IntervalFlagName := fmt.Sprintf("%v.Interval", cmdPrefix)
+	if cmd.Flags().Changed(IntervalFlagName) {
 
-		var intervalFlagName string
+		var IntervalFlagName string
 		if cmdPrefix == "" {
-			intervalFlagName = "Interval"
+			IntervalFlagName = "Interval"
 		} else {
-			intervalFlagName = fmt.Sprintf("%v.Interval", cmdPrefix)
+			IntervalFlagName = fmt.Sprintf("%v.Interval", cmdPrefix)
 		}
 
-		intervalFlagValue, err := cmd.Flags().GetInt64(intervalFlagName)
+		IntervalFlagValue, err := cmd.Flags().GetInt64(IntervalFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Interval = intervalFlagValue
+		m.Interval = IntervalFlagValue
 
 		retAdded = true
 	}
@@ -205,21 +205,21 @@ func retrieveHealthConfigRetriesFlags(depth int, m *models.HealthConfig, cmdPref
 	}
 	retAdded := false
 
-	retriesFlagName := fmt.Sprintf("%v.Retries", cmdPrefix)
-	if cmd.Flags().Changed(retriesFlagName) {
+	RetriesFlagName := fmt.Sprintf("%v.Retries", cmdPrefix)
+	if cmd.Flags().Changed(RetriesFlagName) {
 
-		var retriesFlagName string
+		var RetriesFlagName string
 		if cmdPrefix == "" {
-			retriesFlagName = "Retries"
+			RetriesFlagName = "Retries"
 		} else {
-			retriesFlagName = fmt.Sprintf("%v.Retries", cmdPrefix)
+			RetriesFlagName = fmt.Sprintf("%v.Retries", cmdPrefix)
 		}
 
-		retriesFlagValue, err := cmd.Flags().GetInt64(retriesFlagName)
+		RetriesFlagValue, err := cmd.Flags().GetInt64(RetriesFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Retries = retriesFlagValue
+		m.Retries = RetriesFlagValue
 
 		retAdded = true
 	}
@@ -233,21 +233,21 @@ func retrieveHealthConfigStartPeriodFlags(depth int, m *models.HealthConfig, cmd
 	}
 	retAdded := false
 
-	startPeriodFlagName := fmt.Sprintf("%v.StartPeriod", cmdPrefix)
-	if cmd.Flags().Changed(startPeriodFlagName) {
+	StartPeriodFlagName := fmt.Sprintf("%v.StartPeriod", cmdPrefix)
+	if cmd.Flags().Changed(StartPeriodFlagName) {
 
-		var startPeriodFlagName string
+		var StartPeriodFlagName string
 		if cmdPrefix == "" {
-			startPeriodFlagName = "StartPeriod"
+			StartPeriodFlagName = "StartPeriod"
 		} else {
-			startPeriodFlagName = fmt.Sprintf("%v.StartPeriod", cmdPrefix)
+			StartPeriodFlagName = fmt.Sprintf("%v.StartPeriod", cmdPrefix)
 		}
 
-		startPeriodFlagValue, err := cmd.Flags().GetInt64(startPeriodFlagName)
+		StartPeriodFlagValue, err := cmd.Flags().GetInt64(StartPeriodFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StartPeriod = startPeriodFlagValue
+		m.StartPeriod = StartPeriodFlagValue
 
 		retAdded = true
 	}
@@ -261,8 +261,8 @@ func retrieveHealthConfigTestFlags(depth int, m *models.HealthConfig, cmdPrefix 
 	}
 	retAdded := false
 
-	testFlagName := fmt.Sprintf("%v.Test", cmdPrefix)
-	if cmd.Flags().Changed(testFlagName) {
+	TestFlagName := fmt.Sprintf("%v.Test", cmdPrefix)
+	if cmd.Flags().Changed(TestFlagName) {
 		// warning: Test array type []string is not supported by go-swagger cli yet
 	}
 
@@ -275,21 +275,21 @@ func retrieveHealthConfigTimeoutFlags(depth int, m *models.HealthConfig, cmdPref
 	}
 	retAdded := false
 
-	timeoutFlagName := fmt.Sprintf("%v.Timeout", cmdPrefix)
-	if cmd.Flags().Changed(timeoutFlagName) {
+	TimeoutFlagName := fmt.Sprintf("%v.Timeout", cmdPrefix)
+	if cmd.Flags().Changed(TimeoutFlagName) {
 
-		var timeoutFlagName string
+		var TimeoutFlagName string
 		if cmdPrefix == "" {
-			timeoutFlagName = "Timeout"
+			TimeoutFlagName = "Timeout"
 		} else {
-			timeoutFlagName = fmt.Sprintf("%v.Timeout", cmdPrefix)
+			TimeoutFlagName = fmt.Sprintf("%v.Timeout", cmdPrefix)
 		}
 
-		timeoutFlagValue, err := cmd.Flags().GetInt64(timeoutFlagName)
+		TimeoutFlagValue, err := cmd.Flags().GetInt64(TimeoutFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Timeout = timeoutFlagValue
+		m.Timeout = TimeoutFlagValue
 
 		retAdded = true
 	}

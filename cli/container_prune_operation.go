@@ -68,23 +68,23 @@ func registerOperationContainerContainerPruneParamFlags(cmd *cobra.Command) erro
 
 func registerOperationContainerContainerPruneFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+	FiltersDescription := `Filters to process on the prune list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
 
 Available filters:
 - ` + "`" + `until=<timestamp>` + "`" + ` Prune containers created before this timestamp. The ` + "`" + `<timestamp>` + "`" + ` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. ` + "`" + `10m` + "`" + `, ` + "`" + `1h30m` + "`" + `) computed relative to the daemon machine’s time.
 - ` + "`" + `label` + "`" + ` (` + "`" + `label=<key>` + "`" + `, ` + "`" + `label=<key>=<value>` + "`" + `, ` + "`" + `label!=<key>` + "`" + `, or ` + "`" + `label!=<key>=<value>` + "`" + `) Prune containers with (or without, in case ` + "`" + `label!=...` + "`" + ` is used) the specified labels.
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -93,18 +93,18 @@ func retrieveOperationContainerContainerPruneFiltersFlag(m *container.ContainerP
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -181,18 +181,18 @@ func registerContainerPruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	spaceReclaimedDescription := `Disk space reclaimed in bytes`
+	SpaceReclaimedDescription := `Disk space reclaimed in bytes`
 
-	var spaceReclaimedFlagName string
+	var SpaceReclaimedFlagName string
 	if cmdPrefix == "" {
-		spaceReclaimedFlagName = "SpaceReclaimed"
+		SpaceReclaimedFlagName = "SpaceReclaimed"
 	} else {
-		spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+		SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 	}
 
-	var spaceReclaimedFlagDefault int64
+	var SpaceReclaimedFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(spaceReclaimedFlagName, spaceReclaimedFlagDefault, spaceReclaimedDescription)
+	_ = cmd.PersistentFlags().Int64(SpaceReclaimedFlagName, SpaceReclaimedFlagDefault, SpaceReclaimedDescription)
 
 	return nil
 }
@@ -201,17 +201,17 @@ func registerContainerPruneOKBodySpaceReclaimed(depth int, cmdPrefix string, cmd
 func retrieveModelContainerPruneOKBodyFlags(depth int, m *container.ContainerPruneOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, containersDeletedAdded := retrieveContainerPruneOKBodyContainersDeletedFlags(depth, m, cmdPrefix, cmd)
+	err, ContainersDeletedAdded := retrieveContainerPruneOKBodyContainersDeletedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || containersDeletedAdded
+	retAdded = retAdded || ContainersDeletedAdded
 
-	err, spaceReclaimedAdded := retrieveContainerPruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
+	err, SpaceReclaimedAdded := retrieveContainerPruneOKBodySpaceReclaimedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || spaceReclaimedAdded
+	retAdded = retAdded || SpaceReclaimedAdded
 
 	return nil, retAdded
 }
@@ -222,8 +222,8 @@ func retrieveContainerPruneOKBodyContainersDeletedFlags(depth int, m *container.
 	}
 	retAdded := false
 
-	containersDeletedFlagName := fmt.Sprintf("%v.ContainersDeleted", cmdPrefix)
-	if cmd.Flags().Changed(containersDeletedFlagName) {
+	ContainersDeletedFlagName := fmt.Sprintf("%v.ContainersDeleted", cmdPrefix)
+	if cmd.Flags().Changed(ContainersDeletedFlagName) {
 		// warning: ContainersDeleted array type []string is not supported by go-swagger cli yet
 	}
 
@@ -236,21 +236,21 @@ func retrieveContainerPruneOKBodySpaceReclaimedFlags(depth int, m *container.Con
 	}
 	retAdded := false
 
-	spaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
-	if cmd.Flags().Changed(spaceReclaimedFlagName) {
+	SpaceReclaimedFlagName := fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+	if cmd.Flags().Changed(SpaceReclaimedFlagName) {
 
-		var spaceReclaimedFlagName string
+		var SpaceReclaimedFlagName string
 		if cmdPrefix == "" {
-			spaceReclaimedFlagName = "SpaceReclaimed"
+			SpaceReclaimedFlagName = "SpaceReclaimed"
 		} else {
-			spaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
+			SpaceReclaimedFlagName = fmt.Sprintf("%v.SpaceReclaimed", cmdPrefix)
 		}
 
-		spaceReclaimedFlagValue, err := cmd.Flags().GetInt64(spaceReclaimedFlagName)
+		SpaceReclaimedFlagValue, err := cmd.Flags().GetInt64(SpaceReclaimedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.SpaceReclaimed = spaceReclaimedFlagValue
+		m.SpaceReclaimed = SpaceReclaimedFlagValue
 
 		retAdded = true
 	}

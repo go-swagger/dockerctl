@@ -46,18 +46,18 @@ func registerEndpointPortConfigName(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -67,20 +67,20 @@ func registerEndpointPortConfigProtocol(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	protocolDescription := `Enum: ["tcp","udp","sctp"]. `
+	ProtocolDescription := `Enum: ["tcp","udp","sctp"]. `
 
-	var protocolFlagName string
+	var ProtocolFlagName string
 	if cmdPrefix == "" {
-		protocolFlagName = "Protocol"
+		ProtocolFlagName = "Protocol"
 	} else {
-		protocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
+		ProtocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
 	}
 
-	var protocolFlagDefault string
+	var ProtocolFlagDefault string
 
-	_ = cmd.PersistentFlags().String(protocolFlagName, protocolFlagDefault, protocolDescription)
+	_ = cmd.PersistentFlags().String(ProtocolFlagName, ProtocolFlagDefault, ProtocolDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(protocolFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(ProtocolFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["tcp","udp","sctp"]`), &res); err != nil {
@@ -99,7 +99,7 @@ func registerEndpointPortConfigPublishMode(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	publishModeDescription := `Enum: ["ingress","host"]. The mode in which port is published.
+	PublishModeDescription := `Enum: ["ingress","host"]. The mode in which port is published.
 
 <p><br /></p>
 
@@ -110,18 +110,18 @@ func registerEndpointPortConfigPublishMode(depth int, cmdPrefix string, cmd *cob
   the swarm node where that service is running.
 `
 
-	var publishModeFlagName string
+	var PublishModeFlagName string
 	if cmdPrefix == "" {
-		publishModeFlagName = "PublishMode"
+		PublishModeFlagName = "PublishMode"
 	} else {
-		publishModeFlagName = fmt.Sprintf("%v.PublishMode", cmdPrefix)
+		PublishModeFlagName = fmt.Sprintf("%v.PublishMode", cmdPrefix)
 	}
 
-	var publishModeFlagDefault string = "ingress"
+	var PublishModeFlagDefault string = "ingress"
 
-	_ = cmd.PersistentFlags().String(publishModeFlagName, publishModeFlagDefault, publishModeDescription)
+	_ = cmd.PersistentFlags().String(PublishModeFlagName, PublishModeFlagDefault, PublishModeDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(publishModeFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(PublishModeFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["ingress","host"]`), &res); err != nil {
@@ -140,18 +140,18 @@ func registerEndpointPortConfigPublishedPort(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	publishedPortDescription := `The port on the swarm hosts.`
+	PublishedPortDescription := `The port on the swarm hosts.`
 
-	var publishedPortFlagName string
+	var PublishedPortFlagName string
 	if cmdPrefix == "" {
-		publishedPortFlagName = "PublishedPort"
+		PublishedPortFlagName = "PublishedPort"
 	} else {
-		publishedPortFlagName = fmt.Sprintf("%v.PublishedPort", cmdPrefix)
+		PublishedPortFlagName = fmt.Sprintf("%v.PublishedPort", cmdPrefix)
 	}
 
-	var publishedPortFlagDefault int64
+	var PublishedPortFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(publishedPortFlagName, publishedPortFlagDefault, publishedPortDescription)
+	_ = cmd.PersistentFlags().Int64(PublishedPortFlagName, PublishedPortFlagDefault, PublishedPortDescription)
 
 	return nil
 }
@@ -161,18 +161,18 @@ func registerEndpointPortConfigTargetPort(depth int, cmdPrefix string, cmd *cobr
 		return nil
 	}
 
-	targetPortDescription := `The port inside the container.`
+	TargetPortDescription := `The port inside the container.`
 
-	var targetPortFlagName string
+	var TargetPortFlagName string
 	if cmdPrefix == "" {
-		targetPortFlagName = "TargetPort"
+		TargetPortFlagName = "TargetPort"
 	} else {
-		targetPortFlagName = fmt.Sprintf("%v.TargetPort", cmdPrefix)
+		TargetPortFlagName = fmt.Sprintf("%v.TargetPort", cmdPrefix)
 	}
 
-	var targetPortFlagDefault int64
+	var TargetPortFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(targetPortFlagName, targetPortFlagDefault, targetPortDescription)
+	_ = cmd.PersistentFlags().Int64(TargetPortFlagName, TargetPortFlagDefault, TargetPortDescription)
 
 	return nil
 }
@@ -181,35 +181,35 @@ func registerEndpointPortConfigTargetPort(depth int, cmdPrefix string, cmd *cobr
 func retrieveModelEndpointPortConfigFlags(depth int, m *models.EndpointPortConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, nameAdded := retrieveEndpointPortConfigNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveEndpointPortConfigNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, protocolAdded := retrieveEndpointPortConfigProtocolFlags(depth, m, cmdPrefix, cmd)
+	err, ProtocolAdded := retrieveEndpointPortConfigProtocolFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || protocolAdded
+	retAdded = retAdded || ProtocolAdded
 
-	err, publishModeAdded := retrieveEndpointPortConfigPublishModeFlags(depth, m, cmdPrefix, cmd)
+	err, PublishModeAdded := retrieveEndpointPortConfigPublishModeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || publishModeAdded
+	retAdded = retAdded || PublishModeAdded
 
-	err, publishedPortAdded := retrieveEndpointPortConfigPublishedPortFlags(depth, m, cmdPrefix, cmd)
+	err, PublishedPortAdded := retrieveEndpointPortConfigPublishedPortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || publishedPortAdded
+	retAdded = retAdded || PublishedPortAdded
 
-	err, targetPortAdded := retrieveEndpointPortConfigTargetPortFlags(depth, m, cmdPrefix, cmd)
+	err, TargetPortAdded := retrieveEndpointPortConfigTargetPortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || targetPortAdded
+	retAdded = retAdded || TargetPortAdded
 
 	return nil, retAdded
 }
@@ -220,21 +220,21 @@ func retrieveEndpointPortConfigNameFlags(depth int, m *models.EndpointPortConfig
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -248,21 +248,21 @@ func retrieveEndpointPortConfigProtocolFlags(depth int, m *models.EndpointPortCo
 	}
 	retAdded := false
 
-	protocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
-	if cmd.Flags().Changed(protocolFlagName) {
+	ProtocolFlagName := fmt.Sprintf("%v.Protocol", cmdPrefix)
+	if cmd.Flags().Changed(ProtocolFlagName) {
 
-		var protocolFlagName string
+		var ProtocolFlagName string
 		if cmdPrefix == "" {
-			protocolFlagName = "Protocol"
+			ProtocolFlagName = "Protocol"
 		} else {
-			protocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
+			ProtocolFlagName = fmt.Sprintf("%v.Protocol", cmdPrefix)
 		}
 
-		protocolFlagValue, err := cmd.Flags().GetString(protocolFlagName)
+		ProtocolFlagValue, err := cmd.Flags().GetString(ProtocolFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Protocol = protocolFlagValue
+		m.Protocol = ProtocolFlagValue
 
 		retAdded = true
 	}
@@ -276,21 +276,21 @@ func retrieveEndpointPortConfigPublishModeFlags(depth int, m *models.EndpointPor
 	}
 	retAdded := false
 
-	publishModeFlagName := fmt.Sprintf("%v.PublishMode", cmdPrefix)
-	if cmd.Flags().Changed(publishModeFlagName) {
+	PublishModeFlagName := fmt.Sprintf("%v.PublishMode", cmdPrefix)
+	if cmd.Flags().Changed(PublishModeFlagName) {
 
-		var publishModeFlagName string
+		var PublishModeFlagName string
 		if cmdPrefix == "" {
-			publishModeFlagName = "PublishMode"
+			PublishModeFlagName = "PublishMode"
 		} else {
-			publishModeFlagName = fmt.Sprintf("%v.PublishMode", cmdPrefix)
+			PublishModeFlagName = fmt.Sprintf("%v.PublishMode", cmdPrefix)
 		}
 
-		publishModeFlagValue, err := cmd.Flags().GetString(publishModeFlagName)
+		PublishModeFlagValue, err := cmd.Flags().GetString(PublishModeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PublishMode = &publishModeFlagValue
+		m.PublishMode = &PublishModeFlagValue
 
 		retAdded = true
 	}
@@ -304,21 +304,21 @@ func retrieveEndpointPortConfigPublishedPortFlags(depth int, m *models.EndpointP
 	}
 	retAdded := false
 
-	publishedPortFlagName := fmt.Sprintf("%v.PublishedPort", cmdPrefix)
-	if cmd.Flags().Changed(publishedPortFlagName) {
+	PublishedPortFlagName := fmt.Sprintf("%v.PublishedPort", cmdPrefix)
+	if cmd.Flags().Changed(PublishedPortFlagName) {
 
-		var publishedPortFlagName string
+		var PublishedPortFlagName string
 		if cmdPrefix == "" {
-			publishedPortFlagName = "PublishedPort"
+			PublishedPortFlagName = "PublishedPort"
 		} else {
-			publishedPortFlagName = fmt.Sprintf("%v.PublishedPort", cmdPrefix)
+			PublishedPortFlagName = fmt.Sprintf("%v.PublishedPort", cmdPrefix)
 		}
 
-		publishedPortFlagValue, err := cmd.Flags().GetInt64(publishedPortFlagName)
+		PublishedPortFlagValue, err := cmd.Flags().GetInt64(PublishedPortFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.PublishedPort = publishedPortFlagValue
+		m.PublishedPort = PublishedPortFlagValue
 
 		retAdded = true
 	}
@@ -332,21 +332,21 @@ func retrieveEndpointPortConfigTargetPortFlags(depth int, m *models.EndpointPort
 	}
 	retAdded := false
 
-	targetPortFlagName := fmt.Sprintf("%v.TargetPort", cmdPrefix)
-	if cmd.Flags().Changed(targetPortFlagName) {
+	TargetPortFlagName := fmt.Sprintf("%v.TargetPort", cmdPrefix)
+	if cmd.Flags().Changed(TargetPortFlagName) {
 
-		var targetPortFlagName string
+		var TargetPortFlagName string
 		if cmdPrefix == "" {
-			targetPortFlagName = "TargetPort"
+			TargetPortFlagName = "TargetPort"
 		} else {
-			targetPortFlagName = fmt.Sprintf("%v.TargetPort", cmdPrefix)
+			TargetPortFlagName = fmt.Sprintf("%v.TargetPort", cmdPrefix)
 		}
 
-		targetPortFlagValue, err := cmd.Flags().GetInt64(targetPortFlagName)
+		TargetPortFlagValue, err := cmd.Flags().GetInt64(TargetPortFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.TargetPort = targetPortFlagValue
+		m.TargetPort = TargetPortFlagValue
 
 		retAdded = true
 	}

@@ -55,18 +55,18 @@ func registerDeviceRequestCount(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	countDescription := ``
+	CountDescription := ``
 
-	var countFlagName string
+	var CountFlagName string
 	if cmdPrefix == "" {
-		countFlagName = "Count"
+		CountFlagName = "Count"
 	} else {
-		countFlagName = fmt.Sprintf("%v.Count", cmdPrefix)
+		CountFlagName = fmt.Sprintf("%v.Count", cmdPrefix)
 	}
 
-	var countFlagDefault int64
+	var CountFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(countFlagName, countFlagDefault, countDescription)
+	_ = cmd.PersistentFlags().Int64(CountFlagName, CountFlagDefault, CountDescription)
 
 	return nil
 }
@@ -86,18 +86,18 @@ func registerDeviceRequestDriver(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	driverDescription := ``
+	DriverDescription := ``
 
-	var driverFlagName string
+	var DriverFlagName string
 	if cmdPrefix == "" {
-		driverFlagName = "Driver"
+		DriverFlagName = "Driver"
 	} else {
-		driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+		DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 	}
 
-	var driverFlagDefault string
+	var DriverFlagDefault string
 
-	_ = cmd.PersistentFlags().String(driverFlagName, driverFlagDefault, driverDescription)
+	_ = cmd.PersistentFlags().String(DriverFlagName, DriverFlagDefault, DriverDescription)
 
 	return nil
 }
@@ -116,35 +116,35 @@ func registerDeviceRequestOptions(depth int, cmdPrefix string, cmd *cobra.Comman
 func retrieveModelDeviceRequestFlags(depth int, m *models.DeviceRequest, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, capabilitiesAdded := retrieveDeviceRequestCapabilitiesFlags(depth, m, cmdPrefix, cmd)
+	err, CapabilitiesAdded := retrieveDeviceRequestCapabilitiesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || capabilitiesAdded
+	retAdded = retAdded || CapabilitiesAdded
 
-	err, countAdded := retrieveDeviceRequestCountFlags(depth, m, cmdPrefix, cmd)
+	err, CountAdded := retrieveDeviceRequestCountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || countAdded
+	retAdded = retAdded || CountAdded
 
-	err, deviceIDsAdded := retrieveDeviceRequestDeviceIDsFlags(depth, m, cmdPrefix, cmd)
+	err, DeviceIDsAdded := retrieveDeviceRequestDeviceIDsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || deviceIDsAdded
+	retAdded = retAdded || DeviceIDsAdded
 
-	err, driverAdded := retrieveDeviceRequestDriverFlags(depth, m, cmdPrefix, cmd)
+	err, DriverAdded := retrieveDeviceRequestDriverFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || driverAdded
+	retAdded = retAdded || DriverAdded
 
-	err, optionsAdded := retrieveDeviceRequestOptionsFlags(depth, m, cmdPrefix, cmd)
+	err, OptionsAdded := retrieveDeviceRequestOptionsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || optionsAdded
+	retAdded = retAdded || OptionsAdded
 
 	return nil, retAdded
 }
@@ -155,8 +155,8 @@ func retrieveDeviceRequestCapabilitiesFlags(depth int, m *models.DeviceRequest, 
 	}
 	retAdded := false
 
-	capabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
-	if cmd.Flags().Changed(capabilitiesFlagName) {
+	CapabilitiesFlagName := fmt.Sprintf("%v.Capabilities", cmdPrefix)
+	if cmd.Flags().Changed(CapabilitiesFlagName) {
 		// warning: Capabilities array type [][]string is not supported by go-swagger cli yet
 	}
 
@@ -169,21 +169,21 @@ func retrieveDeviceRequestCountFlags(depth int, m *models.DeviceRequest, cmdPref
 	}
 	retAdded := false
 
-	countFlagName := fmt.Sprintf("%v.Count", cmdPrefix)
-	if cmd.Flags().Changed(countFlagName) {
+	CountFlagName := fmt.Sprintf("%v.Count", cmdPrefix)
+	if cmd.Flags().Changed(CountFlagName) {
 
-		var countFlagName string
+		var CountFlagName string
 		if cmdPrefix == "" {
-			countFlagName = "Count"
+			CountFlagName = "Count"
 		} else {
-			countFlagName = fmt.Sprintf("%v.Count", cmdPrefix)
+			CountFlagName = fmt.Sprintf("%v.Count", cmdPrefix)
 		}
 
-		countFlagValue, err := cmd.Flags().GetInt64(countFlagName)
+		CountFlagValue, err := cmd.Flags().GetInt64(CountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Count = countFlagValue
+		m.Count = CountFlagValue
 
 		retAdded = true
 	}
@@ -197,8 +197,8 @@ func retrieveDeviceRequestDeviceIDsFlags(depth int, m *models.DeviceRequest, cmd
 	}
 	retAdded := false
 
-	deviceIDsFlagName := fmt.Sprintf("%v.DeviceIDs", cmdPrefix)
-	if cmd.Flags().Changed(deviceIDsFlagName) {
+	DeviceIDsFlagName := fmt.Sprintf("%v.DeviceIDs", cmdPrefix)
+	if cmd.Flags().Changed(DeviceIDsFlagName) {
 		// warning: DeviceIDs array type []string is not supported by go-swagger cli yet
 	}
 
@@ -211,21 +211,21 @@ func retrieveDeviceRequestDriverFlags(depth int, m *models.DeviceRequest, cmdPre
 	}
 	retAdded := false
 
-	driverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
-	if cmd.Flags().Changed(driverFlagName) {
+	DriverFlagName := fmt.Sprintf("%v.Driver", cmdPrefix)
+	if cmd.Flags().Changed(DriverFlagName) {
 
-		var driverFlagName string
+		var DriverFlagName string
 		if cmdPrefix == "" {
-			driverFlagName = "Driver"
+			DriverFlagName = "Driver"
 		} else {
-			driverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
+			DriverFlagName = fmt.Sprintf("%v.Driver", cmdPrefix)
 		}
 
-		driverFlagValue, err := cmd.Flags().GetString(driverFlagName)
+		DriverFlagValue, err := cmd.Flags().GetString(DriverFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Driver = driverFlagValue
+		m.Driver = DriverFlagValue
 
 		retAdded = true
 	}
@@ -239,8 +239,8 @@ func retrieveDeviceRequestOptionsFlags(depth int, m *models.DeviceRequest, cmdPr
 	}
 	retAdded := false
 
-	optionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
-	if cmd.Flags().Changed(optionsFlagName) {
+	OptionsFlagName := fmt.Sprintf("%v.Options", cmdPrefix)
+	if cmd.Flags().Changed(OptionsFlagName) {
 		// warning: Options map type map[string]string is not supported by go-swagger cli yet
 	}
 

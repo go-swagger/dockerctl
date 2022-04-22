@@ -47,18 +47,18 @@ func registerSecretCreatedAt(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	createdAtDescription := ``
+	CreatedAtDescription := ``
 
-	var createdAtFlagName string
+	var CreatedAtFlagName string
 	if cmdPrefix == "" {
-		createdAtFlagName = "CreatedAt"
+		CreatedAtFlagName = "CreatedAt"
 	} else {
-		createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+		CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	}
 
-	var createdAtFlagDefault string
+	var CreatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdAtFlagName, createdAtFlagDefault, createdAtDescription)
+	_ = cmd.PersistentFlags().String(CreatedAtFlagName, CreatedAtFlagDefault, CreatedAtDescription)
 
 	return nil
 }
@@ -68,18 +68,18 @@ func registerSecretID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -89,14 +89,14 @@ func registerSecretSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	var specFlagName string
+	var SpecFlagName string
 	if cmdPrefix == "" {
-		specFlagName = "Spec"
+		SpecFlagName = "Spec"
 	} else {
-		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+		SpecFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	if err := registerModelSecretSpecFlags(depth+1, specFlagName, cmd); err != nil {
+	if err := registerModelSecretSpecFlags(depth+1, SpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -108,18 +108,18 @@ func registerSecretUpdatedAt(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	updatedAtDescription := ``
+	UpdatedAtDescription := ``
 
-	var updatedAtFlagName string
+	var UpdatedAtFlagName string
 	if cmdPrefix == "" {
-		updatedAtFlagName = "UpdatedAt"
+		UpdatedAtFlagName = "UpdatedAt"
 	} else {
-		updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+		UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	}
 
-	var updatedAtFlagDefault string
+	var UpdatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(updatedAtFlagName, updatedAtFlagDefault, updatedAtDescription)
+	_ = cmd.PersistentFlags().String(UpdatedAtFlagName, UpdatedAtFlagDefault, UpdatedAtDescription)
 
 	return nil
 }
@@ -129,14 +129,14 @@ func registerSecretVersion(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+	if err := registerModelObjectVersionFlags(depth+1, VersionFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -147,35 +147,35 @@ func registerSecretVersion(depth int, cmdPrefix string, cmd *cobra.Command) erro
 func retrieveModelSecretFlags(depth int, m *models.Secret, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, createdAtAdded := retrieveSecretCreatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAtAdded := retrieveSecretCreatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAtAdded
+	retAdded = retAdded || CreatedAtAdded
 
-	err, idAdded := retrieveSecretIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveSecretIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, specAdded := retrieveSecretSpecFlags(depth, m, cmdPrefix, cmd)
+	err, SpecAdded := retrieveSecretSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
+	retAdded = retAdded || SpecAdded
 
-	err, updatedAtAdded := retrieveSecretUpdatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, UpdatedAtAdded := retrieveSecretUpdatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || updatedAtAdded
+	retAdded = retAdded || UpdatedAtAdded
 
-	err, versionAdded := retrieveSecretVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrieveSecretVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -186,21 +186,21 @@ func retrieveSecretCreatedAtFlags(depth int, m *models.Secret, cmdPrefix string,
 	}
 	retAdded := false
 
-	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
-	if cmd.Flags().Changed(createdAtFlagName) {
+	CreatedAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+	if cmd.Flags().Changed(CreatedAtFlagName) {
 
-		var createdAtFlagName string
+		var CreatedAtFlagName string
 		if cmdPrefix == "" {
-			createdAtFlagName = "CreatedAt"
+			CreatedAtFlagName = "CreatedAt"
 		} else {
-			createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+			CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 		}
 
-		createdAtFlagValue, err := cmd.Flags().GetString(createdAtFlagName)
+		CreatedAtFlagValue, err := cmd.Flags().GetString(CreatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedAt = createdAtFlagValue
+		m.CreatedAt = CreatedAtFlagValue
 
 		retAdded = true
 	}
@@ -214,21 +214,21 @@ func retrieveSecretIDFlags(depth int, m *models.Secret, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -242,22 +242,22 @@ func retrieveSecretSpecFlags(depth int, m *models.Secret, cmdPrefix string, cmd 
 	}
 	retAdded := false
 
-	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
-	if cmd.Flags().Changed(specFlagName) {
+	SpecFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(SpecFlagName) {
 		// info: complex object Spec SecretSpec is retrieved outside this Changed() block
 	}
-	specFlagValue := m.Spec
-	if swag.IsZero(specFlagValue) {
-		specFlagValue = &models.SecretSpec{}
+	SpecFlagValue := m.Spec
+	if swag.IsZero(SpecFlagValue) {
+		SpecFlagValue = &models.SecretSpec{}
 	}
 
-	err, specAdded := retrieveModelSecretSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+	err, SpecAdded := retrieveModelSecretSpecFlags(depth+1, SpecFlagValue, SpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
-	if specAdded {
-		m.Spec = specFlagValue
+	retAdded = retAdded || SpecAdded
+	if SpecAdded {
+		m.Spec = SpecFlagValue
 	}
 
 	return nil, retAdded
@@ -269,21 +269,21 @@ func retrieveSecretUpdatedAtFlags(depth int, m *models.Secret, cmdPrefix string,
 	}
 	retAdded := false
 
-	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
-	if cmd.Flags().Changed(updatedAtFlagName) {
+	UpdatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+	if cmd.Flags().Changed(UpdatedAtFlagName) {
 
-		var updatedAtFlagName string
+		var UpdatedAtFlagName string
 		if cmdPrefix == "" {
-			updatedAtFlagName = "UpdatedAt"
+			UpdatedAtFlagName = "UpdatedAt"
 		} else {
-			updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+			UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 		}
 
-		updatedAtFlagValue, err := cmd.Flags().GetString(updatedAtFlagName)
+		UpdatedAtFlagValue, err := cmd.Flags().GetString(UpdatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UpdatedAt = updatedAtFlagValue
+		m.UpdatedAt = UpdatedAtFlagValue
 
 		retAdded = true
 	}
@@ -297,22 +297,22 @@ func retrieveSecretVersionFlags(depth int, m *models.Secret, cmdPrefix string, c
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
-	versionFlagValue := m.Version
-	if swag.IsZero(versionFlagValue) {
-		versionFlagValue = &models.ObjectVersion{}
+	VersionFlagValue := m.Version
+	if swag.IsZero(VersionFlagValue) {
+		VersionFlagValue = &models.ObjectVersion{}
 	}
 
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+	err, VersionAdded := retrieveModelObjectVersionFlags(depth+1, VersionFlagValue, VersionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
-	if versionAdded {
-		m.Version = versionFlagValue
+	retAdded = retAdded || VersionAdded
+	if VersionAdded {
+		m.Version = VersionFlagValue
 	}
 
 	return nil, retAdded

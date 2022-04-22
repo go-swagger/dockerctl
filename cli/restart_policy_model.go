@@ -34,18 +34,18 @@ func registerRestartPolicyMaximumRetryCount(depth int, cmdPrefix string, cmd *co
 		return nil
 	}
 
-	maximumRetryCountDescription := `If ` + "`" + `on-failure` + "`" + ` is used, the number of times to retry before giving up`
+	MaximumRetryCountDescription := `If ` + "`" + `on-failure` + "`" + ` is used, the number of times to retry before giving up`
 
-	var maximumRetryCountFlagName string
+	var MaximumRetryCountFlagName string
 	if cmdPrefix == "" {
-		maximumRetryCountFlagName = "MaximumRetryCount"
+		MaximumRetryCountFlagName = "MaximumRetryCount"
 	} else {
-		maximumRetryCountFlagName = fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
+		MaximumRetryCountFlagName = fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
 	}
 
-	var maximumRetryCountFlagDefault int64
+	var MaximumRetryCountFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(maximumRetryCountFlagName, maximumRetryCountFlagDefault, maximumRetryCountDescription)
+	_ = cmd.PersistentFlags().Int64(MaximumRetryCountFlagName, MaximumRetryCountFlagDefault, MaximumRetryCountDescription)
 
 	return nil
 }
@@ -55,24 +55,24 @@ func registerRestartPolicyName(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	nameDescription := `Enum: ["","always","unless-stopped","on-failure"]. - Empty string means not to restart
+	NameDescription := `Enum: ["","always","unless-stopped","on-failure"]. - Empty string means not to restart
 - ` + "`" + `always` + "`" + ` Always restart
 - ` + "`" + `unless-stopped` + "`" + ` Restart always except when the user has manually stopped the container
 - ` + "`" + `on-failure` + "`" + ` Restart only when the container exit code is non-zero
 `
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "Name"
+		NameFlagName = "Name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
-	if err := cmd.RegisterFlagCompletionFunc(nameFlagName,
+	if err := cmd.RegisterFlagCompletionFunc(NameFlagName,
 		func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			var res []string
 			if err := json.Unmarshal([]byte(`["","always","unless-stopped","on-failure"]`), &res); err != nil {
@@ -90,17 +90,17 @@ func registerRestartPolicyName(depth int, cmdPrefix string, cmd *cobra.Command) 
 func retrieveModelRestartPolicyFlags(depth int, m *models.RestartPolicy, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, maximumRetryCountAdded := retrieveRestartPolicyMaximumRetryCountFlags(depth, m, cmdPrefix, cmd)
+	err, MaximumRetryCountAdded := retrieveRestartPolicyMaximumRetryCountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || maximumRetryCountAdded
+	retAdded = retAdded || MaximumRetryCountAdded
 
-	err, nameAdded := retrieveRestartPolicyNameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveRestartPolicyNameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
 	return nil, retAdded
 }
@@ -111,21 +111,21 @@ func retrieveRestartPolicyMaximumRetryCountFlags(depth int, m *models.RestartPol
 	}
 	retAdded := false
 
-	maximumRetryCountFlagName := fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
-	if cmd.Flags().Changed(maximumRetryCountFlagName) {
+	MaximumRetryCountFlagName := fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
+	if cmd.Flags().Changed(MaximumRetryCountFlagName) {
 
-		var maximumRetryCountFlagName string
+		var MaximumRetryCountFlagName string
 		if cmdPrefix == "" {
-			maximumRetryCountFlagName = "MaximumRetryCount"
+			MaximumRetryCountFlagName = "MaximumRetryCount"
 		} else {
-			maximumRetryCountFlagName = fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
+			MaximumRetryCountFlagName = fmt.Sprintf("%v.MaximumRetryCount", cmdPrefix)
 		}
 
-		maximumRetryCountFlagValue, err := cmd.Flags().GetInt64(maximumRetryCountFlagName)
+		MaximumRetryCountFlagValue, err := cmd.Flags().GetInt64(MaximumRetryCountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.MaximumRetryCount = maximumRetryCountFlagValue
+		m.MaximumRetryCount = MaximumRetryCountFlagValue
 
 		retAdded = true
 	}
@@ -139,21 +139,21 @@ func retrieveRestartPolicyNameFlags(depth int, m *models.RestartPolicy, cmdPrefi
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.Name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "Name"
+			NameFlagName = "Name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.Name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}

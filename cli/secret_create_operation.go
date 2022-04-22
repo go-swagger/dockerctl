@@ -68,14 +68,14 @@ func registerOperationSecretSecretCreateParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSecretSecretCreateBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSecretCreateBodyFlags(0, "secretCreateBody", cmd); err != nil {
@@ -209,11 +209,11 @@ func retrieveModelSecretCreateBodyFlags(depth int, m *secret.SecretCreateBody, c
 	retAdded := false
 
 	// retrieve model models.SecretSpec
-	err, secretCreateParamsBodyAO0Added := retrieveModelSecretSpecFlags(depth, &m.SecretSpec, cmdPrefix, cmd)
+	err, SecretCreateParamsBodyAO0Added := retrieveModelSecretSpecFlags(depth, &m.SecretSpec, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || secretCreateParamsBodyAO0Added
+	retAdded = retAdded || SecretCreateParamsBodyAO0Added
 
 	return nil, retAdded
 }

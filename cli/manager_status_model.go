@@ -37,19 +37,19 @@ func registerManagerStatusAddr(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	addrDescription := `The IP address and port at which the manager is reachable.
+	AddrDescription := `The IP address and port at which the manager is reachable.
 `
 
-	var addrFlagName string
+	var AddrFlagName string
 	if cmdPrefix == "" {
-		addrFlagName = "Addr"
+		AddrFlagName = "Addr"
 	} else {
-		addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+		AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 	}
 
-	var addrFlagDefault string
+	var AddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(addrFlagName, addrFlagDefault, addrDescription)
+	_ = cmd.PersistentFlags().String(AddrFlagName, AddrFlagDefault, AddrDescription)
 
 	return nil
 }
@@ -59,18 +59,18 @@ func registerManagerStatusLeader(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	leaderDescription := ``
+	LeaderDescription := ``
 
-	var leaderFlagName string
+	var LeaderFlagName string
 	if cmdPrefix == "" {
-		leaderFlagName = "Leader"
+		LeaderFlagName = "Leader"
 	} else {
-		leaderFlagName = fmt.Sprintf("%v.Leader", cmdPrefix)
+		LeaderFlagName = fmt.Sprintf("%v.Leader", cmdPrefix)
 	}
 
-	var leaderFlagDefault bool
+	var LeaderFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(leaderFlagName, leaderFlagDefault, leaderDescription)
+	_ = cmd.PersistentFlags().Bool(LeaderFlagName, LeaderFlagDefault, LeaderDescription)
 
 	return nil
 }
@@ -89,23 +89,23 @@ func registerManagerStatusReachability(depth int, cmdPrefix string, cmd *cobra.C
 func retrieveModelManagerStatusFlags(depth int, m *models.ManagerStatus, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, addrAdded := retrieveManagerStatusAddrFlags(depth, m, cmdPrefix, cmd)
+	err, AddrAdded := retrieveManagerStatusAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || addrAdded
+	retAdded = retAdded || AddrAdded
 
-	err, leaderAdded := retrieveManagerStatusLeaderFlags(depth, m, cmdPrefix, cmd)
+	err, LeaderAdded := retrieveManagerStatusLeaderFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || leaderAdded
+	retAdded = retAdded || LeaderAdded
 
-	err, reachabilityAdded := retrieveManagerStatusReachabilityFlags(depth, m, cmdPrefix, cmd)
+	err, ReachabilityAdded := retrieveManagerStatusReachabilityFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || reachabilityAdded
+	retAdded = retAdded || ReachabilityAdded
 
 	return nil, retAdded
 }
@@ -116,21 +116,21 @@ func retrieveManagerStatusAddrFlags(depth int, m *models.ManagerStatus, cmdPrefi
 	}
 	retAdded := false
 
-	addrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
-	if cmd.Flags().Changed(addrFlagName) {
+	AddrFlagName := fmt.Sprintf("%v.Addr", cmdPrefix)
+	if cmd.Flags().Changed(AddrFlagName) {
 
-		var addrFlagName string
+		var AddrFlagName string
 		if cmdPrefix == "" {
-			addrFlagName = "Addr"
+			AddrFlagName = "Addr"
 		} else {
-			addrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
+			AddrFlagName = fmt.Sprintf("%v.Addr", cmdPrefix)
 		}
 
-		addrFlagValue, err := cmd.Flags().GetString(addrFlagName)
+		AddrFlagValue, err := cmd.Flags().GetString(AddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Addr = addrFlagValue
+		m.Addr = AddrFlagValue
 
 		retAdded = true
 	}
@@ -144,21 +144,21 @@ func retrieveManagerStatusLeaderFlags(depth int, m *models.ManagerStatus, cmdPre
 	}
 	retAdded := false
 
-	leaderFlagName := fmt.Sprintf("%v.Leader", cmdPrefix)
-	if cmd.Flags().Changed(leaderFlagName) {
+	LeaderFlagName := fmt.Sprintf("%v.Leader", cmdPrefix)
+	if cmd.Flags().Changed(LeaderFlagName) {
 
-		var leaderFlagName string
+		var LeaderFlagName string
 		if cmdPrefix == "" {
-			leaderFlagName = "Leader"
+			LeaderFlagName = "Leader"
 		} else {
-			leaderFlagName = fmt.Sprintf("%v.Leader", cmdPrefix)
+			LeaderFlagName = fmt.Sprintf("%v.Leader", cmdPrefix)
 		}
 
-		leaderFlagValue, err := cmd.Flags().GetBool(leaderFlagName)
+		LeaderFlagValue, err := cmd.Flags().GetBool(LeaderFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Leader = &leaderFlagValue
+		m.Leader = &LeaderFlagValue
 
 		retAdded = true
 	}
@@ -172,8 +172,8 @@ func retrieveManagerStatusReachabilityFlags(depth int, m *models.ManagerStatus, 
 	}
 	retAdded := false
 
-	reachabilityFlagName := fmt.Sprintf("%v.Reachability", cmdPrefix)
-	if cmd.Flags().Changed(reachabilityFlagName) {
+	ReachabilityFlagName := fmt.Sprintf("%v.Reachability", cmdPrefix)
+	if cmd.Flags().Changed(ReachabilityFlagName) {
 
 		// warning: primitive Reachability Reachability is not supported by go-swagger cli yet
 

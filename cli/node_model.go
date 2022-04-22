@@ -59,20 +59,20 @@ func registerNodeCreatedAt(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	createdAtDescription := `Date and time at which the node was added to the swarm in
+	CreatedAtDescription := `Date and time at which the node was added to the swarm in
 [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
 `
 
-	var createdAtFlagName string
+	var CreatedAtFlagName string
 	if cmdPrefix == "" {
-		createdAtFlagName = "CreatedAt"
+		CreatedAtFlagName = "CreatedAt"
 	} else {
-		createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+		CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 	}
 
-	var createdAtFlagDefault string
+	var CreatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(createdAtFlagName, createdAtFlagDefault, createdAtDescription)
+	_ = cmd.PersistentFlags().String(CreatedAtFlagName, CreatedAtFlagDefault, CreatedAtDescription)
 
 	return nil
 }
@@ -82,14 +82,14 @@ func registerNodeDescription(depth int, cmdPrefix string, cmd *cobra.Command) er
 		return nil
 	}
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "Description"
+		DescriptionFlagName = "Description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.Description", cmdPrefix)
 	}
 
-	if err := registerModelNodeDescriptionFlags(depth+1, descriptionFlagName, cmd); err != nil {
+	if err := registerModelNodeDescriptionFlags(depth+1, DescriptionFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -101,18 +101,18 @@ func registerNodeID(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	idDescription := ``
+	IDDescription := ``
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "ID"
+		IDFlagName = "ID"
 	} else {
-		idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -122,14 +122,14 @@ func registerNodeManagerStatus(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	var managerStatusFlagName string
+	var ManagerStatusFlagName string
 	if cmdPrefix == "" {
-		managerStatusFlagName = "ManagerStatus"
+		ManagerStatusFlagName = "ManagerStatus"
 	} else {
-		managerStatusFlagName = fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
+		ManagerStatusFlagName = fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
 	}
 
-	if err := registerModelManagerStatusFlags(depth+1, managerStatusFlagName, cmd); err != nil {
+	if err := registerModelManagerStatusFlags(depth+1, ManagerStatusFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -141,14 +141,14 @@ func registerNodeSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	var specFlagName string
+	var SpecFlagName string
 	if cmdPrefix == "" {
-		specFlagName = "Spec"
+		SpecFlagName = "Spec"
 	} else {
-		specFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
+		SpecFlagName = fmt.Sprintf("%v.Spec", cmdPrefix)
 	}
 
-	if err := registerModelNodeSpecFlags(depth+1, specFlagName, cmd); err != nil {
+	if err := registerModelNodeSpecFlags(depth+1, SpecFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -160,14 +160,14 @@ func registerNodeStatus(depth int, cmdPrefix string, cmd *cobra.Command) error {
 		return nil
 	}
 
-	var statusFlagName string
+	var StatusFlagName string
 	if cmdPrefix == "" {
-		statusFlagName = "Status"
+		StatusFlagName = "Status"
 	} else {
-		statusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
+		StatusFlagName = fmt.Sprintf("%v.Status", cmdPrefix)
 	}
 
-	if err := registerModelNodeStatusFlags(depth+1, statusFlagName, cmd); err != nil {
+	if err := registerModelNodeStatusFlags(depth+1, StatusFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -179,20 +179,20 @@ func registerNodeUpdatedAt(depth int, cmdPrefix string, cmd *cobra.Command) erro
 		return nil
 	}
 
-	updatedAtDescription := `Date and time at which the node was last updated in
+	UpdatedAtDescription := `Date and time at which the node was last updated in
 [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
 `
 
-	var updatedAtFlagName string
+	var UpdatedAtFlagName string
 	if cmdPrefix == "" {
-		updatedAtFlagName = "UpdatedAt"
+		UpdatedAtFlagName = "UpdatedAt"
 	} else {
-		updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+		UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 	}
 
-	var updatedAtFlagDefault string
+	var UpdatedAtFlagDefault string
 
-	_ = cmd.PersistentFlags().String(updatedAtFlagName, updatedAtFlagDefault, updatedAtDescription)
+	_ = cmd.PersistentFlags().String(UpdatedAtFlagName, UpdatedAtFlagDefault, UpdatedAtDescription)
 
 	return nil
 }
@@ -202,14 +202,14 @@ func registerNodeVersion(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	var versionFlagName string
+	var VersionFlagName string
 	if cmdPrefix == "" {
-		versionFlagName = "Version"
+		VersionFlagName = "Version"
 	} else {
-		versionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
+		VersionFlagName = fmt.Sprintf("%v.Version", cmdPrefix)
 	}
 
-	if err := registerModelObjectVersionFlags(depth+1, versionFlagName, cmd); err != nil {
+	if err := registerModelObjectVersionFlags(depth+1, VersionFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -220,53 +220,53 @@ func registerNodeVersion(depth int, cmdPrefix string, cmd *cobra.Command) error 
 func retrieveModelNodeFlags(depth int, m *models.Node, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, createdAtAdded := retrieveNodeCreatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, CreatedAtAdded := retrieveNodeCreatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || createdAtAdded
+	retAdded = retAdded || CreatedAtAdded
 
-	err, descriptionAdded := retrieveNodeDescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrieveNodeDescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, idAdded := retrieveNodeIDFlags(depth, m, cmdPrefix, cmd)
+	err, IDAdded := retrieveNodeIDFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || idAdded
+	retAdded = retAdded || IDAdded
 
-	err, managerStatusAdded := retrieveNodeManagerStatusFlags(depth, m, cmdPrefix, cmd)
+	err, ManagerStatusAdded := retrieveNodeManagerStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || managerStatusAdded
+	retAdded = retAdded || ManagerStatusAdded
 
-	err, specAdded := retrieveNodeSpecFlags(depth, m, cmdPrefix, cmd)
+	err, SpecAdded := retrieveNodeSpecFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
+	retAdded = retAdded || SpecAdded
 
-	err, statusAdded := retrieveNodeStatusFlags(depth, m, cmdPrefix, cmd)
+	err, StatusAdded := retrieveNodeStatusFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusAdded
+	retAdded = retAdded || StatusAdded
 
-	err, updatedAtAdded := retrieveNodeUpdatedAtFlags(depth, m, cmdPrefix, cmd)
+	err, UpdatedAtAdded := retrieveNodeUpdatedAtFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || updatedAtAdded
+	retAdded = retAdded || UpdatedAtAdded
 
-	err, versionAdded := retrieveNodeVersionFlags(depth, m, cmdPrefix, cmd)
+	err, VersionAdded := retrieveNodeVersionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
+	retAdded = retAdded || VersionAdded
 
 	return nil, retAdded
 }
@@ -277,21 +277,21 @@ func retrieveNodeCreatedAtFlags(depth int, m *models.Node, cmdPrefix string, cmd
 	}
 	retAdded := false
 
-	createdAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
-	if cmd.Flags().Changed(createdAtFlagName) {
+	CreatedAtFlagName := fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+	if cmd.Flags().Changed(CreatedAtFlagName) {
 
-		var createdAtFlagName string
+		var CreatedAtFlagName string
 		if cmdPrefix == "" {
-			createdAtFlagName = "CreatedAt"
+			CreatedAtFlagName = "CreatedAt"
 		} else {
-			createdAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
+			CreatedAtFlagName = fmt.Sprintf("%v.CreatedAt", cmdPrefix)
 		}
 
-		createdAtFlagValue, err := cmd.Flags().GetString(createdAtFlagName)
+		CreatedAtFlagValue, err := cmd.Flags().GetString(CreatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.CreatedAt = createdAtFlagValue
+		m.CreatedAt = CreatedAtFlagValue
 
 		retAdded = true
 	}
@@ -305,22 +305,22 @@ func retrieveNodeDescriptionFlags(depth int, m *models.Node, cmdPrefix string, c
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.Description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 		// info: complex object Description NodeDescription is retrieved outside this Changed() block
 	}
-	descriptionFlagValue := m.Description
-	if swag.IsZero(descriptionFlagValue) {
-		descriptionFlagValue = &models.NodeDescription{}
+	DescriptionFlagValue := m.Description
+	if swag.IsZero(DescriptionFlagValue) {
+		DescriptionFlagValue = &models.NodeDescription{}
 	}
 
-	err, descriptionAdded := retrieveModelNodeDescriptionFlags(depth+1, descriptionFlagValue, descriptionFlagName, cmd)
+	err, DescriptionAdded := retrieveModelNodeDescriptionFlags(depth+1, DescriptionFlagValue, DescriptionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
-	if descriptionAdded {
-		m.Description = descriptionFlagValue
+	retAdded = retAdded || DescriptionAdded
+	if DescriptionAdded {
+		m.Description = DescriptionFlagValue
 	}
 
 	return nil, retAdded
@@ -332,21 +332,21 @@ func retrieveNodeIDFlags(depth int, m *models.Node, cmdPrefix string, cmd *cobra
 	}
 	retAdded := false
 
-	idFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
-	if cmd.Flags().Changed(idFlagName) {
+	IDFlagName := fmt.Sprintf("%v.ID", cmdPrefix)
+	if cmd.Flags().Changed(IDFlagName) {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "ID"
+			IDFlagName = "ID"
 		} else {
-			idFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.ID", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 		retAdded = true
 	}
@@ -360,22 +360,22 @@ func retrieveNodeManagerStatusFlags(depth int, m *models.Node, cmdPrefix string,
 	}
 	retAdded := false
 
-	managerStatusFlagName := fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
-	if cmd.Flags().Changed(managerStatusFlagName) {
+	ManagerStatusFlagName := fmt.Sprintf("%v.ManagerStatus", cmdPrefix)
+	if cmd.Flags().Changed(ManagerStatusFlagName) {
 		// info: complex object ManagerStatus ManagerStatus is retrieved outside this Changed() block
 	}
-	managerStatusFlagValue := m.ManagerStatus
-	if swag.IsZero(managerStatusFlagValue) {
-		managerStatusFlagValue = &models.ManagerStatus{}
+	ManagerStatusFlagValue := m.ManagerStatus
+	if swag.IsZero(ManagerStatusFlagValue) {
+		ManagerStatusFlagValue = &models.ManagerStatus{}
 	}
 
-	err, managerStatusAdded := retrieveModelManagerStatusFlags(depth+1, managerStatusFlagValue, managerStatusFlagName, cmd)
+	err, ManagerStatusAdded := retrieveModelManagerStatusFlags(depth+1, ManagerStatusFlagValue, ManagerStatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || managerStatusAdded
-	if managerStatusAdded {
-		m.ManagerStatus = managerStatusFlagValue
+	retAdded = retAdded || ManagerStatusAdded
+	if ManagerStatusAdded {
+		m.ManagerStatus = ManagerStatusFlagValue
 	}
 
 	return nil, retAdded
@@ -387,22 +387,22 @@ func retrieveNodeSpecFlags(depth int, m *models.Node, cmdPrefix string, cmd *cob
 	}
 	retAdded := false
 
-	specFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
-	if cmd.Flags().Changed(specFlagName) {
+	SpecFlagName := fmt.Sprintf("%v.Spec", cmdPrefix)
+	if cmd.Flags().Changed(SpecFlagName) {
 		// info: complex object Spec NodeSpec is retrieved outside this Changed() block
 	}
-	specFlagValue := m.Spec
-	if swag.IsZero(specFlagValue) {
-		specFlagValue = &models.NodeSpec{}
+	SpecFlagValue := m.Spec
+	if swag.IsZero(SpecFlagValue) {
+		SpecFlagValue = &models.NodeSpec{}
 	}
 
-	err, specAdded := retrieveModelNodeSpecFlags(depth+1, specFlagValue, specFlagName, cmd)
+	err, SpecAdded := retrieveModelNodeSpecFlags(depth+1, SpecFlagValue, SpecFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || specAdded
-	if specAdded {
-		m.Spec = specFlagValue
+	retAdded = retAdded || SpecAdded
+	if SpecAdded {
+		m.Spec = SpecFlagValue
 	}
 
 	return nil, retAdded
@@ -414,22 +414,22 @@ func retrieveNodeStatusFlags(depth int, m *models.Node, cmdPrefix string, cmd *c
 	}
 	retAdded := false
 
-	statusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
-	if cmd.Flags().Changed(statusFlagName) {
+	StatusFlagName := fmt.Sprintf("%v.Status", cmdPrefix)
+	if cmd.Flags().Changed(StatusFlagName) {
 		// info: complex object Status NodeStatus is retrieved outside this Changed() block
 	}
-	statusFlagValue := m.Status
-	if swag.IsZero(statusFlagValue) {
-		statusFlagValue = &models.NodeStatus{}
+	StatusFlagValue := m.Status
+	if swag.IsZero(StatusFlagValue) {
+		StatusFlagValue = &models.NodeStatus{}
 	}
 
-	err, statusAdded := retrieveModelNodeStatusFlags(depth+1, statusFlagValue, statusFlagName, cmd)
+	err, StatusAdded := retrieveModelNodeStatusFlags(depth+1, StatusFlagValue, StatusFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusAdded
-	if statusAdded {
-		m.Status = statusFlagValue
+	retAdded = retAdded || StatusAdded
+	if StatusAdded {
+		m.Status = StatusFlagValue
 	}
 
 	return nil, retAdded
@@ -441,21 +441,21 @@ func retrieveNodeUpdatedAtFlags(depth int, m *models.Node, cmdPrefix string, cmd
 	}
 	retAdded := false
 
-	updatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
-	if cmd.Flags().Changed(updatedAtFlagName) {
+	UpdatedAtFlagName := fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+	if cmd.Flags().Changed(UpdatedAtFlagName) {
 
-		var updatedAtFlagName string
+		var UpdatedAtFlagName string
 		if cmdPrefix == "" {
-			updatedAtFlagName = "UpdatedAt"
+			UpdatedAtFlagName = "UpdatedAt"
 		} else {
-			updatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
+			UpdatedAtFlagName = fmt.Sprintf("%v.UpdatedAt", cmdPrefix)
 		}
 
-		updatedAtFlagValue, err := cmd.Flags().GetString(updatedAtFlagName)
+		UpdatedAtFlagValue, err := cmd.Flags().GetString(UpdatedAtFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.UpdatedAt = updatedAtFlagValue
+		m.UpdatedAt = UpdatedAtFlagValue
 
 		retAdded = true
 	}
@@ -469,22 +469,22 @@ func retrieveNodeVersionFlags(depth int, m *models.Node, cmdPrefix string, cmd *
 	}
 	retAdded := false
 
-	versionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
-	if cmd.Flags().Changed(versionFlagName) {
+	VersionFlagName := fmt.Sprintf("%v.Version", cmdPrefix)
+	if cmd.Flags().Changed(VersionFlagName) {
 		// info: complex object Version ObjectVersion is retrieved outside this Changed() block
 	}
-	versionFlagValue := m.Version
-	if swag.IsZero(versionFlagValue) {
-		versionFlagValue = &models.ObjectVersion{}
+	VersionFlagValue := m.Version
+	if swag.IsZero(VersionFlagValue) {
+		VersionFlagValue = &models.ObjectVersion{}
 	}
 
-	err, versionAdded := retrieveModelObjectVersionFlags(depth+1, versionFlagValue, versionFlagName, cmd)
+	err, VersionAdded := retrieveModelObjectVersionFlags(depth+1, VersionFlagValue, VersionFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || versionAdded
-	if versionAdded {
-		m.Version = versionFlagValue
+	retAdded = retAdded || VersionAdded
+	if VersionAdded {
+		m.Version = VersionFlagValue
 	}
 
 	return nil, retAdded

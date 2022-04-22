@@ -68,14 +68,14 @@ func registerOperationSwarmSwarmJoinParamFlags(cmd *cobra.Command) error {
 
 func registerOperationSwarmSwarmJoinBodyParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	var bodyFlagName string
+	var BodyFlagName string
 	if cmdPrefix == "" {
-		bodyFlagName = "body"
+		BodyFlagName = "body"
 	} else {
-		bodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
+		BodyFlagName = fmt.Sprintf("%v.body", cmdPrefix)
 	}
 
-	_ = cmd.PersistentFlags().String(bodyFlagName, "", "Optional json string for [body]. ")
+	_ = cmd.PersistentFlags().String(BodyFlagName, "", "Optional json string for [body]. ")
 
 	// add flags for body
 	if err := registerModelSwarmJoinBodyFlags(0, "swarmJoinBody", cmd); err != nil {
@@ -205,18 +205,18 @@ func registerSwarmJoinBodyAdvertiseAddr(depth int, cmdPrefix string, cmd *cobra.
 		return nil
 	}
 
-	advertiseAddrDescription := `Externally reachable address advertised to other nodes. This can either be an address/port combination in the form ` + "`" + `192.168.1.1:4567` + "`" + `, or an interface followed by a port number, like ` + "`" + `eth0:4567` + "`" + `. If the port number is omitted, the port number from the listen address is used. If ` + "`" + `AdvertiseAddr` + "`" + ` is not specified, it will be automatically detected when possible.`
+	AdvertiseAddrDescription := `Externally reachable address advertised to other nodes. This can either be an address/port combination in the form ` + "`" + `192.168.1.1:4567` + "`" + `, or an interface followed by a port number, like ` + "`" + `eth0:4567` + "`" + `. If the port number is omitted, the port number from the listen address is used. If ` + "`" + `AdvertiseAddr` + "`" + ` is not specified, it will be automatically detected when possible.`
 
-	var advertiseAddrFlagName string
+	var AdvertiseAddrFlagName string
 	if cmdPrefix == "" {
-		advertiseAddrFlagName = "AdvertiseAddr"
+		AdvertiseAddrFlagName = "AdvertiseAddr"
 	} else {
-		advertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
+		AdvertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
 	}
 
-	var advertiseAddrFlagDefault string
+	var AdvertiseAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(advertiseAddrFlagName, advertiseAddrFlagDefault, advertiseAddrDescription)
+	_ = cmd.PersistentFlags().String(AdvertiseAddrFlagName, AdvertiseAddrFlagDefault, AdvertiseAddrDescription)
 
 	return nil
 }
@@ -226,7 +226,7 @@ func registerSwarmJoinBodyDataPathAddr(depth int, cmdPrefix string, cmd *cobra.C
 		return nil
 	}
 
-	dataPathAddrDescription := `Address or interface to use for data path traffic (format: ` + "`" + `<ip|interface>` + "`" + `), for example,  ` + "`" + `192.168.1.1` + "`" + `,
+	DataPathAddrDescription := `Address or interface to use for data path traffic (format: ` + "`" + `<ip|interface>` + "`" + `), for example,  ` + "`" + `192.168.1.1` + "`" + `,
 or an interface, like ` + "`" + `eth0` + "`" + `. If ` + "`" + `DataPathAddr` + "`" + ` is unspecified, the same address as ` + "`" + `AdvertiseAddr` + "`" + `
 is used.
 
@@ -235,16 +235,16 @@ nodes in order to reach the containers running on this node. Using this paramete
 separate the container data traffic from the management traffic of the cluster.
 `
 
-	var dataPathAddrFlagName string
+	var DataPathAddrFlagName string
 	if cmdPrefix == "" {
-		dataPathAddrFlagName = "DataPathAddr"
+		DataPathAddrFlagName = "DataPathAddr"
 	} else {
-		dataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
+		DataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
 	}
 
-	var dataPathAddrFlagDefault string
+	var DataPathAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(dataPathAddrFlagName, dataPathAddrFlagDefault, dataPathAddrDescription)
+	_ = cmd.PersistentFlags().String(DataPathAddrFlagName, DataPathAddrFlagDefault, DataPathAddrDescription)
 
 	return nil
 }
@@ -254,18 +254,18 @@ func registerSwarmJoinBodyJoinToken(depth int, cmdPrefix string, cmd *cobra.Comm
 		return nil
 	}
 
-	joinTokenDescription := `Secret token for joining this swarm.`
+	JoinTokenDescription := `Secret token for joining this swarm.`
 
-	var joinTokenFlagName string
+	var JoinTokenFlagName string
 	if cmdPrefix == "" {
-		joinTokenFlagName = "JoinToken"
+		JoinTokenFlagName = "JoinToken"
 	} else {
-		joinTokenFlagName = fmt.Sprintf("%v.JoinToken", cmdPrefix)
+		JoinTokenFlagName = fmt.Sprintf("%v.JoinToken", cmdPrefix)
 	}
 
-	var joinTokenFlagDefault string
+	var JoinTokenFlagDefault string
 
-	_ = cmd.PersistentFlags().String(joinTokenFlagName, joinTokenFlagDefault, joinTokenDescription)
+	_ = cmd.PersistentFlags().String(JoinTokenFlagName, JoinTokenFlagDefault, JoinTokenDescription)
 
 	return nil
 }
@@ -275,18 +275,18 @@ func registerSwarmJoinBodyListenAddr(depth int, cmdPrefix string, cmd *cobra.Com
 		return nil
 	}
 
-	listenAddrDescription := `Listen address used for inter-manager communication if the node gets promoted to manager, as well as determining the networking interface used for the VXLAN Tunnel Endpoint (VTEP).`
+	ListenAddrDescription := `Listen address used for inter-manager communication if the node gets promoted to manager, as well as determining the networking interface used for the VXLAN Tunnel Endpoint (VTEP).`
 
-	var listenAddrFlagName string
+	var ListenAddrFlagName string
 	if cmdPrefix == "" {
-		listenAddrFlagName = "ListenAddr"
+		ListenAddrFlagName = "ListenAddr"
 	} else {
-		listenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
+		ListenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
 	}
 
-	var listenAddrFlagDefault string
+	var ListenAddrFlagDefault string
 
-	_ = cmd.PersistentFlags().String(listenAddrFlagName, listenAddrFlagDefault, listenAddrDescription)
+	_ = cmd.PersistentFlags().String(ListenAddrFlagName, ListenAddrFlagDefault, ListenAddrDescription)
 
 	return nil
 }
@@ -305,35 +305,35 @@ func registerSwarmJoinBodyRemoteAddrs(depth int, cmdPrefix string, cmd *cobra.Co
 func retrieveModelSwarmJoinBodyFlags(depth int, m *swarm.SwarmJoinBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, advertiseAddrAdded := retrieveSwarmJoinBodyAdvertiseAddrFlags(depth, m, cmdPrefix, cmd)
+	err, AdvertiseAddrAdded := retrieveSwarmJoinBodyAdvertiseAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || advertiseAddrAdded
+	retAdded = retAdded || AdvertiseAddrAdded
 
-	err, dataPathAddrAdded := retrieveSwarmJoinBodyDataPathAddrFlags(depth, m, cmdPrefix, cmd)
+	err, DataPathAddrAdded := retrieveSwarmJoinBodyDataPathAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || dataPathAddrAdded
+	retAdded = retAdded || DataPathAddrAdded
 
-	err, joinTokenAdded := retrieveSwarmJoinBodyJoinTokenFlags(depth, m, cmdPrefix, cmd)
+	err, JoinTokenAdded := retrieveSwarmJoinBodyJoinTokenFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || joinTokenAdded
+	retAdded = retAdded || JoinTokenAdded
 
-	err, listenAddrAdded := retrieveSwarmJoinBodyListenAddrFlags(depth, m, cmdPrefix, cmd)
+	err, ListenAddrAdded := retrieveSwarmJoinBodyListenAddrFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || listenAddrAdded
+	retAdded = retAdded || ListenAddrAdded
 
-	err, remoteAddrsAdded := retrieveSwarmJoinBodyRemoteAddrsFlags(depth, m, cmdPrefix, cmd)
+	err, RemoteAddrsAdded := retrieveSwarmJoinBodyRemoteAddrsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || remoteAddrsAdded
+	retAdded = retAdded || RemoteAddrsAdded
 
 	return nil, retAdded
 }
@@ -344,21 +344,21 @@ func retrieveSwarmJoinBodyAdvertiseAddrFlags(depth int, m *swarm.SwarmJoinBody, 
 	}
 	retAdded := false
 
-	advertiseAddrFlagName := fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
-	if cmd.Flags().Changed(advertiseAddrFlagName) {
+	AdvertiseAddrFlagName := fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
+	if cmd.Flags().Changed(AdvertiseAddrFlagName) {
 
-		var advertiseAddrFlagName string
+		var AdvertiseAddrFlagName string
 		if cmdPrefix == "" {
-			advertiseAddrFlagName = "AdvertiseAddr"
+			AdvertiseAddrFlagName = "AdvertiseAddr"
 		} else {
-			advertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
+			AdvertiseAddrFlagName = fmt.Sprintf("%v.AdvertiseAddr", cmdPrefix)
 		}
 
-		advertiseAddrFlagValue, err := cmd.Flags().GetString(advertiseAddrFlagName)
+		AdvertiseAddrFlagValue, err := cmd.Flags().GetString(AdvertiseAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.AdvertiseAddr = advertiseAddrFlagValue
+		m.AdvertiseAddr = AdvertiseAddrFlagValue
 
 		retAdded = true
 	}
@@ -372,21 +372,21 @@ func retrieveSwarmJoinBodyDataPathAddrFlags(depth int, m *swarm.SwarmJoinBody, c
 	}
 	retAdded := false
 
-	dataPathAddrFlagName := fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
-	if cmd.Flags().Changed(dataPathAddrFlagName) {
+	DataPathAddrFlagName := fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
+	if cmd.Flags().Changed(DataPathAddrFlagName) {
 
-		var dataPathAddrFlagName string
+		var DataPathAddrFlagName string
 		if cmdPrefix == "" {
-			dataPathAddrFlagName = "DataPathAddr"
+			DataPathAddrFlagName = "DataPathAddr"
 		} else {
-			dataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
+			DataPathAddrFlagName = fmt.Sprintf("%v.DataPathAddr", cmdPrefix)
 		}
 
-		dataPathAddrFlagValue, err := cmd.Flags().GetString(dataPathAddrFlagName)
+		DataPathAddrFlagValue, err := cmd.Flags().GetString(DataPathAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.DataPathAddr = dataPathAddrFlagValue
+		m.DataPathAddr = DataPathAddrFlagValue
 
 		retAdded = true
 	}
@@ -400,21 +400,21 @@ func retrieveSwarmJoinBodyJoinTokenFlags(depth int, m *swarm.SwarmJoinBody, cmdP
 	}
 	retAdded := false
 
-	joinTokenFlagName := fmt.Sprintf("%v.JoinToken", cmdPrefix)
-	if cmd.Flags().Changed(joinTokenFlagName) {
+	JoinTokenFlagName := fmt.Sprintf("%v.JoinToken", cmdPrefix)
+	if cmd.Flags().Changed(JoinTokenFlagName) {
 
-		var joinTokenFlagName string
+		var JoinTokenFlagName string
 		if cmdPrefix == "" {
-			joinTokenFlagName = "JoinToken"
+			JoinTokenFlagName = "JoinToken"
 		} else {
-			joinTokenFlagName = fmt.Sprintf("%v.JoinToken", cmdPrefix)
+			JoinTokenFlagName = fmt.Sprintf("%v.JoinToken", cmdPrefix)
 		}
 
-		joinTokenFlagValue, err := cmd.Flags().GetString(joinTokenFlagName)
+		JoinTokenFlagValue, err := cmd.Flags().GetString(JoinTokenFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.JoinToken = joinTokenFlagValue
+		m.JoinToken = JoinTokenFlagValue
 
 		retAdded = true
 	}
@@ -428,21 +428,21 @@ func retrieveSwarmJoinBodyListenAddrFlags(depth int, m *swarm.SwarmJoinBody, cmd
 	}
 	retAdded := false
 
-	listenAddrFlagName := fmt.Sprintf("%v.ListenAddr", cmdPrefix)
-	if cmd.Flags().Changed(listenAddrFlagName) {
+	ListenAddrFlagName := fmt.Sprintf("%v.ListenAddr", cmdPrefix)
+	if cmd.Flags().Changed(ListenAddrFlagName) {
 
-		var listenAddrFlagName string
+		var ListenAddrFlagName string
 		if cmdPrefix == "" {
-			listenAddrFlagName = "ListenAddr"
+			ListenAddrFlagName = "ListenAddr"
 		} else {
-			listenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
+			ListenAddrFlagName = fmt.Sprintf("%v.ListenAddr", cmdPrefix)
 		}
 
-		listenAddrFlagValue, err := cmd.Flags().GetString(listenAddrFlagName)
+		ListenAddrFlagValue, err := cmd.Flags().GetString(ListenAddrFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ListenAddr = listenAddrFlagValue
+		m.ListenAddr = ListenAddrFlagValue
 
 		retAdded = true
 	}
@@ -456,8 +456,8 @@ func retrieveSwarmJoinBodyRemoteAddrsFlags(depth int, m *swarm.SwarmJoinBody, cm
 	}
 	retAdded := false
 
-	remoteAddrsFlagName := fmt.Sprintf("%v.RemoteAddrs", cmdPrefix)
-	if cmd.Flags().Changed(remoteAddrsFlagName) {
+	RemoteAddrsFlagName := fmt.Sprintf("%v.RemoteAddrs", cmdPrefix)
+	if cmd.Flags().Changed(RemoteAddrsFlagName) {
 		// warning: RemoteAddrs array type []string is not supported by go-swagger cli yet
 	}
 

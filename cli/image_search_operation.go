@@ -80,57 +80,57 @@ func registerOperationImageImageSearchParamFlags(cmd *cobra.Command) error {
 
 func registerOperationImageImageSearchFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
+	FiltersDescription := `A JSON encoded value of the filters (a ` + "`" + `map[string][]string` + "`" + `) to process on the images list. Available filters:
 
 - ` + "`" + `is-automated=(true|false)` + "`" + `
 - ` + "`" + `is-official=(true|false)` + "`" + `
 - ` + "`" + `stars=<number>` + "`" + ` Matches images that has at least 'number' stars.
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
 func registerOperationImageImageSearchLimitParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	limitDescription := `Maximum number of results to return`
+	LimitDescription := `Maximum number of results to return`
 
-	var limitFlagName string
+	var LimitFlagName string
 	if cmdPrefix == "" {
-		limitFlagName = "limit"
+		LimitFlagName = "limit"
 	} else {
-		limitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
+		LimitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
 	}
 
-	var limitFlagDefault int64
+	var LimitFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(limitFlagName, limitFlagDefault, limitDescription)
+	_ = cmd.PersistentFlags().Int64(LimitFlagName, LimitFlagDefault, LimitDescription)
 
 	return nil
 }
 func registerOperationImageImageSearchTermParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	termDescription := `Required. Term to search`
+	TermDescription := `Required. Term to search`
 
-	var termFlagName string
+	var TermFlagName string
 	if cmdPrefix == "" {
-		termFlagName = "term"
+		TermFlagName = "term"
 	} else {
-		termFlagName = fmt.Sprintf("%v.term", cmdPrefix)
+		TermFlagName = fmt.Sprintf("%v.term", cmdPrefix)
 	}
 
-	var termFlagDefault string
+	var TermFlagDefault string
 
-	_ = cmd.PersistentFlags().String(termFlagName, termFlagDefault, termDescription)
+	_ = cmd.PersistentFlags().String(TermFlagName, TermFlagDefault, TermDescription)
 
 	return nil
 }
@@ -139,18 +139,18 @@ func retrieveOperationImageImageSearchFiltersFlag(m *image.ImageSearchParams, cm
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded
@@ -159,18 +159,18 @@ func retrieveOperationImageImageSearchLimitFlag(m *image.ImageSearchParams, cmdP
 	retAdded := false
 	if cmd.Flags().Changed("limit") {
 
-		var limitFlagName string
+		var LimitFlagName string
 		if cmdPrefix == "" {
-			limitFlagName = "limit"
+			LimitFlagName = "limit"
 		} else {
-			limitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
+			LimitFlagName = fmt.Sprintf("%v.limit", cmdPrefix)
 		}
 
-		limitFlagValue, err := cmd.Flags().GetInt64(limitFlagName)
+		LimitFlagValue, err := cmd.Flags().GetInt64(LimitFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Limit = &limitFlagValue
+		m.Limit = &LimitFlagValue
 
 	}
 	return nil, retAdded
@@ -179,18 +179,18 @@ func retrieveOperationImageImageSearchTermFlag(m *image.ImageSearchParams, cmdPr
 	retAdded := false
 	if cmd.Flags().Changed("term") {
 
-		var termFlagName string
+		var TermFlagName string
 		if cmdPrefix == "" {
-			termFlagName = "term"
+			TermFlagName = "term"
 		} else {
-			termFlagName = fmt.Sprintf("%v.term", cmdPrefix)
+			TermFlagName = fmt.Sprintf("%v.term", cmdPrefix)
 		}
 
-		termFlagValue, err := cmd.Flags().GetString(termFlagName)
+		TermFlagValue, err := cmd.Flags().GetString(TermFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Term = termFlagValue
+		m.Term = TermFlagValue
 
 	}
 	return nil, retAdded
@@ -269,18 +269,18 @@ func registerImageSearchOKBodyItems0Description(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	descriptionDescription := ``
+	DescriptionDescription := ``
 
-	var descriptionFlagName string
+	var DescriptionFlagName string
 	if cmdPrefix == "" {
-		descriptionFlagName = "description"
+		DescriptionFlagName = "description"
 	} else {
-		descriptionFlagName = fmt.Sprintf("%v.description", cmdPrefix)
+		DescriptionFlagName = fmt.Sprintf("%v.description", cmdPrefix)
 	}
 
-	var descriptionFlagDefault string
+	var DescriptionFlagDefault string
 
-	_ = cmd.PersistentFlags().String(descriptionFlagName, descriptionFlagDefault, descriptionDescription)
+	_ = cmd.PersistentFlags().String(DescriptionFlagName, DescriptionFlagDefault, DescriptionDescription)
 
 	return nil
 }
@@ -290,18 +290,18 @@ func registerImageSearchOKBodyItems0IsAutomated(depth int, cmdPrefix string, cmd
 		return nil
 	}
 
-	isAutomatedDescription := ``
+	IsAutomatedDescription := ``
 
-	var isAutomatedFlagName string
+	var IsAutomatedFlagName string
 	if cmdPrefix == "" {
-		isAutomatedFlagName = "is_automated"
+		IsAutomatedFlagName = "is_automated"
 	} else {
-		isAutomatedFlagName = fmt.Sprintf("%v.is_automated", cmdPrefix)
+		IsAutomatedFlagName = fmt.Sprintf("%v.is_automated", cmdPrefix)
 	}
 
-	var isAutomatedFlagDefault bool
+	var IsAutomatedFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(isAutomatedFlagName, isAutomatedFlagDefault, isAutomatedDescription)
+	_ = cmd.PersistentFlags().Bool(IsAutomatedFlagName, IsAutomatedFlagDefault, IsAutomatedDescription)
 
 	return nil
 }
@@ -311,18 +311,18 @@ func registerImageSearchOKBodyItems0IsOfficial(depth int, cmdPrefix string, cmd 
 		return nil
 	}
 
-	isOfficialDescription := ``
+	IsOfficialDescription := ``
 
-	var isOfficialFlagName string
+	var IsOfficialFlagName string
 	if cmdPrefix == "" {
-		isOfficialFlagName = "is_official"
+		IsOfficialFlagName = "is_official"
 	} else {
-		isOfficialFlagName = fmt.Sprintf("%v.is_official", cmdPrefix)
+		IsOfficialFlagName = fmt.Sprintf("%v.is_official", cmdPrefix)
 	}
 
-	var isOfficialFlagDefault bool
+	var IsOfficialFlagDefault bool
 
-	_ = cmd.PersistentFlags().Bool(isOfficialFlagName, isOfficialFlagDefault, isOfficialDescription)
+	_ = cmd.PersistentFlags().Bool(IsOfficialFlagName, IsOfficialFlagDefault, IsOfficialDescription)
 
 	return nil
 }
@@ -332,18 +332,18 @@ func registerImageSearchOKBodyItems0Name(depth int, cmdPrefix string, cmd *cobra
 		return nil
 	}
 
-	nameDescription := ``
+	NameDescription := ``
 
-	var nameFlagName string
+	var NameFlagName string
 	if cmdPrefix == "" {
-		nameFlagName = "name"
+		NameFlagName = "name"
 	} else {
-		nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+		NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 	}
 
-	var nameFlagDefault string
+	var NameFlagDefault string
 
-	_ = cmd.PersistentFlags().String(nameFlagName, nameFlagDefault, nameDescription)
+	_ = cmd.PersistentFlags().String(NameFlagName, NameFlagDefault, NameDescription)
 
 	return nil
 }
@@ -353,18 +353,18 @@ func registerImageSearchOKBodyItems0StarCount(depth int, cmdPrefix string, cmd *
 		return nil
 	}
 
-	starCountDescription := ``
+	StarCountDescription := ``
 
-	var starCountFlagName string
+	var StarCountFlagName string
 	if cmdPrefix == "" {
-		starCountFlagName = "star_count"
+		StarCountFlagName = "star_count"
 	} else {
-		starCountFlagName = fmt.Sprintf("%v.star_count", cmdPrefix)
+		StarCountFlagName = fmt.Sprintf("%v.star_count", cmdPrefix)
 	}
 
-	var starCountFlagDefault int64
+	var StarCountFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(starCountFlagName, starCountFlagDefault, starCountDescription)
+	_ = cmd.PersistentFlags().Int64(StarCountFlagName, StarCountFlagDefault, StarCountDescription)
 
 	return nil
 }
@@ -373,35 +373,35 @@ func registerImageSearchOKBodyItems0StarCount(depth int, cmdPrefix string, cmd *
 func retrieveModelImageSearchOKBodyItems0Flags(depth int, m *image.ImageSearchOKBodyItems0, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, descriptionAdded := retrieveImageSearchOKBodyItems0DescriptionFlags(depth, m, cmdPrefix, cmd)
+	err, DescriptionAdded := retrieveImageSearchOKBodyItems0DescriptionFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || descriptionAdded
+	retAdded = retAdded || DescriptionAdded
 
-	err, isAutomatedAdded := retrieveImageSearchOKBodyItems0IsAutomatedFlags(depth, m, cmdPrefix, cmd)
+	err, IsAutomatedAdded := retrieveImageSearchOKBodyItems0IsAutomatedFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || isAutomatedAdded
+	retAdded = retAdded || IsAutomatedAdded
 
-	err, isOfficialAdded := retrieveImageSearchOKBodyItems0IsOfficialFlags(depth, m, cmdPrefix, cmd)
+	err, IsOfficialAdded := retrieveImageSearchOKBodyItems0IsOfficialFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || isOfficialAdded
+	retAdded = retAdded || IsOfficialAdded
 
-	err, nameAdded := retrieveImageSearchOKBodyItems0NameFlags(depth, m, cmdPrefix, cmd)
+	err, NameAdded := retrieveImageSearchOKBodyItems0NameFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || nameAdded
+	retAdded = retAdded || NameAdded
 
-	err, starCountAdded := retrieveImageSearchOKBodyItems0StarCountFlags(depth, m, cmdPrefix, cmd)
+	err, StarCountAdded := retrieveImageSearchOKBodyItems0StarCountFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || starCountAdded
+	retAdded = retAdded || StarCountAdded
 
 	return nil, retAdded
 }
@@ -412,21 +412,21 @@ func retrieveImageSearchOKBodyItems0DescriptionFlags(depth int, m *image.ImageSe
 	}
 	retAdded := false
 
-	descriptionFlagName := fmt.Sprintf("%v.description", cmdPrefix)
-	if cmd.Flags().Changed(descriptionFlagName) {
+	DescriptionFlagName := fmt.Sprintf("%v.description", cmdPrefix)
+	if cmd.Flags().Changed(DescriptionFlagName) {
 
-		var descriptionFlagName string
+		var DescriptionFlagName string
 		if cmdPrefix == "" {
-			descriptionFlagName = "description"
+			DescriptionFlagName = "description"
 		} else {
-			descriptionFlagName = fmt.Sprintf("%v.description", cmdPrefix)
+			DescriptionFlagName = fmt.Sprintf("%v.description", cmdPrefix)
 		}
 
-		descriptionFlagValue, err := cmd.Flags().GetString(descriptionFlagName)
+		DescriptionFlagValue, err := cmd.Flags().GetString(DescriptionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Description = descriptionFlagValue
+		m.Description = DescriptionFlagValue
 
 		retAdded = true
 	}
@@ -440,21 +440,21 @@ func retrieveImageSearchOKBodyItems0IsAutomatedFlags(depth int, m *image.ImageSe
 	}
 	retAdded := false
 
-	isAutomatedFlagName := fmt.Sprintf("%v.is_automated", cmdPrefix)
-	if cmd.Flags().Changed(isAutomatedFlagName) {
+	IsAutomatedFlagName := fmt.Sprintf("%v.is_automated", cmdPrefix)
+	if cmd.Flags().Changed(IsAutomatedFlagName) {
 
-		var isAutomatedFlagName string
+		var IsAutomatedFlagName string
 		if cmdPrefix == "" {
-			isAutomatedFlagName = "is_automated"
+			IsAutomatedFlagName = "is_automated"
 		} else {
-			isAutomatedFlagName = fmt.Sprintf("%v.is_automated", cmdPrefix)
+			IsAutomatedFlagName = fmt.Sprintf("%v.is_automated", cmdPrefix)
 		}
 
-		isAutomatedFlagValue, err := cmd.Flags().GetBool(isAutomatedFlagName)
+		IsAutomatedFlagValue, err := cmd.Flags().GetBool(IsAutomatedFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IsAutomated = isAutomatedFlagValue
+		m.IsAutomated = IsAutomatedFlagValue
 
 		retAdded = true
 	}
@@ -468,21 +468,21 @@ func retrieveImageSearchOKBodyItems0IsOfficialFlags(depth int, m *image.ImageSea
 	}
 	retAdded := false
 
-	isOfficialFlagName := fmt.Sprintf("%v.is_official", cmdPrefix)
-	if cmd.Flags().Changed(isOfficialFlagName) {
+	IsOfficialFlagName := fmt.Sprintf("%v.is_official", cmdPrefix)
+	if cmd.Flags().Changed(IsOfficialFlagName) {
 
-		var isOfficialFlagName string
+		var IsOfficialFlagName string
 		if cmdPrefix == "" {
-			isOfficialFlagName = "is_official"
+			IsOfficialFlagName = "is_official"
 		} else {
-			isOfficialFlagName = fmt.Sprintf("%v.is_official", cmdPrefix)
+			IsOfficialFlagName = fmt.Sprintf("%v.is_official", cmdPrefix)
 		}
 
-		isOfficialFlagValue, err := cmd.Flags().GetBool(isOfficialFlagName)
+		IsOfficialFlagValue, err := cmd.Flags().GetBool(IsOfficialFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.IsOfficial = isOfficialFlagValue
+		m.IsOfficial = IsOfficialFlagValue
 
 		retAdded = true
 	}
@@ -496,21 +496,21 @@ func retrieveImageSearchOKBodyItems0NameFlags(depth int, m *image.ImageSearchOKB
 	}
 	retAdded := false
 
-	nameFlagName := fmt.Sprintf("%v.name", cmdPrefix)
-	if cmd.Flags().Changed(nameFlagName) {
+	NameFlagName := fmt.Sprintf("%v.name", cmdPrefix)
+	if cmd.Flags().Changed(NameFlagName) {
 
-		var nameFlagName string
+		var NameFlagName string
 		if cmdPrefix == "" {
-			nameFlagName = "name"
+			NameFlagName = "name"
 		} else {
-			nameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
+			NameFlagName = fmt.Sprintf("%v.name", cmdPrefix)
 		}
 
-		nameFlagValue, err := cmd.Flags().GetString(nameFlagName)
+		NameFlagValue, err := cmd.Flags().GetString(NameFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Name = nameFlagValue
+		m.Name = NameFlagValue
 
 		retAdded = true
 	}
@@ -524,21 +524,21 @@ func retrieveImageSearchOKBodyItems0StarCountFlags(depth int, m *image.ImageSear
 	}
 	retAdded := false
 
-	starCountFlagName := fmt.Sprintf("%v.star_count", cmdPrefix)
-	if cmd.Flags().Changed(starCountFlagName) {
+	StarCountFlagName := fmt.Sprintf("%v.star_count", cmdPrefix)
+	if cmd.Flags().Changed(StarCountFlagName) {
 
-		var starCountFlagName string
+		var StarCountFlagName string
 		if cmdPrefix == "" {
-			starCountFlagName = "star_count"
+			StarCountFlagName = "star_count"
 		} else {
-			starCountFlagName = fmt.Sprintf("%v.star_count", cmdPrefix)
+			StarCountFlagName = fmt.Sprintf("%v.star_count", cmdPrefix)
 		}
 
-		starCountFlagValue, err := cmd.Flags().GetInt64(starCountFlagName)
+		StarCountFlagValue, err := cmd.Flags().GetInt64(StarCountFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StarCount = starCountFlagValue
+		m.StarCount = StarCountFlagValue
 
 		retAdded = true
 	}

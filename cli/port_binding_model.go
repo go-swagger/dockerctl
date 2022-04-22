@@ -33,18 +33,18 @@ func registerPortBindingHostIP(depth int, cmdPrefix string, cmd *cobra.Command) 
 		return nil
 	}
 
-	hostIpDescription := `Host IP address that the container's port is mapped to.`
+	HostIPDescription := `Host IP address that the container's port is mapped to.`
 
-	var hostIpFlagName string
+	var HostIPFlagName string
 	if cmdPrefix == "" {
-		hostIpFlagName = "HostIp"
+		HostIPFlagName = "HostIp"
 	} else {
-		hostIpFlagName = fmt.Sprintf("%v.HostIp", cmdPrefix)
+		HostIPFlagName = fmt.Sprintf("%v.HostIp", cmdPrefix)
 	}
 
-	var hostIpFlagDefault string
+	var HostIPFlagDefault string
 
-	_ = cmd.PersistentFlags().String(hostIpFlagName, hostIpFlagDefault, hostIpDescription)
+	_ = cmd.PersistentFlags().String(HostIPFlagName, HostIPFlagDefault, HostIPDescription)
 
 	return nil
 }
@@ -54,18 +54,18 @@ func registerPortBindingHostPort(depth int, cmdPrefix string, cmd *cobra.Command
 		return nil
 	}
 
-	hostPortDescription := `Host port number that the container's port is mapped to.`
+	HostPortDescription := `Host port number that the container's port is mapped to.`
 
-	var hostPortFlagName string
+	var HostPortFlagName string
 	if cmdPrefix == "" {
-		hostPortFlagName = "HostPort"
+		HostPortFlagName = "HostPort"
 	} else {
-		hostPortFlagName = fmt.Sprintf("%v.HostPort", cmdPrefix)
+		HostPortFlagName = fmt.Sprintf("%v.HostPort", cmdPrefix)
 	}
 
-	var hostPortFlagDefault string
+	var HostPortFlagDefault string
 
-	_ = cmd.PersistentFlags().String(hostPortFlagName, hostPortFlagDefault, hostPortDescription)
+	_ = cmd.PersistentFlags().String(HostPortFlagName, HostPortFlagDefault, HostPortDescription)
 
 	return nil
 }
@@ -74,17 +74,17 @@ func registerPortBindingHostPort(depth int, cmdPrefix string, cmd *cobra.Command
 func retrieveModelPortBindingFlags(depth int, m *models.PortBinding, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, hostIpAdded := retrievePortBindingHostIPFlags(depth, m, cmdPrefix, cmd)
+	err, HostIPAdded := retrievePortBindingHostIPFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hostIpAdded
+	retAdded = retAdded || HostIPAdded
 
-	err, hostPortAdded := retrievePortBindingHostPortFlags(depth, m, cmdPrefix, cmd)
+	err, HostPortAdded := retrievePortBindingHostPortFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || hostPortAdded
+	retAdded = retAdded || HostPortAdded
 
 	return nil, retAdded
 }
@@ -95,21 +95,21 @@ func retrievePortBindingHostIPFlags(depth int, m *models.PortBinding, cmdPrefix 
 	}
 	retAdded := false
 
-	hostIpFlagName := fmt.Sprintf("%v.HostIp", cmdPrefix)
-	if cmd.Flags().Changed(hostIpFlagName) {
+	HostIPFlagName := fmt.Sprintf("%v.HostIp", cmdPrefix)
+	if cmd.Flags().Changed(HostIPFlagName) {
 
-		var hostIpFlagName string
+		var HostIPFlagName string
 		if cmdPrefix == "" {
-			hostIpFlagName = "HostIp"
+			HostIPFlagName = "HostIp"
 		} else {
-			hostIpFlagName = fmt.Sprintf("%v.HostIp", cmdPrefix)
+			HostIPFlagName = fmt.Sprintf("%v.HostIp", cmdPrefix)
 		}
 
-		hostIpFlagValue, err := cmd.Flags().GetString(hostIpFlagName)
+		HostIPFlagValue, err := cmd.Flags().GetString(HostIPFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.HostIP = hostIpFlagValue
+		m.HostIP = HostIPFlagValue
 
 		retAdded = true
 	}
@@ -123,21 +123,21 @@ func retrievePortBindingHostPortFlags(depth int, m *models.PortBinding, cmdPrefi
 	}
 	retAdded := false
 
-	hostPortFlagName := fmt.Sprintf("%v.HostPort", cmdPrefix)
-	if cmd.Flags().Changed(hostPortFlagName) {
+	HostPortFlagName := fmt.Sprintf("%v.HostPort", cmdPrefix)
+	if cmd.Flags().Changed(HostPortFlagName) {
 
-		var hostPortFlagName string
+		var HostPortFlagName string
 		if cmdPrefix == "" {
-			hostPortFlagName = "HostPort"
+			HostPortFlagName = "HostPort"
 		} else {
-			hostPortFlagName = fmt.Sprintf("%v.HostPort", cmdPrefix)
+			HostPortFlagName = fmt.Sprintf("%v.HostPort", cmdPrefix)
 		}
 
-		hostPortFlagValue, err := cmd.Flags().GetString(hostPortFlagName)
+		HostPortFlagValue, err := cmd.Flags().GetString(HostPortFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.HostPort = hostPortFlagValue
+		m.HostPort = HostPortFlagValue
 
 		retAdded = true
 	}

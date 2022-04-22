@@ -94,35 +94,35 @@ func registerRegistryServiceConfigMirrors(depth int, cmdPrefix string, cmd *cobr
 func retrieveModelRegistryServiceConfigFlags(depth int, m *models.RegistryServiceConfig, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, allowNondistributableArtifactsCIdRsAdded := retrieveRegistryServiceConfigAllowNondistributableArtifactsCIDRsFlags(depth, m, cmdPrefix, cmd)
+	err, AllowNondistributableArtifactsCIDRsAdded := retrieveRegistryServiceConfigAllowNondistributableArtifactsCIDRsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || allowNondistributableArtifactsCIdRsAdded
+	retAdded = retAdded || AllowNondistributableArtifactsCIDRsAdded
 
-	err, allowNondistributableArtifactsHostnamesAdded := retrieveRegistryServiceConfigAllowNondistributableArtifactsHostnamesFlags(depth, m, cmdPrefix, cmd)
+	err, AllowNondistributableArtifactsHostnamesAdded := retrieveRegistryServiceConfigAllowNondistributableArtifactsHostnamesFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || allowNondistributableArtifactsHostnamesAdded
+	retAdded = retAdded || AllowNondistributableArtifactsHostnamesAdded
 
-	err, indexConfigsAdded := retrieveRegistryServiceConfigIndexConfigsFlags(depth, m, cmdPrefix, cmd)
+	err, IndexConfigsAdded := retrieveRegistryServiceConfigIndexConfigsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || indexConfigsAdded
+	retAdded = retAdded || IndexConfigsAdded
 
-	err, insecureRegistryCIdRsAdded := retrieveRegistryServiceConfigInsecureRegistryCIDRsFlags(depth, m, cmdPrefix, cmd)
+	err, InsecureRegistryCIDRsAdded := retrieveRegistryServiceConfigInsecureRegistryCIDRsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || insecureRegistryCIdRsAdded
+	retAdded = retAdded || InsecureRegistryCIDRsAdded
 
-	err, mirrorsAdded := retrieveRegistryServiceConfigMirrorsFlags(depth, m, cmdPrefix, cmd)
+	err, MirrorsAdded := retrieveRegistryServiceConfigMirrorsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || mirrorsAdded
+	retAdded = retAdded || MirrorsAdded
 
 	return nil, retAdded
 }
@@ -133,8 +133,8 @@ func retrieveRegistryServiceConfigAllowNondistributableArtifactsCIDRsFlags(depth
 	}
 	retAdded := false
 
-	allowNondistributableArtifactsCIdRsFlagName := fmt.Sprintf("%v.AllowNondistributableArtifactsCIDRs", cmdPrefix)
-	if cmd.Flags().Changed(allowNondistributableArtifactsCIdRsFlagName) {
+	AllowNondistributableArtifactsCIDRsFlagName := fmt.Sprintf("%v.AllowNondistributableArtifactsCIDRs", cmdPrefix)
+	if cmd.Flags().Changed(AllowNondistributableArtifactsCIDRsFlagName) {
 		// warning: AllowNondistributableArtifactsCIDRs array type []string is not supported by go-swagger cli yet
 	}
 
@@ -147,8 +147,8 @@ func retrieveRegistryServiceConfigAllowNondistributableArtifactsHostnamesFlags(d
 	}
 	retAdded := false
 
-	allowNondistributableArtifactsHostnamesFlagName := fmt.Sprintf("%v.AllowNondistributableArtifactsHostnames", cmdPrefix)
-	if cmd.Flags().Changed(allowNondistributableArtifactsHostnamesFlagName) {
+	AllowNondistributableArtifactsHostnamesFlagName := fmt.Sprintf("%v.AllowNondistributableArtifactsHostnames", cmdPrefix)
+	if cmd.Flags().Changed(AllowNondistributableArtifactsHostnamesFlagName) {
 		// warning: AllowNondistributableArtifactsHostnames array type []string is not supported by go-swagger cli yet
 	}
 
@@ -161,8 +161,8 @@ func retrieveRegistryServiceConfigIndexConfigsFlags(depth int, m *models.Registr
 	}
 	retAdded := false
 
-	indexConfigsFlagName := fmt.Sprintf("%v.IndexConfigs", cmdPrefix)
-	if cmd.Flags().Changed(indexConfigsFlagName) {
+	IndexConfigsFlagName := fmt.Sprintf("%v.IndexConfigs", cmdPrefix)
+	if cmd.Flags().Changed(IndexConfigsFlagName) {
 		// warning: IndexConfigs map type map[string]IndexInfo is not supported by go-swagger cli yet
 	}
 
@@ -175,8 +175,8 @@ func retrieveRegistryServiceConfigInsecureRegistryCIDRsFlags(depth int, m *model
 	}
 	retAdded := false
 
-	insecureRegistryCIdRsFlagName := fmt.Sprintf("%v.InsecureRegistryCIDRs", cmdPrefix)
-	if cmd.Flags().Changed(insecureRegistryCIdRsFlagName) {
+	InsecureRegistryCIDRsFlagName := fmt.Sprintf("%v.InsecureRegistryCIDRs", cmdPrefix)
+	if cmd.Flags().Changed(InsecureRegistryCIDRsFlagName) {
 		// warning: InsecureRegistryCIDRs array type []string is not supported by go-swagger cli yet
 	}
 
@@ -189,8 +189,8 @@ func retrieveRegistryServiceConfigMirrorsFlags(depth int, m *models.RegistryServ
 	}
 	retAdded := false
 
-	mirrorsFlagName := fmt.Sprintf("%v.Mirrors", cmdPrefix)
-	if cmd.Flags().Changed(mirrorsFlagName) {
+	MirrorsFlagName := fmt.Sprintf("%v.Mirrors", cmdPrefix)
+	if cmd.Flags().Changed(MirrorsFlagName) {
 		// warning: Mirrors array type []string is not supported by go-swagger cli yet
 	}
 

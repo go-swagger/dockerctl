@@ -68,7 +68,7 @@ func registerOperationNodeNodeListParamFlags(cmd *cobra.Command) error {
 
 func registerOperationNodeNodeListFiltersParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	filtersDescription := `Filters to process on the nodes list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
+	FiltersDescription := `Filters to process on the nodes list, encoded as JSON (a ` + "`" + `map[string][]string` + "`" + `).
 
 Available filters:
 - ` + "`" + `id=<node id>` + "`" + `
@@ -79,16 +79,16 @@ Available filters:
 - ` + "`" + `role=` + "`" + `(` + "`" + `manager` + "`" + `|` + "`" + `worker` + "`" + `)` + "`" + `
 `
 
-	var filtersFlagName string
+	var FiltersFlagName string
 	if cmdPrefix == "" {
-		filtersFlagName = "filters"
+		FiltersFlagName = "filters"
 	} else {
-		filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+		FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 	}
 
-	var filtersFlagDefault string
+	var FiltersFlagDefault string
 
-	_ = cmd.PersistentFlags().String(filtersFlagName, filtersFlagDefault, filtersDescription)
+	_ = cmd.PersistentFlags().String(FiltersFlagName, FiltersFlagDefault, FiltersDescription)
 
 	return nil
 }
@@ -97,18 +97,18 @@ func retrieveOperationNodeNodeListFiltersFlag(m *node.NodeListParams, cmdPrefix 
 	retAdded := false
 	if cmd.Flags().Changed("filters") {
 
-		var filtersFlagName string
+		var FiltersFlagName string
 		if cmdPrefix == "" {
-			filtersFlagName = "filters"
+			FiltersFlagName = "filters"
 		} else {
-			filtersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
+			FiltersFlagName = fmt.Sprintf("%v.filters", cmdPrefix)
 		}
 
-		filtersFlagValue, err := cmd.Flags().GetString(filtersFlagName)
+		FiltersFlagValue, err := cmd.Flags().GetString(FiltersFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Filters = &filtersFlagValue
+		m.Filters = &FiltersFlagValue
 
 	}
 	return nil, retAdded

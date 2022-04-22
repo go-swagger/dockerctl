@@ -33,22 +33,22 @@ func registerRuntimePath(depth int, cmdPrefix string, cmd *cobra.Command) error 
 		return nil
 	}
 
-	pathDescription := `Name and, optional, path, of the OCI executable binary.
+	PathDescription := `Name and, optional, path, of the OCI executable binary.
 
 If the path is omitted, the daemon searches the host's ` + "`" + `$PATH` + "`" + ` for the
 binary and uses the first result.
 `
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "path"
+		PathFlagName = "path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -67,17 +67,17 @@ func registerRuntimeRuntimeArgs(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelRuntimeFlags(depth int, m *models.Runtime, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, pathAdded := retrieveRuntimePathFlags(depth, m, cmdPrefix, cmd)
+	err, PathAdded := retrieveRuntimePathFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathAdded
+	retAdded = retAdded || PathAdded
 
-	err, runtimeArgsAdded := retrieveRuntimeRuntimeArgsFlags(depth, m, cmdPrefix, cmd)
+	err, RuntimeArgsAdded := retrieveRuntimeRuntimeArgsFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || runtimeArgsAdded
+	retAdded = retAdded || RuntimeArgsAdded
 
 	return nil, retAdded
 }
@@ -88,21 +88,21 @@ func retrieveRuntimePathFlags(depth int, m *models.Runtime, cmdPrefix string, cm
 	}
 	retAdded := false
 
-	pathFlagName := fmt.Sprintf("%v.path", cmdPrefix)
-	if cmd.Flags().Changed(pathFlagName) {
+	PathFlagName := fmt.Sprintf("%v.path", cmdPrefix)
+	if cmd.Flags().Changed(PathFlagName) {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "path"
+			PathFlagName = "path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = pathFlagValue
+		m.Path = PathFlagValue
 
 		retAdded = true
 	}
@@ -116,8 +116,8 @@ func retrieveRuntimeRuntimeArgsFlags(depth int, m *models.Runtime, cmdPrefix str
 	}
 	retAdded := false
 
-	runtimeArgsFlagName := fmt.Sprintf("%v.runtimeArgs", cmdPrefix)
-	if cmd.Flags().Changed(runtimeArgsFlagName) {
+	RuntimeArgsFlagName := fmt.Sprintf("%v.runtimeArgs", cmdPrefix)
+	if cmd.Flags().Changed(RuntimeArgsFlagName) {
 		// warning: runtimeArgs array type []string is not supported by go-swagger cli yet
 	}
 

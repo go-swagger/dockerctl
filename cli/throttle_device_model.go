@@ -33,18 +33,18 @@ func registerThrottleDevicePath(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	pathDescription := `Device path`
+	PathDescription := `Device path`
 
-	var pathFlagName string
+	var PathFlagName string
 	if cmdPrefix == "" {
-		pathFlagName = "Path"
+		PathFlagName = "Path"
 	} else {
-		pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+		PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 	}
 
-	var pathFlagDefault string
+	var PathFlagDefault string
 
-	_ = cmd.PersistentFlags().String(pathFlagName, pathFlagDefault, pathDescription)
+	_ = cmd.PersistentFlags().String(PathFlagName, PathFlagDefault, PathDescription)
 
 	return nil
 }
@@ -54,18 +54,18 @@ func registerThrottleDeviceRate(depth int, cmdPrefix string, cmd *cobra.Command)
 		return nil
 	}
 
-	rateDescription := `Rate`
+	RateDescription := `Rate`
 
-	var rateFlagName string
+	var RateFlagName string
 	if cmdPrefix == "" {
-		rateFlagName = "Rate"
+		RateFlagName = "Rate"
 	} else {
-		rateFlagName = fmt.Sprintf("%v.Rate", cmdPrefix)
+		RateFlagName = fmt.Sprintf("%v.Rate", cmdPrefix)
 	}
 
-	var rateFlagDefault int64
+	var RateFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(rateFlagName, rateFlagDefault, rateDescription)
+	_ = cmd.PersistentFlags().Int64(RateFlagName, RateFlagDefault, RateDescription)
 
 	return nil
 }
@@ -74,17 +74,17 @@ func registerThrottleDeviceRate(depth int, cmdPrefix string, cmd *cobra.Command)
 func retrieveModelThrottleDeviceFlags(depth int, m *models.ThrottleDevice, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, pathAdded := retrieveThrottleDevicePathFlags(depth, m, cmdPrefix, cmd)
+	err, PathAdded := retrieveThrottleDevicePathFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || pathAdded
+	retAdded = retAdded || PathAdded
 
-	err, rateAdded := retrieveThrottleDeviceRateFlags(depth, m, cmdPrefix, cmd)
+	err, RateAdded := retrieveThrottleDeviceRateFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || rateAdded
+	retAdded = retAdded || RateAdded
 
 	return nil, retAdded
 }
@@ -95,21 +95,21 @@ func retrieveThrottleDevicePathFlags(depth int, m *models.ThrottleDevice, cmdPre
 	}
 	retAdded := false
 
-	pathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
-	if cmd.Flags().Changed(pathFlagName) {
+	PathFlagName := fmt.Sprintf("%v.Path", cmdPrefix)
+	if cmd.Flags().Changed(PathFlagName) {
 
-		var pathFlagName string
+		var PathFlagName string
 		if cmdPrefix == "" {
-			pathFlagName = "Path"
+			PathFlagName = "Path"
 		} else {
-			pathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
+			PathFlagName = fmt.Sprintf("%v.Path", cmdPrefix)
 		}
 
-		pathFlagValue, err := cmd.Flags().GetString(pathFlagName)
+		PathFlagValue, err := cmd.Flags().GetString(PathFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Path = pathFlagValue
+		m.Path = PathFlagValue
 
 		retAdded = true
 	}
@@ -123,21 +123,21 @@ func retrieveThrottleDeviceRateFlags(depth int, m *models.ThrottleDevice, cmdPre
 	}
 	retAdded := false
 
-	rateFlagName := fmt.Sprintf("%v.Rate", cmdPrefix)
-	if cmd.Flags().Changed(rateFlagName) {
+	RateFlagName := fmt.Sprintf("%v.Rate", cmdPrefix)
+	if cmd.Flags().Changed(RateFlagName) {
 
-		var rateFlagName string
+		var RateFlagName string
 		if cmdPrefix == "" {
-			rateFlagName = "Rate"
+			RateFlagName = "Rate"
 		} else {
-			rateFlagName = fmt.Sprintf("%v.Rate", cmdPrefix)
+			RateFlagName = fmt.Sprintf("%v.Rate", cmdPrefix)
 		}
 
-		rateFlagValue, err := cmd.Flags().GetInt64(rateFlagName)
+		RateFlagValue, err := cmd.Flags().GetInt64(RateFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Rate = &rateFlagValue
+		m.Rate = &RateFlagValue
 
 		retAdded = true
 	}

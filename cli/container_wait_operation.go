@@ -74,35 +74,35 @@ func registerOperationContainerContainerWaitParamFlags(cmd *cobra.Command) error
 
 func registerOperationContainerContainerWaitConditionParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	conditionDescription := `Wait until a container state reaches the given condition, either 'not-running' (default), 'next-exit', or 'removed'.`
+	ConditionDescription := `Wait until a container state reaches the given condition, either 'not-running' (default), 'next-exit', or 'removed'.`
 
-	var conditionFlagName string
+	var ConditionFlagName string
 	if cmdPrefix == "" {
-		conditionFlagName = "condition"
+		ConditionFlagName = "condition"
 	} else {
-		conditionFlagName = fmt.Sprintf("%v.condition", cmdPrefix)
+		ConditionFlagName = fmt.Sprintf("%v.condition", cmdPrefix)
 	}
 
-	var conditionFlagDefault string = "not-running"
+	var ConditionFlagDefault string = "not-running"
 
-	_ = cmd.PersistentFlags().String(conditionFlagName, conditionFlagDefault, conditionDescription)
+	_ = cmd.PersistentFlags().String(ConditionFlagName, ConditionFlagDefault, ConditionDescription)
 
 	return nil
 }
 func registerOperationContainerContainerWaitIDParamFlags(cmdPrefix string, cmd *cobra.Command) error {
 
-	idDescription := `Required. ID or name of the container`
+	IDDescription := `Required. ID or name of the container`
 
-	var idFlagName string
+	var IDFlagName string
 	if cmdPrefix == "" {
-		idFlagName = "id"
+		IDFlagName = "id"
 	} else {
-		idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+		IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 	}
 
-	var idFlagDefault string
+	var IDFlagDefault string
 
-	_ = cmd.PersistentFlags().String(idFlagName, idFlagDefault, idDescription)
+	_ = cmd.PersistentFlags().String(IDFlagName, IDFlagDefault, IDDescription)
 
 	return nil
 }
@@ -111,18 +111,18 @@ func retrieveOperationContainerContainerWaitConditionFlag(m *container.Container
 	retAdded := false
 	if cmd.Flags().Changed("condition") {
 
-		var conditionFlagName string
+		var ConditionFlagName string
 		if cmdPrefix == "" {
-			conditionFlagName = "condition"
+			ConditionFlagName = "condition"
 		} else {
-			conditionFlagName = fmt.Sprintf("%v.condition", cmdPrefix)
+			ConditionFlagName = fmt.Sprintf("%v.condition", cmdPrefix)
 		}
 
-		conditionFlagValue, err := cmd.Flags().GetString(conditionFlagName)
+		ConditionFlagValue, err := cmd.Flags().GetString(ConditionFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Condition = &conditionFlagValue
+		m.Condition = &ConditionFlagValue
 
 	}
 	return nil, retAdded
@@ -131,18 +131,18 @@ func retrieveOperationContainerContainerWaitIDFlag(m *container.ContainerWaitPar
 	retAdded := false
 	if cmd.Flags().Changed("id") {
 
-		var idFlagName string
+		var IDFlagName string
 		if cmdPrefix == "" {
-			idFlagName = "id"
+			IDFlagName = "id"
 		} else {
-			idFlagName = fmt.Sprintf("%v.id", cmdPrefix)
+			IDFlagName = fmt.Sprintf("%v.id", cmdPrefix)
 		}
 
-		idFlagValue, err := cmd.Flags().GetString(idFlagName)
+		IDFlagValue, err := cmd.Flags().GetString(IDFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.ID = idFlagValue
+		m.ID = IDFlagValue
 
 	}
 	return nil, retAdded
@@ -221,14 +221,14 @@ func registerContainerWaitOKBodyError(depth int, cmdPrefix string, cmd *cobra.Co
 		return nil
 	}
 
-	var errorFlagName string
+	var ErrorFlagName string
 	if cmdPrefix == "" {
-		errorFlagName = "Error"
+		ErrorFlagName = "Error"
 	} else {
-		errorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
+		ErrorFlagName = fmt.Sprintf("%v.Error", cmdPrefix)
 	}
 
-	if err := registerModelContainerWaitOKBodyErrorFlags(depth+1, errorFlagName, cmd); err != nil {
+	if err := registerModelContainerWaitOKBodyErrorFlags(depth+1, ErrorFlagName, cmd); err != nil {
 		return err
 	}
 
@@ -240,18 +240,18 @@ func registerContainerWaitOKBodyStatusCode(depth int, cmdPrefix string, cmd *cob
 		return nil
 	}
 
-	statusCodeDescription := `Required. Exit code of the container`
+	StatusCodeDescription := `Required. Exit code of the container`
 
-	var statusCodeFlagName string
+	var StatusCodeFlagName string
 	if cmdPrefix == "" {
-		statusCodeFlagName = "StatusCode"
+		StatusCodeFlagName = "StatusCode"
 	} else {
-		statusCodeFlagName = fmt.Sprintf("%v.StatusCode", cmdPrefix)
+		StatusCodeFlagName = fmt.Sprintf("%v.StatusCode", cmdPrefix)
 	}
 
-	var statusCodeFlagDefault int64
+	var StatusCodeFlagDefault int64
 
-	_ = cmd.PersistentFlags().Int64(statusCodeFlagName, statusCodeFlagDefault, statusCodeDescription)
+	_ = cmd.PersistentFlags().Int64(StatusCodeFlagName, StatusCodeFlagDefault, StatusCodeDescription)
 
 	return nil
 }
@@ -260,17 +260,17 @@ func registerContainerWaitOKBodyStatusCode(depth int, cmdPrefix string, cmd *cob
 func retrieveModelContainerWaitOKBodyFlags(depth int, m *container.ContainerWaitOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, errorAdded := retrieveContainerWaitOKBodyErrorFlags(depth, m, cmdPrefix, cmd)
+	err, ErrorAdded := retrieveContainerWaitOKBodyErrorFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || errorAdded
+	retAdded = retAdded || ErrorAdded
 
-	err, statusCodeAdded := retrieveContainerWaitOKBodyStatusCodeFlags(depth, m, cmdPrefix, cmd)
+	err, StatusCodeAdded := retrieveContainerWaitOKBodyStatusCodeFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || statusCodeAdded
+	retAdded = retAdded || StatusCodeAdded
 
 	return nil, retAdded
 }
@@ -281,22 +281,22 @@ func retrieveContainerWaitOKBodyErrorFlags(depth int, m *container.ContainerWait
 	}
 	retAdded := false
 
-	errorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
-	if cmd.Flags().Changed(errorFlagName) {
+	ErrorFlagName := fmt.Sprintf("%v.Error", cmdPrefix)
+	if cmd.Flags().Changed(ErrorFlagName) {
 		// info: complex object Error ContainerWaitOKBodyError is retrieved outside this Changed() block
 	}
-	errorFlagValue := m.Error
-	if swag.IsZero(errorFlagValue) {
-		errorFlagValue = &container.ContainerWaitOKBodyError{}
+	ErrorFlagValue := m.Error
+	if swag.IsZero(ErrorFlagValue) {
+		ErrorFlagValue = &container.ContainerWaitOKBodyError{}
 	}
 
-	err, errorAdded := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, errorFlagValue, errorFlagName, cmd)
+	err, ErrorAdded := retrieveModelContainerWaitOKBodyErrorFlags(depth+1, ErrorFlagValue, ErrorFlagName, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || errorAdded
-	if errorAdded {
-		m.Error = errorFlagValue
+	retAdded = retAdded || ErrorAdded
+	if ErrorAdded {
+		m.Error = ErrorFlagValue
 	}
 
 	return nil, retAdded
@@ -308,21 +308,21 @@ func retrieveContainerWaitOKBodyStatusCodeFlags(depth int, m *container.Containe
 	}
 	retAdded := false
 
-	statusCodeFlagName := fmt.Sprintf("%v.StatusCode", cmdPrefix)
-	if cmd.Flags().Changed(statusCodeFlagName) {
+	StatusCodeFlagName := fmt.Sprintf("%v.StatusCode", cmdPrefix)
+	if cmd.Flags().Changed(StatusCodeFlagName) {
 
-		var statusCodeFlagName string
+		var StatusCodeFlagName string
 		if cmdPrefix == "" {
-			statusCodeFlagName = "StatusCode"
+			StatusCodeFlagName = "StatusCode"
 		} else {
-			statusCodeFlagName = fmt.Sprintf("%v.StatusCode", cmdPrefix)
+			StatusCodeFlagName = fmt.Sprintf("%v.StatusCode", cmdPrefix)
 		}
 
-		statusCodeFlagValue, err := cmd.Flags().GetInt64(statusCodeFlagName)
+		StatusCodeFlagValue, err := cmd.Flags().GetInt64(StatusCodeFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.StatusCode = statusCodeFlagValue
+		m.StatusCode = StatusCodeFlagValue
 
 		retAdded = true
 	}
@@ -345,18 +345,18 @@ func registerContainerWaitOKBodyErrorMessage(depth int, cmdPrefix string, cmd *c
 		return nil
 	}
 
-	messageDescription := `Details of an error`
+	MessageDescription := `Details of an error`
 
-	var messageFlagName string
+	var MessageFlagName string
 	if cmdPrefix == "" {
-		messageFlagName = "Message"
+		MessageFlagName = "Message"
 	} else {
-		messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+		MessageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
 	}
 
-	var messageFlagDefault string
+	var MessageFlagDefault string
 
-	_ = cmd.PersistentFlags().String(messageFlagName, messageFlagDefault, messageDescription)
+	_ = cmd.PersistentFlags().String(MessageFlagName, MessageFlagDefault, MessageDescription)
 
 	return nil
 }
@@ -365,11 +365,11 @@ func registerContainerWaitOKBodyErrorMessage(depth int, cmdPrefix string, cmd *c
 func retrieveModelContainerWaitOKBodyErrorFlags(depth int, m *container.ContainerWaitOKBodyError, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
 
-	err, messageAdded := retrieveContainerWaitOKBodyErrorMessageFlags(depth, m, cmdPrefix, cmd)
+	err, MessageAdded := retrieveContainerWaitOKBodyErrorMessageFlags(depth, m, cmdPrefix, cmd)
 	if err != nil {
 		return err, false
 	}
-	retAdded = retAdded || messageAdded
+	retAdded = retAdded || MessageAdded
 
 	return nil, retAdded
 }
@@ -380,21 +380,21 @@ func retrieveContainerWaitOKBodyErrorMessageFlags(depth int, m *container.Contai
 	}
 	retAdded := false
 
-	messageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
-	if cmd.Flags().Changed(messageFlagName) {
+	MessageFlagName := fmt.Sprintf("%v.Message", cmdPrefix)
+	if cmd.Flags().Changed(MessageFlagName) {
 
-		var messageFlagName string
+		var MessageFlagName string
 		if cmdPrefix == "" {
-			messageFlagName = "Message"
+			MessageFlagName = "Message"
 		} else {
-			messageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
+			MessageFlagName = fmt.Sprintf("%v.Message", cmdPrefix)
 		}
 
-		messageFlagValue, err := cmd.Flags().GetString(messageFlagName)
+		MessageFlagValue, err := cmd.Flags().GetString(MessageFlagName)
 		if err != nil {
 			return err, false
 		}
-		m.Message = messageFlagValue
+		m.Message = MessageFlagValue
 
 		retAdded = true
 	}

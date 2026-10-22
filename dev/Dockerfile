@@ -1,5 +1,5 @@
 # dockerfile for development with on unstable go-swagger
-FROM docker:29.9.0-dind
+FROM docker:29.9.1-dind
 
 # ENV GO111MODULE on
 

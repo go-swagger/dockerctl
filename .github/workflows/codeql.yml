@@ -19,5 +19,5 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    uses: go-openapi/ci-workflows/.github/workflows/codeql.yml@3c51814366067473be26f15080bed1e2d17d38eb # v0.4.4
+    uses: go-openapi/ci-workflows/.github/workflows/codeql.yml@ce2de7819284f39ae57e64b1eed2980b4035dc73 # v0.4.4
     secrets: inherit
